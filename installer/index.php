@@ -180,6 +180,9 @@
 
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
+	
+	// The site slug: (example.com) Used for site specific folder names
+	define('SITE_SLUG', preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
 		
 	// Path to the front controller (this file)
 	define('FCPATH', str_replace(SELF, '', __FILE__));

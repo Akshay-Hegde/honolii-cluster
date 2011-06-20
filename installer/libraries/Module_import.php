@@ -1,7 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 define('PYROPATH', dirname(FCPATH).'/system/pyrocms/');
-define('ADDONPATH', dirname(FCPATH).'/addons/');
+define('ADDONBASE', dirname(FCPATH).'/addons/');
+define('ADDONPATH', dirname(FCPATH).'/addons/'.SITE_SLUG.'/');
 define('SHARED_ADDONPATH', dirname(FCPATH).'/shared_addons/');
 
 // All modules talk to the Module class, best get that!
@@ -29,6 +30,20 @@ class Module_import {
 		$db['dbcollat'] = "utf8_unicode_ci";
 
 		$this->ci->load->database($db);
+		
+		// move all of the addons into a site specific folder
+		if ($this->_move(ADDONBASE.'helpers', ADDONPATH.'helpers', SITE_SLUG))
+			@rmdir(ADDONBASE.'helpers');
+		if ($this->_move(ADDONBASE.'libraries', ADDONPATH.'libraries', SITE_SLUG))
+			@rmdir(ADDONBASE.'libraries');
+		if ($this->_move(ADDONBASE.'modules', ADDONPATH.'modules', SITE_SLUG))
+			@rmdir(ADDONBASE.'modules');
+		if ($this->_move(ADDONBASE.'plugins', ADDONPATH.'plugins', SITE_SLUG))
+			@rmdir(ADDONBASE.'plugins');
+		if ($this->_move(ADDONBASE.'themes', ADDONPATH.'themes', SITE_SLUG))
+			@rmdir(ADDONBASE.'themes');
+		if ($this->_move(ADDONBASE.'widgets', ADDONPATH.'widgets', SITE_SLUG))
+			@rmdir(ADDONBASE.'widgets');
 	}
 
 
@@ -171,5 +186,54 @@ class Module_import {
 
 		// Now we need to talk to it
 		return class_exists($class) ? new $class : FALSE;
+	}
+	
+	/**
+	 * Move folders recursively
+	 */
+	private function _move( $path, $dest, $site_slug )
+	{
+		if ( is_dir($path) )
+		{
+			$objects = scandir($path);
+			
+			@mkdir($dest, 0777, TRUE);
+			
+			$skip = array('.', '..', $site_slug);
+			
+			if( sizeof($objects) > 0 )
+			{
+				foreach( $objects AS $file )
+				{
+					if( in_array($file, $skip) ) continue;
+
+					if( is_dir( $path.'/'.$file ) )
+					{
+						if ($this->_move( $path.'/'.$file, $dest.'/'.$file, $site_slug ))
+						{
+							@chmod($path.'/'.$file, DIR_READ_MODE);
+							@rmdir($path.'/'.$file);
+						}
+					}
+					else
+					{
+						if (copy( $path.'/'.$file, $dest.'/'.$file ))
+						{
+							@chmod($path.'/'.$file, FILE_READ_MODE);
+							@unlink($path.'/'.$file);
+						}
+					}
+				}
+			}
+			return TRUE;
+		}
+		elseif ( is_file($path) )
+		{
+			return copy($path, $dest);
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }
