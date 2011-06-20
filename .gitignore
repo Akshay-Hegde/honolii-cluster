@@ -7,3 +7,6 @@ system/pyrocms/config/database.php
 system/pyrocms/logs/log-*.php
 nbproject/
 uploads/*
+addons/*/modules/index.html
+addons/*/themes/index.html
+addons/*/widgets/index.html
