@@ -22,6 +22,7 @@ class Migration_Add_multi_site extends Migration {
 			$this->db->query("
 				CREATE TABLE `core_sites` (
 				`id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+				`name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 				`ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 				`domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 				`created_on` INT(11) NOT NULL default '0',
@@ -33,7 +34,7 @@ class Migration_Add_multi_site extends Migration {
 				) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci;
 			");
 			
-			$this->db->query("INSERT INTO core_sites (ref, domain, created_on) VALUES (?, ?, ?);", array(
+			$this->db->query("INSERT INTO core_sites (name, ref, domain, created_on) VALUES ('Default', ?, ?, ?);", array(
 				$site_ref,
 				SITE_SLUG,
 				time(),
