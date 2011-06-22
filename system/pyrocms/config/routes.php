@@ -33,9 +33,6 @@
 |
 */
 
-$route['site-manager']					= 'site_manager/admin/index';
-$route['site-manager(:any)']			= 'site_manager/admin$1';
-
 $route['default_controller'] = 'pages';
 $route['404_override'] = 'pages';
 
