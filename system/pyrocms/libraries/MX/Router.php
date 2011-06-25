@@ -60,7 +60,42 @@ class MX_Router extends CI_Router
 	}
 	
 	/** Locate the controller **/
-	public function locate($segments) {		
+	public function locate($segments) {
+		
+		/**
+		 * Load the site ref for multi-site support
+		 */
+		if ( ! defined('SITE_REF'))
+		{
+			require_once BASEPATH.'database/DB'.EXT;
+	
+			$site = DB()->where('domain', SITE_SLUG)
+				->get('core_sites')
+				->row();
+				
+			$locations = array();
+			
+			// Check to see if the site retrieval was successful. If not then
+			// we will let MY_Controller handle the errors.
+			if (isset($site->ref))
+			{
+				foreach (config_item('modules_locations') AS $location => $offset)
+				{
+					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
+				}
+				
+				// The site ref. Used for building site specific paths
+				define('SITE_REF', $site->ref);
+				
+				// Path to uploaded files for this site
+				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+				
+				// Path to the addon folder for this site
+				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+				
+				Modules::$locations = $locations;
+			}
+		}
 		
 		$this->module = '';
 		$this->directory = '';
