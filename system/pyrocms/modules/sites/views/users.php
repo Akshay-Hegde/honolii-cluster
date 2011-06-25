@@ -31,12 +31,12 @@
 				<td class="buttons">
 					<?php if ($core === TRUE): ?>
 						<?php echo $user->active != 1 ?
-									anchor('admin/sites/users/enable/'.$user->id, 	lang('buttons.enable'), 'class="button"') :
-									anchor('admin/sites/users/disable/'.$user->id, 	lang('buttons.disable'), 'class="button"'); ?>
+									anchor('sites/users/enable/'.$user->id, 	lang('buttons.enable'), 'class="button"') :
+									anchor('sites/users/disable/'.$user->id, 	lang('buttons.disable'), 'class="button"'); ?>
 	
-						<?php echo  anchor('admin/sites/users/delete/'.$user->id, 	lang('site.remove_admin'), 'class="button confirm"'); ?>
+						<?php echo  anchor('sites/users/delete/'.$user->id, 	lang('site.remove_admin'), 'class="button confirm"'); ?>
 					<?php else: ?>
-						<?php echo  anchor('admin/sites/users/make/'.$ref.'/'.$user->id, 	lang('site.make_admin'), 'class="button"'); ?>
+						<?php echo  anchor('sites/users/make/'.$ref.'/'.$user->id, 	lang('site.make_admin'), 'class="button"'); ?>
 					<?php endif; ?>
 				</td>
 			</tr>

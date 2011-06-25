@@ -29,9 +29,9 @@ class Users extends Sites_Controller
 	public function	index()
 	{
 		$form_data = array();
-		$this->load->model('core_sites_m');
+		$this->load->model('sites_m');
 			
-		$sites = $this->core_sites_m->get_sites();
+		$sites = $this->sites_m->get_sites();
 		
 		foreach ($sites AS $site)
 		{
@@ -43,8 +43,8 @@ class Users extends Sites_Controller
 		// Load the view
 		$this->template->title(lang('site.sites'), lang('site.create_site'))
 						->append_metadata(js('filter.js', 'admin'))
-						->set_partial('filters', 'admin/partials/filters')
-						->build('admin/users', $data);
+						->set_partial('filters', 'partials/filters')
+						->build('users', $data);
 	}
 	
 	/**
@@ -52,9 +52,9 @@ class Users extends Sites_Controller
 	 */
 	public function filter()
 	{
-		$data = $this->core_users_m->filter($this->input->post());
+		$data = $this->users_m->filter($this->input->post());
 
-		return print($this->load->view('admin/users', $data, TRUE));
+		return print($this->load->view('users', $data, TRUE));
 	}
 	
 	/**
@@ -65,8 +65,8 @@ class Users extends Sites_Controller
 	 */
 	public function make($ref = '', $id = 0)
 	{
-		$this->core_users_m->make_super_admin($ref, $id);
-		redirect('admin/sites/users');
+		$this->users_m->make_super_admin($ref, $id);
+		redirect('sites/users');
 	}
 	
 	/**
@@ -76,9 +76,9 @@ class Users extends Sites_Controller
 	{
 		if (is_numeric($id))
 		{
-			$this->core_users_m->update($id, 1);
+			$this->users_m->update($id, 1);
 		}
-		redirect('admin/sites/users');
+		redirect('sites/users');
 	}
 
 	/**
@@ -88,9 +88,9 @@ class Users extends Sites_Controller
 	{
 		if (is_numeric($id))
 		{
-			$this->core_users_m->update($id, 0);
+			$this->users_m->update($id, 0);
 		}
-		redirect('admin/sites/users');
+		redirect('sites/users');
 	}
 	
 	/**
@@ -100,8 +100,8 @@ class Users extends Sites_Controller
 	{
 		if (is_numeric($id))
 		{
-			$this->core_users_m->delete($id);
+			$this->users_m->delete($id);
 		}		
-		redirect('admin/sites/users');
+		redirect('sites/users');
 	}
 }

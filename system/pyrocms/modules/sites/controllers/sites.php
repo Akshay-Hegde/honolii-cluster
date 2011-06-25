@@ -23,17 +23,17 @@ class Sites extends Sites_Controller
 			array(
 				'field' => 'name',
 				'label' => 'Name',
-				'rules' => 'trim|stripslashes|mysql_real_escape_string|max_length[100]|required'
+				'rules' => 'trim|max_length[100]|required'
 			),
 			array(
 				'field' => 'domain',
 				'label' => 'Domain',
-				'rules' => 'trim|callback__valid_domain|required'
+				'rules' => 'trim|callback__valid_domain|max_length[100]|required'
 			),
 			array(
 				'field' => 'ref',
 				'label' => 'Site Ref',
-				'rules' => 'trim|alpha_dash|max_length[255]|required'
+				'rules' => 'trim|alpha_dash|min_length[4]|max_length[20]|required'
 			)
 		);
 	}
@@ -43,12 +43,12 @@ class Sites extends Sites_Controller
 	 */
 	public function index()
 	{
-		$data->sites = $this->core_sites_m->get_sites();
+		$data->sites = $this->sites_m->get_all();
 
 		// Load the view
 		$this->template->title(lang('site.sites'))
-						->set('description', lang('site.create_site_desc'))
-						->build('admin/sites', $data);
+						->set('description', lang('site.edit_site_desc'))
+						->build('sites', $data);
 	}
 	
 	/**
@@ -62,77 +62,109 @@ class Sites extends Sites_Controller
 
 		if($this->form_validation->run())
 		{
-			// Try to create the site
-			$message = $this->core_sites_m->create_site($_POST);
-			if($message === TRUE)
+			// make sure it doesn't already exist
+			if ($this->sites_m->get_by('ref', $this->input->post('ref')))
 			{
-				// All good...
-				$this->session->set_flashdata('success', lang('site.create_success'));
-				redirect('admin/sites');
+				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('ref'));
 			}
-			// Must be folders that aren't writeable
 			else
-			{
-				$this->session->set_flashdata('error', $message);
-				redirect('admin/sites/create');
+			{			
+				// Try to create the site
+				$message = $this->sites_m->create_site($_POST);
+				
+				if($message === TRUE)
+				{
+					// All good...
+					$this->session->set_flashdata('success', lang('site.create_success'));
+					redirect('sites');
+				}
+				// There must be folders that aren't writeable
+				elseif(is_array($message))
+				{
+					$html = '<ul>';
+	
+					foreach ($message AS $line)
+					{
+						$html .= '<li>' . $line . '</li>';
+					}
+	
+					$html .= '</ul>';
+					
+					$data->messages['notice'] = sprintf(lang('site.create_manually'), $line);
+				}
+				else
+				{
+					$data->messages['error'] = lang('site.db_error');
+				}
 			}
 		}
 
 		foreach ($this->site_validation_rules AS $rule)
 		{
-			$data->{$rule['field']} = $this->input->post($rule['field']);
+			$data->{$rule['field']} = set_value($rule['field']);
 		}
 
 		// Load the view
 		$this->template->title(lang('site.sites'), lang('site.create_site'))
-						->build('admin/form', $data);
+						->set('description', lang('site.create_site_desc'))
+						->build('form', $data);
 	}
 
 	/**
 	 * Nothing much... just edit an existing site
 	 */
-	public function edit($id = '')
+	public function edit($id = 0)
 	{
-		$data = $this->core_sites_m->get_site($id);
+		$data = $this->sites_m->get($id);
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
 		if($this->form_validation->run())
 		{
-			// Update the db
-			$message = $this->core_sites_m->edit_site($_POST, $data);
+			$message = $this->sites_m->edit_site($_POST, $data);
+			
 			if($message === TRUE)
 			{
 				// All good...
 				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $data->name));
-				redirect('admin/sites');
+				redirect('sites');
 			}
-			// Something went wrong..
-			elseif($message === FALSE)
+			elseif(is_array($message))
 			{
-				$this->session->set_flashdata('error', lang('site.rename_error'));
-				redirect('admin/sites/edit/'.$id);
+				$html = '<ul>';
+
+				foreach ($message AS $old => $new)
+				{
+					$html .= '<li>' . sprintf(lang('site.rename_manually'), $old, $new) . '</li>';
+				}
+
+				$html .= '</ul>';
+				
+				$data->messages['notice'] = sprintf(lang('site.rename_notice'), $html);
 			}
-			$this->session->set_flashdata('notice', $message);
-			redirect('admin/sites/edit/'.$id);
+			else
+			{
+				// couldn't save the record
+				$data->messages['error'] = lang('site.db_error');
+			}
 		}
 
 		// Load the view
 		$this->template->title(lang('site.sites'), sprintf(lang('site.edit_site'), $data->name))
-						->build('admin/form', $data);
+						->build('form', $data);
 	}
 	
 	/**
 	 * Redirects the admin to an extra confirmation page
 	 */
-	public function delete($id = '')
+	public function delete($id = 0)
 	{
-		if (is_numeric($id))
+		if ($id != 0)
 		{
-			redirect('admin/sites/confirm/'.$id);
+			redirect('sites/confirm/'.$id);
 		}		
-		redirect('admin/sites');
+		redirect('sites');
 	}
 	
 	/**
@@ -140,26 +172,37 @@ class Sites extends Sites_Controller
 	 */
 	public function confirm($id = '')
 	{
-		$site = $this->core_sites_m->get_site($id);
+		$site = $this->sites_m->get($id);
 		
 		if ($this->input->post('id') AND $this->input->post('btnAction'))
 		{
-			$message = $this->core_sites_m->delete($id, $site);
+			$message = $this->sites_m->delete_site($id, $site);
 			
 			if ($message === TRUE)
 			{
 				$this->session->set_flashdata('success', lang('site.site_deleted'));
-				redirect('admin/sites');
+				redirect('sites');
+			}
+			elseif(is_array($message))
+			{
+				$html = '<ul>';
+
+				foreach ($message AS $folder)
+				{
+					$html .= '<li>' . $folder . '</li>';
+				}
+
+				$html .= '</ul>';
+				
+				$data->messages['notice'] = sprintf(lang('site.delete_manually'), $html);
 			}
 			else
 			{
-				$this->session->set_flashdata('success', lang('site.site_deleted'));
-				$this->session->set_flashdata('notice', $message);
+				// couldn't delete the record
+				$data->messages['error'] = lang('site.delete_error');
 			}
-			// get them out of here
-			redirect('admin/sites');
 		}
-		$this->template->build('admin/confirm', $site);
+		$this->template->build('confirm', $site);
 	}
 	
 	public function _valid_domain($url)

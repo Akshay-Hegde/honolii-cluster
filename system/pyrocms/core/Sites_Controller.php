@@ -5,17 +5,29 @@ class Sites_Controller extends CI_Controller {
 
 	public function Sites_Controller()
 	{
+		parent::__construct();
+		
 		define('ADMIN_THEME', 'sites');
 		
-		parent::__construct();
+		//define folders that we need to create for each new site
+		$this->locations = array(APPPATH.'cache'		=> array(
+														 'simplepie'
+														),
+								  'addons'		=> array('modules',
+														 'widgets',
+														 'themes'
+														),
+								  'uploads'	=> array()
+								  );
+		
 		// Load the Language files ready for output
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
 		$this->lang->load('sites/sites');
 		
 		// Load all the required classes
-		$this->load->model('core_sites_m');
-		$this->load->model('core_users_m');
+		$this->load->model('sites_m');
+		$this->load->model('users_m');
 		$this->load->library('form_validation');
 		
 		// Work out module, controller and method and make them accessable throught the CI instance
@@ -26,10 +38,14 @@ class Sites_Controller extends CI_Controller {
 		
 		// Load helpers
 		$this->load->helper('admin_theme');
+		$this->load->helper('file');
 		
 		// And lastly configs
 		$this->load->config('sites/config');
 
+		// Now set the db prefix
+		$this->db->set_dbprefix('core_');
+		
 		$this->asset->set_theme(ADMIN_THEME);
 		
 		// Asset library needs to know where the admin theme directory is

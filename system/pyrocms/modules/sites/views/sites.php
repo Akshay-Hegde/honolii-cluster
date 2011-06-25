@@ -22,13 +22,13 @@
 		<tbody>
 			<?php foreach ($sites as $site): ?>
 			<tr>
-				<td><?php echo $site->id == 1 ? lang('site.main_site') : $site->name; ?></td>
+				<td><?php echo $site->name; ?></td>
 				<td><?php echo $site->ref; ?></td>
 				<td><?php echo $site->domain; ?></td>
 				<td><?php echo date($this->config->item('date_format'), $site->created_on); ?></td>
 				<td class="buttons">
-					<?php echo anchor('admin/sites/edit/'.$site->id, 	lang('buttons.edit'), 'class="button"'); ?>
-					<?php echo anchor('admin/sites/delete/'.$site->id, 	lang('buttons.delete'), 'class="button confirm"
+					<?php echo anchor('sites/edit/'.$site->id, 	lang('buttons.edit'), 'class="button"'); ?>
+					<?php echo anchor('sites/delete/'.$site->id, 	lang('buttons.delete'), 'class="button confirm"
 									  title="'.lang('site.delete_site').'"'); ?>
 				</td>
 			</tr>

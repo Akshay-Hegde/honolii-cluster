@@ -50,7 +50,7 @@
 			
 			<section id="user-links">
 				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), 'Jerel'); ?></span>
-				<?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?> | <?php echo anchor('admin/logout', lang('cp_logout_label')); ?>
+				<?php echo anchor('sites/logout', lang('cp_logout_label')); ?>
 			</section>
 
 		</header>
