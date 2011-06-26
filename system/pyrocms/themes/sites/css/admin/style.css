@@ -5,6 +5,10 @@
 @import "forms.css";
 @import "buttons.css";
 
+/* Site form */
+ol.site { width: 49.5%; float: right; }
+ol.user { width: 49.5%; }
+
 /* MOVE ME SOMEWHERE */
 
 .default-input-text {
@@ -385,6 +389,7 @@ header#main h1 {
 table {
 	width: 100%;
 	border-collapse: separate;
+	text-align: center;
 }
 table th,
 table td {
@@ -396,7 +401,6 @@ table thead th {
 	font-weight: bold;
 	font-size: 14px;
 	border-bottom: 1px solid #c2c2c2;
-	text-align: left;
 }
 table thead th.checkboxes {
 	width: 18px;

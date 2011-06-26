@@ -76,6 +76,7 @@ class Users extends Sites_Controller
 		
 		// Load the view
 		$this->template->title(lang('site.sites'), lang('site.user_manager'))
+						->set('description', lang('site.super_admin_list'))
 						->build('users', $data);
 	}
 	
@@ -89,7 +90,7 @@ class Users extends Sites_Controller
 		
 		if($this->form_validation->run())
 		{
-			if ($this->users_m->add_admin($_POST))
+			if ($this->users_m->add_admin($this->input->post()))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('site.admin_create_success'), $_POST['username']));
 				redirect('sites/users');
@@ -123,7 +124,7 @@ class Users extends Sites_Controller
 		
 		if($this->form_validation->run())
 		{
-			if ($this->users_m->edit_admin($_POST))
+			if ($this->users_m->edit_admin($this->input->post()))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $_POST['username']));
 				redirect('sites/users');

@@ -143,7 +143,7 @@ class Sites extends Sites_Controller
 			else
 			{			
 				// Try to create the site
-				$message = $this->sites_m->create_site($_POST);
+				$message = $this->sites_m->create_site($this->input->post());
 				
 				if($message === TRUE)
 				{
@@ -197,7 +197,7 @@ class Sites extends Sites_Controller
 		{
 			$ref = $this->input->post('ref');
 			
-			$message = $this->sites_m->edit_site($_POST, $data);
+			$message = $this->sites_m->edit_site($this->input->post(), $data);
 			
 			if($message === TRUE)
 			{

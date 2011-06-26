@@ -5,7 +5,7 @@
 	<table border="0" class="table-list">
 		<thead>
 			<tr>
-				<th><?php echo lang('site.name'); ?></th>
+				<th><?php echo lang('site.descriptive_name'); ?></th>
 				<th><?php echo lang('site.ref'); ?></th>
 				<th><?php echo lang('site.domain'); ?></th>
 				<th><?php echo lang('site.created_on'); ?></th>

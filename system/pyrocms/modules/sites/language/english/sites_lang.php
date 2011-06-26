@@ -2,7 +2,7 @@
 //messages
 $lang['site.not_super_admin']		=	'You are not a Super Admin.';
 $lang['site.delete_site']			=	'You are deleting an entire site!!! It cannot be undone!';
-$lang['site.really_delete']			=	'We\'re not kidding around. If you click this button "%s" will go away';
+$lang['site.really_delete']			=	'We really mean it. If you click this button the "%s" website will be entirely deleted.';
 $lang['site.exists']				=	'The Site Domain must be unique. A site is already registered with the domain "%s"';
 $lang['site.site_deleted']			=	'The site has been deleted successfully.';
 $lang['site.site_delete_error']		=	'The site\'s files could not be deleted. You will have to remove these files manually %s';
@@ -29,21 +29,19 @@ $lang['site.edit_admin']			=	'Editing "%s"';
 $lang['site.edit_site_desc']		=	'Edit and delete sites with a few clicks of your mouse';
 $lang['site.create_site_desc']		=	'Create a completely new site right from this interface';
 $lang['site.create_admin_desc']		=	'Manage additional Super-Admins who can create and delete sites';
+$lang['site.super_admin_list']		=	'A list of all current Super Admins';
 
 
 //labels
-$lang['site.select_group']			=	'Select Group';
-$lang['site.keywords']				=	'Keywords';
 $lang['site.remove_admin']			=	'Delete Super Admin';
-$lang['site.make_admin']			=	'Make Super Admin';
 $lang['site.site']					=	'Site';
-$lang['site.main_site']				=	'Main Site';
 $lang['site.existing_sites']		=	'Existing Sites';
 $lang['site.site_details']			=	'Site Details';
 $lang['site.descriptive_name']		=	'Descriptive Name';
 $lang['site.domain']				=	'Domain';
 $lang['site.ref']					=	'Reference';
 $lang['site.created_on']			=	'Created On';
+$lang['site.disk_usage']			=	'Disk Usage';
 $lang['site.manage']				=	'Manage';
 $lang['site.super_admins']			=	'Super Admins';
 $lang['site.add_super_admin']		=	'Add Super Admin';
