@@ -15,6 +15,29 @@ class Sites_m extends MY_Model {
 	}
 	
 	/**
+	 * Get a site by id along with first admin
+	 *
+	 * @param	int	$id	Site id
+	 * @return	obj
+	 */
+	public function get_site($id)
+	{
+		$site = $this->get($id);
+		
+		$user = $this->users_m->get_default_user($site->ref);
+			
+		$site->user_id			= $user->id;
+		$site->email			= $user->email;
+		$site->user_name 		= $user->username;
+		$site->first_name 		= $user->first_name;
+		$site->last_name 		= $user->last_name;
+		$site->password 		= '';
+		$site->confirm_password = '';
+		
+		return $site;
+	}
+	
+	/**
 	 * Create a new site
 	 *
 	 * @param	array	$input	The post data
@@ -78,7 +101,25 @@ class Sites_m extends MY_Model {
 						'updated_on'=>	time()
 						);
 		
-		if ($this->update($input['id'], $insert))
+		$user = array('id'			=>	$input['user_id'],
+					  'email'		=>	$input['email'],
+					  'username'	=>	$input['user_name'],
+					  'first_name'	=>	$input['first_name'],
+					  'last_name'	=>	$input['last_name']
+		);
+		
+		if($input['password'] > '')
+		{
+			$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
+			$password	= sha1($input['password'] . $user_salt);
+		
+			$user['password'] 	= $password;
+			$user['salt']		= $user_salt;
+		}
+		
+		if ($this->update($input['id'], $insert) AND
+			$this->users_m->update_default_user($site->ref, $user)
+			)
 		{
 			// make sure there aren't orphaned folders from a previous install
 			if ($insert['ref'] != $site->ref)

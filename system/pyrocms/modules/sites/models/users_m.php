@@ -81,4 +81,45 @@ class Users_m extends MY_Model {
 		}
 		return FALSE;
 	}
+	
+	/**
+	 * Get the first admin for a site
+	 *
+	 * @param	string	$ref
+	 * @return	object
+	 */
+	public function get_default_user($ref)
+	{
+		// fetch the first admin user from this site
+		return $this->db->query("SELECT u.id, email, username, first_name, last_name FROM ".$ref.
+							  "_users AS u JOIN ".$ref."_profiles AS p
+							  ON u.id = (u.id = p.user_id AND u.id > 0)
+							  WHERE u.group_id = 1 LIMIT 1")
+			->row();
+	}
+	
+	/**
+	 * Update a default user's info over both tables
+	 *
+	 * @param	string	$ref	The site ref
+	 * @param	array 	$user	The user info to insert
+	 * @return	boolean
+	 */
+	public function update_default_user($ref, $user)
+	{
+		$sql = "UPDATE ".$ref."_users AS u, ".$ref."_profiles AS p
+				SET u.email = '".$user['email']."', u.username = '".$user['username']."',
+					p.first_name = '".$user['first_name']."', p.last_name = '".$user['last_name']."' ";
+		
+		// if they've supplied a new password then we'll insert that
+		if (isset($user['password']))
+		{
+			$sql .= ", u.password = '".$user['password']."', u.salt = '".$user['salt']."' ";
+		}
+		
+		$sql .= "WHERE u.id = '".$user['id']."' 
+				AND p.user_id = '".$user['id']."'";
+		
+		return $this->db->query($sql);
+	}
 }

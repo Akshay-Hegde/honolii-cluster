@@ -15,10 +15,12 @@ class Sites extends Sites_Controller
 		parent::__construct();
 
 		// Set the validation rules
-		$this->site_validation_rules = array(
+		$val_rules = array(
 			array(
 				  'field' => 'id',
-				  'label' => 'Site ID'
+			),
+			array(
+				'field'	=>	'user_id',
 			),
 			array(
 				'field' => 'name',
@@ -54,18 +56,43 @@ class Sites extends Sites_Controller
 				'field' => 'email',
 				'label'	=> 'lang:user_email',
 				'rules'	=> 'trim|required|valid_email'
-			),
+			)
+		);
+		
+		$val_create = array(
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|required'
+				'rules'	=> 'trim|min_length[4]|required'
 			),
 			array(
 				'field' => 'confirm_password',
 				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|required|matches[password]'
+				'rules'	=> 'trim|min_length[4]|required|matches[password]'
 			)
 		);
+		
+		$val_edit = array(
+			array(
+				'field' => 'password',
+				'label'	=> 'lang:user_password',
+				'rules'	=> 'trim|matches[confirm_password]'
+			),
+			array(
+				'field' => 'confirm_password',
+				'label'	=> 'lang:user_confirm_password',
+				'rules'	=> 'trim|matches[password]'
+			)
+		);
+		
+		if ($this->method == 'create')
+		{
+			$this->site_validation_rules = array_merge($val_rules, $val_create);
+		}
+		else
+		{
+			$this->site_validation_rules = array_merge($val_rules, $val_edit);
+		}
 	}
 
 	/**
@@ -161,13 +188,15 @@ class Sites extends Sites_Controller
 	 */
 	public function edit($id = 0)
 	{
-		$data = $this->sites_m->get($id);
+		$data = $this->sites_m->get_site($id);
 
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
 		if($this->form_validation->run())
 		{
+			$ref = $this->input->post('ref');
+			
 			$message = $this->sites_m->edit_site($_POST, $data);
 			
 			if($message === TRUE)

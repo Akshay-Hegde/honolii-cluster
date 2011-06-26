@@ -8,6 +8,8 @@
 
 		<ol>
 			<?php echo form_hidden('id', $id); ?>
+			<?php echo form_hidden('user_id', $user_id); ?>
+			
 			<h4><?php echo lang('site.site_details'); ?></h4>
 			<li class="<?php echo alternator('', 'even'); ?>">
 				<?php echo form_label(lang('site.descriptive_name'), 'name'); ?>
