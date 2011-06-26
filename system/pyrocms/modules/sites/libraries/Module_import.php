@@ -1,51 +1,19 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-define('PYROPATH', dirname(FCPATH).'/system/pyrocms/');
-define('ADDONPATH', dirname(FCPATH).'/addons/default/');
-define('SHARED_ADDONPATH', dirname(FCPATH).'/shared_addons/');
-
-// All modules talk to the Module class, best get that!
-include PYROPATH .'libraries/Module'.EXT;
-
 class Module_import {
 
 	private $ci;
+	private $addons;
 
-	function Module_import()
+	public function __construct($addons)
 	{
 		$this->ci =& get_instance();
-		$db['hostname'] = $this->ci->session->userdata('hostname');
-		$db['username'] = $this->ci->session->userdata('username');
-		$db['password'] = $this->ci->session->userdata('password');
-		$db['database'] = $this->ci->input->post('database');
-		$db['port'] = $this->ci->input->post('port');
-		$db['dbdriver'] = "mysql";
-		$db['dbprefix'] = $this->ci->input->post('site_ref').'_';
-		$db['pconnect'] = TRUE;
-		$db['db_debug'] = TRUE;
-		$db['cache_on'] = FALSE;
-		$db['cachedir'] = "";
-		$db['char_set'] = "utf8";
-		$db['dbcollat'] = "utf8_unicode_ci";
-
-		$this->ci->load->database($db);
-		$this->ci->load->helper('file');
+		$this->addons = $addons;
 		
-		// create the site specific addon folder
-		is_dir(ADDONPATH.'modules') OR mkdir(ADDONPATH.'modules', DIR_READ_MODE, TRUE);
-		is_dir(ADDONPATH.'themes') OR mkdir(ADDONPATH.'themes', DIR_READ_MODE, TRUE);
-		is_dir(ADDONPATH.'widgets') OR mkdir(ADDONPATH.'widgets', DIR_READ_MODE, TRUE);
-		
-		// create the site specific upload folder
-		is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
-		
-		//insert empty html files
-		write_file(ADDONPATH.'modules/index.html');
-		write_file(ADDONPATH.'themes/index.html');
-		write_file(ADDONPATH.'widgets/index.html');
-		write_file(FCPATH.'uploads/index.html');
+		// set this so we can install modules. We'll change it later
+		define('DEFAULT_EMAIL', 'admin@domain.com');
+		define('DEFAULT_LANG', config_item('default_language'));
 	}
-
 
 	/**
 	 * Install
@@ -129,7 +97,7 @@ class Module_import {
 		// Loop through directories that hold modules
 		$is_core = TRUE;
 
-		foreach (array(PYROPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		foreach (array(APPPATH, SHARED_ADDONPATH) as $directory)
 		{
 			// Loop through modules
 			foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
@@ -162,7 +130,7 @@ class Module_import {
 	 */
 	private function _spawn_class($slug, $is_core = FALSE)
 	{
-		$path = $is_core ? PYROPATH : ADDONPATH;
+		$path = $is_core ? APPPATH : SHARED_ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
 		$details_file = $path . 'modules/' . $slug . '/details'.EXT;
@@ -170,12 +138,7 @@ class Module_import {
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			$details_file = SHARED_ADDONPATH . 'modules/' . $slug . '/details'.EXT;
-			
-			if ( ! is_file($details_file))
-			{
-				return FALSE;
-			}
+			return FALSE;
 		}
 
 		// Sweet, include the file

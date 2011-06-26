@@ -22,18 +22,48 @@ class Sites extends Sites_Controller
 			),
 			array(
 				'field' => 'name',
-				'label' => 'Name',
+				'label' => 'lang:site.descriptive_name',
 				'rules' => 'trim|max_length[100]|required'
 			),
 			array(
 				'field' => 'domain',
-				'label' => 'Domain',
+				'label' => 'lang:site.domain',
 				'rules' => 'trim|callback__valid_domain|max_length[100]|required'
 			),
 			array(
 				'field' => 'ref',
-				'label' => 'Site Ref',
-				'rules' => 'trim|alpha_dash|min_length[4]|max_length[20]|required'
+				'label' => 'lang:site.ref',
+				'rules' => 'trim|alpha_dash|callback__underscore|min_length[4]|max_length[20]|required'
+			),
+			array(
+				'field' => 'user_name',
+				'label'	=> 'lang:user_username',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'first_name',
+				'label'	=> 'lang:user_first_name',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'last_name',
+				'label'	=> 'lang:user_last_name',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'email',
+				'label'	=> 'lang:user_email',
+				'rules'	=> 'trim|required|valid_email'
+			),
+			array(
+				'field' => 'password',
+				'label'	=> 'lang:user_password',
+				'rules'	=> 'trim|required'
+			),
+			array(
+				'field' => 'confirm_password',
+				'label'	=> 'lang:user_confirm_password',
+				'rules'	=> 'trim|required|matches[password]'
 			)
 		);
 	}
@@ -56,16 +86,32 @@ class Sites extends Sites_Controller
 	 */
 	public function create()
 	{
-
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
 		if($this->form_validation->run())
 		{
-			// make sure it doesn't already exist
-			if ($this->sites_m->get_by('ref', $this->input->post('ref')))
+			$ref = $this->input->post('ref');
+			
+			$this->load->library('module_import', $ref);
+			$this->load->config('migrations');
+	
+			// make sure there aren't orphaned folders from a previous install
+			foreach ($this->locations AS $folder_check => $sub_folders)
 			{
-				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('ref'));
+				
+				if (is_dir($folder_check.'/'.$ref))
+				{
+					$this->session->set_flashdata('error', sprintf(lang('site.folder_exists'),
+																   $folder_check.'/'.$ref));
+					redirect('sites/create');
+				}
+			}
+				
+			// make sure it doesn't already exist
+			if ($this->sites_m->get_by('domain', $this->input->post('domain')))
+			{
+				$data->messages['notice'] = sprintf(lang('site.exists'), $ref);
 			}
 			else
 			{			
@@ -208,5 +254,10 @@ class Sites extends Sites_Controller
 	public function _valid_domain($url)
 	{
 		return preg_replace('([^a-z0-9._-]+)', '', $url);
+	}
+	
+	public function _underscore($ref)
+	{
+		return str_replace('-', '_', $ref);
 	}
 }

@@ -22,15 +22,43 @@ class Sites_m extends MY_Model {
 	 */
 	public function create_site($input)
 	{
+		$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
+		$password	= sha1($input['password'] . $user_salt);
+		
 		$insert = array('name'		=>	$input['name'],
 						'ref'		=>	$input['ref'],
 						'domain' 	=> 	$input['domain'],
 						'created_on'=>	time()
 						);
+		
+		$user = array('user_name'		=>	$input['user_name'],
+					  'first_name'		=>	$input['first_name'],
+					  'last_name'		=>	$input['last_name'],
+					  'email'			=>	$input['email'],
+					  'password'		=>	$password,
+					  'salt'			=>	$user_salt
+					  );
 				
 		if ($this->insert($insert))
 		{
-			return $this->_make_folders($insert['ref']);
+			if($this->_make_folders($insert['ref']))
+			{
+				// Install all modules
+				$this->db->set_dbprefix($insert['ref'].'_');
+				if ($this->module_import->import_all())
+				{
+					$this->dbforge->add_field(array(
+						'version' => array('type' => 'INT', 'constraint' => 3),
+					));
+		
+					$this->dbforge->create_table('schema_version', TRUE);
+		
+					if ($this->db->insert('schema_version', array('version' => config_item('migrations_version'))) )
+					{
+						return $this->users_m->create_default_user($user);
+					}
+				}
+			}
 		}
 		return FALSE;
 	}
@@ -82,10 +110,22 @@ class Sites_m extends MY_Model {
 	public function delete_site($id, $site)
 	{
 		$unwritable = array();
+		$tables = $this->db->list_tables();
 
 		// drop the db record
 		if ($this->delete($id) AND strlen($site->ref) >= 4)
 		{
+			// now drop the site's own tables
+			foreach ($tables AS $table)
+			{
+				// only delete the table if it starts with our prefix
+				if (strpos($table, $site->ref.'_') === (int) 0)
+				{
+					$this->db->query("DROP TABLE IF EXISTS `".$table."`");
+				}
+			}
+			
+			// get rid of all folders
 			foreach ($this->locations AS $root => $sub)
 			{
 				if (is_really_writable($root.'/'.$site->ref))

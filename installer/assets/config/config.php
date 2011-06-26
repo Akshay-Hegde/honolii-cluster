@@ -322,6 +322,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['modules_locations'] = array(
 	APPPATH.'modules/' => '../modules/',
-	ADDONPATH.'/modules/' => '../../../addons/' . SITE_SLUG . '/modules/',
+	ADDON_FOLDER.'__SITE_REF__/modules/' => '../../../addons/__SITE_REF__/modules/',
 	SHARED_ADDONPATH.'modules/' => '../../../shared_addons/modules/'
 );

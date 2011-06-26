@@ -24,11 +24,13 @@ class Sites_Controller extends CI_Controller {
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
 		$this->lang->load('sites/sites');
-		
+		$this->lang->load('users/user');
+
 		// Load all the required classes
 		$this->load->model('sites_m');
 		$this->load->model('users_m');
 		$this->load->library('form_validation');
+		$this->load->dbforge();
 		
 		// Work out module, controller and method and make them accessable throught the CI instance
 		$this->module = $this->router->fetch_module();
