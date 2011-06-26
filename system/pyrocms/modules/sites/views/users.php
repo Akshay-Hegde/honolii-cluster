@@ -29,14 +29,13 @@
 				<td><?php echo date($this->config->item('date_format'), $user->last_login); ?></td>
 				<td><?php echo date($this->config->item('date_format'), $user->created_on); ?></td>
 				<td class="buttons">
-					<?php if ($core === TRUE): ?>
-						<?php echo $user->active != 1 ?
-									anchor('sites/users/enable/'.$user->id, 	lang('buttons.enable'), 'class="button"') :
-									anchor('sites/users/disable/'.$user->id, 	lang('buttons.disable'), 'class="button"'); ?>
-	
-						<?php echo  anchor('sites/users/delete/'.$user->id, 	lang('site.remove_admin'), 'class="button confirm"'); ?>
-					<?php else: ?>
-						<?php echo  anchor('sites/users/make/'.$ref.'/'.$user->id, 	lang('site.make_admin'), 'class="button"'); ?>
+					<?php echo  anchor('sites/users/edit/'.$user->id, 		lang('buttons.edit'), 'class="button"'); ?>
+					<?php echo $user->active != 1 ?
+								anchor('sites/users/enable/'.$user->id, 	lang('buttons.enable'), 'class="button"') :
+								anchor('sites/users/disable/'.$user->id, 	lang('buttons.disable'), 'class="button"'); ?>
+		
+					<?php if (count($users) > 1): ?>
+						<?php echo  anchor('sites/users/delete/'.$user->id, 	lang('buttons.delete'), 'class="button confirm"'); ?>
 					<?php endif; ?>
 				</td>
 			</tr>

@@ -14,6 +14,49 @@ class Users_m extends MY_Model {
 		parent::__construct();
 	}
 	
+	public function add_admin($user)
+	{
+		$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
+		$password	= sha1($user['password'] . $user_salt);
+		
+		$insert = array('username'		=>	$user['username'],
+						'group_id'		=>	1,
+						'active'		=>	1,
+						'created_on'	=>	time(),
+						'last_login'	=>	time(),
+						'email'			=>	$user['email'],
+						'password'		=>	$password,
+						'salt'			=>	$user_salt
+						);
+		
+		return $this->insert($insert);
+	}
+	
+	public function edit_admin($user)
+	{
+		$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
+		$password	= sha1($user['password'] . $user_salt);
+		
+		$insert = array('username'		=>	$user['username'],
+						'group_id'		=>	1,
+						'active'		=>	1,
+						'created_on'	=>	time(),
+						'last_login'	=>	time(),
+						'email'			=>	$user['email']
+						);
+
+		if($user['password'] > '')
+		{
+			$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
+			$password	= sha1($user['password'] . $user_salt);
+		
+			$insert['password'] = $password;
+			$insert['salt']		= $user_salt;
+		}
+		
+		return $this->update($user['id'], $insert);
+	}
+	
 	public function create_default_user($user)
 	{
 		$users = "CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('users') . " (
@@ -36,7 +79,7 @@ class Users_m extends MY_Model {
 		";
 
 		$user_data = "INSERT INTO " . $this->db->dbprefix('users') . " (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-			(1,'".$user['email']."', '".$user['password']."', '".$user['salt']."', 1, '', 1, '', ".time().", ".time().", '".$user['user_name']."', NULL, NULL); ";
+			(1,'".$user['email']."', '".$user['password']."', '".$user['salt']."', 1, '', 1, '', ".time().", ".time().", '".$user['username']."', NULL, NULL); ";
 
 
 		$profiles = "CREATE TABLE " . $this->db->dbprefix('profiles') . " (

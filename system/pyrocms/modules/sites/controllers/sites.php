@@ -38,7 +38,7 @@ class Sites extends Sites_Controller
 				'rules' => 'trim|alpha_dash|callback__underscore|min_length[4]|max_length[20]|required'
 			),
 			array(
-				'field' => 'user_name',
+				'field' => 'username',
 				'label'	=> 'lang:user_username',
 				'rules'	=> 'trim|required'
 			),

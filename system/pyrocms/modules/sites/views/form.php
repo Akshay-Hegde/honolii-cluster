@@ -28,8 +28,8 @@
 
 			<h4><?php echo lang('site.first_admin'); ?></h4>
 			<li class="<?php echo alternator('', 'even'); ?>">
-				<?php echo form_label(lang('user_username'), 'user_name'); ?>
-				<?php echo form_input('user_name', set_value('user_name', $user_name), 'class="required"'); ?>
+				<?php echo form_label(lang('user_username'), 'username'); ?>
+				<?php echo form_input('username', set_value('username', $username), 'class="required"'); ?>
 			</li>
 			
 			<li class="<?php echo alternator('', 'even'); ?>">

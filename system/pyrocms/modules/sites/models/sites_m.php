@@ -28,7 +28,7 @@ class Sites_m extends MY_Model {
 			
 		$site->user_id			= $user->id;
 		$site->email			= $user->email;
-		$site->user_name 		= $user->username;
+		$site->username 		= $user->username;
 		$site->first_name 		= $user->first_name;
 		$site->last_name 		= $user->last_name;
 		$site->password 		= '';
@@ -54,7 +54,7 @@ class Sites_m extends MY_Model {
 						'created_on'=>	time()
 						);
 		
-		$user = array('user_name'		=>	$input['user_name'],
+		$user = array('username'		=>	$input['username'],
 					  'first_name'		=>	$input['first_name'],
 					  'last_name'		=>	$input['last_name'],
 					  'email'			=>	$input['email'],
@@ -103,7 +103,7 @@ class Sites_m extends MY_Model {
 		
 		$user = array('id'			=>	$input['user_id'],
 					  'email'		=>	$input['email'],
-					  'username'	=>	$input['user_name'],
+					  'username'	=>	$input['username'],
 					  'first_name'	=>	$input['first_name'],
 					  'last_name'	=>	$input['last_name']
 		);
