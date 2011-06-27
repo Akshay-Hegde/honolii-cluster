@@ -41,7 +41,6 @@ $lang['site.descriptive_name']		=	'Descriptive Name';
 $lang['site.domain']				=	'Domain';
 $lang['site.ref']					=	'Reference';
 $lang['site.created_on']			=	'Created On';
-$lang['site.disk_usage']			=	'Disk Usage';
 $lang['site.manage']				=	'Manage';
 $lang['site.super_admins']			=	'Super Admins';
 $lang['site.add_super_admin']		=	'Add Super Admin';

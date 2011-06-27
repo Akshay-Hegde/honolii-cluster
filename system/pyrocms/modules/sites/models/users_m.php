@@ -16,8 +16,7 @@ class Users_m extends MY_Model {
 	
 	public function add_admin($user)
 	{
-		$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
-		$password	= sha1($user['password'] . $user_salt);
+		$hash = $this->_hash_password($user['password']);
 		
 		$insert = array('username'		=>	$user['username'],
 						'group_id'		=>	1,
@@ -25,8 +24,8 @@ class Users_m extends MY_Model {
 						'created_on'	=>	time(),
 						'last_login'	=>	time(),
 						'email'			=>	$user['email'],
-						'password'		=>	$password,
-						'salt'			=>	$user_salt
+						'password'		=>	$hash->password,
+						'salt'			=>	$hash->user_salt
 						);
 		
 		return $this->insert($insert);
@@ -34,9 +33,6 @@ class Users_m extends MY_Model {
 	
 	public function edit_admin($user)
 	{
-		$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
-		$password	= sha1($user['password'] . $user_salt);
-		
 		$insert = array('username'		=>	$user['username'],
 						'group_id'		=>	1,
 						'active'		=>	1,
@@ -47,11 +43,10 @@ class Users_m extends MY_Model {
 
 		if($user['password'] > '')
 		{
-			$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
-			$password	= sha1($user['password'] . $user_salt);
-		
-			$insert['password'] = $password;
-			$insert['salt']		= $user_salt;
+			$hash = $this->_hash_password($user['password']);
+			
+			$insert['password'] = $hash->password;
+			$insert['salt']		= $hash->user_salt;
 		}
 		
 		return $this->update($user['id'], $insert);
@@ -134,10 +129,14 @@ class Users_m extends MY_Model {
 	public function get_default_user($ref)
 	{
 		// fetch the first admin user from this site
-		return $this->db->query("SELECT u.id, email, username, first_name, last_name FROM ".$ref.
-							  "_users AS u JOIN ".$ref."_profiles AS p
-							  ON u.id = (u.id = p.user_id AND u.id > 0)
-							  WHERE u.group_id = 1 LIMIT 1")
+		return $this->db->query(sprintf("SELECT u.id, email, username, first_name, last_name
+										FROM %s_users AS u JOIN %s_profiles AS p
+										ON u.id = (u.id = p.user_id AND u.id > 0)
+										WHERE u.group_id = 1 LIMIT 1",
+										$ref,
+										$ref
+										)
+								)
 			->row();
 	}
 	
@@ -150,19 +149,113 @@ class Users_m extends MY_Model {
 	 */
 	public function update_default_user($ref, $user)
 	{
-		$sql = "UPDATE ".$ref."_users AS u, ".$ref."_profiles AS p
-				SET u.email = '".$user['email']."', u.username = '".$user['username']."',
-					p.first_name = '".$user['first_name']."', p.last_name = '".$user['last_name']."' ";
+		$sql = sprintf("UPDATE %s_users AS u, %s_profiles AS p
+						SET u.email = '%s', u.username = '%s',
+						p.first_name = '%s', p.last_name = '%s' ",
+						$ref,
+						$ref,
+						$user['email'],
+						$user['username'],
+						$user['first_name'],
+						$user['last_name']
+						);
 		
 		// if they've supplied a new password then we'll insert that
-		if (isset($user['password']))
+		if (isset($user['password']) AND strlen($user['password']) > 3)
 		{
-			$sql .= ", u.password = '".$user['password']."', u.salt = '".$user['salt']."' ";
+			$sql .= sprintf(", u.password = '%s', u.salt = '%s' ",
+							$user['password'],
+							$user['salt']
+						   );
 		}
 		
-		$sql .= "WHERE u.id = '".$user['id']."' 
-				AND p.user_id = '".$user['id']."'";
+		$sql .= sprintf("WHERE u.id = '%s' 
+						AND p.user_id = '%s'",
+						$user['id'],
+						$user['id']
+						);
 		
 		return $this->db->query($sql);
+	}
+	
+	/**
+	 * Log a Super Admin in
+	 *
+	 * @param	string	$email
+	 * @param	string	$password
+	 * @return	bool
+	 */
+	public function login($email, $password)
+	{
+		if (empty($email) OR empty($password)) return FALSE;
+		
+		$user = $this->select('email, username, password, salt')
+			->where('active', 1)
+			->limit(1)
+			->get_by('email', $email);
+		
+		// if there's no user with that email then bail
+		if ( ! isset($user->email)) return FALSE;
+			
+		$hashed = $this->_hash_password($password, $user->salt);
+
+		if ($hashed->password === $user->password)
+		{
+			$session = array(
+				'super_email'		=> $user->email,
+				'super_username'	=> $user->username
+				 );
+	
+			$this->session->set_userdata($session);
+			
+			//update the last_login timestamp
+			$this->update($user->id, array('last_login' => time()));
+			
+			return TRUE;
+		}
+		
+		return FALSE;
+	}
+	
+	/**
+	 * Check if a Super Admin is logged in
+	 *
+	 * @return	bool
+	 */
+	public function logged_in()
+	{
+		return (bool) $this->session->userdata('super_email');
+	}
+	
+	/**
+	 * Get rid of the user's session
+	 */
+	public function logout()
+	{
+		$this->session->unset_userdata('super_email');
+		$this->session->unset_userdata('super_username');
+		
+		$this->session->sess_destroy();
+		return TRUE;
+	}
+	
+	/**
+	 * Hash the password either with a generated salt
+	 * of with the salt that was passed.
+	 *
+	 * @param	string	$pass
+	 * @param	string	$salt
+	 * @param
+	 */
+	private function _hash_password($pass, $salt = FALSE)
+	{
+		$hash->user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
+		
+		//this lets us pass the salt from the database for logins
+		$chosen_salt		= ($salt === FALSE) ? $hash->user_salt : $salt;
+		
+		$hash->password		= sha1($pass . $chosen_salt);
+		
+		return $hash;
 	}
 }

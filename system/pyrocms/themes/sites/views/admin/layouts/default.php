@@ -49,7 +49,7 @@
 			<h1><?php echo isset($description) ? $description : ''; ?></h1>
 			
 			<section id="user-links">
-				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), 'Username Goes Here'); ?></span>
+				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), $super_username); ?></span>
 				<?php echo anchor('sites/logout', lang('cp_logout_label')); ?>
 			</section>
 

@@ -65,6 +65,20 @@ class Users extends Sites_Controller
 		{
 			$this->admin_validation_rules = array_merge($val_rules, $val_edit);
 		}
+		
+		// login validation
+		$this->login_rules = array(
+			array(
+				'field' => 'email',
+				'label'	=> lang('email_label'),
+				'rules' => 'required|callback__check_login'
+			),
+			array(
+				'field' => 'password',
+				'label'	=> lang('password_label'),
+				'rules' => 'required'
+			)
+		);
 	}
 
 	/**
@@ -170,5 +184,59 @@ class Users extends Sites_Controller
 		$this->users_m->delete($id);
 		
 		redirect('sites/users');
+	}
+	
+	/**
+	 * Log in
+	 *
+	 * @access public
+	 * @return void
+	 */
+	public function login()
+	{
+		$this->lang->load('users/user');
+		
+		// Set the validation rules
+		$this->form_validation->set_rules($this->login_rules);
+		
+	    // If the validation worked, or the user is already logged in
+	    if ($this->form_validation->run() OR $this->users_m->logged_in())
+	    {
+	    	redirect('sites');
+		}
+
+	    $this->template
+			->set_layout(FALSE)
+			->build('admin/login');
+	}
+	
+	/**
+	 * Logout
+	 *
+	 * Pretty self explanatory
+	 */
+	public function logout()
+	{
+		$this->users_m->logout();
+			
+		redirect('sites');
+	}
+	
+	/**
+	 * Callback From: login()
+	 *
+	 * @access public
+	 * @param string $email The Email address to validate
+	 * @return bool
+	 */
+	public function _check_login($email)
+	{
+   		if ( ! $this->users_m->login($this->input->post('email'), $this->input->post('password')))
+   		{
+	   		$this->form_validation->set_message('_check_login', lang('user_login_incorrect'));
+	    	return FALSE;
+	    }
+
+	    return TRUE;
 	}
 }

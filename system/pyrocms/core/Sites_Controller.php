@@ -23,6 +23,7 @@ class Sites_Controller extends CI_Controller {
 		// Load the Language files ready for output
 		$this->lang->load('admin');
 		$this->lang->load('buttons');
+		$this->lang->load('main');
 		$this->lang->load('sites/sites');
 		$this->lang->load('users/user');
 
@@ -50,6 +51,12 @@ class Sites_Controller extends CI_Controller {
 		
 		$this->asset->set_theme(ADMIN_THEME);
 		
+		// check to make sure they're logged in
+		if ( $this->method !== 'login' AND ! $this->users_m->logged_in())
+		{
+			redirect('sites/login');
+		}
+		
 		// Asset library needs to know where the admin theme directory is
 		$this->config->set_item('asset_dir', APPPATH.'themes/sites/');
 		$this->config->set_item('asset_url', BASE_URL.APPPATH.'themes/sites/');
@@ -60,6 +67,7 @@ class Sites_Controller extends CI_Controller {
 		// Template configuration
 		$this->template
 				->enable_parser(FALSE)
+				->set('super_username', $this->session->userdata('super_username'))
 				->set_theme(ADMIN_THEME)
 				->set_layout('default', 'admin');
 

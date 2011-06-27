@@ -3,7 +3,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
-	<title><?php echo $this->settings->site_name; ?> - <?php echo lang('login_title');?></title>
+	<title><?php echo lang('site.sites').' - '.lang('login_title');?></title>
 	
 	<base href="<?php echo base_url(); ?>" />
 	
@@ -34,9 +34,10 @@
 	<div id="login-box">
 		<header id="main">
 			<div id="login-logo"></div>
+			<div id="multi-login"><?php echo lang('site.sites');?></div>
 		</header>
 		<?php $this->load->view('admin/partials/notices') ?>
-		<?php echo form_open('admin/login'); ?>
+		<?php echo form_open('sites/login'); ?>
 			<ul>
 				<li>
 					<input type="text" name="email" value="<?php echo lang('email_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('email_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('email_label'); ?>') {this.value = '';}" />
