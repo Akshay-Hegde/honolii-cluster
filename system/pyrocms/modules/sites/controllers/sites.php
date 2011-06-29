@@ -98,9 +98,16 @@ class Sites extends Sites_Controller
 	/**
 	 * List all sites
 	 */
-	public function index()
+	public function index($offset = 0)
 	{
-		$data->sites = $this->sites_m->get_all();
+		$limit = 20;
+		
+		$data->sites = $this->sites_m->limit($limit)
+			->offset($offset)
+			->get_all();
+		
+		// create pagination
+		$data->pagination = create_pagination('sites/index', $this->sites_m->count_all(), $limit);
 
 		// Load the view
 		$this->template->title(lang('site.sites'))
@@ -129,16 +136,26 @@ class Sites extends Sites_Controller
 				
 				if (is_dir($folder_check.'/'.$ref))
 				{
-					$this->session->set_flashdata('error', sprintf(lang('site.folder_exists'),
-																   $folder_check.'/'.$ref));
-					redirect('sites/create');
+					$data->messages['error'] = sprintf(lang('site.folder_exists'),
+														$folder_check.'/'.$ref);
+					
+					foreach ($this->site_validation_rules AS $rule)
+					{
+						$data->{$rule['field']} = set_value($rule['field']);
+					}
+		
+					// Load the view
+					$this->template->title(lang('site.sites'), lang('site.create_site'))
+									->set('description', lang('site.create_site_desc'))
+									->build('form', $data);
+					return;
 				}
 			}
 				
 			// make sure it doesn't already exist
 			if ($this->sites_m->get_by('domain', $this->input->post('domain')))
 			{
-				$data->messages['notice'] = sprintf(lang('site.exists'), $ref);
+				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('domain'));
 			}
 			else
 			{			
@@ -197,9 +214,13 @@ class Sites extends Sites_Controller
 		{
 			$ref = $this->input->post('ref');
 			
-			$message = $this->sites_m->edit_site($this->input->post(), $data);
-			
-			if($message === TRUE)
+			// make sure it doesn't already exist
+			if ($other = $this->sites_m->get_by('domain', $this->input->post('domain')) AND
+				$data->id !== $other->id)
+			{
+				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('domain'));
+			}
+			elseif( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === TRUE)
 			{
 				// All good...
 				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $data->name));
@@ -235,7 +256,7 @@ class Sites extends Sites_Controller
 	 */
 	public function delete($id = 0)
 	{
-		if ($id != 0)
+		if ($id > 0)
 		{
 			redirect('sites/confirm/'.$id);
 		}		
