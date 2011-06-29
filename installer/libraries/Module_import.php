@@ -2,7 +2,7 @@
 
 define('PYROPATH', dirname(FCPATH).'/system/pyrocms/');
 define('ADDONPATH', dirname(FCPATH).'/addons/default/');
-define('SHARED_ADDONPATH', dirname(FCPATH).'/shared_addons/');
+define('SHARED_ADDONPATH', dirname(FCPATH).'/addons/shared_addons/');
 
 // All modules talk to the Module class, best get that!
 include PYROPATH .'libraries/Module'.EXT;
