@@ -124,6 +124,19 @@ class Sites_m extends MY_Model {
 			// make sure there aren't orphaned folders from a previous install
 			if ($insert['ref'] != $site->ref)
 			{
+				$tables = $this->db->list_tables();
+				
+				// now rename the site's tables
+				foreach ($tables AS $table)
+				{
+					// only rename the table if it starts with our prefix
+					if (strpos($table, $site->ref.'_') === (int) 0)
+					{
+						$new_table = str_replace($site->ref.'_', $insert['ref'].'_', $table);
+						$this->db->query("RENAME TABLE {$table} TO {$new_table}");
+					}
+				}
+			
 				foreach ($this->locations AS $folder_check => $sub_folders)
 				{
 					if (is_dir($folder_check.'/'.$insert['ref']))
