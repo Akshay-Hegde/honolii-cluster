@@ -16,6 +16,7 @@ $lang['site.rename_notice']			=	'The following folders must be renamed manually:
 $lang['site.rename_manually']		=	'Rename %s to %s';
 $lang['site.create_manually']		=	'The following folders must be created manually: <br />%s';
 $lang['site.admin_create_success']	=	'%s is now a Super Admin';
+$lang['site.disable_self']			=	'You cannot disable yourself';
 
 //page titles
 $lang['site.create_site']			=	'Create A New Site';

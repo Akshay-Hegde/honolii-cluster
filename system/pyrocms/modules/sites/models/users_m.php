@@ -189,7 +189,7 @@ class Users_m extends MY_Model {
 	{
 		if (empty($email) OR empty($password)) return FALSE;
 		
-		$user = $this->select('email, username, password, salt')
+		$user = $this->select('id, email, username, password, salt')
 			->where('active', 1)
 			->limit(1)
 			->get_by('email', $email);
@@ -203,6 +203,7 @@ class Users_m extends MY_Model {
 		{
 			$session = array(
 				'super_email'		=> $user->email,
+				'super_id'			=> $user->id,
 				'super_username'	=> $user->username
 				 );
 	

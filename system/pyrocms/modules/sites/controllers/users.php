@@ -169,8 +169,14 @@ class Users extends Sites_Controller
 	 */
 	public function disable($id = 0)
 	{
-
-		$this->users_m->update($id, array('active' => 0));
+		if ($this->session->userdata('super_id') == $id)
+		{
+			$this->session->set_flashdata('notice', lang('site.disable_self'));
+		}
+		else
+		{
+			$this->users_m->update($id, array('active' => 0));
+		}
 
 		redirect('sites/users');
 	}
