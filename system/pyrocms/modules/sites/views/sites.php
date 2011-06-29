@@ -24,7 +24,7 @@
 			<tr>
 				<td><?php echo $site->name; ?></td>
 				<td><?php echo $site->ref; ?></td>
-				<td><?php echo $site->domain; ?></td>
+				<td><a target="_blank" href="http://<?php echo $site->domain; ?>"><?php echo $site->domain; ?></a></td>
 				<td><?php echo date($this->config->item('date_format'), $site->created_on); ?></td>
 				<td class="buttons">
 					<?php echo anchor('sites/edit/'.$site->id, 	lang('buttons.edit'), 'class="button"'); ?>
