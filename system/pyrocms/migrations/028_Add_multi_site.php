@@ -72,7 +72,7 @@ class Migration_Add_multi_site extends Migration {
 			$this->_move('uploads', 'uploads/' . $site_ref, $site_ref);
 			
 			// Create site specific addon folder and move them
-			$this->_move('addons', 'addons/' . SITE_SLUG, SITE_SLUG);
+			$this->_move('addons', 'addons/' . $site_ref, $site_ref);
 		}
 		
 		// Core users not set?
@@ -125,7 +125,7 @@ class Migration_Add_multi_site extends Migration {
 			
 			@mkdir($dest, 0777, TRUE);
 			
-			$skip = array('.', '..', $site_ref);
+			$skip = array('.', '..', $site_ref, 'shared_addons');
 			
 			if( sizeof($objects) > 0 )
 			{
