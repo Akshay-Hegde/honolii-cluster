@@ -27,6 +27,7 @@
 				<td><a target="_blank" href="http://<?php echo $site->domain; ?>"><?php echo $site->domain; ?></a></td>
 				<td><?php echo date($this->config->item('date_format'), $site->created_on); ?></td>
 				<td class="buttons">
+					<?php echo anchor('sites/stats/'.$site->id, lang('site.stats'), 'class="button modal"'); ?>
 					<?php echo anchor('sites/edit/'.$site->id, 	lang('buttons.edit'), 'class="button"'); ?>
 					<?php echo anchor('sites/delete/'.$site->id, 	lang('buttons.delete'), 'class="button confirm"
 									  title="'.lang('site.delete_site').'"'); ?>

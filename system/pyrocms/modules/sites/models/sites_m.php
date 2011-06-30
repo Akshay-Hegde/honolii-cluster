@@ -196,6 +196,64 @@ class Sites_m extends MY_Model {
 	}
 	
 	/**
+	 * Count database and file system usage for a site
+	 *
+	 * @param	string	$id The site id
+	 * @return	mixed	The site info
+	 */
+	public function get_stats($id)
+	{
+		// site specific table count
+		$i = 0;
+		
+		$site = $this->get($id);
+		
+		$tables = $this->db->list_tables();
+		
+		foreach ($tables AS $table)
+		{
+			if (strpos($table, $site->ref.'_') === (int) 0)
+			{
+				$i++;
+			}
+		}
+		
+		$site->tables = $i;
+		
+		// now get file system usage
+		$site->disk_usage = array();
+		foreach ($this->locations AS $location => $sub)
+		{
+			$size = 0;
+			
+			$folder = get_dir_file_info($location.'/'.$site->ref, FALSE);
+			
+			foreach ($folder AS $file)
+			{
+				$size = ($size + $file['size']);
+			}
+			$site->disk_usage[$location.'/'.$site->ref] = $size;
+		}
+		ksort($site->disk_usage);
+		
+		// get number of users
+		$this->db->set_dbprefix($site->ref.'_');
+		$site->users = $this->db->count_all('users');
+		
+		// get last login of an admin
+		$admin_login = $this->db->select_max('last_login')
+			->get('users')
+			->row();
+		$site->admin_login = $admin_login->last_login;
+		
+		// and schema version
+		$schema = $this->db->get('schema_version')->row();
+		$site->schema_version = $schema->version;
+		
+		return $site;
+	}
+	
+	/**
 	 * Create a new site's folder set
 	 *
 	 * return TRUE on success or array of failed folders

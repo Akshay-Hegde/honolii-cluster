@@ -42,6 +42,7 @@ class Sites_Controller extends CI_Controller {
 		// Load helpers
 		$this->load->helper('admin_theme');
 		$this->load->helper('file');
+		$this->load->helper('number');
 		
 		// And lastly configs
 		$this->load->config('sites/config');

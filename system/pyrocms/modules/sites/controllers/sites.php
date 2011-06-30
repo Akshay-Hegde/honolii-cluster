@@ -301,6 +301,19 @@ class Sites extends Sites_Controller
 		$this->template->build('confirm', $site);
 	}
 	
+	/**
+	 * Get a few stats about the site
+	 *
+	 * @param	string	$id	The site id to fetch stats for
+	 */
+	public function stats($id = 0)
+	{
+		$data->stats = $this->sites_m->get_stats($id);
+
+		$this->template->set_layout('modal')
+			->build('stats', $data);
+	}
+	
 	public function _valid_domain($url)
 	{
 		return preg_replace('([^a-z0-9._-]+)', '', $url);
