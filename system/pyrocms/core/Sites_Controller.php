@@ -44,9 +44,7 @@ class Sites_Controller extends CI_Controller {
 		$this->load->helper('admin_theme');
 		$this->load->helper('file');
 		$this->load->helper('number');
-		
-		// And lastly configs
-		$this->load->config('sites/config');
+		$this->load->helper('sites/date');
 
 		// Now set the db prefix
 		$this->db->set_dbprefix('core_');

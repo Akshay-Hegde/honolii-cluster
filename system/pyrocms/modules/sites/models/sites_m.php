@@ -228,9 +228,12 @@ class Sites_m extends MY_Model {
 			
 			$folder = get_dir_file_info($location.'/'.$site->ref, FALSE);
 			
-			foreach ($folder AS $file)
+			if (is_array($folder))
 			{
-				$size = ($size + $file['size']);
+				foreach ($folder AS $file)
+				{
+					$size = ($size + $file['size']);
+				}
 			}
 			$site->disk_usage[$location.'/'.$site->ref] = $size;
 		}

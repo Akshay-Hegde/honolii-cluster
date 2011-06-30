@@ -26,8 +26,8 @@
 				<td><?php echo $user->username; ?></td>
 				<td><?php echo $user->email; ?></td>
 				<td><?php echo $user->active == 1 ? lang('dialog.yes') : lang('dialog.no'); ?></td>
-				<td><?php echo date($this->settings->date_format, $user->created_on); ?></td>
-				<td><?php echo date($this->settings->date_format, $user->last_login); ?></td>
+				<td><?php echo format_date($user->created_on); ?></td>
+				<td><?php echo format_date($user->last_login); ?></td>
 				<td class="buttons">
 					<?php echo  anchor('sites/users/edit/'.$user->id, 		lang('buttons.edit'), 'class="button"'); ?>
 					<?php echo $user->active != 1 ?
