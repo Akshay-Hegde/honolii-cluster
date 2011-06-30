@@ -1,4 +1,4 @@
-<?php if ((isset($analytic_visits) OR isset($analytic_views)) AND $theme_options->analytics_graph == 'yes'): ?>
+<?php if ((isset($analytic_visits) OR isset($analytic_views)) AND $theme_options->x29_analytics_graph == 'yes'): ?>
 <script type="text/javascript">
 
 	jQuery(function($) {
@@ -72,7 +72,7 @@
 	
 	
 	<!-- Begin Recent Comments -->
-	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->recent_comments == 'yes'): ?>
+	<?php if (isset($recent_comments) AND is_array($recent_comments) AND $theme_options->x29_recent_comments == 'yes'): ?>
 		<section class="box unit size1of1">
 			<header>
 				<h3><?php echo lang('comments.recent_comments') ?></h3>
@@ -92,7 +92,7 @@
 
 
 	<!-- Begin Quick Links -->
-	<?php if ($theme_options->quick_links == 'yes'): ?>
+	<?php if ($theme_options->x29_quick_links == 'yes'): ?>
 	<div class="line">
 		<section class="box unit <?php echo isset($rss_items) ? 'size1of3' : 'size1of2'; ?>">
 			<header>
@@ -134,7 +134,7 @@
 
 
 		<!-- Begin RSS Feed -->
-		<?php if ( isset($rss_items) AND $theme_options->news_feed == 'yes') : ?>
+		<?php if ( isset($rss_items) AND $theme_options->x29_news_feed == 'yes') : ?>
 		<section class="box unit size2of3 lastUnit">
 			<header>
 				<h3><?php echo lang('cp_news_feed_title'); ?></h3>

@@ -69,32 +69,37 @@ class MX_Router extends CI_Router
 		if ( ! defined('SITE_REF'))
 		{
 			require_once BASEPATH.'database/DB'.EXT;
-	
-			$site = DB()->where('domain', SITE_SLUG)
-				->get('core_sites')
-				->row();
-				
-			$locations = array();
 			
-			// Check to see if the site retrieval was successful. If not then
-			// we will let MY_Controller handle the errors.
-			if (isset($site->ref))
+			if (DB()->table_exists('core_sites'))
 			{
-				foreach (config_item('modules_locations') AS $location => $offset)
+	
+					$site = DB()->where('domain', SITE_SLUG)
+					->get('core_sites')
+					->row();
+					
+				$locations = array();
+				
+				// Check to see if the site retrieval was successful. If not then
+				// we will let MY_Controller handle the errors.
+				if (isset($site->ref))
 				{
-					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
+					foreach (config_item('modules_locations') AS $location => $offset)
+					{
+						$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
+					}
+					
+					// The site ref. Used for building site specific paths
+					define('SITE_REF', $site->ref);
+					
+					// Path to uploaded files for this site
+					define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+					
+					// Path to the addon folder for this site
+					define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+					
+					Modules::$locations = $locations;
+					
 				}
-				
-				// The site ref. Used for building site specific paths
-				define('SITE_REF', $site->ref);
-				
-				// Path to uploaded files for this site
-				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
-				
-				// Path to the addon folder for this site
-				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-				
-				Modules::$locations = $locations;
 			}
 		}
 
