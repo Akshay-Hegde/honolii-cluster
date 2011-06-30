@@ -12,10 +12,6 @@ class Migration_Add_multi_site extends Migration {
 		
 		$existing_tables = $this->db->list_tables();
 		
-		// Take "philsturgeon" from "www.philsturgeon.co.uk" 
-		preg_match('/^((local|dev|qa|www)\.)?([a-z0-9-_]*)/i', $_SERVER['SERVER_NAME'], $matches);	
-		$site_ref = empty($matches[3]) ? 'default' : str_replace('-', '_', $matches[3]);
-		
 		// Add a settings table
 		if ( ! in_array('core_settings', $existing_tables))
 		{
@@ -57,22 +53,39 @@ class Migration_Add_multi_site extends Migration {
 			");
 			
 			$this->db->query("INSERT INTO core_sites (name, ref, domain, created_on) VALUES ('Default', ?, ?, ?);", array(
-				$site_ref,
+				'default',
 				SITE_SLUG,
 				time(),
 			));
 			
 			// create cache folder
-			$cache_path = APPPATH . 'cache/' . $site_ref . '/simplepie';
+			$cache_path = APPPATH . 'cache/default/simplepie';
 			is_dir($cache_path) OR mkdir($cache_path, 0777, TRUE);
 			$fh = fopen($cache_path . '/index.html', 'w');
 			fclose($fh);
 			
 			// Move uploads			
-			$this->_move('uploads', 'uploads/' . $site_ref, $site_ref);
+			$this->_move('uploads', 'uploads/default', 'default');
 			
 			// Create site specific addon folder and move them
-			$this->_move('addons', 'addons/' . $site_ref, $site_ref);
+			$this->_move('addons', 'addons/default', 'default');
+			
+			$this->load->helper('file');
+			
+			// create the site specific addon folder if it didn't get created yet
+			is_dir('addons/default/modules') OR mkdir('addons/default/modules', DIR_READ_MODE, TRUE);
+			is_dir('addons/default/themes') OR mkdir('addons/default/themes', DIR_READ_MODE, TRUE);
+			is_dir('addons/default/widgets') OR mkdir('addons/default/widgets', DIR_READ_MODE, TRUE);
+			
+			// create the site specific upload folder if it didn't get created yet
+			is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
+			
+			//insert empty html files
+			write_file('addons/default/modules/index.html');
+			write_file('addons/default/themes/index.html');
+			write_file('addons/default/widgets/index.html');
+			write_file(FCPATH.'uploads/index.html');
+		
 		}
 		
 		// Core users not set?
@@ -83,13 +96,13 @@ class Migration_Add_multi_site extends Migration {
 		
 			foreach ($existing_tables as $table)
 			{
-				$this->db->query("RENAME TABLE {$table} TO {$site_ref}_{$table}");
+				$this->db->query("RENAME TABLE {$table} TO default_{$table}");
 			}
 			
 			// since theme_options is added by a migration it is missing from $existing_tables array
 			if ( ! $this->db->table_exists('theme_options') )
 			{
-				$this->db->query("RENAME TABLE theme_options TO {$site_ref}_theme_options");
+				$this->db->query("RENAME TABLE theme_options TO default_theme_options");
 			}
 			
 			// we need this so that the rest of the migrations have site_ref available
@@ -101,17 +114,13 @@ class Migration_Add_multi_site extends Migration {
 	{
 		$this->db->query("DROP TABLE core_sites, core_users");
 		
-		// Take "philsturgeon" from "www.philsturgeon.co.uk" 
-		preg_match('/^((local|dev|qa|www)\.)?([a-z0-9-_]*)/i', $_SERVER['SERVER_NAME'], $matches);	
-		$site_ref = empty($matches[3]) ? 'default' : str_replace('-', '_', $matches[3]);
-		
 		foreach ($existing_tables as $table)
 		{
 			$this->db->query("RENAME TABLE _{$table} TO {$table}");
 		}
 		
-		rename('uploads/'.$site_ref.'/', 'uploads/');
-		unlink('uploads/'.$site_ref);
+		rename('uploads/default/', 'uploads/');
+		unlink('uploads/default');
 	}
 	
 	/**
