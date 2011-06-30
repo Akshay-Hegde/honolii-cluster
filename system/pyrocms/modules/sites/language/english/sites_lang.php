@@ -17,6 +17,7 @@ $lang['site.rename_manually']		=	'Rename %s to %s';
 $lang['site.create_manually']		=	'The following folders must be created manually: <br />%s';
 $lang['site.admin_create_success']	=	'%s is now a Super Admin';
 $lang['site.disable_self']			=	'You cannot disable yourself';
+$lang['site.settings_success']		=	'The settings were updated successfully';
 
 //page titles
 $lang['site.create_site']			=	'Create A New Site';
@@ -31,6 +32,7 @@ $lang['site.edit_site_desc']		=	'Edit and delete sites with a few clicks of your
 $lang['site.create_site_desc']		=	'Create a completely new site right from this interface';
 $lang['site.create_admin_desc']		=	'Manage additional Super-Admins who can create and delete sites';
 $lang['site.super_admin_list']		=	'A list of all current Super Admins';
+$lang['site.settings_desc']			=	'Manage settings for the Multi-Site Manager interface';
 
 
 //labels
@@ -57,3 +59,6 @@ $lang['site.usage']					=	'Usage';
 $lang['site.tables']				=	'Database tables:';
 $lang['site.users']					=	'Registered users:';
 $lang['site.schema_version']		=	'Database schema version:';
+$lang['site.settings']				=	'Settings';
+$lang['site.date_format']			=	'Date Format';
+$lang['site.lang_direction']		=	'Language Direction';

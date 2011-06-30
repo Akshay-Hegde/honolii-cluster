@@ -16,7 +16,7 @@
 			</tr>
 			<tr>
 				<td><?php echo lang('site.last_admin_login'); ?></td>
-				<td><?php echo date($this->config->item('date_format'), $stats->admin_login); ?></td>
+				<td><?php echo date($this->settings->date_format, $stats->admin_login); ?></td>
 			</tr>
 			<tr>
 				<td><?php echo lang('site.tables'); ?></td>

@@ -9,6 +9,12 @@
 ol.site { width: 49.5%; float: right; }
 ol.user { width: 49.5%; }
 
+/* Settings link */
+#settings a { margin-left: 20px; }
+
+/* Lang select background color fix */
+#lang-select select { background-color: #fff; }
+
 /* MOVE ME SOMEWHERE */
 
 .default-input-text {

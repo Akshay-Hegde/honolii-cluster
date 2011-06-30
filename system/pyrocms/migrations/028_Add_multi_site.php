@@ -16,6 +16,28 @@ class Migration_Add_multi_site extends Migration {
 		preg_match('/^((local|dev|qa|www)\.)?([a-z0-9-_]*)/i', $_SERVER['SERVER_NAME'], $matches);	
 		$site_ref = empty($matches[3]) ? 'default' : str_replace('-', '_', $matches[3]);
 		
+		// Add a settings table
+		if ( ! in_array('core_settings', $existing_tables))
+		{
+			$this->db->query("
+				CREATE TABLE core_settings(
+				`slug` varchar( 30 ) COLLATE utf8_unicode_ci NOT NULL ,
+				`value` varchar( 255 ) COLLATE utf8_unicode_ci NOT NULL ,
+				PRIMARY KEY ( `slug` ) ,
+				UNIQUE KEY `unique - slug` ( `slug` ) ,
+				KEY `index - slug` ( `slug` )
+				) ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_unicode_ci;							 
+			");
+			
+			$this->db->query("
+				INSERT INTO `core_settings` (`slug`, `value`) VALUES ('date_format', 'g:ia -- m/d/y');
+			");
+			
+			$this->db->query("
+				INSERT INTO `core_settings` (`slug`, `value`) VALUES ('lang_direction', 'ltr');
+			");
+		}
+		
 		// This migration will be run for each site, so this ensures it's only run once.
 		if ( ! in_array('core_sites', $existing_tables))
 		{

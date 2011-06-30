@@ -26,7 +26,7 @@
 	<span class="noscript">PyroCMS requires that JavaScript be turned on for many of the functions to work correctly. Please turn JavaScript on and reload the page.</span>
 </noscript>
 <div id="page-wrapper">
-	<section id="topbar" dir="<?php $this->config->item('lang_direction'); ?>">
+	<section id="topbar" dir="<?php echo $this->settings->lang_direction; ?>">
 <?php file_partial('header'); ?>
 <?php file_partial('navigation'); ?>
 		<div id="lang-select">
@@ -51,6 +51,7 @@
 			<section id="user-links">
 				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), $super_username); ?></span>
 				<?php echo anchor('sites/logout', lang('cp_logout_label')); ?>
+				<span id="settings"><?php echo anchor('sites/settings', lang('site.settings')); ?></span>
 			</section>
 
 		</header>

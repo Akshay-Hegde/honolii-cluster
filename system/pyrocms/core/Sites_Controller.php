@@ -30,6 +30,7 @@ class Sites_Controller extends CI_Controller {
 		// Load all the required classes
 		$this->load->model('sites_m');
 		$this->load->model('users_m');
+		$this->load->model('settings_m');
 		$this->load->library('form_validation');
 		$this->load->dbforge();
 		
@@ -50,6 +51,9 @@ class Sites_Controller extends CI_Controller {
 		// Now set the db prefix
 		$this->db->set_dbprefix('core_');
 		
+		// Fetch all settings
+		$this->settings = $this->settings_m->get_settings();
+
 		$this->asset->set_theme(ADMIN_THEME);
 		
 		// check to make sure they're logged in
