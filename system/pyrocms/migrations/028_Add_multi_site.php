@@ -12,7 +12,7 @@ class Migration_Add_multi_site extends Migration {
 		
 		$existing_tables = $this->db->list_tables();
 		
-		// Add a settings table
+		// This migration will be run for each site, so this check ensures that the following tables are only added once.
 		if ( ! in_array('core_settings', $existing_tables))
 		{
 			$this->db->query("
@@ -34,7 +34,7 @@ class Migration_Add_multi_site extends Migration {
 			");
 		}
 		
-		// This migration will be run for each site, so this ensures it's only run once.
+		// no core_users yet?
 		if ( ! in_array('core_sites', $existing_tables))
 		{
 			$this->db->query("
@@ -58,19 +58,16 @@ class Migration_Add_multi_site extends Migration {
 				time(),
 			));
 			
-			// create cache folder
-			$cache_path = APPPATH . 'cache/default/simplepie';
-			is_dir($cache_path) OR mkdir($cache_path, 0777, TRUE);
-			$fh = fopen($cache_path . '/index.html', 'w');
-			fclose($fh);
+			$this->load->helper('file');
+			
+			// create the site's cache folder
+			is_dir(APPPATH.'cache/default/simplepie') OR mkdir(APPPATH.'cache/default/simplepie', DIR_READ_MODE, TRUE);
 			
 			// Move uploads			
 			$this->_move('uploads', 'uploads/default', 'default');
 			
 			// Create site specific addon folder and move them
 			$this->_move('addons', 'addons/default', 'default');
-			
-			$this->load->helper('file');
 			
 			// create the site specific addon folder if it didn't get created yet
 			is_dir('addons/default/modules') OR mkdir('addons/default/modules', DIR_READ_MODE, TRUE);
@@ -81,6 +78,7 @@ class Migration_Add_multi_site extends Migration {
 			is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
 			
 			//insert empty html files
+			write_file(APPPATH.'cache/default/simplepie/index.html');
 			write_file('addons/default/modules/index.html');
 			write_file('addons/default/themes/index.html');
 			write_file('addons/default/widgets/index.html');
@@ -112,15 +110,22 @@ class Migration_Add_multi_site extends Migration {
 
 	public function down()
 	{
-		$this->db->query("DROP TABLE core_sites, core_users");
+		$this->db->query("DROP TABLE core_sites, core_users, core_settings");
 		
 		foreach ($existing_tables as $table)
 		{
 			$this->db->query("RENAME TABLE _{$table} TO {$table}");
 		}
 		
-		rename('uploads/default/', 'uploads/');
-		unlink('uploads/default');
+		if ($this->_move('uploads/default/', 'uploads/', NULL))
+		{
+			unlink('uploads/default');
+		}
+		
+		if ($this->_move('addons/default/', 'addons/', NULL))
+		{
+			unlink('addons/default');
+		}
 	}
 	
 	/**
