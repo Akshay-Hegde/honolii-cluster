@@ -1,6 +1,5 @@
 @import "reset.css";
 @import "text.css";
-@import "../common.css";
 @import "uniform.default.css";
 @import "forms.css";
 @import "buttons.css";
@@ -658,6 +657,7 @@ ul#login-footer li a:hover {
 /*	background-color: #efeff6; */
 	background-color: #fbfbfc;
 	width: 100%;
+	min-height: 150px;
 /*	min-width: 550px; */
 	float: left;
 	margin: 0 15px 25px 0;

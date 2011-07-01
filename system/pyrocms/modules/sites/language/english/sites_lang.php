@@ -27,6 +27,17 @@ $lang['site.sites']					=	'Multi-Site Manager';
 $lang['site.user_manager']			=	'Super Admin Manager';
 $lang['site.create_admin']			=	'Create Another Super Admin';
 $lang['site.edit_admin']			=	'Editing "%s"';
+$lang['site.module_list']			=	'Modules for %s';
+$lang['site.shared_module_list']	=	'Shared Modules';
+$lang['site.widget_list']			=	'Widgets for %s';
+$lang['site.shared_widget_list']	=	'Shared Widgets';
+$lang['site.theme_list']			=	'Themes for %s';
+$lang['site.shared_theme_list']		=	'Shared Themes';
+$lang['site.shared_plugin_list']	=	'Shared Plugins';
+$lang['site.modules']				=	'Modules';
+$lang['site.widgets']				=	'Widgets';
+$lang['site.themes']				=	'Themes';
+$lang['site.plugins']				=	'Plugins';
 
 //page descriptions
 $lang['site.edit_site_desc']		=	'Edit and delete sites with a few clicks of your mouse';
@@ -34,6 +45,7 @@ $lang['site.create_site_desc']		=	'Create a completely new site right from this 
 $lang['site.create_admin_desc']		=	'Manage additional Super-Admins who can create and delete sites';
 $lang['site.super_admin_list']		=	'A list of all current Super Admins';
 $lang['site.settings_desc']			=	'Manage settings for the Multi-Site Manager interface';
+$lang['site.manage_addons_desc']	=	'Manage site specific add-ons as well as shared add-ons';
 
 
 //labels
@@ -55,6 +67,7 @@ $lang['site.active']				=	'Active';
 $lang['site.last_login']			=	'Last Login';
 $lang['site.last_admin_login']		=	'Last Admin Login';
 $lang['site.stats']					=	'Stats';
+$lang['site.addons']				=	'Add-ons';
 $lang['site.resource']				=	'Resource';
 $lang['site.usage']					=	'Usage';
 $lang['site.tables']				=	'Database tables:';
@@ -63,3 +76,6 @@ $lang['site.schema_version']		=	'Database schema version:';
 $lang['site.settings']				=	'Settings';
 $lang['site.date_format']			=	'Date Format';
 $lang['site.lang_direction']		=	'Language Direction';
+$lang['site.shared_title']			=	'Upload a shared Add-on';
+$lang['site.site_upload_title']		=	'Upload an Add-on for this site only';
+$lang['site.upload_desc']			=	'Select a zip file to upload';
