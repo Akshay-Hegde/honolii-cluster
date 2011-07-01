@@ -59,11 +59,11 @@ class Users extends Sites_Controller
 		
 		if ($this->method == 'add')
 		{
-			$this->admin_validation_rules = array_merge($val_rules, $val_create);
+			$this->user_validation_rules = array_merge($val_rules, $val_create);
 		}
 		else
 		{
-			$this->admin_validation_rules = array_merge($val_rules, $val_edit);
+			$this->user_validation_rules = array_merge($val_rules, $val_edit);
 		}
 		
 		// login validation
@@ -100,20 +100,29 @@ class Users extends Sites_Controller
 	public function add()
 	{
 		// Set the validation rules
-		$this->form_validation->set_rules($this->admin_validation_rules);
+		$this->form_validation->set_rules($this->user_validation_rules);
 		
 		if($this->form_validation->run())
 		{
-			if ($this->users_m->add_admin($this->input->post()))
+			// check if this email is already registered
+			if ($this->users_m->get_by('email', $this->input->post('email')))
+			{
+				$data->{'messages'}['error'] = sprintf(lang('site.user_exists'), $this->input->post('email'));
+			}
+			// did it work?
+			elseif ($this->users_m->add_admin($this->input->post()))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('site.admin_create_success'), $_POST['username']));
 				redirect('sites/users');
 			}
-			$this->session->set_flashdata('error', lang('site.db_error'));
-			redirect('sites/users');
+			// no it didn't :'(
+			else
+			{
+				$this->session->set_flashdata('error', lang('site.db_error'));
+			}
 		}
-		
-		foreach ($this->admin_validation_rules AS $rule)
+
+		foreach ($this->user_validation_rules AS $rule)
 		{
 			$data->{$rule['field']} = set_value($rule['field']);
 		}
@@ -134,7 +143,7 @@ class Users extends Sites_Controller
 		$data->confirm_password	= '';
 		
 		// Set the validation rules
-		$this->form_validation->set_rules($this->admin_validation_rules);
+		$this->form_validation->set_rules($this->user_validation_rules);
 		
 		if($this->form_validation->run())
 		{
@@ -154,7 +163,7 @@ class Users extends Sites_Controller
 	}
 	
 	/**
-	 * Enable an existing user
+	 * Enable an existing super admin
 	 */
 	public function enable($id = 0)
 	{
@@ -165,7 +174,7 @@ class Users extends Sites_Controller
 	}
 
 	/**
-	 * Disable an existing user
+	 * Disable an existing super admin
 	 */
 	public function disable($id = 0)
 	{
@@ -185,8 +194,7 @@ class Users extends Sites_Controller
 	 * Delete a user from core_users
 	 */
 	public function delete($id = 0)
-	{
-		
+	{	
 		$this->users_m->delete($id);
 		
 		redirect('sites/users');

@@ -45,8 +45,7 @@ class Sites_m extends MY_Model {
 	 */
 	public function create_site($input)
 	{
-		$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
-		$password	= sha1($input['password'] . $user_salt);
+		$hash = $this->users_m->_hash_password($input['password']);
 		
 		$insert = array('name'		=>	$input['name'],
 						'ref'		=>	$input['ref'],
@@ -58,8 +57,8 @@ class Sites_m extends MY_Model {
 					  'first_name'		=>	$input['first_name'],
 					  'last_name'		=>	$input['last_name'],
 					  'email'			=>	$input['email'],
-					  'password'		=>	$password,
-					  'salt'			=>	$user_salt
+					  'password'		=>	$hash->password,
+					  'salt'			=>	$hash->user_salt
 					  );
 				
 		if ($this->insert($insert))
@@ -70,6 +69,7 @@ class Sites_m extends MY_Model {
 				$this->db->set_dbprefix($insert['ref'].'_');
 				if ($this->module_import->import_all())
 				{
+					// we have to add schema_version so migrations don't start over
 					$this->dbforge->add_field(array(
 						'version' => array('type' => 'INT', 'constraint' => 3),
 					));
@@ -108,13 +108,12 @@ class Sites_m extends MY_Model {
 					  'last_name'	=>	$input['last_name']
 		);
 		
-		if($input['password'] > '')
+		if($input['password'] > '' AND strlen($input['password']) > 3)
 		{
-			$user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
-			$password	= sha1($input['password'] . $user_salt);
-		
-			$user['password'] 	= $password;
-			$user['salt']		= $user_salt;
+			$hash = $this->users_m->_hash_password($input['password']);
+			
+			$user['password'] 	= $hash->password;
+			$user['salt']		= $hash->user_salt;
 		}
 		
 		if ($this->update($input['id'], $insert) AND

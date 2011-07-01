@@ -19,6 +19,10 @@ function format_date($unix, $format = '')
 	{
 		$unix = strtotime($unix);
 	}
+	elseif($unix == 0)
+	{
+		return '';
+	}
 
 	if ( ! $format)
 	{

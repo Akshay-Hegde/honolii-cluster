@@ -14,30 +14,47 @@ class Users_m extends MY_Model {
 		parent::__construct();
 	}
 	
+	/**
+	 * Add a Super Admin
+	 *
+	 * @param	array	$user	The form data for the user
+	 * @return	bool
+	 */
 	public function add_admin($user)
 	{
 		$hash = $this->_hash_password($user['password']);
 		
-		$insert = array('username'		=>	$user['username'],
+		// we must set the id manually because ion_auth does not use auto-increment
+		$query = $this->db->select_max('id')
+			->get($this->_table)
+			->row();
+
+		$insert = array('id'			=>	++$query->id,
+						'username'		=>	$user['username'],
 						'group_id'		=>	1,
 						'active'		=>	1,
 						'created_on'	=>	time(),
-						'last_login'	=>	time(),
+						'last_login'	=>	0,
 						'email'			=>	$user['email'],
 						'password'		=>	$hash->password,
 						'salt'			=>	$hash->user_salt
 						);
 		
-		return $this->insert($insert);
+		return $this->db->insert($this->_table, $insert);
 	}
 	
+	/**
+	 * Edit and existing Super
+	 *
+	 * @param	array	$user	Form data for the user
+	 * @return	bool
+	 */
 	public function edit_admin($user)
 	{
 		$insert = array('username'		=>	$user['username'],
 						'group_id'		=>	1,
 						'active'		=>	1,
-						'created_on'	=>	time(),
-						'last_login'	=>	time(),
+						'last_login'	=>	0,
 						'email'			=>	$user['email']
 						);
 
@@ -52,6 +69,12 @@ class Users_m extends MY_Model {
 		return $this->update($user['id'], $insert);
 	}
 	
+	/**
+	 * Creates the first core_user when the site is being installed
+	 *
+	 * @param	array	$user
+	 * @return	bool
+	 */
 	public function create_default_user($user)
 	{
 		$users = "CREATE TABLE IF NOT EXISTS " . $this->db->dbprefix('users') . " (
@@ -73,8 +96,15 @@ class Users_m extends MY_Model {
 		) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Registered User Information';
 		";
 
-		$user_data = "INSERT INTO " . $this->db->dbprefix('users') . " (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-			(1,'".$user['email']."', '".$user['password']."', '".$user['salt']."', 1, '', 1, '', ".time().", ".time().", '".$user['username']."', NULL, NULL); ";
+		$user_data = sprintf("INSERT INTO " . $this->db->dbprefix('users') . " (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
+			(1,'%s', '%s', '%s', 1, '', 1, '', %s, %s, '%s', NULL, NULL); ",
+			$user['email'],
+			$user['password'],
+			$user['salt'],
+			time(),
+			time(),
+			$user['username']
+			);
 
 
 		$profiles = "CREATE TABLE " . $this->db->dbprefix('profiles') . " (
@@ -107,8 +137,12 @@ class Users_m extends MY_Model {
 		) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci ;
 		";
 
-		$profile_data = "INSERT INTO " . $this->db->dbprefix('profiles') . " (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
-			(1, 1, '".$user['first_name']."', '".$user['last_name']."', '".$user['first_name'].' '.$user['last_name']."', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL); ";
+		$profile_data = sprintf("INSERT INTO " . $this->db->dbprefix('profiles') . " (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
+			(1, 1, '%s', '%s', '%s', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL); ",
+			$user['first_name'],
+			$user['last_name'],
+			$user['first_name'].' '.$user['last_name']
+			);
 		
 		if($this->db->query($users) AND
 		   $this->db->query($user_data) AND
@@ -161,7 +195,7 @@ class Users_m extends MY_Model {
 						);
 		
 		// if they've supplied a new password then we'll insert that
-		if (isset($user['password']) AND strlen($user['password']) > 3)
+		if (isset($user['password']))
 		{
 			$sql .= sprintf(", u.password = '%s', u.salt = '%s' ",
 							$user['password'],
@@ -242,13 +276,13 @@ class Users_m extends MY_Model {
 	
 	/**
 	 * Hash the password either with a generated salt
-	 * of with the salt that was passed.
+	 * or with the salt that was passed.
 	 *
 	 * @param	string	$pass
 	 * @param	string	$salt
 	 * @param
 	 */
-	private function _hash_password($pass, $salt = FALSE)
+	public function _hash_password($pass, $salt = FALSE)
 	{
 		$hash->user_salt	= substr(md5(uniqid(rand(), true)), 0, 5);
 		
