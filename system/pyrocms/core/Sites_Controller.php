@@ -7,6 +7,12 @@ class Sites_Controller extends CI_Controller {
 	{
 		parent::__construct();
 		
+		// First off set the db prefix
+		$this->db->set_dbprefix('core_');
+		
+		// make sure they've ran the installer before trying to view our shiny panel
+		if ( ! $this->db->table_exists('sites')) redirect('installer');
+		
 		define('ADMIN_THEME', 'sites');
 		
 		//define folders that we need to create for each new site
@@ -45,9 +51,6 @@ class Sites_Controller extends CI_Controller {
 		$this->load->helper('file');
 		$this->load->helper('number');
 		$this->load->helper('sites/date');
-
-		// Now set the db prefix
-		$this->db->set_dbprefix('core_');
 		
 		// Fetch all settings
 		$this->settings = $this->settings_m->get_settings();
