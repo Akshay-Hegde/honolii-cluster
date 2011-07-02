@@ -19,6 +19,23 @@ $lang['site.admin_create_success']	=	'%s is now a Super Admin';
 $lang['site.user_exists']			=	'Sorry, the email "%s" is already registered';
 $lang['site.disable_self']			=	'You cannot disable yourself';
 $lang['site.settings_success']		=	'The settings were updated successfully';
+//addon management messages
+$lang['site.addon_exists']			=	'"%s" already exists. You must remove it before re-uploading';
+$lang['site.uninstall_success']		=	'"%s" has been uninstalled successfully';
+$lang['site.uninstall_error']		=	'"%s" could not be uninstalled';
+$lang['site.addon_not_specified']	=	'You must specify an addon to delete';
+$lang['site.delete_success']		=	'"%s" has been deleted successfully';
+$lang['site.manually_remove']		=	'The Add-on could not be completely removed. You must manually remove "%s"';
+$lang['site.delete_addon_error']	=	'"%s" could not be deleted';
+$lang['site.install_success']		=	'"%s" was installed successfully';
+$lang['site.install_error']			=	'"%s" could not be installed';
+$lang['site.enable_success']		=	'"%s" was enabled successfully';
+$lang['site.enable_error']			=	'"%s" could not be enabled';
+$lang['site.disable_success']		=	'"%s" was disabled successfully';
+$lang['site.disable_error']			=	'"%s" could not be disabled';
+$lang['site.upgrade_success']		=	'"%s" was upgraded successfully';
+$lang['site.upgrade_error']			=	'"%s" could not be upgraded';
+
 
 //page titles
 $lang['site.create_site']			=	'Create A New Site';
