@@ -123,8 +123,10 @@ jQuery(function($) {
 		});
 
 		$('.tabs').livequery(function () {
-			$(this).tabs();
-		});
+			$(this).tabs({
+				cookie: { expires: 1 }
+			});
+		});		
 		$('#tabs').livequery(function () {
 			$(this).tabs({
 				// This allows for the Back button to work.

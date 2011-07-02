@@ -73,6 +73,7 @@ class Sites_Controller extends CI_Controller {
 		// Template configuration
 		$this->template
 				->append_metadata(css('common.css'))
+				->append_metadata(js('jquery/jquery.cooki.js'))
 				->enable_parser(FALSE)
 				->set('super_username', $this->session->userdata('super_username'))
 				->set_theme(ADMIN_THEME)
