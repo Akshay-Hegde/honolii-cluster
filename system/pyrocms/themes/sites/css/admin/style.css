@@ -657,7 +657,7 @@ ul#login-footer li a:hover {
 /*	background-color: #efeff6; */
 	background-color: #fbfbfc;
 	width: 100%;
-	min-height: 150px;
+	min-height: 160px;
 /*	min-width: 550px; */
 	float: left;
 	margin: 0 15px 25px 0;
@@ -675,9 +675,20 @@ ul#login-footer li a:hover {
 .box header {
 	border-bottom: 1px solid #ccc;
 	cursor: pointer;
+	min-height: 55px;
 }
 .box header h3 {
 	margin-bottom: 0;
+}
+.box header h3.addons-header {
+	width: 50%;
+	float: left;
+	padding-top: 10px;
+}
+.box header .buttons {
+	width: 50%;
+	float: right;
+	padding-top: 10px;
 }
 .box header.open {
 	background-color: #fff;

@@ -302,20 +302,23 @@ class Addons extends Sites_Controller
 	 */
 	private function _delete_recursive($str)
 	{
-        if (is_file($str))
-		{
-            return @unlink($str);
-        }
-		elseif (is_dir($str))
-		{
-            $scan = glob(rtrim($str,'/').'/*');
+		$skip = array('.', '..');
+		$scan = scandir($str);
 
-			foreach($scan as $index => $path)
+		foreach($scan AS $item)
+		{
+			if ( ! in_array($item, $skip))
 			{
-                $this->_delete_recursive($path);
-            }
-
-            return @rmdir($str);
+				if (is_file($str.'/'.$item))
+				{
+					@unlink($str.'/'.$item);
+				}
+				elseif (is_dir($str.'/'.$item))
+				{
+					$this->_delete_recursive($str.'/'.$item);
+				}
+			}
         }
+		@rmdir($str);
     }
 }

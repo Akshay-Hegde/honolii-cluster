@@ -13,7 +13,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo sprintf(lang('site.module_list'), $site->name);?></h3>
+				<h3 class="addons-header"><?php echo sprintf(lang('site.module_list'), $site->name);?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/module/0/0', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -32,7 +32,7 @@
 					<?php foreach($modules AS $module): ?>
 					<?php if ($module['shared']) continue; ?>
 						<tr>
-							<td>
+							<td class="<?php echo alternator('', 'even'); ?>">
 								<?php if (is_array($module['info']['name']) AND isset($module['info']['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $module['info']['name'][CURRENT_LANGUAGE]; ?>
 								<?php elseif (is_array($module['info']['name']) AND isset($module['info']['name'][config_item('default_language')])): ?>
@@ -80,7 +80,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo lang('site.shared_module_list');?></h3>
+				<h3 class="addons-header"><?php echo lang('site.shared_module_list');?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/module/0/1', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -99,7 +99,7 @@
 					<?php foreach($modules AS $module): ?>
 					<?php if ( ! $module['shared']) continue; ?>
 						<tr>
-							<td>
+							<td class="<?php echo alternator('', 'even'); ?>">
 								<?php if (is_array($module['info']['name']) AND isset($module['info']['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $module['info']['name'][CURRENT_LANGUAGE]; ?>
 								<?php elseif (is_array($module['info']['name']) AND isset($module['info']['name'][config_item('default_language')])): ?>
@@ -149,7 +149,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo sprintf(lang('site.widget_list'), $site->name);?></h3>
+				<h3 class="addons-header"><?php echo sprintf(lang('site.widget_list'), $site->name);?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/widget/0/0', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -168,7 +168,7 @@
 					<?php foreach($widgets AS $widget): ?>
 					<?php if ($widget['shared']) continue; ?>
 						<tr>
-							<td>
+							<td class="<?php echo alternator('', 'even'); ?>">
 								<?php if (is_array($widget['title']) AND isset($widget['title'][CURRENT_LANGUAGE])): ?>
 									<?php echo $widget['title'][CURRENT_LANGUAGE]; ?>
 								<?php elseif (is_array($widget['title']) AND isset($widget['title'][config_item('default_language')])): ?>
@@ -207,7 +207,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo sprintf(lang('site.shared_widget_list'), $site->name);?></h3>
+				<h3 class="addons-header"><?php echo sprintf(lang('site.shared_widget_list'), $site->name);?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/widget/0/1', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -226,7 +226,7 @@
 					<?php foreach($widgets AS $widget): ?>
 					<?php if ( ! $widget['shared']) continue; ?>
 						<tr>
-							<td>
+							<td class="<?php echo alternator('', 'even'); ?>">
 								<?php if (is_array($widget['title']) AND isset($widget['title'][CURRENT_LANGUAGE])): ?>
 									<?php echo $widget['title'][CURRENT_LANGUAGE]; ?>
 								<?php elseif (is_array($widget['title']) AND isset($widget['title'][config_item('default_language')])): ?>
@@ -267,7 +267,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo sprintf(lang('site.theme_list'), $site->name);?></h3>
+				<h3 class="addons-header"><?php echo sprintf(lang('site.theme_list'), $site->name);?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/theme/0/0', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -286,7 +286,7 @@
 					<?php foreach($themes AS $theme): ?>
 					<?php if ($theme['shared']) continue; ?>
 						<tr>
-							<td>
+							<td class="<?php echo alternator('', 'even'); ?>">
 								<?php if (is_array($theme['name']) AND isset($theme['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $theme['name'][CURRENT_LANGUAGE]; ?>
 								<?php elseif (is_array($theme['name']) AND isset($theme['name'][config_item('default_language')])): ?>
@@ -319,7 +319,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo sprintf(lang('site.shared_theme_list'), $site->name);?></h3>
+				<h3 class="addons-header"><?php echo sprintf(lang('site.shared_theme_list'), $site->name);?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/theme/0/1', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -338,7 +338,7 @@
 					<?php foreach($themes AS $theme): ?>
 					<?php if ( ! $theme['shared']) continue; ?>
 						<tr>
-							<td>
+							<td class="<?php echo alternator('', 'even'); ?>">
 								<?php if (is_array($theme['name']) AND isset($theme['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $theme['name'][CURRENT_LANGUAGE]; ?>
 								<?php elseif (is_array($theme['name']) AND isset($theme['name'][config_item('default_language')])): ?>
@@ -373,7 +373,7 @@
 		<section class="box float-none">
 		
 			<header>
-				<h3><?php echo sprintf(lang('site.shared_plugin_list'), $site->name);?></h3>
+				<h3 class="addons-header"><?php echo sprintf(lang('site.shared_plugin_list'), $site->name);?></h3>
 				<div class="buttons align-right">
 					<?php echo anchor('sites/addons/upload/'.$this->ref.'/plugin/0/1', lang('upload_label'), 'class="button modal"'); ?>
 				</div>
@@ -390,7 +390,7 @@
 					<?php foreach($plugins AS $plugin): ?>
 					<?php if ( ! $plugin['shared']) continue; ?>
 						<tr>
-							<td><?php echo $plugin['name']; ?></td>
+							<td class="<?php echo alternator('', 'even'); ?>"><?php echo $plugin['name']; ?></td>
 							<td class="align-center buttons">
 								<?php echo anchor('sites/addons/delete/' . $site->ref . '/plugin/' . $plugin['slug'] . '/1', lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('plugins.confirm_delete'))); ?>
 							</td>
