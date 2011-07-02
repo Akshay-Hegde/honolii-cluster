@@ -298,7 +298,8 @@ class Sites extends Sites_Controller
 				$data->messages['error'] = lang('site.delete_error');
 			}
 		}
-		$this->template->build('confirm', $site);
+		$this->template->set_layout('modal')
+			->build('confirm', $site);
 	}
 	
 	/**

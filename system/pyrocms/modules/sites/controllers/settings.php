@@ -43,15 +43,16 @@ class Settings extends Sites_Controller
 			if ($this->settings_m->update_settings($this->input->post()))
 			{
 				$this->session->set_flashdata('success', lang('site.settings_success'));
-				redirect('sites/settings');
+				redirect('sites');
 			}
 			$this->session->set_flashdata('error', lang('site.db_error'));
-			redirect('sites/settings');
+			redirect('sites');
 		}
 
 		// Load the view
-		$this->template->title(lang('site.sites'), lang('site.settings'))
-						->set('description', lang('site.settings_desc'))
-						->build('settings', $data);
+		$this->template->set_layout('modal')
+			->title(lang('site.sites'), lang('site.settings'))
+			->set('description', lang('site.settings_desc'))
+			->build('settings', $data);
 	}
 }

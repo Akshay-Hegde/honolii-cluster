@@ -51,7 +51,7 @@
 			<section id="user-links">
 				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), $super_username); ?></span>
 				<?php echo anchor('sites/logout', lang('cp_logout_label')); ?>
-				<span id="settings"><?php echo anchor('sites/settings', lang('site.settings')); ?></span>
+				<span id="settings"><?php echo anchor('sites/settings', lang('site.settings'), 'class="modal"'); ?></span>
 			</section>
 
 		</header>

@@ -11,8 +11,8 @@
 			</li>
 		<?php endforeach; ?>
 		
-		<div class="buttons float-right padding-top">
-			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
+		<div class="buttons float-right padding-top padding-right">
+			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		</div>
 		
 	</div>

@@ -1,8 +1,7 @@
 <?php
 //messages
 $lang['site.not_super_admin']		=	'You are not a Super Admin.';
-$lang['site.delete_site']			=	'You are deleting an entire site!!! It cannot be undone!';
-$lang['site.really_delete']			=	'We really mean it. If you click this button the "%s" website will be entirely deleted.';
+$lang['site.really_delete']			=	'Are you sure? If you click this button "%s" will be deleted in its entirety. This cannot be undone.';
 $lang['site.exists']				=	'The Site Domain must be unique. A site is already registered with the domain "%s"';
 $lang['site.site_deleted']			=	'The site has been deleted successfully.';
 $lang['site.site_delete_error']		=	'The site\'s files could not be deleted. You will have to remove these files manually %s';
