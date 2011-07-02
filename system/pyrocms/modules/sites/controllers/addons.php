@@ -105,6 +105,10 @@ class Addons extends Sites_Controller
 					{
 						$this->session->set_flashdata('error', $this->unzip->error_string());
 					}
+					else
+					{
+						$this->session->set_flashdata('success', sprintf(lang('site.upload_success'), $this->type));
+					}
 				}
 
 				// Delete uploaded file
