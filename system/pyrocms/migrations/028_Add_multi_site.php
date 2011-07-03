@@ -78,11 +78,11 @@ class Migration_Add_multi_site extends Migration {
 			is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
 			
 			//insert empty html files
-			write_file(APPPATH.'cache/default/simplepie/index.html');
-			write_file('addons/default/modules/index.html');
-			write_file('addons/default/themes/index.html');
-			write_file('addons/default/widgets/index.html');
-			write_file(FCPATH.'uploads/index.html');
+			write_file(APPPATH.'cache/default/simplepie/index.html','');
+			write_file('addons/default/modules/index.html','');
+			write_file('addons/default/themes/index.html','');
+			write_file('addons/default/widgets/index.html','');
+			write_file(FCPATH.'uploads/index.html','');
 		
 		}
 		

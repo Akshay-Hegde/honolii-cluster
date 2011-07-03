@@ -236,7 +236,7 @@ else
  	// Path to the system folder
 	define('BASEPATH', str_replace("\\", "/", $system_path));
 	
-	// The site slug: (example.com) Used for site specific folder names
+	// The site slug: (example.com)
 	define('SITE_SLUG', preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
 
  	// This only allows you to change the name. ADDONPATH should still be used in the app

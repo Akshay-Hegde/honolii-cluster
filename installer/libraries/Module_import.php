@@ -40,10 +40,10 @@ class Module_import {
 		is_dir(FCPATH.'uploads/default') OR mkdir(FCPATH.'uploads/default', DIR_WRITE_MODE, TRUE);
 		
 		//insert empty html files
-		write_file(ADDONPATH.'modules/index.html');
-		write_file(ADDONPATH.'themes/index.html');
-		write_file(ADDONPATH.'widgets/index.html');
-		write_file(FCPATH.'uploads/index.html');
+		write_file(ADDONPATH.'modules/index.html','');
+		write_file(ADDONPATH.'themes/index.html','');
+		write_file(ADDONPATH.'widgets/index.html','');
+		write_file(FCPATH.'uploads/index.html','');
 	}
 
 
