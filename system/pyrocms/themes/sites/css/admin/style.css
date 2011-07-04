@@ -99,13 +99,13 @@ body {
 	overflow-x: hidden;
 }
 body#login {
-	background-image: url(../../img/admin/body-bg.jpg);
+	background-image: url(../../img/admin/body-bg.png);
 	background-repeat: repeat;
 }
 
 /* Wrap body with a border */
 #top, #bottom, #left, #right {
-	background: #202327;
+	background: #dacdbe;
 	position: fixed;
 }
 #left, #right {
@@ -497,11 +497,11 @@ a.add-icon {
 }
 
 body#login #login-box {
-	background-color: #d1d5db;
+	background-color: #e0e0e0;
 	background-image: url('../../img/admin/login-bg.jpg');
 	background-repeat: repeat-x;
 	border: 1px solid #ffffff;
-	outline: 5px solid #202327;
+	outline: 5px solid #738891;
 	-moz-outline-radius: 5px;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
