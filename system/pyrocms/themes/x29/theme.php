@@ -51,9 +51,9 @@ class Theme_X29 extends Theme {
 		if ($this->module == '')
 		{
 			// don't bother fetching the data if it's turned off in the theme
-			if ($this->theme_options->analytics_graph == 'yes')		self::get_analytics();
-			if ($this->theme_options->news_feed == 'yes')			self::get_rss_feed();
-			if ($this->theme_options->recent_comments == 'yes')		self::get_recent_comments();
+			if ($this->theme_options->x29_analytics_graph == 'yes')		self::get_analytics();
+			if ($this->theme_options->x29_news_feed == 'yes')			self::get_rss_feed();
+			if ($this->theme_options->x29_recent_comments == 'yes')		self::get_recent_comments();
 		}
 	}
 	
