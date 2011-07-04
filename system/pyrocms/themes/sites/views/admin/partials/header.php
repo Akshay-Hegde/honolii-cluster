@@ -1,5 +1,5 @@
 		<header id="main">
 			<div id="logo">
-				<h1><?php echo lang('site.sites'); ?></h1>
+				<h1><a href="sites"><?php echo lang('site.sites'); ?></a></h1>
 			</div>
 		</header>
