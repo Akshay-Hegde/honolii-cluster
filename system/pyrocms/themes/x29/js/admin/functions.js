@@ -8,11 +8,29 @@ var pyro = {};
 jQuery(function($) {
 
 	/**
+	 * Overload the json converter to avoid error when json is null or empty.
+	 */
+	$.ajaxSetup({
+		//allowEmpty: true,
+		converters: {
+			'text json': function(text) {
+				var json = jQuery.parseJSON(text);
+				if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json)))
+				{
+					jQuery.error('The server is not responding correctly, please try again later.');
+				}
+				return json;
+			}
+		}
+	});
+
+	/**
 	 * This initializes all JS goodness
 	 */
 	pyro.init = function() {
+
 		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-		
+
 		$("#main-nav li a.top-link").click(function () {
 			if($(this).hasClass("no-submenu"))
 			{
@@ -195,6 +213,10 @@ jQuery(function($) {
 		return pyro;
 	};
 
+	$(document).ajaxError(function(e, jqxhr, settings, exception) {
+		pyro.add_notification($('<div class="closable notification error">'+exception+'</div>'));
+	});
+
 	$(document).ready(function() {
 		pyro.init();
 	});
@@ -213,8 +235,8 @@ function html_editor(id, width)
 	    height: "30em",
 	    width: width,
 	    parserfile: ["parsejavascript.js","parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
-	    stylesheet: [APPPATH_URI + "assets/css/codemirror/xmlcolors.css", APPPATH_URI + "assets/css/codemirror/csscolors.css"],
-	    path: APPPATH_URI + "assets/js/codemirror/",
+	    stylesheet: [pyro.admin_theme_url + "/css/codemirror/xmlcolors.css", pyro.admin_theme_url + "/css/codemirror/csscolors.css"],
+	    path: pyro.admin_theme_url,
 	    tabMode: 'spaces'
 	});
 }
@@ -225,8 +247,8 @@ function css_editor(id, width)
 	    height: "30em",
 	    width: width,
 	    parserfile: "parsecss.js",
-	    stylesheet: APPPATH_URI + "assets/css/codemirror/csscolors.css",
-	    path: APPPATH_URI + "assets/js/codemirror/"
+	    stylesheet: pyro.admin_theme_url + "/css/codemirror/csscolors.css",
+	    path: pyro.admin_theme_url
 	});
 }
 
@@ -236,8 +258,8 @@ function js_editor(id, width)
 	    height: "30em",
 	    width: width,
 	    parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
-	    stylesheet: APPPATH_URI + "assets/css/codemirror/jscolors.css",
-	    path: APPPATH_URI + "assets/js/codemirror/"
+	    stylesheet: pyro.admin_theme_url + "/css/codemirror/jscolors.css",
+	    path: pyro.admin_theme_url
 	});
 }
 
