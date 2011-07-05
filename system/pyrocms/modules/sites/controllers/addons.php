@@ -98,7 +98,7 @@ class Addons extends Sites_Controller
 				{
 					// Now try to unzip
 					$this->load->library('unzip');
-					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
+					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php', 'txt', 'eot', 'svg', 'ttf', 'woff'));
 
 					// Try and extract
 					if ( ! is_string($this->slug = $this->unzip->extract($upload_data['full_path'], $path.$this->type.'s', TRUE, TRUE)) )

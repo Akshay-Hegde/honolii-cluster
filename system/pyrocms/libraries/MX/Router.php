@@ -101,6 +101,14 @@ class MX_Router extends CI_Router
 					
 				}
 			}
+			else
+			{
+				// this is used when a user has purchased Premium and is migrating an existing site from v1.2
+				// The free version has these defined in index.php
+				define('SITE_REF', 'default');
+				define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+			}
 		}
 
 
