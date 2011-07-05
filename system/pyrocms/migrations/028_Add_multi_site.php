@@ -4,6 +4,14 @@ class Migration_Add_multi_site extends Migration {
 
 	public function up()
 	{
+		if ( ! defined('SITE_REF'))
+		{
+			// this is used when migrating from v1.2.0 to non-free v1.3.0
+			define('SITE_REF', 'default');
+			define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+			define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+		}
+
 		// If run via the command line and cannot emulate a HTTP request, bitch and fail
 		if (empty($_SERVER['SERVER_NAME']) and ! file_get_contents(site_url()))
 		{
