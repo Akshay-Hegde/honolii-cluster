@@ -5,7 +5,7 @@
 	<!-- Always force latest IE rendering engine & Chrome Frame -->
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-	<title><?php echo lang('cp_admin_title').' - '.$template['title'];?></title>
+	<title><?php echo $template['title']; ?></title>
 	
 	<base href="<?php echo base_url(); ?>" />
 	
