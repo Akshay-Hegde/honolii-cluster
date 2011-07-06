@@ -50,7 +50,7 @@ class Addons extends Sites_Controller
 			$data->plugins 	= $this->addons_m->index_plugins($data->site->ref);
 		}
 
-		$this->template->title(lang('site.sites'))
+		$this->template->title(lang('site.sites'), lang('site.addons'))
 						->set('description', lang('site.manage_addons_desc'))
 						->build('addons', $data);
 	}
