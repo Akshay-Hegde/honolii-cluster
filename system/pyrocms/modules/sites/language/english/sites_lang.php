@@ -20,6 +20,7 @@ $lang['site.disable_self']			=	'You cannot disable yourself';
 $lang['site.settings_success']		=	'The settings were updated successfully';
 //addon management messages
 $lang['site.addon_exists']			=	'"%s" already exists. You must remove it before re-uploading';
+$lang['site.addon_duplicate']		=	'"%s" exists in both the site specific folder and the shared folder. One must be removed';
 $lang['site.uninstall_success']		=	'"%s" has been uninstalled successfully';
 $lang['site.uninstall_error']		=	'"%s" could not be uninstalled';
 $lang['site.addon_not_specified']	=	'You must specify an addon to delete';

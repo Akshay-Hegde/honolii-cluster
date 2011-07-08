@@ -77,7 +77,7 @@ class Addons extends Sites_Controller
 		if ($this->input->post('btnAction') == 'upload')
 		{
 			
-			$config['upload_path'] 		= UPLOAD_PATH;
+			$config['upload_path'] 		= FCPATH.'uploads/'.$this->ref;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
 			$config['overwrite'] 		= TRUE;

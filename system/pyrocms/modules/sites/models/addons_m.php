@@ -445,8 +445,15 @@ class Addons_m extends MY_Model
 		}
 		
 		$details_file = $path . $type . 's/' . $slug . '/' . $file.EXT;
+		
+		// Check to make sure some loon didn't ftp the same addon to both addons & shared_addons
+		if ( class_exists($class_segment.ucfirst(strtolower($slug))) )
+		{
+			$this->template->set('messages', array('error' => sprintf(lang('site.addon_duplicate'), $slug)));
+			return FALSE;
+		}
 
-		// Check the details file exists
+		// Check if the details file exists
 		if ( ! is_file($details_file))
 		{
 			return FALSE;
