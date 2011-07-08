@@ -18,6 +18,7 @@ $lang['site.admin_create_success']	=	'%s is now a Super Admin';
 $lang['site.user_exists']			=	'Sorry, the email "%s" is already registered';
 $lang['site.disable_self']			=	'You cannot disable yourself';
 $lang['site.settings_success']		=	'The settings were updated successfully';
+
 //addon management messages
 $lang['site.addon_exists']			=	'"%s" already exists. You must remove it before re-uploading';
 $lang['site.addon_duplicate']		=	'"%s" exists in both the site specific folder and the shared folder. One must be removed';
@@ -37,6 +38,12 @@ $lang['site.disable_error']			=	'"%s" could not be disabled';
 $lang['site.upgrade_success']		=	'"%s" was upgraded successfully';
 $lang['site.upgrade_error']			=	'"%s" could not be upgraded';
 
+//addons confirm messages
+$lang['site.confirm_install']		=	'If tables exist from a previous installation they may be dropped. Are you sure you want to proceed with the installation?';
+$lang['site.confirm_uninstall']		=	'All database information will be lost! Are you sure you want to uninstall?';
+$lang['site.confirm_upgrade']		=	'An attempt will be made to upgrade this addon. Do you have a backup in case it fails?';
+$lang['site.confirm_delete']		=	'All database information and addon files will be lost!! Are you sure you want to proceed?';
+$lang['site.confirm_shared_delete']	=	'If you delete this addon it will affect ALL sites!! Are you sure you want to proceed?';
 
 //page titles
 $lang['site.create_site']			=	'Create A New Site';
