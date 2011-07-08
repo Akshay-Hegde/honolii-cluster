@@ -20,11 +20,6 @@ class Addons extends Sites_Controller
 
 		$this->db->set_dbprefix($this->ref.'_');
 		
-		// set these in case module installation scripts need them
-		define('SITE_REF', $this->ref);
-		define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
-		define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-		
 		$this->load->model('addons_m');
 	}
 	
