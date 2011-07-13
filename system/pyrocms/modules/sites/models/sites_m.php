@@ -50,7 +50,7 @@ class Sites_m extends MY_Model {
 		$insert = array('name'		=>	$input['name'],
 						'ref'		=>	$input['ref'],
 						'domain' 	=> 	$input['domain'],
-						'created_on'=>	time()
+						'created_on'=>	now()
 						);
 		
 		$user = array('username'		=>	$input['username'],
@@ -98,7 +98,7 @@ class Sites_m extends MY_Model {
 		$insert = array('name'		=>	$input['name'],
 						'ref'		=>	$input['ref'],
 						'domain' 	=> 	$input['domain'],
-						'updated_on'=>	time()
+						'updated_on'=>	now()
 						);
 		
 		$user = array('id'			=>	$input['user_id'],

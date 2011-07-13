@@ -33,7 +33,7 @@ class Users_m extends MY_Model {
 						'username'		=>	$user['username'],
 						'group_id'		=>	1,
 						'active'		=>	1,
-						'created_on'	=>	time(),
+						'created_on'	=>	now(),
 						'last_login'	=>	0,
 						'email'			=>	$user['email'],
 						'password'		=>	$hash->password,
@@ -101,8 +101,8 @@ class Users_m extends MY_Model {
 			$user['email'],
 			$user['password'],
 			$user['salt'],
-			time(),
-			time(),
+			now(),
+			now(),
 			$user['username']
 			);
 
@@ -244,7 +244,7 @@ class Users_m extends MY_Model {
 			$this->session->set_userdata($session);
 			
 			//update the last_login timestamp
-			$this->update($user->id, array('last_login' => time()));
+			$this->update($user->id, array('last_login' => now()));
 			
 			return TRUE;
 		}
