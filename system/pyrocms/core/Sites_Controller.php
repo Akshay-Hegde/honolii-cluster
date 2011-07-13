@@ -37,7 +37,7 @@ class Sites_Controller extends CI_Controller {
 		$this->load->model('sites_m');
 		$this->load->model('users_m');
 		$this->load->model('settings_m');
-		$this->load->library('form_validation');
+		$this->load->library(array('form_validation', 'settings/settings'));
 		$this->load->dbforge();
 		
 		// Work out module, controller and method and make them accessable throught the CI instance
@@ -50,10 +50,7 @@ class Sites_Controller extends CI_Controller {
 		$this->load->helper('admin_theme');
 		$this->load->helper('file');
 		$this->load->helper('number');
-		$this->load->helper('sites/date');
-		
-		// Fetch all settings
-		$this->settings = $this->settings_m->get_settings();
+		$this->load->helper('date');
 
 		$this->asset->set_theme(ADMIN_THEME);
 		

@@ -16,6 +16,8 @@ class Settings_m extends MY_Model {
 	
 	/**
 	 * Get settings in an easy to access format
+	 * This is the same as $this->settings->get_all() except that this
+	 * only returns settings that are in the database.
 	 *
 	 * @return	object
 	 */

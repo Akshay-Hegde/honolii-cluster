@@ -1,4 +1,4 @@
-<?php echo form_open('sites/settings/index', 'class="crud"');?>
+<?php echo form_open('sites/settings', 'class="crud"');?>
 
 	<h3><?php echo lang('site.settings');?></h3>
 	

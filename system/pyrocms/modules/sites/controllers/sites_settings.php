@@ -7,7 +7,7 @@
  * @package 	PyroCMS Premium
  * @subpackage 	Site Manager Module
  */
-class Settings extends Sites_Controller
+class Sites_settings extends Sites_Controller
 {
 
 	public function __construct()
@@ -15,9 +15,10 @@ class Settings extends Sites_Controller
 		parent::__construct();
 		
 		$this->val_rules = array();
+		$settings = $this->settings_m->get_settings();
 		
 		// set the validation rules dynamically
-		foreach ($this->settings AS $slug => $value)
+		foreach ($settings AS $slug => $value)
 		{
 			$this->val_rules[] = array('field' => $slug,
 									   'label' => lang('site.'.$slug),
