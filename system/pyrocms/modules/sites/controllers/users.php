@@ -30,20 +30,27 @@ class Users extends Sites_Controller
 				'rules'	=> 'trim|required|valid_email'
 			)
 		);
-		
+
 		$val_create = array(
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|min_length[4]|required'
+				'rules'	=> 'trim|'.
+							'min_length['.config_item('min_password_length').']|'.
+							'max_length['.config_item('max_password_length').']|'.
+							'required'
 			),
 			array(
 				'field' => 'confirm_password',
 				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|min_length[4]|required|matches[password]'
+				'rules'	=> 'trim|'.
+							'min_length['.config_item('min_password_length').']|'.
+							'max_length['.config_item('max_password_length').']|'.
+							'required|'.
+							'matches[password]'
 			)
 		);
-		
+
 		$val_edit = array(
 			array(
 				'field' => 'password',
