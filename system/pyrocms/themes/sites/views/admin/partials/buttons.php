@@ -33,7 +33,7 @@
 			case 'cancel':
 			case 'close':
 			case 'preview':
-				echo anchor('admin/' . $this->module_details['slug'], lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('sites/' . $this->module_details['slug'], lang('buttons.' . $button), 'class="button ' . $button . '"');
 				break;
 
 			/**
@@ -43,7 +43,7 @@
 			case 'edit':
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
 
-				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('sites/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="button ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>
