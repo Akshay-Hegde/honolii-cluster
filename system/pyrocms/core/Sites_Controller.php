@@ -51,6 +51,7 @@ class Sites_Controller extends CI_Controller {
 		$this->load->helper('file');
 		$this->load->helper('number');
 		$this->load->helper('date');
+		$this->load->helper('cookie');
 		
 		// Load ion_auth config so our user's settings (password length, etc) are in sync
 		$this->load->config('users/ion_auth');

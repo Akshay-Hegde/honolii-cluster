@@ -252,12 +252,18 @@ class Users extends Sites_Controller
 	 */
 	public function _check_login($email)
 	{
-   		if ( ! $this->users_m->login($this->input->post('email'), $this->input->post('password')))
-   		{
-	   		$this->form_validation->set_message('_check_login', lang('user_login_incorrect'));
-	    	return FALSE;
-	    }
+		$remember = FALSE;
+		if ($this->input->post('remember') == 1)
+		{
+			$remember = TRUE;
+		}
 
-	    return TRUE;
+		if ($this->users_m->login($email, $this->input->post('password'), $remember))
+		{
+			return TRUE;
+		}
+
+		$this->form_validation->set_message('_check_login', lang('user_login_incorrect'));
+		return FALSE;
 	}
 }

@@ -219,7 +219,7 @@ class Users_m extends MY_Model {
 	 * @param	string	$password
 	 * @return	bool
 	 */
-	public function login($email, $password)
+	public function login($email, $password, $remember = FALSE)
 	{
 		if (empty($email) OR empty($password)) return FALSE;
 		
@@ -246,6 +246,52 @@ class Users_m extends MY_Model {
 			//update the last_login timestamp
 			$this->update($user->id, array('last_login' => now()));
 			
+			if ($remember === TRUE)
+			{
+				$this->remember_user($user->id, $user->email, $user->password);
+			}
+			
+			return TRUE;
+		}
+		
+		return FALSE;
+	}
+	
+	/**
+	 * Log a Super Admin in with his cookies
+	 *
+	 * @return	bool
+	 */
+	public function login_remembered()
+	{
+		if ( ! get_cookie('super_identity') OR ! get_cookie('super_remember_code')) return FALSE;
+		
+		$user = $this->select('id, email, username, password, salt, remember_code')
+			->where('active', 1)
+			->limit(1)
+			->get_by('email', get_cookie('super_identity'));
+		
+		// if there's no user with that email then bail
+		if ( ! isset($user->email)) return FALSE;
+
+		if (get_cookie('super_remember_code') === $user->remember_code)
+		{
+			$session = array(
+				'super_email'		=> $user->email,
+				'super_id'			=> $user->id,
+				'super_username'	=> $user->username
+				 );
+	
+			$this->session->set_userdata($session);
+			
+			//update the last_login timestamp
+			$this->update($user->id, array('last_login' => now()));
+			
+			if (config_item('user_extend_on_login'))
+			{
+				$this->remember_user($user->id, $user->email, $user->password);
+			}
+			
 			return TRUE;
 		}
 		
@@ -259,6 +305,12 @@ class Users_m extends MY_Model {
 	 */
 	public function logged_in()
 	{
+		if ( ! $this->session->userdata('super_email') AND
+			get_cookie('super_identity') AND
+			get_cookie('super_remember_code'))
+		{
+			return $this->login_remembered();
+		}
 		return (bool) $this->session->userdata('super_email');
 	}
 	
@@ -269,6 +321,16 @@ class Users_m extends MY_Model {
 	{
 		$this->session->unset_userdata('super_email');
 		$this->session->unset_userdata('super_username');
+		
+	    //delete the remember me cookies if they exist
+	    if (get_cookie('super_identity'))
+	    {
+			delete_cookie('super_identity');
+	    }
+		if (get_cookie('super_remember_code'))
+	    {
+			delete_cookie('super_remember_code');
+	    }
 		
 		$this->session->sess_destroy();
 		return TRUE;
@@ -292,5 +354,34 @@ class Users_m extends MY_Model {
 		$hash->password		= sha1($pass . $chosen_salt);
 		
 		return $hash;
+	}
+	
+	/**
+	 * Remember a Super Admin
+	 *
+	 * @param	int	$id The user id
+	 * @return	bool
+	 */
+	private function remember_user($id, $email, $pass)
+	{
+		// hash to password hash to get the remember code
+		$remember_code = sha1($pass);
+
+		if ($this->update($id, array('remember_code' => $remember_code)))
+		{
+			set_cookie(array(
+				'name'   => 'super_identity',
+				'value'  => $email,
+				'expire' => config_item('user_expire'),
+			));
+			
+			set_cookie(array(
+				'name'   => 'super_remember_code',
+				'value'  => $remember_code,
+				'expire' => config_item('user_expire'),
+			));
+
+			return TRUE;
+		}
 	}
 }
