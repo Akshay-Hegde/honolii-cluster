@@ -15,6 +15,30 @@ class Sites_m extends MY_Model {
 	}
 	
 	/**
+	 * Get all sites along with their upload setting
+	 *
+	 * @return	obj
+	 */
+	public function get_sites()
+	{
+		$sites = $this->get_all();
+		
+		if (is_array($sites))
+		{
+			// Since the settings table names are prefixed we have to iterate
+			foreach ($sites AS &$site)
+			{
+				$setting = $this->db->query("SELECT `value` FROM {$site->ref}_settings WHERE slug = 'addons_upload'")
+					->row();
+					
+				$site->addons_upload = $setting->value;
+			}
+			unset($site);
+		}
+		return $sites;
+	}
+	
+	/**
 	 * Get a site by id along with first admin
 	 *
 	 * @param	int	$id	Site id

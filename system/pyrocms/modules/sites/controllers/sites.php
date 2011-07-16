@@ -104,8 +104,8 @@ class Sites extends Sites_Controller
 		
 		$data->sites = $this->sites_m->limit($limit)
 			->offset($offset)
-			->get_all();
-		
+			->get_sites();
+
 		// create pagination
 		$data->pagination = create_pagination('sites/index', $this->sites_m->count_all(), $limit);
 

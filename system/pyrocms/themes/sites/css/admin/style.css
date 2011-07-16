@@ -6,6 +6,16 @@
 
 /* MOVE ME SOMEWHERE */
 
+.addons-upload input[type=checkbox] {
+	vertical-align: middle;
+}
+.addons-upload .red {
+	color: red;
+}
+.addons-upload .green {
+	color: green;
+}
+
 /* Site form */
 ol.site { width: 49.5%; float: right; }
 ol.user { width: 49.5%; }

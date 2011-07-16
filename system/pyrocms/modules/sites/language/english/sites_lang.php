@@ -104,3 +104,6 @@ $lang['site.lang_direction']		=	'Language Direction';
 $lang['site.shared_title']			=	'Upload a shared %s';
 $lang['site.site_upload_title']		=	'Upload a %s for this site only';
 $lang['site.upload_desc']			=	'Select a zip file to upload';
+$lang['site.addons_upload']			=	'Upload Add-ons';
+$lang['site.allowed']				=	'Allowed';
+$lang['site.disabled']				=	'Disabled';

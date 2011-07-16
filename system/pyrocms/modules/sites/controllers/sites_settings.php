@@ -56,4 +56,25 @@ class Sites_settings extends Sites_Controller
 			->set('description', lang('site.settings_desc'))
 			->build('settings', $data);
 	}
+	
+	/**
+	 * Toggle the site's addon upload permissions
+	 *
+	 * @param	string	$site_ref
+	 * @param	int		$state	The checkbox state
+	 * @return	bool
+	 */
+	public function toggle_upload()
+	{
+		$this->db->set_dbprefix($this->input->post('site_ref').'_');
+		
+		if ($this->settings_m->update_by('slug', 'addons_upload', array('value' => $this->input->post('state'))) )
+		{
+			return print(json_encode(array('status' => 'success')));
+		}
+		else
+		{
+			return print(json_encode(array('status' => 'error')));
+		}
+	}
 }
