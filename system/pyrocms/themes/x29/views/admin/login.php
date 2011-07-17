@@ -52,7 +52,7 @@
 					<input class="remember" type="checkbox" name="remember" value="1" />
 					<label for="remember" class="remember"><?php echo lang('user_remember'); ?></label>
 				</li>
-
+				
 				<li><center><input class="button" type="submit" name="submit" value="<?php echo lang('login_label'); ?>" /></center></li>
 			</ul>
 		<?php echo form_close(); ?>
