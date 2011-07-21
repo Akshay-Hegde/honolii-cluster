@@ -186,6 +186,10 @@ class Addons_m extends MY_Model
 				->update($this->type.'s', array('installed' => 1));
 		}
 		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= $this->ref;
+		$details_class->upload_path	= 'uploads/'.$this->ref.'/';
+		
 		// Run the install method to get it into the database
 		return $details_class->install();
 	}
