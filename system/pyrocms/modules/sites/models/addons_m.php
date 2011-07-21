@@ -208,6 +208,10 @@ class Addons_m extends MY_Model
 			// the files are missing so let's clean the table
 			return $this->delete();
 		}
+		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= $this->ref;
+		$details_class->upload_path	= 'uploads/'.$this->ref.'/';
 
 		// Run the uninstall method to drop the module's tables
 		if ( ! $details_class->uninstall())
@@ -257,6 +261,10 @@ class Addons_m extends MY_Model
 		// Get the old module version number
 		$old_version = $old_module['version'];
 		
+		// set the site_ref and upload_path for third-party devs
+		$details_class->site_ref 	= $this->ref;
+		$details_class->upload_path	= 'uploads/'.$this->ref.'/';
+
 		// Run the upgrade method to get it into the database
 		if ($details_class->upgrade($old_version))
 		{
