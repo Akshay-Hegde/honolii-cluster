@@ -27,7 +27,7 @@
 $cmds_d = '';
 $cmds_f ='';
 foreach($permissions['directories'] as $directory => $status) {
-	$cmds_d .= $status ? '' : 'chmod 777 '.$directory.PHP_EOL;
+		$cmds_d .= $status ? '' : 'chmod 777 '.$directory.PHP_EOL;
 }
 foreach($permissions['files'] as $files => $status) {
 	$cmds_f .= $status ? '' : 'chmod 666 '.$files.PHP_EOL;

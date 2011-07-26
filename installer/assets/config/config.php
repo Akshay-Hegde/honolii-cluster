@@ -208,7 +208,12 @@ $config['log_date_format'] = 'Y-m-d H:i:s';
 | system/cache/ folder.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = APPPATH . 'cache/codeigniter/';
+$config['cache_path'] = APPPATH . 'cache/' . SITE_REF . '/codeigniter/';
+
+if ( ! is_dir($config['cache_path']))
+{
+	mkdir($config['cache_path'], DIR_WRITE_MODE, TRUE);
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -323,6 +328,6 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['modules_locations'] = array(
 	APPPATH.'modules/' => '../modules/',
-	ADDON_FOLDER.'default/modules/' => '../../../addons/default/modules/',
+	ADDON_FOLDER.'__SITE_REF__/modules/' => '../../../addons/__SITE_REF__/modules/',
 	SHARED_ADDONPATH.'modules/' => '../../../addons/shared_addons/modules/'
 );

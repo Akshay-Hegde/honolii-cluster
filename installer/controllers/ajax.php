@@ -112,10 +112,31 @@ class Ajax extends CI_Controller {
 			'curl' => $this->installer_lib->curl_enabled(),
 		);
 
-		include '../system/pyrocms/libraries/Curl.php';
+		include '../system/cms/libraries/Curl.php';
 		$url = 'http://pyrocms.com/statistics/add ';
 		$curl = new Curl;
 		$curl->simple_post($url, $data);
+	}
+	
+	/**
+	 * Check if apache's mod_rewrite is enabled
+	 *
+	 * @access	public
+	 * @author	Jerel Unruh - PyroCMS Dev Team
+	 * @return	string
+	 */
+	public function check_rewrite()
+	{
+		$modules = apache_get_modules();
+
+		if (in_array('mod_rewrite', $modules))
+		{
+			return print('enabled');
+		}
+		else
+		{
+			return print(lang('mod_rewrite'));
+		}
 	}
 
 }
