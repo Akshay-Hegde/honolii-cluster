@@ -69,13 +69,20 @@ class MY_Controller extends CI_Controller {
 		// With that done, load settings
 		$this->load->library(array('settings/settings'));
 
-		if (is_a($this, 'Admin_Controller') OR ! ($site_lang = Settings::get('site_lang')))
+		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
 		{
-			$site_lang = AUTO_LANGUAGE;
+			$site_public_lang = explode(',', Settings::get('site_public_lang'));
+
+			if (in_array(AUTO_LANGUAGE, $site_public_lang))
+			{
+				$site_lang = AUTO_LANGUAGE;
+			}
+			else
+			{
+				$site_lang = Settings::get('site_lang');
+			}
 		}
 
-		// @todo: create a setting to choose supported languages in frontend,
-		// at this case, check the possibility of one of these languages be same that auto language.
 		define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
@@ -132,7 +139,7 @@ class MY_Controller extends CI_Controller {
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();
 
-		if (!$this->module_details['skip_xss'])
+		if ( ! $this->module_details['skip_xss'])
 		{
 			$_POST = $this->security->xss_clean($_POST);
 		}
@@ -142,7 +149,7 @@ class MY_Controller extends CI_Controller {
 		// Load the admin theme so things like partials and assets are available everywhere
 		$this->admin_theme = $this->themes_m->get_admin();
 		// Load the current theme so we can set the assets right away
-		$this->theme = $this->themes_m->get();
+		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
 
 		// make a constant as this is used in a lot of places		
 		define('ADMIN_THEME', $this->admin_theme->slug);
