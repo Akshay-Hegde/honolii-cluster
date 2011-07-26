@@ -74,7 +74,7 @@
 	
 	<footer>
 		Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp;
-		Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp;
+		Version <?php echo CMS_VERSION .' '.CMS_EDITION; ?> &nbsp; -- &nbsp;
 		Rendered in {elapsed_time} sec. using {memory_usage}.
 	</footer>
 </div>
