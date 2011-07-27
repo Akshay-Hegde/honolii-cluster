@@ -162,7 +162,11 @@ class Theme_X29 extends Theme {
 		// Only mention this notice if no other notices are set
 		elseif (empty($data['messages']['notice']))
 		{
-			$data['messages']['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
+			// make sure it only shows on the dashboard and not in modals or login
+			if ($this->module == '' AND $this->controller == 'admin' AND $this->method == 'index')
+			{
+				$data['messages']['notice'] = sprintf(lang('cp_google_analytics_missing'), anchor('admin/settings', lang('cp_nav_settings')));
+			}
 		}
 		
 		// make it available in the theme
