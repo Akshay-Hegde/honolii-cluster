@@ -88,8 +88,8 @@ class MX_Router extends CI_Router
 						$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
 					}
 					
-					// Set the session config to the correct table
-					$this->config->set_item('sess_table_name', $site->ref.'_ci_sessions');
+					// Set the session config to the correct table using the config name (but removing 'default_')
+					$this->config->set_item('sess_table_name', $site->ref.'_'.str_replace('default_', '', config_item('sess_table_name')));
 
 					// The site ref. Used for building site specific paths
 					define('SITE_REF', $site->ref);
