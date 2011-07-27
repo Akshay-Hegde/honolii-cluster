@@ -41,7 +41,6 @@ class MY_Controller extends CI_Controller {
 		// By changing the prefix we are essentially "namespacing" each pyro site
 		$this->db->set_dbprefix(SITE_REF.'_');
 		
-		$this->config->set_item('cache_dir', str_replace('__SITE_REF__', SITE_REF, config_item('cache_dir')));
 		$this->load->library('pyrocache');
 		
 		// Add the site specific theme folder
