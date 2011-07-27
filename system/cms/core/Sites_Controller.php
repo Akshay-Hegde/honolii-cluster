@@ -10,33 +10,39 @@ class Sites_Controller extends CI_Controller {
 		// First off set the db prefix
 		$this->db->set_dbprefix('core_');
 		
+		// If using a URL not defined as a site, set this to stop the world ending
+		if ( ! defined('SITE_REF'))
+		{
+			define('SITE_REF', 'core');
+		}
+		
 		// make sure they've ran the installer before trying to view our shiny panel
-		if ( ! $this->db->table_exists('sites')) redirect('installer');
+		if ( ! $this->db->table_exists('sites')) 
+		{
+			redirect('installer');
+		}
 		
 		define('ADMIN_THEME', 'sites');
 		
-		//define folders that we need to create for each new site
-		$this->locations = array(APPPATH.'cache'		=> array(
-														 'simplepie'
-														),
-								  'addons'		=> array('modules',
-														 'widgets',
-														 'themes'
-														),
-								  'uploads'	=> array()
-								  );
+		// define folders that we need to create for each new site
+		$this->locations = array(
+			APPPATH.'cache'	=> array(
+				'simplepie'
+			),
+			'addons' => array(
+				'modules',
+				'widgets',
+				'themes',
+			),
+			'uploads'	=> array(),
+		);
 		
 		// Load the Language files ready for output
-		$this->lang->load('admin');
-		$this->lang->load('buttons');
-		$this->lang->load('main');
-		$this->lang->load('sites/sites');
-		$this->lang->load('users/user');
-
+		$this->lang->load(array('admin', 'buttons', 'main', 'sites/sites', 'users/user'));
+		
 		// Load all the required classes
-		$this->load->model('sites_m');
-		$this->load->model('users_m');
-		$this->load->model('settings_m');
+		$this->load->model(array('sites_m', 'users_m', 'settings_m'));
+		
 		$this->load->library(array('form_validation', 'settings/settings'));
 		$this->load->dbforge();
 		
