@@ -464,7 +464,7 @@ class Users extends Public_Controller
 			array(
 				'field' => 'display_name',
 				'label' => lang('profile_display'),
-				'rules' => 'xss_clean|trim|required|alpha_numeric'
+				'rules' => 'xss_clean|trim|required'
 			),
 			// More fields
 			array(
@@ -625,7 +625,6 @@ class Users extends Public_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			// Redirect
 			redirect('edit-settings');
 		}
 		else
