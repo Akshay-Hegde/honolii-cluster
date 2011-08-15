@@ -37,6 +37,10 @@ class Sites_Controller extends CI_Controller {
 			'uploads'	=> array(),
 		);
 		
+		// Since we don't need to lock the lang with a setting like /admin and
+		// the front-end we just define CURRENT_LANGUAGE exactly the same as AUTO_LANGUAGE
+		define('CURRENT_LANGUAGE', AUTO_LANGUAGE);
+		
 		// Load the Language files ready for output
 		$this->lang->load(array('admin', 'buttons', 'main', 'sites/sites', 'users/user'));
 		
