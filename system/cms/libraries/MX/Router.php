@@ -105,12 +105,7 @@ class MX_Router extends CI_Router
 				}
 			}
 		}
-<<<<<<< HEAD
 
-
-=======
-		
->>>>>>> 0ad64f686c31cc867ca36e45c3911c5f767d2761
 		$this->module = '';
 		$this->directory = '';
 		$ext = $this->config->item('controller_suffix').EXT;

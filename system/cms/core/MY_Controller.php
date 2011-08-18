@@ -30,7 +30,7 @@ class MY_Controller extends CI_Controller {
 
 		// By changing the prefix we are essentially "namespacing" each pyro site
 		$this->db->set_dbprefix(SITE_REF.'_');
-		
+
 		// Load the cache library now that we know the siteref
 		$this->load->library('pyrocache');
 
