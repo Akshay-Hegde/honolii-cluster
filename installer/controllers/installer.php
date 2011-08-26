@@ -420,7 +420,8 @@ class Installer extends CI_Controller
 		// Create the admin link
 		$data['website_url'] = 'http://'.$this->input->server('HTTP_HOST').preg_replace('/installer\/index.php$/', '', $this->input->server('SCRIPT_NAME'));
 		$data['control_panel_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'admin' : 'index.php/admin');
-
+		$data['multi_site_url'] = $data['website_url'] . ($supported_servers[$server_name]['rewrite_support'] === TRUE ? 'sites' : 'index.php/sites');
+		
 		// Let's remove our session since it contains data we don't want anyone to see
 		$this->session->sess_destroy();
 

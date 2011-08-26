@@ -12,3 +12,4 @@
 
 <?php echo anchor($website_url, lang('go_website'), 'class="go_to_site"'); ?>
 <?php echo anchor($control_panel_url, lang('go_control_panel'), 'class="go_to_site"'); ?>
+<?php echo anchor($multi_site_url, lang('go_multi_site'), 'class="go_to_site"'); ?>
