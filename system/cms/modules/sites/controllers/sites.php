@@ -190,7 +190,7 @@ class Sites extends Sites_Controller
 
 		if (empty($data->domain))
 		{
-			$data->domain = preg_replace('#^www\.#', '', $this->input->server('server_name'));
+			$data->domain = preg_replace('#^www\.#', '', $this->input->server('SERVER_NAME'));
 		}
 
 		// Load the view
