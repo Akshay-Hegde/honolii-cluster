@@ -85,14 +85,7 @@ class Sites extends Sites_Controller
 			)
 		);
 		
-		if ($this->method == 'create')
-		{
-			$this->site_validation_rules = array_merge($val_rules, $val_create);
-		}
-		else
-		{
-			$this->site_validation_rules = array_merge($val_rules, $val_edit);
-		}
+		$this->site_validation_rules = array_merge($val_rules, ($this->method == 'create') ? $val_create : $val_edit);
 	}
 
 	/**
@@ -102,17 +95,18 @@ class Sites extends Sites_Controller
 	{
 		$limit = 20;
 		
-		$data->sites = $this->sites_m->limit($limit)
-			->offset($offset)
+		$data->sites = $this->sites_m
+			->limit($limit, $offset)
 			->get_sites();
 
 		// create pagination
 		$data->pagination = create_pagination('sites/index', $this->sites_m->count_all(), $limit);
 
 		// Load the view
-		$this->template->title(lang('site.sites'))
-						->set('description', lang('site.edit_site_desc'))
-						->build('sites', $data);
+		$this->template
+			->title(lang('site.sites'))
+			->set('description', lang('site.edit_site_desc'))
+			->build('sites', $data);
 	}
 	
 	/**
@@ -123,12 +117,11 @@ class Sites extends Sites_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
-		if($this->form_validation->run())
+		if ($this->form_validation->run())
 		{
 			$ref = $this->input->post('ref');
 			
 			$this->load->library('module_import', $ref);
-			$this->load->config('migrations');
 	
 			// make sure there aren't orphaned folders from a previous install
 			foreach ($this->locations AS $folder_check => $sub_folders)
@@ -136,8 +129,7 @@ class Sites extends Sites_Controller
 				
 				if (is_dir($folder_check.'/'.$ref))
 				{
-					$data->messages['error'] = sprintf(lang('site.folder_exists'),
-														$folder_check.'/'.$ref);
+					$data->messages['error'] = sprintf(lang('site.folder_exists'), $folder_check.'/'.$ref);
 					
 					foreach ($this->site_validation_rules AS $rule)
 					{
@@ -145,9 +137,11 @@ class Sites extends Sites_Controller
 					}
 		
 					// Load the view
-					$this->template->title(lang('site.sites'), lang('site.create_site'))
-									->set('description', lang('site.create_site_desc'))
-									->build('form', $data);
+					$this->template
+						->title(lang('site.sites'), lang('site.create_site'))
+						->set('description', lang('site.create_site_desc'))
+						->build('form', $data);
+						
 					return;
 				}
 			}
@@ -162,14 +156,14 @@ class Sites extends Sites_Controller
 				// Try to create the site
 				$message = $this->sites_m->create_site($this->input->post());
 				
-				if($message === TRUE)
+				if ($message === TRUE)
 				{
 					// All good...
 					$this->session->set_flashdata('success', lang('site.create_success'));
 					redirect('sites');
 				}
 				// There must be folders that aren't writeable
-				elseif(is_array($message))
+				elseif (is_array($message))
 				{
 					$html = '<ul>';
 	
@@ -189,15 +183,21 @@ class Sites extends Sites_Controller
 			}
 		}
 
-		foreach ($this->site_validation_rules AS $rule)
+		foreach ($this->site_validation_rules as $rule)
 		{
 			$data->{$rule['field']} = set_value($rule['field']);
 		}
 
+		if (empty($data->domain))
+		{
+			$data->domain = preg_replace('#^www\.#', '', $this->input->server('server_name'));
+		}
+
 		// Load the view
-		$this->template->title(lang('site.sites'), lang('site.create_site'))
-						->set('description', lang('site.create_site_desc'))
-						->build('form', $data);
+		$this->template
+			->title(lang('site.sites'), lang('site.create_site'))
+			->set('description', lang('site.create_site_desc'))
+			->build('form', $data);
 	}
 
 	/**
@@ -210,7 +210,7 @@ class Sites extends Sites_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
-		if($this->form_validation->run())
+		if ($this->form_validation->run())
 		{
 			$ref = $this->input->post('ref');
 			
@@ -220,13 +220,13 @@ class Sites extends Sites_Controller
 			{
 				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('domain'));
 			}
-			elseif( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === TRUE)
+			elseif ( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === TRUE)
 			{
 				// All good...
 				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $data->name));
 				redirect('sites');
 			}
-			elseif(is_array($message))
+			elseif (is_array($message))
 			{
 				$html = '<ul>';
 
@@ -279,7 +279,7 @@ class Sites extends Sites_Controller
 				$this->session->set_flashdata('success', lang('site.site_deleted'));
 				redirect('sites');
 			}
-			elseif(is_array($message))
+			elseif (is_array($message))
 			{
 				$html = '<ul>';
 

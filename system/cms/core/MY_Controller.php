@@ -19,7 +19,7 @@ class MY_Controller extends CI_Controller {
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
 		}
 		
 		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
