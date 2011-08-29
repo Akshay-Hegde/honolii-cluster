@@ -97,6 +97,8 @@ class Theme_X29 extends Theme {
 	
 	public function get_analytics()
 	{
+		$data = array();
+		
 		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
 		{
 			// Not FALSE? Return it
