@@ -50,7 +50,7 @@
 			<p><?php echo $module_details['description'] ? $module_details['description'] : ''; ?></p>
 			
 			<section id="user-links">
-				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), $user->display_name); ?></span>
+				<span id="user-greeting"><?php echo sprintf(lang('cp_logged_in_welcome'), $current_user->display_name); ?></span>
 				<?php if ($this->settings->enable_profiles) echo anchor('edit-profile', lang('cp_edit_profile_label')) ?> | 
 				<?php echo anchor('', lang('cp_view_frontend'), 'target="_blank"'); ?> | <?php echo anchor('admin/logout', lang('cp_logout_label')); ?>
 				
