@@ -60,11 +60,11 @@ class Theme_X29 extends Theme {
 	private function generate_menu()
 	{
 		// Get a list of all modules available to this user/group
-		if ($this->user)
+		if ($this->current_user)
 		{
 			$modules = $this->module_m->get_all(array(
 				'is_backend' => TRUE,
-				'group' => $this->user->group,
+				'group' => $this->current_user->group,
 				'lang' => CURRENT_LANGUAGE
 			));
 
@@ -97,6 +97,8 @@ class Theme_X29 extends Theme {
 	
 	public function get_analytics()
 	{
+		$data = array();
+		
 		if ($this->settings->ga_email AND $this->settings->ga_password AND $this->settings->ga_profile)
 		{
 			// Not FALSE? Return it
