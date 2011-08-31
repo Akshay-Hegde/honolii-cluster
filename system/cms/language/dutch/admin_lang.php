@@ -5,7 +5,7 @@ $lang['cp_admin_home_title'] 			= 'Dashboard';
 $lang['cp_admin_quick_links']			= 'Snelkoppelingen';
 
 $lang['cp_welcome_title'] 				= 'Welkom';
-$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de  links boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker..';
+$lang['cp_welcome_message'] 			= 'Welkom in het %s Controlepaneel. Door de opties boven en links te gebruiken kunt u bijna ieder aspect van uw website instellen. Als u problemen ondervindt met dit systeem, plaats dan een issue op onze bugtracker..';
 
 $lang['cp_news_feed_title'] 			= 'Nieuwsfeed';
 
@@ -33,11 +33,9 @@ $lang['cp_nav_addons']					= 'Add-ons';
 $lang['cp_nav_modules']					= 'Modules';
 $lang['cp_nav_widgets']					= 'Widgets';
 $lang['cp_nav_users']           = 'Gebruikers';
-$lang['cp_nav_design']					= 'Design';
+$lang['cp_nav_design']					= 'Ontwerp';
 $lang['cp_nav_content']					= 'Content';
 $lang['cp_nav_utilities']       = 'Gereedschappen';
-
-$lang['global:keywords']				= 'Keywords'; #translate
 
 $lang['cp_access_denied'] 				= 'U heeft geen rechten om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer-directory op uw server. Als u deze online laat kan deze misbruikt worden door een hacker.';
@@ -47,14 +45,6 @@ $lang['cp_must_login']	 				= 'U moet ingelogd zijn om deze pagina te kunnen bek
 $lang['cp_access_denied'] 				= 'U heeft geen toestemming om deze pagina te bekijken.';
 $lang['cp_delete_installer_message']	= 'Verwijder alstublieft de installer map van de server. Het online laten staan betekent dat controle van deze website gegeven kan worden aan iemand anders.';
 $lang['cp_upgrade_message']				= 'U draait momenteel versie %s, maar uw database is versie %s. <a href="%s" title="Upgrade">Klik hier</a> om uw database te upgraden.';
-
-// Admin-wide text
-$lang['global:shortcuts'] 				= 'Snelkoppelingen';
-$lang['global:description'] 		    = 'Beschrijving';
-$lang['global:actions']					= 'Acties';
-$lang['global:edit']					= 'Wijzig';
-$lang['global:delete']					= 'Verwijder';
-$lang['global:remove']					= 'Verwijder';
 
 $lang['required_label'] 				= 'Vereist';
 $lang['sb_recent_users'] 				= 'Recente gebruikers';
