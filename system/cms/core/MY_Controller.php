@@ -152,7 +152,8 @@ class MY_Controller extends CI_Controller {
 		$this->load->vars($pyro);
 
 		// Load the admin theme so things like partials and assets are available everywhere
-		$this->admin_theme = $this->themes_m->get_admin();
+		$this->admin_theme = $this->themes_m->get_admin() or show_error('Admin theme could not be found, perhaps it is in the wrong location.');
+		
 		// Load the current theme so we can set the assets right away
 		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
 
