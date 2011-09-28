@@ -45,7 +45,7 @@ class Users extends Public_Controller
 	 */
 	public function view($id = NULL)
 	{
-		$user = ($id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
+		$user = ($this->current_user && $id == $this->current_user->id) ? $this->current_user : $this->ion_auth->get_user($id);
 		
 		// No user? Show a 404 error. Easy way for now, instead should show a custom error message
 		$user or show_404();
@@ -178,8 +178,6 @@ class Users extends Public_Controller
 	
 		if ($this->form_validation->run())
 		{	
-			/* override config settings */
-			$this->config->set_item('email_activation', Settings::get('activation_email'), 'ion_auth');
 
 			$email				= $this->input->post('email');
 			$password			= $this->input->post('password');	
@@ -656,7 +654,7 @@ class Users extends Public_Controller
 	    $languages = array();
 	    // get the languages offered on the front-end
 	    $site_public_lang = explode(',', Settings::get('site_public_lang'));
-	    
+	
 	    foreach ($this->config->item('supported_languages') as $lang_code => $lang)
 	    {
 	       // if the supported language is offered on the front-end

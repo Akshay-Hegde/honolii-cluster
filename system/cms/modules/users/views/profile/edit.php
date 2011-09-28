@@ -5,7 +5,7 @@
 		<?php echo validation_errors();?>
 	</div>
 	<?php endif;?>
-   
+
 	<?php echo form_open('edit-settings', array('id'=>'user_edit'));?>
 
 	<fieldset id="user_names">
@@ -32,12 +32,7 @@
 		<ul>
 			<li class="float-left spacer-right">
 				<label for="password"><?php echo lang('user_password') ?></label><br/>
-				<?php echo form_password('password'); ?>
-			</li>
-
-			<li>
-				<label for="confirm_password"><?php echo lang('user_confirm_password') ?></label><br/>
-				<?php echo form_password('confirm_password'); ?>
+				<?php echo form_password('password', '', 'autocomplete="off"'); ?>
 			</li>
 		</ul>
 	</fieldset>
@@ -97,15 +92,15 @@
 				<?php echo form_input('mobile', $user->mobile); ?>
 			</li>
 			<li>
-				<label for="address_line1"><?php echo lang('profile_address_line1') ?></label> 
+				<label for="address_line1"><?php echo lang('profile_address_line1') ?></label>
 				<?php echo form_input('address_line1', $user->address_line1); ?>
 			</li>
 			<li>
-				<label for="address_line2"><?php echo lang('profile_address_line2') ?></label> 
+				<label for="address_line2"><?php echo lang('profile_address_line2') ?></label>
 				<?php echo form_input('address_line2', $user->address_line2); ?>
 			</li>
 			<li>	
-				<label for="address_line3"><?php echo lang('profile_address_line3') ?></label> 
+				<label for="address_line3"><?php echo lang('profile_address_line3') ?></label>
 				<?php echo form_input('address_line3', $user->address_line3); ?>
 			</li>
 			<li>	

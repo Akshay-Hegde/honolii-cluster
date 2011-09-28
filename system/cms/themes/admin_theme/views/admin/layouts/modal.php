@@ -9,7 +9,7 @@
 
 	<!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 
-	<?php echo css('admin/basic_layout.css'); ?>
+	<?php echo theme_css('admin/basic_layout.css'); ?>
 </head>
 <body>
 	<?php $this->load->view('admin/partials/notices') ?>
