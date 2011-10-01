@@ -176,11 +176,13 @@ class Asset {
 	 * @param		string    optional, module name
 	 * @return		string    HTML code for JavaScript asset
 	 */
-	public function js($asset_name, $module_name = NULL, $location_type = '')
+	public function js($asset_name, $module_name = NULL, $attributes = array(), $location_type = '')
 	{
+		$attribute_str = $this->_parse_asset_html($attributes);
+				
 		$location_type = 'js_' . (in_array($location_type, array('url', 'path')) ? $location_type : 'path');
 
-		return '<script type="text/javascript" src="' . $this->{$location_type}($asset_name, $module_name) . '"></script>';
+		return '<script type="text/javascript" src="' . $this->{$location_type}($asset_name, $module_name) . '"'.$attribute_str.'></script>';
 	}
 
 	// ------------------------------------------------------------------------
@@ -264,6 +266,14 @@ class Asset {
 				. $asset_type . '/' . $asset_name;
 		}
 
+		// If they have just given a filename, not an asset path, and its is custom
+		elseif (strpos($module_name, '_other=') === 0 && substr(strrev($module_name), 0, 1) === '_')
+		{
+			$base_location	= $location_type == 'url' ? rtrim(site_url(), '/') . '/' : BASE_URI;
+			$asset_location	= $base_location . ltrim(substr($module_name, 7, -1), '/')
+				. $asset_type . '/' . $asset_name;
+		}
+
 		// Normal file (that might be in a module)
 		else
 		{
@@ -343,7 +353,7 @@ class Asset {
 
 		if (is_string($attributes))
 		{
-			$attribute_str = $attributes;
+			$attribute_str = ' '.$attributes;
 		}
 		else if (is_array($attributes) || is_object($attributes))
 		{
@@ -372,7 +382,5 @@ class Asset {
 	}
 
 }
-
-// END Asset Class
 
 /* End of file Asset.php */

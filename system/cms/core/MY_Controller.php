@@ -24,9 +24,16 @@ class MY_Controller extends CI_Controller {
 		
 		// TODO: Remove this in v1.5 as it just renames tables for v1.4.0
 		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{
+		{	
 			$this->load->dbforge();
-			$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+			if ($this->db->table_exists(SITE_REF.'_migrations'))
+			{
+				$this->dbforge->drop_table(SITE_REF.'_schema_version');
+			}
+			else
+			{
+				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
+			}
 		}
 
 		// By changing the prefix we are essentially "namespacing" each site
@@ -124,7 +131,7 @@ class MY_Controller extends CI_Controller {
 		$this->load->model(array(
 			'permissions/permission_m',
 			'modules/module_m',
-			'pages/pages_m',
+			'pages/page_m',
 			'themes/themes_m'
 		));
 
@@ -145,7 +152,8 @@ class MY_Controller extends CI_Controller {
 		$this->load->vars($pyro);
 
 		// Load the admin theme so things like partials and assets are available everywhere
-		$this->admin_theme = $this->themes_m->get_admin();
+		$this->admin_theme = $this->themes_m->get_admin() or show_error('Admin theme could not be found, perhaps it is in the wrong location.');
+		
 		// Load the current theme so we can set the assets right away
 		$this->theme = $this->themes_m->get() or show_error('Theme could not be found, perhaps it is in the wrong location.');
 

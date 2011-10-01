@@ -24,7 +24,8 @@ class Module_Comments extends Module {
 				'fi' => 'Kommentit',
 				'el' => 'Σχόλια',
 				'he' => 'תגובות',
-				'lt' => 'Komentarai'
+				'lt' => 'Komentarai',
+				'da' => 'Kommentarer'
 			),
 			'description' => array(
 				'sl' => 'Uporabniki in obiskovalci lahko vnesejo komentarje na vsebino kot je blok, stra ali slike',
@@ -43,7 +44,8 @@ class Module_Comments extends Module {
 				'fi' => 'Käyttäjät ja vieraat voivat kirjoittaa kommentteja eri sisältöihin kuten uutisiin, sivuihin ja kuviin.',
 				'el' => 'Οι χρήστες και οι επισκέπτες μπορούν να αφήνουν σχόλια για περιεχόμενο όπως το ιστολόγιο, τις σελίδες και τις φωτογραφίες.',
 				'he' => 'משתמשי האתר יכולים לרשום תגובות למאמרים, תמונות וכו',
-				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.'
+				'lt' => 'Vartotojai ir svečiai gali komentuoti jūsų naujienas, puslapius ar foto.',
+				'da' => 'Brugere og besøgende kan skrive kommentarer til indhold som blog, sider og fotoer.'
 			),
 			'frontend' => FALSE,
 			'backend'  => TRUE,
@@ -64,6 +66,7 @@ class Module_Comments extends Module {
 			  `email` varchar(40) collate utf8_unicode_ci NOT NULL default '',
 			  `website` VARCHAR( 255 ) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
 			  `comment` text collate utf8_unicode_ci NOT NULL,
+			  `parsed` text collate utf8_unicode_ci NOT NULL,
 			  `module` varchar(40) collate utf8_unicode_ci NOT NULL,
 			  `module_id` varchar(255) collate utf8_unicode_ci NOT NULL default '0',
 			  `created_on` varchar(11) collate utf8_unicode_ci NOT NULL default '0',

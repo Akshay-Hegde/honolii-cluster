@@ -24,7 +24,8 @@ class Module_Contact extends Module {
 				'fi' => 'Ota yhteyttä',
 				'el' => 'Επικοινωνία',
 				'he' => 'יצירת קשר',
-				'lt' => 'Kontaktinė formą'
+				'lt' => 'Kontaktinė formą',
+				'da' => 'Kontakt'
 			),
 			'description' => array(
 				'sl' => 'Dodaj obrazec za kontakt da vam lahko obiskovalci pošljejo sporočilo brez da bi jim razkrili vaš email naslov.',
@@ -43,7 +44,8 @@ class Module_Contact extends Module {
 				'fi' => 'Luo lomakkeen sivustollesi, josta kävijät voivat lähettää sähköpostia tietämättä vastaanottajan sähköpostiosoitetta.',
 				'el' => 'Προσθέτει μια φόρμα στον ιστότοπό σας που επιτρέπει σε επισκέπτες να σας στέλνουν μηνύμα μέσω email χωρίς να τους αποκαλύπτεται η διεύθυνση του email σας.',
 				'he' => 'מוסיף תופס יצירת קשר לאתר על מנת לא לחסוף כתובת דואר האלקטרוני של האתר למנועי פרסומות',
-				'lt' => 'Prideda jūsų puslapyje formą leidžianti lankytojams siūsti jums el. laiškus neatskleidžiant jūsų el. pašto adreso.'
+				'lt' => 'Prideda jūsų puslapyje formą leidžianti lankytojams siūsti jums el. laiškus neatskleidžiant jūsų el. pašto adreso.',
+				'da' => 'Tilføjer en formular på din side som tillader besøgende at sende mails til dig, uden at du skal opgive din email-adresse'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -58,17 +60,17 @@ class Module_Contact extends Module {
 		return $this->db->query("
 			CREATE TABLE ".$this->db->dbprefix('contact_log')." (
 			  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-			  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-			  `subject` varchar(255) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			  `message` TEXT CHARACTER SET utf8 COLLATE utf8_unicode_ci,
-			  `company_name` VARCHAR( 255 ) NOT NULL,
-			  `sender_agent` varchar(11) DEFAULT NULL,
-			  `sender_ip` text,
-			  `sender_os` varchar(15) NOT NULL,
-			  `sent_at` varchar(255) DEFAULT NULL,
+			  `name` varchar(255) NOT NULL default '',
+			  `email` varchar(255) NOT NULL default '',
+			  `subject` varchar(255) NOT NULL default '',
+			  `message` text collate utf8_unicode_ci NOT NULL,
+			  `company_name` varchar(255) NOT NULL default '',
+			  `sender_agent` varchar(64) NOT NULL default '',
+			  `sender_ip` varchar(32) NOT NULL default '',
+			  `sender_os` varchar(32) NOT NULL default '',
+			  `sent_at` int(11) NOT NULL default 0,
 			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB DEFAULT CHARSET=utf8
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci COMMENT='Contact log'
 		");
 	}
 

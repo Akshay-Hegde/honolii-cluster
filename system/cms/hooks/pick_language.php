@@ -3,11 +3,20 @@
 function pick_language()
 {
 	require_once(APPPATH.'/config/language.php');
-    
-    session_start();
-    
+
     // Re-populate $_GET
 	parse_str($_SERVER['QUERY_STRING'], $_GET);
+	
+	// If we've been redirected from HTTP to HTTPS on admin, ?session= will be set to maintain language
+	if ($_SERVER['SERVER_PORT'] == 443 and ! empty($_GET['session']))
+	{
+		session_start($_GET['session']);
+	}
+	
+	else
+	{
+		session_start();
+	}
 		
     // Lang set in URL via ?lang=something
     if ( ! empty($_GET['lang']))
@@ -17,7 +26,7 @@ function pick_language()
 
     	log_message('debug', 'Set language in URL via GET: '.$lang);
     }
-    
+
     // Lang has already been set and is stored in a session
     elseif ( ! empty($_SESSION['lang_code']) )
     {
@@ -25,7 +34,7 @@ function pick_language()
 
     	log_message('debug', 'Set language in Session: '.$lang);
     }
-    
+
     // Lang has is picked by a user.
     elseif ( ! empty($_COOKIE['lang_code']) )
     {
@@ -33,7 +42,7 @@ function pick_language()
 
     	log_message('debug', 'Set language in Cookie: '.$lang);
     }
-    
+
     // Still no Lang. Lets try some browser detection then
     elseif ( ! empty($_SERVER['HTTP_ACCEPT_LANGUAGE']))
     {
@@ -73,7 +82,7 @@ function pick_language()
     		}
     	}
     }
-    
+
     // If no language has been worked out - or it is not supported - use the default
     if (empty($lang) OR ! array_key_exists($lang, $config['supported_languages']))
     {
@@ -81,10 +90,10 @@ function pick_language()
 
     	log_message('debug', 'Set language default: '.$lang);
     }
-    
+
     // Whatever we decided the lang was, save it for next time to avoid working it out again
     $_SESSION['lang_code'] = $lang;
-        
+
     // Load CI config class
     $CI_config =& load_class('Config');
 

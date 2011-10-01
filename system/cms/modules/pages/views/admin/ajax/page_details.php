@@ -1,4 +1,4 @@
-<h4><?php echo $page->title; ?></h4>
+<h5><?php echo $page->title; ?></h5>
 
 <input id="page-id" type="hidden" value="<?php echo $page->id; ?>" />
 <input id="page-uri" type="hidden" value="<?php echo !empty($page->uri) ? $page->uri : $page->slug; ?>" />
@@ -12,7 +12,7 @@
 		<strong><?php echo lang('pages.status_label'); ?>:</strong> <?php echo lang('pages.' . $page->status . '_label'); ?>
 	</p>
 	<p>
-		<strong><?php echo lang('pages.slug_label');?>:</strong> 
+		<strong><?php echo lang('pages.slug_label');?>:</strong>
 		<a href="<?php echo site_url('admin/pages/preview/'.$page->id);?>?iframe" rel="modal-large" target="_blank">
 			<?php echo site_url(!empty($page->uri) ? $page->uri : $page->slug); ?>
 		</a>
