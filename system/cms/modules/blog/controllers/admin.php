@@ -91,10 +91,8 @@ class Admin extends Admin_Controller {
 	{
 		parent::__construct();
 
-		$this->load->model('blog_m');
-		$this->load->model('blog_categories_m');
-		$this->lang->load('blog');
-		$this->lang->load('categories');
+		$this->load->model(array('blog_m', 'blog_categories_m'));
+		$this->lang->load(array('blog', 'categories'));
 		
 		$this->load->library(array('keywords/keywords', 'form_validation'));
 
@@ -193,7 +191,8 @@ class Admin extends Admin_Controller {
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $this->current_user->id,
-				'type'				=> $this->input->post('type')
+				'type'				=> $this->input->post('type'),
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
 			));
 
 			if ($id)
@@ -280,7 +279,8 @@ class Admin extends Admin_Controller {
 				'created_on'		=> $created_on,
 				'comments_enabled'	=> $this->input->post('comments_enabled'),
 				'author_id'			=> $author_id,
-				'type'				=> $this->input->post('type')
+				'type'				=> $this->input->post('type'),
+				'parsed'			=> ($this->input->post('type') == 'markdown') ? parse_markdown($this->input->post('body')) : ''
 			));
 			
 			if ($result)

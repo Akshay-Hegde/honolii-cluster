@@ -32,7 +32,7 @@
 			
 		});
 		
-		$('#blog-options-tab ol li:first a').colorbox({
+		$('#blog-options-tab ul li:first a').colorbox({
 			srollable: false,
 			innerWidth: 600,
 			innerHeight: 280,
@@ -61,7 +61,7 @@
 								//append to dropdown the new option
 								$(select).append(option);
 																
-								//uniform workaround
+								// TODO work this out? //uniform workaround
 								$('#blog-options-tab li:first span').html(obj.title);
 								
 								//close the colorbox
