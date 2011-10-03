@@ -144,6 +144,9 @@ class Sites_m extends MY_Model {
 			$this->users_m->update_default_user($site->ref, $user)
 			)
 		{
+			// delete navigation cache
+			delete_files(APPPATH . 'cache/' . $site->ref . '/navigation_m');
+
 			// make sure there aren't orphaned folders from a previous install
 			if ($insert['ref'] != $site->ref)
 			{
