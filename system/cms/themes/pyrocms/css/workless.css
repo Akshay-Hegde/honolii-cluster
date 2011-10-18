@@ -222,6 +222,7 @@ fieldset { border: 1px solid #eeeeee; margin: 5px 0 15px 0; padding: 25px; }
 /* Indicate that 'label' will shift focus to the associated form element */
 label { cursor: pointer; font-size: 12px; font-weight: bold; }
 legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: bold; }
+label.inline {margin-right: 4px; font-weight: normal!important;}
 
 button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
 
@@ -249,6 +250,8 @@ input[type="button"] {
   background-image: -o-linear-gradient(#ffffff, #dddddd);
   background-image: linear-gradient(#ffffff, #dddddd);
   border: 1px solid;
+  font-size: 13px;
+  line-height: 14px;
   border-color: #dddddd #bbbbbb #999999;
   cursor: pointer;
   color: #333333;
@@ -258,6 +261,24 @@ input[type="button"] {
   padding: 3px 10px;
   text-shadow: #ffffff 0 1px 1px;
   width: auto;
+}
+
+.btn:disabled {
+  background-color: #bbbbbb!important;
+  background-repeat: repeat-x!important;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#cccccc), to(#bbbbbb))!important;
+  background-image: -moz-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: -ms-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #cccccc), color-stop(100%, #bbbbbb))!important;
+  background-image: -webkit-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: -o-linear-gradient(#cccccc, #bbbbbb)!important;
+  background-image: linear-gradient(#cccccc, #bbbbbb)!important;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25)!important;
+  border: 1px solid #aaaaaa!important;
+}
+
+a.button {
+	padding-top: 2px;
 }
 
 .cancel { padding: 4px 10px 5px 10px; }
@@ -281,6 +302,7 @@ input[type="button"]:hover {
   -webkit-transition: 250ms linear all;
   -moz-transition: 250ms linear all;
   transition: 250ms linear all;
+  color: #000;
 }
 
 input[type="text"], 
@@ -290,11 +312,6 @@ textarea {
 	padding: 5px;
 	border: 3px solid #eeeeee;
 	border: 3px solid rgba(0, 0, 0, .1);
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-khtml-border-radius: 5px;
-	-o-border-radius: 5px;
 }
 
 textarea {
@@ -454,6 +471,10 @@ table .headerSortUp.purple, table .headerSortDown.purple {
   background-color: #e2d5f0;
 }
 
+table .actions {
+	text-align: right;
+}
+
 /*
 -------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------
@@ -514,6 +535,7 @@ Helpers.
   background-image: linear-gradient(#d83a2e, #9d261d);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #5c1611;
+  color: #fff!important;
 }
 
 .btn.red:hover {
@@ -542,6 +564,7 @@ Helpers.
   background-image: linear-gradient(#f3ad55, #d89342);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #b6782c;
+  color: #fff!important;
 }
 
 .btn.orange:hover {
@@ -568,6 +591,7 @@ Helpers.
   background-image: linear-gradient(#bada55, #96b633);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #7b9b18;
+  color: #fff!important;
 }
 
 .btn.green:hover {
@@ -596,6 +620,7 @@ Helpers.
   background-image: linear-gradient(#049cdb, #0064cd);
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   border: 1px solid #003f81;
+  color: #fff!important;
 }
 
 .btn.blue:hover {
@@ -876,26 +901,30 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tab-menu li a {
   background: #efefef;
+  color: #636363;
   margin-right: 2px;
-  margin-bottom: -1px;
+  margin-bottom: -6px;
   padding: 0 15px;
   line-height: 35px;
   -webkit-border-radius: 3px 3px 0 0;
   -moz-border-radius: 3px 3px 0 0;
   border-radius: 3px 3px 0 0;
+  border-left: 1px solid #efefef;
+  border-top: 1px solid #efefef;
+  border-right: 1px solid #efefef;
 }
 
 .tab-menu li a:hover {
 
   background: #e6e6e6;
-  border-bottom: 1px solid #bfbfbf;
 }
 
-.tab-menu li.active a {
-  background-color: #ffffff;
+.ui-state-active a {
+  background: #ffffff!important;
   padding: 0 14px;
-  border: 1px solid #cccccc;
-  border-bottom: 0;
+  border-left: 1px solid #efefef;
+  border-top: 1px solid #efefef;
+  border-right: 1px solid #efefef;
   color: #808080;
 }
 
@@ -1214,6 +1243,15 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: left; 
 }
 
+.three_quarter {
+	width: 250px;
+	float: left;
+}
+
+.topbar {
+	height: 200px;
+}
+
 .topbar ul li#dashboard-link {
 	margin: 8px 10px 8px 15px;
 }
@@ -1241,11 +1279,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 .subbar {
 	position: fixed;
 	z-index: 9997;
-	top: 30px;
+	top: 25px!important;
 	right: 0;
 	left: 0;
 	width: 100%;
-	height: 40px;
+	height: 30px;
 	background: #f7f7f7;
   	background-repeat: repeat-x;
   	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
@@ -1257,7 +1295,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	background-image: linear-gradient(#f7f7f7, #f3f3f3);
   	border: 1px solid #ffffff;
   	border-bottom: 1px solid #eeeeee;
-  	padding: 20px 15px 15px 0;
+  	padding: 15px 15px 13px 0;
   	margin-top: 15px;
   	border-top-right-radius: 5px;
   	-moz-border-radius-topright: 5px; 	
@@ -1268,6 +1306,11 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
   	box-shadow: 0px 0px 1px #aaaaaa;
   	-moz-box-shadow: 0px 0px 1px #aaaaaa;
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+#content-body {
+	top: 135px;
+	position: relative;
 }
 
 .subbar h2, .subbar h2 a {
@@ -1299,26 +1342,67 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #shortcuts ul li {
-	margin: 0 0 0 10px;
+	margin: 8px 0 0 10px;
 	float: left;
 }
 
+#shortcuts ul li a.add {
+	margin: -7px 0 0 10px;
+	float: left;
+}
+
+#shortcuts ul li a.add:before {
+  content: '+ ';
+  margin-top: -6px;
+  color: #333333;
+  font-size: 16px;
+  font-weight: bold;
+  text-shadow: 0 1px 0 #ffffff;
+}
+
 #shortcuts li a {
-  background: #aaaaaa;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 5px 15px 5px 15px;
-  line-height: 30px;
-  -webkit-border-radius: 15px;
-  -moz-border-radius: 15px;
-  border-radius: 15px;
+  -webkit-appearance: none;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding;
+  background-clip: padding-box;
+  background: #dddddd;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#ffffff), to(#dddddd));
+  background-image: -moz-linear-gradient(#ffffff, #dddddd);
+  background-image: -ms-linear-gradient(#ffffff, #dddddd);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #dddddd));
+  background-image: -webkit-linear-gradient(#ffffff, #dddddd);
+  background-image: -o-linear-gradient(#ffffff, #dddddd);
+  background-image: linear-gradient(#ffffff, #dddddd);
+  border: 1px solid;
+  border-color: #dddddd #bbbbbb #999999;
+  cursor: pointer;
+  color: #333333;
+  font: bold 12px/1.3 'Helvetica Neue', Arial, 'Liberation Sans', FreeSans, sans-serif;
+  outline: 0;
+  overflow: visible;
+  padding: 3px 10px;
+  text-shadow: #ffffff 0 1px 1px;
+  width: auto;
 }
 
 #shortcuts li a:hover {
-  background: #bbbbbb;
-  color: #ffffff;
-  text-decoration: none;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+  background: #ffffff;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#dddddd), to(#ffffff));
+  background-image: -moz-linear-gradient(#dddddd, #ffffff);
+  background-image: -ms-linear-gradient(#dddddd, #ffffff);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #dddddd), color-stop(100%, #ffffff));
+  background-image: -webkit-linear-gradient(#dddddd, #ffffff);
+  background-image: -o-linear-gradient(#dddddd, #ffffff);
+  background-image: linear-gradient(#dddddd, #ffffff);
+  border: 1px solid;
+  border-color: #999999 #bbbbbb #dddddd;
+  -webkit-transition: 250ms linear all;
+  -moz-transition: 250ms linear all;
+  transition: 250ms linear all;
+  color: #efa92e;
 }
 
 #shortcuts li a.active {
@@ -1329,9 +1413,9 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 #filters ul {
 	margin: 0;
-	float: right;
+	float: left;
 }
-
+#filters legend {color: #888; font-size: 12px; padding: 0 6px;}
 #filters form > ul > li {
 	margin: 8px 0 5px 5px;
 	float: left;
@@ -1350,6 +1434,29 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 	float: right;
 }
 
+.sections_bar {
+	position: fixed;
+	z-index: 9995;
+	top: 101px!important;
+	right: 0;
+	left: 0;
+	width: 100%;
+	height: 33px;
+	background: #eceaea;
+  	border-bottom: 1px solid #eeeeee;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+.sections_bar ul li {float: left; position: relative; padding: 8px 10px 10px 10px;}
+.sections_bar ul li a {color: #797878; text-shadow: 1px 1px 1px #fff;}
+.sections_bar ul li.current a, .sections_bar ul li a:hover {color: #aeadad;}
+.sections_bar ul li img {
+	position: absolute;
+	bottom: -12px;
+	left: 32%;
+}
+
 .ui-tabs-nav { width: 1180px; float: left; }
 .ui-tabs-nav li { position: relative; float: left; border-bottom-width: 0 !important; margin: 22px 0 0 5px; padding: 0; }
 .ui-tabs-panel { display: block; border-width: 0; background: none; float: left; }
@@ -1357,7 +1464,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 
 #analyticsWrapper {
 	background: #ffffff;
-	width: 212px;
+	width: 232px;
 	height: 300px;
 	padding: 25px;
 	float: left;
@@ -1373,7 +1480,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 }
 
 #analytics {
-	width: 100%;
+	width: 232px;
 	height: 300px;
 	float: left;
 }
@@ -1391,7 +1498,7 @@ Primary styles. (Mobile first, everything else is overridden with @media queries
 section#content {
 	width: 250px;
 	padding: 0;
-	margin: 150px 0 150px 0;
+	margin: 135px 0 150px 0!important;
 	float: left;
 }
 
@@ -1407,6 +1514,10 @@ section#content ul {
 
 section#content ul li {
 	list-style: none;
+}
+
+#blog-content-tab {
+	width: 100%;
 }
 
 section.title {
@@ -1495,8 +1606,11 @@ section.box {
 }
 
 #feed ul li h4 {
-	margin: -10px 0 0 0;
+	margin: 0 0 8px 0;
+	padding: 0;
+	line-height: 16px;
 	font-size: 16px;
+	display:inline-block;
 }
 
 #feed ul li, #feed ul li p {
@@ -1546,7 +1660,7 @@ footer {
 	background: #333333;
 	border-top: 1px solid #ececec;
 	width: 100%;
-	height: 250px;
+	height: 50px;
 	color: #eeeeee;
 	margin-top: -100px;
 	padding: 25px 0 25px 0;
@@ -1567,7 +1681,50 @@ ul#lang {
 }
 
 ul#lang .chzn-results {
-	width: 225px;
+	width: 97%;
+}
+
+ul#lang .chzn-drop {
+	top: -230px !important;
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+	border-bottom: 1px solid #d0d0d0;
+}
+ 
+ul#lang .chzn-container .chzn-single-with-drop {
+	border-top: none;
+	-webkit-border-radius: 0 0 4px 4px;
+	-khtml-border-radius: 0 0 4px 4px;
+	-moz-border-radius: 0 0 4px 4px;
+	border-radius: 0 0 4px 4px;
+	background: #ffffff;
+	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(50%, #ffffff), color-stop(100%, #eeeeee));
+	background: -webkit-linear-gradient(top, #ffffff 50%, #eeeeee 100%);
+	background: -moz-linear-gradient(top, #ffffff 50%, #eeeeee 100%);
+	background: -o-linear-gradient(top, #ffffff 50%, #eeeeee 100%);
+	background: -ms-linear-gradient(top, #ffffff 50%, #eeeeee 100%);
+	background: linear-gradient(top, #ffffff 50%, #eeeeee 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#eeeeee',GradientType=0 );
+
+}
+
+ul#lang .chzn-container .chzn-single div b {
+	background: url("../img/chosen-sprite.png") no-repeat scroll 0 1px transparent;
+	background-position: -18px 1px;
+}
+
+ul#lang .chzn-container .chzn-single-with-drop div b {
+	background: url("../img/chosen-sprite.png") no-repeat scroll 0 1px transparent;
+	background-position: 0 0;
+}
+
+ul#lang .chzn-container .chzn-drop {
+	-webkit-border-radius: 4px 4px 0 0;
+	-khtml-border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	border-radius: 4px 4px 0 0;
+	border-top: 1px solid #aaa;
 }
 
 ul#lang .highlighted {
@@ -1609,6 +1766,26 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	.topbar {
+		height: 150px;
+	}
+	
+	.subbar {
+		top: 130px;
+	}
+	
+	.sections_bar {
+		top: 200px;
+	}
+	
+	#content-body {
+		top: 75px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 432px;	
+	}
+	
 	section#content {
 		width: 450px;
 		padding: 0;
@@ -1642,6 +1819,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 450px;
+		float: left;
+	}
+	
 	#quick_links ul li {
 		width: 75px;
 		float: left;
@@ -1662,6 +1844,26 @@ Ensure your main styling comes before this!
 		min-height: 100%;
 		margin: 0 auto;
 		padding: 0;
+	}
+	
+	.topbar {
+		height: 125px;
+	}
+	
+	.subbar {
+		top: 110px;
+	}
+	
+	.sections_bar {
+		top: 183px;
+	}
+	
+	#content-body {
+		top: 65px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 750px;	
 	}
 	
 	section#content {
@@ -1701,6 +1903,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 520px;
+		float: left;
+	}
+
 	#quick_links ul li {
 		width: 75px;
 		float: left;
@@ -1721,6 +1928,26 @@ Ensure your main styling comes before this!
 		min-height: 100%;
 		margin: 0 auto;
 		padding: 0;
+	}
+	
+	.topbar {
+		height: 50px;
+	}
+	
+	.subbar {
+		top: 25px;
+	}
+	
+	.sections_bar {
+		top: 95px;
+	}
+	
+	#content-body {
+		top: 0px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 982px;	
 	}
 	
 	section#content {
@@ -1760,6 +1987,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 750px;
+		float: left;
+	}
+
 	#quick_links ul li {
 		width: 75px;
 		float: left;
@@ -1782,6 +2014,26 @@ Ensure your main styling comes before this!
 		padding: 0;
 	}
 	
+	.topbar {
+		height: 50px;
+	}
+	
+	.subbar {
+		top: 25px;
+	}
+	
+	.sections_bar {
+		top: 95px;
+	}
+	
+	#content-body {
+		top: 0px;
+	}
+	
+	#analyticsWrapper, #analytics {
+		width: 1212px;	
+	}
+	
 	.topbar nav {
 		width: 1080px;
 	}
@@ -1789,7 +2041,7 @@ Ensure your main styling comes before this!
 	section#content {
 		width: 1230px;
 		padding: 0;
-		margin: 150px 0 150px 0;
+		margin: 170px 0 150px 0;
 		float: left;
 	}
 	
@@ -1823,6 +2075,11 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	
+	.three_quarter {
+		width: 975px;
+		float: left;
+	}
+
 	#quick_links ul li {
 		width: 75px;
 		float: left;

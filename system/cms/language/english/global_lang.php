@@ -67,11 +67,13 @@ $lang['enable_label']					= 'Enable';
 $lang['disable_label'] 					= 'Disable';
 $lang['upgrade_label'] 					= 'Upgrade';
 
+$lang['global:filters'] 				= 'Filters';
 $lang['global:shortcuts'] 				= 'Shortcuts';
 $lang['global:description']				= 'Description';
 $lang['global:actions']					= 'Actions';
 $lang['global:view']					= 'View';
 $lang['global:preview']					= 'Preview';
+$lang['global:add']						= 'Add';
 $lang['global:edit']					= 'Edit';
 $lang['global:empty']					= 'Empty';
 $lang['global:delete']					= 'Delete';

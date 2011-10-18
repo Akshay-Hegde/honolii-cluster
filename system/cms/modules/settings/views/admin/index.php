@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo lang('settings_edit_title');?></h4>
+	<h4><?php echo $module_details['name']; ?></h4>
 </section>
 
 	<section class="item">
@@ -19,7 +19,7 @@
 				</ul>
 	
 				<?php foreach ($setting_sections as $section_slug => $section_name): ?>
-				<div id="<?php echo $section_slug;?>">
+				<div style="width:100%;" id="<?php echo $section_slug;?>">
 					<fieldset>
 						<ul>
 						<?php $section_count = 1; foreach ($settings[$section_slug] as $setting): ?>
@@ -46,14 +46,14 @@
 	
 			</div>
 	
-			<div class="buttons float-right padding-top">
+			<div class="buttons padding-top">
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save') )); ?>
 			</div>
 	
 		<?php echo form_close(); ?>
 	<?php else: ?>
-		<div class="blank-slate">
-			<h2><?php echo lang('settings_no_settings');?></h2>
+		<div>
+			<p><?php echo lang('settings_no_settings');?></p>
 		</div>
 	<?php endif; ?>
 </section>

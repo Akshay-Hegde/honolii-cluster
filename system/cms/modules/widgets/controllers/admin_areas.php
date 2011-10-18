@@ -12,6 +12,13 @@
 class Admin_areas extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'areas';
+	
+	/**
 	 * Array that contains the validation rules
 	 *
 	 * @access	protected
@@ -46,7 +53,6 @@ class Admin_areas extends Admin_Controller {
 		$this->input->is_ajax_request() AND $this->template->set_layout(FALSE);
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
 			->append_metadata(css('widgets.css', 'widgets'));
 	}
@@ -121,7 +127,7 @@ class Admin_areas extends Admin_Controller {
 			{
 				$this->session->set_flashdata($status, $message);
 
-				redirect('admim/widgets');
+				redirect('admin/widgets');
 				return;
 			}
 

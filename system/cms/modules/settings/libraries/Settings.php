@@ -320,7 +320,7 @@ class Settings {
 						'checked'	=> $checked,
 						'value'		=> $value
 					));
-					$form_control .= ' ' . $label . '</label>';
+					$form_control .= ' ' . $label . '</label>&nbsp;&nbsp;';
 				}
 				break;
 
@@ -329,12 +329,12 @@ class Settings {
 				$form_control = '';
 				foreach ($this->_format_options($setting->options) as $value => $label)
 				{
-					$form_control .= '' . form_radio(array(
+					$form_control .= '<label class="inline">' . form_radio(array(
 						'id'		=> $setting->slug,
 						'name'		=> $setting->slug,
 						'checked'	=> $setting->value == $value,
 						'value'		=> $value
-					)) . ' ' . $label . '';
+					)) . ' ' . $label . '</label> ';
 				}
 				break;
 		}

@@ -12,6 +12,13 @@
 class Admin extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'instances';
+	
+	/**
 	 * Constructor method
 	 * @access public
 	 * @return void
@@ -32,7 +39,6 @@ class Admin extends Admin_Controller {
 		}
 
 		$this->template
-			->set_partial('shortcuts', 'admin/partials/shortcuts')
 			->append_metadata(js('widgets.js', 'widgets'))
 			->append_metadata(css('widgets.css', 'widgets'));
 	}

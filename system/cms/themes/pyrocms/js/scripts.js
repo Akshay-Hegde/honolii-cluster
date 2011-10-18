@@ -51,8 +51,8 @@ jQuery(function($) {
 			$(this).find('ul').fadeOut();
 		});
 
-		// Add the close link to all boxes with the closable class
-		$('.closable').livequery(function(){
+		// Add the close link to all alert boxes
+		$('.alert').livequery(function(){
 			$(this).append('<a href="#" class="close">close</a>');
 		});
 
@@ -67,7 +67,7 @@ jQuery(function($) {
 		});
 
 		// Fade in the notifications
-		$('.notification').livequery(function(){
+		$('.alert').livequery(function(){
 			$(this).fadeIn('slow', function(){
 				$(window).trigger('notification-complete');
 			});
@@ -90,6 +90,22 @@ jQuery(function($) {
 					$(this).click();
 				}
 			});
+			
+			// Check all? 
+			$(".table_action_buttons .btn").removeAttr('disabled');
+		});
+
+		// Table action buttons start out as disabled
+		$(".table_action_buttons .btn").attr('disabled', 'disabled');
+
+		// Enable/Disable table action buttons
+		$('input[name="action_to[]"], .check-all').live('click', function () {
+		
+			if( $('input[name="action_to[]"]:checked, .check-all:checked').length >= 1 ){
+				$(".table_action_buttons .btn").removeAttr('disabled');
+			} else {
+				$(".table_action_buttons .btn").attr('disabled', 'disabled');
+			}
 		});
 
 		// Confirmation
@@ -182,7 +198,7 @@ jQuery(function($) {
 
 	pyro.clear_notifications = function()
 	{
-		$('.notification .close').click();
+		$('.alert .close').click();
 
 		return pyro;
 	};
@@ -191,8 +207,8 @@ jQuery(function($) {
 	{
 		var defaults = {
 			clear	: true,
-			ref		: '#shortcuts',
-			method	: 'after'
+			ref		: '#content-body',
+			method	: 'prepend'
 		}, opt;
 		
 		// extend options
@@ -213,7 +229,7 @@ jQuery(function($) {
 	};
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
-		pyro.add_notification($('<div class="closable notification error">'+exception+'</div>'));
+		pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
 	});
 
 	$(document).ready(function() {
@@ -295,39 +311,32 @@ jQuery(function($) {
 	// Chosen
 	$('select').addClass('chzn');
 	$(".chzn").chosen();
+	
+	//functions for codemirror
+	$('.html_editor').each(function() {
+		CodeMirror.fromTextArea(this, {
+		    mode: 'text/html',
+		    tabMode: 'indent',
+			height : '500px',
+			width : '500px',
+		});
+	});
+
+	$('.css_editor').each(function() {
+		CodeMirror.fromTextArea(this, {
+		    mode: 'css',
+		    tabMode: 'indent',
+			height : '500px',
+			width : '500px',
+		});
+	});
+	
+	$('.js_editor').each(function() {
+		CodeMirror.fromTextArea(this, {
+		    mode: 'javascript',
+		    tabMode: 'indent',
+			height : '500px',
+			width : '500px',
+		});
+	});
 });
-
-//functions for codemirror
-function html_editor(id, width)
-{
-	CodeMirror.fromTextArea(id, {
-	    height: "30em",
-	    width: width,
-	    parserfile: ["parsejavascript.js","parsexml.js", "parsecss.js", "parsehtmlmixed.js"],
-	    stylesheet: [pyro.admin_theme_url + "/css/codemirror/xmlcolors.css", pyro.admin_theme_url + "/css/codemirror/csscolors.css"],
-	    path: pyro.admin_theme_url,
-	    tabMode: 'spaces'
-	});
-}
-
-function css_editor(id, width)
-{
-	CodeMirror.fromTextArea(id, {
-	    height: "30em",
-	    width: width,
-	    parserfile: "parsecss.js",
-	    stylesheet: pyro.admin_theme_url + "/css/codemirror/csscolors.css",
-	    path: pyro.admin_theme_url
-	});
-}
-
-function js_editor(id, width)
-{
-	CodeMirror.fromTextArea(id, {
-	    height: "30em",
-	    width: width,
-	    parserfile: ["tokenizejavascript.js", "parsejavascript.js"],
-	    stylesheet: pyro.admin_theme_url + "/css/codemirror/jscolors.css",
-	    path: pyro.admin_theme_url
-	});
-}

@@ -10,6 +10,13 @@
 class Admin extends Admin_Controller {
 
 	/**
+	 * The current active section
+	 * @access protected
+	 * @var string
+	 */
+	protected $section = 'pages';
+	
+	/**
 	 * Array containing the validation rules
 	 * @access private
 	 * @var array
@@ -20,7 +27,7 @@ class Admin extends Admin_Controller {
 			'label'	=> 'lang:pages.title_label',
 			'rules'	=> 'trim|required|max_length[250]'
 		),
-		array(
+		'slug' => array(
 			'field' => 'slug',
 			'label'	=> 'lang:pages.slug_label',
 			'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug'
@@ -93,13 +100,6 @@ class Admin extends Admin_Controller {
 	);
 
 	/**
-	 * The ID of the page, used for the validation callback
-	 * @access private
-	 * @var int
-	 */
-	private $page_id = 0;
-
-	/**
 	 * Constructor method
 	 * @access public
 	 * @return void
@@ -115,10 +115,6 @@ class Admin extends Admin_Controller {
 		$this->load->model('page_layouts_m');
 		$this->load->model('navigation/navigation_m');
 		$this->lang->load('pages');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
-
-		$this->form_validation->set_rules($this->validation_rules);
 	}
 
 
@@ -152,10 +148,7 @@ class Admin extends Admin_Controller {
 		$order = $this->input->post('order');
 
 		if (is_array($order))
-		{
-			//reset all parent > child relations
-			$this->page_m->update_all(array('parent_id' => 0));
-			
+		{	
 			foreach ($order as $i => $page)
 			{
 				//set the order of the root pages
@@ -210,37 +203,57 @@ class Admin extends Admin_Controller {
 	 * Duplicate a page
 	 * @access public
 	 * @param int $id The ID of the page
+	 * @param int $id The ID of the parent page, if this is a recursive nested duplication
 	 * @return void
 	 */
-	public function duplicate($id = 0)
+	public function duplicate($id, $parent_id = null)
 	{
 		$page  = $this->page_m->get($id);
 		
+		// Steal their children
+		$children = $this->page_m->get_many_by('parent_id', $id);
+		
 		$new_slug = $page->slug;
 		
-		do
+		// No parent around? Do what you like
+		if (is_null($parent_id))
 		{
-			// Turn "foo" into "foo-1"
-			$new_slug = increment_string($new_slug, '-', 2);
-			
-			// Find if this already exists in this level
-			$dupes = $this->page_m->count_by(array(
-				'slug' => $new_slug,
-				'parent_id' => $page->parent_id,
-			));
+			do
+			{
+				// Turn "Foo" into "Foo 2"
+				$page->title = increment_string($page->title, ' ', 2);
+					
+				// Turn "foo" into "foo-2"
+				$page->slug = increment_string($page->slug, '-', 2);
+
+				// Find if this already exists in this level
+				$dupes = $this->page_m->count_by(array(
+					'slug' => $page->slug,
+					'parent_id' => $page->parent_id,
+				));
+			}
+			while ($dupes > 0);
 		}
-		while ($dupes > 0);
 		
-		// Turn "Foo" into "Foo 2"
-		$page->title = increment_string($page->title, ' ', 2);
-		$page->slug = $new_slug;
+		// Oop, a parent turned up, work with that
+		else
+		{
+			$page->parent_id = $parent_id;
+		}
 		
 		$chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
 		
-		$id = $this->page_m->insert((array) $page, $chunks);
+		$new_page_id = $this->page_m->insert((array) $page, $chunks);
 		
-		redirect('admin/pages/edit/'.$id);
+		foreach ($children as $child)
+		{
+			$this->duplicate($child->id, $new_page_id);
+		}
 		
+		if ($parent_id === NULL)
+		{
+			redirect('admin/pages/edit/'.$new_page_id);
+		}
 	}
 
 	/**
@@ -267,6 +280,8 @@ class Admin extends Admin_Controller {
 					'body' => $chunk_bodies[$i],
 				);
 			}
+			
+			$this->form_validation->set_rules($this->validation_rules);
 				
 			// Validate the page
 			if ($this->form_validation->run())
@@ -358,7 +373,6 @@ class Admin extends Admin_Controller {
 		$this->template
 			->title($this->module_details['name'], lang('pages.create_title'))
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $data);
 	}
@@ -419,6 +433,14 @@ class Admin extends Admin_Controller {
 					'body' => $chunk_bodies[$i],
 				);	
 			}
+			
+			$this->form_validation->set_rules(array_merge($this->validation_rules, array(
+				'slug' => array(
+					'field' => 'slug',
+					'label'	=> 'lang:pages.slug_label',
+					'rules'	=> 'trim|required|alpha_dot_dash|max_length[250]|callback__check_slug['.$id.']'
+				)
+			)));
 			
 			if ($this->form_validation->run())
 			{
@@ -487,8 +509,6 @@ class Admin extends Admin_Controller {
 			// Load WYSIWYG Editor
 			->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
 
-			// Load form specific JavaScript
-			->append_metadata( js('codemirror/codemirror.js') )
 			->append_metadata( js('form.js', 'pages') )
 			->build('admin/form', $this->data);
 	}
@@ -506,7 +526,7 @@ class Admin extends Admin_Controller {
 
 		$this->load->model('groups/group_m');
 		$groups = $this->group_m->get_all();
-		foreach($groups as $group)
+		foreach ($groups as $group)
 		{
 			$group->name !== 'admin' && $group_options[$group->id] = $group->name;
 		}
@@ -527,40 +547,43 @@ class Admin extends Admin_Controller {
 		$ids = ($id) ? array($id) : $this->input->post('action_to');
 
 		// Go through the array of slugs to delete
-		foreach ($ids as $id)
+		if ( ! empty($ids))
 		{
-			if ($id !== 1)
+			foreach ($ids as $id)
 			{
-				$deleted_ids = $this->page_m->delete($id);
+				if ($id !== 1)
+				{
+					$deleted_ids = $this->page_m->delete($id);
 
-				// Wipe cache for this model, the content has changd
-				$this->pyrocache->delete_all('page_m');
-				$this->pyrocache->delete_all('navigation_m');
+					// Wipe cache for this model, the content has changd
+					$this->pyrocache->delete_all('page_m');
+					$this->pyrocache->delete_all('navigation_m');
+				}
+
+				else
+				{
+					$this->session->set_flashdata('error', lang('pages_delete_home_error'));
+				}
+			}
+			
+			// Some pages have been deleted
+			if ( ! empty($deleted_ids))
+			{
+				// Only deleting one page
+				if ( count($deleted_ids) == 1 )
+				{
+					$this->session->set_flashdata('success', sprintf(lang('pages_delete_success'), $deleted_ids[0]));
+				}
+				else // Deleting multiple pages
+				{
+					$this->session->set_flashdata('success', sprintf(lang('pages_mass_delete_success'), count($deleted_ids)));
+				}
 			}
 
-			else
+			else // For some reason, none of them were deleted
 			{
-				$this->session->set_flashdata('error', lang('pages_delete_home_error'));
+				$this->session->set_flashdata('notice', lang('pages_delete_none_notice'));
 			}
-		}
-
-		// Some pages have been deleted
-		if ( ! empty($deleted_ids))
-		{
-			// Only deleting one page
-			if ( count($deleted_ids) == 1 )
-			{
-				$this->session->set_flashdata('success', sprintf(lang('pages_delete_success'), $deleted_ids[0]));
-			}
-			else // Deleting multiple pages
-			{
-				$this->session->set_flashdata('success', sprintf(lang('pages_mass_delete_success'), count($deleted_ids)));
-			}
-		}
-
-		else // For some reason, none of them were deleted
-		{
-			$this->session->set_flashdata('notice', lang('pages_delete_none_notice'));
 		}
 
 		redirect('admin/pages');
@@ -569,13 +592,12 @@ class Admin extends Admin_Controller {
 	/**
 	 * Build the html for the admin page tree view
 	 *
-	 * @author Jerel Unruh - PyroCMS Dev Team
 	 * @access public
 	 * @param array $page Current page
 	 */
 	public function tree_builder($page)
 	{
-		if(isset($page['children'])):
+		if (isset($page['children'])):
 	
 			foreach($page['children'] as $page): ?>
 		
@@ -599,30 +621,31 @@ class Admin extends Admin_Controller {
 	/**
 	 * Callback to check uniqueness of slug + parent
 	 *
-	 * @author Donald Myers
 	 * @access public
 	 * @param $slug slug to check
 	 * @return bool
 	 */
-	 public function _check_slug($slug = '')
+	 public function _check_slug($slug, $page_id = null)
 	 {
-     if ($this->page_m->check_slug($slug, $this->input->post('parent_id'), (int)$this->page_id))
-     {
-       $page_obj = $this->page_m->get($this->page_id);
-       $url = '/'.trim(dirname($page_obj->uri),'.').$slug;
-       if ($this->input->post('parent_id') == 0)
-       {
-         $parent_folder = lang('pages_root_folder');
-       }
-       else
-       {
-         $page_obj = $this->page_m->get($this->input->post('parent_id'));
-         $parent_folder = $page_obj->title;
-       }
-       $this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url,$parent_folder));
-       return FALSE;
-     }
+		if ($this->page_m->check_slug($slug, $this->input->post('parent_id'), (int) $page_id))
+		{
+			if ($this->input->post('parent_id') == 0)
+			{
+				$parent_folder = lang('pages_root_folder');
+				$url = '/'.$slug;
+			}
+			else
+			{
+				$page_obj = $this->page_m->get($page_id);
+				$url = '/'.trim(dirname($page_obj->uri),'.').$slug;
+				$page_obj = $this->page_m->get($this->input->post('parent_id'));
+				$parent_folder = $page_obj->title;
+			}
+		
+			$this->form_validation->set_message('_check_slug',sprintf(lang('pages_page_already_exist_error'),$url, $parent_folder));
+			return FALSE;
+		}
   
-     return TRUE;
-   }
+		return TRUE;
+	}
 }

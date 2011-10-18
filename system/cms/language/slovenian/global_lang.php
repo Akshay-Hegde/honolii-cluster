@@ -66,11 +66,13 @@ $lang['enable_label']					= 'Omogoči';
 $lang['disable_label'] 					= 'Onemogoči';
 $lang['upgrade_label'] 					= 'Posodobi';
 
+$lang['global:filters']                 = 'Razvrstitev';
 $lang['global:shortcuts'] 				= 'Bližnjice';
 $lang['global:description']				= 'Opis';
 $lang['global:actions']					= 'Dejanja';
 $lang['global:view']					= 'View'; #translate
 $lang['global:preview']					= 'Preview'; #translate
+$lang['global:add']						= 'Add'; #translate
 $lang['global:edit']					= 'Uredi';
 $lang['global:empty']					= 'Empty'; #translate
 $lang['global:delete']					= 'Izbriši';

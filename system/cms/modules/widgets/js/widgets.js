@@ -50,9 +50,9 @@ jQuery(function($){
 
 				update: function(){
 					var order = [];
-
-					$(this).children('li').each(function(){
-						order.push($(this).attr('id').replace(/^instance-/, ''));
+					
+					$(this).children('li').each(function(){					
+						order.push($(this).attr('id'));
 					});
 
 					$.post(SITE_URL + 'widgets/ajax/update_order', { order: order.join(',') });
@@ -349,7 +349,7 @@ jQuery(function($){
 
 			$.get(url, function(response){
 
-				response = '<li id="' + action + '-instance-box" class="box hidden widget-instance no-sortable">' +
+				response = '<li id="' + action + '-instance-box" class="box widget-instance no-sortable">' +
 							response + '</li>';
 
 				// write action form into cache
@@ -471,7 +471,16 @@ jQuery(function($){
 //		}
 
 	};
-
+	
 	pyro.widgets.init();
+
+	// Slide toggle for widget codes
+	$(".instance-code").livequery('click', function(){
+		$('#'+$(this).attr('id')+'-wrap').toggle();
+	});
+
+	// Select code 
+	$(".widget-code").focus(function(){$(this).select()});
+	$(".widget-code").mouseup(function(e){e.preventDefault();});
 
 });
