@@ -1,5 +1,3 @@
-<h5><?php echo $page->title; ?></h5>
-
 <input id="page-id" type="hidden" value="<?php echo $page->id; ?>" />
 <input id="page-uri" type="hidden" value="<?php echo !empty($page->uri) ? $page->uri : $page->slug; ?>" />
 
@@ -36,6 +34,6 @@
 <div class="buttons">
 	<?php echo anchor('admin/pages/create/' . $page->id, lang('pages.create_label'), 'class="button"'); ?>
 	<?php echo anchor('admin/pages/duplicate/' . $page->id, lang('pages.duplicate_label'), 'class="button"'); ?>
-	<?php echo anchor('admin/pages/edit/' . $page->id, lang('pages.edit_label'), 'class="button"'); ?>
-	<?php echo anchor('admin/pages/delete/' . $page->id, lang('pages.delete_label'), 'class="confirm button"'); ?>
+	<?php echo anchor('admin/pages/edit/' . $page->id, lang('global:edit'), 'class="button"'); ?>
+	<?php echo anchor('admin/pages/delete/' . $page->id, lang('global:delete'), 'class="confirm button"'); ?>
 </div>
