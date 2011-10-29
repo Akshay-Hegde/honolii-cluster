@@ -49,7 +49,7 @@ jQuery(function($) {
 			($a.find('ul:first:hidden').css({visibility: "visible",display: "none"}).slideDown(400).length > 0) ||
 			$a.find('ul:first:visible').slideUp(400);
 
-			if ($a.parent().has('ul').length > 0) {
+			if ($a.has('ul').length > 0) {
 				e.preventDefault();
 			};
 		});
@@ -72,6 +72,7 @@ jQuery(function($) {
 			$(this).fadeTo(200, 0); // This is a hack so that the close link fades out in IE
 			$(this).parent().fadeTo(200, 0);
 			$(this).parent().slideUp(400, function(){
+				$(window).trigger('notification-closed');
 				$(this).remove();
 			});
 		});
