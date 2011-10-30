@@ -64,6 +64,15 @@ class Module_Themes extends Module {
 																	 )
 															   )
 										  ),
+				'admin_themes' => 	array('name' => 'themes.admin_list',
+										  'uri' => 'admin/themes/admin_themes',
+										  'shortcuts' => array(
+															   array('name' => 'themes.upload_title',
+																	 'uri' => 'admin/themes/upload',
+																	 'class' => 'add modal',
+																	 )
+															   )
+										  )
 				);
 		}
 		
