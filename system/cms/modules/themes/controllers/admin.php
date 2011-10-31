@@ -100,6 +100,8 @@ class Admin extends Admin_Controller
 
 		// Render the view
 		$this->template
+			// override the active section setting from above
+			->set('active_section', 'admin_themes')
 			->title($this->module_details['name'])
 			->build('admin/index', $data);
 	}
