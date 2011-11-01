@@ -276,7 +276,7 @@ class Sites_m extends MY_Model {
 		$site->admin_login = $admin_login->last_login;
 		
 		// and schema version
-		$schema = $this->db->get('schema_version')->row();
+		$schema = $this->db->get('migrations')->row();
 		$site->schema_version = $schema->version;
 		
 		return $site;
