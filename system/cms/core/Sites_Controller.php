@@ -75,8 +75,10 @@ class Sites_Controller extends MX_Controller {
 		}
 		
 		// Asset library needs to know where the admin theme directory is
-		$this->config->set_item('asset_dir', APPPATH.'themes/sites/');
-		$this->config->set_item('asset_url', BASE_URL.APPPATH.'themes/sites/');
+		$this->config->set_item('asset_dir', APPPATH.'themes/');
+		$this->config->set_item('asset_url', BASE_URL.APPPATH.'themes/');
+		$this->config->set_item('theme_asset_dir', APPPATH.'themes/');
+		$this->config->set_item('theme_asset_url', BASE_URL.APPPATH.'themes/');
 		
 		// Template configuration
 		$this->template
