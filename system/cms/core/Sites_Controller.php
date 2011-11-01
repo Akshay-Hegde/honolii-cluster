@@ -3,6 +3,11 @@
 // Code here is run before the site manager controllers
 class Sites_Controller extends MX_Controller {
 
+	public $module_details;
+	public $module;
+	public $controller;
+	public $method;
+
 	public function __construct()
 	{
 		parent::__construct();
@@ -22,10 +27,10 @@ class Sites_Controller extends MX_Controller {
 			redirect('installer');
 		}
 		
-		define('ADMIN_THEME', 'sites');
+		defined('ADMIN_THEME') OR define('ADMIN_THEME', 'sites');
 		
 		// define folders that we need to create for each new site
-		$this->locations = array(
+		ci()->locations = $this->locations = array(
 			APPPATH.'cache'	=> array(
 				'simplepie'
 			),
@@ -39,7 +44,7 @@ class Sites_Controller extends MX_Controller {
 		
 		// Since we don't need to lock the lang with a setting like /admin and
 		// the front-end we just define CURRENT_LANGUAGE exactly the same as AUTO_LANGUAGE
-		define('CURRENT_LANGUAGE', AUTO_LANGUAGE);
+		defined('CURRENT_LANGUAGE') OR define('CURRENT_LANGUAGE', AUTO_LANGUAGE);
 		
 		// Load the Language files ready for output
 		$this->lang->load(array('admin', 'buttons', 'global', 'sites/sites', 'users/user'));
@@ -51,11 +56,11 @@ class Sites_Controller extends MX_Controller {
 		$this->load->dbforge();
 		
 		// Work out module, controller and method and make them accessable throught the CI instance
-		$this->module = $this->router->fetch_module();
-		$this->controller = $this->router->fetch_class();
-		$this->method = $this->router->fetch_method();
-		$this->module_details['slug'] = 'sites';
-		
+		ci()->module = $this->module = $this->router->fetch_module();
+		ci()->controller = $this->controller = $this->router->fetch_class();
+		ci()->method = $this->method = $this->router->fetch_method();
+		ci()->module_details = $this->module_details = array('slug' => 'sites');
+
 		// Load helpers
 		$this->load->helper('admin_theme');
 		$this->load->helper('file');
