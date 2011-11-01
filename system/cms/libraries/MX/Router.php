@@ -103,6 +103,11 @@ class MX_Router extends CI_Router
 					Modules::$locations = $locations;
 					
 				}
+				else
+				{
+					// turn off database sessions for MSM
+					$this->config->set_item('sess_use_database', FALSE);
+				}
 			}
 		}
 
