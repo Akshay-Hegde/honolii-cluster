@@ -1,9 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Code here is run before the site manager controllers
-class Sites_Controller extends CI_Controller {
+class Sites_Controller extends MX_Controller {
 
-	public function Sites_Controller()
+	public function __construct()
 	{
 		parent::__construct();
 		
@@ -42,7 +42,7 @@ class Sites_Controller extends CI_Controller {
 		define('CURRENT_LANGUAGE', AUTO_LANGUAGE);
 		
 		// Load the Language files ready for output
-		$this->lang->load(array('admin', 'buttons', 'main', 'sites/sites', 'users/user'));
+		$this->lang->load(array('admin', 'buttons', 'global', 'sites/sites', 'users/user'));
 		
 		// Load all the required classes
 		$this->load->model(array('sites_m', 'users_m', 'settings_m'));
