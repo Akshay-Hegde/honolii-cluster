@@ -63,12 +63,12 @@ class Sites extends Sites_Controller
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|min_length[4]|required'
+				'rules'	=> 'trim|min_length[6]|required'
 			),
 			array(
 				'field' => 'confirm_password',
 				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|min_length[4]|required|matches[password]'
+				'rules'	=> 'trim|min_length[6]|required|matches[password]'
 			)
 		);
 		
