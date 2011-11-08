@@ -11,21 +11,42 @@
  */
 class Plugin_Theme extends Plugin
 {
+	public static $options = null;
+	
 	/**
-	 * Options
+	 * Constructor
 	 *
-	 * Fetches a theme option
-	 *
-	 * Usage:
-	 * {pyro:theme:options option="layout"}
-	 *
-	 * @param	string
+	 * Set options for this plugin
 	 */
-	function options()
+	public function __construct()
 	{
-		$option = $this->pyrocache->model('themes_m', 'get_option', array(array('slug' => $this->attribute('option'))));
-
-		return is_object($option) ? $option->value : NULL;
+		// Use this class statically to store stuff
+		if (is_null(Plugin_Theme::$options))
+		{
+			$options = $this->pyrocache->model('themes_m', 'get_options_by', array(array('theme' => $this->theme->slug)));
+			
+			if ($options)
+			{
+				Plugin_Theme::$options = array();
+				foreach ($options as $option)
+				{
+					// Assign it so THIS tag can use it
+					$this->{$option->slug} = $option->value;
+					
+					// Save it for the next instance of this plugin
+					Plugin_Theme::$options[$option->slug] = $option->value;
+				}
+			}
+		}
+		
+		// Already got stuff, so assign it to this tag instance
+		else
+		{
+			foreach (Plugin_Theme::$options as $slug => $value)
+			{
+				$this->{$slug} = $value;
+			}
+		}
 	}
 	
 	/**
@@ -34,15 +55,15 @@ class Plugin_Theme extends Plugin
 	 * Loads a theme partial
 	 *
 	 * Usage:
-	 * {pyro:theme:partial file="header"}
+	 * {{ theme:partial file="header" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function partial()
+	public function partial()
 	{
 		$name = $this->attribute('name');
-		$name = $this->attribute('file', $name); #deprecated
+		$name = $this->attribute('file', $name); #deprecated 2.0
 
 		$path =& $this->load->get_var('template_views');
 		$data = $this->load->_ci_cached_vars;
@@ -59,12 +80,12 @@ class Plugin_Theme extends Plugin
 	 * Get the path to the theme
 	 *
 	 * Usage:
-	 * {pyro:theme:partial file="header"}
+	 * {{ theme:partial file="header" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function path()
+	public function path()
 	{
 		$path =& rtrim($this->load->get_var('template_views'), '/');
 		return preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $path).'/';
@@ -77,12 +98,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css file=""}
+	 * {{ theme:css file="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function css($return = '')
+	public function css($return = '')
 	{
 		$this->load->library('asset');
 		
@@ -117,12 +138,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css_url file=""}
+	 * {{ theme:css_url file="" }}
 	 *
 	 * @param	array
 	 * @return	string The css location url
 	 */
-	function css_url()
+	public function css_url()
 	{
 		return $this->css('url');
 	}
@@ -132,12 +153,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:css_path file=""}
+	 * {{ theme:css_path file="" }}
 	 *
 	 * @param	array
 	 * @return	string The css location path
 	 */
-	function css_path()
+	public function css_path()
 	{
 		return $this->css('path');
 	}
@@ -149,12 +170,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:image file=""}
+	 * {{ theme:image file="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function image($return = '')
+	public function image($return = '')
 	{
 		$this->load->library('asset');
 
@@ -189,12 +210,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:image_url file=""}
+	 * {{ theme:image_url file="" }}
 	 *
 	 * @param	array
 	 * @return	string The image location url
 	 */
-	function image_url()
+	public function image_url()
 	{
 		return $this->image('url');
 	}
@@ -204,12 +225,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:image_path file=""}
+	 * {{ theme:image_path file="" }}
 	 *
 	 * @param	array
 	 * @return	string The image location path
 	 */
-	function image_path()
+	public function image_path()
 	{
 		return $this->image('path');
 	}
@@ -221,12 +242,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:js file=""}
+	 * {{ theme:js file="" }}
 	 *
 	 * @param	array
 	 * @return	array
 	 */
-	function js($return = '')
+	public function js($return = '')
 	{
 		$this->load->library('asset');
 
@@ -258,12 +279,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:js_url file=""}
+	 * {{ theme:js_url file="" }}
 	 *
 	 * @param	array
 	 * @return	string The js location url
 	 */
-	function js_url()
+	public function js_url()
 	{
 		return $this->js('url');
 	}
@@ -274,12 +295,12 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:js_path file=""}
+	 * {{ theme:js_path file="" }}
 	 *
 	 * @param	array
 	 * @return	string The js location path
 	 */
-	function js_path()
+	public function js_path()
 	{
 		return $this->js('path');
 	}
@@ -289,7 +310,7 @@ class Plugin_Theme extends Plugin
 	 * Set and get theme variables
 	 *
 	 * Usage:
-	 * {pyro:theme:variables name="foo"}
+	 * {{ theme:variables name="foo" }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -320,7 +341,7 @@ class Plugin_Theme extends Plugin
 	 *
 	 * Usage:
 	 *
-	 * {pyro:theme:favicon file="" [rel="foo"] [type="bar"]}
+	 * {{ theme:favicon file="" [rel="foo"] [type="bar"] }}
 	 *
 	 * @param	array
 	 * @return	array
