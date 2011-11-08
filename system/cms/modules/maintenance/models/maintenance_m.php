@@ -27,6 +27,7 @@ class Maintenance_m extends MY_Model
 		else
 		{
 			$data_array = $this->db->get($table)->result_array();
+			$where_array = array();
 
 			// run through the records from the main table
 			foreach ($data_array AS $i => $item)
@@ -37,13 +38,48 @@ class Maintenance_m extends MY_Model
 					// grab the key => value for this table to use as a where clause
 					foreach ($keys AS $secondary_column => $main_column);
 
-					$data_array[$i][$join_table] = $this->db->where($secondary_column, $item[$main_column])
-														->get($join_table)
-														->result_array();
+					// we do a multidimensional array for json and xml
+					if ($type != 'csv')
+					{
+						$data_array[$i][$join_table] = $this->db->where($secondary_column, $item[$main_column])
+															->get($join_table)
+															->result_array();
+					}
+					// but we'll want to fetch matching records from each table later and stick it in a separate file for csv
+					else
+					{
+						$where_array[$join_table][] = array($secondary_column => $item[$main_column]);
+					}
 				}
 			}
 
-			force_download($table.'.'.$type, $this->format->factory($data_array)->{'to_'.$type}());
+			// It's either json or xml so we'll output it all in one file
+			if ($type != 'csv')
+			{
+				force_download($table.'.'.$type, $this->format->factory($data_array)->{'to_'.$type}());
+			}
+			// Awe come on csv, quit your whining
+			else
+			{
+				// get the records that are related to the main table
+				foreach ($where_array AS $related_table => $where)
+				{
+					foreach ($where AS $value)
+					{
+						$this->db->or_where($value);
+					}
+					
+					// add a file to the zip containing the related records
+					$join_array = $this->db->get($related_table)->result_array();
+					$this->zip->add_data($related_table.'.'.$type, $this->format->factory($join_array)->{'to_'.$type}());
+				}
+				
+				// we have all the related data, now we'll add the file for the main table
+				$this->zip->add_data($table.'.'.$type, $this->format->factory($data_array)->{'to_'.$type}());
+				
+				// now download it
+				$this->zip->download($table.'.zip');		
+			}
 		}
 	}
 }

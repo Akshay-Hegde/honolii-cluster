@@ -121,6 +121,7 @@ class Admin extends Admin_Controller
 		$this->load->model('maintenance_m');
 		$this->load->helper('download');
 		$this->load->library('format');
+		$this->load->library('zip');
 
 		$table_list = config_item('maintenance.export_tables');
 
