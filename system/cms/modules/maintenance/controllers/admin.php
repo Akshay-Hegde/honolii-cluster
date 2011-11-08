@@ -58,9 +58,9 @@ class Admin extends Admin_Controller
 		
 		$i = 0;
 		$table_list = config_item('maintenance.export_tables');
-		ksort($table_list);
+		asort($table_list);
 
-		foreach ($table_list AS $table => $sub)
+		foreach ($table_list AS $table)
 		{
 			$tables->{$i}->{'name'} = $table;
 			$tables->{$i}->{'count'} = $this->db->count_all($table);
@@ -121,11 +121,10 @@ class Admin extends Admin_Controller
 		$this->load->model('maintenance_m');
 		$this->load->helper('download');
 		$this->load->library('format');
-		$this->load->library('zip');
 
 		$table_list = config_item('maintenance.export_tables');
 
-		if (array_key_exists($table, $table_list))
+		if (in_array($table, $table_list))
 		{			
 			$this->maintenance_m->export($table, $type, $table_list);
 		}
