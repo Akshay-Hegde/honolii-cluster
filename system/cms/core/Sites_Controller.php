@@ -52,7 +52,7 @@ class Sites_Controller extends MX_Controller {
 		// Load all the required classes
 		$this->load->model(array('sites_m', 'users_m', 'settings_m'));
 		
-		$this->load->library(array('form_validation', 'settings/settings'));
+		$this->load->library(array('session', 'form_validation', 'settings/settings'));
 		$this->load->dbforge();
 		
 		// Work out module, controller and method and make them accessable throught the CI instance
