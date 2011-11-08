@@ -63,8 +63,7 @@ class Module_Newsletters extends Module {
 		$this->dbforge->drop_table('newsletter_urls');
 		$this->dbforge->drop_table('newsletter_clicks');
 		$this->dbforge->drop_table('newsletter_templates');
-		$this->db->delete('settings', array('module' => 'newsletters') );
-		
+
 		$newsletters = "
 			CREATE TABLE ".$this->db->dbprefix('newsletters')." (
 			  `id` int(6) unsigned NOT NULL auto_increment,
@@ -449,110 +448,16 @@ class Module_Newsletters extends Module {
 		</html>
 		');
 		
-		$opt_in_template = "
-			INSERT INTO " . $this->db->dbprefix('email_templates') . " (`slug`, `name`, `description`, `subject`, `body`, `lang`, `is_default`) VALUES ('newsletters_opt_in', 'Newsletters Opt In', 'Template for the email that\'s sent when a user subscribes.', '{{ settings:site_name }} :: Newsletter Activation',
-			'<h3>You have recently subscribed to the newsletter at {{ settings:site_name }}</h3>
-			<p><strong>To verify that you wish to have your email address added to our list you must click the activation link below.</strong><strong> </strong></p>
-			<p><strong>If you did not sign up at our website please disregard this email. No further action is necessary.</strong></p>
-			<p><span>Complete signup: <a href=\"{{ newsletter_activation }}\">{{ newsletter_activation }}</a></span></p>
-			', 'en', '1');
-		";
-		
-		$newsletter_opt_in = array(
-			'slug' => 'newsletter_opt_in',
-			'title' => 'Require Opt In',
-			'description' => 'Subscribers will receive an activation email with a link that they must click to complete the sign up. Edit the email format in Email Templates.',
-			'`default`' => '0',
-			'`value`' => '0',
-			'type' => 'select',
-			'`options`' => '0=Disabled|1=Enabled',
-			'is_required' => 1,
-			'is_gui' => 1,
-			'module' => 'newsletters'
-		);
-
-		$newsletter_from = array(
-			'slug' => 'newsletter_from',
-			'title' => '"From" Email Address',
-			'description' => 'This is the address that your recipients will see in the From field.',
-			'`default`' => 'do.not.reply@example.com',
-			'`value`' => '',
-			'type' => 'text',
-			'`options`' => '',
-			'is_required' => 1,
-			'is_gui' => 1,
-			'module' => 'newsletters'
-		);
-		
-		$newsletter_reply_to = array(
-			'slug' => 'newsletter_reply_to',
-			'title' => '"Reply To" Email Address',
-			'description' => 'This is the address that your recipients will respond to.',
-			'`default`' => 'sales@example.com',
-			'`value`' => '',
-			'type' => 'text',
-			'`options`' => '',
-			'is_required' => 1,
-			'is_gui' => 1,
-			'module' => 'newsletters'
-		);
-		
-		$newsletter_email_limit = array(
-			'slug' => 'newsletter_email_limit',
-			'title' => 'Limit',
-			'description' => 'If your host limits the number of outgoing emails per hour/day set it here. Otherwise set it to 0 for automatic send',
-			'`default`' => '0',
-			'`value`' => '',
-			'type' => 'text',
-			'`options`' => '',
-			'is_required' => 1,
-			'is_gui' => 1,
-			'module' => 'newsletters'
-		);
-		
-		$newsletter_cron_enabled = array(
-			'slug' => 'newsletter_cron_enabled',
-			'title' => 'Cron',
-			'description' => 'Send with Cron. If enabled you must have a cron job to send newsletters.',
-			'`default`' => '0',
-			'`value`' => '0',
-			'type' => 'select',
-			'`options`' => '0=Disabled|1=Enabled',
-			'is_required' => 1,
-			'is_gui' => 1,
-			'module' => 'newsletters'
-		);
-		
-		$newsletter_cron_key = array(
-			'slug' => 'newsletter_cron_key',
-			'title' => 'Cron Key',
-			'description' => 'Set a key to prevent visitors from triggering a cron send. example.com/newsletters/cron/gy84kn',
-			'`default`' => 'gy84kn',
-			'`value`' => 'gy84kn',
-			'type' => 'text',
-			'`options`' => '',
-			'is_required' => 0,
-			'is_gui' => 1,
-			'module' => 'newsletters'
-		);
-		
 		if($this->db->query($newsletters) &&
 		   $this->db->query($newsletter_emails) &&
 		   $this->db->query($newsletter_opens) &&
 		   $this->db->query($newsletter_urls) &&
 		   $this->db->query($newsletter_clicks) &&
 		   $this->db->query($newsletter_templates) &&
-		   $this->db->query($opt_in_template) &&
 		   $this->db->insert('newsletter_templates', $template_1) &&
 		   $this->db->insert('newsletter_templates', $template_2) &&
 		   $this->db->insert('newsletter_templates', $template_3) &&
-		   $this->db->insert('newsletter_templates', $template_4) &&
-		   $this->db->insert('settings', $newsletter_opt_in) &&
-		   $this->db->insert('settings', $newsletter_from) &&
-		   $this->db->insert('settings', $newsletter_reply_to) &&
-		   $this->db->insert('settings', $newsletter_email_limit) &&
-		   $this->db->insert('settings', $newsletter_cron_enabled) &&
-		   $this->db->insert('settings', $newsletter_cron_key) )
+		   $this->db->insert('newsletter_templates', $template_4) )
 		{
 			return TRUE;
 		}
@@ -560,17 +465,7 @@ class Module_Newsletters extends Module {
 
 	public function uninstall()
 	{
-		if($this->dbforge->drop_table('newsletters') &&
-			$this->dbforge->drop_table('newsletter_emails') &&
-			$this->dbforge->drop_table('newsletter_opens') &&
-			$this->dbforge->drop_table('newsletter_urls') &&
-			$this->dbforge->drop_table('newsletter_clicks') &&
-			$this->dbforge->drop_table('newsletter_templates') &&
-			$this->db->delete('email_templates', array('slug' => 'newsletters_opt_in')) &&
-			$this->db->delete('settings', array('module' => 'newsletters') ) )
-		{
-			return TRUE;
-		}
+		return TRUE;
 	}
 
 	public function upgrade($old_version)
