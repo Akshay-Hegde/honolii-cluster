@@ -1,7 +1,6 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 /**
- *
- * The Maintenance Module - currently only remove/empty cache folder(s)
+ * Maintenance Module
  *
  * @author		Donald Myers
  * @package		PyroCMS
@@ -22,9 +21,9 @@ class Module_Maintenance extends Module
 				'ar' => 'الصيانة',
 			),
 			'description' => array(
-				'en' => 'Manually delete cache items via the admin interface.',
-				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.',
-				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
+				'en' => 'Manage the site cache and export information from the database.',
+				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.', #translate
+				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.', #translate
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -53,7 +52,8 @@ class Module_Maintenance extends Module
 
 	public function help()
 	{
-		return "This module will clean up and/or remove cache files and folders.";
+		return "This module will clean up and/or remove cache files and folders
+				and also allow admins to export information from the database.";
 	}
 
 

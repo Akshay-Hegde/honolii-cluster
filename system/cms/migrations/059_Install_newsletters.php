@@ -4,8 +4,16 @@ class Migration_Install_newsletters extends CI_Migration {
 
 	public function up()
 	{
-		// Nothing to see here... move along... move along...
-		return TRUE;
+		$this->load->model('modules/module_m');
+		
+		if ( ! $this->db->table_exists('newsletters'))
+		{
+			$this->module_m->install('newsletters', TRUE);
+		}
+		else
+		{
+			$this->module_m->upgrade('newsletters');
+		}
 	}
 
 	public function down()

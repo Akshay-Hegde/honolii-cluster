@@ -104,6 +104,12 @@ class MX_Router extends CI_Router
 					
 				}
 			}
+			
+			// If we're on the MSM then we turn the session table off.
+			if ($this->uri->segment(0) == 'sites')
+			{
+				$this->config->set_item('sess_use_database', FALSE);
+			}
 		}
 
 		$this->module = '';
