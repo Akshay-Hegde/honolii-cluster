@@ -9,32 +9,29 @@
  */
 class Maintenance_m extends MY_Model
 {
-	public function __construct()
-	{
-		parent::__construct();
-	}
-
 	public function export($table = '', $type = 'xml', $table_list)
 	{
 		switch ($table) {
 			case 'users':
-				$data_array = $this->db->select('users.*, profiles.*, profiles.id profile_id')
-					->from('users')
+				$data_array = $this->db
+					->select('users.id, email, IF(active = 1, "Y", "N") as active', FALSE)
+					->select('first_name, last_name, display_name, company, lang, gender, website')
 					->join('profiles', 'profiles.user_id = users.id')
-					->get()
+					->get('users')
 					->result_array();
 			break;
 		
 			case 'files':
-				$data_array = $this->db->select('files.*, file_folders.name folder_name, file_folders.slug')
-					->from('files')
+				$data_array = $this->db
+					->select('files.*, file_folders.name folder_name, file_folders.slug')
 					->join('file_folders', 'files.folder_id = file_folders.id')
-					->get()
+					->get('files')
 					->result_array();				
 			break;
 		
 			default:
-				$data_array = $this->db->get($table)
+				$data_array = $this->db
+					->get($table)
 					->result_array();			
 			break;
 		}
