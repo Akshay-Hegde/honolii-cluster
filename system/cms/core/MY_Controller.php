@@ -58,7 +58,7 @@ class MY_Controller extends MX_Controller {
 		$this->db->set_dbprefix(SITE_REF.'_');
 
 		// Load the cache library now that we know the siteref
-		$this->load->library(array('session', 'pyrocache'));
+		$this->load->library('pyrocache');
 
 		// Add the site specific theme folder
 		$this->template->add_theme_location(ADDONPATH.'themes/');
@@ -78,7 +78,7 @@ class MY_Controller extends MX_Controller {
 		}
 
 		// With that done, load settings
-		$this->load->library(array('settings/settings'));
+		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
 		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
