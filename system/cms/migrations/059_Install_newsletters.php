@@ -13,6 +13,7 @@ class Migration_Install_newsletters extends CI_Migration {
 		else
 		{
 			$this->module_m->upgrade('newsletters');
+			$this->module_m->update('modules', array('is_core' => 1));
 		}
 	}
 
