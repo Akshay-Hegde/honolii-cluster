@@ -102,6 +102,7 @@ $lang['site.schema_version']		=	'Database schema version:';
 $lang['site.settings']				=	'Settings';
 $lang['site.date_format']			=	'Date Format';
 $lang['site.lang_direction']		=	'Language Direction';
+$lang['site.status_message']		=	'Status Message';
 $lang['site.shared_title']			=	'Upload a shared %s';
 $lang['site.site_upload_title']		=	'Upload a %s for this site only';
 $lang['site.upload_desc']			=	'Select a zip file to upload';
