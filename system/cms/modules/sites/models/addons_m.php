@@ -413,7 +413,7 @@ class Addons_m extends MY_Model
 				
 				// Find out what the site knows about it
 				$modules[$i]['database']	= $this->db->where('slug', $slug)
-												->get($this->ref.'modules')
+												->get($this->ref.'_modules')
 												->row_array();
 				$i++;
 			}
