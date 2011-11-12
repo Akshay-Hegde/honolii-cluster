@@ -84,7 +84,7 @@ class MX_Router extends CI_Router
 						->get('core_settings')
 						->row();
 
-					define('STATUS', $status ? $status : 'This site has been disabled by a super-administrator');					
+					define('STATUS', $status ? $status->value : 'This site has been disabled by a super-administrator');					
 				}
 
 				$locations = array();
