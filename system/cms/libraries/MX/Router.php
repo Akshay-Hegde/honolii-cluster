@@ -76,7 +76,17 @@ class MX_Router extends CI_Router
 					$site = DB()->where('domain', SITE_SLUG)
 					->get('core_sites')
 					->row();
-					
+				
+				// If the site is disabled we set the message in a constant for MY_Controller to display
+				if (isset($site->active) AND ! $site->active)
+				{
+					$status = DB()->where('slug', 'status_message')
+						->get('core_settings')
+						->row();
+
+					define('STATUS', $status ? $status : 'This site has been disabled by a super-administrator');					
+				}
+
 				$locations = array();
 				
 				// Check to see if the site retrieval was successful. If not then

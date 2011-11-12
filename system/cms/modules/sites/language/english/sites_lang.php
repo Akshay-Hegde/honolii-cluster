@@ -89,6 +89,7 @@ $lang['site.first_admin']			=	'First User (Admin)';
 $lang['site.username']				=	'Username';
 $lang['site.email']					=	'Email';
 $lang['site.active']				=	'Active';
+$lang['site.status']				=	'Status';
 $lang['site.last_login']			=	'Last Login';
 $lang['site.last_admin_login']		=	'Last Admin Login';
 $lang['site.stats']					=	'Stats';
