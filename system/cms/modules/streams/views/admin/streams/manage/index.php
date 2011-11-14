@@ -1,4 +1,4 @@
-<div class="one_third">
+<div class="one_half">
 
 <section class="title">
 	<h4><?php echo lang('streams.stream_admin');?></h4>
@@ -34,7 +34,7 @@
 
 </div>
 
-<div class="two_third last">
+<div class="one_half last">
 
 <section class="title">
 	<h4><?php echo lang('streams.about_stream'); ?></h4>

@@ -35,17 +35,17 @@
 
 <?php else: ?>
 
-	<p>
+	<div class="no_data">
 	<?php if( $total_existing_fields > 0 ): ?>
 	
-	<em>No field assignments.</em>
+	No field assignments.
     
     <?php else: ?>
     
 	<?php echo lang('streams.start.before_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.
     
     <?php endif; ?>
-	</p>
+	</div>
    
 <?php endif;?>
 

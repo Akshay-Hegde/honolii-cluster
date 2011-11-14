@@ -52,6 +52,7 @@ class Field_relationship
 		// Get slug stream
 		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
 		
+		// @todo - languagize
 		if(!$stream) return '<em>Related stream does not exist.</em>';
 
 		$title_column = $stream->title_column;
@@ -83,6 +84,9 @@ class Field_relationship
 
 	/**
 	 * Get a list of streams to choose from
+	 *
+	 * @access	public
+	 * @return	string
 	 */
 	public function param_choose_stream( $stream_id = FALSE )
 	{
@@ -190,7 +194,7 @@ class Field_relationship
 		
 		$returned_row = $obj->row();
 		
-		$return = array();
+		$return = array(rtrim($prefix.$r, '.') => $returned_row->{$stream->title_column});
 		
 		foreach($returned_row as $r => $val):
 		

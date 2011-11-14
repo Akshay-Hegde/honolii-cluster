@@ -13,7 +13,7 @@ class Field_asset extends Public_Controller {
 
 	var $path;
 	
-	var $type;
+	var $field_type;
 
 	// --------------------------------------------------------------------------
 
@@ -21,7 +21,7 @@ class Field_asset extends Public_Controller {
     {
         parent::__construct();
         
-        $this->load->library('Type');
+        $this->load->library('streams/Type');
         
         $this->load->helper('file');
     }
@@ -38,7 +38,7 @@ class Field_asset extends Public_Controller {
     	// Check the type
     	$type = $this->uri->segment(4);
     	
-    	$this->type = $this->type->load_single_type($type);
+    	$this->field_type = $this->type->load_single_type($type);
     	
     	// Check the file
     	$file = $this->uri->segment(5);
@@ -49,7 +49,7 @@ class Field_asset extends Public_Controller {
 
 		// Set the path
     	// *Note - we will assume the types are in a folder here
-    	if($this->type->ft_mode == 'core'):
+    	if($this->field_type->ft_mode == 'core'):
     	
     		$this->path = PYROSTEAMS_DIR.'field_types/'.$type.'/';
     	

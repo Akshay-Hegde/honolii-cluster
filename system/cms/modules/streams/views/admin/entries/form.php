@@ -10,25 +10,28 @@
 
 <?php echo form_open_multipart(uri_string(), 'class="streams_form"'); ?>
 
-<table cellpadding="0" cellspacing="0" class="form_table">
+<div class="form_inputs">
+
+	<ul>
 
 	<?php $count = 1; foreach( $stream_fields as $field ): ?>
 
-		<tr>
-			<td width="25%" class="label_col"><label for="<?php echo $field->field_slug;?>"><?php echo $field->field_name;?></label> <?php if( $field->is_required == 'yes' ): ?>
-				<span class="required"> *<?php echo lang('streams.required');?></span>
-			<?php endif; ?>
+		<li>
+			<label for="<?php echo $field->field_slug;?>"><?php echo $field->field_name;?> <?php if( $field->is_required == 'yes' ): ?><span>*</span><?php endif; ?>
+			
 			<?php if( $field->instructions != '' ): ?>
-				<small><?php echo $field->instructions;?></small>
+				<br /><small><?php echo $field->instructions;?></small>
 			<?php endif; ?>
-			</td>
-			<td><?php echo $this->fields->build_form_input( $field, $values[$field->field_slug], $row ); ?>
-			</td>
-		</tr>
+			</label>
+			
+			<div class="input"><?php echo $this->fields->build_form_input( $field, $values[$field->field_slug], $row ); ?></div>
+		</li>
 
-	<?php $count++; endforeach; ?>		
+	<?php $count++; endforeach; ?>
+	
+	</ul>	
 
-</table>
+</duv>
 
 	<?php if( $method == 'edit' ): ?>
 	<input type="hidden" value="<?php echo $row_edit_id;?>" name="row_edit_id" />

@@ -303,7 +303,7 @@ class Row_m extends MY_Model {
 		endif;
 
 		// -------------------------------------
-		// Special Provision for Relationships
+		// Relationships
 		// -------------------------------------
 		
 		if( ! in_array('relationships', $disable) ):
@@ -737,14 +737,14 @@ class Row_m extends MY_Model {
 						endif;
 	
 					elseif( method_exists($type, 'pre_output') ):
-					
+										
 						if(is_array($row)):
-	
-							$out = $type->pre_output( $row[$row_slug], $format_data['field_data'] );
+							
+							$out = $type->pre_output( $row[$raw_row_slug], $format_data['field_data'] );
 						
 						else:
 						
-							$out = $type->pre_output( $row->$row_slug, $format_data['field_data'] );
+							$out = $type->pre_output( $row->$raw_row_slug, $format_data['field_data'] );
 						
 						endif;
 						

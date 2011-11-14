@@ -323,16 +323,16 @@ class Admin extends Admin_Controller {
 		if ($this->streams_validation->run()):
 	
 			if( ! $this->streams_m->update_stream( $stream_id ) ):
-			{
+			
 				$this->session->set_flashdata('notice', lang('streams.stream_update_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('streams.stream_update_success'));	
-			}
+			
 			endif;
 	
-			redirect('admin/streams/manage/index/'.$stream_id);
+			redirect('admin/streams/manage/'.$stream_id);
 		
 		endif;
 
@@ -602,14 +602,14 @@ class Admin extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->fields_m->edit_assignment( $this->data->row->id, $this->data->stream, $field ) ):
-			{
+			if( ! $this->fields_m->edit_assignment( $this->data->row->id, $this->data->stream, $this->fields_m->get_field( $this->data->row->field_id ) ) ):
+			
 				$this->session->set_flashdata('notice', lang('streams.stream_field_ass_upd_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('streams.stream_field_ass_upd_success'));	
-			}
+			
 			endif;
 	
 			redirect('admin/streams/assignments/'.$this->data->stream_id);

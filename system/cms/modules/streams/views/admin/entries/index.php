@@ -58,9 +58,7 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-	<section class="box"> 
-    <p><?php echo sprintf(lang('streams.start.no_entries'), $stream->stream_name);?> <?php echo anchor('admin/streams/new_assignment/'.$this->uri->segment(5), lang('streams.add_fields'));?> <?php echo lang('streams.to_this_stream_or');?> <?php echo anchor('admin/streams/entries/add/'.$this->uri->segment(5), lang('streams.add_an_entry'));?>.</p>
-    </div>
+    <div class="no_data"><?php echo sprintf(lang('streams.start.no_entries'), $stream->stream_name);?> <?php echo anchor('admin/streams/new_assignment/'.$this->uri->segment(5), lang('streams.add_fields'));?> <?php echo lang('streams.to_this_stream_or');?> <?php echo anchor('admin/streams/entries/add/'.$this->uri->segment(5), lang('streams.add_an_entry'));?>.</div>
 <?php endif;?>
 
 </section>

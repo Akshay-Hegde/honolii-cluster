@@ -13,23 +13,65 @@ class Type
 {
 	/**
 	 * We build up these assets for the footer
+	 *
+	 * @access	public
+	 * @var		array
 	 */
 	public $assets = array();
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Places where our field types may be
+	 *
+	 * @access	public
+	 * @var		array
+	 */
+	public $addon_paths = array();
+
+	// --------------------------------------------------------------------------
+
     function __construct()
-    {
+    {    
 		$this->CI =& get_instance();
 		
-		$this->CI->load->helper( 'directory' );
-		
+		$this->CI->load->helper('directory');
+				
+		// Obj to hold all our field types
 		$this->types = new stdClass;
 		
-		// These have variable definitions in PyroStreams,
-		// usually, but since this is core we'll set them here
+		// We either need a prefix or not
+		// This is for legacy and if any 3rd party
+		// field types use this constant
+		(CMS_VERSION < 1.3) ? define('PYROSTREAMS_DB_PRE', '') : define('PYROSTREAMS_DB_PRE', SITE_REF.'_');
 		
-		define('PYROSTREAMS_DB_PRE', SITE_REF.'_');
-		define('PYROSTEAMS_DIR', APPPATH.'modules/streams/');
-		define('PYROSTEAMS_FT_DIR', ADDONPATH);
+		// Where oh where is PyroStreams?
+		// We'llfind out with an ugly series of if statements
+		if(is_dir(APPPATH.'modules/streams/')):
+			
+			// This is a core module. Must be PyroCMS pro edition. Nice!
+			define('PYROSTEAMS_DIR', APPPATH.'modules/streams/');
+			
+		elseif(is_dir(ADDONPATH.'modules/streams/')):
+		
+			define('PYROSTEAMS_DIR', ADDONPATH.'modules/streams/');
+			
+		elseif(defined('SHARED_ADDONPATH') and is_dir(SHARED_ADDONPATH.'modules/streams')):
+		
+			define('PYROSTEAMS_DIR', SHARED_ADDONPATH.'modules/streams/');
+			
+		else:
+		
+			show_error("Cannot find PyroStreams.");
+			
+		endif;
+
+		// Set our addon paths
+		$this->addon_paths = array(
+			'core' 			=> PYROSTEAMS_DIR.'field_types/',
+			'addon' 		=> ADDONPATH.'field_types/',
+			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -42,29 +84,19 @@ class Type
 	 */
 	public function gather_types()
 	{
-		// -------------------------------------
-		// Get Core Field Types
-		// -------------------------------------
+		foreach($this->addon_paths as $raw_mode => $path):
 		
-		$types_files = directory_map(PYROSTEAMS_DIR.'field_types/', 1);
-
-		$this->_load_types($types_files, PYROSTEAMS_DIR.'field_types/', $mode = 'core');
+			if(!is_dir($path)) continue;
+		
+			$types_files = directory_map($path, 1);
 	
-		// -------------------------------------
-		// Get Add-on Field Types
-		// -------------------------------------
-		
-		if( is_dir(PYROSTEAMS_FT_DIR.'field_types/') ):
-
-			$types_files = directory_map(PYROSTEAMS_FT_DIR.'field_types/', 1);
+			($raw_mode == 'core') ? $mode = 'core' : $mode = 'addon';
+	
+			$this->_load_types($types_files, $path, $mode);
 			
-			if( is_array($types_files) && !empty($types_files) ):
+			unset($types_files);
 		
-				$this->_load_types($types_files, PYROSTEAMS_FT_DIR.'field_types/', $mode = 'addon');
-			
-			endif;
-		
-		endif;
+		endforeach;	
 	}
 	
 	// --------------------------------------------------------------------------
@@ -84,40 +116,23 @@ class Type
 			// Is this a directory w/ a field type?
 			if(is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php')):
 			
-				require_once($addon_path.$type.'/field.'.$type.'.php');
-
-				$class_name = 'Field_'.$type;
-					
-				$this->types->$type = new $class_name();
-
-				$this->types->$type->ft_mode = $mode;
+				$this->types->$type = $this->_load_type($addon_path, 
+									$addon_path.$type.'/field.'.$type.'.php',
+									$type,
+									$mode);		
 				
-			elseif(is_file($addon_path.$type)):
+			elseif(is_file($addon_path.'field.'.$type.'.php')):
 			
-				$items = explode('.', $type);	
-				
-				if(count($items == 3) and $items[0]=='field'):
-				
-					// We'll still let the file ones work
-					require_once($addon_path.$type);
-
-					$class_name = 'Field_'.$items[1];
-					
-					if(class_exists($class_name)):
-	
-						$this->types->{$items[1]} = new $class_name();
-						
-						$this->types->{$items[1]}->ft_mode = $mode;
-					
-					endif;
-			
-				endif;		
+				$this->types->$type = $this->_load_type($addon_path, 
+									$addon_path.'field.'.$type.'.php',
+									$type,
+									$mode);		
 							
 			endif;
-				
+
 		endforeach;
 	}
-	
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -129,50 +144,65 @@ class Type
 	 */	
 	public function load_single_type($type)
 	{
-		$addon_paths = array(
-			'core' => PYROSTEAMS_DIR.'field_types/',
-			'addon' => PYROSTEAMS_FT_DIR.'field_types/'
-		);
-		
-		foreach($addon_paths as $mode => $addon_path):
+		foreach($this->addon_paths as $mode => $path):
 				
 			// Is this a directory w/ a field type?
-			if(is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php')):
+			if(is_dir($path.$type) and is_file($path.$type.'/field.'.$type.'.php')):
 			
-				require_once($addon_path.$type.'/field.'.$type.'.php');
-
-				$class_name = 'Field_'.$type;
-					
-				$c = new $class_name();
-
-				$c->ft_mode = $mode;
+				return $this->_load_type($path, 
+									$path.$type.'/field.'.$type.'.php',
+									$type,
+									$mode);		
 				
-				return $c;
-				
-			elseif(is_file($addon_path.'field.'.$type.'.php')):
+			elseif(is_file($path.'field.'.$type.'.php')):
 			
-				// We'll still let the file ones work
-				require_once($addon_path.'field.'.$type.'.php');
-
-				$class_name = 'Field_'.$item[1];
-				
-				if(class_exists($class_name)):
-
-					$c = new $class_name();
-				
-				endif;
-							
-				$c->ft_mode = $mode;
-				
-				return $c;
+				return $this->_load_type($path, 
+									$path.'field.'.$type.'.php',
+									$type,
+									$mode);		
 
 			endif;				
-				
+							
 		endforeach;
 		
 		return NULL;
 	}
 
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Load the actual field type into the
+	 * types object
+	 *
+	 * @access	private
+	 * @param	string - addon path
+	 * @param	string - path to the file (with the file name)
+	 * @param	string - the field type
+	 * @param	string - mode
+	 * @return	obj - the type obj
+	 */
+	private function _load_type($path, $file, $type, $mode)
+	{
+		require_once($file);
+		
+		$tmp = new stdClass;
+	
+		$class_name = 'Field_'.$type;
+		
+		if(class_exists($class_name)):
+	
+			$tmp = new $class_name();
+			
+			// Set some ft class vars
+			$tmp->ft_mode 		= $mode;
+			$tmp->ft_root_path 	= $path;
+			$tmp->ft_path 		= $path.'/'.$type.'/';
+		
+		endif;
+	
+		return $tmp;
+	}
+	
 	// --------------------------------------------------------------------------
 
 	/**
@@ -225,18 +255,8 @@ class Type
 	 */
 	public function load_view($type, $view_name, $data = array())
 	{	
-		if($this->types->$type->ft_mode == 'core'):
-		
-			$path = PYROSTEAMS_DIR."field_types/$type/";
-		
-		else:
-
-			$path = PYROSTEAMS_FT_DIR."field_types/$type/";
-		
-		endif;
-		
 		// Thanks MY_Loader!
-		$this->CI->load->set_view_path($path.'views/');		
+		$this->CI->load->set_view_path($this->types->$type->ft_path.'views/');		
 				
 		return $view_data = $this->CI->load->_ci_load(array('_ci_view' => $view_name, '_ci_vars' => $this->object_to_array($data), '_ci_return' => true));
 	}

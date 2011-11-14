@@ -8,8 +8,8 @@ function add_field_parameters(datasource)
 		data: 'data='+data,
 		url:  datasource,
 		success: function(returned_html){
-			jQuery('.temp_row').remove();
-			jQuery('#field_table').append(returned_html);
+			jQuery('.streams_param_input').remove();
+			jQuery('.form_inputs ul').append(returned_html);
 			pyro.chosen();
 		}
 	});

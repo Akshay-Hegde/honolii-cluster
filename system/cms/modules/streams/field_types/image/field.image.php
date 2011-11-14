@@ -29,7 +29,7 @@ class Field_image
 				'folder'		=> 'Upload Folder',
 				'resize_width'	=> 'Resize Width',
 				'resize_height'	=> 'Resize Height',
-				'allowed_types'	=> 'Allowed Types'
+				'allowed_types'	=> 'Allowed Types (Ex: jpg|png)'
 		)
 	
 	);			

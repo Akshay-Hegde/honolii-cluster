@@ -14,11 +14,13 @@
 
 	<?php if( $method == 'edit' ): ?><input type="hidden" name="field_id" value="<?php echo $row->field_id;?> "/><?php endif; ?>
 
-	<table cellpadding="0" cellspacing="0" class="form_table">
+<div class="form_inputs">
 	
-		<tr>
-			<td class="label_col"><label for="field_id"><?php echo lang('streams.label.field');?></label></td>
-			<td><?php
+	<ul>
+		
+		<li>
+			<label for="field_id"><?php echo lang('streams.label.field');?></label>
+			<div class="inputs"><?php
 			
 			if($method == 'edit'):
 			
@@ -30,31 +32,32 @@
 				
 			endif;
 			
-			?></td>
-		</tr>
+			?></div>
+		</li>
 
-		<tr>
-			<td class="label_col"><label for="is_required"><?php echo lang('streams.label.field_required');?></label></td>
-			<td><?php echo form_checkbox('is_required', 'yes', $values->is_required, 'id="is_required"');?></td>
-		</tr>
+		<li>
+			<label for="is_required"><?php echo lang('streams.label.field_required');?></label>
+			<div class="inputs"><?php echo form_checkbox('is_required', 'yes', $values->is_required, 'id="is_required"');?></div>
+		</li>
 
-		<tr>
-			<td class="label_col"><label for="is_unique"><?php echo lang('streams.label.field_unique');?></label></td>
-			<td><?php echo form_checkbox('is_unique', 'yes', $values->is_unique, 'id="is_unique"'); ?></td>
-		</tr>
+		<li>
+			<label for="is_unique"><?php echo lang('streams.label.field_unique');?></label>
+			<div class="inputs"><?php echo form_checkbox('is_unique', 'yes', $values->is_unique, 'id="is_unique"'); ?></div>
+		</li>
 
-		<tr>
-			<td class="label_col"><label for="field_instructions"><?php echo lang('streams.label.field_instructions');?></label></td>
-			<td><?php echo form_input('instructions', $values->instructions, 'id="field_instructions"');?>	
-			<?php echo lang('streams.instr.field_instructions');?></td>
-		</tr>
+		<li>
+			<label for="field_instructions"><?php echo lang('streams.label.field_instructions');?><br /><small><?php echo lang('streams.instr.field_instructions');?></small></label>
+			<div class="inputs"><?php echo form_input('instructions', $values->instructions, 'id="field_instructions"');?></div>
+		</li>
 
-		<tr>
-			<td class="label_col"><label for="title_column"><?php echo lang('streams.label.make_field_title_column');?></label></td>
-			<td><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></td>
-		</tr>
+		<li>
+			<label for="title_column"><?php echo lang('streams.label.make_field_title_column');?></label>
+			<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+		</li>
 			
-	</table>
+	</ul>
+
+</div>
 
 	<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	

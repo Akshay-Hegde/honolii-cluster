@@ -10,18 +10,18 @@
 
 <?php echo form_open(uri_string()); ?>
 
-	<table cellpadding="0" cellspacing="0" class="form_table" id="field_table">
+<div class="form_inputs">
 
-		<tr>
-			<td width="25%" class="label_col"><label for="field_name"><?php echo lang('streams.label.field_name');?></label></td>
-			<td><?php echo form_input('field_name', $field->field_name, 'maxlength="60" id="field_name" autocomplete="off"'); ?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
-		</tr>
-		<tr>
-			<td class="label_col"><label for="field_slug"><?php echo lang('streams.label.field_slug');?></label></td>
-			<td><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
-		</tr>
+	<ul>
+
+		<li>
+			<label for="field_name"><?php echo lang('streams.label.field_name');?> <span>*</span></label>
+			<div class="input"><?php echo form_input('field_name', $field->field_name, 'maxlength="60" id="field_name" autocomplete="off"'); ?></div>
+		</li>
+		<li>
+			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span></label>
+			<div class="input"><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
+		</li>
 
 		<?php
 		
@@ -36,11 +36,10 @@
 		
 		?>
 		
-		<tr>
-			<td class="label_col"><label for="field_type"><?php echo lang('streams.label.field_type'); ?></label></td>
-			<td><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'id="field_type" onchange="add_field_parameters(\''.site_url($ajax_url).'\');"'); ?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span></td>
-		</tr>
+		<li>
+			<label for="field_type"><?php echo lang('streams.label.field_type'); ?> <span>*</span></label>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'id="field_type" onchange="add_field_parameters(\''.site_url($ajax_url).'\');"'); ?></div>
+		</li>
 	
 		<div id="parameters">
 		
@@ -92,11 +91,10 @@
 		?>
 		
 		<?php endif; ?>
-		
-		</div>
 	
-	</table>
-
+	</ul>
+		
+</div>
 		
 		<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
