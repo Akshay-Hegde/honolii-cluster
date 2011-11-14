@@ -1,0 +1,72 @@
+<section class="title">
+<?php if( $method == 'new' ): ?>
+	<h4><?php echo $stream->stream_name;?> &rarr; <?php echo lang('streams.assign_field');?></h4>
+<?php else: ?>
+	<h4><?php echo $stream->stream_name;?> &rarr; <?php echo lang('streams.edit_assign');?></h4>
+<?php endif; ?>
+</section>
+
+<section class="item">
+
+<?php if( count($available_fields) > 0 or $method == 'edit' ): ?>
+
+<?php echo form_open(uri_string(), 'class="crud"'); ?>
+
+	<?php if( $method == 'edit' ): ?><input type="hidden" name="field_id" value="<?php echo $row->field_id;?> "/><?php endif; ?>
+
+	<table cellpadding="0" cellspacing="0" class="form_table">
+	
+		<tr>
+			<td class="label_col"><label for="field_id"><?php echo lang('streams.label.field');?></label></td>
+			<td><?php
+			
+			if($method == 'edit'):
+			
+				echo '<em>'.$all_fields[$row->field_id].'</em>';
+			
+			else:
+			
+				echo form_dropdown('field_id', $available_fields, $row->field_id, 'id="field_id"'); 
+				
+			endif;
+			
+			?></td>
+		</tr>
+
+		<tr>
+			<td class="label_col"><label for="is_required"><?php echo lang('streams.label.field_required');?></label></td>
+			<td><?php echo form_checkbox('is_required', 'yes', $values->is_required, 'id="is_required"');?></td>
+		</tr>
+
+		<tr>
+			<td class="label_col"><label for="is_unique"><?php echo lang('streams.label.field_unique');?></label></td>
+			<td><?php echo form_checkbox('is_unique', 'yes', $values->is_unique, 'id="is_unique"'); ?></td>
+		</tr>
+
+		<tr>
+			<td class="label_col"><label for="field_instructions"><?php echo lang('streams.label.field_instructions');?></label></td>
+			<td><?php echo form_input('instructions', $values->instructions, 'id="field_instructions"');?>	
+			<?php echo lang('streams.instr.field_instructions');?></td>
+		</tr>
+
+		<tr>
+			<td class="label_col"><label for="title_column"><?php echo lang('streams.label.make_field_title_column');?></label></td>
+			<td><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></td>
+		</tr>
+			
+	</table>
+
+	<div class="float-right buttons">
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
+		<a href="<?php echo site_url('admin/streams/assignments/'.$stream->id); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
+	</div>
+	
+</form>
+
+<?php else: ?>
+
+	<p><?php echo lang('streams.start.no_fields_to_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.</p>
+
+<?php endif; ?>
+
+</section>
