@@ -13,6 +13,14 @@
 // --------------------------------------------------------------------------
 
 /**
+ * Database Table Names
+ */
+$config['streams.streams_table'] 		= 'data_streams';
+$config['streams.fields_table'] 		= 'data_fields';
+$config['streams.assignments_table'] 	= 'data_field_assignments';
+$config['streams.searches_table'] 		= 'data_stream_searches';
+
+/**
  * DB table prefix for stream tables
  */
 $config['stream_prefix'] = 'str_';

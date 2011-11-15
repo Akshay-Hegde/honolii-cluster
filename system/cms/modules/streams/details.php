@@ -13,11 +13,6 @@ class Module_Streams extends Module {
 
 	public $version = '2.1';
 	
-	function __construct()
-	{
-		$this->streams_constants();
-	}
-
 	// --------------------------------------------------------------------------
 
 	public function info()
@@ -121,8 +116,10 @@ class Module_Streams extends Module {
 	
 	public function install()
 	{
+		require_once('../system/cms/modules/streams/config/streams.php');
+
 		$this->db->query("
-		CREATE TABLE `".$this->db->dbprefix(STREAMS_TABLE)."` (
+		CREATE TABLE `".$this->db->dbprefix($config['streams.streams_table'])."` (
 		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 		  `stream_name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
 		  `stream_slug` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -135,7 +132,7 @@ class Module_Streams extends Module {
 		");
 		
 		$this->db->query("
-		CREATE TABLE `".$this->db->dbprefix(FIELDS_TABLE)."` (
+		CREATE TABLE `".$this->db->dbprefix($config['streams.fields_table'])."` (
 		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 		  `field_name` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
 		  `field_slug` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
@@ -146,7 +143,7 @@ class Module_Streams extends Module {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 		
 		$this->db->query("
-		CREATE TABLE `".$this->db->dbprefix(ASSIGN_TABLE)."` (
+		CREATE TABLE `".$this->db->dbprefix($config['streams.assignments_table'])."` (
 		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 		  `sort_order` int(11) NOT NULL,
 		  `stream_id` int(11) NOT NULL,
@@ -159,7 +156,7 @@ class Module_Streams extends Module {
 		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 		
 		$this->db->query("
-		CREATE TABLE `".$this->db->dbprefix(SEARCH_TABLE)."` (
+		CREATE TABLE `".$this->db->dbprefix($config['streams.searches_table'])."` (
 		  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
 		  `search_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 		  `search_term` text COLLATE utf8_unicode_ci NOT NULL,
@@ -177,23 +174,25 @@ class Module_Streams extends Module {
 	
 	public function uninstall()
 	{		
+		require_once(APPPATH.'modules/streams/config/streams.php');
+
 		$this->load->dbforge();
 		
-		$obj = $this->db->get(STREAMS_TABLE);
+		$obj = $this->db->get($config['streams.streams_table']);
 		
 		$streams = $obj->result();
 		
 		foreach( $streams as $stream ):
 		
-			$this->dbforge->drop_table(STR_PRE.$stream->stream_slug);
+			$this->dbforge->drop_table($config['stream_prefix'].$stream->stream_slug);
 		
 		endforeach;
 		
 		// Drop the other tables
-		$this->dbforge->drop_table(SITE_REF.'_'.STREAMS_TABLE);
-		$this->dbforge->drop_table(SITE_REF.'_'.FIELDS_TABLE);
-		$this->dbforge->drop_table(SITE_REF.'_'.ASSIGN_TABLE);
-		$this->dbforge->drop_table(SITE_REF.'_'.SEARCH_TABLE);
+		$this->dbforge->drop_table($config['streams.streams_table']);
+		$this->dbforge->drop_table($config['streams.fields_table']);
+		$this->dbforge->drop_table($config['streams.assignments_table']);
+		$this->dbforge->drop_table($config['streams.searches_table']);
 
 		return TRUE;
 	}
@@ -204,48 +203,7 @@ class Module_Streams extends Module {
 	{
 		return TRUE;
 	}
-
-	// --------------------------------------------------------------------------
 	
-	public function streams_constants()
-	{
-		if(!defined('STREAMS_TABLE')):
-		
-			define('STREAMS_TABLE', 'data_streams');
-		
-		endif;
-		
-		if(!defined('FIELDS_TABLE')):
-		
-			define('FIELDS_TABLE', 'data_fields');
-		
-		endif;
-		
-		if(!defined('ASSIGN_TABLE')):
-		
-			define('ASSIGN_TABLE', 'data_field_assignments');
-		
-		endif;
-		
-		if(!defined('SEARCH_TABLE')):
-		
-			define('SEARCH_TABLE', 'data_stream_searches');
-		
-		endif;
-		
-		if(!defined('BASIC_ACCESS_TABLE')):
-		
-			define('BASIC_ACCESS_TABLE', 'data_streams_basic_access');
-		
-		endif;
-		
-		if(!defined('STR_PRE')):
-		
-			define('STR_PRE', 'str_');	
-		
-		endif;
-	}
-
 	// --------------------------------------------------------------------------
 	
 	public function help()
