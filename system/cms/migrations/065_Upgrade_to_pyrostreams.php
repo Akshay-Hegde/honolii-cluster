@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
+/**
+ * Upgrade to PyroStreams
+ *
+ * This takes into account the fact the user may already
+ * have PyroStreams installed on their copy of PyroCMS.
+ */
 class Migration_Upgrade_to_pyrostreams extends CI_Migration {
 
 	public function up()
@@ -8,12 +14,16 @@ class Migration_Upgrade_to_pyrostreams extends CI_Migration {
 	
 		require_once(APPPATH.'modules/streams/config/streams.php');
 		
-		$obj = $this->db->where('slug', 'streams')->get('modules');
+		$obj = $this->db->limit(1)->where('slug', 'streams')->get('modules');
 		
 		if($obj->num_rows() == 0):
 	
-			// If there is no streams entry in the modules table, update it
+			// No streams entry in the modules table, so let's
+			// add it. This would happen by going to Add-ons, but
+			// why make the user go through the extra setp
 			require_once(APPPATH.'modules/streams/details.php');
+			
+			if(!class_exists('Module_streams')) return false;
 			
 			$details = new Module_streams();
 			
@@ -44,7 +54,7 @@ class Migration_Upgrade_to_pyrostreams extends CI_Migration {
 		
 		endif;
 		
-		// Add the streams tables
+		// Add the streams tables if they don't exist already
 		
 		if(!$this->db->table_exists($config['streams.streams_table'])):
 		
@@ -107,7 +117,7 @@ class Migration_Upgrade_to_pyrostreams extends CI_Migration {
 			  `query_string` longtext COLLATE utf8_unicode_ci NOT NULL,
 			  `stream_slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 			  PRIMARY KEY (`id`)
-			) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
+			) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 			
 		endif;
 		
