@@ -165,7 +165,7 @@ class Module_Streams extends Module {
 		  `query_string` longtext COLLATE utf8_unicode_ci NOT NULL,
 		  `stream_slug` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
 		  PRIMARY KEY (`id`)
-		) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;");
 		
 		return TRUE;
 	}
