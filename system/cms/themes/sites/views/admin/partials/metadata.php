@@ -14,7 +14,7 @@
 	var BASE_URL			= "<?php echo BASE_URL;?>";
 	var BASE_URI			= "<?php echo BASE_URI;?>";
 	var DEFAULT_TITLE		= "<?php echo lang('site.sites'); ?>";
-	var DIALOG_MESSAGE		= "<?php echo lang('dialog.delete_message'); ?>";
+	var DIALOG_MESSAGE		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri			= "<?php echo BASE_URI; ?>";
 	jQuery.noConflict();

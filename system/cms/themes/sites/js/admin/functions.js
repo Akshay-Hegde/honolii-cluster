@@ -230,6 +230,30 @@ jQuery(function($) {
 			$(checkbox).removeAttr('disabled');
 		});
 	})
+	
+	// toggle a site's upload settings
+	$('.active input:checkbox').live('click', function(e) {
+		e.preventDefault();
+		var checkbox = $(this);
+		// disable to keep them from double clicking
+		$(checkbox).attr('disabled', true);
+
+		var site_ref = $(checkbox).attr('id');
+		var state = $(checkbox).is(':checked') ? 1 : 0;
+
+		$.post(SITE_URL + 'sites/status', { 'site_ref': site_ref, 'state': state }, function(data) {
+			var result = $.parseJSON(data);
+				
+			if (result.status == 'success') {
+				// Success!  Swap colors and words
+				$(checkbox).parent().find('span').toggle();
+				
+				// Allow the checkbox to check (or uncheck)
+				$(checkbox).attr('checked', state);
+			}
+			$(checkbox).removeAttr('disabled');
+		});
+	})
 });
 
 //functions for codemirror

@@ -11,12 +11,13 @@
 				<th><?php echo lang('cp_title'); ?></th>
 				<th><?php echo lang('site.created_on'); ?></th>
 				<th><?php echo lang('site.addons_upload'); ?></th>
+				<th><?php echo lang('site.status'); ?></th>
 				<th><?php echo lang('site.manage'); ?></th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="7">
+				<td colspan="8">
 					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
 				</td>
 			</tr>
@@ -29,13 +30,21 @@
 				<td><a target="_blank" href="http://<?php echo $site->domain; ?>"><?php echo $site->domain; ?></a></td>
 				<td><a target="_blank" href="http://<?php echo $site->domain.'/admin'; ?>"><?php echo $site->domain.'/admin'; ?></a></td>
 				<td><?php echo format_date($site->created_on); ?></td>
-				<td class="addons-upload">
+				<td class="addons-upload toggle-box">
 					<?php echo form_checkbox('addons-upload', 1, $site->addons_upload, 'id="'.$site->ref.'"'); ?>
 					<?php echo ($site->addons_upload) ?
 								'<span class="red">'.lang('site.allowed').'</span>'.
 								'<span class="green" style="display:none;">'.lang('site.disabled').'</span>' :
 								'<span class="green">'.lang('site.disabled').'</span>'.
 								'<span class="red" style="display:none;">'.lang('site.allowed').'</span>'; ?>
+				</td>
+				<td class="active toggle-box">
+					<?php echo form_checkbox('active', 1, $site->active, 'id="'.$site->ref.'"'); ?>
+					<?php echo ($site->active) ?
+								'<span class="green">'.lang('site.active').'</span>'.
+								'<span class="red" style="display:none;">'.lang('site.disabled').'</span>' :
+								'<span class="red">'.lang('site.disabled').'</span>'.
+								'<span class="green" style="display:none;">'.lang('site.active').'</span>'; ?>
 				</td>
 				<td class="buttons">
 					<?php echo anchor('sites/stats/'.$site->id, lang('site.stats'), 'class="button modal"'); ?>

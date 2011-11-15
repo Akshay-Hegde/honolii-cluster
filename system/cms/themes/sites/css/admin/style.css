@@ -6,13 +6,13 @@
 
 /* MOVE ME SOMEWHERE */
 
-.addons-upload input[type=checkbox] {
+.toggle-box input[type=checkbox] {
 	vertical-align: middle;
 }
-.addons-upload .red {
+.toggle-box .red {
 	color: red;
 }
-.addons-upload .green {
+.toggle-box .green {
 	color: green;
 }
 

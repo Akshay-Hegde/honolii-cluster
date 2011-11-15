@@ -1,0 +1,77 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+/**
+ * PyroStreams Email Field Type
+ *
+ * @package		PyroStreams
+ * @author		Parse19
+ * @copyright	Copyright (c) 2011, Parse19
+ * @license		http://parse19.com/pyrostreams/license
+ * @link		http://parse19.com/pyrostreams
+ */
+class Field_email
+{
+	public $field_type_name 			= 'Email';
+	
+	public $field_type_slug				= 'email';
+	
+	public $db_col_type					= 'varchar';
+	
+	public $extra_validation			= 'valid_email';
+
+	public $version						= '1.0';
+	
+	public $author						= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Output form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function form_output( $data )
+	{
+		$options['name'] 	= $data['form_slug'];
+		$options['id']		= $data['form_slug'];
+		$options['value']	= $data['value'];
+		
+		return form_input( $options );
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Process before outputting for the plugin
+	 *
+	 * This creates an array of data to be merged with the
+	 * tag array so relationship data can be called with
+	 * a {field.column} syntax
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @param	array
+	 * @return	array
+	 */
+	public function pre_output_plugin( $prefix, $input, $params )
+	{
+		$choices = array();
+		
+		$CI =& get_instance();
+		
+		$CI->load->helper('url');
+		
+		$choices[rtrim($prefix, '.')]			= $input;
+		$choices[$prefix.'email_address']		= $input;
+		$choices[$prefix.'mailto_link']			= mailto($input, $input);
+		$choices[$prefix.'safe_mailto_link']	= safe_mailto($input, $input);
+		
+		return $choices;
+	}
+
+}
+
+/* End of file field.email.php */

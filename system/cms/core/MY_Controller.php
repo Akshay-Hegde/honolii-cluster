@@ -53,6 +53,11 @@ class MY_Controller extends MX_Controller {
 			}
 			redirect(current_url());
 		}
+		
+		if (defined('STATUS'))
+		{
+			show_error(STATUS);
+		}
 
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
