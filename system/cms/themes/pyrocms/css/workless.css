@@ -309,7 +309,6 @@ input[type="text"],
 input[type="password"], 
 input[type="file"], 
 textarea {
-	min-width: 260px;
 	background: #f1f1f1;
 	padding: 8px;
 	border: 1px solid #d9d9d9;
@@ -332,14 +331,70 @@ input.error {
 input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
-form .required-icon { 
-	background: url(../img/required.png) no-repeat; 
-	width: 94px; 
-	height: 28px; 
-	text-indent: -9999px !important; 
+.required-icon { 
+	color: red!important;
+	display: block-inline;
+}
+
+/* Form UL Structure */
+
+.form_inputs {
+	width: 100%;
+}
+.form_inputs fieldset > ul,
+.form_inputs > ul {
+	width: 100%;
+	height: 100%;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+.form_inputs fieldset > ul > li, 
+.form_inputs > ul > li {
 	float: left;
-	position: absolute; 
-	margin-top: 7px;
+	width: 100%;
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 10px;
+	margin-bottom: 10px;
+}
+.form_inputs fieldset > ul > li:last-child, 
+.form_inputs > ul > li:last-child {
+	border-bottom: none!important;
+}
+.form_inputs fieldset > ul > li > label, 
+.form_inputs > ul > li > label,
+.form_inputs fieldset > ul > li .label, 
+.form_inputs > ul > li .label {
+	width: 27%;
+	float: left;
+	margin: 0 3% 0 0;
+	padding: 8px;
+}
+.form_inputs fieldset > ul > li > label span, 
+.form_inputs > ul > li > label span {
+	color: red;
+}
+.form_inputs .input {
+	float: left!important;
+	padding-left: 10px;
+	width: 67%;
+}
+.form_inputs .input > input {
+	color: #666;
+	min-width: 260px;
+}
+.form_inputs label small {
+	display: block;
+	font-weight: normal;
+	font-style: italic;
+	color: #ccc;
+}
+.form_inputs input:focus {
+	color: #4D4D4D;
+	outline: none;
+	border-color: #ed8e28;
+}
+.form_inputs .datetime_input select {
+	width:  100px;
 }
 
 /*
@@ -901,7 +956,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 
 .tabs {
   width: 100%;
-  border-bottom: 1px solid #eeeeee;
+  margin-bottom: 0;
 }
 
 .tab-menu ul li, .tab-menu ol li, .pill li {
@@ -2149,6 +2204,22 @@ Non-semantic helper classes
 .textleft { text-align: left; }
 .textright { text-align: right; }
 .textcenter { text-align: center; }
+
+/* No Results */
+
+.no_data {
+	padding: 12px 10px 10px 10px;
+	border: 1px solid #D9EBF1;
+	border-radius: 5px;
+	background: #F2F7FA;
+	color: #829DAC;
+	text-align: center;
+	font-size: 14px;
+	font-weight: bold;
+	text-shadow: 1px 1px 1px #fff;
+	margin-bottom: 10px;
+}
+.no_data img {margin-right: 4px; margin-top: -3px;}
 
 /*
 -------------------------------------------------------------------------------------------------------

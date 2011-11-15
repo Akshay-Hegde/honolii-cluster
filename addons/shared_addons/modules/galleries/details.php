@@ -10,6 +10,7 @@ class Module_Galleries extends Module {
 			'name' => array(
 				'sl' => 'Galerija',
 				'en' => 'Galleries',
+				'el' => 'Γκαλερί',
 				'de' => 'Galerien',
 				'nl' => 'Gallerijen',
 				'fr' => 'Galeries',
@@ -26,6 +27,7 @@ class Module_Galleries extends Module {
 			'description' => array(
 				'sl' => 'Modul galerije vam omogoča da ustvarite albume vaših slik.',
 				'en' => 'The galleries module is a powerful module that lets users create image galleries.',
+				'el' => 'Παρέχει την δυνατότητα στους χρήστες να δημιουργούν άλμπουμ εικόνων.',
 				'de' => 'Mit dem Galerie Modul kannst du Bildergalerien anlegen.',
 				'nl' => 'De gallerij module die gebruikers in staat stelt afbeeldingsgallerijen te maken.',
 				'fr' => 'Galerie est une puissante extension permettant de créer des galeries d\'images.',
@@ -47,6 +49,7 @@ class Module_Galleries extends Module {
 				array(
 			 	   'name' => 'galleries.new_gallery_label',
 				   'uri' => 'admin/galleries/create',
+				   'class' => 'add'
 				),
 			),
 		);
