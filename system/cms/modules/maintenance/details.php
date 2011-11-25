@@ -19,11 +19,13 @@ class Module_Maintenance extends Module
 				'en' => 'Maintenance',
 				'el' => 'Συντήρηση',
 				'ar' => 'الصيانة',
+				'zh' => '維護'
 			),
 			'description' => array(
 				'en' => 'Manage the site cache and export information from the database.',
-				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.', #translate
-				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.', #translate
+				'el' => 'Διαγραφή αντικειμένων προσωρινής αποθήκευσης μέσω της σελίδας διαχείρισης.',
+				'ar' => 'حذف عناصر الذاكرة المخبأة عبر واجهة الإدارة.',
+				'zh' => '經由管理介面手動刪除暫存資料。'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
