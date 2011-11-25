@@ -116,7 +116,7 @@ class Module_Streams extends Module {
 	
 	public function install()
 	{
-		require_once('../system/cms/modules/streams/config/streams.php');
+		require_once(APPPATH.'modules/streams/config/streams.php');
 
 		$this->db->query("
 		CREATE TABLE `".$this->db->dbprefix($config['streams.streams_table'])."` (
