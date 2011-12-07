@@ -104,7 +104,9 @@ class Plugin_Contact extends Plugin {
 			  $field_list['to'],
 			  $field_list['from'],
 			  $field_list['reply-to'],
-			  $field_list['max-size']
+			  $field_list['max-size'],
+			  $field_list['redirect'],
+			  $field_list['action']
 			  );
 
 		foreach ($field_list AS $field => $rules)
@@ -193,6 +195,13 @@ class Plugin_Contact extends Plugin {
 
 		if ($this->form_validation->run())
 		{
+			// maybe it's a bot?
+			if ($this->input->post('d0ntf1llth1s1n') !== ' ')
+			{
+				$this->session->set_flashdata('error', lang('contact_submit_error'));
+				redirect(current_url());
+			}
+
 			$data = $this->input->post();
 
 			// Add in some extra details about the visitor
@@ -275,7 +284,7 @@ class Plugin_Contact extends Plugin {
 		$parse_data = array();
 		foreach ($form_meta AS $form => $value)
 		{
-			$parse_data[$form]  = form_error($form);
+			$parse_data[$form]  = form_error($form, '<div class="'.$form.'-error">', '</div>');
 			
 			if ($value['type'] == 'dropdown')
 			{
@@ -297,6 +306,7 @@ class Plugin_Contact extends Plugin {
 		}
 	
 		$output	 = form_open_multipart($action, 'class="contact-form"').PHP_EOL;
+		$output	.= form_input('d0ntf1llth1s1n', ' ', 'class="default-form" style="display:none"');
 		$output	.= $this->parser->parse_string($this->content(), str_replace('{{', '{ {', $parse_data), TRUE).PHP_EOL;
 		$output .= '<span class="contact-button">'.form_submit('submit-button', ucfirst($button)).'</span>'.PHP_EOL;
 		$output .= form_close();
