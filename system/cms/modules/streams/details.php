@@ -116,7 +116,14 @@ class Module_Streams extends Module {
 	
 	public function install()
 	{
-		require_once(APPPATH.'modules/streams/config/streams.php');
+		if (defined('PYROPATH'))
+		{
+			require_once(PYROPATH.'modules/streams/config/streams.php');
+		}
+		else
+		{
+			require_once(APPPATH.'modules/streams/config/streams.php');
+		}
 
 		$this->db->query("
 		CREATE TABLE `".$this->db->dbprefix($config['streams.streams_table'])."` (
@@ -173,27 +180,8 @@ class Module_Streams extends Module {
 	// --------------------------------------------------------------------------
 	
 	public function uninstall()
-	{		
-		require_once(APPPATH.'modules/streams/config/streams.php');
-
-		$this->load->dbforge();
-		
-		$obj = $this->db->get($config['streams.streams_table']);
-		
-		$streams = $obj->result();
-		
-		foreach( $streams as $stream ):
-		
-			$this->dbforge->drop_table($config['stream_prefix'].$stream->stream_slug);
-		
-		endforeach;
-		
-		// Drop the other tables
-		$this->dbforge->drop_table($config['streams.streams_table']);
-		$this->dbforge->drop_table($config['streams.fields_table']);
-		$this->dbforge->drop_table($config['streams.assignments_table']);
-		$this->dbforge->drop_table($config['streams.searches_table']);
-
+	{
+		// core modules can't be uninstalled
 		return TRUE;
 	}
 
