@@ -55,7 +55,7 @@ class Module_Maintenance extends Module
 	public function help()
 	{
 		return "This module will clean up and/or remove cache files and folders
-				and also allows admins to export information from the database.";
+			and also allows admins to export information from the database.";
 	}
 
 
