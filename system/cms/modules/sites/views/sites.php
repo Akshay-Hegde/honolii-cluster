@@ -8,7 +8,7 @@
 				<th><?php echo lang('site.descriptive_name'); ?></th>
 				<th><?php echo lang('site.ref'); ?></th>
 				<th><?php echo lang('site.domain'); ?></th>
-				<th><?php echo lang('cp_title'); ?></th>
+				<th><?php echo lang('global:control-panel'); ?></th>
 				<th><?php echo lang('site.created_on'); ?></th>
 				<th><?php echo lang('site.addons_upload'); ?></th>
 				<th><?php echo lang('site.status'); ?></th>
