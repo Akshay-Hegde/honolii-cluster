@@ -13,10 +13,14 @@ class Search_m extends CI_Model {
 
 	private $CI;
 
+	// --------------------------------------------------------------------------   
+
 	function __construct()
 	{
 		$this->CI =& get_instance();
 	}
+
+	// --------------------------------------------------------------------------   
 
 	function perform_search($search_term, $search_type, $stream_slug, $fields)
 	{
@@ -32,7 +36,7 @@ class Search_m extends CI_Model {
 		
 		$stream			= $this->CI->streams_m->get_stream($stream_slug, TRUE);
 		
-		if(!$stream) show_error("\"$stream_slug\" is not a valid stream");
+		if(!$stream) show_error($stream_slug.' '.lang('streams.not_valid_stream'));
 	
 		// -------------------------------------
 		// Hose off the Keywords
@@ -121,6 +125,8 @@ class Search_m extends CI_Model {
 		// Return our hash for the URL
 		return $insert_data['search_id'];
 	}
+
+	// --------------------------------------------------------------------------   
 	
 	function get_cache($cache_id)
 	{

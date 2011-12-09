@@ -11,8 +11,6 @@
  */
 class Field_year
 {
-	public $field_type_name 		= 'Year';
-	
 	public $field_type_slug			= 'year';
 	
 	public $db_col_type				= 'char';
@@ -27,15 +25,6 @@ class Field_year
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $lang					= array(
-	
-		'en'	=> array(
-				'start_year'	=> 'Start Year',
-				'end_year'		=> 'End Year'
-		)
-	
-	);			
-		
 	// --------------------------------------------------------------------------
 
 	/**
@@ -45,12 +34,20 @@ class Field_year
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data, $entry_id, $field)
 	{
 		$start_year 	= $this->_process_year_input( $data['custom']['start_year'] );
 		$end_year 		= $this->_process_year_input( $data['custom']['end_year'] );
 		
 		$years 			= array();
+		
+		// If this is not required, then
+		// let's allow a null option
+		if($field->is_required == 'no'):
+		
+			$years[null] = get_instance()->config->item('dropdown_choose_null');
+		
+		endif;
 		
 		while( $end_year >= $start_year ):
 		
@@ -78,18 +75,18 @@ class Field_year
 	 * @param	string
 	 * @return	string
 	 */
-	private function _process_year_input( $years_data )
+	private function _process_year_input($years_data)
 	{
+		if(!$years_data) return date('Y');
+	
 		// Do they want the current year?
-		
 		if( $years_data == 'current' ):
 		
 			return date('Y');
 		
 		endif;
 	
-		// Is this numeric? If so then cool.
-		
+		// Is this numeric? If so then cool.		
 		if( $years_data[0] != '-' && $years_data[0] != '+' && is_numeric($years_data) ):
 		
 			return $years_data;
@@ -97,7 +94,6 @@ class Field_year
 		endif;
 		
 		// Else, we have + or - from the current time
-		
 		if( $years_data[0] == '+' ):
 		
 			$num = str_replace('+', '', $years_data);
@@ -130,16 +126,16 @@ class Field_year
 	 * Start Year
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_start_year( $value = '' )
+	public function param_start_year($value = null)
 	{
 		$options['name'] 	= 'start_year';
 		$options['id']		= 'start_year';
 		$options['value']	= $value;
 		
-		return form_input( $options );
+		return form_input($options);
 	}
 
 	// --------------------------------------------------------------------------
@@ -148,16 +144,16 @@ class Field_year
 	 * End Year
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_end_year( $value = '' )
+	public function param_end_year($value = null)
 	{
 		$options['name'] 	= 'end_year';
 		$options['id']		= 'end_year';
 		$options['value']	= $value;
 		
-		return form_input( $options );
+		return form_input($options);
 	}
 
 }

@@ -1,0 +1,4 @@
+<?php defined('BASEPATH') or exit('No direct script access allowed');
+
+$lang['streams.user.name'] 				= 'User';
+$lang['streams.user.restrict_group']	= 'Restrict Group';

@@ -11,8 +11,6 @@
  */
 class Field_user
 {
-	public $field_type_name 		= 'User';
-	
 	public $field_type_slug			= 'user';
 	
 	public $db_col_type				= 'int';
@@ -22,21 +20,6 @@ class Field_user
 	public $version					= '1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-
-	public $lang					= array(
-	
-		'en'	=> array(
-				'restrict_group'	=> 'Restrict Group'
-		)
-	
-	);			
-
-	// --------------------------------------------------------------------------
-
-	function __construct()
-	{
-		$this->CI =& get_instance();
-	}
 	
 	// --------------------------------------------------------------------------
 
@@ -47,7 +30,7 @@ class Field_user
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $params )
+	public function form_output($params, $entry_id, $field)
 	{
 		$this->CI->db->select('username, id');
 	
@@ -63,7 +46,16 @@ class Field_user
 		$users_raw = $db_obj->result();
 		
 		$users = array();
+
+		// If this is not required, then
+		// let's allow a null option
+		if($field->is_required == 'no'):
 		
+			$users[null] = $this->CI->config->item('dropdown_choose_null');
+		
+		endif;
+		
+		// Get user choices
 		foreach( $users_raw as $user ):
 		
 			$users[$user->id] = $user->username;
@@ -84,6 +76,7 @@ class Field_user
 		
 		$db_obj = $this->CI->db->get('groups');
 		
+		// @todo - languagize
 		$groups = array('no' => 'Don\'t Restrict Groups');
 		
 		$groups_raw = $db_obj->result();
@@ -112,27 +105,22 @@ class Field_user
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin( $prefix, $input, $params )
+	public function pre_output_plugin($input, $params)
 	{
-		$choices = array();
+		$this->CI->load->model('users/users_m');
 		
-		$CI =& get_instance();
+		$user = $this->CI->users_m->get( array('id' => $input) );
 
-		$CI->load->model('users/users_m');
-		
-		$user = $CI->users_m->get( array('id' => $input) );
-		
-		$user_data[rtrim($prefix, '.')]		= $user->username;
-		$user_data[$prefix.'user_id'] 		= $user->user_id;
-		$user_data[$prefix.'display_name'] 	= $user->display_name;
-		$user_data[$prefix.'first_name'] 	= $user->first_name;
-		$user_data[$prefix.'last_name'] 	= $user->last_name;
-		$user_data[$prefix.'company'] 		= $user->company;
-		$user_data[$prefix.'lang'] 			= $user->lang;
-		$user_data[$prefix.'email'] 		= $user->email;
-		$user_data[$prefix.'username'] 		= $user->username;
-
-		return $user_data;
+		return array(
+			'user_id'			=> $user->user_id,
+			'display_name'		=> $user->display_name,
+			'first_name'		=> $user->first_name,
+			'last_name'			=> $user->last_name,
+			'company'			=> $user->company,
+			'lang'				=> $user->lang,
+			'email'				=> $user->email,
+			'username'			=> $user->username,
+		);
 	}
 }
 /* End of file field.user.php */

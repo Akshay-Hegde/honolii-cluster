@@ -11,8 +11,6 @@
  */
 class Field_integer
 {
-	public $field_type_name 		= 'Integer';
-	
 	public $field_type_slug			= 'integer';
 	
 	public $db_col_type				= 'int';
@@ -24,12 +22,7 @@ class Field_integer
 	public $version					= '1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-	
-	function event()
-	{
-		$CI =& get_instance();
-	}
-	
+		
 	// --------------------------------------------------------------------------
 
 	/**
@@ -39,13 +32,13 @@ class Field_integer
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data)
 	{
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
-		return form_input( $options );
+		return form_input($options);
 	}
 	
 }

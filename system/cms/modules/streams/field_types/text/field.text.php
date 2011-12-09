@@ -11,8 +11,6 @@
  */
 class Field_text
 {
-	public $field_type_name 		= 'Text';
-	
 	public $field_type_slug			= 'text';
 	
 	public $db_col_type				= 'varchar';

@@ -55,6 +55,8 @@ class Streams_m extends MY_Model {
 		)
 	);
 	
+    // --------------------------------------------------------------------------
+
 	function __construct()
 	{
 		$this->table = STREAMS_TABLE;
@@ -197,27 +199,25 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return	bool
 	 */
-	public function update_stream( $stream_id )
+	public function update_stream($stream_id)
 	{
 		// See if the stream slug is different
 		$stream = $this->get_stream( $stream_id );
 		
 		if( $stream->stream_slug != $this->input->post('stream_slug') ):
 		
-			// Okay looks like we need to alter the table name
-			
-			// Check to see if there is a table, then alter it
-			
+			// Okay looks like we need to alter the table name.			
+			// Check to see if there is a table, then alter it.
 			if( $this->db->table_exists(STR_PRE.$this->input->post('stream_slug')) ):
 			
-				show_error("A table with the slug '".$this->input->post('stream_slug')."' already exists.");
+				show_error(sprintf(lang('streams.table_exists'), $this->input->post('stream_slug')));
 			
 			endif;
 			
 			$this->load->dbforge();
 			
-			// Using the PyroStreams BD prefix because rename_table
-			// does not prefix the table anems properly, it would seem
+			// Using the PyroStreams DB prefix because rename_table
+			// does not prefix the table name properly, it would seem
 			if( !$this->dbforge->rename_table(STR_PRE.$stream->stream_slug, STR_PRE.$this->input->post('stream_slug')) ):
 			
 				return FALSE;
@@ -246,27 +246,48 @@ class Streams_m extends MY_Model {
 	 * @param	obj
 	 * @return	bool
 	 */
-	public function delete_stream( $stream )
+	public function delete_stream($stream)
 	{
+		// -------------------------------------
+		// Get assignments and run destructs
+		// -------------------------------------
+
+		$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
+		
+		if(is_array($assignments)):
+
+			foreach($assignments as $assignment):
+		
+				// Run the destruct
+				if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct')):
+				
+					$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->fields_m->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
+			
+				endif;		
+			
+			endforeach;
+		
+		endif;
+
 		// -------------------------------------
 		// Delete actual table
 		// -------------------------------------
 		
 		$this->load->dbforge();
 		
-		if( ! $this->dbforge->drop_table(STR_PRE.$stream->stream_slug) ):
+		if( !$this->dbforge->drop_table(STR_PRE.$stream->stream_slug) ):
 		
 			return FALSE;
 		
 		endif;
 
 		// -------------------------------------
-		// Delete from relationships
+		// Delete from assignments
 		// -------------------------------------
 		
 		$this->db->where('stream_id', $stream->id);
 		
-		if( ! $this->db->delete(ASSIGN_TABLE) ):
+		if( !$this->db->delete(ASSIGN_TABLE) ):
 		
 			return FALSE;
 		
@@ -276,9 +297,7 @@ class Streams_m extends MY_Model {
 		// Delete from streams table
 		// -------------------------------------
 		
-		$this->db->where('id', $stream->id);
-		
-		return $this->db->delete($this->table);
+		return $this->db->where('id', $stream->id)->delete($this->table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -290,7 +309,7 @@ class Streams_m extends MY_Model {
 	 * @param	string
 	 * @return	mixed
 	 */	
-	public function get_stream_id_from_slug( $slug )
+	public function get_stream_id_from_slug($slug)
 	{
 		$db = $this->db->limit(1)->where('stream_slug', $slug)->get($this->table);
 		
@@ -760,7 +779,7 @@ class Streams_m extends MY_Model {
 		// Remove from from field options
 		// -------------------------------------
 		
-		if( in_array($field->field_slug, $stream->view_options) ):
+		if( is_array($stream->view_options) and in_array($field->field_slug, $stream->view_options) ):
 		
 			$options = $stream->view_options;
 			
@@ -801,13 +820,12 @@ class Streams_m extends MY_Model {
 	 * @param	obj
 	 * @return 	bool
 	 */
-	public function delete_row( $row_id, $stream )
+	public function delete_row($row_id, $stream)
 	{
 		// Get the row
-		$this->db->select('ordering_count')->limit(1)->where('id', $row_id);
-		$db_obj = $this->db->get(STR_PRE.$stream->stream_slug);
+		$db_obj = $this->db->limit(1)->where('id', $row_id)->get(STR_PRE.$stream->stream_slug);
 		
-		if( $db_obj->num_rows() == 0 ) return FALSE;
+		if( $db_obj->num_rows() == 0 ) return false;
 		
 		// Get the ordering count
 		$row = $db_obj->row();
@@ -821,6 +839,30 @@ class Streams_m extends MY_Model {
 			return FALSE;
 		
 		else:
+		
+			// -------------------------------------
+			// Entry Destructs
+			// -------------------------------------
+			// Go through the assignments and call
+			// entry destruct methods
+			// -------------------------------------
+		
+			// Get the assignments
+			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
+			
+			// Do they have a destruct function?
+			foreach($assignments as $assign):
+			
+				if(method_exists($this->type->types->{$assign->field_type}, 'entry_destruct')):
+				
+					// Get the field
+					$field = $this->fields_m->get_field($assign->field_id);
+				
+					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+				
+				endif;
+			
+			endforeach;
 		
 			// -------------------------------------
 			// Reset reordering

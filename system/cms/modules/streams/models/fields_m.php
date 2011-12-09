@@ -109,20 +109,22 @@ class Fields_m extends CI_Model {
 	 * Insert a field
 	 *
 	 * @access	public
+	 * @param	string - the field name
+	 * @param	string - the field slug
+	 * @param	string - the field type
+	 * @param	[array - any extra data]
 	 * @return	bool
 	 */
-	public function insert_field()
+	public function insert_field($field_name, $field_slug, $field_type, $extra = array())
 	{
-		foreach( $this->fields_validation as $item ):
-		
-			$insert_data[$item['field']] = $this->input->post($item['field']);
-		
-		endforeach;
-		
+		$insert_data = array(
+			'field_name' 	=> $field_name,
+			'field_slug'	=> $field_slug,
+			'field_type'	=> $field_type
+		);
+	
 		// Load the type to see if there are other fields
-		$type_call = $this->input->post('field_type');
-		
-		$field_type = $this->type->types->$type_call;
+		$field_type = $this->type->types->$field_type;
 		
 		if( isset($field_type->custom_parameters) ):
 		
@@ -130,7 +132,7 @@ class Fields_m extends CI_Model {
 		
 			foreach( $field_type->custom_parameters as $param ):
 			
-				$extra_data[$param] = $this->input->post($param);
+				if(isset($extra[$param])) $extra_data[$param] = $extra[$param];
 			
 			endforeach;
 		
@@ -278,7 +280,7 @@ class Fields_m extends CI_Model {
 		// * Default Value
 		// -------------------------------------		
 
-		$assignments = $this->get_assignments( $field->id );
+		$assignments = $this->get_assignments($field->id);
 		
 		if( 
 			$field->field_slug != $this->input->post('field_slug') or 
@@ -399,12 +401,37 @@ class Fields_m extends CI_Model {
 	 * @param	int
 	 * @return	mixed
 	 */
-	public function get_assignments( $field_id )
+	public function get_assignments($field_id)
 	{
-		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.id as stream_id');
-		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE);
+		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
+		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
 		$this->db->where(PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id', FALSE);
+		$this->db->where(PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id', FALSE);
 		$this->db->where(PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id', $field_id, FALSE);
+		
+		$obj = $this->db->get();
+		
+		if( $obj->num_rows() == 0 ) return FALSE;
+		
+		return $obj->result();
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Get assignments for a stream
+	 *
+	 * @access	public
+	 * @param	int
+	 * @return	mixed
+	 */
+	public function get_assignments_for_stream($stream_id)
+	{
+		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
+		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
+		$this->db->where(PYROSTREAMS_DB_PRE.STREAMS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id', FALSE);
+		$this->db->where(PYROSTREAMS_DB_PRE.FIELDS_TABLE.'.id', PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.field_id', FALSE);
+		$this->db->where(PYROSTREAMS_DB_PRE.ASSIGN_TABLE.'.stream_id', $stream_id, FALSE);
 		
 		$obj = $this->db->get();
 			
@@ -422,17 +449,13 @@ class Fields_m extends CI_Model {
 	 * @param	int
 	 * @return	bool
 	 */
-	public function delete_field( $field_id )
+	public function delete_field($field_id)
 	{
 		// Make sure field exists		
-		if( ! $field = $this->get_field( $field_id) ):
-		
-			return FALSE;
-		
-		endif;
+		if( ! $field = $this->get_field($field_id) ) return FALSE;
 	
 		// Find assignments, and delete rows from table
-		$assignments = $this->get_assignments( $field_id );
+		$assignments = $this->get_assignments($field_id);
 		
 		if( $assignments ):
 		
@@ -441,46 +464,17 @@ class Fields_m extends CI_Model {
 			$outcome = TRUE;
 		
 			// Cycle and delete columns			
-			foreach( $assignments as $item ):
+			foreach( $assignments as $assignment):
 			
-				if( ! $this->dbforge->drop_column(STR_PRE.$item->stream_slug, $field->field_slug) ):
-				
-					$outcome = FALSE;
-				
-				endif;
-				
-				// Update that stream's view options
-				$view_options = unserialize($item->view_options);
-				
-				foreach( $view_options as $key => $option ):
-				
-					if( $option == $field->field_slug ):
-					
-						unset($view_options[$key]);
-					
-					endif;					
-				
-				endforeach;
-				
-				$update_data['view_options'] = serialize($view_options);
-
-				$this->db->where('id', $item->stream_id);
-				$this->db->update(STREAMS_TABLE, $update_data);
-
-				$update_data 	= array();
-				$view_options 	= array();
+				$this->cleanup_assignment($assignment);
 			
 			endforeach;
 			
-			if( ! $outcome ):
-			
-				return $outcome;
-			
-			endif;
+			if( !$outcome ) return $outcome;
 		
 		endif;
 		
-		// Delete assignment entries		
+		// Delete field assignments		
 		$this->db->where('field_id', $field->id);
 		
 		if( ! $this->db->delete(ASSIGN_TABLE) ):
@@ -489,11 +483,13 @@ class Fields_m extends CI_Model {
 		
 		endif;
 		
-		// Blank out title_cols
+		// Reset instances where the title column
+		// is the field we are deleting. PyroStreams will
+		// always just use the ID in place of the field.
 		$this->db->where('title_column', $field->field_slug);
-		$this->db->update(STREAMS_TABLE, array('title_column'=>NULL));
+		$this->db->update(STREAMS_TABLE, array('title_column' => NULL));
 		
-		// Delete from fields list		
+		// Delete from actual fields table		
 		$this->db->where('id', $field->id);
 		
 		if( ! $this->db->delete(FIELDS_TABLE) ):
@@ -508,13 +504,67 @@ class Fields_m extends CI_Model {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Field garbage cleanup
+	 *
+	 * @access	public
+	 * @param	obj - the assignment
+	 * @return	void
+	 */
+	function cleanup_assignment($assignment)
+	{
+		// Drop the column if it exists
+		if( $this->db->field_exists($assignment->field_slug, STR_PRE.$assignment->stream_slug) ):
+	
+			if( ! $this->dbforge->drop_column(STR_PRE.$assignment->stream_slug, $assignment->field_slug) ):
+			
+				$outcome = FALSE;
+			
+			endif;
+		
+		endif;
+
+		// Run the destruct
+		if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct')):
+		
+			$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
+		
+		endif;
+		
+		// Update that stream's view options
+		$view_options = unserialize($assignment->stream_view_options);
+		
+		if(is_array($view_options)):
+		
+			foreach( $view_options as $key => $option ):
+			
+				if( $option == $assignment->field_slug ) unset($view_options[$key]);
+			
+			endforeach;
+		
+		else:
+		
+			$view_options = array();
+		
+		endif;
+		
+		$update_data['view_options'] = serialize($view_options);
+	
+		$this->db->where('id', $assignment->stream_id)->update(STREAMS_TABLE, $update_data);
+	
+		unset($update_data);
+		unset($view_options);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Get a single field
 	 *
 	 * @access	public
 	 * @param	int
 	 * @return	obj
 	 */
-	public function get_field( $field_id )
+	public function get_field($field_id)
 	{
 		$this->db->limit(1)->where('id', $field_id);
 		
@@ -542,7 +592,7 @@ class Fields_m extends CI_Model {
 	 * @param	int
 	 * @return	obj
 	 */
-	public function get_field_by_slug( $field_slug )
+	public function get_field_by_slug($field_slug)
 	{
 		$this->db->limit(1)->where('field_slug', $field_slug);
 		
@@ -561,132 +611,6 @@ class Fields_m extends CI_Model {
 		return $field;
 	}
 
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Insert field to a stream
-	 *
-	 * @access	public
-	 * @param	array
-	 * @param	obj
-	 * @param	obj
-	 * @param	array - optional skipping fields
-	 * @return	mixed
-	 */
-	public function insert_fields_to_stream($post, $fields, $stream, $skips = array())
-	{
-		// -------------------------------------
-		// Run through fields
-		// -------------------------------------
-
-		$insert_data = array();
-		
-		$alt_process = array();
-	
-		foreach( $fields as $field ):
-		
-			if(!in_array($field->field_slug, $skips)):
-		
-				// Need to get rid of this
-				$type_tmp = $field->field_type;
-				
-				$type = $this->type->types->$type_tmp;
-				
-				if( isset($post[$field->field_slug]) ):
-				
-					// We don't process the alt process stuff.
-					// This is for field types that store data outside of the
-					// actual table
-					if(isset($type->alt_process) and $type->alt_process === TRUE):
-									
-						$alt_process[] = $field->field_slug;
-					
-					else:
-					
-						if( method_exists($type, 'pre_save') ):
-						
-							$post[$field->field_slug] = $type->pre_save( $post[$field->field_slug], $field, $stream );
-						
-						endif;
-						
-						// Trim if a string
-						if(is_string($post[$field->field_slug]))
-							$post[$field->field_slug] = trim($post[$field->field_slug]);
-						
-						$insert_data[$field->field_slug] = $post[$field->field_slug];
-					
-					endif;
-				
-				else:
-				
-					// Set an empty value if there is no post data
-					// for a field.
-					$insert_data[$field->field_slug] = '';
-				
-				endif;
-			
-			endif;
-		
-		endforeach;
-
-		// -------------------------------------
-		// Set standard fields
-		// -------------------------------------
-
-		$insert_data['created'] 	= date('Y-m-d H:i:s');
-		$insert_data['created_by'] 	= $this->current_user->id;
-
-		// -------------------------------------
-		// Set incremental ordering
-		// -------------------------------------
-		
-		$db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get(STR_PRE.$stream->stream_slug);
-		
-		if( $db_obj->num_rows() == 0 || !$db_obj ):
-		
-			$ordering = 0;
-		
-		else:
-		
-			$order_row = $db_obj->row();
-			
-			if( !is_numeric($order_row->max_ordering) ):
-			
-				$ordering = 0;
-			
-			else:
-			
-				$ordering = $order_row->max_ordering;
-			
-			endif;
-		
-		endif;
-
-		$insert_data['ordering_count'] 	= $ordering+1;
-
-		// -------------------------------------
-		// Insert data
-		// -------------------------------------
-		
-		if( ! $this->db->insert(STR_PRE.$stream->stream_slug, $insert_data) ):
-		
-			return FALSE;
-		
-		else:
-		
-			$id = $this->db->insert_id();
-			
-			// Process any alt process stuff
-			foreach( $alt_process as $field_slug ):
-			
-				$type->pre_save( $post[$field_slug], $fields->{$field_slug}, $stream, $id );
-			
-			endforeach;
-			
-			return $id;
-		
-		endif;
-	}
 
 	// --------------------------------------------------------------------------
 	
@@ -699,7 +623,7 @@ class Fields_m extends CI_Model {
 	 * @param	obj
 	 * return	bool
 	 */
-	public function edit_assignment( $assignment_id, $stream, $field )
+	public function edit_assignment($assignment_id, $stream, $field)
 	{
 		// -------------------------------------
 		// Check for title column

@@ -1,33 +1,38 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
- * PyroStreams Fields Helper
+ * PyroStreams Helper
  *
  * @package		PyroStreams
- * @author		Addict Add-ons Dev Team
- * @copyright	Copyright (c) 2011, Addict Add-ons
- * @license		http://addictaddons.com/pyrostreams/license
- * @link		http://addictaddons.com/pyrostreams
+ * @author		Parse19
+ * @copyright	Copyright (c) 2011, Parse19
+ * @license		http://parse19.com/pyrostreams/license
+ * @link		http://parse19.com/pyrostreams
  */
-function field_types_array( $add_lead = FALSE )
+
+// -------------------------------------------------------------------------- 
+
+/**
+ * Field Types array
+ *
+ * Create a drop down of field types
+ */
+function field_types_array()
 {
 	$return = array();
 
 	$CI =& get_instance();
 	
-	// Add the lead for the drop down if we need it
-	if( $add_lead ):
-	
-		$return = array('-' => '-- Pick a Field Type --');
-	
-	endif;
-	
-	//Cycle through, load, and get data	
+	// For the chosen data placeholder value
+	$return[null] = null;
+		
 	foreach( $CI->type->types as $type ):
 	
 		$return[$type->field_type_slug] = $type->field_type_name;
 	
 	endforeach;
+	
+	asort($return);
 	
 	return $return;
 }
@@ -37,45 +42,40 @@ function field_types_array( $add_lead = FALSE )
 /**
  * Streams Constants
  *
- * Declare some constants *
+ * This is just for legacy and will evenutally
+ * be depricated in favor of straight configs.
  */
 function streams_constants()
 {
+	$CI =& get_instance();
+
+	$CI->load->config('streams/streams');
+
 	if(!defined('STREAMS_TABLE')):
 
-		define('STREAMS_TABLE', 'data_streams');
+		define('STREAMS_TABLE', $CI->config->item('streams.streams_table'));
 	
 	endif;
 
 	if(!defined('FIELDS_TABLE')):
 
-		define('FIELDS_TABLE', 'data_fields');
+		define('FIELDS_TABLE', $CI->config->item('streams.fields_table'));
 	
 	endif;
 
 	if(!defined('ASSIGN_TABLE')):
 
-		define('ASSIGN_TABLE', 'data_field_assignments');
+		define('ASSIGN_TABLE', $CI->config->item('streams.assignments_table'));
 	
 	endif;
 
 	if(!defined('SEARCH_TABLE')):
 
-		define('SEARCH_TABLE', 'data_stream_searches');
-	
-	endif;
-
-	if(!defined('BASIC_ACCESS_TABLE')):
-
-		define('BASIC_ACCESS_TABLE', 'data_streams_basic_access');
+		define('SEARCH_TABLE', $CI->config->item('streams.searches_table'));
 	
 	endif;
 
 	if(!defined('STR_PRE')):
-
-		$CI =& get_instance();
-		
-		$CI->load->config('streams/streams');
 
 		define('STR_PRE', $CI->config->item('stream_prefix'));	
 	
@@ -86,6 +86,9 @@ function streams_constants()
 
 /**
  * Load admin resources
+ *
+ * This is handy because the admin sections are split among
+ * several controllers.
  */
 function admin_resources()
 {
@@ -93,8 +96,6 @@ function admin_resources()
 
     $CI->load->model(array('streams/fields_m', 'streams/streams_m', 'streams/row_m'));
    
-	$CI->template->append_metadata('<style>table.form_table td {border-bottom: none;} table.form_table td.label_col {text-align: right;} small {display: block; color: #535353;} .actions {text-align: right;} .handle {cursor: move;}</style>');
-
 	// -------------------------------------
 	// Validation Resources
 	// -------------------------------------
@@ -121,7 +122,8 @@ function admin_resources()
 /**
  * User name from ID
  *
- * Convenience function for the back end
+ * Convenience function for the back end to
+ * show usernames in tables and data views.
  *
  * @param	id - user id
  */

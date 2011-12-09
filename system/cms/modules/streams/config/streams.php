@@ -20,10 +20,22 @@ $config['streams.fields_table'] 		= 'data_fields';
 $config['streams.assignments_table'] 	= 'data_field_assignments';
 $config['streams.searches_table'] 		= 'data_stream_searches';
 
+// --------------------------------------------------------------------------
+
 /**
  * DB table prefix for stream tables
  */
 $config['stream_prefix'] = 'str_';
+
+// --------------------------------------------------------------------------
+
+/**
+ * The value presented for a
+ * null value in a drop down
+ */
+$config['dropdown_choose_null'] = '-----';
+
+// --------------------------------------------------------------------------
 
 /**
  * MySQL Reserved Words

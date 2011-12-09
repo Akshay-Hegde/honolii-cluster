@@ -11,8 +11,6 @@
  */
 class Field_country
 {
-	public $field_type_name 		= 'Country';
-	
 	public $field_type_slug			= 'country';
 	
 	public $db_col_type				= 'varchar';
@@ -23,9 +21,16 @@ class Field_country
 		
 	// --------------------------------------------------------------------------
 
-	function __construct()
+	/**
+	 * Output form input
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function form_output($data, $entry_id, $field)
 	{
-		$this->countries = $this->countries();
+		return form_dropdown($data['form_slug'], $this->countries($field->is_required), $data['value'], 'id="'.$data['form_slug'].'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -37,25 +42,13 @@ class Field_country
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function pre_output($input)
 	{
-		return form_dropdown($data['form_slug'], $this->countries, $data['value'], 'id="'.$data['form_slug'].'"');
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Output form input
-	 *
-	 * @param	array
-	 * @param	array
-	 * @return	string
-	 */
-	public function pre_output( $input )
-	{
+		$countries = $this->countries('yes');
+		
 		if(trim($input)!=''):
 
-			return $this->countries[$input];
+			return $countries[$input];
 		
 		else:
 		
@@ -73,13 +66,14 @@ class Field_country
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output_plugin($prefix, $input, $params)
+	public function pre_output_plugin($input, $params)
 	{
+		$countries = $this->countries('yes');
+
 		if(trim($input)!=''):
 
-			$return[rtrim($prefix, '.')] = $this->countries[$input];
-			$return[$prefix.'name'] = $this->countries[$input];
-			$return[$prefix.'code']	= $input;
+			$return['name'] = $countries[$input];
+			$return['code']	= $input;
 			
 			return $return;
 		
@@ -95,13 +89,21 @@ class Field_country
 	/**
 	 * Countries
 	 *
-	 * Returns an array of countries
+	 * Returns an array of country choices
 	 *
 	 * @access	private
 	 * @return	array
 	 */	
-	private function countries()
+	private function countries($is_required)
 	{
+		$choices = array();
+	
+		if($is_required == 'no'):
+			
+			$choices[null] = get_instance()->config->item('dropdown_choose_null');
+		
+		endif;
+		
 		$countries = array(
 		  "GB" => "United Kingdom",
 		  "US" => "United States",
@@ -344,7 +346,7 @@ class Field_country
 		  "ZW" => "Zimbabwe"
 		);
 	
-		return $countries;
+		return array_merge($choices, $countries);
 	}
 
 }

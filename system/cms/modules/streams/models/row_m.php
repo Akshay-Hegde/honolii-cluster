@@ -30,6 +30,8 @@ class Row_m extends MY_Model {
 	
 	public $structure;
 	
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Array of IDs called, by stream.
 	 * Used to exclude IDs already called.
@@ -37,14 +39,23 @@ class Row_m extends MY_Model {
 	 */
 	public $called;
 	
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Hook for get_rows
 	 *
 	 * array($obj, $method_name)
 	 */
 	public $get_rows_hook 	= array();
+
+	// --------------------------------------------------------------------------
 	
-	// Data to send to the function
+	/**
+	 * Data to send to the function
+	 *
+	 * @access	public
+	 * @var		obj
+	 */
 	public $get_rows_hook_data;
 
 	// --------------------------------------------------------------------------
@@ -303,42 +314,6 @@ class Row_m extends MY_Model {
 		endif;
 
 		// -------------------------------------
-		// Relationships
-		// -------------------------------------
-		
-		if( ! in_array('relationships', $disable) ):
-
-			foreach( $stream_fields as $field_slug => $field ):
-			
-				// Do we have a relationship?
-				if( $field->field_type == 'relationship' && isset($field->field_data['choose_stream']) ):
-				
-					$rel_stream_slug = $this->streams_m->streams_cache[$field->field_data['choose_stream']];
-				
-					// Add the Join
-					$this->db->join(	
-						STR_PRE.$rel_stream_slug->stream_slug.' as '.$field_slug.'_jn',
-						STR_PRE.$stream->stream_slug.'.'.$field_slug.' = '.$field_slug.'_jn.id',
-						'LEFT' );
-						
-					// Add to Select
-					foreach( $this->structure[$field->field_data['choose_stream']]['fields'] as $rel_field ):
-					
-						if(!isset($this->type->types->{$rel_field->field_type}->alt_process) or !$this->type->types->{$rel_field->field_type}->alt_process):
-	
-							$this->select_string .= ', '.$field_slug.'_jn.'.$rel_field->field_slug.' as \''.$field_slug.'.'.$rel_field->field_slug."'";
-						
-						endif;
-					
-					endforeach;
-					
-				endif;
-			
-			endforeach;
-		
-		endif;	
-
-		// -------------------------------------
 		// Restrict User
 		// -------------------------------------
 		
@@ -393,19 +368,6 @@ class Row_m extends MY_Model {
 		endif;
 
 		// -------------------------------------
-		// Get Created By Data
-		// -------------------------------------
-		
-		if( ! in_array('created_by', $disable) ):
-
-			$this->db->join('users', STR_PRE."$stream->stream_slug.created_by = ".'users.id' );
-			
-			// We are just going to take a few things. Let's not get greedy.
-			$this->select_string .= " , users.id as 'created_by.id', users.email as 'created_by.email', users.group_id as 'created_by.group_id', users.username as 'created_by.username'";
-			
-		endif;
-
-		// -------------------------------------
 		// Get by ID & Single
 		// -------------------------------------
 		
@@ -421,6 +383,9 @@ class Row_m extends MY_Model {
 
 		// -------------------------------------
 		// Hook
+		// -------------------------------------
+		// This hook can be used by fields
+		// to add to the query
 		// -------------------------------------
 		
 		if( $this->get_rows_hook ):
@@ -473,13 +438,13 @@ class Row_m extends MY_Model {
 			endforeach;
 
 			// Set the offset
-			if( $this->uri->segment( $pag_segment ) == '' ):
+			if( $this->uri->segment($pag_segment) == '' ):
 			
 				$offset = 0;
 	
 			else:
 			
-				$offset = $this->uri->segment( $pag_segment );
+				$offset = $this->uri->segment($pag_segment);
 						
 			endif;
 		
@@ -509,7 +474,7 @@ class Row_m extends MY_Model {
 		// Run the Get
 		// -------------------------------------
 		
-		$obj = $this->db->get( STR_PRE.$stream->stream_slug );
+		$obj = $this->db->get(STR_PRE.$stream->stream_slug);
 		
 		$data = $obj->result_array();
 				
@@ -526,7 +491,7 @@ class Row_m extends MY_Model {
 			// Log the ID called
 			$this->called[$this->data->stream->stream_slug][] = $item['id'];
 		
-			$data[$id] = $this->format_row( $item, $stream_fields, $this->data->stream, FALSE, TRUE );
+			$data[$id] = $this->format_row($item, $stream_fields, $this->data->stream, FALSE, TRUE, $disable);
 			
 			// Give some info on if it is the last element
 			if( $count == $total ):
@@ -576,7 +541,7 @@ class Row_m extends MY_Model {
 	 * @param	[bool]
 	 * @return	mixed
 	 */
-	public function get_row( $id, $stream, $format_output = TRUE )
+	public function get_row($id, $stream, $format_output = TRUE)
 	{
 		// First, let's get all out fields. That's
 		// right. All of them.
@@ -623,10 +588,194 @@ class Row_m extends MY_Model {
 	 * @param	obj
 	 * @param	[bool]
 	 * @param	[bool]
+	 * @param	[array - things to disable]
+	 */
+	public function format_row($row, $stream_fields, $stream, $return_object = TRUE, $plugin_call = FALSE,  $disable = array())
+	{		
+		// First, let's get all out fields. That's
+		// right. All of them.
+		if(!$this->all_fields) $this->all_fields = $this->fields_m->get_all_fields();
+
+		// Now the structure. We will need this as well.
+		if(!$this->structure) $this->structure = $this->gather_structure();
+
+		// -------------------------------------
+		// Format Rows
+		// -------------------------------------
+		// Go through each row and 
+		// get the data from the plugin or
+		// format it
+		// -------------------------------------
+
+		foreach( $row as $row_slug => $data ):
+		
+			// Easy out for our non-formattables
+			if(in_array($row_slug, array('id'))) continue;
+
+			// -------------------------------------
+			// Format Dates
+			// -------------------------------------
+			
+			if($row_slug == 'created' or $row_slug == 'updated'):
+			
+				if($return_object):
+				
+					$row->$row_slug = strtotime($row->$row_slug);
+				
+				else:
+		
+					$row[$row_slug] = strtotime($row[$row_slug]);
+				
+				endif;
+				
+			endif;
+
+			// Not sure why this is here. 
+			// if(!is_array($this->all_fields)) continue;
+
+			// -------------------------------------
+			// Format Columns
+			// -------------------------------------
+
+			if(array_key_exists($row_slug, $this->all_fields)):
+			
+				$format_data = $this->all_fields[$row_slug];
+						
+				$type = $this->type->types->{$format_data['field_type']};
+							
+				// First off, is this an alt process type?
+				if( isset($type->alt_process) and $type->alt_process === TRUE ):
+				
+					$out = null;
+				
+					if(!$plugin_call and method_exists($type, 'alt_pre_output')):
+					
+						$out = $type->alt_pre_output($row->id, $format_data['field_data'], $type, $stream);
+					
+					endif;
+					
+					($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
+					
+				else:
+		
+					// If not, check and see if there is a method
+					// for pre output or pre_output_plugin
+					if( $plugin_call and method_exists($type, 'pre_output_plugin') ):
+					
+						$plugin_output = $type->pre_output_plugin($row[$row_slug], $format_data['field_data'], $row_slug);
+					
+						// Do we get an array or a string?
+						if( is_array($plugin_output) ):
+						
+							// For arrays we replace the node with a new array
+							// of data merged into the current array
+							if( is_array($row) ):
+							
+								if(isset($type->plugin_return) and $type->plugin_return == 'array'):
+								
+									$row[$row_slug] = $plugin_output;
+								
+								elseif(isset($type->plugin_return) and $type->plugin_return == 'cycle'):
+								
+									// Don't do shit
+								
+								else:
+						
+									($return_object) ? $row->{$row_slug} = $plugin_output : $row[$row_slug] = $plugin_output;
+								
+								endif;
+								
+							endif;		
+						
+						else:
+							
+							// Else it was just a special plugin output and we just need 
+							// to use that string output.
+							$row[$row_slug] = $plugin_output;
+						
+						endif;
+	
+					elseif(method_exists($type, 'pre_output')):
+										
+						if(is_array($row)):
+							
+							$out = $type->pre_output($row[$row_slug], $format_data['field_data']);
+						
+						else:
+						
+							$out = $type->pre_output($row->$row_slug, $format_data['field_data']);
+						
+						endif;
+						
+						($return_object) ? $row->{$row_slug} = $out : $row[$row_slug] = $out;
+						
+					endif;
+									
+				endif;
+			
+			endif;
+		
+		endforeach;
+
+		// -------------------------------------
+		// Run through alt processes
+		// If this is not a plugin call, we just
+		// need to get the alt processes and
+		// add them to the row for display
+		// -------------------------------------
+		
+		if(!$plugin_call):
+		
+			if($stream_fields):
+		
+				foreach($stream_fields as $row_slug => $f):
+				
+					if(isset($f->field_type, $this->ignore)):
+							
+					if(
+						isset($this->type->types->{$f->field_type}->alt_process) and 
+						$this->type->types->{$f->field_type}->alt_process === TRUE and 
+						method_exists($this->type->types->{$f->field_type}, 'alt_pre_output')
+					):
+	
+						$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $this->all_fields[$row_slug]['field_data'], $f->field_type, $stream);
+							
+						($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
+						
+					endif;
+					
+					endif;
+				
+				endforeach;
+			
+			endif;
+		
+		endif;
+
+		// -------------------------------------
+		
+		return $row;			
+	}
+
+	// --------------------------------------------------------------------------	
+	
+	/**
+	 * Format Row
+	 *
+	 * Formats a row based on format profile
+	 *
+	 * @access	public
+	 * @param	array or obj
+	 * @param	array
+	 * @param	obj
+	 * @param	[bool]
+	 * @param	[bool]
 	 * @param	[string]
 	 */
-	public function format_row( $row, $stream_fields, $stream, $return_object = TRUE, $plugin_call = FALSE, $prefix = '' )
+	public function format_row_old($row, $stream_fields, $stream, $return_object = TRUE, $plugin_call = FALSE, $prefix = '')
 	{		
+		print_r($row);
+		
 		// First, let's get all out fields. That's
 		// right. All of them.
 		if(!$this->all_fields) $this->all_fields = $this->fields_m->get_all_fields();
@@ -767,25 +916,29 @@ class Row_m extends MY_Model {
 		
 		if(!$plugin_call):
 		
-			foreach($stream_fields as $row_slug => $f):
-			
-				if(isset($f->field_type, $this->ignore)):
-						
-				if(
-					isset($this->type->types->{$f->field_type}->alt_process) and 
-					$this->type->types->{$f->field_type}->alt_process === TRUE and 
-					method_exists($this->type->types->{$f->field_type}, 'alt_pre_output')
-				):
-
-					$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $this->all_fields[$row_slug]['field_data'], $f->field_type, $stream);
-						
-					($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
-					
-				endif;
+			if($stream_fields):
+		
+				foreach($stream_fields as $row_slug => $f):
 				
-				endif;
+					if(isset($f->field_type, $this->ignore)):
+							
+					if(
+						isset($this->type->types->{$f->field_type}->alt_process) and 
+						$this->type->types->{$f->field_type}->alt_process === TRUE and 
+						method_exists($this->type->types->{$f->field_type}, 'alt_pre_output')
+					):
+	
+						$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $this->all_fields[$row_slug]['field_data'], $f->field_type, $stream);
+							
+						($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
+						
+					endif;
+					
+					endif;
+				
+				endforeach;
 			
-			endforeach;
+			endif;
 		
 		endif;
 
@@ -847,7 +1000,7 @@ class Row_m extends MY_Model {
 	 * @param	skips - optional array of skips
 	 * @return	bool
 	 */
-	public function update_row($fields, $stream, $row_id, $skips = array())
+	public function update_entry($fields, $stream, $row_id, $skips = array())
 	{
 		// -------------------------------------
 		// Run through fields
@@ -880,6 +1033,22 @@ class Row_m extends MY_Model {
 						$update_data[$field->field_slug] = $this->input->post($field->field_slug);
 	
 					endif;
+					
+				else:
+				
+					// If this is an alt_process, there can still be a pre_save,
+					// it just won't return anything so we don't have to
+					// save the value
+					if( method_exists($type, 'pre_save') ):
+					
+						$type->pre_save(
+									$this->input->post($field->field_slug),
+									$field,
+									$stream,
+									$row_id
+						);
+					
+					endif;
 				
 				endif;
 			
@@ -908,6 +1077,184 @@ class Row_m extends MY_Model {
 			return $row_id;
 		
 		endif;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Insert field to a stream
+	 *
+	 * @access	public
+	 * @param	array - the post data
+	 * @param	obj - our stream fields
+	 * @param	obj - our stream
+	 * @param	array - optional skipping fields
+	 * @return	mixed
+	 */
+	public function insert_entry($post, $fields, $stream, $skips = array())
+	{
+		// -------------------------------------
+		// Run through fields
+		// -------------------------------------
+
+		$insert_data = array();
+		
+		$alt_process = array();
+			
+		foreach( $fields as $field ):
+		
+			if(!in_array($field->field_slug, $skips)):
+		
+				$type = $this->type->types->{$field->field_type};
+				
+				if(isset($post[$field->field_slug]) and $post[$field->field_slug] != ''):
+				
+					// We don't process the alt process stuff.
+					// This is for field types that store data outside of the
+					// actual table
+					if(isset($type->alt_process) and $type->alt_process === TRUE):
+									
+						$alt_process[] = $field->field_slug;
+					
+					else:
+					
+						if( method_exists($type, 'pre_save') ):
+						
+							$post[$field->field_slug] = $type->pre_save($post[$field->field_slug], $field, $stream);
+						
+						endif;
+						
+						// Trim if a string
+						if(is_string($post[$field->field_slug])) $post[$field->field_slug] = trim($post[$field->field_slug]);
+						
+						$insert_data[$field->field_slug] = $post[$field->field_slug];
+					
+					endif;
+				
+				endif;
+				
+				unset($type);
+			
+			endif;
+		
+		endforeach;
+
+		// -------------------------------------
+		// Set standard fields
+		// -------------------------------------
+
+		$insert_data['created'] 	= date('Y-m-d H:i:s');
+		$insert_data['created_by'] 	= $this->current_user->id;
+
+		// -------------------------------------
+		// Set incremental ordering
+		// -------------------------------------
+		
+		$db_obj = $this->db->select("MAX(ordering_count) as max_ordering")->get(STR_PRE.$stream->stream_slug);
+		
+		if( $db_obj->num_rows() == 0 || !$db_obj ):
+		
+			$ordering = 0;
+		
+		else:
+		
+			$order_row = $db_obj->row();
+			
+			if( !is_numeric($order_row->max_ordering) ):
+			
+				$ordering = 0;
+			
+			else:
+			
+				$ordering = $order_row->max_ordering;
+			
+			endif;
+		
+		endif;
+
+		$insert_data['ordering_count'] 	= $ordering+1;
+
+		// -------------------------------------
+		// Insert data
+		// -------------------------------------
+		
+		if( !$this->db->insert(STR_PRE.$stream->stream_slug, $insert_data) ):
+		
+			return FALSE;
+		
+		else:
+		
+			$id = $this->db->insert_id();
+			
+			// Process any alt process stuff
+			foreach($alt_process as $field_slug):
+						
+				$this->type->types->{$fields->$field_slug->field_type}->pre_save($post[$field_slug], $fields->{$field_slug}, $stream, $id);
+			
+			endforeach;
+			
+			return $id;
+		
+		endif;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Build Row Pagination
+	 *
+	 * @access	public
+	 * @param	int - pagination uri segment
+	 * @param	int - limit
+	 * @param	int - total rows
+	 * @Param	array - pagination configs
+	 * @return	string
+	 */
+	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars)
+	{
+		$this->load->library('pagination');
+	
+		// -------------------------------------
+		// Find Pagination base_url
+		// -------------------------------------
+
+		$segments = $this->uri->segment_array();
+		
+		if( isset($segments[count($segments)]) and is_numeric($segments[count($segments)]) ):
+		
+			unset($segments[count($segments)]);
+		
+		endif;
+		
+		$pag_uri = '';
+		
+		foreach($segments as $segment):
+		
+			$pag_uri .= $segment . '/';
+		
+		endforeach;
+		
+		$pagination_config['base_url'] 			= site_url( $pag_uri );
+		
+		// -------------------------------------
+		// Set basic pagination data
+		// -------------------------------------
+
+		$pagination_config['total_rows'] 		= $total_rows;
+		$pagination_config['per_page'] 			= $limit;
+		$pagination_config['uri_segment'] 		= $pag_segment;
+		
+		// Add in our pagination vars
+		$pagination_config = array_merge($pagination_config, $pagination_vars);
+
+		// -------------------------------------
+		// Build and return pagination
+		// -------------------------------------
+										
+		$this->pagination->initialize($pagination_config);
+		
+		return $this->pagination->create_links();
+	
 	}
 
 }

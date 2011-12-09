@@ -11,8 +11,6 @@
  */
 class Field_encrypt
 {
-	public $field_type_name 		= 'Encrypted';
-	
 	public $field_type_slug			= 'encrypt';
 	
 	public $db_col_type				= 'blob';
@@ -22,21 +20,6 @@ class Field_encrypt
 	public $version					= '1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-
-	public $lang					= array(
-	
-		'en'	=> array(
-				'hide_typing'	=> 'Hide Typing on Input?'
-		)
-	
-	);			
-
-	// --------------------------------------------------------------------------
-
-	function __construct()
-	{
-		$this->CI =& get_instance();
-	}
 	
 	// --------------------------------------------------------------------------
 
@@ -47,11 +30,11 @@ class Field_encrypt
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_save( $input )
+	public function pre_save($input)
 	{
 		$this->CI->load->library('encrypt');
 		
-		return $this->CI->encrypt->encode( $input );
+		return $this->CI->encrypt->encode($input);
 	}
 
 	// --------------------------------------------------------------------------
@@ -63,11 +46,11 @@ class Field_encrypt
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output( $input )
+	public function pre_output($input)
 	{
 		$this->CI->load->library('encrypt');
 		
-		return $this->CI->encrypt->decode( $input );
+		return $this->CI->encrypt->decode($input);
 	}
 
 	// --------------------------------------------------------------------------
@@ -79,7 +62,7 @@ class Field_encrypt
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $params )
+	public function form_output($params)
 	{
 		$this->CI->load->library('encrypt');
 
@@ -89,11 +72,11 @@ class Field_encrypt
 		
 		if( $params['custom']['hide_typing'] == 'yes' ):
 		
-			return form_password( $options );
+			return form_password($options);
 		
 		else:
 		
-			return form_input( $options );
+			return form_input($options);
 		
 		endif;
 	}
@@ -103,7 +86,7 @@ class Field_encrypt
 	/**
 	 * Yes or no box to hide typing
 	 */	
-	public function param_hide_typing( $params = FALSE )
+	public function param_hide_typing($params = FALSE)
 	{
 		$selected = 'yes';
 	

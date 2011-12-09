@@ -109,14 +109,18 @@ class Admin_Fields extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->fields_m->insert_field() ):
-			{
+			if( ! $this->fields_m->insert_field(
+								$this->input->post('field_name'),
+								$this->input->post('field_slug'),
+								$this->input->post('field_type'),
+								$this->input->post()
+				) ):
+			
 				$this->session->set_flashdata('notice', lang('streams.save_field_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('streams.field_add_success'));	
-			}
 			endif;
 	
 			redirect('admin/streams/fields');
@@ -157,7 +161,7 @@ class Admin_Fields extends Admin_Controller {
 		$this->template
 				->append_metadata( js('slug.js', 'streams') )
 				->append_metadata( js('fields.js', 'streams') )
-				->build('admin/fields/field_form', $this->data);
+				->build('admin/fields/form', $this->data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -171,7 +175,7 @@ class Admin_Fields extends Admin_Controller {
 	
 		$field_id = $this->uri->segment('5');
 		
-		if( ! $this->data->current_field = $this->fields_m->get_field( $field_id ) ):
+		if( ! $this->data->current_field = $this->fields_m->get_field($field_id) ):
 		
 			show_error("Invalid Field ID");
 		
@@ -255,13 +259,13 @@ class Admin_Fields extends Admin_Controller {
 		if ($this->streams_validation->run()):
 	
 			if( ! $this->fields_m->update_field( $this->fields_m->get_field( $field_id ) ) ):
-			{
+			
 				$this->session->set_flashdata('notice', lang('streams.field_update_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('streams.field_update_success'));	
-			}
+			
 			endif;
 	
 			redirect('admin/streams/fields');
@@ -270,9 +274,7 @@ class Admin_Fields extends Admin_Controller {
 
 		// -------------------------------------
 		
-		$this->template
-				->append_metadata( js('debounce.js', 'streams') )
-				->build('admin/fields/field_form', $this->data);
+		$this->template->build('admin/fields/form', $this->data);
 	}
 
 	// --------------------------------------------------------------------------   
@@ -287,13 +289,13 @@ class Admin_Fields extends Admin_Controller {
 		$field_id = $this->uri->segment(5);
 		
 		if( ! $this->fields_m->delete_field( $field_id ) ):
-		{
+		
 			$this->session->set_flashdata('notice', lang('streams.field_delete_error'));	
-		}
+		
 		else:
-		{
+		
 			$this->session->set_flashdata('success', lang('streams.field_delete_success'));	
-		}
+		
 		endif;
 	
 		redirect('admin/streams/fields');
@@ -302,7 +304,8 @@ class Admin_Fields extends Admin_Controller {
 	// --------------------------------------------------------------------------   
 
 	/**
-	 * Show field types
+	 * Show field types with their
+	 * authors and versions
 	 */	
 	function types()
 	{	

@@ -11,8 +11,6 @@
  */
 class Field_wysiwyg
 {
-	public $field_type_name 		= 'WYSIWYG';
-	
 	public $field_type_slug			= 'wysiwyg';
 	
 	public $db_col_type				= 'longtext';
@@ -22,14 +20,6 @@ class Field_wysiwyg
 	public $version					= '1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-
-	public $lang					= array(
-	
-		'en'	=> array(
-				'editor_type'	=> 'Editor Type'
-		)
-	
-	);			
 	
 	// --------------------------------------------------------------------------
 

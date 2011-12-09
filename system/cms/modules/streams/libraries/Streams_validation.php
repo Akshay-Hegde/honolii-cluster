@@ -107,8 +107,7 @@ class Streams_validation extends CI_Form_validation
 		
 		endif;
 
-		//@todo: Languageize this
-		$this->CI->streams_validation->set_message('unique', 'The %s field must be unique');
+		$this->CI->streams_validation->set_message('unique', lang('streams.field_unique'));
 	
 		return false;
 	}
@@ -146,7 +145,7 @@ class Streams_validation extends CI_Form_validation
 					
 		else:
 		
-			$this->CI->streams_validation->set_message('file_required', 'The %s field is required.');
+			$this->CI->streams_validation->set_message('file_required', lang('streams.field_is_required'));
 			return FALSE;
 			
 		endif;

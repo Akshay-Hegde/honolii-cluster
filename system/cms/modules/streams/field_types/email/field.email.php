@@ -11,8 +11,6 @@
  */
 class Field_email
 {
-	public $field_type_name 			= 'Email';
-	
 	public $field_type_slug				= 'email';
 	
 	public $db_col_type					= 'varchar';
@@ -56,7 +54,7 @@ class Field_email
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin( $prefix, $input, $params )
+	public function pre_output_plugin($input, $params)
 	{
 		$choices = array();
 		
@@ -64,10 +62,9 @@ class Field_email
 		
 		$CI->load->helper('url');
 		
-		$choices[rtrim($prefix, '.')]			= $input;
-		$choices[$prefix.'email_address']		= $input;
-		$choices[$prefix.'mailto_link']			= mailto($input, $input);
-		$choices[$prefix.'safe_mailto_link']	= safe_mailto($input, $input);
+		$choices['email_address']		= $input;
+		$choices['mailto_link']			= mailto($input, $input);
+		$choices['safe_mailto_link']	= safe_mailto($input, $input);
 		
 		return $choices;
 	}

@@ -28,7 +28,7 @@
 			
 			else:
 			
-				echo form_dropdown('field_id', $available_fields, $row->field_id, 'id="field_id"'); 
+				echo form_dropdown('field_id', $available_fields, $row->field_id, 'data-placeholder="'.lang('streams.choose_a_field').'" id="field_id"'); 
 				
 			endif;
 			

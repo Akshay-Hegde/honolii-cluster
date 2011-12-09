@@ -10,9 +10,7 @@
  * @link		http://parse19.com/pyrostreams
  */
 class Field_choice
-{
-	public $field_type_name 		= 'Choice';
-	
+{	
 	public $field_type_slug			= 'choice';
 	
 	public $db_col_type				= 'varchar';
@@ -24,16 +22,7 @@ class Field_choice
 	public $custom_parameters		= array('choice_data', 'choice_type', 'default_value');
 	
 	public $plugin_return			= 'merge';
-	
-	public $lang					= array(
-	
-		'en'	=> array(
-				'choice_data'	=> 'Choice Data',
-				'choice_type'	=> 'Choice Type'
-		)
-	
-	);
-	
+		
 	// --------------------------------------------------------------------------
 
 	/**
@@ -43,11 +32,11 @@ class Field_choice
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $params )
+	public function form_output($params, $entry_id, $field)
 	{
 		$return = null;
 		
-		$choices = $this->_choices_to_array( $params['custom']['choice_data'], $params['custom']['choice_type'] );
+		$choices = $this->_choices_to_array($params['custom']['choice_data'], $params['custom']['choice_type'], $field->is_required);
 		
 		// Put it into a drop down
 		if($params['custom']['choice_type'] == 'dropdown'):
@@ -202,7 +191,7 @@ class Field_choice
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin($prefix, $input, $params)
+	public function pre_output_plugin($input, $params)
 	{
 		$options = $this->_choices_to_array($params['choice_data'], $params['choice_type']);
 
@@ -220,7 +209,8 @@ class Field_choice
 				if(isset($options[$v])):
 				
 					$return[$k]['value'] 		= $options[$v];
-					$return[$k]['value.key'] 	= $v;
+					$return[$k]['value.key'] 	= $v; // @legacy
+					$return[$k]['key'] 			= $v;
 				
 				else:
 				
@@ -239,10 +229,10 @@ class Field_choice
 	
 		if( isset($options[$input]) and $input != '' ):
 		
-			$choices[rtrim($prefix, '.')] = $options[$input];
-			$choices[$prefix.'key']	= $input;
-			$choices[$prefix.'val']	= $options[$input];
-		
+			$choices['key']	= $input;
+			$choices['val']	= $options[$input]; // @legacy
+			$choices['value']	= $options[$input];
+			
 			return $choices;
 		
 		else:
@@ -256,28 +246,36 @@ class Field_choice
 
 	/**
 	 * Data for choice. In x : X format or just X format
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
 	 */	
-	public function param_choice_data( $params = FALSE )
+	public function param_choice_data($value = null)
 	{
-		$instructions = '<p class="note">Put each choice on one line. If you want a separate value for each choice, you can separate them by a colon (:). Ex: pyro : PyroCMS</p>';
+		$instructions = '<p class="note">'.$this->CI->lang->line('streams.choice.instructions').'</p>';
 	
-		return '<div style="float: left;">'.form_textarea('choice_data', $params).$instructions.'</div>';
+		return '<div style="float: left;">'.form_textarea('choice_data', $value).$instructions.'</div>';
 	}
 
 	// --------------------------------------------------------------------------
 
 	/**
 	 * Display as Dropdown
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
 	 */	
-	public function param_choice_type( $params = FALSE )
+	public function param_choice_type($value = null)
 	{
 		$choices = array(
-			'dropdown' => 'Dropdown',
-			'radio' => 'Radio Buttons',
-			'checkboxes' => 'Checkboxes'
+			'dropdown' 	=> $this->CI->lang->line('streams.choice.dropdown'),
+			'radio' 	=> $this->CI->lang->line('streams.choice.radio_buttons'),
+			'checkboxes'=> $this->CI->lang->line('streams.choice.checkboxes')
 		);
 		
-		return form_dropdown('choice_type', $choices, $params);
+		return form_dropdown('choice_type', $choices, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -286,16 +284,18 @@ class Field_choice
 	 * Take a string of choices and make them into an array
 	 *
 	 * @access	public
-	 * @param	string
+	 * @param	string - raw choices data
+	 * @param	string - type od choice form input
+	 * @param	string - fied is required - yes or no
 	 * @return	array
 	 */
-	public function _choices_to_array($choices_raw, $type = 'dropdown')
+	public function _choices_to_array($choices_raw, $type = 'dropdown', $is_required = 'no')
 	{
 		$lines = explode("\n", $choices_raw);
 		
-		if( $type == 'dropdown' ):
-		
-			$choices = array('' => '-- Choose --');
+		if($type == 'dropdown' and $is_required == 'no'):
+			
+			$choices[null] = get_instance()->config->item('dropdown_choose_null');
 		
 		endif;
 		

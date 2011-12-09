@@ -11,8 +11,6 @@
  */
 class Field_file
 {
-	public $field_type_name 		= 'File';
-	
 	public $field_type_slug			= 'file';
 	
 	public $db_col_type				= 'int';
@@ -22,24 +20,8 @@ class Field_file
 	public $version					= '1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
-
-	public $lang					= array(
 	
-		'en'	=> array(
-				'folder'		=> 'Upload Folder',
-				'allowed_types'	=> 'Allowed Types'
-		)
-	
-	);			
-	
-	public $input_is_file				= TRUE;
-
-	// --------------------------------------------------------------------------
-	
-	function __construct()
-	{
-		$this->CI =& get_instance();
-	}
+	public $input_is_file			= TRUE;
 	
 	// --------------------------------------------------------------------------
 
@@ -50,7 +32,7 @@ class Field_file
 	 * @param	array
 	 * @return	string
 	 */
-	function form_output( $params )
+	function form_output($params)
 	{
 		$this->CI->load->config('files/files');
 		
@@ -74,11 +56,11 @@ class Field_file
 		// Output the actual used value
 		if( is_numeric($params['value']) ):
 		
-			$out .= form_hidden( $params['form_slug'], $params['value'] );
+			$out .= form_hidden($params['form_slug'], $params['value']);
 		
 		else:
 
-			$out .= form_hidden( $params['form_slug'], 'dummy' );
+			$out .= form_hidden($params['form_slug'], 'dummy');
 		
 		endif;
 
@@ -98,7 +80,7 @@ class Field_file
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save( $input, $field )
+	public function pre_save($input, $field)
 	{	
 		// Only go through the pre_save upload if there is a file ready to go
 		if( isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '' ):
@@ -174,7 +156,7 @@ class Field_file
 	 * @param	array
 	 * @return	string
 	 */	
-	function pre_output( $input, $params )
+	function pre_output($input, $params)
 	{
 		$this->CI->load->config('files/files');
 		
@@ -202,7 +184,7 @@ class Field_file
 	 * @param	array
 	 * @return	array
 	 */
-	function pre_output_plugin( $prefix, $input, $params )
+	function pre_output_plugin($input, $params)
 	{
 		$image_data = array();
 	
@@ -214,26 +196,17 @@ class Field_file
 		if( $db_obj->num_rows() > 0 ):
 		
 			$file = $db_obj->row();
-			
-			if(trim($prefix) == '') $file_data['file']	= base_url().$this->CI->config->item('files_folder').'/'.$file->filename;
-		
-			$file_data[$prefix.'filename']		= $file->name;
-			$file_data[$prefix.'file']			= base_url().$this->CI->config->item('files_folder').'/'.$file->filename;
-			$file_data[$prefix.'ext']			= $file->extension;
-			$file_data[$prefix.'mimetype']		= $file->mimetype;
+					
+			$file_data['filename']		= $file->name;
+			$file_data['file']			= base_url().$this->CI->config->item('files_folder').'/'.$file->filename;
+			$file_data['ext']			= $file->extension;
+			$file_data['mimetype']		= $file->mimetype;
 			
 		else:
 		
-			// We want just blank if there is no file.
-			if(trim($prefix) == ''):
-				
-				$file_data['file']				= '';
-			
-			endif;
-
-			$file_data[$prefix.'filename']		= NULL;
-			$file_data[$prefix.'ext']			= NULL;
-			$file_data[$prefix.'mimetype']		= NULL;
+			$file_data['filename']		= NULL;
+			$file_data['ext']			= NULL;
+			$file_data['mimetype']		= NULL;
 	
 		endif;
 
@@ -260,8 +233,12 @@ class Field_file
 
 	/**
 	 * Choose a folder to upload to.
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
 	 */	
-	public function param_folder( $value = '' )
+	public function param_folder($value = null)
 	{
 		// Get the folders
 		$this->CI->load->model('files/file_folders_m');
@@ -270,9 +247,9 @@ class Field_file
 		
 		$tree = (array)$tree;
 		
-		if( !$tree ):
+		if(!$tree):
 		
-			return '<em>You need to set an upload folder before you can upload files.</em>';
+			return '<em>'.$this->CI->load->lang('streams.file.folder_notice').'</em>';
 		
 		endif;
 		
@@ -289,7 +266,7 @@ class Field_file
 		
 		endforeach;
 	
-		return form_dropdown( 'folder', $choices, $value );
+		return form_dropdown('folder', $choices, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -297,11 +274,13 @@ class Field_file
 	/**
 	 * Param Allowed Types
 	 *
+	 * @access	public
+	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_allowed_types( $value = '' )
+	public function param_allowed_types($value = null)
 	{
-		$instructions = '<p class="note">Separate each file type with a pipe character. Ex: pdf|png</p>';
+		$instructions = '<p class="note">'.$this->CI->lang->line('streams.file.allowed_types_instrcutions').'</p>';
 		
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}

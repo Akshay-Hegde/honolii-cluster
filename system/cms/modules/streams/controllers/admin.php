@@ -102,7 +102,7 @@ class Admin extends Admin_Controller {
 		
 		if(!$this->data->stream = $this->streams_m->get_stream($this->data->stream_id)):
 		
-			show_error("Invalid Stream ID");
+			show_error(lang('streams.invalid_stream_id'));
 		
 		endif;
     }
@@ -241,13 +241,13 @@ class Admin extends Admin_Controller {
 		if ($this->streams_validation->run()):
 	
 			if( ! $this->streams_m->create_new_stream() ):
-			{
+			
 				$this->session->set_flashdata('notice', lang('streams.create_stream_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('streams.create_stream_success'));	
-			}
+			
 			endif;
 	
 			redirect('admin/streams');
@@ -375,13 +375,13 @@ class Admin extends Admin_Controller {
 			else:
 			
 				if( ! $this->streams_m->delete_stream( $this->data->stream ) ):
-				{
+				
 					$this->session->set_flashdata('notice', lang('streams.stream_delete_error'));	
-				}
+				
 				else:
-				{
+				
 					$this->session->set_flashdata('success', lang('streams.stream_delete_success'));	
-				}
+				
 				endif;
 			
 				redirect('admin/streams');
@@ -483,7 +483,7 @@ class Admin extends Admin_Controller {
 		$this->_manage_fields();
 		
 		// Get fields that are available
-		$this->data->available_fields = array();
+		$this->data->available_fields = array(null => null);
 		
 		foreach($this->data->fields as $field):
 		
@@ -548,13 +548,13 @@ class Admin extends Admin_Controller {
 		
 		$id = $this->uri->segment(5);
 		
-		if( !is_numeric($id) ) show_error('Invalid ID');
+		if( !is_numeric($id) ) show_error(lang('streams.invalid_id'));
 		
 		$this->db->limit(1)->where('id', $id);
 		
 		$db_obj = $this->db->get(ASSIGN_TABLE);
 		
-		if( $db_obj->num_rows() == 0 ) show_error('Invalid ID');
+		if( $db_obj->num_rows() == 0 ) show_error(lang('streams.invalid_id'));
 		
 		$this->data->row = $db_obj->row();
 		
@@ -562,7 +562,7 @@ class Admin extends Admin_Controller {
 		// Field
 		// -------------------------------------
 
-		$field = $this->fields_m->get_field( $this->data->row->field_id );
+		$field = $this->fields_m->get_field($this->data->row->field_id);
 
 		// -------------------------------------
 
@@ -570,7 +570,7 @@ class Admin extends Admin_Controller {
         
 		$this->_manage_fields();
 						
-		if( $field->field_slug == $this->data->stream->title_column ):
+		if($field->field_slug == $this->data->stream->title_column):
 		
 			$this->data->title_column_status = TRUE;
 		
@@ -642,7 +642,7 @@ class Admin extends Admin_Controller {
 
 		$obj = $this->db->limit(1)->where('id', $field_assign_id)->get(ASSIGN_TABLE);
 		
-		if( $obj->num_rows() == 0 ) show_error('Cannot find field assignment.');
+		if( $obj->num_rows() == 0 ) show_error(lang('streams.cannot_find_assign'));
 		
 		$assignment = $obj->row();
  		
