@@ -47,8 +47,8 @@ class Field_datetime
 	
 		$current_year = date('Y');
 		
-		if(isset($data['custom']['start_date']) and $data['custom']['start_date']) $dp_mods[] = 'maxDate: "'.$data['custom']['start_date'].'"';
-		if(isset($data['custom']['end_date']) and $data['custom']['end_date']) $dp_mods[] = 'minDate: "'.$data['custom']['end_date'].'"';	
+		if(isset($data['custom']['start_date']) and $data['custom']['start_date']) $dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
+		if(isset($data['custom']['end_date']) and $data['custom']['end_date']) $dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
 			
 		$date_input = '
 				
@@ -156,6 +156,8 @@ class Field_datetime
 	/**
 	 * Event
 	 *
+	 * Add datepicker CSS
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -216,7 +218,7 @@ class Field_datetime
 		// Run through assignments to change the col type
 		foreach($assignments as $assign):
 		
-			$this->CI->db->query("ALTER TABLE ".STR_PRE.$assign->stream_slug." CHANGE {$this->CI->input->post('field_slug')} {$this->CI->input->post('field_slug')} $switch_to");
+			$this->CI->db->query("ALTER TABLE ".$this->CI->db->dbprefix(STR_PRE.$assign->stream_slug)." CHANGE {$this->CI->input->post('field_slug')} {$this->CI->input->post('field_slug')} $switch_to");
 
 		endforeach;
 	}
@@ -485,7 +487,24 @@ class Field_datetime
 	{
 		$this->CI->load->helper('date');
 		
-		return(mysql_to_unix($input));
+		if($this->CI->uri->segment(1) == 'admin'):
+			
+			// Format for admin
+			if($params['use_time'] == 'no'):
+			
+				return(date($this->CI->settings->get('date_format'), mysql_to_unix($input)));
+				
+			else:
+
+				return(date($this->CI->settings->get('date_format').' g:i a', mysql_to_unix($input)));
+			
+			endif;
+					
+		else:
+			
+			return(mysql_to_unix($input));
+		
+		endif;
 	}
 	
 	// --------------------------------------------------------------------------

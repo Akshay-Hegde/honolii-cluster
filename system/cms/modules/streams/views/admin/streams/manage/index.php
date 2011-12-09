@@ -44,31 +44,31 @@
     <table class="table-list">
 		<tbody>
 			<tr>
-				<td><strong>Stream Name</strong></td>
+				<td><strong><?php echo lang('streams.stream_name'); ?></strong></td>
 				<td><?php echo $stream->stream_name; ?></td>
 			</tr>
 			<tr>
-				<td><strong>About</strong></td>
+				<td><strong><?php echo lang('streams.about'); ?></strong></td>
 				<td><?php echo $stream->about; ?></td>
 			</tr>
 			<tr>
-				<td><strong>Database Table</strong></td>
+				<td><strong><?php echo lang('streams.database_table'); ?></strong></td>
 				<td><?php echo $table_name; ?></td>
 			</tr>
 			<tr>
-				<td><strong>Size</strong></td>
+				<td><strong><?php echo lang('streams.size'); ?></strong></td>
 				<td><?php echo $total_size; ?></td>
 			</tr>
 			<tr>
-				<td><strong>Number of entries</strong></td>
+				<td><strong><?php echo lang('streams.num_of_entries'); ?></strong></td>
 				<td><?php echo $total_rows; ?></td>
 			</tr>
 			<tr>
-				<td><strong>Number of fields</strong></td>
+				<td><strong><?php echo lang('streams.num_of_fields'); ?></strong></td>
 				<td><?php echo $num_of_fields; ?></td>
 			</tr>
 			<tr>
-				<td><strong>Last Updated</strong></td>
+				<td><strong><?php echo lang('streams.last_updated'); ?></strong></td>
 				<td><?php echo $last_updated; ?></td>
 			</tr>
 		</tbody>

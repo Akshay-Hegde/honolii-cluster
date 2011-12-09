@@ -113,11 +113,13 @@ $lang['streams.stream_view_options']					= "Stream View Options";
 $lang['streams.backup_table']							= "Backup Stream Table";
 $lang['streams.delete_stream']							= "Delete Stream";
 $lang['streams.entry']									= "Entry";
-$lang['streams.user_access']							= "User Access";
-$lang['streams.basic_mode_users']						= "Basic Mode Users";
-$lang['streams.basic_mode']								= "Basic Mode";
 $lang['streams.field_types']							= "Field Types";
 $lang['streams.field_type']								= "Field Type";
+$lang['streams.database_table']							= "Database Table";
+$lang['streams.size']									= "Size";
+$lang['streams.num_of_entries']							= "Number of Entries";
+$lang['streams.num_of_fields']							= "Number of Fields";
+$lang['streams.last_updated']							= "Last Updated";
 
 /* Startup */
 
@@ -163,7 +165,6 @@ $lang['streams.backup_line']							= "Backup and download stream table into a zi
 $lang['streams.permanent_delete_line']					= "Permanently delete a stream and all stream data.";
 $lang['streams.choose_a_field_type']					= "Choose a field type";
 $lang['streams.choose_a_field']							= "Choose a field";
-
 
 /* reCAPTCHA */
 

@@ -24,7 +24,27 @@ $lang['streams.stream_field_ass_upd_error']				= "Hubo un problema al actualizar
 $lang['streams.stream_field_ass_upd_success']			= "Asignación de campo actualizada exitósamente.";
 $lang['streams.delete_entry_error']						= "Hubo un problema al eliminar esta entrada.";
 $lang['streams.delete_entry_success']					= "Entrada eliminada exitósamente.";
+$lang['streams.add_entry_error']						= "There was a problem adding this entry."; // @to-translate
+$lang['streams.entry_add_success']						= "Entry added successfully."; // @to-translate
+$lang['streams.update_entry_error']						= "There was a problem updating this entry."; // @to-translate
+$lang['streams.entry_update_success']					= "Entry updated successfully."; // @to-translate
 $lang['streams.delete_summary']							= "¿Estás seguro de que quieres eliminar el stream <strong>%s</strong>? Esto <strong>eliminará %s %s</strong> permanentemente.";
+
+/* Misc Errors */
+
+$lang['streams.no_stream_provided']						= "No stream was provided."; // @to-translate
+$lang['streams.invalid_stream']							= "Invalid stream."; // @to-translate
+$lang['streams.not_valid_stream']						= "is not a valid stream."; // @to-translate
+$lang['streams.invalid_stream_id']						= "Invalid stream ID."; // @to-translate
+$lang['streams.invalid_row']							= "Invalid row."; // @to-translate
+$lang['streams.invalid_id']								= "Invalid ID."; // @to-translate
+$lang['streams.cannot_find_assign']						= "Cannot find field assignment."; // @to-translate
+$lang['streams.cannot_find_pyrostreams']				= "Cannot find PyroStreams."; // @to-translate
+$lang['streams.table_exists']							= "A table with the slug %s already exists."; // @to-translate
+$lang['streams.no_results']								= "No results"; // @to-translate
+$lang['streams.no_entry']								= "Unable to find entry."; // @to-translate
+$lang['streams.invalid_search_type']					= "is not a valid search type."; // @to-translate
+$lang['streams.search_not_found']						= "Search not found."; // @to-translate
 
 /* Validation Messages */
 
@@ -33,6 +53,8 @@ $lang['streams.not_mysql_safe_word']					= "El campo %s es una palabra reservada
 $lang['streams.not_mysql_safe_characters']				= "El campo %s contiene caracteres no permitidos.";
 $lang['streams.type_not_valid']							= "Por favor seleccione un tipo de campo válido.";
 $lang['streams.stream_slug_not_unique']					= "Este slug de stream ya esta utilizado.";
+$lang['streams.field_unique']							= "The %s field must be unique."; // @to-translate
+$lang['streams.field_is_required']						= "The %s field is required."; // @to-translate
 
 /* Field Labels */
 
@@ -45,10 +67,12 @@ $lang['streams.label.field_name']						= "Nombre del Campo";
 $lang['streams.label.field_slug']						= "Slug del Campo";
 $lang['streams.label.field_type']						= "Tipo de Campo";
 $lang['streams.id']										= "ID";
+$lang['streams.created_by']								= "Created By"; // @to-translate
 $lang['streams.created_date']							= "Fecha Creado";
 $lang['streams.updated_date']							= "Fecha Actualizado";
 $lang['streams.value']									= "Valor";
 $lang['streams.manage']									= "Administrar";
+$lang['streams.search']									= "Search"; // @to-translate
 
 /* Field Instructions */
 
@@ -67,10 +91,11 @@ $lang['streams.streams']								= "Streams";
 $lang['streams.list_fields']							= "Lista de Campos";
 $lang['streams.new_entry']								= "Nueva Entrada";
 $lang['streams.stream_entries']							= "Entradas al Stream";
-$lang['streams.field_assignments']						= "Asignaciones de Campo";
+$lang['streams.entries']								= "Entries"; // @to-translate
 $lang['streams.stream_admin']							= "Administrar Stream";
 $lang['streams.list_streams']							= "Lista de Streams";
 $lang['streams.sure']									= "¿Está seguro?";
+$lang['streams.field_assignments']						= "Asignaciones de Campo";
 $lang['streams.new_field_assign']						= "Nueva Asignación de Campo";
 $lang['streams.stream_name']							= "Nombre del Stream";
 $lang['streams.stream_slug']							= "Stream Slug";
@@ -88,6 +113,13 @@ $lang['streams.stream_view_options']					= "Opciones de Vista del Stream";
 $lang['streams.backup_table']							= "Respalda Tabla del Stream";
 $lang['streams.delete_stream']							= "Elimina Stream";
 $lang['streams.entry']									= "Entrada";
+$lang['streams.field_types']							= "Field Types"; // @to-translate
+$lang['streams.field_type']								= "Field Type"; // @to-translate
+$lang['streams.database_table']							= "Database Table"; // @to-translate
+$lang['streams.size']									= "Size"; // @to-translate
+$lang['streams.num_of_entries']							= "Number of Entries"; // @to-translate
+$lang['streams.num_of_fields']							= "Number of Fields"; // @to-translate
+$lang['streams.last_updated']							= "Last Updated"; // @to-translate
 
 /* Startup */
 
@@ -119,6 +151,7 @@ $lang['streams.new_field']								= "Nuevo Campo";
 $lang['streams.edit']									= "Editar";
 $lang['streams.delete']									= "Eliminar";
 $lang['streams.remove']									= "Remover";
+$lang['streams.reset']									= "Reset"; // @to-translate
 
 /* Misc */
 
@@ -126,11 +159,12 @@ $lang['streams.field_singular']							= "campo";
 $lang['streams.field_plural']							= "campos";
 $lang['streams.by_title_column']						= "Por Columna Título";
 $lang['streams.manual_order']							= "Orden Manual";
-$lang['streams.stream_datos_line']						= "Editar datos básicos del stream.";
+$lang['streams.stream_data_line']						= "Editar datos básicos del stream.";
 $lang['streams.view_options_line'] 						= "Escoge que columnas deberían ser visibles en la página de lista de datos.";
 $lang['streams.backup_line']							= "Respalda y descarga la tabla del stream en un archivo zip.";
 $lang['streams.permanent_delete_line']					= "Permanentemente elimina un stream y todos sus datos.";
-$lang['streams.required']								= "Requerido";
+$lang['streams.choose_a_field_type']					= "Choose a field type"; // @to-translate
+$lang['streams.choose_a_field']							= "Choose a field"; // @to-translate
 
 /* reCAPTCHA */
 
