@@ -95,6 +95,7 @@ class Module_Settings extends Module {
 			 ('dashboard_rss_count', 'Dashboard RSS Items', 'How many RSS items would you like to display on the dashboard ? ', 'text', '5', '5', '', 1, 1, '','991'),
 			 ('frontend_enabled','Site Status','Use this option to the user-facing part of the site on or off. Useful when you want to take the site down for maintenence','radio','1','','1=Open|0=Closed','1','1','','990'),
 			 ('unavailable_message','Unavailable Message','When the site is turned off or there is a major problem, this message will show to users.','textarea','Sorry, this website is currently unavailable.','','','0','1','','989'),
+			 ('files_cache', 'Files Cache', 'When outputting an image via site.com/files what shall we set the cache expiration for?', 'select', '480', '480', '0=no-cache|1=1-minute|60=1-hour|180=3-hour|480=8-hour|1440=1-day|43200=30-days', '1', '1', 'files', '989'),
 			 ('ga_tracking','Google Tracking Code','Enter your Google Analytic Tracking Code to activate Google Analytics view data capturing. E.g: UA-19483569-6','text','','','','0','1','integration','988'),
 			 ('ga_profile','Google Analytic Profile ID','Profile ID for this website in Google Analytics.','text','','','','0','1','integration','987'),
 			 ('ga_email','Google Analytic E-mail','E-mail address used for Google Analytics, we need this to show the graph on the dashboard.','text','','','','0','1','integration','986'),
@@ -122,12 +123,18 @@ class Module_Settings extends Module {
 			 ('enable_profiles','Enable profiles','Allow users to add and edit profiles.','radio','1','','1=Enabled|0=Disabled','1','1','users','965'),
 			 ('require_lastname','Require last names?','For some situations, a last name may not be required. Do you want to force users to enter one or not?','radio','1','','1=Required|0=Optional','1','1','users','964'),
 			 ('activation_email','Activation Email','Send out an e-mail when a user signs up with an activation link. Disable this to let only admins activate accounts.','radio','1','','1=Enabled|0=Disabled','0','1','users','963'),
-			 ('registered_email','User Registered Email','Send a notification email to the contact e-mail when someone registers ','radio','1','','1=Enabled|0=Disabled','0','1','users','962'),
+			 ('registered_email','User Registered Email','Send a notification email to the contact e-mail when someone registers.','radio','1','','1=Enabled|0=Disabled','0','1','users','962'),
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
 			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
-			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
+			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0'),
+			 ('newsletter_opt_in', 'Require Opt In', 'Subscribers will receive an activation email with a link that they must click to complete the sign up. Edit the email format in Email Templates.', 'select', '0', '0', '0=Disabled|1=Enabled', '1', '1', 'newsletters', '970'),
+			 ('newsletter_from', '\"From\" Email Address', 'This is the address that your recipients will see in the From field.', 'text', 'do.not.reply@example.com', '', '', '1', '1', 'newsletters', '971'),
+			 ('newsletter_reply_to', '\"Reply To\" Email Address', 'This is the address that your recipients will respond to.', 'text', 'sales@example.com', '', '', '1', '1', 'newsletters', '972'),
+			 ('newsletter_email_limit', 'Limit', 'If your host limits the number of outgoing emails per hour/day set it here. Otherwise set it to 0 for automatic send', 'text', '0', '', '', '1', '1', 'newsletters', '973'),
+			 ('newsletter_cron_enabled', 'Cron', 'Send with Cron. If enabled you must have a cron job to send newsletters.', 'select', '0', '0', '0=Disabled|1=Enabled', '1', '1', 'newsletters', '974'),
+			 ('newsletter_cron_key', 'Cron Key', 'Set a key to prevent visitors from triggering a cron send. example.com/newsletters/cron/gy84kn', 'text', 'gy84kn', 'gy84kn', '', '0', '1', 'newsletters', '975');
 		";
 
 		if ($this->db->query($settings) && $this->db->query($default_settings))

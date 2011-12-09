@@ -250,14 +250,14 @@ $config['encryption_key'] = "Jiu348^&H%fa";
 | 'sess_time_to_update'		= how many seconds between CI refreshing Session Information
 |
 */
-$config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'live' ? '_' . ENVIRONMENT : '');
+$config['sess_cookie_name']		= 'pyrocms' . (ENVIRONMENT !== 'production' ? '_' . ENVIRONMENT : '');
 $config['sess_expiration']		= 0;
 $config['sess_expire_on_close']	= TRUE;
 $config['sess_encrypt_cookie']	= TRUE;
 $config['sess_use_database']	= TRUE;
 $config['sess_table_name']		= 'default_ci_sessions';
 $config['sess_match_ip']		= FALSE;
-$config['sess_match_useragent']	= TRUE;
+$config['sess_match_useragent']	= FALSE;
 $config['sess_time_to_update']	= 300;
 
 /*
@@ -272,7 +272,7 @@ $config['sess_time_to_update']	= 300;
 |
 */
 $config['cookie_prefix']	= "";
-$config['cookie_domain']	= (isset($_SERVER['SERVER_NAME']) AND $_SERVER['SERVER_NAME'] == 'localhost') ? '' : preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']);
+$config['cookie_domain']	= ($_SERVER['SERVER_NAME'] == 'localhost') ? '' : $_SERVER['SERVER_NAME'];
 $config['cookie_path']		= BASE_URI;
 $config['cookie_secure']	= FALSE;
 

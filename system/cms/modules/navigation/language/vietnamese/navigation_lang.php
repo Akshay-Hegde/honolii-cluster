@@ -24,6 +24,7 @@ $lang['nav_type_label']                         = 'Loại liên kết';
 $lang['nav_uri_label']                          = 'Liên kết Site (URI)';
 $lang['nav_page_label']                         = 'Trang';
 $lang['nav_module_label']                       = 'Mô đun';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Viết tắt';
 
 $lang['nav_link_target_self']                   = 'Cửa sổ hiện tại (mặc định)';
@@ -49,4 +50,5 @@ $lang['nav_link_not_exist_error']               = 'Liên kết này không tồn
 $lang['nav_link_edit_success']                  = 'Liên kết đã được lưu.';
 $lang['nav_link_delete_success']                = 'Liên kết đã được xóa.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Hãy thêm tùy chọn cho liên kết của bạn.';

@@ -38,15 +38,6 @@ define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 /*
 |--------------------------------------------------------------------------
-| Environment
-|--------------------------------------------------------------------------
-*/
-
-# Deprecated v1.2.0-beta1 This feature was rolled into CodeIgniter so we don't need to handle it ourselves anymore.
-define('ENV', ENVIRONMENT);
-
-/*
-|--------------------------------------------------------------------------
 | Docment root folders
 |--------------------------------------------------------------------------
 |
@@ -92,7 +83,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.0.0-dev');
+define('CMS_VERSION', '2.0.0-RC1');
 
 /*
 |--------------------------------------------------------------------------
@@ -114,6 +105,6 @@ define('CMS_EDITION', 'Professional');
 |
 */
 
-define('CMS_DATE', '26/09/2011');
+define('CMS_DATE', '08/12/2011');
 
 /* End of file constants.php */

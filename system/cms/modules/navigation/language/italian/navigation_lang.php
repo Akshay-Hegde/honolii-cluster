@@ -14,6 +14,7 @@ $lang['nav_type_label'] 						= 'Tipo di collegamento';
 $lang['nav_uri_label'] 							= 'Collegamento nel sito (URI)';
 $lang['nav_page_label'] 						= 'Pagina';
 $lang['nav_module_label'] 						= 'Modulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 						= 'Abbreviazione';
 
 $lang['nav_link_target_self'] 					= 'Finestra corrente (default)';
@@ -39,6 +40,7 @@ $lang['nav_link_not_exist_error'] 				= 'Il collegamento non esiste.';
 $lang['nav_link_edit_success'] 					= 'Il collegamento è stato salvato.';
 $lang['nav_link_delete_success'] 				= 'Il collegamento è stato eliminato.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 					= 'Seleziona il tipo di link per avere più parametri per creare il tuo collegamento.';
 
 ?>

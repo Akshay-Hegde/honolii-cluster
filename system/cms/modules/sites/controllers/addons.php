@@ -13,10 +13,10 @@ class Addons extends Sites_Controller
 	{
 		parent::__construct();
 		
-		$this->ref		= $this->uri->segment(4);
-		$this->type		= $this->uri->segment(5);
-		$this->slug		= $this->uri->segment(6);
-		$this->shared	= (bool) $this->uri->segment(7);
+		ci()->ref = $this->ref = $this->uri->segment(4);
+		ci()->type = $this->type = $this->uri->segment(5);
+		ci()->slug = $this->slug = $this->uri->segment(6);
+		ci()->shared = $this->shared = (bool) $this->uri->segment(7);
 
 		$this->db->set_dbprefix($this->ref.'_');
 		

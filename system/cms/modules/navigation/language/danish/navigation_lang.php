@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'Linktype';
 $lang['nav_uri_label']                          = 'Sitelink (URI)';
 $lang['nav_page_label']                         = 'Side';
 $lang['nav_module_label']                       = 'Modul';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'forkortelse';
 
 $lang['nav_link_target_self']                   = 'Nuværende vindue (default)';
@@ -39,4 +40,5 @@ $lang['nav_link_not_exist_error']               = 'Dette navigationslink eksiste
 $lang['nav_link_edit_success']                  = 'Navigationslinket blev gemt.';
 $lang['nav_link_delete_success']                = 'Navigationslinket blev slettet.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Please select a link type to be given more options to create your link.';

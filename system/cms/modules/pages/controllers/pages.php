@@ -19,10 +19,8 @@ class Pages extends Public_Controller
 		$this->load->model('page_layouts_m');
 		
 		// This basically keeps links to /home always pointing to the actual homepage even when the default_controller is changed
-		@include APPPATH.'config/routes.php'; // simple hack to get the default_controller, could find another way.
-		
-		// No page is mentioned $this->current_userand we aren't using pages as default (eg blog on homepage)
-		if ( ! $this->uri->segment(1) AND $route['default_controller'] != 'pages')
+		// No page is mentioned and we aren't using pages as default (eg blog on homepage)
+		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
 		{
 			redirect('');
 		}
@@ -95,6 +93,12 @@ class Pages extends Public_Controller
 			{
 				show_error('The page you are trying to view does not exist and it also appears as if the 404 page has been deleted.');
 			}
+		}
+		
+		// If this is a homepage, do not show the slug in the URL
+		if ($page->is_home and $url_segments)
+		{
+			redirect('', 'location', 301);
 		}
 
 		// If the page is missing, set the 404 status header
@@ -177,7 +181,9 @@ class Pages extends Public_Controller
 		}
 
 		// Grab all the chunks that make up the body
-		$page->chunks = $this->db->get_where('page_chunks', array('page_id' => $page->id))->result();
+		$page->chunks = $this->db->order_by('sort')
+			->get_where('page_chunks', array('page_id' => $page->id))
+			->result();
 		
 		$chunk_html = '';
 		foreach ($page->chunks as $chunk)
@@ -187,8 +193,8 @@ class Pages extends Public_Controller
 							'</div>'.PHP_EOL;
 		}
 		
-		// Parse it so the content is parsed. We pass along $page so that {pyro:page:id} and friends work in page content
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('page' => $page), TRUE);
+		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
+		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
 		
 		// Create page output
 		$this->template->title($page->meta_title)
@@ -218,8 +224,13 @@ class Pages extends Public_Controller
 					'.$page->js.'
 				</script>');
 		}
-		
-		echo $this->template->build('pages/page', null, true);
+
+		if ($page->slug == '404')
+		{
+			log_message('error', 'Page Missing: '.$this->uri->uri_string());
+		}
+
+		echo $this->template->build('pages/page', NULL, TRUE, FALSE);
 	}
 
 	/**

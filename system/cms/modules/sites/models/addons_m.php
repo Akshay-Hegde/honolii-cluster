@@ -375,7 +375,7 @@ class Addons_m extends MY_Model
 				
 				// Find out what the site knows about it
 				$widgets[$i]['database']	= $this->db->where('slug', $slug)
-												->get($this->ref.'_widgets')
+												->get($this->ref.'widgets')
 												->row_array();
 				$i++;
 			}

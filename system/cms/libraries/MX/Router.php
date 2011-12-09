@@ -72,11 +72,20 @@ class MX_Router extends CI_Router
 			
 			if (DB()->table_exists('core_sites'))
 			{
-
-					$site = DB()->where('domain', SITE_SLUG)
+				$site = DB()->where('domain', SITE_DOMAIN)
 					->get('core_sites')
 					->row();
-					
+				
+				// If the site is disabled we set the message in a constant for MY_Controller to display
+				if (isset($site->active) AND ! $site->active)
+				{
+					$status = DB()->where('slug', 'status_message')
+						->get('core_settings')
+						->row();
+
+					define('STATUS', $status ? $status->value : 'This site has been disabled by a super-administrator');					
+				}
+
 				$locations = array();
 				
 				// Check to see if the site retrieval was successful. If not then
@@ -103,11 +112,12 @@ class MX_Router extends CI_Router
 					Modules::$locations = $locations;
 					
 				}
-				else
-				{
-					// turn off database sessions for MSM
-					$this->config->set_item('sess_use_database', FALSE);
-				}
+			}
+			
+			// If we're on the MSM then we turn the session table off.
+			if ($this->uri->segment(0) == 'sites')
+			{
+				$this->config->set_item('sess_use_database', FALSE);
 			}
 		}
 

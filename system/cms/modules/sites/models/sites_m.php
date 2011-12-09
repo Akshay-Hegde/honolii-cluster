@@ -98,9 +98,9 @@ class Sites_m extends MY_Model {
 						'version' => array('type' => 'INT', 'constraint' => 3),
 					));
 		
-					$this->dbforge->create_table('schema_version', TRUE);
+					$this->dbforge->create_table('migrations', TRUE);
 		
-					if ($this->db->insert('schema_version', array('version' => config_item('migrations_version'))) )
+					if ($this->db->insert('migrations', array('version' => config_item('migration_version'))) )
 					{
 						return $this->users_m->create_default_user($user);
 					}
@@ -276,7 +276,7 @@ class Sites_m extends MY_Model {
 		$site->admin_login = $admin_login->last_login;
 		
 		// and schema version
-		$schema = $this->db->get('schema_version')->row();
+		$schema = $this->db->get('migrations')->row();
 		$site->schema_version = $schema->version;
 		
 		return $site;

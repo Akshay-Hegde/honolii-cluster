@@ -17,11 +17,12 @@ class Admin_Controller extends MY_Controller {
 		// Show error and exit if the user does not have sufficient permissions
 		if ( ! self::_check_access())
 		{
-			show_error(lang('cp_access_denied'));
+			$this->session->set_flashdata('error', lang('cp_access_denied'));
+			redirect();
 		}
 
 		// If the setting is enabled redirect request to HTTPS
-		if ($this->settings->admin_force_https and $_SERVER['SERVER_PORT'] != 443)
+		if ($this->settings->admin_force_https and strtolower(substr(current_url(), 4, 1)) != 's')
 		{
 			redirect(str_replace('http:', 'https:', current_url()).'?session='.session_id());
 		}
@@ -64,8 +65,6 @@ class Admin_Controller extends MY_Controller {
 		// trigger the run() method in the selected admin theme
 		$class = 'Theme_'.ucfirst($this->admin_theme->slug);
 		call_user_func(array(new $class, 'run'));
-
-//	    $this->output->enable_profiler(TRUE);
 	}
 
 	private function _check_access()

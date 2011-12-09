@@ -15,20 +15,27 @@ class Plugin_Navigation extends Plugin
 	 * Creates a list of menu items
 	 *
 	 * Usage:
-	 * {pyro:navigation:links group="header"}
+	 * {{ navigation:links group="header" }}
 	 * Optional:  indent="", tag="li", list_tag="ul", top="text", separator="", group_segment="", class="", more_class=""
 	 * @param	array
 	 * @return	array
 	 */
-	function links()
+	public function links()
 	{
 		$group			= $this->attribute('group');
 		$group_segment	= $this->attribute('group_segment');
 
 		is_numeric($group_segment) ? $group = $this->uri->segment($group_segment) : NULL;
 
+		// We must pass the user group from here so that we can cache the results and still always return the links with the proper permissions
+		$params = array($group,
+						array('user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : FALSE,
+							  'front_end' => TRUE
+							  )
+						);
+
 		$this->load->model('navigation/navigation_m');
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', array($group), $this->settings->navigation_cache);
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
 
 		return $this->_build_links($links, $this->content());
 	}
@@ -128,7 +135,7 @@ class Plugin_Navigation extends Plugin
 			}
 
 			// is current ?
-			if (current_url() === $link['url'] OR ($link['link_type'] === 'page' && $link['is_home'] == TRUE) AND site_url() === current_url())
+			if (strpos(current_url(), $link['url'].'/') === 0 OR current_url() === $link['url'] OR ($link['link_type'] === 'page' && $link['is_home'] == TRUE) AND site_url() === current_url())
 			{
 				$is_current = TRUE;
 				$wrapper['class'][] = $current_class;

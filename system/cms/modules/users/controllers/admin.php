@@ -39,7 +39,7 @@ class Admin extends Admin_Controller {
 		array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
-			'rules' => 'required|alpha_numeric|min_length[3]|max_length[20]'
+			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
 		),
 		array(
 			'field' => 'display_name',
@@ -76,8 +76,6 @@ class Admin extends Admin_Controller {
 
 		$this->data->groups = $this->group_m->get_all();
 		$this->data->groups_select = array_for_select($this->data->groups, 'id', 'description');
-
-		$this->template->set_partial('shortcuts', 'admin/partials/shortcuts');
 	}
 
 	/**
@@ -110,7 +108,7 @@ class Admin extends Admin_Controller {
 						->get_many_by($base_where);
 
 		//unset the layout if we have an ajax request
-		$this->input->is_ajax_request() ? $this->template->set_layout(FALSE) : '';
+		if ($this->input->is_ajax_request()) $this->template->set_layout(FALSE);
 
 		// Render the view
 		$this->template
@@ -118,8 +116,9 @@ class Admin extends Admin_Controller {
 				->set('pagination', $pagination)
 				->set('users', $users)
 				->set_partial('filters', 'admin/partials/filters')
-				->append_metadata(js('admin/filter.js'))
-				->build('admin/index', $this->data);
+				->append_metadata(js('admin/filter.js'));
+				
+		$this->input->is_ajax_request() ? $this->template->build('admin/tables/users', $this->data) : $this->template->build('admin/index', $this->data);
 	}
 
 	/**
@@ -291,7 +290,7 @@ class Admin extends Admin_Controller {
 		{
 			if ($this->input->post($rule['field']) !== FALSE)
 			{
-				$member->{$rule['field']} = set_value($ractivaule['field']);
+				$member->{$rule['field']} = set_value($rule['field']);
 			}
 		}
 

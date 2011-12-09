@@ -36,7 +36,7 @@ class Public_Controller extends MY_Controller
 		
 		if (empty($this->theme->slug))
 		{
-			show_error('This site has been set to use a theme that does not exist. If you are an administrator please ' . anchor('admin/themes', 'change the theme') . '.');
+			show_error('This site has been set to use a theme that does not exist. If you are an administrator please '.anchor('admin/themes', 'change the theme').'.');
 		}
 
 		// Prepare Asset library
@@ -56,9 +56,9 @@ class Public_Controller extends MY_Controller
 				</script>' );
 
 		// Is there a layout file for this module?
-		if ($this->template->layout_exists($this->module . '.html'))
+		if ($this->template->layout_exists($this->module.'.html'))
 		{
-			$this->template->set_layout($this->module . '.html');
+			$this->template->set_layout($this->module.'.html');
 		}
 
 		// Nope, just use the default layout
@@ -76,19 +76,17 @@ class Public_Controller extends MY_Controller
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
 	    }
 
-		// Enable profiler on local box
-	    if( ENV == 'local' && $this->input->get('_debug') )
-	    {
-	    	$this->output->enable_profiler(TRUE);
-	    }
-
 	    // Frontend data
 	    $this->load->library('variables/variables');
+		
+		// grab the theme options if there are any
+		$this->theme->options = $this->pyrocache->model('themes_m', 'get_values_by', array(array('theme' => $this->theme->slug) ));
 
         // Assign segments to the template the new way
 	    $this->template->variables = $this->variables->get_all();
 		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
+		$this->template->theme = $this->theme;
 
 		$this->benchmark->mark('public_controller_end');
 	}

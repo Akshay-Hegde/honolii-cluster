@@ -67,7 +67,7 @@
 								<?php else: ?>
 									<?php echo anchor('sites/addons/install/' . $site->ref . '/module/' . $module['slug'], lang('install_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_install'))); ?>
 								<?php endif; ?>
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/module/' . $module['slug'], lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/module/' . $module['slug'], lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -134,7 +134,7 @@
 								<?php else: ?>
 									<?php echo anchor('sites/addons/install/' . $site->ref . '/module/' . $module['slug'] . '/1', lang('install_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_install'))); ?>
 								<?php endif; ?>
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/module/' . $module['slug'] . '/1', lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/module/' . $module['slug'] . '/1', lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -194,7 +194,7 @@
 									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'], lang('enable_label'), array('class'=>'button')); ?>
 								<?php endif; ?>
 								&nbsp;&nbsp;
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/widget/' . $widget['slug'], lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/widget/' . $widget['slug'], lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -252,7 +252,7 @@
 									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('enable_label'), array('class'=>'button')); ?>
 								<?php endif; ?>
 								&nbsp;&nbsp;
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -306,7 +306,7 @@
 							</td>
 							<td class="align-center"><?php echo $theme['version']; ?></td>
 							<td class="align-center buttons">
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/theme/' . $theme['slug'], lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/theme/' . $theme['slug'], lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -358,7 +358,7 @@
 							</td>
 							<td class="align-center"><?php echo $theme['version']; ?></td>
 							<td class="align-center buttons">
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/theme/' . $theme['slug'] . '/1', lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/theme/' . $theme['slug'] . '/1', lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -392,7 +392,7 @@
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>"><?php echo $plugin['name']; ?></td>
 							<td class="align-center buttons">
-								<?php echo anchor('sites/addons/delete/' . $site->ref . '/plugin/' . $plugin['slug'] . '/1', lang('delete_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
+								<?php echo anchor('sites/addons/delete/' . $site->ref . '/plugin/' . $plugin['slug'] . '/1', lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

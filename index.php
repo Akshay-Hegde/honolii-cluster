@@ -1,5 +1,20 @@
 <?php
 
+# If you have already installed then delete this
+if ( ! file_exists('system/cms/config/database.php'))
+{
+	// Make sure we've not already tried this
+	if (strpos($_SERVER['REQUEST_URI'], 'installer/'))
+	{
+		header('Status: 404');
+		exit('PyroCMS is missing system/cms/config/database.php and cannot find installer.');
+	}
+	
+	// Otherwise go to installer
+	header('Location: '.rtrim($_SERVER['REQUEST_URI'], '/').'/installer/');
+	exit;
+}
+
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
@@ -11,44 +26,19 @@
  *
  * This can be set to anything, but default usage is:
  *
- *     development
- *     testing
+ *     local
+ *     staging
  *     production
  *
  * NOTE: If you change these, also change the error_reporting() code below
  *
  */
 
-// Local: localhost or local.example.com
-if ($_SERVER['SERVER_NAME'])
-{
-	if ($_SERVER['SERVER_NAME'] == 'localhost' OR strpos($_SERVER['SERVER_NAME'], 'local.') === 0)
-	{
-		define('ENVIRONMENT', 'local');
-	}
+define('PYRO_DEVELOPMENT', 'development');
+define('PYRO_STAGING', 'staging');
+define('PYRO_PRODUCTION', 'production');
 
-	// Development: dev.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'dev.') === 0)
-	{
-		define('ENVIRONMENT', 'dev');
-	}
-
-	// Quality Assurance: qa.example.com
-	elseif (strpos($_SERVER['SERVER_NAME'], 'qa.') === 0)
-	{
-		define('ENVIRONMENT', 'qa');
-	}
-
-	// Live: example.com
-	else
-	{
-		define('ENVIRONMENT', 'live');
-	}
-}
-else
-{
-	define('ENVIRONMENT', 'local');
-}
+define('ENVIRONMENT', (isset($_SERVER['PYRO_ENV']) ? $_SERVER['PYRO_ENV'] : PYRO_DEVELOPMENT));
 
 /*
  *---------------------------------------------------------------
@@ -61,19 +51,18 @@ else
 
 	switch (ENVIRONMENT)
 	{
-		case 'local':
-		case 'dev':
+		case PYRO_DEVELOPMENT:
 			error_reporting(E_ALL);
 			ini_set('display_errors', 1);
 		break;
 
-		case 'qa':
-		case 'live':
+		case PYRO_STAGING:
+		case PYRO_PRODUCTION:
 			error_reporting(0);
 		break;
 
 		default:
-			exit('The application environment is not set correctly.');
+			exit('The environment is not set correctly. ENVIRONMENT = '.ENVIRONMENT.'.');
 	}
 	
 /*
@@ -237,7 +226,7 @@ else
 	define('BASEPATH', str_replace("\\", "/", $system_path));
 	
 	// The site slug: (example.com)
-	define('SITE_SLUG', preg_replace('/^www\./', '', $_SERVER['SERVER_NAME']));
+	define('SITE_DOMAIN', $_SERVER['HTTP_HOST']);
 
  	// This only allows you to change the name. ADDONPATH should still be used in the app
 	define('ADDON_FOLDER', $addon_folder.'/');

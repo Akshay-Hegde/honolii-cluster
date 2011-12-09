@@ -1,8 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * Session Plugin
+ * User Plugin
  *
- * Read and write session data
+ * Run checks on a users status
  *
  * @package		PyroCMS
  * @author		PyroCMS Dev Team
@@ -12,14 +12,14 @@
 class Plugin_User extends Plugin
 {
 	/**
-	 * Data
+	 * Logged in
 	 *
-	 * Loads a theme partial
+	 * See if a user is logged in as an if or two-part tag.
 	 *
 	 * Usage:
-	 * {pyro:user:logged_in group="admin"}
+	 * {{ user:logged_in group="admin" }}
 	 *	<p>Hello admin!</p>
-	 * {/pyro:user:logged_in}
+	 * {{ /user:logged_in }}
 	 *
 	 * @param	array
 	 * @return	array
@@ -42,14 +42,14 @@ class Plugin_User extends Plugin
 	}
 
 	/**
-	 * Data
+	 * Not logged in
 	 *
-	 * Loads a theme partial
+	 * See if a user is logged out or not part of a group
 	 *
 	 * Usage:
-	 * {pyro:user:not_logged_in group="admin"}
+	 * {{ user:not_logged_in group="admin" }}
 	 *	<p>Hello not an admin</p>
-	 * {/pyro:user:not_logged_in}
+	 * {{ /user:not_logged_in }}
 	 *
 	 * @param	array
 	 * @return	array

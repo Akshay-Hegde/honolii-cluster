@@ -1,9 +1,14 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 // Code here is run before the site manager controllers
-class Sites_Controller extends CI_Controller {
+class Sites_Controller extends MX_Controller {
 
-	public function Sites_Controller()
+	public $module_details;
+	public $module;
+	public $controller;
+	public $method;
+
+	public function __construct()
 	{
 		parent::__construct();
 		
@@ -22,10 +27,10 @@ class Sites_Controller extends CI_Controller {
 			redirect('installer');
 		}
 		
-		define('ADMIN_THEME', 'sites');
+		defined('ADMIN_THEME') OR define('ADMIN_THEME', 'sites');
 		
 		// define folders that we need to create for each new site
-		$this->locations = array(
+		ci()->locations = $this->locations = array(
 			APPPATH.'cache'	=> array(
 				'simplepie'
 			),
@@ -39,23 +44,23 @@ class Sites_Controller extends CI_Controller {
 		
 		// Since we don't need to lock the lang with a setting like /admin and
 		// the front-end we just define CURRENT_LANGUAGE exactly the same as AUTO_LANGUAGE
-		define('CURRENT_LANGUAGE', AUTO_LANGUAGE);
+		defined('CURRENT_LANGUAGE') OR define('CURRENT_LANGUAGE', AUTO_LANGUAGE);
 		
 		// Load the Language files ready for output
-		$this->lang->load(array('admin', 'buttons', 'main', 'sites/sites', 'users/user'));
+		$this->lang->load(array('admin', 'buttons', 'global', 'sites/sites', 'users/user'));
 		
 		// Load all the required classes
 		$this->load->model(array('sites_m', 'users_m', 'settings_m'));
 		
-		$this->load->library(array('form_validation', 'settings/settings'));
+		$this->load->library(array('session', 'form_validation', 'settings/settings'));
 		$this->load->dbforge();
 		
 		// Work out module, controller and method and make them accessable throught the CI instance
-		$this->module = $this->router->fetch_module();
-		$this->controller = $this->router->fetch_class();
-		$this->method = $this->router->fetch_method();
-		$this->module_details['slug'] = 'sites';
-		
+		ci()->module = $this->module = $this->router->fetch_module();
+		ci()->controller = $this->controller = $this->router->fetch_class();
+		ci()->method = $this->method = $this->router->fetch_method();
+		ci()->module_details = $this->module_details = array('slug' => 'sites');
+
 		// Load helpers
 		$this->load->helper('admin_theme');
 		$this->load->helper('file');
@@ -75,8 +80,10 @@ class Sites_Controller extends CI_Controller {
 		}
 		
 		// Asset library needs to know where the admin theme directory is
-		$this->config->set_item('asset_dir', APPPATH.'themes/sites/');
-		$this->config->set_item('asset_url', BASE_URL.APPPATH.'themes/sites/');
+		$this->config->set_item('asset_dir', APPPATH.'themes/');
+		$this->config->set_item('asset_url', BASE_URL.APPPATH.'themes/');
+		$this->config->set_item('theme_asset_dir', APPPATH.'themes/');
+		$this->config->set_item('theme_asset_url', BASE_URL.APPPATH.'themes/');
 		
 		// Template configuration
 		$this->template

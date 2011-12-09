@@ -63,12 +63,12 @@ class Sites extends Sites_Controller
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|min_length[4]|required'
+				'rules'	=> 'trim|min_length[6]|required'
 			),
 			array(
 				'field' => 'confirm_password',
 				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|min_length[4]|required|matches[password]'
+				'rules'	=> 'trim|min_length[6]|required|matches[password]'
 			)
 		);
 		
@@ -313,6 +313,25 @@ class Sites extends Sites_Controller
 
 		$this->template->set_layout('modal')
 			->build('stats', $data);
+	}
+	
+	/**
+	 * Toggle the site's active/disabled status
+	 *
+	 * @param	string	$site_ref
+	 * @param	int		$state	The checkbox state
+	 * @return	bool
+	 */
+	public function status()
+	{
+		if ($this->sites_m->update_by('ref', $this->input->post('site_ref'), array('active' => $this->input->post('state'))) )
+		{
+			return print(json_encode(array('status' => 'success')));
+		}
+		else
+		{
+			return print(json_encode(array('status' => 'error')));
+		}
 	}
 	
 	public function _valid_domain($url)

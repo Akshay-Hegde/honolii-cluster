@@ -13,6 +13,7 @@ $lang['nav_type_label'] 						= 'نوع الرابط';
 $lang['nav_uri_label'] 							= 'رابط موقع (URI)';
 $lang['nav_page_label'] 						= 'صفحة';
 $lang['nav_module_label'] 						= 'وحدة';
+$lang['nav_restricted_to']						= 'المسموح له';
 $lang['nav_abbrev_label'] 						= 'اختصار';
 
 $lang['nav_link_target_self'] 					= 'النافذة الحالية (افتراضي)';
@@ -38,4 +39,5 @@ $lang['nav_link_not_exist_error'] 				= 'الرابط غير موجود.';
 $lang['nav_link_edit_success'] 					= 'تم تعديل الرابط.';
 $lang['nav_link_delete_success'] 				= 'تم حذف الرابط.';
 
+$lang['nav_choose_value']						= 'يجب كتابة قيمة في حقل %s.';
 $lang['nav_link_type_desc'] 					= 'رجاء اختر نوع الرابط كي تحصل على مزيد من الخيارات لإنشاء الرابط.';

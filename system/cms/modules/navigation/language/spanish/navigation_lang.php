@@ -14,6 +14,7 @@ $lang['nav_type_label'] 					= 'Tipo de vínculo';
 $lang['nav_uri_label'] 						= 'Dirección del sitio (URI)';
 $lang['nav_page_label'] 					= 'Página';
 $lang['nav_module_label'] 					= 'Módulo';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label'] 					= 'Abreviación';
 
 $lang['nav_link_target_self'] 				= 'Misma ventana (default)';
@@ -39,6 +40,7 @@ $lang['nav_link_not_exist_error']			= 'Este vínculo de navegación no existe.';
 $lang['nav_link_edit_success'] 				= 'El enlace de navegación fue grabado.';
 $lang['nav_link_delete_success']			= 'El enlace de navegación fue eliminado.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc'] 				= 'Por favor selecciona un tipo de vínculo para así mostrar más opciones para crear el vínculo.';
 
 /* End of file navigation_lang.php */

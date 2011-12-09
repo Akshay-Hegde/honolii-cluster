@@ -53,6 +53,11 @@ class MY_Controller extends MX_Controller {
 			}
 			redirect(current_url());
 		}
+		
+		if (defined('STATUS'))
+		{
+			show_error(STATUS);
+		}
 
 		// By changing the prefix we are essentially "namespacing" each site
 		$this->db->set_dbprefix(SITE_REF.'_');
@@ -78,7 +83,7 @@ class MY_Controller extends MX_Controller {
 		}
 
 		// With that done, load settings
-		$this->load->library(array('settings/settings'));
+		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
 		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
@@ -170,6 +175,13 @@ class MY_Controller extends MX_Controller {
 		$this->load->vars($pyro);
 		
 		$this->benchmark->mark('my_controller_end');
+		
+		// Enable profiler on local box
+	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    {
+			unset($_GET['_debug']);
+	    	$this->output->enable_profiler(TRUE);
+	    }
 	}
 }
 

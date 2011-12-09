@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'Link type';
 $lang['nav_uri_label']                          = 'Site Link (URI)';
 $lang['nav_page_label']                         = 'Page';
 $lang['nav_module_label']                       = 'Module';
+$lang['nav_restricted_to']						= 'Restricted To';
 $lang['nav_abbrev_label']                       = 'Abbreviation';
 
 $lang['nav_link_target_self']                   = 'Current window (default)';
@@ -38,5 +39,5 @@ $lang['nav_link_add_error']                     = 'An unexpected error occurred.
 $lang['nav_link_not_exist_error']               = 'This navigation link does not exist.';
 $lang['nav_link_edit_success']                  = 'The navigation link was saved.';
 $lang['nav_link_delete_success']                = 'The navigation link has been deleted.';
-
+$lang['nav_choose_value']						= 'The %s field must not be empty.';
 $lang['nav_link_type_desc']                     = 'Please select a link type to be given more options to create your link.';

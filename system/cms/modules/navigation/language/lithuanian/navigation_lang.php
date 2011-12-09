@@ -14,6 +14,7 @@ $lang['nav_type_label']                         = 'Nuorodos tipas';
 $lang['nav_uri_label']                          = 'Site Link (URI)';
 $lang['nav_page_label']                         = 'Puslapis';
 $lang['nav_module_label']                       = 'Modulis';
+$lang['nav_restricted_to']						= 'Restricted To'; #translate
 $lang['nav_abbrev_label']                       = 'Santrumpa';
 
 $lang['nav_link_target_self']                   = 'Dabartinis langas (default)';
@@ -39,4 +40,5 @@ $lang['nav_link_not_exist_error']               = 'Ši navigacijos nuoroda neegz
 $lang['nav_link_edit_success']                  = 'Navigacijos nuorda išsaugota.';
 $lang['nav_link_delete_success']                = 'Navigacijos nuoroda ištrinta.';
 
+$lang['nav_choose_value']						= 'The %s field must not be empty.'; #translate
 $lang['nav_link_type_desc']                     = 'Prašome pasirinkti nuorodos tipą, kad būtų suteikta daugiau galimybių kurti savo nuorodą.';

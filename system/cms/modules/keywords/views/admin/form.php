@@ -9,22 +9,30 @@
 <?php endif; ?>
 
 <section class="item">
+
+
+
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
+
+<div class="form_inputs">
+	
     <ul>
 		<li>
-			<label for="name"><?php echo lang('keywords:name');?>:</label><br>
-			<?php echo form_input('name', $keyword->name);?>
-			<span class="required-icon tooltip"><?php echo lang('required_label');?></span>
+			<label for="name"><?php echo lang('keywords:name');?> <span>*</span></label>
+			<div class="input"><?php echo form_input('name', $keyword->name);?></div>
 		</li>
     </ul>
-
-	<hr>
-
+    
+</div>
+    
 	<div class="buttons">
 		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
-	</div>
+	</div>	
 	
 <?php echo form_close();?>
+
+
+
 </section>
 
 <script type="text/javascript">

@@ -1,6 +1,7 @@
 <?php
 
-$lang['cp_title']					= 'Panel administracyjny';
+$lang['global:control-panel']					= 'Panel administracyjny';
+$lang['global:profile']					= 'Profile'; #translate
 
 $lang['title_label']				= 'Tytuł';
 $lang['name_label']					= 'Nazwa';
