@@ -35,6 +35,8 @@ class Fields_m extends CI_Model {
 			'rules'	=> 'trim|required|max_length[50]|callback_type_valid'
 		)
 	);
+
+    // --------------------------------------------------------------------------
 	
 	function __construct()
 	{
@@ -149,13 +151,13 @@ class Fields_m extends CI_Model {
 	 * Take field data and parse it into an array
 	 * the the DB forge class can use
 	 *
-	 * @param	public
+	 * @access	public
 	 * @param	obj
 	 * @param	array
 	 * @param	string
 	 * @return	array
 	 */
-	public function field_data_to_col_data( $type, $field_data, $method = 'add' )
+	public function field_data_to_col_data($type, $field_data, $method = 'add')
 	{
 		$col_data = array();
 
@@ -163,7 +165,7 @@ class Fields_m extends CI_Model {
 		// Name
 		// -------------------------------------
 		
-		if( $method == 'edit' ):		
+		if($method == 'edit'):		
 
 			$col_data['name'] 				= $field_data['field_slug'];
 		
@@ -197,7 +199,7 @@ class Fields_m extends CI_Model {
 		
 		if( $type->field_type_slug == 'text' ):		
 
-			if( isset($col_data['constraint']) && $col_data['constraint'] > 255 ):
+			if( isset($col_data['constraint']) and $col_data['constraint'] > 255 ):
 			
 				$col_data['type'] 				= 'TEXT';
 				
@@ -224,7 +226,7 @@ class Fields_m extends CI_Model {
 
 		// -------------------------------------		
 		// Remove Default for some col types:
-		//
+		// -------------------------------------
 		// * TEXT
 		// * LONGTEXT
 		// -------------------------------------
@@ -245,6 +247,8 @@ class Fields_m extends CI_Model {
 
 		// -------------------------------------		
 		// Check for varchar with no constraint
+		// -------------------------------------
+		// Catch it and default to 255
 		// -------------------------------------		
 
 		if( $col_data['type'] == 'VARCHAR' && ( !isset($col_data['constraint']) || !is_numeric($col_data['constraint']) || $col_data['constraint'] == '' ) ):
@@ -267,46 +271,51 @@ class Fields_m extends CI_Model {
 	 * @param	obj
 	 * @param	int
 	 */
-	public function update_field( $field )
+	public function update_field($field)
 	{	
 		$type = $this->type->types->{$this->input->post('field_type')};
 		
+		// -------------------------------------
+		// Alter Columns	
 		// -------------------------------------		
 		// We want to change columns if the
 		// following change:
-		// 
+		//		
+		// * Field Type
 		// * Field Slug
 		// * Max Length
 		// * Default Value
 		// -------------------------------------		
 
 		$assignments = $this->get_assignments($field->id);
-		
-		if( 
+	
+		if(
+			$field->field_type != $this->input->post('field_type') or 
 			$field->field_slug != $this->input->post('field_slug') or 
 			( isset( $field->field_data['max_length'] ) and  $field->field_data['max_length'] != $this->input->post('max_length') ) or  
 			( isset( $field->field_data['default_value'] ) and  $field->field_data['default_value'] != $this->input->post('default_value') )
 		):
-				
-			// If so, we need to update some table names
+								
+			// If so, we need to update some table columns
 			// Get the field assignments and change the table names
 						
 			// Check first to see if there are any assignments
-			if( $assignments ):
+			if($assignments):
 			
-				// Alter the table names
+				// Alter the table names and types
 				$this->load->dbforge();
 				
-				foreach( $assignments as $assignment ):
+				foreach($assignments as $assignment):
 				
-					if(method_exists($type, 'alt_rename_column')):						
+					if(method_exists($type, 'alt_rename_column')):
+									
 						// We run a different function for alt_process
 						$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug));
 					
 					else:
 					
 						// Run the regular column renaming
-						$fields[$field->field_slug] = $this->field_data_to_col_data( $type, $_POST, 'edit' );
+						$fields[$field->field_slug] = $this->field_data_to_col_data($type, $_POST, 'edit');
 					
 						if( ! $this->dbforge->modify_column(STR_PRE.$assignment->stream_slug, $fields) ):
 						
@@ -319,16 +328,24 @@ class Fields_m extends CI_Model {
 					// Update the view options
 					$view_options = unserialize($assignment->view_options);
 					
-					foreach( $view_options as $key => $option ):
+					if(is_array($view_options)):
 					
-						if( $option == $field->field_slug ):
+						foreach($view_options as $key => $option):
 						
-							// Replace with the new field slug so nothing goes apeshit
-							$view_options[$key] = $this->input->post('field_slug');
+							if( $option == $field->field_slug ):
+							
+								// Replace with the new field slug so nothing goes apeshit
+								$view_options[$key] = $this->input->post('field_slug');
+							
+							endif;					
 						
-						endif;					
+						endforeach;
+						
+					else:
+						
+						$view_options = array();
 					
-					endforeach;
+					endif;
 					
 					$vo_update_data['view_options'] = serialize($view_options);
 	
