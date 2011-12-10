@@ -326,7 +326,7 @@ class Fields_m extends CI_Model {
 					endif;
 					
 					// Update the view options
-					$view_options = unserialize($assignment->view_options);
+					$view_options = unserialize($assignment->stream_view_options);
 					
 					if(is_array($view_options)):
 					
