@@ -14,6 +14,9 @@ class Ajax extends Admin_Controller {
     function __construct()
     {
         parent::__construct();
+
+        $this->load->helper('streams/streams');        
+        streams_constants();
         
         // We need this for all of the variable setups in
         // the Type library __construct
