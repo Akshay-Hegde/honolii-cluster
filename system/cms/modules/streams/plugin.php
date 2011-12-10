@@ -253,7 +253,7 @@ class Plugin_Streams extends Plugin
 			
 			endforeach;
 			
-			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
+			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
 					
 		else:
 			
