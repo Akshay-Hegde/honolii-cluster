@@ -246,10 +246,10 @@ class Plugin_Streams extends Plugin
 			// override varaibles.
 			foreach($this->pagination_config as $key => $var):
 			
-				if(isset($pagination_config[$key])) $this->pagination_config = $pagination_config[$key];
+				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
 				
 				// Make sure we obey the FALSE params
-				if($pagination_config[$key] == 'FALSE') $pagination_config[$key] = FALSE;
+				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
 			
 			endforeach;
 			
