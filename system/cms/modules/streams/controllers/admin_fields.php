@@ -177,6 +177,7 @@ class Admin_Fields extends Admin_Controller {
 		
 		if( ! $this->data->current_field = $this->fields_m->get_field($field_id) ):
 		
+			// @todo language
 			show_error("Invalid Field ID");
 		
 		endif;
@@ -191,7 +192,7 @@ class Admin_Fields extends Admin_Controller {
 
 		// -------------------------------------
 		
-        $this->template->append_metadata( js('fields.js', 'streams') );
+        $this->template->append_metadata(js('fields.js', 'streams'));
         
         $this->data->method = 'edit';
  
@@ -235,8 +236,8 @@ class Admin_Fields extends Admin_Controller {
 		
 		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
 				
-		foreach($this->fields_m->fields_validation as $field)
-		{
+		foreach($this->fields_m->fields_validation as $field):
+		
 			$key = $field['field'];
 			
 			if(!isset($_POST[$key])):
@@ -250,7 +251,8 @@ class Admin_Fields extends Admin_Controller {
 			endif;
 			
 			$key = null;
-		}
+		
+		endforeach;
 		
 		// -------------------------------------
 		// Process Data
@@ -258,7 +260,7 @@ class Admin_Fields extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->fields_m->update_field( $this->fields_m->get_field( $field_id ) ) ):
+			if( ! $this->fields_m->update_field($this->fields_m->get_field($field_id)) ):
 			
 				$this->session->set_flashdata('notice', lang('streams.field_update_error'));	
 			

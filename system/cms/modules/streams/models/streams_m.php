@@ -340,7 +340,7 @@ class Streams_m extends MY_Model {
 	 * @return	mixed
 	 */
 	public function get_stream($stream_id, $by_slug = FALSE)
-	{	
+	{
 		// Check for cache. We only cache by slug
 		if( !$by_slug and is_numeric($stream_id) ):
 		
@@ -351,7 +351,7 @@ class Streams_m extends MY_Model {
 			endif;
 			
 		endif;
-			
+	
 		$this->db->limit(1);
 		
 		if( $by_slug == TRUE ):
@@ -373,7 +373,7 @@ class Streams_m extends MY_Model {
 		endif;
 		
 		$stream = $obj->row();
-						
+		
 		if( trim($stream->view_options) == '' ):
 		
 			$stream->view_options = array();
