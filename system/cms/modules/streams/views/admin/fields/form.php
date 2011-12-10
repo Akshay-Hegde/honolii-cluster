@@ -54,17 +54,21 @@
 		if( isset($current_type->custom_parameters) ):
 		
 			foreach( $current_type->custom_parameters as $param ):
+			
+				// Sometimes these values may not be set. Let's set
+				// them to null if they are not.
+				(isset($current_field->field_data[$param])) ? $value = $current_field->field_data[$param] : $value = null;
 						
 				if( method_exists($current_type, 'param_'.$param) ):
 				
 					$call = 'param_'.$param;
 					
-					$data['input'] 			= $current_type->$call($current_field->field_data[$param]);
+					$data['input'] 			= $current_type->$call($value);
 					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);				
 					
 				else:
 		
-					$data['input'] 			= $parameters->$param($current_field->field_data[$param]);
+					$data['input'] 			= $parameters->$param($value);
 					$data['input_name']		= $this->lang->line('streams.'.$param);
 				
 				endif;
@@ -74,6 +78,7 @@
 				echo $this->load->view('admin/ajax/extra_field', $data, TRUE);
 				
 				$data['count']++;
+				unset($value);
 			
 			endforeach;
 		
