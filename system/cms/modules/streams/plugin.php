@@ -284,9 +284,11 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// Parse Rows
 		// -------------------------------------
-		
+
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
+	
+		$content = $parser->parse_conditionals($content, $return, array($this->parser, 'parser_callback'));
 		
 		return $parser->parse_variables($content, $return);
 	}
@@ -624,7 +626,9 @@ class Plugin_Streams extends Plugin
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-		
+	
+		$content = $parser->parse_conditionals($content, $this->rows['rows'][0], array($this->parser, 'parser_callback'));
+	
 		return $parser->parse_variables($content, $this->rows['rows'][0]);
 	}
 
