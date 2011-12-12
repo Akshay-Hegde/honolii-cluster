@@ -249,7 +249,7 @@ class Field_file
 		
 		if(!$tree):
 		
-			return '<em>'.$this->CI->load->lang('streams.file.folder_notice').'</em>';
+			return '<em>'.lang('streams.file.folder_notice').'</em>';
 		
 		endif;
 		
@@ -280,7 +280,7 @@ class Field_file
 	 */
 	public function param_allowed_types($value = null)
 	{
-		$instructions = '<p class="note">'.$this->CI->lang->line('streams.file.allowed_types_instrcutions').'</p>';
+		$instructions = '<p class="note">'.lang('streams.file.allowed_types_instrcutions').'</p>';
 		
 		return '<div style="float: left;">'.form_input('allowed_types', $value).$instructions.'</div>';
 	}

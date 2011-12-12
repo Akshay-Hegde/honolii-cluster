@@ -45,9 +45,9 @@
 				<?php endforeach; endif; ?>
 				<td class="actions">
 				
-					<?php echo anchor('admin/streams/entries/edit/'.$stream->id.'/'.$data_item->id, 'Edit', 'class="button"'); ?>
-					<?php echo anchor('admin/streams/entries/view/'.$stream->id.'/'.$data_item->id, 'View', 'class="button"'); ?>
-					<?php echo anchor('admin/streams/entries/delete/'.$stream->id.'/'.$data_item->id, 'Delete', 'class="button confirm"'); ?>
+					<?php echo anchor('admin/streams/entries/edit/'.$stream->id.'/'.$data_item->id, lang('global:edit'), 'class="button"'); ?>
+					<?php echo anchor('admin/streams/entries/view/'.$stream->id.'/'.$data_item->id, lang('global:view'), 'class="button"'); ?>
+					<?php echo anchor('admin/streams/entries/delete/'.$stream->id.'/'.$data_item->id, lang('global:delete'), 'class="button confirm"'); ?>
 					
 				</td>
 			</tr>

@@ -8,7 +8,7 @@
 
 <section class="item">
 
-<?php if( count($available_fields) > 0 or $method == 'edit' ): ?>
+<?php if( count($available_fields) > 1 or $method == 'edit' ): ?>
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 
@@ -68,7 +68,9 @@
 
 <?php else: ?>
 
-	<p><?php echo lang('streams.start.no_fields_to_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.</p>
+	<div class="no_data">
+	<?php echo lang('streams.start.no_fields_to_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.
+	</div>
 
 <?php endif; ?>
 

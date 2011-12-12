@@ -77,7 +77,7 @@ class Field_user
 		$db_obj = $this->CI->db->get('groups');
 		
 		// @todo - languagize
-		$groups = array('no' => 'Don\'t Restrict Groups');
+		$groups = array('no' => lang('streams.user.dont_restrict_groups'));
 		
 		$groups_raw = $db_obj->result();
 		

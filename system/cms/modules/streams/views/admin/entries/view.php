@@ -39,8 +39,8 @@
     </table>
   
  	<div class="float-right buttons">
-    	<?php echo anchor('admin/streams/entries/edit/'.$this->uri->segment(5).'/'.$row->id, 'Edit Entry', 'class="btn orange"')?>
-	    <?php echo anchor('admin/streams/entries/delete/'.$this->uri->segment(5).'/'.$row->id, 'Delete Entry', 'class="btn red confirm"')?>
+    	<?php echo anchor('admin/streams/entries/edit/'.$this->uri->segment(5).'/'.$row->id, lang('global:edit'), 'class="btn orange"')?>
+	    <?php echo anchor('admin/streams/entries/delete/'.$this->uri->segment(5).'/'.$row->id, lang('global:delete'), 'class="btn red confirm"')?>
 	</div>
    
 </section>

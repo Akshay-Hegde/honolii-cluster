@@ -131,7 +131,7 @@ class Admin_Fields extends Admin_Controller {
 		// See if we need our param fields
 		// -------------------------------------
 		
-		if($this->input->post('field_type')):
+		if($this->input->post('field_type') and $this->input->post('field_type')!=''):
 		
 			if(isset($this->type->types->{$this->input->post('field_type')})):
 			
@@ -145,12 +145,16 @@ class Admin_Fields extends Admin_Controller {
 				
 				$this->data->current_field->field_data = array();				
 				
-				// Build items out of post data
-				foreach($this->data->current_type->custom_parameters as $param):
+				if(isset($this->data->current_type->custom_parameters) and is_array($this->data->current_type->custom_parameters)):
 				
-					$this->data->current_field->field_data[$param] = $this->input->post($param);
+					// Build items out of post data
+					foreach($this->data->current_type->custom_parameters as $param):
+					
+						$this->data->current_field->field_data[$param] = $this->input->post($param);
+					
+					endforeach;
 				
-				endforeach;
+				endif;
 			
 			endif;
 			

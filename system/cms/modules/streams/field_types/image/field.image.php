@@ -22,6 +22,13 @@ class Field_image
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
 	public $input_is_file			= TRUE;
+
+	// --------------------------------------------------------------------------
+	
+	public function __construct()
+	{
+		get_instance()->load->library('image_lib');
+	}
 	
 	// --------------------------------------------------------------------------
 
@@ -90,7 +97,7 @@ class Field_image
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save( $input, $field )
+	public function pre_save($input, $field)
 	{	
 		// Only go through the pre_save upload if there is a file ready to go
 		if( isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '' ):
@@ -135,7 +142,7 @@ class Field_image
 
 		if( ! $this->CI->upload->do_upload( $field->field_slug . '_file' ) ):
 		
-			$this->CI->session->set_flashdata('notice', $this->CI->lang->line('streams.image.image_errors').' '.$this->CI->upload->display_errors());	
+			$this->CI->session->set_flashdata('notice', lang('streams.image.image_errors').' '.$this->CI->upload->display_errors());	
 			
 			return;
 		
@@ -149,8 +156,6 @@ class Field_image
 			// We are going to use the PyroCMS way here.
 			// -------------------------------------
 			
-			$this->CI->load->library('image_lib');
-			
 			$img_config = array();
 			
 			// -------------------------------------
@@ -158,29 +163,41 @@ class Field_image
 			// -------------------------------------
 			// No matter what, we make a thumb
 			// -------------------------------------
-			
-			if( $image['image_width'] > 200 ):
 					
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder') . '/'.$image['file_name'];
-				$img_config['create_thumb'] 	= TRUE;
-				$img_config['maintain_ratio'] 	= TRUE;
-				$img_config['width']	 		= 200;
-				$img_config['height']	 		= 1;
-				$img_config['master_dim']	 	= 'width';
-				
-				$this->CI->image_lib->initialize($img_config);
-				$this->CI->image_lib->resize();							
-				$this->CI->image_lib->clear();
-
+			$img_config['source_image']		= FCPATH.$this->CI->config->item('files_folder').$image['file_name'];
+			$img_config['create_thumb'] 	= TRUE;
+			$img_config['maintain_ratio'] 	= TRUE;
+			$img_config['height']	 		= 1;
+			$img_config['master_dim']	 	= 'width';
+			
+			// For small images, we don't want to
+			// make a thumb that is larger than
+			// the actual image.
+			if( $image['image_width'] > 200 ):
+			
+				$img_config['width']	 	= 200;
+			
+			else:
+			
+				$img_config['width']	 	= $image['image_width'];
+			
 			endif;
 			
+			//print_r($img_config);
+					
+			$this->CI->image_lib->initialize($img_config);
+			$this->CI->image_lib->resize();			
+			$this->custom_clear();
+			
+			unset($img_config);
+
 			// -------------------------------------
 			// Resize
 			// -------------------------------------
 			
 			if( is_numeric($field->field_data['resize_width']) ):
 			
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder') . '/'.$image['file_name'];
+				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder').$image['file_name'];
 				$img_config['quality']			= '100%';
 				$img_config['create_thumb'] 	= FALSE;
 				$img_config['maintain_ratio'] 	= TRUE;
@@ -206,7 +223,7 @@ class Field_image
 				
 				$this->CI->image_lib->initialize($img_config);
 				$this->CI->image_lib->resize();
-				$this->CI->image_lib->clear();
+				$this->custom_clear();
 			
 			endif;
 			
@@ -240,6 +257,8 @@ class Field_image
 			));
 		
 			$id = $this->CI->db->insert_id();
+			
+			unset($img_config);
 			
 			// Return the ID
 			return $id;
@@ -424,7 +443,7 @@ class Field_image
 		
 		if(!$tree):
 		
-			return '<em>'.$this->CI->load->line('streams.image.need_folder').'</em>';
+			return '<em>'.lang('streams.image.need_folder').'</em>';
 		
 		endif;
 		
@@ -484,6 +503,56 @@ class Field_image
 	public function param_allowed_types($value = null)
 	{
 		return form_input('allowed_types', $value);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Custom Clear
+	 *
+	 * This is a temporary solution until
+	 * PyroCMS updates to the version of CodeIgniter
+	 * that has the Img Library fix in it
+	 *
+	 * This correctly clears all of the Img Libary values
+	 * and sets them back to default.
+	 *
+	 * @access	private
+	 * @return	void
+	 */
+	private function custom_clear()
+	{
+		$props = array('library_path', 'source_image', 'new_image', 'width', 'height', 'rotation_angle', 'x_axis', 'y_axis', 'wm_text', 'wm_overlay_path', 'wm_font_path', 'wm_shadow_color', 'source_folder', 'dest_folder', 'mime_type', 'orig_width', 'orig_height', 'image_type', 'size_str', 'full_src_path', 'full_dst_path');
+
+		foreach ($props as $val)
+		{
+			$this->CI->image_lib->$val = '';
+		}
+
+		$this->CI->image_lib->image_library 		= 'gd2';
+		$this->CI->image_lib->dynamic_output 		= FALSE;
+		$this->CI->image_lib->quality 				= '90';
+		$this->CI->image_lib->create_thumb 			= FALSE;
+		$this->CI->image_lib->thumb_marker 			= '_thumb';
+		$this->CI->image_lib->maintain_ratio 		= TRUE;
+		$this->CI->image_lib->master_dim 			= 'auto';
+		$this->CI->image_lib->wm_type 				= 'text';
+		$this->CI->image_lib->wm_x_transp 			= 4;
+		$this->CI->image_lib->wm_y_transp 			= 4;
+		$this->CI->image_lib->wm_font_size 			= 17;
+		$this->CI->image_lib->wm_vrt_alignment 		= 'B';
+		$this->CI->image_lib->wm_hor_alignment 		= 'C';
+		$this->CI->image_lib->wm_padding 			= 0;
+		$this->CI->image_lib->wm_hor_offset 		= 0;
+		$this->CI->image_lib->wm_vrt_offset 		= 0;
+		$this->CI->image_lib->wm_font_color			= '#ffffff';
+		$this->CI->image_lib->wm_shadow_distance 	= 2;
+		$this->CI->image_lib->wm_opacity 			= 50;
+		$this->CI->image_lib->create_fnc 			= 'imagecreatetruecolor';
+		$this->CI->image_lib->copy_fnc 				= 'imagecopyresampled';
+		$this->CI->image_lib->error_msg 			= array();
+		$this->CI->image_lib->wm_use_drop_shadow 	= FALSE;
+		$this->CI->image_lib->wm_use_truetype 		= FALSE;
 	}
 	
 }
