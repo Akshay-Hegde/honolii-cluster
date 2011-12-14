@@ -182,7 +182,7 @@ class Plugin_Streams extends Plugin
 	 */
 	public function cycle()
 	{		
-		$this->debug_status		 	= $this->streams_attribute('debug', 'on');
+		$this->debug_status		 	= $this->streams_attribute('debug', 'off');
 
 		// -------------------------------------
 		// Get Plugin Attributes
@@ -272,25 +272,7 @@ class Plugin_Streams extends Plugin
 		// Content Manipulation
 		// -------------------------------------
 
-		$content = $this->content();
-		
-		// Automatically add in multiple stream
-		$rep = array('{{ streams:related', '{{streams:related');
-		$content = str_replace($rep, '{{ streams:related stream="'.$params['stream'].'" entry="{{ id }}" ', $content);
-
-		$rep = array('{{ streams:multiple', '{{streams:multiple');
-		$content = str_replace($rep, '{{ streams:multiple stream="'.$params['stream'].'" entry="{{ id }}" ', $content);
-
-		// -------------------------------------
-		// Parse Rows
-		// -------------------------------------
-
-		$parser = new Lex_Parser();
-		$parser->scope_glue(':');
-	
-		$content = $parser->parse_conditionals($content, $return, array($this->parser, 'parser_callback'));
-		
-		return $parser->parse_variables($content, $return);
+		return $this->streams_content_parse($this->content(), $return, $params['stream']);
 	}
 
 	// --------------------------------------------------------------------------
@@ -303,7 +285,7 @@ class Plugin_Streams extends Plugin
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Related Entries
+	 * Multiple Related Entries
 	 *
 	 * This works with the multiple relationship field
 	 *
@@ -607,29 +589,7 @@ class Plugin_Streams extends Plugin
 		
 		if(!$this->rows) return $this->streams_attribute('no_results', lang('streams.no_results'));
 
-		// -------------------------------------
-		// Content Manipulation
-		// -------------------------------------
-
-		$content = $this->content();
-		
-		// Automatically add in multiple stream
-		$rep = array('{{ streams:related', '{{streams:related');
-		$content = str_replace($rep, '{{ streams:related stream="'.$params['stream'].'" entry="{{ id }}" ', $content);
-
-		$rep = array('{{ streams:multiple', '{{streams:multiple');
-		$content = str_replace($rep, '{{ streams:multiple stream="'.$params['stream'].'" entry="{{ id }}" ', $content);
-
-		// -------------------------------------
-		// Parse Row
-		// -------------------------------------
-
-		$parser = new Lex_Parser();
-		$parser->scope_glue(':');
-	
-		$content = $parser->parse_conditionals($content, $this->rows['rows'][0], array($this->parser, 'parser_callback'));
-	
-		return $parser->parse_variables($content, $this->rows['rows'][0]);
+		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream']);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1153,8 +1113,12 @@ class Plugin_Streams extends Plugin
 				
 				foreach( $entry as $key => $val ):
 				
-					$display_content 	= str_replace('['.$key.']', $val, $display_content);
-					$link_content 		= str_replace('['.$key.']', $val, $link_content);
+					if(is_string($val)):
+				
+						$display_content 	= str_replace('['.$key.']', $val, $display_content);
+						$link_content 		= str_replace('['.$key.']', $val, $link_content);
+					
+					endif;
 				
 				endforeach;
 				
@@ -1335,20 +1299,19 @@ class Plugin_Streams extends Plugin
 
 		$this->fields = $this->streams_m->get_stream_fields(
 				$this->streams_m->get_stream_id_from_slug($cache->stream_slug));
+				
 	
 		// Easy out for no results
 		if($cache->total_results == 0):
 		
-			$vars = array(
+			return array(
 				'no_results' 		=> $this->streams_attribute('no_results', lang('streams.no_results')),
-				'results_exist'		=> FALSE,
+				'results_exist'		=> false,
 				'results'			=> array(),
-				'pagination'		=> '',
+				'pagination'		=> null,
 				'search_term' 		=> $this->streams_attribute('search_term', $cache->search_term),
 				'total_results'		=> (string)'0'
 			);		
-			
-			return array($vars);
 	
 		endif;
 		
@@ -1356,93 +1319,93 @@ class Plugin_Streams extends Plugin
 		// Pagination
 		// -------------------------------------
 		
+		$return = array();
+	
+		$return['total'] 	= $cache->total_results;
+
 		if($paginate == 'yes'):
-		
-			$this->load->library('pagination');
-
-			// Find Pagination base_url
-			$segments = $this->uri->segment_array();
+					
+			// Add in our pagination config
+			// override varaibles.
+			foreach($this->pagination_config as $key => $var):
 			
-			if( is_numeric($segments[count($segments)]) ):
-			
-				unset($segments[count($segments)]);
-			
-			endif;
-			
-			$pag_uri = '';
-			
-			foreach($segments as $segment):
-			
-				$pag_uri .= $segment . '/';
+				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
+				
+				// Make sure we obey the FALSE params
+				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
 			
 			endforeach;
-			
-			$this->EE->load->helper('url');
-			
-			$pagination_config['base_url'] 			= site_url($pag_uri);
-			$pagination_config['total_rows'] 		= $cache->total_results;
-			$pagination_config['per_page'] 			= $per_page;
-			$pagination_config['uri_segment'] 		= $pag_segment;
-			
-			// Set pagination configs
-			foreach($this->pagination_vars as $var => $default):
 
-				$pagination_config[$var] 		= $this->streams_attribute($var, $default);
+			$return['pagination'] = $this->row_m->build_pagination($pag_segment, $per_page, $return['total'], $this->pagination_config);
 			
-			endforeach;
-			
-			// Set the offset
-			if($this->uri->segment($per_page) == ''):
-			
-				$offset = 0;
-	
-			else:
-			
-				$offset = $this->uri->segment($pag_segment);		
-			
-			endif;
-			
-			$this->pagination->initialize($pagination_config);
-			
-			$vars['pagination'] = $this->pagination->create_links();
-	
-			$search_query = $this->db->query($cache->query_string." LIMIT $offset, $per_page");
-
+			$query_string = $cache->query_string." LIMIT $offset, $per_page";
+					
 		else:
+			
+			$return['pagination'] 	= null;
+			
+			$query_string = $cache->query_string;
 		
-			// No pagination? Just run the query.		
-			$search_query = $this->db->query($cache->query_string);
-
-			$vars['pagination'] = '';
-	
 		endif;
+
+		// -------------------------------------
+		// Get & Format Results
+		// -------------------------------------
+
+		$return['results'] = $this->row_m->format_rows(
+									$this->db->query($query_string)->result_array(),
+									$this->streams_m->get_stream($cache->stream_slug, true));
+
+		// -------------------------------------
+		// Extra Data
+		// -------------------------------------
+
+		$return['no_results'] 		= '';
+		$return['total_results'] 	= $cache->total_results;
+		$return['results_exist'] 	= true;				
+		$return['search_term'] 		= $cache->search_term;
 		
-		$this->rows['rows'] = $search_query->result_array();
+		return $this->streams_content_parse($this->content(), $return, $cache->stream_slug);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Streams content parse
+	 *
+	 * Special content parser for PyroStreams plugin
+	 *
+	 * @access	private
+	 * @param	string - the tag content
+	 * @param	array - the return data
+	 * @return 	string - the parsed data
+	 */
+	private function streams_content_parse($content, $data, $stream_slug)
+	{
+		// -------------------------------------
+		// Multiple Provision
+		// -------------------------------------
+		// Automatically add in multiple streams data.
+		// This makes it easier to call the multiple function
+		// from within the streams tags
+		// -------------------------------------
 		
-		$vars['results'] = $this->rows['rows'];
+		$rep = array('{{ streams:related', '{{streams:related');
+		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
+
+		$rep = array('{{ streams:multiple', '{{streams:multiple');
+		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
 
 		// -------------------------------------
-		// Format and return
+		// Parse Rows
 		// -------------------------------------
 
-		$vars['no_results'] = '';
-
-		$vars['total_results'] = $cache->total_results;
-
-		$vars['results_exist'] = TRUE;
-				
-		$vars['results'] = array();
-
-		$vars['search_term'] = $cache->search_term;
-				
-		// Done w/ rows
-		$this->rows = null;
+		$parser = new Lex_Parser();
+		$parser->scope_glue(':');
+	
+		$content = $parser->parse_conditionals($content, $data, array($this->parser, 'parser_callback'));
 		
-		// -------------------------------------
-		// Return Data
-		// -------------------------------------
-				
-		return array($vars);
+		return $parser->parse_variables($content, $data);
 	}
 
 	// --------------------------------------------------------------------------

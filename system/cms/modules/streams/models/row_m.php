@@ -113,8 +113,6 @@ class Row_m extends MY_Model {
 		
 		$this->data->stream = $stream;
 
-		$stream_fields = $this->streams_m->get_stream_fields($this->data->stream->id);
-
 		//Just for sanity's sake
 		$this->full_select_prefix = PYROSTREAMS_DB_PRE.STR_PRE.$stream->stream_slug.'.';
 		$this->base_prefix = STR_PRE.$stream->stream_slug.'.';
@@ -476,22 +474,52 @@ class Row_m extends MY_Model {
 		
 		$obj = $this->db->get(STR_PRE.$stream->stream_slug);
 		
-		$data = $obj->result_array();
-				
-		$total = count($data);
-
 		// -------------------------------------
 		// Run formatting
 		// -------------------------------------
+				
+		$return['rows'] = $this->format_rows(
+									$obj->result_array(),
+									$this->data->stream,
+									$disable
+								);
 		
+		// Reset
+		$this->get_rows_hook = array();
+		$this->select_string = '';
+				
+		return $return;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Format Rows
+	 *
+	 * Takes raw array of data
+	 * from the DB and formats it. Adds
+	 * things like count and odd/even.
+	 *
+	 * @access	public
+	 * @param	array - rows from db
+	 * @param	obj - stream
+	 * @param	[array - disables]
+	 * @return	array
+	 */
+	public function format_rows($data, $stream, $disable = array())
+	{
 		$count = 1;
+
+		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 		
-		foreach( $data as $id => $item ):
+		$total = count($data);
+		
+		foreach($data as $id => $item):
 		
 			// Log the ID called
-			$this->called[$this->data->stream->stream_slug][] = $item['id'];
+			$this->called[$stream->stream_slug][] = $item['id'];
 		
-			$data[$id] = $this->format_row($item, $stream_fields, $this->data->stream, FALSE, TRUE, $disable);
+			$data[$id] = $this->format_row($item, $stream_fields, $stream, FALSE, TRUE, $disable);
 			
 			// Give some info on if it is the last element
 			if( $count == $total ):
@@ -521,13 +549,7 @@ class Row_m extends MY_Model {
 		
 		endforeach;
 		
-		$return['rows'] = $data;
-		
-		// Reset
-		$this->get_rows_hook = array();
-		$this->select_string = '';
-				
-		return $return;
+		return $data;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1032,6 +1054,9 @@ class Row_m extends MY_Model {
 					
 						$update_data[$field->field_slug] = $this->input->post($field->field_slug);
 	
+						// Make null - some fields don't like just blank values
+						if($update_data[$field->field_slug] == '') $update_data[$field->field_slug] = NULL;
+
 					endif;
 					
 				else:
@@ -1128,6 +1153,9 @@ class Row_m extends MY_Model {
 						if(is_string($post[$field->field_slug])) $post[$field->field_slug] = trim($post[$field->field_slug]);
 						
 						$insert_data[$field->field_slug] = $post[$field->field_slug];
+
+						// Make null - some fields don't like just blank values
+						if($insert_data[$field->field_slug] == '') $insert_data[$field->field_slug] = NULL;
 					
 					endif;
 				
