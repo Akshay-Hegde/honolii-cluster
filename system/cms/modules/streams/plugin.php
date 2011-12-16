@@ -272,8 +272,6 @@ class Plugin_Streams extends Plugin
 		// Content Manipulation
 		// -------------------------------------
 		
-		print_r($return);
-
 		return $this->streams_content_parse($this->content(), $return, $params['stream']);
 	}
 
