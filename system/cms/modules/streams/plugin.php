@@ -271,6 +271,8 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// Content Manipulation
 		// -------------------------------------
+		
+		print_r($return);
 
 		return $this->streams_content_parse($this->content(), $return, $params['stream']);
 	}
@@ -589,7 +591,7 @@ class Plugin_Streams extends Plugin
 		
 		if(!$this->rows) return $this->streams_attribute('no_results', lang('streams.no_results'));
 
-		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream']);
+		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream'], true);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1380,7 +1382,7 @@ class Plugin_Streams extends Plugin
 	 * @param	array - the return data
 	 * @return 	string - the parsed data
 	 */
-	private function streams_content_parse($content, $data, $stream_slug)
+	private function streams_content_parse($content, $data, $stream_slug, $pre_parse = false)
 	{
 		// -------------------------------------
 		// Multiple Provision
@@ -1403,7 +1405,14 @@ class Plugin_Streams extends Plugin
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
 	
-		$content = $parser->parse_conditionals($content, $data, array($this->parser, 'parser_callback'));
+		// For some reason, on certain functions,
+		// we need to pre-parse the conditionals (as of
+		// Lex of PyroCMS 2.0.0 RC1
+		if($pre_parse):
+		
+			$content = $parser->parse_conditionals($content, $data, array($this->parser, 'parser_callback'));
+		
+		endif;
 		
 		return $parser->parse_variables($content, $data);
 	}
