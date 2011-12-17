@@ -271,7 +271,7 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// Content Manipulation
 		// -------------------------------------
-		
+
 		return $this->streams_content_parse($this->content(), $return, $params['stream']);
 	}
 
@@ -297,7 +297,7 @@ class Plugin_Streams extends Plugin
 		$rel_field = $this->attribute('field');
 		$entry_id = $this->attribute('entry');
 		
-		$field = $this->fields_m->get_field_by_slug($rel_field);
+		if( !$field = $this->fields_m->get_field_by_slug($rel_field) ) return;
 
 		// Get the stream
 		$join_stream = $this->streams_m->get_stream($field->field_data['choose_stream']);
@@ -588,8 +588,8 @@ class Plugin_Streams extends Plugin
 		$this->rows = $this->row_m->get_rows($params, $this->fields, $stream);
 		
 		if(!$this->rows) return $this->streams_attribute('no_results', lang('streams.no_results'));
-
-		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream'], true);
+		
+		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream']);
 	}
 
 	// --------------------------------------------------------------------------
@@ -1378,9 +1378,10 @@ class Plugin_Streams extends Plugin
 	 * @access	private
 	 * @param	string - the tag content
 	 * @param	array - the return data
+	 * @param	string - stream slug
 	 * @return 	string - the parsed data
 	 */
-	private function streams_content_parse($content, $data, $stream_slug, $pre_parse = false)
+	private function streams_content_parse($content, $data, $stream_slug)
 	{
 		// -------------------------------------
 		// Multiple Provision
@@ -1395,24 +1396,15 @@ class Plugin_Streams extends Plugin
 
 		$rep = array('{{ streams:multiple', '{{streams:multiple');
 		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
-
+		
 		// -------------------------------------
 		// Parse Rows
 		// -------------------------------------
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-	
-		// For some reason, on certain functions,
-		// we need to pre-parse the conditionals (as of
-		// Lex of PyroCMS 2.0.0 RC1
-		if($pre_parse):
-		
-			$content = $parser->parse_conditionals($content, $data, array($this->parser, 'parser_callback'));
-		
-		endif;
-		
-		return $parser->parse_variables($content, $data);
+				
+		return $parser->parse($content, $data, array($this->parser, 'parser_callback'));
 	}
 
 	// --------------------------------------------------------------------------

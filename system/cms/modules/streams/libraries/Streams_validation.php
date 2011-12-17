@@ -153,6 +153,154 @@ class Streams_validation extends CI_Form_validation
 		return;
 	}
 
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Unique field slug
+	 *
+	 * Checks to see if the slug is unique based on the 
+	 * circumstances
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	void
+	 */
+	public function unique_field_slug($field_slug, $mode)
+	{
+		$this->CI->db->select('id');
+		$this->CI->db->where('field_slug', trim($field_slug));
+		$db_obj = $this->CI->db->get(FIELDS_TABLE);
+		
+		if($mode == 'new'):
+		
+			if($db_obj->num_rows() > 0):
+			
+				$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
+				return FALSE;
+				
+			endif;
+		
+		else:
+		
+			// Mode should be the existing slug
+			if($field_slug != $mode):
+		
+				// We're changing the slug?
+				// Better make sure it doesn't exist.
+				if( $db_obj->num_rows() != 0 ):
+				
+					$this->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
+					return FALSE;
+				
+				endif;
+			
+			endif;
+		
+		endif;
+
+		return TRUE;		
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Unique Stream Slug
+	 *
+	 * Checks to see if the stream is unique based on the 
+	 * stream_slug
+	 *
+	 * @access	public
+	 * @param	string
+	 * @param	string
+	 * @return	bool
+	 */
+	public function stream_unique($stream_slug, $mode)
+	{
+		$this->CI->db->select('id')->where('stream_slug', trim($stream_slug));
+		$db_obj = $this->CI->db->get(STREAMS_TABLE);
+		
+		if($mode == 'new'):
+		
+			if($db_obj->num_rows() > 0):
+			
+				$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
+				return FALSE;
+				
+			endif;
+		
+		else:
+		
+			// Mode should be the existing slug
+			// We check the two to see if the slug is changing.
+			// If it is changing we of course need to make sure
+			// it is unique.
+			if($stream_slug != $mode):
+		
+				if($db_obj->num_rows() != 0):
+				
+					$this->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
+					return FALSE;
+				
+				endif;
+			
+			endif;
+		
+		endif;
+
+		return TRUE;
+	}
+
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Slug Safe
+	 *
+	 * Sees if a word is safe for the DB. Used for
+	 * stream_fields, etc.
+	 */
+	public function slug_safe($string)
+	{
+		// See if word is MySQL Reserved Word
+		if( in_array(strtoupper($string), $this->CI->config->item('mysql_reserved')) ):
+		
+			$this->set_message('slug_safe', lang('streams.not_mysql_safe_word'));
+			return FALSE;
+		
+		endif;
+		
+		// See if there are no-no characters
+		if( ! preg_match("/^([-a-z0-9_-])+$/i", $string) ):
+		
+			$this->set_message('slug_safe', lang('streams.not_mysql_safe_characters'));
+			return FALSE;
+			
+		endif;
+		
+		return TRUE;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Make sure a type is valid
+	 *
+	 * @access	public
+	 * @param	string
+	 * @return	bool
+	 */	
+	public function type_valid($string)
+	{
+		if($string == '-'):
+		
+			$this->set_message('type_valid', lang('streams.type_not_valid'));
+			return FALSE;
+			
+		endif;
+		
+		return TRUE;
+	}
+
 }
 
 /* End of file Streams_validation.php */

@@ -17,7 +17,7 @@
 				toolbar: [
 					 ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink']
 				  ],
-				width: 300,
+				width: 675,
 				height: 100,
 				dialog_backgroundCoverColor: '#000',
 				defaultLanguage: '<?php echo config_item('default_language'); ?>',
@@ -38,7 +38,7 @@
 					['ShowBlocks', 'RemoveFormat', 'Source']
 				],
 				extraPlugins: 'pyroimages,pyrofiles',
-				width: 700,
+				width: 675,
 				height: 300,
 				dialog_backgroundCoverColor: '#000',
 				removePlugins: 'elementspath',
