@@ -46,7 +46,7 @@ class Streams_m extends MY_Model {
 		array(
 			'field'	=> 'stream_slug',
 			'label' => 'Steam Slug',
-			'rules'	=> 'trim|required|max_length[60]|callback_mysql_safe'
+			'rules'	=> 'trim|required|max_length[60]|slug_safe'
 		),
 		array(
 			'field'	=> 'about',
@@ -146,14 +146,15 @@ class Streams_m extends MY_Model {
 	 * Create a new stream
 	 *
 	 * @access	public
+	 * @param	string - name of the stream
+	 * @param	string - stream slug
+	 * @param	[string - about the stream]
 	 * @return	bool
 	 */
-	public function create_new_stream()
-	{
-		$slug = $this->input->post('stream_slug');
-		
+	public function create_new_stream($stream_name, $stream_slug, $about = null)
+	{		
 		// See if table exists. You never know if it sneaked past validation
-		if($this->db->table_exists(STR_PRE.$slug)):
+		if($this->db->table_exists(STR_PRE.$stream_slug)):
 		
 			return FALSE;
 		
@@ -172,18 +173,18 @@ class Streams_m extends MY_Model {
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11' )
 		);
 		
-		$this->dbforge->add_field( $standard_fields );
+		$this->dbforge->add_field($standard_fields);
 		
-		if( ! $this->dbforge->create_table(STR_PRE.$slug) ):
+		if( !$this->dbforge->create_table(STR_PRE.$stream_slug) ):
 		
 			return FALSE;
 		
 		endif;
 		
 		// Add data into the streams table
-		$insert_data['stream_slug']			= $slug;
-		$insert_data['stream_name']			= $this->input->post('stream_name');
-		$insert_data['about']				= $this->input->post('about');
+		$insert_data['stream_slug']			= $stream_slug;
+		$insert_data['stream_name']			= $stream_name;
+		$insert_data['about']				= $about;
 		$insert_data['title_column']		= null;
 		
 		// Since this is a new stream, we are going to add a basic view profile
@@ -200,20 +201,21 @@ class Streams_m extends MY_Model {
 	 *
 	 * @access	public
 	 * @param	int
+	 * @param	array - update_data
 	 * @return	bool
 	 */
-	public function update_stream($stream_id)
+	public function update_stream($stream_id, $data)
 	{
 		// See if the stream slug is different
-		$stream = $this->get_stream( $stream_id );
+		$stream = $this->get_stream($stream_id);
 		
-		if( $stream->stream_slug != $this->input->post('stream_slug') ):
+		if( $stream->stream_slug != $data['stream_slug'] ):
 		
 			// Okay looks like we need to alter the table name.			
 			// Check to see if there is a table, then alter it.
-			if( $this->db->table_exists(STR_PRE.$this->input->post('stream_slug')) ):
+			if( $this->db->table_exists(STR_PRE.$data['stream_slug']) ):
 			
-				show_error(sprintf(lang('streams.table_exists'), $this->input->post('stream_slug')));
+				show_error(sprintf(lang('streams.table_exists'), $data['stream_slug']));
 			
 			endif;
 			
@@ -221,20 +223,20 @@ class Streams_m extends MY_Model {
 			
 			// Using the PyroStreams DB prefix because rename_table
 			// does not prefix the table name properly, it would seem
-			if( !$this->dbforge->rename_table(STR_PRE.$stream->stream_slug, STR_PRE.$this->input->post('stream_slug')) ):
+			if( !$this->dbforge->rename_table(STR_PRE.$stream->stream_slug, STR_PRE.$data['stream_slug']) ):
 			
 				return FALSE;
 			
 			endif;
 		
-			$update_data['stream_slug']	= $this->input->post('stream_slug');
+			$update_data['stream_slug']	= $data['stream_slug'];
 		
 		endif;
 		
-		$update_data['stream_name']		= $this->input->post('stream_name'); 
-		$update_data['about']			= $this->input->post('about');
-		$update_data['title_column']	= $this->input->post('title_column');
-		$update_data['sorting']			= $this->input->post('sorting');
+		$update_data['stream_name']		= $data['stream_name']; 
+		$update_data['about']			= $data['about'];
+		$update_data['title_column']	= $data['title_column'];
+		$update_data['sorting']			= $data['sorting'];
 		
 		$this->db->where('id', $stream_id);
 		return $this->db->update($this->table, $update_data);
@@ -571,9 +573,10 @@ class Streams_m extends MY_Model {
 	 * @access  public
 	 * @param	int
 	 * @param	int
+	 * @param	array - data
 	 * @return	bool
 	 */
-	public function add_field_to_stream($field_id, $stream_id)
+	public function add_field_to_stream($field_id, $stream_id, $data)
 	{
 		// -------------------------------------
 		// Get the field data
@@ -646,7 +649,7 @@ class Streams_m extends MY_Model {
 		// See if this should be made the title column
 		// -------------------------------------
 
-		if( $this->input->post('title_column') == 'yes' ):
+		if( isset($data['title_column']) and $data['title_column'] == 'yes' ):
 		
 			$update_data['title_column'] = $field->field_slug;
 		
@@ -661,7 +664,9 @@ class Streams_m extends MY_Model {
 		
 		$insert_data['stream_id'] 		= $stream_id;
 		$insert_data['field_id']		= $field_id;
-		$insert_data['instructions']	= $this->input->post('instructions');
+		
+		if(isset($data['instructions']))
+			$insert_data['instructions']	= $data['instructions'];
 		
 		// +1 for ordering.
 		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
@@ -680,20 +685,20 @@ class Streams_m extends MY_Model {
 		endif;
 		
 		// Is Required
-		if( $this->input->post('is_required') == 'yes' ):
+		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
 		
 			$insert_data['is_required']		= 'yes';
 
 		endif;
 		
 		// Unique		
-		if( $this->input->post('is_unique') == 'yes' ):
+		if( isset($data['is_unique']) and  $data['is_unique'] == 'yes' ):
 		
 			$insert_data['is_unique']		= 'yes';
 
 		endif;
 		
-		if( ! $this->db->insert(ASSIGN_TABLE, $insert_data) ):
+		if( !$this->db->insert(ASSIGN_TABLE, $insert_data) ):
 		
 			return FALSE;
 		

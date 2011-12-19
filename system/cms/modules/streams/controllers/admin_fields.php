@@ -18,6 +18,8 @@ class Admin_Fields extends Admin_Controller {
 	 */
 	protected $section = 'fields';
 
+	// --------------------------------------------------------------------------   
+
     function __construct()
     {
         parent::__construct();
@@ -93,7 +95,7 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 
 		// Add in the unique callback
-		$this->fields_m->fields_validation[1]['rules'] .= '|callback_unique_field_slug[new]';
+		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
 		
 		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
 				
@@ -236,7 +238,7 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 
 		// Add in the unique callback
-		$this->fields_m->fields_validation[1]['rules'] .= '|callback_unique_field_slug['.$this->data->current_field->field_slug.']';
+		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$this->data->current_field->field_slug.']';
 		
 		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
 				
@@ -264,7 +266,10 @@ class Admin_Fields extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->fields_m->update_field($this->fields_m->get_field($field_id)) ):
+			if( !$this->fields_m->update_field(
+										$this->fields_m->get_field($field_id),
+										$this->input->post()
+									) ):
 			
 				$this->session->set_flashdata('notice', lang('streams.field_update_error'));	
 			
@@ -287,6 +292,9 @@ class Admin_Fields extends Admin_Controller {
 
 	/**
 	 * Delete a field
+	 *
+	 * @access	public
+	 * @return	void
 	 */	
 	public function delete()
 	{
@@ -294,7 +302,7 @@ class Admin_Fields extends Admin_Controller {
 	
 		$field_id = $this->uri->segment(5);
 		
-		if( ! $this->fields_m->delete_field( $field_id ) ):
+		if( ! $this->fields_m->delete_field($field_id) ):
 		
 			$this->session->set_flashdata('notice', lang('streams.field_delete_error'));	
 		

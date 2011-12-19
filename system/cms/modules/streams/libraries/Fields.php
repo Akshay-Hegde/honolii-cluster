@@ -215,7 +215,13 @@ class Fields
 			
 			else:
 			
-				if( ! $result_id = $this->CI->row_m->update_entry($this->data->stream_fields, $this->data->stream, $row->id, $skips ) ):
+				if( ! $result_id = $this->CI->row_m->update_entry(
+													$this->data->stream_fields,
+													$this->data->stream,
+													$row->id,
+													$this->CI->input->post(),
+													$skips
+												)):
 				
 					$this->CI->session->set_flashdata('notice', $this->CI->lang->line('streams.update_entry_error'));	
 				

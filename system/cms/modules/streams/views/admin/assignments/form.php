@@ -1,8 +1,8 @@
 <section class="title">
 <?php if( $method == 'new' ): ?>
-	<h4><?php echo $stream->stream_name;?> &rarr; <?php echo lang('streams.assign_field');?></h4>
+	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.assign_field');?></h4>
 <?php else: ?>
-	<h4><?php echo $stream->stream_name;?> &rarr; <?php echo lang('streams.edit_assign');?></h4>
+	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.edit_assign');?></h4>
 <?php endif; ?>
 </section>
 

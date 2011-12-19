@@ -1019,10 +1019,11 @@ class Row_m extends MY_Model {
 	 * @param	obj
 	 * @param 	string
 	 * @param	int
+	 * @param	array - update data
 	 * @param	skips - optional array of skips
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $skips = array())
+	public function update_entry($fields, $stream, $row_id, $data, $skips = array())
 	{
 		// -------------------------------------
 		// Run through fields
@@ -1044,7 +1045,7 @@ class Row_m extends MY_Model {
 					if( method_exists($type, 'pre_save') ):
 					
 						$update_data[$field->field_slug] = $type->pre_save(
-									$this->input->post($field->field_slug),
+									$data[$field->field_slug],
 									$field,
 									$stream,
 									$row_id
@@ -1052,7 +1053,7 @@ class Row_m extends MY_Model {
 						
 					else:
 					
-						$update_data[$field->field_slug] = $this->input->post($field->field_slug);
+						$update_data[$field->field_slug] = $data[$field->field_slug];
 	
 						// Make null - some fields don't like just blank values
 						if($update_data[$field->field_slug] == '') $update_data[$field->field_slug] = NULL;
@@ -1067,7 +1068,7 @@ class Row_m extends MY_Model {
 					if( method_exists($type, 'pre_save') ):
 					
 						$type->pre_save(
-									$this->input->post($field->field_slug),
+									$data[$field->field_slug],
 									$field,
 									$stream,
 									$row_id
@@ -1093,7 +1094,7 @@ class Row_m extends MY_Model {
 		
 		$this->db->where('id', $row_id);
 		
-		if( ! $this->db->update(STR_PRE.$stream->stream_slug, $update_data) ):
+		if( !$this->db->update(STR_PRE.$stream->stream_slug, $update_data) ):
 		
 			return FALSE;
 		
@@ -1110,13 +1111,13 @@ class Row_m extends MY_Model {
 	 * Insert field to a stream
 	 *
 	 * @access	public
-	 * @param	array - the post data
+	 * @param	array - data
 	 * @param	obj - our stream fields
 	 * @param	obj - our stream
 	 * @param	array - optional skipping fields
 	 * @return	mixed
 	 */
-	public function insert_entry($post, $fields, $stream, $skips = array())
+	public function insert_entry($data, $fields, $stream, $skips = array())
 	{
 		// -------------------------------------
 		// Run through fields
@@ -1132,7 +1133,7 @@ class Row_m extends MY_Model {
 		
 				$type = $this->type->types->{$field->field_type};
 				
-				if(isset($post[$field->field_slug]) and $post[$field->field_slug] != ''):
+				if(isset($data[$field->field_slug]) and $data[$field->field_slug] != ''):
 				
 					// We don't process the alt process stuff.
 					// This is for field types that store data outside of the
@@ -1145,14 +1146,14 @@ class Row_m extends MY_Model {
 					
 						if( method_exists($type, 'pre_save') ):
 						
-							$post[$field->field_slug] = $type->pre_save($post[$field->field_slug], $field, $stream);
+							$data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream);
 						
 						endif;
 						
 						// Trim if a string
-						if(is_string($post[$field->field_slug])) $post[$field->field_slug] = trim($post[$field->field_slug]);
+						if(is_string($data[$field->field_slug])) $data[$field->field_slug] = trim($data[$field->field_slug]);
 						
-						$insert_data[$field->field_slug] = $post[$field->field_slug];
+						$insert_data[$field->field_slug] = $data[$field->field_slug];
 
 						// Make null - some fields don't like just blank values
 						if($insert_data[$field->field_slug] == '') $insert_data[$field->field_slug] = NULL;
@@ -1217,7 +1218,7 @@ class Row_m extends MY_Model {
 			// Process any alt process stuff
 			foreach($alt_process as $field_slug):
 						
-				$this->type->types->{$fields->$field_slug->field_type}->pre_save($post[$field_slug], $fields->{$field_slug}, $stream, $id);
+				$this->type->types->{$fields->$field_slug->field_type}->pre_save($data[$field_slug], $fields->{$field_slug}, $stream, $id);
 			
 			endforeach;
 			
