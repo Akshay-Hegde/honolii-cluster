@@ -20,7 +20,7 @@
 		<?php foreach ($data as $field => $data_item):?>
 			<tr>
 				<?php if($stream->sorting == 'custom'): ?><td width="30" class="handle"><?php echo image('icons/drag_handle.gif'); ?></td><?php endif; ?>
-				<?php foreach( $stream->view_options as $view_option ): ?>
+				<?php if(is_array($stream->view_options)): foreach( $stream->view_options as $view_option ): ?>
 				<td>
 				
 				<input type="hidden" name="action_to[]" value="<?php echo $data_item->id;?>" />
@@ -42,12 +42,12 @@
 					endif;
 					
 				?></td>
-				<?php endforeach; ?>
+				<?php endforeach; endif; ?>
 				<td class="actions">
 				
-					<?php echo anchor('admin/streams/entries/edit/'.$stream->id.'/'.$data_item->id, 'Edit', 'class="button"'); ?>
-					<?php echo anchor('admin/streams/entries/view/'.$stream->id.'/'.$data_item->id, 'View', 'class="button"'); ?>
-					<?php echo anchor('admin/streams/entries/delete/'.$stream->id.'/'.$data_item->id, 'Delete', 'class="button confirm"'); ?>
+					<?php echo anchor('admin/streams/entries/edit/'.$stream->id.'/'.$data_item->id, lang('global:edit'), 'class="button"'); ?>
+					<?php echo anchor('admin/streams/entries/view/'.$stream->id.'/'.$data_item->id, lang('global:view'), 'class="button"'); ?>
+					<?php echo anchor('admin/streams/entries/delete/'.$stream->id.'/'.$data_item->id, lang('global:delete'), 'class="button confirm"'); ?>
 					
 				</td>
 			</tr>

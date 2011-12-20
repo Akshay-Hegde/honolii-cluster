@@ -3,5 +3,5 @@
 </section>
 
 <section class="item">
-<p><?php echo lang('streams.no_field_assign_msg');?> <?php echo anchor('admin/streams/new_assignment/'.$this->uri->segment(5), lang('streams.add_some_fields'))?>.</p>
+<div class="no_data"><?php echo lang('streams.no_field_assign_msg');?> <?php echo anchor('admin/streams/new_assignment/'.$this->uri->segment(5), lang('streams.add_some_fields'))?>.</div>
 </section>

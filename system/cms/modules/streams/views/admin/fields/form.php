@@ -38,7 +38,7 @@
 		
 		<li>
 			<label for="field_type"><?php echo lang('streams.label.field_type'); ?> <span>*</span></label>
-			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'id="field_type" onchange="add_field_parameters(\''.site_url($ajax_url).'\');"'); ?></div>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'data-placeholder="'.lang('streams.choose_a_field_type').'" id="field_type" onchange="add_field_parameters(\''.site_url($ajax_url).'\');"'); ?></div>
 		</li>
 	
 		<div id="parameters">
@@ -50,30 +50,25 @@
 		$data = array();
 		
 		$data['count'] = 0;
-		
+				
 		if( isset($current_type->custom_parameters) ):
 		
 			foreach( $current_type->custom_parameters as $param ):
 			
+				// Sometimes these values may not be set. Let's set
+				// them to null if they are not.
+				(isset($current_field->field_data[$param])) ? $value = $current_field->field_data[$param] : $value = null;
+						
 				if( method_exists($current_type, 'param_'.$param) ):
 				
 					$call = 'param_'.$param;
 					
-					$data['input'] 			= $current_type->$call($current_field->field_data[$param]);
-					
-					if(!isset($current_type->lang[CURRENT_LANGUAGE][$param])):
-	
-						$data['input_name']		= $current_type->lang['en'][$param];
-				
-					else:
-
-						$data['input_name']		= $current_type->lang[CURRENT_LANGUAGE][$param];
-					
-					endif;
+					$data['input'] 			= $current_type->$call($value);
+					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);				
 					
 				else:
 		
-					$data['input'] 			= $parameters->$param($current_field->field_data[$param]);
+					$data['input'] 			= $parameters->$param($value);
 					$data['input_name']		= $this->lang->line('streams.'.$param);
 				
 				endif;
@@ -83,6 +78,7 @@
 				echo $this->load->view('admin/ajax/extra_field', $data, TRUE);
 				
 				$data['count']++;
+				unset($value);
 			
 			endforeach;
 		
@@ -91,10 +87,10 @@
 		?>
 		
 		<?php endif; ?>
+		
+		</div>
 	
 	</ul>
-		
-</div>
 		
 		<div class="float-right buttons">
 		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	

@@ -12,7 +12,9 @@
 class Events_Streams {
     
     protected $CI;
-    
+ 
+  	// --------------------------------------------------------------------------
+   
     public function __construct()
     {
         $this->CI =& get_instance();
@@ -20,7 +22,9 @@ class Events_Streams {
         // Register the admin_notification event
         Events::register('admin_notification', array($this, 'display_notifications'));
     }
-    
+ 
+ 	// --------------------------------------------------------------------------
+   
     /**
      * Display PyroStreams custom notifications
      *

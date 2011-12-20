@@ -10,9 +10,7 @@
  * @link		http://parse19.com/pyrostreams
  */
 class Field_datetime
-{
-	public $field_type_name 		= 'Date/Time';
-	
+{	
 	public $field_type_slug			= 'datetime';
 	
 	public $db_col_type				= 'datetime';
@@ -23,30 +21,12 @@ class Field_datetime
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $lang					= array(
-	
-		'en'	=> array(
-				'use_time'		=> 'Use Time',
-				'timezone'		=> 'Timezone',
-				'start_date'	=> 'Start Restriction',
-				'end_date'		=> 'End Restriction'
-		)
-	
-	);			
-
 	// --------------------------------------------------------------------------
 	
 	public $date_formats = array('DATE_ATOM', 'DATE_COOKIE', 'DATE_ISO8601', 'DATE_RFC822', 'DATE_RFC850', 'DATE_RFC1036', 'DATE_RFC1123', 'DATE_RFC2822', 'DATE_RSS', 'DATE_W3C');
 		
 	// --------------------------------------------------------------------------
 	
-	function __construct()
-	{
-		$this->CI = get_instance();
-	}
-
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Output form input
 	 *
@@ -54,7 +34,7 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data)
 	{			
 		$date = $this->_break_date( trim($data['value']), $data['form_slug'], $data['custom']['use_time'] );
 
@@ -67,8 +47,8 @@ class Field_datetime
 	
 		$current_year = date('Y');
 		
-		if(isset($data['custom']['start_date']) and $data['custom']['start_date']) $dp_mods[] = 'maxDate: "'.$data['custom']['start_date'].'"';
-		if(isset($data['custom']['end_date']) and $data['custom']['end_date']) $dp_mods[] = 'minDate: "'.$data['custom']['end_date'].'"';	
+		if(isset($data['custom']['start_date']) and $data['custom']['start_date']) $dp_mods[] = 'minDate: "'.$data['custom']['start_date'].'"';
+		if(isset($data['custom']['end_date']) and $data['custom']['end_date']) $dp_mods[] = 'maxDate: "'.$data['custom']['end_date'].'"';	
 			
 		$date_input = '
 				
@@ -176,6 +156,8 @@ class Field_datetime
 	/**
 	 * Event
 	 *
+	 * Add datepicker CSS
+	 *
 	 * @access	public
 	 * @return	void
 	 */
@@ -236,7 +218,7 @@ class Field_datetime
 		// Run through assignments to change the col type
 		foreach($assignments as $assign):
 		
-			$this->CI->db->query("ALTER TABLE ".STR_PRE.$assign->stream_slug." CHANGE {$this->CI->input->post('field_slug')} {$this->CI->input->post('field_slug')} $switch_to");
+			$this->CI->db->query("ALTER TABLE ".$this->CI->db->dbprefix(STR_PRE.$assign->stream_slug)." CHANGE {$this->CI->input->post('field_slug')} {$this->CI->input->post('field_slug')} $switch_to");
 
 		endforeach;
 	}
@@ -251,7 +233,7 @@ class Field_datetime
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save( $input, $field )
+	public function pre_save($input, $field)
 	{
 		$this->CI =& get_instance();
 		
@@ -315,7 +297,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	private function _process_year_input( $years_data )
+	private function _process_year_input($years_data)
 	{
 		// Blank value or current year.
 		if(trim($years_data) == '' or $years_data == 'current' ) return date('Y');
@@ -439,7 +421,7 @@ class Field_datetime
 		$options['id']		= 'start_date';
 		$options['value']	= $value;
 		
-		return form_input($options).'<p class="note">Takes numerical offset from current date (Ex: -20) or numerical offset for days (D), months (M), and years (Y). Ex: +1D +2Y</p>';
+		return form_input($options).'<p class="note">'.$this->CI->lang->line('streams.datetime.rest_instructions').'</p>';
 	}
 
 	// --------------------------------------------------------------------------
@@ -457,7 +439,7 @@ class Field_datetime
 		$options['id']		= 'end_date';
 		$options['value']	= $value;
 		
-		return form_input($options).'<p class="note">Takes numerical offset from current date (Ex: -20) or numerical offset for days (D), months (M), and years (Y). Ex: +1D +2Y</p>';
+		return form_input($options).'<p class="note">'.$this->CI->lang->line('streams.datetime.rest_instructions').'</p>';
 	}
 
 	// --------------------------------------------------------------------------
@@ -501,21 +483,26 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output( $input, $params )
+	public function pre_output($input, $params)
 	{
-		if( $params['use_time'] == 'yes' ):
+		$this->CI->load->helper('date');
 		
-			return $input;
-		
-		else:
-		
-			$parts = explode(" ", $input);
+		if($this->CI->uri->segment(1) == 'admin'):
 			
-			if( isset($parts[0]) ):
+			// Format for admin
+			if($params['use_time'] == 'no'):
 			
-				return $parts[0];
+				return(date($this->CI->settings->get('date_format'), mysql_to_unix($input)));
+				
+			else:
+
+				return(date($this->CI->settings->get('date_format').' g:i a', mysql_to_unix($input)));
 			
 			endif;
+					
+		else:
+			
+			return(mysql_to_unix($input));
 		
 		endif;
 	}
@@ -529,7 +516,7 @@ class Field_datetime
 	 * @param	array
 	 * @return	string
 	 */
-	public function alt_process_plugin( $data )
+	public function alt_process_plugin($data)
 	{
 		$this->CI =& get_instance();
 		
@@ -572,7 +559,7 @@ class Field_datetime
 	 * @param	[bool]
 	 * @return	string
 	 */	
-	private function _format_date( $format, $unix_date, $standard = FALSE )
+	private function _format_date($format, $unix_date, $standard = FALSE)
 	{
 		if( ! $unix_date ):
 		

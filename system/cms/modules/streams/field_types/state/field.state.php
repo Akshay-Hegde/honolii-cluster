@@ -11,8 +11,6 @@
  */
 class Field_state
 {
-	public $field_type_name 		= 'US State';
-	
 	public $field_type_slug			= 'state';
 	
 	public $db_col_type				= 'varchar';
@@ -22,13 +20,6 @@ class Field_state
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
 	// --------------------------------------------------------------------------
-	
-	public function __construct()
-	{
-		$this->states = $this->states();
-	}
-	
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -37,9 +28,9 @@ class Field_state
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output($data)
+	public function form_output($data, $entry_id, $field)
 	{
-		return form_dropdown($data['form_slug'], $this->states, $data['value'], 'id="'.$data['form_slug'].'"');
+		return form_dropdown($data['form_slug'], $this->states($field->is_required), $data['value'], 'id="'.$data['form_slug'].'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -51,11 +42,13 @@ class Field_state
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output( $input )
+	public function pre_output($input)
 	{
-		if( isset($this->states[$input]) ):
+		$states = $this->states('yes');
+	
+		if( isset($states[$input]) ):
 		
-			return $this->states[$input];
+			return $states[$input];
 		
 		else:
 		
@@ -74,9 +67,17 @@ class Field_state
 	 * @access	private
 	 * @return	array
 	 */
-	private function states()
+	private function states($is_required)
 	{
-		return array('AL'=>"AL",  
+		$choices = array();
+	
+		if($is_required == 'no'):
+			
+			$choices[null] = get_instance()->config->item('dropdown_choose_null');
+		
+		endif;	
+	
+		$states = array('AL'=>"AL",  
 			'AK'=>"AK",  
 			'AZ'=>"AZ",  
 			'AR'=>"AR",  
@@ -127,9 +128,10 @@ class Field_state
 			'WV'=>"WV",  
 			'WI'=>"WI",  
 			'WY'=>"WY");
+		
+		return array_merge($choices, $states);
 	}
 	
 }
 
 /* End of file field.state.php */
-/* Location: /streams/field_types/field.state.php */

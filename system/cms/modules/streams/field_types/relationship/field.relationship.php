@@ -11,8 +11,6 @@
  */
 class Field_relationship
 {
-	public $field_type_name 		= 'Relationship';
-	
 	public $field_type_slug			= 'relationship';
 	
 	public $db_col_type				= 'int';
@@ -23,21 +21,6 @@ class Field_relationship
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $lang					= array(
-	
-		'en'	=> array(
-				'choose_stream'	=> 'Relationship Stream'
-		)
-	
-	);			
-	
-	// --------------------------------------------------------------------------
-	
-	function __construct()
-	{
-		$this->CI =& get_instance();
-	}
-
 	// --------------------------------------------------------------------------
 
 	/**
@@ -47,13 +30,13 @@ class Field_relationship
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data )
+	public function form_output($data, $entry_id, $field)
 	{	
 		// Get slug stream
 		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
 		
 		// @todo - languagize
-		if(!$stream) return '<em>Related stream does not exist.</em>';
+		if(!$stream) return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
 
 		$title_column = $stream->title_column;
 		
@@ -68,6 +51,14 @@ class Field_relationship
 		$obj = $this->CI->db->get( STR_PRE.$stream->stream_slug );
 		
 		$choices = array();
+		
+		// If this is not required, then
+		// let's allow a null option
+		if($field->is_required == 'no'):
+		
+			$choices[null] = $this->CI->config->item('dropdown_choose_null');
+		
+		endif;
 		
 		foreach($obj->result() as $row):
 		
@@ -178,13 +169,8 @@ class Field_relationship
 	 * @param	string
 	 * @param	array
 	 */
-	function pre_output_plugin($prefix, $row, $custom)
+	function pre_output_plugin($row, $custom)
 	{
-		// We only want to do this for second level stuff.
-		// First level gets taken care of by a join.
-		$segs = explode('.', $prefix);
-		if(count($segs) == 2) return;
-		
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
 		
@@ -194,17 +180,15 @@ class Field_relationship
 		
 		$returned_row = $obj->row();
 		
-		$return = array(rtrim($prefix.$r, '.') => $returned_row->{$stream->title_column});
+		foreach($returned_row as $key => $val):
 		
-		foreach($returned_row as $r => $val):
-		
-			$return[$prefix.$r] = $val;
+			$return[$key] = $val;
 		
 		endforeach;
 		
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 
-		return $this->CI->row_m->format_row( $return, $stream_fields, $stream, FALSE, TRUE, $prefix );
+		return $this->CI->row_m->format_row($return, $stream_fields, $stream, FALSE, TRUE);
 	}
 
 }

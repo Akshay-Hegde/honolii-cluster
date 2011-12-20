@@ -11,8 +11,6 @@
  */
 class Field_text
 {
-	public $field_type_name 		= 'Text';
-	
 	public $field_type_slug			= 'text';
 	
 	public $db_col_type				= 'varchar';
@@ -38,7 +36,7 @@ class Field_text
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
-		if( is_numeric($data['max_length']) ):
+		if( isset($data['max_length']) and is_numeric($data['max_length']) ):
 		
 			$options['maxlength'] = $data['max_length'];
 		

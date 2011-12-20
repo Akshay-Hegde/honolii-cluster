@@ -203,7 +203,7 @@ class Fields
 		
 			if($method == 'new'):
 	
-				if( ! $result_id = $this->CI->fields_m->insert_fields_to_stream($_POST, $this->data->stream_fields, $this->data->stream, $skips ) ):
+				if( ! $result_id = $this->CI->row_m->insert_entry($_POST, $this->data->stream_fields, $this->data->stream, $skips ) ):
 				
 					$this->CI->session->set_flashdata('notice', $this->CI->lang->line('streams.add_entry_error'));	
 				
@@ -215,7 +215,13 @@ class Fields
 			
 			else:
 			
-				if( ! $result_id = $this->CI->row_m->update_row($this->data->stream_fields, $this->data->stream, $row->id, $skips ) ):
+				if( ! $result_id = $this->CI->row_m->update_entry(
+													$this->data->stream_fields,
+													$this->data->stream,
+													$row->id,
+													$this->CI->input->post(),
+													$skips
+												)):
 				
 					$this->CI->session->set_flashdata('notice', $this->CI->lang->line('streams.update_entry_error'));	
 				
@@ -228,7 +234,6 @@ class Fields
 			endif;
 			
 			// Redirect based on if this is a plugin call or not
-
 			if( $plugin ):
 						
 				redirect( str_replace('-id-', $result_id, $this->data->return) );

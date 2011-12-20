@@ -1,14 +1,14 @@
 <section class="title">
 <?php if( $method == 'new' ): ?>
-	<h4><?php echo $stream->stream_name;?> &rarr; <?php echo lang('streams.assign_field');?></h4>
+	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.assign_field');?></h4>
 <?php else: ?>
-	<h4><?php echo $stream->stream_name;?> &rarr; <?php echo lang('streams.edit_assign');?></h4>
+	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.edit_assign');?></h4>
 <?php endif; ?>
 </section>
 
 <section class="item">
 
-<?php if( count($available_fields) > 0 or $method == 'edit' ): ?>
+<?php if( count($available_fields) > 1 or $method == 'edit' ): ?>
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 
@@ -28,7 +28,7 @@
 			
 			else:
 			
-				echo form_dropdown('field_id', $available_fields, $row->field_id, 'id="field_id"'); 
+				echo form_dropdown('field_id', $available_fields, $row->field_id, 'data-placeholder="'.lang('streams.choose_a_field').'" id="field_id"'); 
 				
 			endif;
 			
@@ -68,7 +68,9 @@
 
 <?php else: ?>
 
-	<p><?php echo lang('streams.start.no_fields_to_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.</p>
+	<div class="no_data">
+	<?php echo lang('streams.start.no_fields_to_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.
+	</div>
 
 <?php endif; ?>
 

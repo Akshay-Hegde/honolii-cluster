@@ -18,6 +18,8 @@ class Admin_Entries extends Admin_Controller {
 	 */
 	protected $section = 'streams';
 
+	// --------------------------------------------------------------------------   
+
     function __construct()
     {
         parent::__construct();
@@ -41,7 +43,7 @@ class Admin_Entries extends Admin_Controller {
 		
 		if(!$this->data->stream = $this->streams_m->get_stream($this->data->stream_id)):
 		
-			show_error("Invalid Stream ID");
+			show_error(lang('streams.invalid_stream_id'));
 		
 		endif;
 	}
@@ -65,10 +67,10 @@ class Admin_Entries extends Admin_Controller {
 		
  		$this->data->stream_fields = $this->streams_m->get_stream_fields($this->data->stream_id);
  		
-  		$this->data->stream_fields->id->field_name 				= "ID";
-		$this->data->stream_fields->created->field_name 		= "Created On";
- 		$this->data->stream_fields->updated->field_name 		= "Updated On";
- 		$this->data->stream_fields->created_by->field_name 		= "Created By";
+  		$this->data->stream_fields->id->field_name 				= lang('streams.id');
+		$this->data->stream_fields->created->field_name 		= lang('streams.created_date');
+ 		$this->data->stream_fields->updated->field_name 		= lang('streams.updated_date');
+ 		$this->data->stream_fields->created_by->field_name 		= lang('streams.created_by');
 
  		$offset = $this->uri->segment($offset_uri, 0);
 
@@ -156,7 +158,7 @@ class Admin_Entries extends Admin_Controller {
 		
 		$stream_id = $this->uri->segment(5);
 		
-		if(!$this->data->stream = $this->streams_m->get_stream($stream_id)) show_error("Invalid Stream");
+		if(!$this->data->stream = $this->streams_m->get_stream($stream_id)) show_error(lang('streams.invalid_stream'));
 	
  		// -------------------------------------
 		// Get Row
@@ -164,7 +166,7 @@ class Admin_Entries extends Admin_Controller {
 		
 		$row_id = $this->uri->segment($row_id_uri);
 		
-		if(!$row = $this->row_m->get_row($row_id, $this->data->stream, FALSE ) ) show_error("Invalid row");
+		if(!$row = $this->row_m->get_row($row_id, $this->data->stream, FALSE ) ) show_error(lang('streams.invalid_row'));
 
  		// -------------------------------------
 		// Run Form

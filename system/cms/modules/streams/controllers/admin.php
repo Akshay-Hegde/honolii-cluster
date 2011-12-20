@@ -102,7 +102,7 @@ class Admin extends Admin_Controller {
 		
 		if(!$this->data->stream = $this->streams_m->get_stream($this->data->stream_id)):
 		
-			show_error("Invalid Stream ID");
+			show_error(lang('streams.invalid_stream_id'));
 		
 		endif;
     }
@@ -220,7 +220,7 @@ class Admin extends Admin_Controller {
 		// Validation & Setup
 		// -------------------------------------
 
-		$this->streams_m->streams_validation[1]['rules'] .= '|callback_stream_unique[new]';
+		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique[new]';
 		
 		$this->streams_validation->set_rules( $this->streams_m->streams_validation  );
 				
@@ -240,14 +240,18 @@ class Admin extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->streams_m->create_new_stream() ):
-			{
+			if( !$this->streams_m->create_new_stream(
+										$this->input->post('stream_name'),
+										$this->input->post('stream_slug'),
+										$this->input->post('about')
+								) ):
+			
 				$this->session->set_flashdata('notice', lang('streams.create_stream_error'));	
-			}
+			
 			else:
-			{
+			
 				$this->session->set_flashdata('success', lang('streams.create_stream_success'));	
-			}
+			
 			endif;
 	
 			redirect('admin/streams');
@@ -312,7 +316,7 @@ class Admin extends Admin_Controller {
 		// Validation & Setup
 		// -------------------------------------
 
-		$this->streams_m->streams_validation[1]['rules'] .= '|callback_stream_unique['.$this->data->stream->stream_slug.']';
+		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique['.$this->data->stream->stream_slug.']';
 		
 		$this->streams_validation->set_rules( $this->streams_m->streams_validation  );
 				
@@ -322,7 +326,7 @@ class Admin extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->streams_m->update_stream( $stream_id ) ):
+			if( !$this->streams_m->update_stream($stream_id, $this->input->post() ) ):
 			
 				$this->session->set_flashdata('notice', lang('streams.stream_update_error'));	
 			
@@ -375,13 +379,13 @@ class Admin extends Admin_Controller {
 			else:
 			
 				if( ! $this->streams_m->delete_stream( $this->data->stream ) ):
-				{
+				
 					$this->session->set_flashdata('notice', lang('streams.stream_delete_error'));	
-				}
+				
 				else:
-				{
+				
 					$this->session->set_flashdata('success', lang('streams.stream_delete_success'));	
-				}
+				
 				endif;
 			
 				redirect('admin/streams');
@@ -483,7 +487,7 @@ class Admin extends Admin_Controller {
 		$this->_manage_fields();
 		
 		// Get fields that are available
-		$this->data->available_fields = array();
+		$this->data->available_fields = array(null => null);
 		
 		foreach($this->data->fields as $field):
 		
@@ -504,7 +508,11 @@ class Admin extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->streams_m->add_field_to_stream( $this->input->post('field_id'), $this->data->stream_id) ):
+			if( ! $this->streams_m->add_field_to_stream(
+										$this->input->post('field_id'),
+										$this->data->stream_id,
+										$this->input->post()
+									)):
 			
 				$this->session->set_flashdata('notice', lang('streams.stream_field_ass_add_error'));	
 			
@@ -548,13 +556,13 @@ class Admin extends Admin_Controller {
 		
 		$id = $this->uri->segment(5);
 		
-		if( !is_numeric($id) ) show_error('Invalid ID');
+		if( !is_numeric($id) ) show_error(lang('streams.invalid_id'));
 		
 		$this->db->limit(1)->where('id', $id);
 		
 		$db_obj = $this->db->get(ASSIGN_TABLE);
 		
-		if( $db_obj->num_rows() == 0 ) show_error('Invalid ID');
+		if( $db_obj->num_rows() == 0 ) show_error(lang('streams.invalid_id'));
 		
 		$this->data->row = $db_obj->row();
 		
@@ -562,7 +570,7 @@ class Admin extends Admin_Controller {
 		// Field
 		// -------------------------------------
 
-		$field = $this->fields_m->get_field( $this->data->row->field_id );
+		$field = $this->fields_m->get_field($this->data->row->field_id);
 
 		// -------------------------------------
 
@@ -570,7 +578,7 @@ class Admin extends Admin_Controller {
         
 		$this->_manage_fields();
 						
-		if( $field->field_slug == $this->data->stream->title_column ):
+		if($field->field_slug == $this->data->stream->title_column):
 		
 			$this->data->title_column_status = TRUE;
 		
@@ -602,7 +610,12 @@ class Admin extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->fields_m->edit_assignment( $this->data->row->id, $this->data->stream, $this->fields_m->get_field( $this->data->row->field_id ) ) ):
+			if( !$this->fields_m->edit_assignment(
+										$this->data->row->id,
+										$this->data->stream,
+										$this->fields_m->get_field($this->data->row->field_id),
+										$this->input->post()
+									) ):
 			
 				$this->session->set_flashdata('notice', lang('streams.stream_field_ass_upd_error'));	
 			
@@ -642,7 +655,7 @@ class Admin extends Admin_Controller {
 
 		$obj = $this->db->limit(1)->where('id', $field_assign_id)->get(ASSIGN_TABLE);
 		
-		if( $obj->num_rows() == 0 ) show_error('Cannot find field assignment.');
+		if( $obj->num_rows() == 0 ) show_error(lang('streams.cannot_find_assign'));
 		
 		$assignment = $obj->row();
  		
@@ -736,7 +749,6 @@ class Admin extends Admin_Controller {
 			$key = $valid['field'];
 			
 			// Get the data based on the method
-
 			if( $this->data->method == 'edit' ):
 			
 				$current_value = $this->data->row->$key;
@@ -748,7 +760,6 @@ class Admin extends Admin_Controller {
 			endif;
 			
 			// Set the values
-			
 			if( $key == 'is_required' or $key == 'is_unique' ):
 			
 				if( $current_value == 'yes' ):
@@ -807,158 +818,6 @@ class Admin extends Admin_Controller {
 		force_download($filename.'.zip', $backup);
 	}
 
-	// --------------------------------------------------------------------------
-	// Callback Functions
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Unique field slug
-	 *
-	 * Checks to see if the slug is unique based on the 
-	 * circumstances
-	 *
-	 * @access	public
-	 * @param	string
-	 * @param	string
-	 * @return	void
-	 */
-	public function unique_field_slug($field_slug, $mode)
-	{
-		$this->db->select('id');
-		$this->db->where('field_slug', trim($field_slug));
-		$db_obj = $this->db->get(FIELDS_TABLE);
-		
-		if( $mode == 'new' ):
-		
-			if( $db_obj->num_rows() > 0 ):
-			
-				$this->streams_validation->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
-				return FALSE;
-				
-			endif;
-		
-		else:
-		
-			// Mode should be the existing slug
-		
-			if( $field_slug != $mode ):
-		
-				// We're changing the slug?
-				// Better make sure it doesn't exist.
-				if( $db_obj->num_rows() != 0 ):
-				
-					$this->streams_validation->set_message('unique_field_slug', lang('streams.field_slug_not_unique'));
-					return FALSE;
-				
-				endif;
-			
-			endif;
-		
-		endif;
-
-		return TRUE;
-		
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Unique Stream Slug
-	 *
-	 * Checks to see if the stream is unique based on the 
-	 * stream_slug
-	 *
-	 * @access	public
-	 * @param	string
-	 * @param	string
-	 * @return	bool
-	 */
-	public function stream_unique($stream_slug, $mode)
-	{
-		$this->db->select('id')->where('stream_slug', trim($stream_slug));
-		$db_obj = $this->db->get(STREAMS_TABLE);
-		
-		if( $mode == 'new' ):
-		
-			if( $db_obj->num_rows() > 0 ):
-			
-				$this->streams_validation->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
-				return FALSE;
-				
-			endif;
-		
-		else:
-		
-			// Mode should be the existing slug
-			// We check the two to see if the slug is changing.
-			// If it is changing we of course need to make sure
-			// it is unique.
-			if( $stream_slug != $mode ):
-		
-				if( $db_obj->num_rows() != 0 ):
-				
-					$this->streams_validation->set_message('stream_unique', lang('streams.stream_slug_not_unique'));
-					return FALSE;
-				
-				endif;
-			
-			endif;
-		
-		endif;
-
-		return TRUE;
-		
-	}
-
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * MySQL Safe
-	 *
-	 * Sees if a word is mysql safe for the DB. Used for
-	 * stream_fields, etc.
-	 */
-	public function mysql_safe( $string )
-	{
-		// See if word is MySQL Reserved Word
-		if( in_array(strtoupper($string), $this->config->item('mysql_reserved')) ):
-		
-			$this->streams_validation->set_message('mysql_safe', lang('streams.not_mysql_safe_word'));
-			return FALSE;
-		
-		endif;
-		
-		// See if there are no-no characters
-		if( ! preg_match("/^([-a-z0-9_-])+$/i", $string) ):
-		
-			$this->streams_validation->set_message('mysql_safe', lang('streams.not_mysql_safe_characters'));
-			return FALSE;
-			
-		endif;
-		
-		return TRUE;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Make sure a type is valid
-	 *
-	 * @access	public
-	 * @param	string
-	 * @return	bool
-	 */	
-	public function type_valid( $string )
-	{
-		if( $string == '-' ):
-		
-			$this->streams_validation->set_message('type_valid', lang('streams.type_not_valid'));
-			return FALSE;
-			
-		endif;
-		
-		return TRUE;
-	}
 }
 
 /* End of file admin.php */

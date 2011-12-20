@@ -14,13 +14,16 @@ class Ajax extends Admin_Controller {
     function __construct()
     {
         parent::__construct();
-        
+ 
+		$this->load->helper('streams/streams');        
+		streams_constants();
+       
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('Type');
         
         // Only AJAX gets through!
-        if( !$this->input->is_ajax_request() ) show_error("AJAX Requests Only.");
+        if( !$this->input->is_ajax_request() ) die();
     }
 
 	// --------------------------------------------------------------------------
@@ -73,19 +76,8 @@ class Ajax extends Admin_Controller {
 				$call = 'param_'.$field;
 
 				$data['input'] 			= $field_type->$call();
+				$data['input_name']		= $this->lang->line('streams.'.$field_type->field_type_slug.'.'.$field);
 
-				// If there is no support for the current language,
-				// we fall back on English
-				if(!isset($field_type->lang[CURRENT_LANGUAGE][$field])):
-
-					$data['input_name']		= $field_type->lang['en'][$field];
-			
-				else:
-
-					$data['input_name']		= $field_type->lang[CURRENT_LANGUAGE][$field];
-				
-				endif;
-			
 			else:
 			
 				return false;

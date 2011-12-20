@@ -46,7 +46,7 @@ class Streams_m extends MY_Model {
 		array(
 			'field'	=> 'stream_slug',
 			'label' => 'Steam Slug',
-			'rules'	=> 'trim|required|max_length[60]|callback_mysql_safe'
+			'rules'	=> 'trim|required|max_length[60]|slug_safe'
 		),
 		array(
 			'field'	=> 'about',
@@ -55,6 +55,8 @@ class Streams_m extends MY_Model {
 		)
 	);
 	
+    // --------------------------------------------------------------------------
+
 	function __construct()
 	{
 		$this->table = STREAMS_TABLE;
@@ -73,6 +75,9 @@ class Streams_m extends MY_Model {
 			else:
 	
 				$stream->view_options = unserialize($stream->view_options);
+				
+				// Just in case we get bad data
+				if(!is_array($stream->view_options)) $stream->view_options = array();
 			
 			endif;
 
@@ -141,14 +146,15 @@ class Streams_m extends MY_Model {
 	 * Create a new stream
 	 *
 	 * @access	public
+	 * @param	string - name of the stream
+	 * @param	string - stream slug
+	 * @param	[string - about the stream]
 	 * @return	bool
 	 */
-	public function create_new_stream()
-	{
-		$slug = $this->input->post('stream_slug');
-		
+	public function create_new_stream($stream_name, $stream_slug, $about = null)
+	{		
 		// See if table exists. You never know if it sneaked past validation
-		if($this->db->table_exists(STR_PRE.$slug)):
+		if($this->db->table_exists(STR_PRE.$stream_slug)):
 		
 			return FALSE;
 		
@@ -167,18 +173,18 @@ class Streams_m extends MY_Model {
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11' )
 		);
 		
-		$this->dbforge->add_field( $standard_fields );
+		$this->dbforge->add_field($standard_fields);
 		
-		if( ! $this->dbforge->create_table(STR_PRE.$slug) ):
+		if( !$this->dbforge->create_table(STR_PRE.$stream_slug) ):
 		
 			return FALSE;
 		
 		endif;
 		
 		// Add data into the streams table
-		$insert_data['stream_slug']			= $slug;
-		$insert_data['stream_name']			= $this->input->post('stream_name');
-		$insert_data['about']				= $this->input->post('about');
+		$insert_data['stream_slug']			= $stream_slug;
+		$insert_data['stream_name']			= $stream_name;
+		$insert_data['about']				= $about;
 		$insert_data['title_column']		= null;
 		
 		// Since this is a new stream, we are going to add a basic view profile
@@ -195,43 +201,42 @@ class Streams_m extends MY_Model {
 	 *
 	 * @access	public
 	 * @param	int
+	 * @param	array - update_data
 	 * @return	bool
 	 */
-	public function update_stream( $stream_id )
+	public function update_stream($stream_id, $data)
 	{
 		// See if the stream slug is different
-		$stream = $this->get_stream( $stream_id );
+		$stream = $this->get_stream($stream_id);
 		
-		if( $stream->stream_slug != $this->input->post('stream_slug') ):
+		if( $stream->stream_slug != $data['stream_slug'] ):
 		
-			// Okay looks like we need to alter the table name
+			// Okay looks like we need to alter the table name.			
+			// Check to see if there is a table, then alter it.
+			if( $this->db->table_exists(STR_PRE.$data['stream_slug']) ):
 			
-			// Check to see if there is a table, then alter it
-			
-			if( $this->db->table_exists(STR_PRE.$this->input->post('stream_slug')) ):
-			
-				show_error("A table with the slug '".$this->input->post('stream_slug')."' already exists.");
+				show_error(sprintf(lang('streams.table_exists'), $data['stream_slug']));
 			
 			endif;
 			
 			$this->load->dbforge();
 			
-			// Using the PyroStreams BD prefix because rename_table
-			// does not prefix the table anems properly, it would seem
-			if( !$this->dbforge->rename_table(STR_PRE.$stream->stream_slug, STR_PRE.$this->input->post('stream_slug')) ):
+			// Using the PyroStreams DB prefix because rename_table
+			// does not prefix the table name properly, it would seem
+			if( !$this->dbforge->rename_table(STR_PRE.$stream->stream_slug, STR_PRE.$data['stream_slug']) ):
 			
 				return FALSE;
 			
 			endif;
 		
-			$update_data['stream_slug']	= $this->input->post('stream_slug');
+			$update_data['stream_slug']	= $data['stream_slug'];
 		
 		endif;
 		
-		$update_data['stream_name']		= $this->input->post('stream_name'); 
-		$update_data['about']			= $this->input->post('about');
-		$update_data['title_column']	= $this->input->post('title_column');
-		$update_data['sorting']			= $this->input->post('sorting');
+		$update_data['stream_name']		= $data['stream_name']; 
+		$update_data['about']			= $data['about'];
+		$update_data['title_column']	= $data['title_column'];
+		$update_data['sorting']			= $data['sorting'];
 		
 		$this->db->where('id', $stream_id);
 		return $this->db->update($this->table, $update_data);
@@ -246,27 +251,48 @@ class Streams_m extends MY_Model {
 	 * @param	obj
 	 * @return	bool
 	 */
-	public function delete_stream( $stream )
+	public function delete_stream($stream)
 	{
+		// -------------------------------------
+		// Get assignments and run destructs
+		// -------------------------------------
+
+		$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
+		
+		if(is_array($assignments)):
+
+			foreach($assignments as $assignment):
+		
+				// Run the destruct
+				if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct')):
+				
+					$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->fields_m->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
+			
+				endif;		
+			
+			endforeach;
+		
+		endif;
+
 		// -------------------------------------
 		// Delete actual table
 		// -------------------------------------
 		
 		$this->load->dbforge();
 		
-		if( ! $this->dbforge->drop_table(STR_PRE.$stream->stream_slug) ):
+		if( !$this->dbforge->drop_table(STR_PRE.$stream->stream_slug) ):
 		
 			return FALSE;
 		
 		endif;
 
 		// -------------------------------------
-		// Delete from relationships
+		// Delete from assignments
 		// -------------------------------------
 		
 		$this->db->where('stream_id', $stream->id);
 		
-		if( ! $this->db->delete(ASSIGN_TABLE) ):
+		if( !$this->db->delete(ASSIGN_TABLE) ):
 		
 			return FALSE;
 		
@@ -276,9 +302,7 @@ class Streams_m extends MY_Model {
 		// Delete from streams table
 		// -------------------------------------
 		
-		$this->db->where('id', $stream->id);
-		
-		return $this->db->delete($this->table);
+		return $this->db->where('id', $stream->id)->delete($this->table);
 	}
 
 	// --------------------------------------------------------------------------
@@ -290,7 +314,7 @@ class Streams_m extends MY_Model {
 	 * @param	string
 	 * @return	mixed
 	 */	
-	public function get_stream_id_from_slug( $slug )
+	public function get_stream_id_from_slug($slug)
 	{
 		$db = $this->db->limit(1)->where('stream_slug', $slug)->get($this->table);
 		
@@ -549,9 +573,10 @@ class Streams_m extends MY_Model {
 	 * @access  public
 	 * @param	int
 	 * @param	int
+	 * @param	array - data
 	 * @return	bool
 	 */
-	public function add_field_to_stream($field_id, $stream_id)
+	public function add_field_to_stream($field_id, $stream_id, $data)
 	{
 		// -------------------------------------
 		// Get the field data
@@ -624,7 +649,7 @@ class Streams_m extends MY_Model {
 		// See if this should be made the title column
 		// -------------------------------------
 
-		if( $this->input->post('title_column') == 'yes' ):
+		if( isset($data['title_column']) and $data['title_column'] == 'yes' ):
 		
 			$update_data['title_column'] = $field->field_slug;
 		
@@ -639,7 +664,9 @@ class Streams_m extends MY_Model {
 		
 		$insert_data['stream_id'] 		= $stream_id;
 		$insert_data['field_id']		= $field_id;
-		$insert_data['instructions']	= $this->input->post('instructions');
+		
+		if(isset($data['instructions']))
+			$insert_data['instructions']	= $data['instructions'];
 		
 		// +1 for ordering.
 		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
@@ -658,20 +685,20 @@ class Streams_m extends MY_Model {
 		endif;
 		
 		// Is Required
-		if( $this->input->post('is_required') == 'yes' ):
+		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
 		
 			$insert_data['is_required']		= 'yes';
 
 		endif;
 		
 		// Unique		
-		if( $this->input->post('is_unique') == 'yes' ):
+		if( isset($data['is_unique']) and  $data['is_unique'] == 'yes' ):
 		
 			$insert_data['is_unique']		= 'yes';
 
 		endif;
 		
-		if( ! $this->db->insert(ASSIGN_TABLE, $insert_data) ):
+		if( !$this->db->insert(ASSIGN_TABLE, $insert_data) ):
 		
 			return FALSE;
 		
@@ -760,7 +787,7 @@ class Streams_m extends MY_Model {
 		// Remove from from field options
 		// -------------------------------------
 		
-		if( in_array($field->field_slug, $stream->view_options) ):
+		if( is_array($stream->view_options) and in_array($field->field_slug, $stream->view_options) ):
 		
 			$options = $stream->view_options;
 			
@@ -801,13 +828,12 @@ class Streams_m extends MY_Model {
 	 * @param	obj
 	 * @return 	bool
 	 */
-	public function delete_row( $row_id, $stream )
+	public function delete_row($row_id, $stream)
 	{
 		// Get the row
-		$this->db->select('ordering_count')->limit(1)->where('id', $row_id);
-		$db_obj = $this->db->get(STR_PRE.$stream->stream_slug);
+		$db_obj = $this->db->limit(1)->where('id', $row_id)->get(STR_PRE.$stream->stream_slug);
 		
-		if( $db_obj->num_rows() == 0 ) return FALSE;
+		if( $db_obj->num_rows() == 0 ) return false;
 		
 		// Get the ordering count
 		$row = $db_obj->row();
@@ -821,6 +847,30 @@ class Streams_m extends MY_Model {
 			return FALSE;
 		
 		else:
+		
+			// -------------------------------------
+			// Entry Destructs
+			// -------------------------------------
+			// Go through the assignments and call
+			// entry destruct methods
+			// -------------------------------------
+		
+			// Get the assignments
+			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
+			
+			// Do they have a destruct function?
+			foreach($assignments as $assign):
+			
+				if(method_exists($this->type->types->{$assign->field_type}, 'entry_destruct')):
+				
+					// Get the field
+					$field = $this->fields_m->get_field($assign->field_id);
+				
+					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+				
+				endif;
+			
+			endforeach;
 		
 			// -------------------------------------
 			// Reset reordering

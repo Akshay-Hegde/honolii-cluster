@@ -11,8 +11,6 @@
  */
 class Field_image
 {
-	public $field_type_name 		= 'Image';
-	
 	public $field_type_slug			= 'image';
 	
 	public $db_col_type				= 'int';
@@ -23,24 +21,13 @@ class Field_image
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $lang					= array(
-	
-		'en'	=> array(
-				'folder'		=> 'Upload Folder',
-				'resize_width'	=> 'Resize Width',
-				'resize_height'	=> 'Resize Height',
-				'allowed_types'	=> 'Allowed Types (Ex: jpg|png)'
-		)
-	
-	);			
-	
-	public $input_is_file				= TRUE;
+	public $input_is_file			= TRUE;
 
 	// --------------------------------------------------------------------------
 	
-	function __construct()
+	public function __construct()
 	{
-		$this->CI =& get_instance();
+		get_instance()->load->library('image_lib');
 	}
 	
 	// --------------------------------------------------------------------------
@@ -52,14 +39,11 @@ class Field_image
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $params )
+	public function form_output($params)
 	{
 		$this->CI->load->config('files/files');
 		
-		// Output the image
-		
-		// Get the file
-		
+		// Get the file		
 		$this->CI->db->limit(1);
 		$this->CI->db->where('id', $params['value']);
 		$db_obj = $this->CI->db->get('files');
@@ -113,7 +97,7 @@ class Field_image
 	 * @param	obj
 	 * @return	string
 	 */
-	public function pre_save( $input, $field )
+	public function pre_save($input, $field)
 	{	
 		// Only go through the pre_save upload if there is a file ready to go
 		if( isset($_FILES[$field->field_slug.'_file']['name']) && $_FILES[$field->field_slug.'_file']['name'] != '' ):
@@ -136,7 +120,6 @@ class Field_image
 		endif;
 	
 		$this->CI->load->model('files/file_m');
-		
 		$this->CI->load->config('files/files');
 
 		// Set upload data
@@ -159,7 +142,7 @@ class Field_image
 
 		if( ! $this->CI->upload->do_upload( $field->field_slug . '_file' ) ):
 		
-			$this->CI->session->set_flashdata('notice', 'The following errors occurred when adding your file: '.$this->CI->upload->display_errors());	
+			$this->CI->session->set_flashdata('notice', lang('streams.image.image_errors').' '.$this->CI->upload->display_errors());	
 			
 			return;
 		
@@ -167,40 +150,54 @@ class Field_image
 		
 			$image = $this->CI->upload->data();
 			
+			// -------------------------------------
+			// Upload File
+			// -------------------------------------
 			// We are going to use the PyroCMS way here.
-			
-			$this->CI->load->library('image_lib');
+			// -------------------------------------
 			
 			$img_config = array();
 			
 			// -------------------------------------
+			// Create Thumb
+			// -------------------------------------
 			// No matter what, we make a thumb
 			// -------------------------------------
-			
-			if( $image['image_width'] > 200 ):
 					
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder') . '/'.$image['file_name'];
-				$img_config['create_thumb'] 	= TRUE;
-				$img_config['maintain_ratio'] 	= TRUE;
-				$img_config['width']	 		= 200;
-				$img_config['height']	 		= 1;
-				$img_config['master_dim']	 	= 'width';
-				
-				$this->CI->image_lib->initialize($img_config);
-				
-				$this->CI->image_lib->resize();
-							
-				$this->CI->image_lib->clear();
-
+			$img_config['source_image']		= FCPATH.$this->CI->config->item('files_folder').$image['file_name'];
+			$img_config['create_thumb'] 	= TRUE;
+			$img_config['maintain_ratio'] 	= TRUE;
+			$img_config['height']	 		= 1;
+			$img_config['master_dim']	 	= 'width';
+			
+			// For small images, we don't want to
+			// make a thumb that is larger than
+			// the actual image.
+			if( $image['image_width'] > 200 ):
+			
+				$img_config['width']	 	= 200;
+			
+			else:
+			
+				$img_config['width']	 	= $image['image_width'];
+			
 			endif;
 			
+			//print_r($img_config);
+					
+			$this->CI->image_lib->initialize($img_config);
+			$this->CI->image_lib->resize();			
+			$this->custom_clear();
+			
+			unset($img_config);
+
 			// -------------------------------------
 			// Resize
 			// -------------------------------------
 			
 			if( is_numeric($field->field_data['resize_width']) ):
 			
-				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder') . '/'.$image['file_name'];
+				$img_config['source_image']		= FCPATH . $this->CI->config->item('files_folder').$image['file_name'];
 				$img_config['quality']			= '100%';
 				$img_config['create_thumb'] 	= FALSE;
 				$img_config['maintain_ratio'] 	= TRUE;
@@ -225,10 +222,8 @@ class Field_image
 				endif;
 				
 				$this->CI->image_lib->initialize($img_config);
-				
 				$this->CI->image_lib->resize();
-
-				$this->CI->image_lib->clear();
+				$this->custom_clear();
 			
 			endif;
 			
@@ -263,6 +258,8 @@ class Field_image
 		
 			$id = $this->CI->db->insert_id();
 			
+			unset($img_config);
+			
 			// Return the ID
 			return $id;
 			
@@ -288,7 +285,7 @@ class Field_image
 		
 		if( $db_obj->num_rows() > 0 ):
 				
-			return $this->_output_thumb( $db_obj->row(), FALSE );
+			return $this->_output_thumb($db_obj->row(), FALSE);
 	
 		endif;
 	}
@@ -308,7 +305,7 @@ class Field_image
 	 * @param	array
 	 * @return	array
 	 */
-	public function pre_output_plugin( $prefix, $input, $params )
+	public function pre_output_plugin($input, $params)
 	{
 		$image_data = array();
 	
@@ -325,14 +322,13 @@ class Field_image
 			
 			$full = $this->CI->config->item('files_folder') . '/' . $image->name;
 		
-			$image_data[rtrim($prefix, '.')]	= base_url().$full;
-			$image_data[$prefix.'filename']		= $image->name;
-			$image_data[$prefix.'image']		= base_url().$full;
-			$image_data[$prefix.'img']			= img( array('alt'=>$image->name, 'src'=>$full) );
-			$image_data[$prefix.'ext']			= $image->extension;
-			$image_data[$prefix.'mimetype']		= $image->mimetype;
-			$image_data[$prefix.'width']		= $image->width;
-			$image_data[$prefix.'height']		= $image->height;
+			$image_data['filename']		= $image->name;
+			$image_data['image']		= base_url().$full;
+			$image_data['img']			= img( array('alt'=>$image->name, 'src'=>$full) );
+			$image_data['ext']			= $image->extension;
+			$image_data['mimetype']		= $image->mimetype;
+			$image_data['width']		= $image->width;
+			$image_data['height']		= $image->height;
 
 			//If there is a thumb, add it.
 			$path 			= FCPATH . $this->CI->config->item('files_folder');
@@ -340,16 +336,16 @@ class Field_image
 			
 			if( file_exists( $path . '/'.$plain_name.'_thumb'.$image->extension ) ):
 			
-				$image_data[$prefix.'thumb']		= base_url().$this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension;
-				$image_data[$prefix.'thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension) );
+				$image_data['thumb']		= base_url().$this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension;
+				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=> $this->CI->config->item('files_folder') . '/' . $plain_name.'_thumb' . $image->extension) );
 				
 			else:
 			
 				// The image may be small enough to be it's own thumb, so let's
 				// put that in there anyways
 				
-				$image_data[$prefix.'thumb']		= base_url().$full;
-				$image_data[$prefix.'thumb_img']	= img( array('alt'=>$image->name, 'src'=>$full) );
+				$image_data['thumb']		= base_url().$full;
+				$image_data['thumb_img']	= img( array('alt'=>$image->name, 'src'=>$full) );
 						
 			endif;
 			
@@ -357,16 +353,15 @@ class Field_image
 		
 			// We want just blank if there is no image.
 		
-			$image_data[rtrim($prefix, '.')]	= NULL;
-			$image_data[$prefix.'filename']		= NULL;
-			$image_data[$prefix.'image']		= NULL;
-			$image_data[$prefix.'img']			= NULL;
-			$image_data[$prefix.'ext']			= NULL;
-			$image_data[$prefix.'mimetype']		= NULL;
-			$image_data[$prefix.'width']		= NULL;
-			$image_data[$prefix.'height']		= NULL;
-			$image_data[$prefix.'thumb']		= NULL;
-			$image_data[$prefix.'thumb_img']	= NULL;
+			$image_data['filename']		= NULL;
+			$image_data['image']		= NULL;
+			$image_data['img']			= NULL;
+			$image_data['ext']			= NULL;
+			$image_data['mimetype']		= NULL;
+			$image_data['width']		= NULL;
+			$image_data['height']		= NULL;
+			$image_data['thumb']		= NULL;
+			$image_data['thumb_img']	= NULL;
 	
 		endif;
 		
@@ -385,7 +380,7 @@ class Field_image
 	 * @param	bool
 	 * @return	string
 	 */
-	private function _output_thumb( $image, $scale = FALSE )
+	private function _output_thumb($image, $scale = FALSE)
 	{	
 		$message = '';
 	
@@ -432,20 +427,23 @@ class Field_image
 
 	/**
 	 * Choose a folder to upload to.
+	 *
+	 * @access	public
+	 * @param	[string - value]
+	 * @return	string
 	 */	
-	public function param_folder( $value = '' )
+	public function param_folder($value = null)
 	{
 		// Get the folders
-		
 		$this->CI->load->model('files/file_folders_m');
 		
 		$tree = $this->CI->file_folders_m->get_folders();
 		
 		$tree = (array)$tree;
 		
-		if( !$tree ):
+		if(!$tree):
 		
-			return '<em>You need to set an upload folder before you can upload files.</em>';
+			return '<em>'.lang('streams.image.need_folder').'</em>';
 		
 		endif;
 		
@@ -462,7 +460,7 @@ class Field_image
 		
 		endforeach;
 	
-		return form_dropdown( 'folder', $choices, $value );
+		return form_dropdown('folder', $choices, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -470,9 +468,11 @@ class Field_image
 	/**
 	 * Param Resize Width
 	 *
+	 * @access	public
+	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_resize_width( $value = '' )
+	public function param_resize_width($value = null)
 	{
 		return form_input('resize_width', $value);
 	}
@@ -482,9 +482,11 @@ class Field_image
 	/**
 	 * Param Resize Height
 	 *
+	 * @access	public
+	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_resize_height( $value = '' )
+	public function param_resize_height($value = null)
 	{
 		return form_input('resize_height', $value);
 	}
@@ -494,11 +496,63 @@ class Field_image
 	/**
 	 * Param Allowed Types
 	 *
+	 * @access	public
+	 * @param	[string - value]
 	 * @return	string
 	 */
-	public function param_allowed_types( $value = '' )
+	public function param_allowed_types($value = null)
 	{
 		return form_input('allowed_types', $value);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Custom Clear
+	 *
+	 * This is a temporary solution until
+	 * PyroCMS updates to the version of CodeIgniter
+	 * that has the Img Library fix in it
+	 *
+	 * This correctly clears all of the Img Libary values
+	 * and sets them back to default.
+	 *
+	 * @access	private
+	 * @return	void
+	 */
+	private function custom_clear()
+	{
+		$props = array('library_path', 'source_image', 'new_image', 'width', 'height', 'rotation_angle', 'x_axis', 'y_axis', 'wm_text', 'wm_overlay_path', 'wm_font_path', 'wm_shadow_color', 'source_folder', 'dest_folder', 'mime_type', 'orig_width', 'orig_height', 'image_type', 'size_str', 'full_src_path', 'full_dst_path');
+
+		foreach ($props as $val)
+		{
+			$this->CI->image_lib->$val = '';
+		}
+
+		$this->CI->image_lib->image_library 		= 'gd2';
+		$this->CI->image_lib->dynamic_output 		= FALSE;
+		$this->CI->image_lib->quality 				= '90';
+		$this->CI->image_lib->create_thumb 			= FALSE;
+		$this->CI->image_lib->thumb_marker 			= '_thumb';
+		$this->CI->image_lib->maintain_ratio 		= TRUE;
+		$this->CI->image_lib->master_dim 			= 'auto';
+		$this->CI->image_lib->wm_type 				= 'text';
+		$this->CI->image_lib->wm_x_transp 			= 4;
+		$this->CI->image_lib->wm_y_transp 			= 4;
+		$this->CI->image_lib->wm_font_size 			= 17;
+		$this->CI->image_lib->wm_vrt_alignment 		= 'B';
+		$this->CI->image_lib->wm_hor_alignment 		= 'C';
+		$this->CI->image_lib->wm_padding 			= 0;
+		$this->CI->image_lib->wm_hor_offset 		= 0;
+		$this->CI->image_lib->wm_vrt_offset 		= 0;
+		$this->CI->image_lib->wm_font_color			= '#ffffff';
+		$this->CI->image_lib->wm_shadow_distance 	= 2;
+		$this->CI->image_lib->wm_opacity 			= 50;
+		$this->CI->image_lib->create_fnc 			= 'imagecreatetruecolor';
+		$this->CI->image_lib->copy_fnc 				= 'imagecopyresampled';
+		$this->CI->image_lib->error_msg 			= array();
+		$this->CI->image_lib->wm_use_drop_shadow 	= FALSE;
+		$this->CI->image_lib->wm_use_truetype 		= FALSE;
 	}
 	
 }

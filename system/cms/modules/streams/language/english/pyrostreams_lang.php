@@ -30,6 +30,22 @@ $lang['streams.update_entry_error']						= "There was a problem updating this en
 $lang['streams.entry_update_success']					= "Entry updated successfully.";
 $lang['streams.delete_summary']							= "Are you sure you want to delete the <strong>%s</strong> stream? This will <strong>delete %s %s</strong> permanently.";
 
+/* Misc Errors */
+
+$lang['streams.no_stream_provided']						= "No stream was provided.";
+$lang['streams.invalid_stream']							= "Invalid stream.";
+$lang['streams.not_valid_stream']						= "is not a valid stream.";
+$lang['streams.invalid_stream_id']						= "Invalid stream ID.";
+$lang['streams.invalid_row']							= "Invalid row.";
+$lang['streams.invalid_id']								= "Invalid ID.";
+$lang['streams.cannot_find_assign']						= "Cannot find field assignment.";
+$lang['streams.cannot_find_pyrostreams']				= "Cannot find PyroStreams.";
+$lang['streams.table_exists']							= "A table with the slug %s already exists.";
+$lang['streams.no_results']								= "No results";
+$lang['streams.no_entry']								= "Unable to find entry.";
+$lang['streams.invalid_search_type']					= "is not a valid search type.";
+$lang['streams.search_not_found']						= "Search not found.";
+
 /* Validation Messages */
 
 $lang['streams.field_slug_not_unique']					= "This field slug is already in use.";
@@ -37,6 +53,8 @@ $lang['streams.not_mysql_safe_word']					= "The %s field is a MySQL reserved wor
 $lang['streams.not_mysql_safe_characters']				= "The %s field contains disallowed characters.";
 $lang['streams.type_not_valid']							= "Please select a valid field type.";
 $lang['streams.stream_slug_not_unique']					= "This stream slug is already in use.";
+$lang['streams.field_unique']							= "The %s field must be unique.";
+$lang['streams.field_is_required']						= "The %s field is required.";
 
 /* Field Labels */
 
@@ -54,6 +72,7 @@ $lang['streams.created_date']							= "Created Date";
 $lang['streams.updated_date']							= "Updated Date";
 $lang['streams.value']									= "Value";
 $lang['streams.manage']									= "Manage";
+$lang['streams.search']									= "Search";
 
 /* Field Instructions */
 
@@ -94,11 +113,13 @@ $lang['streams.stream_view_options']					= "Stream View Options";
 $lang['streams.backup_table']							= "Backup Stream Table";
 $lang['streams.delete_stream']							= "Delete Stream";
 $lang['streams.entry']									= "Entry";
-$lang['streams.user_access']							= "User Access";
-$lang['streams.basic_mode_users']						= "Basic Mode Users";
-$lang['streams.basic_mode']								= "Basic Mode";
 $lang['streams.field_types']							= "Field Types";
 $lang['streams.field_type']								= "Field Type";
+$lang['streams.database_table']							= "Database Table";
+$lang['streams.size']									= "Size";
+$lang['streams.num_of_entries']							= "Number of Entries";
+$lang['streams.num_of_fields']							= "Number of Fields";
+$lang['streams.last_updated']							= "Last Updated";
 
 /* Startup */
 
@@ -130,6 +151,7 @@ $lang['streams.new_field']								= "New Field";
 $lang['streams.edit']									= "Edit";
 $lang['streams.delete']									= "Delete";
 $lang['streams.remove']									= "Remove";
+$lang['streams.reset']									= "Reset";
 
 /* Misc */
 
@@ -141,7 +163,8 @@ $lang['streams.stream_data_line']						= "Edit basic stream data.";
 $lang['streams.view_options_line'] 						= "Choose which columns should be visible on the list data page.";
 $lang['streams.backup_line']							= "Backup and download stream table into a zip file.";
 $lang['streams.permanent_delete_line']					= "Permanently delete a stream and all stream data.";
-$lang['streams.required']								= "Required";
+$lang['streams.choose_a_field_type']					= "Choose a field type";
+$lang['streams.choose_a_field']							= "Choose a field";
 
 /* reCAPTCHA */
 

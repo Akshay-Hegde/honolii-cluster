@@ -28,6 +28,16 @@ class Type
 	 * @var		array
 	 */
 	public $addon_paths = array();
+	
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Current language (folder name)
+	 *
+	 * @access	public
+	 * @var		string
+	 */
+	public $current_lang = 'english';
 
 	// --------------------------------------------------------------------------
 
@@ -36,7 +46,14 @@ class Type
 		$this->CI =& get_instance();
 		
 		$this->CI->load->helper('directory');
-				
+		$this->CI->load->config('language');
+
+		// Get Lang (full name for language file)
+		// This defaults to english.
+		$langs = $this->CI->config->item('supported_languages');
+		
+		if(isset($langs[CURRENT_LANGUAGE])) $this->current_lang = $langs[CURRENT_LANGUAGE]['folder'];
+		
 		// Obj to hold all our field types
 		$this->types = new stdClass;
 		
@@ -46,10 +63,10 @@ class Type
 		(CMS_VERSION < 1.3) ? define('PYROSTREAMS_DB_PRE', '') : define('PYROSTREAMS_DB_PRE', SITE_REF.'_');
 		
 		// Where oh where is PyroStreams?
-		// We'llfind out with an ugly series of if statements
+		// We'll find out with an ugly series of if statements
 		if(is_dir(APPPATH.'modules/streams/')):
 			
-			// This is a core module. Must be PyroCMS pro edition. Nice!
+			// This is a core module. Must be PyroCMS pro edition. Good choice!
 			define('PYROSTEAMS_DIR', APPPATH.'modules/streams/');
 			
 		elseif(is_dir(ADDONPATH.'modules/streams/')):
@@ -62,7 +79,7 @@ class Type
 			
 		else:
 		
-			show_error("Cannot find PyroStreams.");
+			show_error(lang('streams.cannot_find_pyrostreams'));
 			
 		endif;
 
@@ -72,6 +89,9 @@ class Type
 			'addon' 		=> ADDONPATH.'field_types/',
 			'addon_alt' 	=> SHARED_ADDONPATH.'field_types/'
 		);
+		
+		// Go ahead and gather our types
+		$this->gather_types();
 	}
 
 	// --------------------------------------------------------------------------
@@ -111,7 +131,7 @@ class Type
 	 */	
 	private function _load_types($types_files, $addon_path, $mode = 'core')
 	{
-		foreach( $types_files as $type ):
+		foreach($types_files as $type):
 		
 			// Is this a directory w/ a field type?
 			if(is_dir($addon_path.$type) and is_file($addon_path.$type.'/field.'.$type.'.php')):
@@ -119,15 +139,15 @@ class Type
 				$this->types->$type = $this->_load_type($addon_path, 
 									$addon_path.$type.'/field.'.$type.'.php',
 									$type,
-									$mode);		
-				
+									$mode);
+								
 			elseif(is_file($addon_path.'field.'.$type.'.php')):
 			
 				$this->types->$type = $this->_load_type($addon_path, 
 									$addon_path.'field.'.$type.'.php',
 									$type,
-									$mode);		
-							
+									$mode);
+															
 			endif;
 
 		endforeach;
@@ -183,6 +203,27 @@ class Type
 	 */
 	private function _load_type($path, $file, $type, $mode)
 	{
+		// -------------------------
+		// Load the language file
+		// -------------------------
+
+		if(is_dir($path.$type.'/language')):
+		
+			$lang = $this->current_lang;
+		
+			// Fallback on English
+			if(!is_dir($path.$type.'/language/'.$lang)) $lang = 'english';
+						
+			$this->CI->lang->load($type, $lang, FALSE, TRUE, $path.$type.'/');
+			
+			unset($lang);
+		
+		endif;
+
+		// -------------------------
+		// Load file
+		// -------------------------
+
 		require_once($file);
 		
 		$tmp = new stdClass;
@@ -197,6 +238,16 @@ class Type
 			$tmp->ft_mode 		= $mode;
 			$tmp->ft_root_path 	= $path;
 			$tmp->ft_path 		= $path.'/'.$type.'/';
+			
+			// And give us a CI instance
+			$tmp->CI			= get_instance();
+			
+			// Field type name is languagized
+			if(!isset($tmp->field_type_name)):
+			
+				$tmp->field_type_name = $this->CI->lang->line('streams.'.$type.'.name');
+			
+			endif;
 		
 		endif;
 	

@@ -11,8 +11,6 @@
  */
 class Field_slug
 {
-	public $field_type_name 		= 'Slug';
-	
 	public $field_type_slug			= 'slug';
 	
 	public $db_col_type				= 'varchar';
@@ -23,29 +21,20 @@ class Field_slug
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $lang					= array(
-	
-		'en'	=> array(
-				'space_type'		=> 'Space Type',
-				'slug_field'		=> 'Slug Field'
-		)
-	
-	);			
-
 	// --------------------------------------------------------------------------
 
-	function __construct()
-	{
-		$this->CI =& get_instance();
-		
-		
-	}
-	
-	function event()
+	/**
+	 * Event
+	 *
+	 * Add the slugify function
+	 *
+	 * @access	public
+	 * @return	void
+	 */
+	public function event()
 	{
 		$this->CI->type->add_misc("<script>function slugify_field(str, type){return str.toLowerCase().replace(/-+/g, '').replace(/\s+/g, type).replace(/[^a-z0-9_\-]/g, '');}</script>");
 	}
-	
 	
 	// --------------------------------------------------------------------------
 
@@ -79,8 +68,8 @@ class Field_slug
 	public function param_space_type( $value = null )
 	{	
 		$options = array(
-			'-' => 'Dash',
-			'_' => 'Underscore'
+			'-' => $this->CI->lang->line('streams.slug.dash'),
+			'_' => $this->CI->lang->line('streams.slug.underscore')
 		);
 	
 		return form_dropdown('space_type', $options, $value);

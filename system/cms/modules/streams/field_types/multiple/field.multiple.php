@@ -11,8 +11,6 @@
  */
 class Field_multiple
 {
-	public $field_type_name 		= 'Multiple Relationships';
-	
 	public $field_type_slug			= 'multiple';
 	
 	public $alt_process				= TRUE;
@@ -25,21 +23,6 @@ class Field_multiple
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
-	public $lang					= array(
-	
-		'en'	=> array(
-			'choose_stream'	=> 'Relationship Stream'
-		)
-	
-	);			
-
-	// --------------------------------------------------------------------------
-
-	function __construct()
-	{
-		$this->CI =& get_instance();
-	}
-	
 	// --------------------------------------------------------------------------
 
 	/**
@@ -59,11 +42,11 @@ class Field_multiple
 		$table_name = STR_PRE.$stream->stream_slug.'_'.$linked_stream->stream_slug;
 	
 		// Are we editing this row?
-		// If so, clear the data
+		// If so, clear the data. We are just going to
+		// replace it so now sense in trying to update it
 		if(is_numeric($row_id = $this->CI->input->post('row_edit_id'))):
 		
-			$this->CI->db->where('row_id', $this->CI->input->post('row_edit_id'));
-			$this->CI->db->delete($table_name);
+			$this->CI->db->where('row_id', $this->CI->input->post('row_edit_id'))->delete($table_name);
 		
 		else:
 		
@@ -261,11 +244,11 @@ class Field_multiple
 	 * @param	obj
 	 * @return	void
 	 */
-	public function field_assignment_destruct( $field, $stream )
+	public function field_assignment_destruct($field, $stream)
 	{
 		// Get the stream we are attaching to.
 		$linked_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
-		
+				
 		// Get the table name
 		$table_name = STR_PRE.$stream->stream_slug.'_'.$linked_stream->stream_slug;
 		
@@ -276,14 +259,35 @@ class Field_multiple
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Process renaming column.
+	 * Entry delete
 	 *
 	 * @access	public
 	 * @param	obj
 	 * @param	obj
 	 * @return	void
 	 */
-	public function alt_rename_column( $field, $stream )
+	public function entry_destruct($entry, $field, $stream)
+	{
+		// Delete the entries in our binding table
+		$linked_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
+				
+		// Get the table name
+		$table_name = STR_PRE.$stream->stream_slug.'_'.$linked_stream->stream_slug;
+		
+		$this->CI->db->where('row_id', $entry->id)->delete($table_name);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Process renaming column
+	 *
+	 * @access	public
+	 * @param	obj
+	 * @param	obj
+	 * @return	void
+	 */
+	public function alt_rename_column($field, $stream)
 	{
 		// Check and see if the relationship stream changed
 		return null;
@@ -298,7 +302,7 @@ class Field_multiple
 	 * @param	array
 	 * @return	string
 	 */
-	public function form_output( $data, $row, $field )
+	public function form_output($data, $row, $field)
 	{
 		if(! $stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream'])) return NULL;
 		
@@ -401,8 +405,12 @@ $this->CI->db->join(STR_PRE.$stream->stream_slug, 'jt.'.$stream->stream_slug.'_i
 
 	/**
 	 * Get a list of streams to choose from
+	 *
+	 * @access	public
+	 * @param	int - stream_id
+	 * @return	string
 	 */
-	public function param_choose_stream( $stream_id = FALSE )
+	public function param_choose_stream($stream_id = FALSE)
 	{
 		$this->CI =& get_instance();
 		
