@@ -81,7 +81,7 @@ class Admin extends Admin_Controller
 	 */
 	public function admin_themes()
 	{
-		$themes = $this->themes_m->get_all();
+		$themes = $this->theme_m->get_all();
 		
 		$data = array();
 		

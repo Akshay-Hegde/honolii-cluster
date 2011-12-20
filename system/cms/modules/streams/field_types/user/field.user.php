@@ -118,9 +118,9 @@ class Field_user
 		
 		$CI =& get_instance();
 
-		$CI->load->model('users/users_m');
+		$CI->load->model('users/user_m');
 		
-		$user = $CI->users_m->get( array('id' => $input) );
+		$user = $CI->user_m->get( array('id' => $input) );
 		
 		$user_data[rtrim($prefix, '.')]		= $user->username;
 		$user_data[$prefix.'user_id'] 		= $user->user_id;

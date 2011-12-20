@@ -93,7 +93,7 @@ class Users extends Sites_Controller
 	 */
 	public function	index()
 	{
-		$data->users = $this->users_m->get_all();
+		$data->users = $this->user_m->get_all();
 		
 		// Load the view
 		$this->template->title(lang('site.sites'), lang('site.user_manager'))
@@ -112,12 +112,12 @@ class Users extends Sites_Controller
 		if($this->form_validation->run())
 		{
 			// check if this email is already registered
-			if ($this->users_m->get_by('email', $this->input->post('email')))
+			if ($this->user_m->get_by('email', $this->input->post('email')))
 			{
 				$data->{'messages'}['error'] = sprintf(lang('site.user_exists'), $this->input->post('email'));
 			}
 			// did it work?
-			elseif ($this->users_m->add_admin($this->input->post()))
+			elseif ($this->user_m->add_admin($this->input->post()))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('site.admin_create_success'), $_POST['username']));
 				redirect('sites/users');
@@ -145,7 +145,7 @@ class Users extends Sites_Controller
 	 */
 	public function edit($id = '')
 	{
-		$data = $this->users_m->get($id);
+		$data = $this->user_m->get($id);
 		$data->password 		= '';
 		$data->confirm_password	= '';
 		
@@ -154,7 +154,7 @@ class Users extends Sites_Controller
 		
 		if($this->form_validation->run())
 		{
-			if ($this->users_m->edit_admin($this->input->post()))
+			if ($this->user_m->edit_admin($this->input->post()))
 			{
 				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $_POST['username']));
 				redirect('sites/users');
@@ -175,7 +175,7 @@ class Users extends Sites_Controller
 	public function enable($id = 0)
 	{
 
-		$this->users_m->update($id, array('active' => 1));
+		$this->user_m->update($id, array('active' => 1));
 
 		redirect('sites/users');
 	}
@@ -191,7 +191,7 @@ class Users extends Sites_Controller
 		}
 		else
 		{
-			$this->users_m->update($id, array('active' => 0));
+			$this->user_m->update($id, array('active' => 0));
 		}
 
 		redirect('sites/users');
@@ -202,7 +202,7 @@ class Users extends Sites_Controller
 	 */
 	public function delete($id = 0)
 	{	
-		$this->users_m->delete($id);
+		$this->user_m->delete($id);
 		
 		redirect('sites/users');
 	}
@@ -221,7 +221,7 @@ class Users extends Sites_Controller
 		$this->form_validation->set_rules($this->login_rules);
 		
 	    // If the validation worked, or the user is already logged in
-	    if ($this->form_validation->run() OR $this->users_m->logged_in())
+	    if ($this->form_validation->run() OR $this->user_m->logged_in())
 	    {
 	    	redirect('sites');
 		}
@@ -238,7 +238,7 @@ class Users extends Sites_Controller
 	 */
 	public function logout()
 	{
-		$this->users_m->logout();
+		$this->user_m->logout();
 			
 		redirect('sites');
 	}
@@ -258,7 +258,7 @@ class Users extends Sites_Controller
 			$remember = TRUE;
 		}
 
-		if ($this->users_m->login($email, $this->input->post('password'), $remember))
+		if ($this->user_m->login($email, $this->input->post('password'), $remember))
 		{
 			return TRUE;
 		}
