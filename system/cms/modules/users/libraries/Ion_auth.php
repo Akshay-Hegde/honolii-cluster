@@ -574,12 +574,17 @@ class Ion_auth
 	/**
 	 * Get User
 	 *
-	 * @return object User
+	 * @return object|bool User
 	 * @author Ben Edmunds
 	 **/
 	public function get_user($id=false)
 	{
-	    return $this->ci->ion_auth_model->get_user($id)->row();
+		$user = $this->ci->ion_auth_model->get_user($id);
+		if ($user)
+			return $user->row();
+		else
+			return false;
+
 	}
 
 	/**
