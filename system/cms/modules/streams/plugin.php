@@ -269,9 +269,9 @@ class Plugin_Streams extends Plugin
 		if($return['total'] == 0) return $this->streams_attribute('no_results', "No results");
 		
 		// -------------------------------------
-		// Content Manipulation
+		// Return
 		// -------------------------------------
-
+		
 		return $this->streams_content_parse($this->content(), $return, $params['stream']);
 	}
 
@@ -536,6 +536,7 @@ class Plugin_Streams extends Plugin
 			'limit'			=> 1,
 			'offset'		=> 0,
 			'order_by'		=> FALSE,
+			'sort'			=> FALSE,
 			'exclude'		=> FALSE,
 			'show_upcoming'	=> NULL,
 			'show_past'		=> NULL,
@@ -555,6 +556,8 @@ class Plugin_Streams extends Plugin
 		$params['where'] 			= $this->streams_attribute('where');
 
 		$params['disable']			= $this->streams_attribute('disable');
+		
+		$params['sort']				= $this->streams_attribute('sort');
 
 		// -------------------------------------
 		// Get stream
@@ -1103,7 +1106,7 @@ class Plugin_Streams extends Plugin
 			// Format Calendar Data
 			// -------------------------------------
 			
-			foreach( $this->rows as $above ):
+			foreach($this->rows as $above):
 			
 				foreach($above as $entry):
 				
@@ -1111,7 +1114,7 @@ class Plugin_Streams extends Plugin
 				$display_content 	= $displays[$count];
 				$link_content 		= $links[$count];
 				
-				foreach( $entry as $key => $val ):
+				foreach($entry as $key => $val):
 				
 					if(is_string($val)):
 				
@@ -1152,7 +1155,7 @@ class Plugin_Streams extends Plugin
 		// Get Template
 		// -------------------------------------
 
-		if( $template ):
+		if($template):
 		
 			$this->db->limit(1)->select('body')->where('title', $template);
 			$db_obj = $this->db->get('page_layouts');
@@ -1337,6 +1340,8 @@ class Plugin_Streams extends Plugin
 			endforeach;
 
 			$return['pagination'] = $this->row_m->build_pagination($pag_segment, $per_page, $return['total'], $this->pagination_config);
+			
+			$offset = $this->uri->segment($pag_segment, 0);
 			
 			$query_string = $cache->query_string." LIMIT $offset, $per_page";
 					

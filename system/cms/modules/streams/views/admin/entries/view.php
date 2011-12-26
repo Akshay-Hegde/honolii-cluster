@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td><strong><?php echo lang('streams.created_by');?></strong></td>
-			<td><?php echo username_from_id($row->created_by); ?></td>
+			<td><a href="<?php echo site_url('admin/users/edit/'. $row->created_by['user_id']); ?>"><?php echo $row->created_by['display_name']; ?></a></td>
 		</tr>
 		
 		<?php foreach ($stream_fields as $stream_field):?>

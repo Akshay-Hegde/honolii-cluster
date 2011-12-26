@@ -79,7 +79,7 @@ class Field_relationship
 	 * @access	public
 	 * @return	string
 	 */
-	public function param_choose_stream( $stream_id = FALSE )
+	public function param_choose_stream($stream_id = FALSE)
 	{
 		$this->CI =& get_instance();
 		
@@ -88,7 +88,7 @@ class Field_relationship
 		
 		$streams = $db_obj->result();
 		
-		foreach( $streams as $stream ):
+		foreach($streams as $stream):
 		
 			$choices[$stream->id] = $stream->stream_name;
 		
@@ -141,14 +141,14 @@ class Field_relationship
 		// Get the entry
 		// -------------------------------------
 		
-		$this->CI->db->select($title_column)->where('id', $input);
+		$this->CI->db->select('id, '.$title_column)->where('id', $input);
 		$obj = $this->CI->db->get($this->CI->config->item('stream_prefix').$stream->stream_slug);	
 		
 		$row = $obj->row();
 
 		if( isset($row->$title_column) ):
 		
-			return $row->$title_column;
+			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
 		
 		endif;
 		

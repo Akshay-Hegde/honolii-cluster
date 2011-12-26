@@ -117,32 +117,4 @@ function admin_resources()
 	$CI->type->gather_types();		
 }
 
-// -------------------------------------------------------------------------- 
-
-/**
- * User name from ID
- *
- * Convenience function for the back end to
- * show usernames in tables and data views.
- *
- * @param	id - user id
- */
-function username_from_id($id)
-{
-	$id = trim($id);
-
-	if(!is_numeric($id) or $id=='') return;
-
-	$CI = get_instance();
-	
-	$obj = $CI->db->where('id', $id)->limit(1)->get('users');
-
-	if($obj->num_rows() == 0) return;
-	
-	$row = $obj->row();
-	
-	return '<a href="'.site_url('admin/users/edit/'.$row->id).'">'.$row->username.'</a>';
-}
-
 /* End of file fields_helper.php */
-/* Location: /streams/helpers/fields_helper.php */

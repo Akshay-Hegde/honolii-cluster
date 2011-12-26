@@ -163,6 +163,13 @@ class Field_datetime
 	 */
 	public function event()
 	{
+		// We need the JS file for the front-end. 
+		if(!defined('ADMIN_THEME')):
+		
+			$this->CI->type->add_js('datetime', 'jquery.datepicker.js');
+		
+		endif;
+	
 		$this->CI->type->add_css('datetime', 'datepicker.css');
 	}
 
@@ -415,7 +422,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_start_date( $value = '' )
+	public function param_start_date($value = '')
 	{
 		$options['name'] 	= 'start_date';
 		$options['id']		= 'start_date';
@@ -433,7 +440,7 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_end_date( $value = '' )
+	public function param_end_date($value = '')
 	{
 		$options['name'] 	= 'end_date';
 		$options['id']		= 'end_date';
@@ -451,25 +458,23 @@ class Field_datetime
 	 * @param	string
 	 * @return	string
 	 */
-	public function param_use_time( $value = '' )
+	public function param_use_time($value = '')
 	{
-		if( $value == 'no' ):
+		if($value == 'no'):
 		
-			$no_select = TRUE;
-		
-			$yes_select = FALSE;
+			$no_select = true;
+			$yes_select = false;
 		
 		else:
 		
-			$no_select = FALSE;
-
-			$yes_select = TRUE;
+			$no_select = false;
+			$yes_select = true;
 		
 		endif;
 	
-		$form  = form_radio('use_time', 'yes', $yes_select) . " Yes ";
+		$form  = '<ul><li><label>'.form_radio('use_time', 'yes', $yes_select).' Yes</label></li>';
 		
-		$form .= form_radio('use_time', 'no', $no_select) . " No";
+		$form .= '<li><label>'.form_radio('use_time', 'no', $no_select).' No</label></li>';
 		
 		return $form;
 	}

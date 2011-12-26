@@ -665,8 +665,15 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_id'] 		= $stream_id;
 		$insert_data['field_id']		= $field_id;
 		
-		if(isset($data['instructions']))
+		if(isset($data['instructions'])):
+		
 			$insert_data['instructions']	= $data['instructions'];
+		
+		else:
+		
+			$insert_data['instructions']	= NULL;
+		
+		endif;
 		
 		// +1 for ordering.
 		$this->db->select('MAX(sort_order) as top_num')->where('stream_id', $stream->id);
