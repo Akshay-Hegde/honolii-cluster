@@ -48,7 +48,7 @@ class Sites_m extends MY_Model {
 	{
 		$site = $this->get($id);
 		
-		$user = $this->users_m->get_default_user($site->ref);
+		$user = $this->user_m->get_default_user($site->ref);
 			
 		$site->user_id			= $user->id;
 		$site->email			= $user->email;
@@ -69,7 +69,7 @@ class Sites_m extends MY_Model {
 	 */
 	public function create_site($input)
 	{
-		$hash = $this->users_m->_hash_password($input['password']);
+		$hash = $this->user_m->_hash_password($input['password']);
 		
 		$insert = array('name'		=>	$input['name'],
 						'ref'		=>	$input['ref'],
@@ -102,7 +102,7 @@ class Sites_m extends MY_Model {
 		
 					if ($this->db->insert('migrations', array('version' => config_item('migration_version'))) )
 					{
-						return $this->users_m->create_default_user($user);
+						return $this->user_m->create_default_user($user);
 					}
 				}
 			}
@@ -134,14 +134,14 @@ class Sites_m extends MY_Model {
 		
 		if($input['password'] > '' AND strlen($input['password']) > 3)
 		{
-			$hash = $this->users_m->_hash_password($input['password']);
+			$hash = $this->user_m->_hash_password($input['password']);
 			
 			$user['password'] 	= $hash->password;
 			$user['salt']		= $hash->user_salt;
 		}
 		
 		if ($this->update($input['id'], $insert) AND
-			$this->users_m->update_default_user($site->ref, $user)
+			$this->user_m->update_default_user($site->ref, $user)
 			)
 		{
 			// delete navigation cache

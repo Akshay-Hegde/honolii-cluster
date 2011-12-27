@@ -146,8 +146,13 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		
 		if( isset($disable) and $disable ):
+		
+			// Can be pre-processed
+			if(!is_array($disable)):
 
-			$disable = explode("|", $disable);
+				$disable = explode("|", $disable);
+			
+			endif;
 			
 		else:
 		
@@ -180,9 +185,8 @@ class Row_m extends MY_Model {
 					$order_by = $stream->title_column;	
 			
 				elseif( $stream->sorting == 'custom' ):
-	
+				
 					$order_by 	= 'ordering_count';
-					$sort		= 'asc';	
 				
 				endif;
 			
@@ -631,9 +635,32 @@ class Row_m extends MY_Model {
 
 		foreach( $row as $row_slug => $data ):
 		
-			// Easy out for our non-formattables
-			if(in_array($row_slug, array('id'))) continue;
+			// Easy out for our non-formattables and
+			// fields we are disabling.
+			if( in_array($row_slug, array('id')) or in_array($row_slug, $disable) ) continue;
 
+			// -------------------------------------
+			// Format Created By
+			// -------------------------------------
+			
+			if(
+				$row_slug == 'created_by' and 
+				isset($this->type->types->user) and 
+				method_exists($this->type->types->user, 'pre_output_plugin')
+			):
+			
+				if($return_object):
+	
+					$row->created_by	= $this->type->types->user->pre_output_plugin($row->created_by, null);
+			
+				else:
+						
+					$row['created_by']	= $this->type->types->user->pre_output_plugin($row['created_by'], null);
+			
+				endif;
+			
+			endif;
+			
 			// -------------------------------------
 			// Format Dates
 			// -------------------------------------
@@ -651,9 +678,6 @@ class Row_m extends MY_Model {
 				endif;
 				
 			endif;
-
-			// Not sure why this is here. 
-			// if(!is_array($this->all_fields)) continue;
 
 			// -------------------------------------
 			// Format Columns

@@ -31,7 +31,7 @@ class Fields
 	 * @param	bool
 	 * @return	string
 	 */
-	public function build_form_input( $field, $value = FALSE, $row_id = NULL )
+	public function build_form_input($field, $value = FALSE, $row_id = NULL)
 	{
 		$tmp = $field->field_type;
 		

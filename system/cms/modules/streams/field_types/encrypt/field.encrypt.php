@@ -85,6 +85,10 @@ class Field_encrypt
 
 	/**
 	 * Yes or no box to hide typing
+	 *
+	 * @access	public
+	 * @param	[array - param]
+	 * @return	string
 	 */	
 	public function param_hide_typing($params = FALSE)
 	{
@@ -116,9 +120,9 @@ class Field_encrypt
 		
 		endif;
 	
-		$form  = form_radio('hide_typing', 'yes', $yes_select) . " Yes ";
+		$form  = '<ul><li><label>'.form_radio('hide_typing', 'yes', $yes_select).' Yes </label></li>';
 		
-		$form .= form_radio('hide_typing', 'no', $no_select) . " No ";
+		$form .= '<li><label>'.form_radio('hide_typing', 'no', $no_select) . ' No </label></li></ul>';
 		
 		return $form;
 	}
