@@ -150,7 +150,7 @@ class MY_Controller extends MX_Controller {
 			'permissions/permission_m',
 			'modules/module_m',
 			'pages/page_m',
-			'themes/themes_m',
+			'themes/theme_m',
 		));
 
 		// List available module permissions for this user
