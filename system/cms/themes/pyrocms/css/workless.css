@@ -374,8 +374,9 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 .form_inputs > ul > li > label,
 .form_inputs fieldset > ul > li .label, 
 .form_inputs > ul > li .label {
-	width: 90%;
-	float: none;
+	width: 90%!important;
+	float: left;
+	text-align: left;
 	margin: 0 3% 0 0;
 	padding: 8px;
 }
@@ -394,8 +395,6 @@ input:invalid, textarea:invalid { background-color: #f0dddd; }
 }
 .form_inputs label small {
 	display: block;
-	margin-left: 5px;
-	margin-bottom: 10px;
 	font-weight: normal;
 	font-style: italic;
 	font-size: 11px;
@@ -1968,17 +1967,18 @@ Ensure your main styling comes before this!
 	.two_third { 
 		width: 450px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
-		width: 450px; 
-		float: left; 
+		width: 100px; 
+		float: left;
+		margin-right: 15px;
 	}
 	
 	.three_quarter {
-		width: 450px;
+		width: 310px;
 		float: left;
-	}*/
+	}
 	
 	#quick_links ul li {
 		width: 75px;
@@ -2004,7 +2004,7 @@ Ensure your main styling comes before this!
 	.form_inputs > ul > li > label,
 	.form_inputs fieldset > ul > li .label, 
 	.form_inputs > ul > li .label {
-		width: 27%;
+		width: 27%!important;
 		float: left;
 	}
 	
@@ -2016,6 +2016,13 @@ Ensure your main styling comes before this!
 	.form_inputs fieldset {
 		width: auto;
 	}
+
+	table {
+		width: 100%;
+		margin: 0;
+		font-size: 13px;
+	}
+
 }
 
 @media only screen and (min-width: 768px) {	
@@ -2099,17 +2106,18 @@ Ensure your main styling comes before this!
 		float: left; 
 	}
 	.two_third section.title, .two_third section.item {width: 470px;}
-
+	*/
+	
 	.one_quarter { 
-		width: 230px; 
+		width: 200px; 
 		margin-right: 15px; 
 		float: left; 
 	}
 	
 	.three_quarter {
-		width: 520px;
+		width: 500px;
 		float: left;
-	}*/
+	}
 
 	#quick_links ul li {
 		width: 75px;
@@ -2131,11 +2139,6 @@ Ensure your main styling comes before this!
 	.move-handle {display: block;}
 	fieldset {padding: 25px; margin: 5px 0 15px 0;}
 	.form_inputs .input > input {min-width: 210px!important;}
-	table {
-		width: 100%;
-		margin: 0;
-		font-size: 13px;
-	}
 	table th.collapse, table td.collapse {display: table-cell;}
 	table .actions a {
 		display: inline;
@@ -2221,7 +2224,7 @@ Ensure your main styling comes before this!
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
 		width: 230px; 
@@ -2230,9 +2233,9 @@ Ensure your main styling comes before this!
 	}
 	
 	.three_quarter {
-		width: 750px;
+		width: 730px;
 		float: left;
-	}*/
+	}
 
 	#quick_links ul li {
 		width: 75px;
@@ -2319,7 +2322,7 @@ Ensure your main styling comes before this!
 		width: 786px; 
 		margin-right: 15px; 
 		float: left; 
-	}
+	}*/
 
 	.one_quarter { 
 		width: 230px; 
@@ -2330,7 +2333,7 @@ Ensure your main styling comes before this!
 	.three_quarter {
 		width: 975px;
 		float: left;
-	}*/
+	}
 
 	#quick_links ul li {
 		width: 75px;
