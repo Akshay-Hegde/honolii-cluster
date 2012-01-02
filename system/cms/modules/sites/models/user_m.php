@@ -7,7 +7,7 @@
  * @package 	PyroCMS Premium
  * @subpackage 	Site Manager Module
  */
-class Users_m extends MY_Model {
+class User_m extends MY_Model {
 
 	public function __construct()
 	{
