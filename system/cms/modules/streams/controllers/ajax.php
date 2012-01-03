@@ -15,12 +15,19 @@ class Ajax extends Admin_Controller {
     {
         parent::__construct();
         
+        // No matter what we don't show the profiler
+        // in our AJAX calls.
+        $this->output->enable_profiler(FALSE);
+ 
+		$this->load->helper('streams/streams');        
+		streams_constants();
+       
         // We need this for all of the variable setups in
         // the Type library __construct
         $this->load->library('Type');
         
         // Only AJAX gets through!
-        if( !$this->input->is_ajax_request() ) die();
+       	if( !$this->input->is_ajax_request() ) die('Invalid request.');
     }
 
 	// --------------------------------------------------------------------------
@@ -160,7 +167,7 @@ class Ajax extends Admin_Controller {
 		
 		endforeach;
 	}
-	
+		
 }
 
 /* End of file ajax.php */

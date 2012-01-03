@@ -50,7 +50,7 @@ class Sites_Controller extends MX_Controller {
 		$this->lang->load(array('admin', 'buttons', 'global', 'sites/sites', 'users/user'));
 		
 		// Load all the required classes
-		$this->load->model(array('sites_m', 'users_m', 'settings_m'));
+		$this->load->model(array('sites_m', 'user_m', 'settings_m'));
 		
 		$this->load->library(array('session', 'form_validation', 'settings/settings'));
 		$this->load->dbforge();
@@ -74,7 +74,7 @@ class Sites_Controller extends MX_Controller {
 		$this->asset->set_theme(ADMIN_THEME);
 		
 		// check to make sure they're logged in
-		if ( $this->method !== 'login' AND ! $this->users_m->logged_in())
+		if ( $this->method !== 'login' AND ! $this->user_m->logged_in())
 		{
 			redirect('sites/login');
 		}

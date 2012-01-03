@@ -72,13 +72,13 @@ class Field_choice
 
 					($params['value'] == $choice_key) ? $selected = TRUE : $selected = FALSE;
 			
-					$return .= '<li>'.form_radio($params['form_slug'], $choice_key, $selected).' '.$choice.'</li>';
+					$return .= '<li><label>'.form_radio($params['form_slug'], $choice_key, $selected).'&nbsp;'.$choice.'</label></li>';
 				
 				else:
 				
 					(in_array($choice_key, $vals)) ? $selected = TRUE : $selected = FALSE;
 				
-					$return .= '<li>'.form_checkbox($params['form_slug'].'[]', $choice_key, $selected, 'id="'.$choice_key.'"').' <label class="ghost_label" for="'.$choice_key.'">'.$choice.'</label></li>';
+					$return .= '<li><label>'.form_checkbox($params['form_slug'].'[]', $choice_key, $selected, 'id="'.$choice_key.'"').'&nbsp;'.$choice.'</label></li>';
 				
 				endif;
 			

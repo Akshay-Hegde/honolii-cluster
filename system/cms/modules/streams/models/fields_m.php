@@ -27,14 +27,16 @@ class Fields_m extends CI_Model {
 		array(
 			'field'	=> 'field_slug',
 			'label' => 'Field Slug',
-			'rules'	=> 'trim|required|max_length[60]|callback_mysql_safe'
+			'rules'	=> 'trim|required|max_length[60]|slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
 			'label' => 'Field Type',
-			'rules'	=> 'trim|required|max_length[50]|callback_type_valid'
+			'rules'	=> 'trim|required|max_length[50]|type_valid'
 		)
 	);
+
+    // --------------------------------------------------------------------------
 	
 	function __construct()
 	{
@@ -51,7 +53,7 @@ class Fields_m extends CI_Model {
      * @param	int offset
      * @return	obj
      */
-    public function get_fields( $limit = FALSE, $offset = 0 )
+    public function get_fields($limit = FALSE, $offset = 0)
 	{
 		if($offset) $this->db->offset($offset);
 		
@@ -149,13 +151,13 @@ class Fields_m extends CI_Model {
 	 * Take field data and parse it into an array
 	 * the the DB forge class can use
 	 *
-	 * @param	public
+	 * @access	public
 	 * @param	obj
 	 * @param	array
 	 * @param	string
 	 * @return	array
 	 */
-	public function field_data_to_col_data( $type, $field_data, $method = 'add' )
+	public function field_data_to_col_data($type, $field_data, $method = 'add')
 	{
 		$col_data = array();
 
@@ -163,7 +165,7 @@ class Fields_m extends CI_Model {
 		// Name
 		// -------------------------------------
 		
-		if( $method == 'edit' ):		
+		if($method == 'edit'):		
 
 			$col_data['name'] 				= $field_data['field_slug'];
 		
@@ -197,7 +199,7 @@ class Fields_m extends CI_Model {
 		
 		if( $type->field_type_slug == 'text' ):		
 
-			if( isset($col_data['constraint']) && $col_data['constraint'] > 255 ):
+			if( isset($col_data['constraint']) and $col_data['constraint'] > 255 ):
 			
 				$col_data['type'] 				= 'TEXT';
 				
@@ -224,7 +226,7 @@ class Fields_m extends CI_Model {
 
 		// -------------------------------------		
 		// Remove Default for some col types:
-		//
+		// -------------------------------------
 		// * TEXT
 		// * LONGTEXT
 		// -------------------------------------
@@ -245,6 +247,8 @@ class Fields_m extends CI_Model {
 
 		// -------------------------------------		
 		// Check for varchar with no constraint
+		// -------------------------------------
+		// Catch it and default to 255
 		// -------------------------------------		
 
 		if( $col_data['type'] == 'VARCHAR' && ( !isset($col_data['constraint']) || !is_numeric($col_data['constraint']) || $col_data['constraint'] == '' ) ):
@@ -265,50 +269,56 @@ class Fields_m extends CI_Model {
 	 *
 	 * @access	public
 	 * @param	obj
+	 * @param	array - data
 	 * @param	int
 	 */
-	public function update_field( $field )
+	public function update_field($field, $data)
 	{	
-		$type = $this->type->types->{$this->input->post('field_type')};
+		$type = $this->type->types->{$data['field_type']};
 		
+		// -------------------------------------
+		// Alter Columns	
 		// -------------------------------------		
 		// We want to change columns if the
 		// following change:
-		// 
+		//		
+		// * Field Type
 		// * Field Slug
 		// * Max Length
 		// * Default Value
 		// -------------------------------------		
 
 		$assignments = $this->get_assignments($field->id);
-		
-		if( 
-			$field->field_slug != $this->input->post('field_slug') or 
-			( isset( $field->field_data['max_length'] ) and  $field->field_data['max_length'] != $this->input->post('max_length') ) or  
-			( isset( $field->field_data['default_value'] ) and  $field->field_data['default_value'] != $this->input->post('default_value') )
+	
+		if(
+			$field->field_type != $data['field_type'] or 
+			$field->field_slug != $data['field_slug'] or 
+			( isset( $field->field_data['max_length'] ) and  $field->field_data['max_length'] != $data['max_length'] ) or  
+			( isset( $field->field_data['default_value'] ) and  $field->field_data['default_value'] != $data['default_value'] )
 		):
-				
-			// If so, we need to update some table names
+								
+			// If so, we need to update some table columns
 			// Get the field assignments and change the table names
 						
 			// Check first to see if there are any assignments
-			if( $assignments ):
+			if($assignments):
 			
-				// Alter the table names
+				// Alter the table names and types
 				$this->load->dbforge();
 				
-				foreach( $assignments as $assignment ):
+				foreach($assignments as $assignment):
 				
-					if(method_exists($type, 'alt_rename_column')):						
+					if(method_exists($type, 'alt_rename_column')):
+									
 						// We run a different function for alt_process
 						$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug));
 					
 					else:
 					
 						// Run the regular column renaming
-						$fields[$field->field_slug] = $this->field_data_to_col_data( $type, $_POST, 'edit' );
+						$fields[$field->field_slug] = $this->field_data_to_col_data($type, $data, 'edit');
 					
-						if( ! $this->dbforge->modify_column(STR_PRE.$assignment->stream_slug, $fields) ):
+						if( !$this->dbforge->modify_column(STR_PRE.$assignment->stream_slug, $fields) ):
 						
 							return FALSE;
 						
@@ -317,18 +327,26 @@ class Fields_m extends CI_Model {
 					endif;
 					
 					// Update the view options
-					$view_options = unserialize($assignment->view_options);
+					$view_options = unserialize($assignment->stream_view_options);
 					
-					foreach( $view_options as $key => $option ):
+					if(is_array($view_options)):
 					
-						if( $option == $field->field_slug ):
+						foreach($view_options as $key => $option):
 						
-							// Replace with the new field slug so nothing goes apeshit
-							$view_options[$key] = $this->input->post('field_slug');
+							if( $option == $field->field_slug ):
+							
+								// Replace with the new field slug so nothing goes apeshit
+								$view_options[$key] = $data['field_slug'];
+							
+							endif;					
 						
-						endif;					
+						endforeach;
+						
+					else:
+						
+						$view_options = array();
 					
-					endforeach;
+					endif;
 					
 					$vo_update_data['view_options'] = serialize($view_options);
 	
@@ -351,9 +369,9 @@ class Fields_m extends CI_Model {
 		endif;
 			
 		// Update field information		
-		$update_data['field_name']		= $this->input->post('field_name');
-		$update_data['field_slug']		= $this->input->post('field_slug');
-		$update_data['field_type']		= $this->input->post('field_type');
+		$update_data['field_name']		= $data['field_name'];
+		$update_data['field_slug']		= $data['field_slug'];
+		$update_data['field_type']		= $data['field_type'];
 		
 		// Gather extra data		
 		if( !isset($type->custom_parameters) || $type->custom_parameters == '' ):
@@ -366,7 +384,15 @@ class Fields_m extends CI_Model {
 		
 			foreach( $type->custom_parameters as $param ):
 			
-				$custom_params[$param] = $this->input->post($param);
+				if(isset($data[$param])):
+				
+					$custom_params[$param] = $data[$param];
+					
+				else:
+				
+					$custom_params[$param] = null;
+				
+				endif;
 			
 			endforeach;
 
@@ -378,7 +404,7 @@ class Fields_m extends CI_Model {
 					
 		if( $this->db->update('data_fields', $update_data) ):
 		
-			$tc_update['title_column']	= $this->input->post('field_slug');
+			$tc_update['title_column']	= $data['field_slug'];
 		
 			// Success. Now let's update the title column.
 			$this->db->where('title_column', $field->field_slug);
@@ -492,7 +518,7 @@ class Fields_m extends CI_Model {
 		// Delete from actual fields table		
 		$this->db->where('id', $field->id);
 		
-		if( ! $this->db->delete(FIELDS_TABLE) ):
+		if( !$this->db->delete(FIELDS_TABLE) ):
 		
 			return FALSE;
 		
@@ -515,7 +541,7 @@ class Fields_m extends CI_Model {
 		// Drop the column if it exists
 		if( $this->db->field_exists($assignment->field_slug, STR_PRE.$assignment->stream_slug) ):
 	
-			if( ! $this->dbforge->drop_column(STR_PRE.$assignment->stream_slug, $assignment->field_slug) ):
+			if( !$this->dbforge->drop_column(STR_PRE.$assignment->stream_slug, $assignment->field_slug) ):
 			
 				$outcome = FALSE;
 			
@@ -535,9 +561,9 @@ class Fields_m extends CI_Model {
 		
 		if(is_array($view_options)):
 		
-			foreach( $view_options as $key => $option ):
+			foreach($view_options as $key => $option):
 			
-				if( $option == $assignment->field_slug ) unset($view_options[$key]);
+				if($option == $assignment->field_slug) unset($view_options[$key]);
 			
 			endforeach;
 		
@@ -621,9 +647,10 @@ class Fields_m extends CI_Model {
 	 * @param	int
 	 * @param	obj
 	 * @param	obj
+	 * @param	[string - instructions]
 	 * return	bool
 	 */
-	public function edit_assignment($assignment_id, $stream, $field)
+	public function edit_assignment($assignment_id, $stream, $field, $data)
 	{
 		// -------------------------------------
 		// Check for title column
@@ -631,7 +658,7 @@ class Fields_m extends CI_Model {
 		// See if this should be made the title column
 		// -------------------------------------
 
-		if( $this->input->post('title_column') == 'yes' ):
+		if( isset($data['title_column']) and $data['title_column'] == 'yes' ):
 		
 			$title_update_data['title_column'] = $field->field_slug;
 		
@@ -641,7 +668,7 @@ class Fields_m extends CI_Model {
 		endif;
 
 		// Is required	
-		if( $this->input->post('is_required') == 'yes' ):
+		if( isset($data['is_required']) and $data['is_required'] == 'yes' ):
 		
 			$update_data['is_required'] = 'yes';
 			
@@ -652,7 +679,7 @@ class Fields_m extends CI_Model {
 		endif;
 		
 		// Is unique
-		if( $this->input->post('is_unique') == 'yes' ):
+		if( isset($data['is_unique']) and $data['is_unique'] == 'yes' ):
 		
 			$update_data['is_unique'] = 'yes';
 			
@@ -662,11 +689,10 @@ class Fields_m extends CI_Model {
 		
 		endif;
 			
-		// Instructions		
-		$update_data['instructions'] = $this->input->post('instructions');
+		// Add in instructions		
+		$update_data['instructions'] = $data['instructions'];
 		
 		$this->db->where('id', $assignment_id);
-		
 		return $this->db->update(ASSIGN_TABLE, $update_data);
 	}
 

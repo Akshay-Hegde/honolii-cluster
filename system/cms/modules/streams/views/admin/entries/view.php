@@ -26,7 +26,7 @@
 		</tr>
 		<tr>
 			<td><strong><?php echo lang('streams.created_by');?></strong></td>
-			<td><?php echo username_from_id($row->created_by); ?></td>
+			<td><a href="<?php echo site_url('admin/users/edit/'. $row->created_by['user_id']); ?>"><?php echo $row->created_by['display_name']; ?></a></td>
 		</tr>
 		
 		<?php foreach ($stream_fields as $stream_field):?>
@@ -39,8 +39,8 @@
     </table>
   
  	<div class="float-right buttons">
-    	<?php echo anchor('admin/streams/entries/edit/'.$this->uri->segment(5).'/'.$row->id, 'Edit Entry', 'class="btn orange"')?>
-	    <?php echo anchor('admin/streams/entries/delete/'.$this->uri->segment(5).'/'.$row->id, 'Delete Entry', 'class="btn red confirm"')?>
+    	<?php echo anchor('admin/streams/entries/edit/'.$this->uri->segment(5).'/'.$row->id, lang('global:edit'), 'class="btn orange"')?>
+	    <?php echo anchor('admin/streams/entries/delete/'.$this->uri->segment(5).'/'.$row->id, lang('global:delete'), 'class="btn red confirm"')?>
 	</div>
    
 </section>

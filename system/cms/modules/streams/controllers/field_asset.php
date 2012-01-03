@@ -21,6 +21,9 @@ class Field_asset extends Public_Controller {
     {
         parent::__construct();
         
+        // Turn off the OP for these assets.
+        $this->output->enable_profiler(false);
+                
         $this->load->library('streams/Type');
         
         $this->load->helper('file');

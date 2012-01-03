@@ -22,6 +22,16 @@ class Search_m extends CI_Model {
 
 	// --------------------------------------------------------------------------   
 
+	/**
+	 * Perform a search
+	 *
+	 * @access	public
+	 * @param	string - the search term
+	 * @param	string - the search type
+	 * @param	string - the stream slug
+	 * @param	string - fields to search (sep by |)
+	 * @return 	int - cache id
+	 */
 	function perform_search($search_term, $search_type, $stream_slug, $fields)
 	{
 		// -------------------------------------

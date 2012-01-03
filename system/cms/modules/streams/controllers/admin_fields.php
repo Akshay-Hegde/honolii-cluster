@@ -18,6 +18,8 @@ class Admin_Fields extends Admin_Controller {
 	 */
 	protected $section = 'fields';
 
+	// --------------------------------------------------------------------------   
+
     function __construct()
     {
         parent::__construct();
@@ -93,7 +95,7 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 
 		// Add in the unique callback
-		$this->fields_m->fields_validation[1]['rules'] .= '|callback_unique_field_slug[new]';
+		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
 		
 		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
 				
@@ -131,7 +133,7 @@ class Admin_Fields extends Admin_Controller {
 		// See if we need our param fields
 		// -------------------------------------
 		
-		if($this->input->post('field_type')):
+		if($this->input->post('field_type') and $this->input->post('field_type')!=''):
 		
 			if(isset($this->type->types->{$this->input->post('field_type')})):
 			
@@ -145,12 +147,16 @@ class Admin_Fields extends Admin_Controller {
 				
 				$this->data->current_field->field_data = array();				
 				
-				// Build items out of post data
-				foreach($this->data->current_type->custom_parameters as $param):
+				if(isset($this->data->current_type->custom_parameters) and is_array($this->data->current_type->custom_parameters)):
 				
-					$this->data->current_field->field_data[$param] = $this->input->post($param);
+					// Build items out of post data
+					foreach($this->data->current_type->custom_parameters as $param):
+					
+						$this->data->current_field->field_data[$param] = $this->input->post($param);
+					
+					endforeach;
 				
-				endforeach;
+				endif;
 			
 			endif;
 			
@@ -177,6 +183,7 @@ class Admin_Fields extends Admin_Controller {
 		
 		if( ! $this->data->current_field = $this->fields_m->get_field($field_id) ):
 		
+			// @todo language
 			show_error("Invalid Field ID");
 		
 		endif;
@@ -191,7 +198,7 @@ class Admin_Fields extends Admin_Controller {
 
 		// -------------------------------------
 		
-        $this->template->append_metadata( js('fields.js', 'streams') );
+        $this->template->append_metadata(js('fields.js', 'streams'));
         
         $this->data->method = 'edit';
  
@@ -231,12 +238,12 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 
 		// Add in the unique callback
-		$this->fields_m->fields_validation[1]['rules'] .= '|callback_unique_field_slug['.$this->data->current_field->field_slug.']';
+		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$this->data->current_field->field_slug.']';
 		
 		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
 				
-		foreach($this->fields_m->fields_validation as $field)
-		{
+		foreach($this->fields_m->fields_validation as $field):
+		
 			$key = $field['field'];
 			
 			if(!isset($_POST[$key])):
@@ -250,7 +257,8 @@ class Admin_Fields extends Admin_Controller {
 			endif;
 			
 			$key = null;
-		}
+		
+		endforeach;
 		
 		// -------------------------------------
 		// Process Data
@@ -258,7 +266,10 @@ class Admin_Fields extends Admin_Controller {
 		
 		if ($this->streams_validation->run()):
 	
-			if( ! $this->fields_m->update_field( $this->fields_m->get_field( $field_id ) ) ):
+			if( !$this->fields_m->update_field(
+										$this->fields_m->get_field($field_id),
+										$this->input->post()
+									) ):
 			
 				$this->session->set_flashdata('notice', lang('streams.field_update_error'));	
 			
@@ -281,6 +292,9 @@ class Admin_Fields extends Admin_Controller {
 
 	/**
 	 * Delete a field
+	 *
+	 * @access	public
+	 * @return	void
 	 */	
 	public function delete()
 	{
@@ -288,7 +302,7 @@ class Admin_Fields extends Admin_Controller {
 	
 		$field_id = $this->uri->segment(5);
 		
-		if( ! $this->fields_m->delete_field( $field_id ) ):
+		if( ! $this->fields_m->delete_field($field_id) ):
 		
 			$this->session->set_flashdata('notice', lang('streams.field_delete_error'));	
 		

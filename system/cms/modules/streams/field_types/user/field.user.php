@@ -20,6 +20,11 @@ class Field_user
 	public $version					= '1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+
+	// --------------------------------------------------------------------------
+
+	// Run-time cache of users.
+	private $cache 					= array();
 	
 	// --------------------------------------------------------------------------
 
@@ -70,14 +75,13 @@ class Field_user
 	/**
 	 * Restrict to Group
 	 */
-	public function param_restrict_group( $value = '' )
+	public function param_restrict_group($value = '')
 	{
 		$this->CI->db->order_by('name', 'asc');
 		
 		$db_obj = $this->CI->db->get('groups');
 		
-		// @todo - languagize
-		$groups = array('no' => 'Don\'t Restrict Groups');
+		$groups = array('no' => lang('streams.user.dont_restrict_groups'));
 		
 		$groups_raw = $db_obj->result();
 		
@@ -107,11 +111,17 @@ class Field_user
 	 */
 	public function pre_output_plugin($input, $params)
 	{
-		$this->CI->load->model('users/users_m');
+		// Can't do anything without an input
+		if(!is_numeric($input)) return;
+	
+		// Check run-time cache
+		if(isset($this->cache[$input])) return $this->cache[$input];
+	
+		$this->CI->load->model('users/user_m');
 		
-		$user = $this->CI->users_m->get( array('id' => $input) );
+		$user = $this->CI->user_m->get( array('id' => $input) );
 
-		return array(
+		$return = array(
 			'user_id'			=> $user->user_id,
 			'display_name'		=> $user->display_name,
 			'first_name'		=> $user->first_name,
@@ -121,6 +131,10 @@ class Field_user
 			'email'				=> $user->email,
 			'username'			=> $user->username,
 		);
+		
+		$this->cache[$input] = $return;
+		
+		return $return;
 	}
 }
 /* End of file field.user.php */

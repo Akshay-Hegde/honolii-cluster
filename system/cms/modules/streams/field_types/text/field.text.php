@@ -36,7 +36,7 @@ class Field_text
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
-		if( is_numeric($data['max_length']) ):
+		if( isset($data['max_length']) and is_numeric($data['max_length']) ):
 		
 			$options['maxlength'] = $data['max_length'];
 		
