@@ -121,6 +121,7 @@ class Sites extends Sites_Controller
 		{
 			$ref = $this->input->post('ref');
 			
+			$this->load->config('migration');
 			$this->load->library('module_import', $ref);
 	
 			// make sure there aren't orphaned folders from a previous install
