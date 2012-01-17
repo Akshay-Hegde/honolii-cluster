@@ -337,7 +337,7 @@ class Sites extends Sites_Controller
 	
 	public function _valid_domain($url)
 	{
-		return preg_replace('([^a-z0-9._-]+)', '', $url);
+		return preg_replace('([^a-z0-9:._-]+)', '', $url);
 	}
 	
 	public function _underscore($ref)
