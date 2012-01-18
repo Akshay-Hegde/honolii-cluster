@@ -581,10 +581,13 @@ class Ion_auth
 	{
 		$user = $this->ci->ion_auth_model->get_user($id);
 		if ($user)
+		{
 			return $user->row();
+		}
 		else
-			return false;
-
+		{
+			return FALSE;
+		}
 	}
 
 	/**

@@ -790,7 +790,9 @@ class Ion_auth_model extends CI_Model
 		
 		//If no id is available return now to avoid db lookup
 		if ( ! $id)
-			return false;
+		{
+			return FALSE;
+		}
 
 		$this->db->where(sprintf('%s.%s', $this->tables['users'], $identity), $id);
 		$this->db->limit(1);
