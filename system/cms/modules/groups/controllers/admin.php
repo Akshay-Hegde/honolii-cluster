@@ -21,23 +21,28 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model('group_m');
+		$this->load->model(array('subscription_m', 'group_m'));
 		$this->load->library('form_validation');
 		$this->lang->load('group');
-		$this->lang->load('permissions/permissions');
+		$this->lang->load(array('subscriptions', 'permissions/permissions'));
 
 		// Validation rules
 		$this->validation_rules = array(
 			array(
 				'field' => 'name',
 				'label' => lang('groups.name'),
-				'rules' => 'trim|required|max_length[100]'
+				'rules' => 'trim|required|max_length[100]',
 			),
 			array(
 				'field' => 'description',
 				'label' => lang('groups.description'),
-				'rules' => 'trim|required|max_length[250]'
-			)
+				'rules' => 'trim|required|max_length[250]',
+			),
+			array(
+				'field' => 'subscription_plan_id',
+				'label' => lang('subscriptions:plan'),
+				'rules' => 'numeric',
+			),
 		);
 	}
 
@@ -84,10 +89,18 @@ class Admin extends Admin_Controller
 		{
 			$group->{$rule['field']} = set_value($rule['field']);
 		}
+		
+		$subscriptions = $this->subscription_m->get_all();
+		$sub_select = array('' => lang('global:select-none'));
+		foreach ($subscriptions as $subscription)
+		{
+			$sub_select[$subscription->id] = $subscription->name;
+		}
 
 		$this->template
 			->title($this->module_details['name'], lang('groups.add_title'))
 			->set('group', $group)
+			->set('subscriptions', $sub_select)
 			->build('admin/form', $this->data);
 	}
 
@@ -130,10 +143,18 @@ class Admin extends Admin_Controller
 				redirect('admin/groups');
 			}
 		}
+		
+		$subscriptions = $this->subscription_m->get_all();
+		$sub_select = array('' => lang('global:select-none'));
+		foreach ($subscriptions as $subscription)
+		{
+			$sub_select[$subscription->id] = $subscription->name;
+		}
 
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('groups.edit_title'), $group->name))
 			->set('group', $group)
+			->set('subscriptions', $sub_select)
 			->build('admin/form', $this->data);
 	}
 
