@@ -124,6 +124,7 @@ class Module_Settings extends Module {
 			 ('default_theme','Default Theme','Select the theme you want users to see by default.','','default','default','func:get_themes','1','0','','0'),
 			 ('admin_theme','Control Panel Theme','Select the theme for the control panel.','','pyrocms','','func:get_themes','1','0','','0'),
 			 ('admin_force_https','Force HTTPS for Control Panel?','Allow only the HTTPS protocol when using the Control Panel?','radio','0','','1=Yes|0=No','1','1','','0'),
+<<<<<<< HEAD
 			 ('version', 'Version', '', 'text', '1.0', '".CMS_VERSION."', '', '0', '0', '','0'),
 			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0'),
 			 ('newsletter_opt_in', 'Require Opt In', 'Subscribers will receive an activation email with a link that they must click to complete the sign up. Edit the email format in Email Templates.', 'select', '0', '0', '0=Disabled|1=Enabled', '1', '1', 'newsletters', '970'),
@@ -132,8 +133,35 @@ class Module_Settings extends Module {
 			 ('newsletter_email_limit', 'Limit', 'If your host limits the number of outgoing emails per hour/day set it here. Otherwise set it to 0 for automatic send', 'text', '0', '', '', '1', '1', 'newsletters', '973'),
 			 ('newsletter_cron_enabled', 'Cron', 'Send with Cron. If enabled you must have a cron job to send newsletters.', 'select', '0', '0', '0=Disabled|1=Enabled', '1', '1', 'newsletters', '974'),
 			 ('newsletter_cron_key', 'Cron Key', 'Set a key to prevent visitors from triggering a cron send. example.com/newsletters/cron/gy84kn', 'text', 'gy84kn', 'gy84kn', '', '0', '1', 'newsletters', '975');
+			 ('addons_upload', 'Addons Upload Permissions', 'Keeps mere admins from uploading addons by default', 'text', '0', '0', '', '1', '0', '','0');
 		";
-
+		
+		// TODO Convert more settings over to use this syntax
+		$this->db->insert_batch('settings', array(
+			array(
+				'slug'			=> 'api_enabled',
+				'title'			=> 'API Enabled',
+				'description'	=> 'Allow API access to all modules which have an API controller.',
+				'`default`' 	=> false,
+				'type'			=> 'select',
+				'`options`'		=> '0=Disabled|1=Enabled',
+				'is_required'	=> false,
+				'is_gui' 		=> false,
+				'module' 		=> 'files'
+			),
+			array(
+				'slug'			=> 'api_user_keys',
+				'title'			=> 'API User Keys',
+				'description'	=> 'Allow users to sign up for API keys (if the API is Enabled).',
+				'`default`' 	=> false,
+				'type'			=> 'select',
+				'`options`'		=> '0=Disabled|1=Enabled',
+				'is_required'	=> false,
+				'is_gui' 		=> false,
+				'module' 		=> 'files'
+			),
+		));
+		
 		if ($this->db->query($settings) && $this->db->query($default_settings))
 		{
 			return TRUE;
