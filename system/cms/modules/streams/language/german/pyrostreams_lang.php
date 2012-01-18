@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Beim Aktualisieren der Feldzuw
 $lang['streams.stream_field_ass_upd_success']			= "Feldzuweisung erfolgreich aktualisiert.";
 $lang['streams.delete_entry_error']						= "Beim Löschen des Eintrags ist ein Fehler aufgetreten.";
 $lang['streams.delete_entry_success']					= "Eintrag erfolgreich gelöscht.";
-$lang['streams.add_entry_error']						= "Beim Hinzufügen des Eintrags ist ein Fehler aufgetreten.";
-$lang['streams.entry_add_success']						= "Eintrag erfolgreich hinzugefügt.";
-$lang['streams.update_entry_error']						= "Beim Aktualisieren des Eintrags ist ein Fehler aufgetreten.";
-$lang['streams.entry_update_success']					= "Eintrag erfolgreich aktualisiert.";
+$lang['streams.new_entry_error']						= "Beim Hinzufügen des Eintrags ist ein Fehler aufgetreten.";
+$lang['streams.new_entry_success']						= "Eintrag erfolgreich hinzugefügt.";
+$lang['streams.edit_entry_error']						= "Beim Aktualisieren des Eintrags ist ein Fehler aufgetreten.";
+$lang['streams.edit_entry_success']					= "Eintrag erfolgreich aktualisiert.";
 $lang['streams.delete_summary']							= "Bist du sicher, dass du den Stream <strong>%s</strong> löschen willst? Dadurch werden <strong>%s %s</strong> permanent gelöscht.";
 
 /* Misc Errors */

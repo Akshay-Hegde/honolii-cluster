@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Streams_m extends MY_Model {
@@ -235,8 +235,15 @@ class Streams_m extends MY_Model {
 		
 		$update_data['stream_name']		= $data['stream_name']; 
 		$update_data['about']			= $data['about'];
-		$update_data['title_column']	= $data['title_column'];
 		$update_data['sorting']			= $data['sorting'];
+		
+		// We won't always have a title column. If we don't have
+		// any fields yet, for instance, it will not exist.
+		if( isset($data['title_column']) ):
+		
+			$update_data['title_column'] = $data['title_column'];
+		
+		endif;
 		
 		$this->db->where('id', $stream_id);
 		return $this->db->update($this->table, $update_data);

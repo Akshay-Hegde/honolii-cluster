@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Row_m extends MY_Model {
@@ -476,14 +476,36 @@ class Row_m extends MY_Model {
 		// Run the Get
 		// -------------------------------------
 		
-		$obj = $this->db->get(STR_PRE.$stream->stream_slug);
+		$rows = $this->db->get(STR_PRE.$stream->stream_slug)->result_array();
+
+		// -------------------------------------
+		// Partials
+		// -------------------------------------
+		// Paritals are done after the data grab
+		// so we can still partials outsider of
+		// limits/offsets in queries.
+		// -------------------------------------
+				
+		if( isset($partial) and ! is_null($partial) ):
+				
+			if( count($partials = explode('of', $partial)) == 2 and is_numeric($partials[1]) ):
+								
+				// Break the array into how many pieces
+				// we want.
+				$chunks = array_chunk($rows, ceil(count($rows)/$partials[1]), true);
+								
+				if( isset($chunks[$partials[0]-1]) ) $rows =& $chunks[$partials[0]-1];
+		
+			endif;
+		
+		endif;
 		
 		// -------------------------------------
 		// Run formatting
 		// -------------------------------------
 				
 		$return['rows'] = $this->format_rows(
-									$obj->result_array(),
+									$rows,
 									$this->data->stream,
 									$disable
 								);
@@ -1068,6 +1090,13 @@ class Row_m extends MY_Model {
 					// If a pre_save function exists, go ahead and run it
 					if( method_exists($type, 'pre_save') ):
 					
+						// Special case for data this is not there.
+						if( ! isset($data[$field->field_slug]) ):
+						
+							$data[$field->field_slug] = null;
+						
+						endif;
+					
 						$update_data[$field->field_slug] = $type->pre_save(
 									$data[$field->field_slug],
 									$field,
@@ -1153,7 +1182,7 @@ class Row_m extends MY_Model {
 			
 		foreach( $fields as $field ):
 		
-			if(!in_array($field->field_slug, $skips)):
+			if(!in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])) ):
 		
 				$type = $this->type->types->{$field->field_type};
 				

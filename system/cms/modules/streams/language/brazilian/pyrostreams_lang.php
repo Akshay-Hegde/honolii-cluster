@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Houve um problema ao atualizar
 $lang['streams.stream_field_ass_upd_success']			= "Atribuição de campo atualizada com sucesso.";
 $lang['streams.delete_entry_error']						= "Houve um problema ao excluir esta entrada.";
 $lang['streams.delete_entry_success']					= "Entrada excluída com sucesso.";
-$lang['streams.add_entry_error']						= "Houve um problema ao adicionar esta entrada.";
-$lang['streams.entry_add_success']						= "Entrada adicionada com sucesso.";
-$lang['streams.update_entry_error']						= "Houve um problema ao atualizar esta entrada.";
-$lang['streams.entry_update_success']					= "Entrada atualizada com sucesso.";
+$lang['streams.new_entry_error']						= "Houve um problema ao adicionar esta entrada.";
+$lang['streams.new_entry_success']						= "Entrada adicionada com sucesso.";
+$lang['streams.edit_entry_error']						= "Houve um problema ao atualizar esta entrada.";
+$lang['streams.edit_entry_success']					= "Entrada atualizada com sucesso.";
 $lang['streams.delete_summary']							= "Tem certeza de que deseja excluír o fluxo <strong>%s</strong>? Será <strong>excluído %s %s</strong> permanentemente.";
 
 /* Misc Errors */

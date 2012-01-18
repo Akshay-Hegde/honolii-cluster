@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Admin_Entries extends Admin_Controller {
@@ -124,6 +124,9 @@ class Admin_Entries extends Admin_Controller {
 	function add()
 	{
 		$this->load->library('streams/Fields');
+		
+		$this->data->success_message 	= $this->lang->line("streams.new_entry_success");
+		$this->data->failure_message 	= $this->lang->line("streams.new_entry_error");
 	
 		if( $this->fields->build_form( $this->data, "new" ) === FALSE ):
         
@@ -152,6 +155,9 @@ class Admin_Entries extends Admin_Controller {
 	 */
 	function _edit_row($row_id_uri)
 	{
+		$this->data->success_message 	= $this->lang->line("streams.edit_entry_success");
+		$this->data->failure_message 	= $this->lang->line("streams.edit_entry_error");
+
 		// -------------------------------------
 		// Get Stream Data
 		// -------------------------------------

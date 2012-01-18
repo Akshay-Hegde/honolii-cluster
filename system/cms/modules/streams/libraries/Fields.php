@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Fields
@@ -88,7 +88,7 @@ class Fields
      * @param	array - all the skips
      * @return	mixed
      */
- 	public function build_form($data, $method, $row = FALSE, $plugin = FALSE, $recaptcha = FALSE, $skips = array())
+ 	public function build_form($data, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array())
  	{ 	
  		$this->data = $data;
  	
@@ -202,16 +202,34 @@ class Fields
 		if( $this->CI->streams_validation->run() ):
 		
 			if($method == 'new'):
-	
+				
 				if( ! $result_id = $this->CI->row_m->insert_entry($_POST, $this->data->stream_fields, $this->data->stream, $skips ) ):
 				
-					$this->CI->session->set_flashdata('notice', $this->CI->lang->line('streams.add_entry_error'));	
+					$this->CI->session->set_flashdata('notice', $data->failure_message);	
 				
 				else:
+
+					// -------------------------------------
+					// Send Emails
+					// -------------------------------------
+					
+					if( $plugin and $data->email_notifications ):
+					
+						foreach($data->email_notifications as $notify):
+						
+							$this->_send_email($notify, $result_id, $method = 'new', $this->data->stream);
+						
+						endforeach;	
+					
+					endif;
+	
+					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $this->CI->lang->line('streams.entry_add_success'));	
+					$this->CI->session->set_flashdata('success', $data->success_message);	
 				
 				endif;
+
+
 			
 			else:
 			
@@ -223,11 +241,27 @@ class Fields
 													$skips
 												)):
 				
-					$this->CI->session->set_flashdata('notice', $this->CI->lang->line('streams.update_entry_error'));	
+					$this->CI->session->set_flashdata('notice', $data->failure_message);	
 				
 				else:
+
+					// -------------------------------------
+					// Send Emails
+					// -------------------------------------
+					
+					if( $plugin and $data->email_notifications ):
+					
+						foreach($data->email_notifications as $notify):
+						
+							$this->_send_email($notify, $result_id, $method = 'update', $this->data->stream);
+						
+						endforeach;	
+					
+					endif;
+	
+					// -------------------------------------
 				
-					$this->CI->session->set_flashdata('success', $this->CI->lang->line('streams.entry_update_success'));	
+					$this->CI->session->set_flashdata('success', $data->success_message);	
 				
 				endif;
 			
@@ -270,7 +304,7 @@ class Fields
 	 *
 	 * Set the rules from the stream fields
 	 */	
-	public function set_rules( $stream_fields, $method, $skips )
+	public function set_rules($stream_fields, $method, $skips)
 	{
 		// -------------------------------------
 		// Loop through and set the rules
@@ -343,6 +377,160 @@ class Fields
 		endforeach;
 	}
 
-}
+	// --------------------------------------------------------------------------
 
-/* End of file Fields.php */
+	/**
+	 * Send Emails
+	 *
+	 * Sends emails for a notify group
+	 *
+	 * @access	private
+	 * @param	string - a or b
+	 * @param	int - the entry id
+	 * @param	string - method - update or new
+	 * @param	obj - the stream
+	 * @return	void
+	 */
+	private function _send_email($notify, $entry_id, $method, $stream)
+	{
+		extract($notify);
+
+		// We accept a null to/from, as these can be
+		// created automatically.
+		if( ! isset($notify) and ! $notify ) return null;
+		if( ! isset($template) and ! $template ) return null;
+			
+		// -------------------------------------
+		// Get e-mails. Forget if there are none
+		// -------------------------------------
+
+		$emails = explode("|", $notify);
+
+		if( empty($emails) ) return null;
+
+		foreach($emails as $key => $piece):
+
+			$emails[$key] = $this->_process_email_address($piece);
+
+		endforeach;
+		
+		// -------------------------------------
+		// Parse Email Template
+		// -------------------------------------
+		// Get the email template from
+		// the database and create some
+		// special vars to pass off.
+		// -------------------------------------
+
+		$layout = $this->CI->db
+							->limit(1)
+							->where('slug', $template)
+							->get('email_templates')
+							->row();
+							
+		if( ! $layout ) return null;
+		
+		// -------------------------------------
+		// Get some basic sender data
+		// -------------------------------------
+
+		$this->CI->load->library('user_agent');
+		
+		$data = array(
+			'sender_ip'			=> $this->CI->input->ip_address(),
+			'sender_os'			=> $this->CI->agent->platform(),
+			'sender_agent'		=> $this->CI->agent->agent_string()
+		);
+		
+		// -------------------------------------
+		// Get the entry to pass to the template.
+		// -------------------------------------
+
+		$params = array(
+				'id'			=> $entry_id,
+				'stream'		=> $stream->stream_slug
+		);
+		
+		$rows = $this->CI->row_m->get_rows($params, $this->CI->streams_m->get_stream_fields($stream->id), $stream);
+		
+		$data['entry']			= $rows['rows'];
+		
+		// -------------------------------------
+		// Parse the body and subject
+		// -------------------------------------
+
+		$layout->body = html_entity_decode($this->CI->parser->parse_string(str_replace(array('&quot;', '&#39;'), array('"', "'"), $layout->body), $data, true));
+
+		$layout->subject = html_entity_decode($this->CI->parser->parse_string(str_replace(array('&quot;', '&#39;'), array('"', "'"), $layout->subject), $data, true));
+
+		// -------------------------------------
+		// Set From
+		// -------------------------------------
+		// We accept an email address from or 
+		// a name/email separated by a pipe (|).
+		// -------------------------------------
+
+		$this->CI->load->library('Email');
+		
+		if( isset($from) and $from ):
+		
+			$email_pieces = explode("|", $from);
+		
+			if( count($email_pieces) == 2 ):
+
+				$this->CI->email->from( $this->_process_email_address($email_pieces[0]), $email_pieces[1] );
+
+			else:
+
+				$this->CI->email->from( $email_pieces[0] );
+
+			endif;
+
+		else:
+
+			// Hmm. No from address. We'll just use the site setting.
+			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+
+		endif;
+
+		// -------------------------------------
+		// Set Email Data
+		// -------------------------------------
+
+		$this->CI->email->to($emails); 
+		$this->CI->email->subject($layout->subject);
+		$this->CI->email->message($layout->body);
+
+		// -------------------------------------
+		// Send, Log & Clear
+		// -------------------------------------
+
+		$return = $this->CI->email->send();
+
+		$this->CI->email->clear();			
+	
+		return $return;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Process an email address - if it is not 
+	 * an email address, pull it from post data.
+	 *
+	 * @access	private
+	 * @param	email
+	 * @return	string
+	 */
+	private function _process_email_address($email)
+	{	
+		if(strpos($email, '@') === false and $this->CI->input->post($email)):
+
+			return $this->CI->input->post($email);
+
+		endif;
+
+		return $email;
+	}
+
+}

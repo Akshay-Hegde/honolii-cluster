@@ -5,7 +5,7 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @license		http://parse19.com/pyrostreams/license
  * @link		http://parse19.com/pyrostreams
  */
@@ -15,9 +15,11 @@ class Field_state
 	
 	public $db_col_type				= 'varchar';
 
-	public $version					= '1.1';
+	public $version					= '1.2';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
+	
+	public $custom_parameters		= array('state_display');
 
 	// --------------------------------------------------------------------------
 
@@ -30,7 +32,14 @@ class Field_state
 	 */
 	public function form_output($data, $entry_id, $field)
 	{
-		return form_dropdown($data['form_slug'], $this->states($field->is_required), $data['value'], 'id="'.$data['form_slug'].'"');
+		// Default is abbr for backwards compat.
+		if( ! isset($data['custom']['state_display']) ):
+		
+			$data['custom']['state_display'] = 'abbr';
+	
+		endif;
+	
+		return form_dropdown($data['form_slug'], $this->states($field->is_required, $data['custom']['state_display']), $data['value'], 'id="'.$data['form_slug'].'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -42,19 +51,36 @@ class Field_state
 	 * @param	array
 	 * @return	string
 	 */
-	public function pre_output($input)
-	{
-		$states = $this->states('yes');
+	public function pre_output($input, $data)
+	{	
+		// Default is abbr for backwards compat.
+		if( ! isset($data['state_display']) ):
+		
+			$data['state_display'] = 'abbr';
 	
-		if( isset($states[$input]) ):
-		
-			return $states[$input];
-		
-		else:
-		
-			return;
-		
 		endif;
+
+		$states = $this->states('yes', $data['state_display']);
+	
+		return ( isset($states[$input]) ) ? $states[$input] : null;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Do we want the state full name of abbreviation?
+	 *
+	 * @access	public
+	 * @return	string
+	 */	
+	public function param_state_display($value = null)
+	{	
+		$options = array(
+			'full' => $this->CI->lang->line('streams.state.full'),
+			'abbr' => $this->CI->lang->line('streams.state.abbr')
+		);
+	
+		return form_dropdown('state_display', $options, $value);
 	}
 
 	// --------------------------------------------------------------------------
@@ -67,71 +93,84 @@ class Field_state
 	 * @access	private
 	 * @return	array
 	 */
-	private function states($is_required)
-	{
+	private function states($is_required, $state_display = 'abbr')
+	{	
+		if( $state_display != 'abbr' and $state_display != 'full') $state_display = 'abbr';
+	
 		$choices = array();
 	
-		if($is_required == 'no'):
-			
-			$choices[null] = get_instance()->config->item('dropdown_choose_null');
-		
-		endif;	
+		if($is_required == 'no') $choices[null] = get_instance()->config->item('dropdown_choose_null');
 	
-		$states = array('AL'=>"AL",  
-			'AK'=>"AK",  
-			'AZ'=>"AZ",  
-			'AR'=>"AR",  
-			'CA'=>"CA",  
-			'CO'=>"CO",  
-			'CT'=>"CT",  
-			'DE'=>"DE",  
-			'DC'=>"DC",  
-			'FL'=>"FL",  
-			'GA'=>"GA",  
-			'HI'=>"HI",  
-			'ID'=>"ID",  
-			'IL'=>"IL",  
-			'IN'=>"IN",  
-			'IA'=>"IA",  
-			'KS'=>"KS",  
-			'KY'=>"KY",  
-			'LA'=>"LA",  
-			'ME'=>"ME",  
-			'MD'=>"MD",  
-			'MA'=>"MA",  
-			'MI'=>"MI",  
-			'MN'=>"MN",  
-			'MS'=>"MS",  
-			'MO'=>"MO",  
-			'MT'=>"MT",
-			'NE'=>"NE",
-			'NV'=>"NV",
-			'NH'=>"NH",
-			'NJ'=>"NJ",
-			'NM'=>"NM",
-			'NY'=>"NY",
-			'NC'=>"NC",
-			'ND'=>"ND",
-			'OH'=>"OH",  
-			'OK'=>"OK",  
-			'OR'=>"OR",  
-			'PA'=>"PA",  
-			'RI'=>"RI",  
-			'SC'=>"SC",  
-			'SD'=>"SD",
-			'TN'=>"TN",  
-			'TX'=>"TX",  
-			'UT'=>"UT",  
-			'VT'=>"VT",  
-			'VA'=>"VA",  
-			'WA'=>"WA",  
-			'WV'=>"WV",  
-			'WI'=>"WI",  
-			'WY'=>"WY");
+		$raw_states = array('AL' => 'Alabama',  
+			'AK'=> 'Alaska',  
+			'AZ'=> 'Arizona',  
+			'AR'=> 'Arkansas',
+			'CA'=> 'California',  
+			'CO'=> 'Colorado',  
+			'CT'=> 'Connecticut',  
+			'DE'=> 'Deleware',
+			'DC'=> 'District of Columbia',
+			'FL'=> 'Florida',
+			'GA'=> 'Georgia',
+			'HI'=> 'Hawaii',
+			'ID'=> 'Idaho',
+			'IL'=> 'Illinois',
+			'IN'=> 'Indiana',  
+			'IA'=> 'Iowa',
+			'KS'=> 'Kansas', 
+			'KY'=> 'Kentucky',
+			'LA'=> 'Louisiana',
+			'ME'=> 'Maine',
+			'MD'=> 'Maryland',
+			'MA'=> 'Massachusetts',
+			'MI'=> 'Michigan',  
+			'MN'=> 'Minnesota',
+			'MS'=> 'Mississippi',
+			'MO'=> 'Missouri',
+			'MT'=> 'Montana',
+			'NE'=> 'Nebraska',
+			'NV'=> 'Nevada',
+			'NH'=> 'New Hampshire',
+			'NJ'=> 'New Jersey',
+			'NM'=> 'New Mexico',
+			'NY'=> 'New York',
+			'NC'=> 'North Carolina',
+			'ND'=> 'North Dakota',
+			'OH'=> 'Ohio',
+			'OK'=> 'Oklahoma', 
+			'OR'=> 'Oregon',
+			'PA'=> 'Pennsylvania',
+			'RI'=> 'Rhode Island',  
+			'SC'=> 'South Carolina',
+			'SD'=> 'South Dakota',
+			'TN'=> 'Tennessee',
+			'TX'=> 'Texas',
+			'UT'=> 'Utah',
+			'VT'=> 'Vermont', 
+			'VA'=> 'Virginia',
+			'WA'=> 'Washington',
+			'WV'=> 'West Virginia',
+			'WI'=> 'Wisconsin',
+			'WY'=> 'Wyoming'
+		);
+		
+		$states = array();
+		
+		if($state_display == 'abbr'):
+		
+			foreach($raw_states as $abbr => $full):
+			
+				$states[$abbr] = $abbr;
+			
+			endforeach;
+			
+		else:
+		
+			$states = $raw_states;
+		
+		endif; 
 		
 		return array_merge($choices, $states);
 	}
 	
 }
-
-/* End of file field.state.php */

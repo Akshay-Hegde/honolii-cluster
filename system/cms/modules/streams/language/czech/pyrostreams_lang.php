@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Nastal problém při úpravě 
 $lang['streams.stream_field_ass_upd_success']			= "Přiřazení pole bylo upraveno.";
 $lang['streams.delete_entry_error']						= "Nastal problém při odstraňování záznamu.";
 $lang['streams.delete_entry_success']					= "Záznam byl odstraněn.";
-$lang['streams.add_entry_error']						= "Nastal problém při přidávání záznamu.";
-$lang['streams.entry_add_success']						= "Záznam byl přidán.";
-$lang['streams.update_entry_error']						= "Nastal problém při úpravě záznamu.";
-$lang['streams.entry_update_success']					= "Záznam byl upraven.";
+$lang['streams.new_entry_error']						= "Nastal problém při přidávání záznamu.";
+$lang['streams.new_entry_success']						= "Záznam byl přidán.";
+$lang['streams.edit_entry_error']						= "Nastal problém při úpravě záznamu.";
+$lang['streams.edit_entry_success']					= "Záznam byl upraven.";
 $lang['streams.delete_summary']							= "Jste si jistý/á, že chcete odstranit stream <strong>%s</strong>?";
 
 /* Misc Errors */

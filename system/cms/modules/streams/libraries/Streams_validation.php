@@ -8,8 +8,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Streams_validation extends CI_Form_validation

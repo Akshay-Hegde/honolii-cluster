@@ -5,10 +5,20 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
+
+// --------------------------------------------------------------------------
+
+/**
+ * Streams select limit.
+ *
+ * Once the relationship stream reaches this
+ * number, it'll turn into an auto-complete. 
+ */
+//$config['streams:select_limit'] 		= 100;
 
 // --------------------------------------------------------------------------
 
@@ -25,7 +35,7 @@ $config['streams.searches_table'] 		= 'data_stream_searches';
 /**
  * DB table prefix for stream tables
  */
-$config['stream_prefix'] = 'str_';
+$config['stream_prefix'] 				= 'str_';
 
 // --------------------------------------------------------------------------
 
@@ -33,7 +43,7 @@ $config['stream_prefix'] = 'str_';
  * The value presented for a
  * null value in a drop down
  */
-$config['dropdown_choose_null'] = '-----';
+$config['dropdown_choose_null'] 		= '-----';
 
 // --------------------------------------------------------------------------
 

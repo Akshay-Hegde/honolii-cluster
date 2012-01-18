@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Υπήρξε κάποιο πρ
 $lang['streams.stream_field_ass_upd_success']			= "Η αντιστοίχιση του πεδίου ενημερώθηκε με επιτυχία.";
 $lang['streams.delete_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την διαγραφή αυτής της εγγραφής.";
 $lang['streams.delete_entry_success']					= "Η εγγραφή διαγράφηκε με επιτυχία.";
-$lang['streams.add_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την προσθήκη αυτής της εγγραφής.";
-$lang['streams.entry_add_success']						= "Η εγγραφή προστέθηκε με επιτυχία.";
-$lang['streams.update_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την ενημέρωση αυτής της εγγραφής.";
-$lang['streams.entry_update_success']					= "Η εγγραφή ενημερώθηκε με επιτυχία.";
+$lang['streams.new_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την προσθήκη αυτής της εγγραφής.";
+$lang['streams.new_entry_success']						= "Η εγγραφή προστέθηκε με επιτυχία.";
+$lang['streams.edit_entry_error']						= "Υπήρξε κάποιο πρόβλημα κατά την ενημέρωση αυτής της εγγραφής.";
+$lang['streams.edit_entry_success']					= "Η εγγραφή ενημερώθηκε με επιτυχία.";
 $lang['streams.delete_summary']							= "Είσαστε σίγουροι ότι θέλετε να διαγράψετε την ροή <strong>%s</strong>; Αυτό θα <strong>διαγράψει %s %s</strong> για πάντα.";
 
 /* Misc Errors */

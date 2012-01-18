@@ -4,10 +4,10 @@
  * PyroStreams Plugin
  *
  * @package		PyroStreams
- * @author		Addict Add-ons Dev Team
- * @copyright	Copyright (c) 2011, Addict Add-ons
- * @license		http://addictaddons.com/pyrostreams/license
- * @link		http://addictaddons.com/pyrostreams
+ * @author		Parse19
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
+ * @link		http://parse19.com/pyrostreams
  */
 class Plugin_Streams extends Plugin
 {
@@ -40,13 +40,14 @@ class Plugin_Streams extends Plugin
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
-			'pag_segment'		=> 2
+			'pag_segment'		=> 2,
+			'partial'			=> null
 	);
 
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Pagination confgi
+	 * Pagination config
 	 *
 	 * These are the CI defaults that can be
 	 * overridden by PyroStreams
@@ -479,6 +480,51 @@ class Plugin_Streams extends Plugin
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * Stream sum
+	 *
+	 * Usage:
+	 * 
+	 * {{ stream_sum:sum stream="bananas" field="tastiness_level" }}
+	 *
+	 * @return	string
+	 */
+	public function sum()
+	{
+		$stream = $this->attribute('stream');
+		$field = $this->attribute('field');
+
+		$this->load->config('streams/streams');
+
+		// Is this a relationship? We can only go
+		// one level at this time.
+		// @todo - maybe abstract this?
+		if( count($elems = explode(':', $field)) == 2):
+
+			// Get the relationship stream.
+			$field_data = $this->db->limit(1)->where('field_slug', $elems[0])->get(FIELDS_TABLE)->row();
+
+			if(!$field_data) return null;
+
+			$data = unserialize($field_data->field_data);
+
+			// Get the stream slug
+			$rel_stream = $this->db->limit(1)->where('id', $data['choose_stream'])->get(STREAMS_TABLE)->row();
+
+			if(!$rel_stream) return null;
+
+			$stream = $rel_stream->stream_slug;
+			$field = $elems[1];
+
+		endif;
+
+		$result = $this->db->query("SELECT SUM($field) as sum_total FROM {$this->db->dbprefix($this->config->item('stream_prefix').$stream)}")->row();
+
+		return $result->sum_total;
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Format date variables
@@ -618,6 +664,9 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 
 		$mode 					= $this->streams_attribute('mode', 'new');
+		
+		// Make sure that we have a valid mode.
+		if( $mode != 'new' and $mode != 'edit' ) $mode = 'new';
 
 		$edit_id 				= $this->streams_attribute('edit_id', FALSE);
 
@@ -644,6 +693,20 @@ class Plugin_Streams extends Plugin
 		$recaptcha 				= $this->streams_attribute('use_recaptcha', 'no');
 		
 		$this->streams_attribute('use_recaptcha', 'no') == 'yes' ? $recaptcha = TRUE : $recaptcha = FALSE;
+
+		// -------------------------------------
+		// Messages
+		// -------------------------------------
+		// Lang line references:
+		// - new_entry_success
+		// - new_entry_error
+		// - edit_entry_success
+		// - edit_entry_error
+		// -------------------------------------
+		
+		$data->success_message 	= $this->streams_attribute('success_message', $this->lang->line("streams.{$mode}_entry_success"));
+		
+		$data->failure_message 	= $this->streams_attribute('failure_message', $this->lang->line("streams.{$mode}_entry_error"));
 							
 		// -------------------------------------
 		// Get Stream Data
@@ -656,10 +719,32 @@ class Plugin_Streams extends Plugin
 		$data->stream_id		= $data->stream->id;
 
 		// -------------------------------------
+		// Collect Email Notification Data
+		// -------------------------------------
+		// Default is two notifications. We collect
+		// this data no matter what and the 
+		// form library takes care of the rest.
+		// -------------------------------------
+	
+		$notifications 			= array();
+
+		$numbers = array('a', 'b');
+	
+		foreach($numbers as $notify_num):
+		
+			$notifications[$notify_num]['notify'] 		= $this->streams_attribute('notify_'.$notify_num);
+			$notifications[$notify_num]['template'] 	= $this->streams_attribute('notify_template_'.$notify_num);
+			$notifications[$notify_num]['from'] 		= $this->streams_attribute('notify_from_'.$notify_num);
+				
+		endforeach;
+		
+		$data->email_notifications = $notifications;
+		
+		// -------------------------------------
 		// Get Edit ID from URL if in Edit Mode
 		// -------------------------------------
 		
-		$row = FALSE;
+		$row = false;
 		
 		if( $mode == 'edit' ):
 		
@@ -731,13 +816,13 @@ class Plugin_Streams extends Plugin
 		// Process and Output Form Data
 		// -------------------------------------
 	
-		$output = $this->fields->build_form($data, $mode, $row, TRUE, $recaptcha, $skips);
+		$output = $this->fields->build_form($data, $mode, $row, true, $recaptcha, $skips);
 		
 		$fields = array();
 		
 		$count = 0;
 		
-		foreach( $output->stream_fields as $slug => $field ):
+		foreach($output->stream_fields as $slug => $field):
 		
 			if(!in_array($field->field_slug, $skips)):
 		
@@ -1110,39 +1195,41 @@ class Plugin_Streams extends Plugin
 			
 				foreach($above as $entry):
 				
-				// Replace fields				
-				$display_content 	= $displays[$count];
-				$link_content 		= $links[$count];
+					if(isset($displays[$count])):
 				
-				foreach($entry as $key => $val):
-				
-					if(is_string($val)):
-				
-						$display_content 	= str_replace('['.$key.']', $val, $display_content);
-						$link_content 		= str_replace('['.$key.']', $val, $link_content);
+						// Replace fields				
+						$display_content 	= $displays[$count];
+						$link_content 		= $links[$count];
+			
+						$parser = new Lex_Parser();
+						$parser->scope_glue(':');
+						
+						$display_content = str_replace(array('[', ']'), array('{{ ', ' }}'), $display_content);
+						$link_content = str_replace(array('[', ']'), array('{{ ', ' }}'), $link_content);
+													
+						$display_content = $parser->parse($display_content, $entry, array($this->parser, 'parser_callback'));
+						$link_content = $parser->parse($link_content, $entry, array($this->parser, 'parser_callback'));
+									
+						// Link
+						if($link_content != '' ):
+						
+							$display_content = '<a href="'.site_url($link_content).'" class="'.$stream_slug.'_link">'.$display_content.'</a>';
+													
+						endif;
+						
+						// Adding to the array
+						if( isset($calendar[$entry['pyrostreams_cal_day']]) ):
+						
+							$calendar[$entry['pyrostreams_cal_day']] .= $display_content.'<br />';
+						
+						else:
+			
+							$calendar[$entry['pyrostreams_cal_day']]  = $display_content.'<br />';
+						
+						endif;
 					
 					endif;
-				
-				endforeach;
-				
-				// Link
-				if( $link_content != '' ):
-				
-					$display_content = '<a href="'.site_url($link_content).'" class="'.$stream_slug.'_link">'.$display_content.'</a>';
-				
-				endif;
-				
-				// Adding to the array
-				if( isset($calendar[$entry['pyrostreams_cal_day']]) ):
-				
-					$calendar[$entry['pyrostreams_cal_day']] .= $display_content.'<br />';
-				
-				else:
-	
-					$calendar[$entry['pyrostreams_cal_day']]  = $display_content.'<br />';
-				
-				endif;
-				
+					
 				endforeach;
 			
 			endforeach;

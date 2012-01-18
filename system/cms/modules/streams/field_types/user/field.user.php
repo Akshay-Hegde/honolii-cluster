@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Field_user
@@ -15,7 +15,7 @@ class Field_user
 	
 	public $db_col_type				= 'int';
 
-	public $custom_parameters		= array( 'restrict_group' );
+	public $custom_parameters		= array('restrict_group');
 
 	public $version					= '1.0';
 

@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Hubo un problema al actualizar
 $lang['streams.stream_field_ass_upd_success']			= "Asignación de campo actualizada exitósamente.";
 $lang['streams.delete_entry_error']						= "Hubo un problema al eliminar esta entrada.";
 $lang['streams.delete_entry_success']					= "Entrada eliminada exitósamente.";
-$lang['streams.add_entry_error']						= "Hubo un problema al añadir esta entrada."; // @done
-$lang['streams.entry_add_success']						= "Entrada añadida exitósamente."; // @done
-$lang['streams.update_entry_error']						= "Hubo un problema al actualizar esta entrada."; // @done
-$lang['streams.entry_update_success']					= "Entrada actualizada exitósamente."; // @done
+$lang['streams.new_entry_error']						= "Hubo un problema al añadir esta entrada."; // @done
+$lang['streams.new_entry_success']						= "Entrada añadida exitósamente."; // @done
+$lang['streams.edit_entry_error']						= "Hubo un problema al actualizar esta entrada."; // @done
+$lang['streams.edit_entry_success']					= "Entrada actualizada exitósamente."; // @done
 $lang['streams.delete_summary']							= "¿Estás seguro de que quieres eliminar el stream <strong>%s</strong>? Esto <strong>eliminará %s %s</strong> permanentemente.";
 
 /* Misc Errors */

@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Ajax extends Admin_Controller {
@@ -118,14 +118,9 @@ class Ajax extends Admin_Controller {
 		
 		foreach($ids as $id):
 		
-			$id = trim($id);
-		
-			$update_data['sort_order']		= $order_count;
-			
-			$this->db->where('id', $id);
-			$this->db->update('data_field_assignments', $update_data);
-			
-			$update_data = array();
+			$this->db
+					->where('id', $id)
+					->update('data_field_assignments', array('sort_order' => $order_count));
 			
 			$order_count++;
 		

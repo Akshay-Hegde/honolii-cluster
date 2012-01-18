@@ -4,10 +4,12 @@
  *
  * Currently, this plugs into the admin_notification to use PyroStreams validation.
  * 
- * @package		PyroCMS
- * @subpackage	PyroStreams
+ * @package		PyroStreams
  * @category	events
  * @author		Parse19
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
+ * @link		http://parse19.com/pyrostreams
  */
 class Events_Streams {
     

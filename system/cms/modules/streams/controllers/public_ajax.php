@@ -5,8 +5,8 @@
  *
  * @package		PyroStreams
  * @author		Parse19
- * @copyright	Copyright (c) 2011, Parse19
- * @license		http://parse19.com/pyrostreams/license
+ * @copyright	Copyright (c) 2011 - 2012, Parse19
+ * @license		http://parse19.com/pyrostreams/docs/license
  * @link		http://parse19.com/pyrostreams
  */
 class Public_ajax extends Public_Controller {
@@ -60,5 +60,3 @@ class Public_ajax extends Public_Controller {
 	}
 	
 }
-
-/* End of file ajax.php */
