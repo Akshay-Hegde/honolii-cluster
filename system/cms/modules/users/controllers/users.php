@@ -15,7 +15,7 @@ class Users extends Public_Controller
 	 *
 	 * @return void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -29,7 +29,6 @@ class Users extends Public_Controller
 	/**
 	 * Show the current user's profile
 	 *
-	 * @access public
 	 * @return void
 	 */
 	public function index()
@@ -64,7 +63,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('profile/view', array(
-			'user' => $user,
+			'_user' => $user,
 		));
 	}
 
@@ -124,7 +123,7 @@ class Users extends Public_Controller
 		}
 
 		$this->template->build('login', array(
-			'user' => $user,
+			'_user' => $user,
 			'redirect_to' => $redirect_to,
 		));
 	}
@@ -285,14 +284,6 @@ class Users extends Public_Controller
 				// Return the validation error
 				$this->template->error_string = $this->form_validation->error_string();
 			}
-			
-			// Repopulate the form
-			foreach ($validation as $rule)
-			{
-				$user->{$rule['field']} = set_value($rule['field']);
-			}
-			
-			$this->template->user = $user;
 		}
 		
 		// Is there a user hash?
@@ -304,12 +295,17 @@ class Users extends Public_Controller
 			$user->last_name		= $user_hash['last_name'];
 			$user->username			= $user_hash['nickname'];
 			$user->email			= isset($user_hash['email']) ? $user_hash['email'] : '';
-			
-			$this->template->user = $user;
+		}
+		
+		// Repopulate the form
+		foreach ($validation as $rule)
+		{
+			$user->{$rule['field']} = set_value($rule['field']);
 		}
 		
 		$this->template
 			->title(lang('user_register_title'))
+			->set('_user', $user)
 			->build('register');
 	}
 
@@ -478,6 +474,15 @@ class Users extends Public_Controller
 		else
 		{
 			$user = $this->current_user or redirect('users/login/users/edit'.(($id > 0) ? '/'.$id : ''));
+		}
+
+		// If we have API's enabled, load stuff
+		if (Settings::get('api_enabled') and Settings::get('api_user_keys'))
+		{
+			$this->load->model('api/api_key_m');
+			$this->load->language('api/api');
+			
+			$api_key = $this->api_key_m->get_active_key($user->id);
 		}
 
 		$this->validation_rules = array(
@@ -690,10 +695,11 @@ class Users extends Public_Controller
 		// Render the view
 		$this->template->build('profile/edit', array(
 			'languages' => $languages,
-			'user' => $user,
+			'_user' => $user,
 			'days' => $days,
 			'months' => $months,
 			'years' => $years,
+			'api_key' => isset($api_key) ? $api_key : null,
 		));
 	}
 
