@@ -78,12 +78,14 @@ jQuery(function($) {
 	});
 	
 	//remove this url set
-	$('.url-remove').live('click', function(){
+	$('.url-remove').live('click', function(e){
+		e.preventDefault();
 		$(this).parent().remove();
 	});
 	
 	//add another url set
-	$('.url-add').live('click', function(){
+	$('.url-add').live('click', function(e){
+		e.preventDefault();
 			
 		$(this).parent().after(function(){
 			return $(this).next('li').clone().show();

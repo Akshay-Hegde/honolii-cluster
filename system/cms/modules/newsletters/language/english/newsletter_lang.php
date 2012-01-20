@@ -53,7 +53,7 @@ $lang['newsletters.statistics']						= 'Statistics';
 
 // messages
 $lang['newsletters.example_email']					= 'user@example.com';
-$lang['newsletters.no_newsletters_error'] 			= 'There are no newsletters.';
+$lang['newsletters.no_newsletters_error'] 			= 'There are no newsletters. <a href="'.current_url().'/create">Create one</a>';
 $lang['newsletters.subscribed_success'] 			= 'You have now subscribed. You should hear from us when we send out the next newsletter.';
 $lang['newsletters.admin_subscribed_success'] 		= 'The email has been added to your subscriber list. They will receive the next newsletter.';
 $lang['newsletters.subscribe_desc'] 				= 'Subscribe to our newsletter to receive emails and useful news articles.';
