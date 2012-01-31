@@ -18,7 +18,7 @@
 				<th><?php echo lang('newsletters.subject');?></th>
 				<th><?php echo lang('newsletters.created');?></th>
 				<th><?php echo lang('newsletters.sent');?></th>
-				<th><span><?php echo lang('newsletters.actions');?></span></th>
+				<th></th>
 			</tr>
 	  </thead>
 		<tbody>
@@ -31,24 +31,26 @@
 				<?php else: ?>
 					<td><em><?php echo lang('newsletters.not_sent_label');?></em></td>
 				<?php endif; ?>	
-				<td>
+				<td class="actions">
 					<?php if($newsletter->sent_on == 0): ?>
-					<?php echo anchor('admin/newsletters/edit/' . $newsletter->id, lang('newsletters.edit')); ?>
-					| <?php endif; ?>
-					<?php echo anchor('admin/newsletters/view/' . $newsletter->id, lang('newsletters.view'), array('class' => 'colorbox')); ?>
-					| <?php echo anchor('admin/newsletters/delete/' . $newsletter->id, lang('newsletters.delete'), array('class'=>'confirm')); ?>
+						<?php echo anchor('admin/newsletters/edit/' . $newsletter->id, lang('newsletters.edit'), 'class="btn orange"'); ?>
+					<?php endif; ?>
+					
+					<?php echo anchor('admin/newsletters/view/' . $newsletter->id, lang('newsletters.view'), array('class' => 'btn blue colorbox')); ?>
+					<?php echo anchor('admin/newsletters/delete/' . $newsletter->id, lang('newsletters.delete'), array('class'=>'btn red confirm')); ?>
+					
 					<?php if($newsletter->sent_on == 0 AND $newsletter->send_cron == 0): ?>
-					|  <?php if($this->settings->newsletter_cron_enabled == 1): ?>
-							  <?php echo anchor('admin/newsletters', lang('newsletters.send_cron'), array('class' => 'newsletter-send', 'title'=>lang('newsletters.confirm'), 'id' => $newsletter->id)); ?>
+						<?php if($this->settings->newsletter_cron_enabled == 1): ?>
+							  <?php echo anchor('admin/newsletters', lang('newsletters.send_cron'), array('class' => 'btn green newsletter-send', 'title'=>lang('newsletters.confirm'), 'id' => $newsletter->id)); ?>
 					  <?php elseif($this->settings->newsletter_email_limit > 0): ?>
-							  <?php echo anchor('admin/newsletters', lang('newsletters.send_batch'), array('class' => 'newsletter-send batch', 'title'=>lang('newsletters.confirm'), 'id' => $newsletter->id)); ?>
+							  <?php echo anchor('admin/newsletters', lang('newsletters.send_batch'), array('class' => 'btn green newsletter-send batch', 'title'=>lang('newsletters.confirm'), 'id' => $newsletter->id)); ?>
 					  <?php else: ?>
-							  <?php echo anchor('admin/newsletters', lang('newsletters.send'), array('class' => 'newsletter-send', 'title'=>lang('newsletters.confirm'), 'id' => $newsletter->id)); ?>
+							  <?php echo anchor('admin/newsletters', lang('newsletters.send'), array('class' => 'btn green newsletter-send', 'title'=>lang('newsletters.confirm'), 'id' => $newsletter->id)); ?>
 					  <?php endif; ?>
 					<?php elseif($newsletter->sent_on == 0 AND $newsletter->send_cron == 1): ?>
-					| <?php echo lang('newsletters.pending'); ?>
+						<?php echo lang('newsletters.pending'); ?>
 					<?php else: ?>
-					| <?php echo anchor('admin/newsletters/statistics/' . $newsletter->id, lang('newsletters.stats')); ?>
+						<?php echo anchor('admin/newsletters/statistics/' . $newsletter->id, lang('newsletters.stats'), 'class="btn blue"'); ?>
 					<?php endif; ?>
 				</td>
 			</tr>
@@ -56,10 +58,8 @@
 		</tbody>
 	</table>
 <?php else: ?>
-	<div class="blank-slate">
-			  <?php echo image('news.png', 'newsletters', array('alt' => 'news')); ?>
-			
-		<h4><?php echo lang('newsletters.no_newsletters_error');?></h4>
+	<div class="no_data">
+		<?php echo lang('newsletters.no_newsletters_error');?>
 	</div>
 <?php endif;?>
 

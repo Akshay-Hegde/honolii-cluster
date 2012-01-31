@@ -2,7 +2,7 @@
 
 class Module_Newsletters extends Module {
 
-	public $version = '1.3.0';
+	public $version = '1.3.1';
 
 	public function info()
 	{
@@ -136,26 +136,26 @@ class Module_Newsletters extends Module {
 			<head>
 				<title></title>
 			</head>
-			<body bgcolor="#163755" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
+			<body bgcolor="#E0DBDB" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
 				<style type="text/css">
-		.headerTop { background-color:#FFCC66; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
-					 .adminText { font-size:10px; color:#996600; line-height:200%; font-family:verdana; text-decoration:none; }
+		.headerTop { background-color:#163755; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
+					 .adminText { font-size:10px; color:#091825; line-height:200%; font-family:verdana; text-decoration:none; }
 					 .headerBar { background-color:#FFFFFF; border-top:0px solid #333333; border-bottom:10px solid #FFFFFF; }
 					 .title { font-size:20px; font-weight:bold; color:#CC6600; font-family:arial; line-height:110%; }
 					 .subTitle { font-size:11px; font-weight:normal; color:#666666; font-style:italic; font-family:arial; }
 					 .defaultText { font-size:12px; color:#000000; line-height:150%; font-family:trebuchet ms; }
 					 .footerRow { background-color:#FFFFCC; border-top:10px solid #FFFFFF; }
-					 .footerText { font-size:10px; color:#996600; line-height:100%; font-family:verdana; }
+					 .footerText { font-size:10px; color:#091825; line-height:100%; font-family:verdana; }
 					 a { color:#FF6600; color:#FF6600; color:#FF6600; }		</style>
-				<table bgcolor="#163755" cellpadding="10" cellspacing="0" class="backgroundTable" width="100%">
+				<table bgcolor="#E0DBDB" cellpadding="10" cellspacing="0" class="backgroundTable" width="100%">
 					<tbody>
 						<tr>
 							<td align="center" valign="top">
 								<table cellpadding="0" cellspacing="0" width="550">
 									<tbody>
 										<tr>
-											<td align="center" style="background-color: rgb(255, 204, 102); border-top: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(255, 255, 255); text-align: center;">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: rgb(153, 102, 0); line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
+											<td align="center" style="background-color: #516e88; border-top: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(255, 255, 255); text-align: center;">
+												<span style="font-size: 10px; color: #091825; line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: #091825; line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
 										</tr>
 										<tr>
 											<td style="background-color: rgb(255, 255, 255); border-top: 0px solid rgb(51, 51, 51); border-bottom: 10px solid rgb(255, 255, 255);">
@@ -170,22 +170,22 @@ class Module_Newsletters extends Module {
 										<tr>
 											<td bgcolor="#ffffff" style="font-size: 12px; color: rgb(0, 0, 0); line-height: 150%; font-family: trebuchet ms;" valign="top">
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet leo vel sem ultricies sagittis. Sed non risus in justo porta blandit quis in velit. Vestibulum fermentum dignissim diam eu porta. Vivamus dolor nulla, egestas in ultrices et, suscipit eu sapien. Integer consequat consequat odio at dictum. Donec nisi arcu, blandit vitae pharetra sed, condimentum pharetra libero. Donec blandit feugiat magna congue accumsan. Fusce adipiscing nunc sit amet elit fermentum faucibus. Ut tristique tristique lectus, pellentesque volutpat felis blandit non. In eleifend tellus vitae felis adipiscing interdum consectetur velit faucibus. Pellentesque interdum, magna porttitor luctus condimentum, purus diam sagittis odio, quis suscipit dolor nisi non nulla.</p>
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Duis venenatis dictum interdum. Duis sed mauris vitae nisi commodo dapibus. Vestibulum tempus lectus commodo ipsum condimentum malesuada. In eros mi, ullamcorper eget fringilla sed, elementum pharetra mi. Vivamus cursus imperdiet malesuada. Morbi ultricies vulputate mi a tempor. Proin at leo vitae dolor posuere convallis scelerisque ac nulla. Nam in sem urna, vitae bibendum libero. Sed tincidunt ornare nulla. Aenean elementum lobortis arcu sit amet dictum. Maecenas sodales arcu sit amet metus rhoncus sit amet volutpat est porttitor. Maecenas vitae consectetur massa. Nulla sed metus mauris. Morbi quam nisi, sodales vel consectetur eget, molestie in erat. In hac habitasse platea dictumst. Ut sit amet viverra massa. Mauris vel elit ac est tempus elementum.</p>
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Nulla rhoncus facilisis quam in varius. Cras viverra diam ut elit vulputate placerat. Nunc magna lectus, dapibus nec tincidunt vel, accumsan a ante. Donec posuere congue erat, non placerat lectus ullamcorper a. Curabitur hendrerit odio orci. Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum.</p>
 											</td>
 										</tr>
 										<tr>
 											<td style="background-color: rgb(255, 255, 204); border-top: 10px solid rgb(255, 255, 255);" valign="top">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 100%; font-family: verdana;">Newsletter description...<br />
+												<span style="font-size: 10px; color: #091825; line-height: 100%; font-family: verdana;">Newsletter description...<br />
 												<br />
 												<a href="{{ url:site }}newsletters/unsubscribe/{{ recipient:hash }}">Unsubscribe</a> from this list with one click.<br />
 												<br />
@@ -214,10 +214,10 @@ class Module_Newsletters extends Module {
 			<head>
 				<title></title>
 			</head>
-			<body bgcolor="#163755" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
+			<body bgcolor="#E0DBDB" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
 				<style type="text/css">
-		.headerTop { background-color:#FFCC66; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
-					 .adminText { font-size:10px; color:#996600; line-height:200%; font-family:verdana; text-decoration:none; }
+		.headerTop { background-color:#163755; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
+					 .adminText { font-size:10px; color:#091825; line-height:200%; font-family:verdana; text-decoration:none; }
 					 .headerBar { background-color:#FFFFFF; border-top:0px solid #333333; border-bottom:10px solid #FFFFFF; }
 					 .title { font-size:20px; font-weight:bold; color:#CC6600; font-family:arial; line-height:110%; }
 					 .subTitle { font-size:11px; font-weight:normal; color:#666666; font-style:italic; font-family:arial; }
@@ -226,17 +226,17 @@ class Module_Newsletters extends Module {
 					 .sideColumnText { font-size:11px; font-weight:normal; color:#999999; font-family:arial; line-height:150%; }
 					 .sideColumnTitle { font-size:15px; font-weight:bold; color:#333333; font-family:arial; line-height:150%; }
 					 .footerRow { background-color:#FFFFCC; border-top:10px solid #FFFFFF; }
-					 .footerText { font-size:10px; color:#996600; line-height:100%; font-family:verdana; }
+					 .footerText { font-size:10px; color:#091825; line-height:100%; font-family:verdana; }
 					 a { color:#FF6600; color:#FF6600; color:#FF6600; }		</style>
-				<table bgcolor="#163755" cellpadding="10" cellspacing="0" width="100%">
+				<table bgcolor="#E0DBDB" cellpadding="10" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<td align="center" valign="top">
 								<table cellpadding="0" cellspacing="0" width="600">
 									<tbody>
 										<tr>
-											<td align="center" style="background-color: rgb(255, 204, 102); border-top: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(255, 255, 255); text-align: center;">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: rgb(153, 102, 0); line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
+											<td align="center" style="background-color: #516e88; border-top: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(255, 255, 255); text-align: center;">
+												<span style="font-size: 10px; color: #091825; line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: #091825; line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
 										</tr>
 										<tr>
 											<td align="left" style="background-color: rgb(255, 255, 255); border-top: 0px solid rgb(51, 51, 51); border-bottom: 10px solid rgb(255, 255, 255);" valign="middle">
@@ -257,18 +257,18 @@ class Module_Newsletters extends Module {
 												Vestibulum fermentum dignissim diam eu porta. Vivamus dolor nulla, egestas in ultrices et, suscipit eu sapien. Integer consequat consequat odio at dictum. Donec nisi arcu, blandit vitae pharetra sed, condimentum pharetra libero. </span></td>
 											<td bgcolor="#ffffff" style="font-size: 12px; color: rgb(0, 0, 0); line-height: 150%; font-family: trebuchet ms;" valign="top" width="400">
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet leo vel sem ultricies sagittis. Sed non risus in justo porta blandit quis in velit. Vestibulum fermentum dignissim diam eu porta. Vivamus dolor nulla, egestas in ultrices et, suscipit eu sapien. Integer consequat consequat odio at dictum. Donec nisi arcu, blandit vitae pharetra sed, condimentum pharetra libero. Donec blandit feugiat magna congue accumsan. Fusce adipiscing nunc sit amet elit fermentum faucibus. Ut tristique tristique lectus, pellentesque volutpat felis blandit non. In eleifend tellus vitae felis adipiscing interdum consectetur velit faucibus. Pellentesque interdum, magna porttitor luctus condimentum, purus diam sagittis odio, quis suscipit dolor nisi non nulla.</p>
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Nulla rhoncus facilisis quam in varius. Cras viverra diam ut elit vulputate placerat. Nunc magna lectus, dapibus nec tincidunt vel, accumsan a ante. Donec posuere congue erat, non placerat lectus ullamcorper a. Curabitur hendrerit odio orci. Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum.</p>
 											</td>
 										</tr>
 										<tr>
 											<td style="background-color: rgb(255, 255, 204); border-top: 10px solid rgb(255, 255, 255);" valign="top">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 100%; font-family: verdana;">Newsletter description...<br />
+												<span style="font-size: 10px; color: #091825; line-height: 100%; font-family: verdana;">Newsletter description...<br />
 												<br />
 												<a href="{{ url:site }}newsletters/unsubscribe/{{ recipient:hash }}">Unsubscribe</a> from this list with one click.<br />
 												<br />
@@ -297,10 +297,10 @@ class Module_Newsletters extends Module {
 			<head>
 				<title></title>
 			</head>
-			<body bgcolor="#163755" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
+			<body bgcolor="#E0DBDB" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
 				<style type="text/css">
-		.headerTop { background-color:#FFCC66; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
-					 .adminText { font-size:10px; color:#996600; line-height:200%; font-family:verdana; text-decoration:none; }
+		.headerTop { background-color:#163755; border-top:0px solid #000000; border-bottom:1px solid #FFFFFF; text-align:center; }
+					 .adminText { font-size:10px; color:#091825; line-height:200%; font-family:verdana; text-decoration:none; }
 					 .headerBar { background-color:#FFFFFF; border-top:0px solid #333333; border-bottom:10px solid #FFFFFF; }
 					 .title { font-size:20px; font-weight:bold; color:#CC6600; font-family:arial; line-height:110%; }
 					 .subTitle { font-size:11px; font-weight:normal; color:#666666; font-style:italic; font-family:arial; }
@@ -309,17 +309,17 @@ class Module_Newsletters extends Module {
 					 .sideColumnText { font-size:11px; font-weight:normal; color:#999999; font-family:arial; line-height:150%; }
 					 .sideColumnTitle { font-size:15px; font-weight:bold; color:#333333; font-family:arial; line-height:150%; }
 					 .footerRow { background-color:#FFFFCC; border-top:10px solid #FFFFFF; }
-					 .footerText { font-size:10px; color:#996600; line-height:100%; font-family:verdana; }
+					 .footerText { font-size:10px; color:#091825; line-height:100%; font-family:verdana; }
 					 a { color:#FF6600; color:#FF6600; color:#FF6600; }		</style>
-				<table bgcolor="#163755" cellpadding="10" cellspacing="0" width="100%">
+				<table bgcolor="#E0DBDB" cellpadding="10" cellspacing="0" width="100%">
 					<tbody>
 						<tr>
 							<td align="center" valign="top">
 								<table cellpadding="0" cellspacing="0" width="600">
 									<tbody>
 										<tr>
-											<td align="center" style="background-color: rgb(255, 204, 102); border-top: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(255, 255, 255); text-align: center;">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: rgb(153, 102, 0); line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
+											<td align="center" style="background-color: #516e88; border-top: 0px solid rgb(0, 0, 0); border-bottom: 1px solid rgb(255, 255, 255); text-align: center;">
+												<span style="font-size: 10px; color: #091825; line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: #091825; line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
 										</tr>
 										<tr>
 											<td align="left" style="background-color: rgb(255, 255, 255); border-top: 0px solid rgb(51, 51, 51); border-bottom: 10px solid rgb(255, 255, 255);" valign="middle">
@@ -334,11 +334,11 @@ class Module_Newsletters extends Module {
 										<tr>
 											<td bgcolor="#ffffff" style="font-size: 12px; color: rgb(0, 0, 0); line-height: 150%; font-family: trebuchet ms;" valign="top" width="400">
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum. Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum. Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum.</p>
 												<p>
-													<span style="font-size: 20px; font-weight: bold; color: rgb(204, 102, 0); font-family: arial; line-height: 110%;">Intro Text</span><br />
+													<span style="font-size: 20px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">Intro Text</span><br />
 													<span style="font-size: 11px; font-weight: normal; color: rgb(102, 102, 102); font-style: italic; font-family: arial;">Author/sub text</span><br />
 													Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer sit amet leo vel sem ultricies sagittis. Sed non risus in justo porta blandit quis in velit. Vestibulum fermentum dignissim diam eu porta. Vivamus dolor nulla, egestas in ultrices et, suscipit eu sapien. Integer consequat consequat odio at dictum. Donec nisi arcu, blandit vitae pharetra sed, condimentum pharetra libero. Donec blandit feugiat magna congue accumsan. Fusce adipiscing nunc sit amet elit fermentum faucibus. Ut tristique tristique lectus, pellentesque volutpat felis blandit non. In eleifend tellus vitae felis adipiscing interdum consectetur velit faucibus. Pellentesque interdum, magna porttitor luctus condimentum, purus diam sagittis odio, quis suscipit dolor nisi non nulla.</p>
 											</td>
@@ -351,7 +351,7 @@ class Module_Newsletters extends Module {
 										</tr>
 										<tr>
 											<td style="background-color: rgb(255, 255, 204); border-top: 10px solid rgb(255, 255, 255);" valign="top">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 100%; font-family: verdana;">Newsletter description...<br />
+												<span style="font-size: 10px; color: #091825; line-height: 100%; font-family: verdana;">Newsletter description...<br />
 												<br />
 												<a href="{{ url:site }}newsletters/unsubscribe/{{ recipient:hash }}">Unsubscribe</a> from this list with one click.<br />
 												<br />
@@ -380,9 +380,9 @@ class Module_Newsletters extends Module {
 			<head>
 				<title></title>
 			</head>
-			<body bgcolor="#163755" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
+			<body bgcolor="#E0DBDB" leftmargin="0" marginheight="0" marginwidth="0" offset="0" topmargin="0">
 				<style type="text/css">
-		.headerTop { background-color:#163755; border-top:0px solid #000000; border-bottom:0px solid #FFCC66; text-align:right; }
+		.headerTop { background-color:#E0DBDB; border-top:0px solid #000000; border-bottom:0px solid #163755; text-align:right; }
 					 .adminText { font-size:10px; color:#FFFFCC; line-height:200%; font-family:verdana; text-decoration:none; }
 					 .headerBar { background-color:#FFFFFF; border-top:0px solid #FFFFFF; border-bottom:0px solid #333333; }
 					 .title { font-size:22px; font-weight:bold; color:#336600; font-family:arial; line-height:110%; }
@@ -391,14 +391,14 @@ class Module_Newsletters extends Module {
 					 .footerRow { background-color:#FFFFCC; border-top:10px solid #FFFFFF; }
 					 .footerText { font-size:10px; color:#333333; line-height:100%; font-family:verdana; }
 					 a { color:#FF0000; color:#FF6600; color:#FF6600; }		</style>
-				<table bgcolor="#163755" cellpadding="10" cellspacing="0" class="backgroundTable" width="100%">
+				<table bgcolor="#E0DBDB" cellpadding="10" cellspacing="0" class="backgroundTable" width="100%">
 					<tbody>
 						<tr>
 							<td align="center" valign="top">
 								<table cellpadding="0" cellspacing="0" width="550">
 									<tbody>
 										<tr>
-											<td align="center" style="background-color: rgb(22, 55, 85); border-top: 0px solid rgb(0, 0, 0); border-bottom: 0px solid rgb(255, 204, 102); text-align: right;">
+											<td align="center" style="background-color: rgb(22, 55, 85); border-top: 0px solid rgb(0, 0, 0); border-bottom: 0px solid #516e88; text-align: right;">
 												<span style="font-size: 10px; color: rgb(255, 255, 204); line-height: 200%; font-family: verdana; text-decoration: none;">Email not displaying correctly? <a href="{{ url:site }}newsletters/archive/{{ newsletter:id }}" style="font-size: 10px; color: rgb(255, 255, 204); line-height: 200%; font-family: verdana; text-decoration: none;">View it in your browser.</a></span></td>
 										</tr>
 										<tr>
@@ -420,13 +420,13 @@ class Module_Newsletters extends Module {
 										<tr>
 											<td bgcolor="#ffffff" style="font-size: 12px; color: rgb(0, 0, 0); line-height: 150%; font-family: trebuchet ms;" valign="top">
 												<p>
-													<span style="font-size: 22px; font-weight: bold; color: rgb(51, 102, 0); font-family: arial; line-height: 110%;">The Newsletter Body...</span><br />
+													<span style="font-size: 22px; font-weight: bold; color: #163755; font-family: arial; line-height: 110%;">The Newsletter Body...</span><br />
 													Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum. Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum. Vivamus adipiscing dui non neque feugiat pellentesque. Nam sodales eleifend venenatis. Fusce pharetra nulla quis purus rutrum et lacinia odio vestibulum.</p>
 											</td>
 										</tr>
 										<tr>
 											<td style="background-color: rgb(255, 255, 204); border-top: 10px solid rgb(255, 255, 255);" valign="top">
-												<span style="font-size: 10px; color: rgb(153, 102, 0); line-height: 100%; font-family: verdana;">Newsletter description...<br />
+												<span style="font-size: 10px; color: #091825; line-height: 100%; font-family: verdana;">Newsletter description...<br />
 												<br />
 												<a href="{{ url:site }}newsletters/unsubscribe/{{ recipient:hash }}">Unsubscribe</a> from this list with one click.<br />
 												<br />

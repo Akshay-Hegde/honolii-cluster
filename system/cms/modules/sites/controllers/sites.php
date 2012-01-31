@@ -121,6 +121,7 @@ class Sites extends Sites_Controller
 		{
 			$ref = $this->input->post('ref');
 			
+			$this->load->config('migration');
 			$this->load->library('module_import', $ref);
 	
 			// make sure there aren't orphaned folders from a previous install
@@ -336,7 +337,7 @@ class Sites extends Sites_Controller
 	
 	public function _valid_domain($url)
 	{
-		return preg_replace('([^a-z0-9._-]+)', '', $url);
+		return preg_replace('([^a-z0-9:._-]+)', '', $url);
 	}
 	
 	public function _underscore($ref)

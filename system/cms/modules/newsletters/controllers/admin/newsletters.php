@@ -40,7 +40,11 @@ class Newsletters extends Admin_Controller
 				);
 
 		// determine the modules location once for use in js
-		if(is_dir(ADDONPATH.'modules/newsletters'))
+		if(is_dir(APPPATH.'modules/newsletters'))
+		{
+			$this->template->append_metadata('<script type="text/javascript">var MODULE_LOCATION = "'.APPPATH.'modules/newsletters/";</script>');
+		}
+		elseif(is_dir(ADDONPATH.'modules/newsletters'))
 		{
 			$this->template->append_metadata('<script type="text/javascript">var MODULE_LOCATION = "'.ADDONPATH.'modules/newsletters/";</script>');
 		}
@@ -241,7 +245,7 @@ class Newsletters extends Admin_Controller
 	//validate the Tracked URL fields
 	public function _tracked_urls()
 	{		
-		foreach($this->input->post('tracked_urls') AS $field)
+		foreach($this->input->post('tracked_urls') AS $key => $field)
 		{
 			//remove the hidden input fields that are there for jQuery's use
 			array_pop($field);
@@ -251,12 +255,7 @@ class Newsletters extends Admin_Controller
 				//if field isn't empty, validate
 				if($value > '')
 				{
-					if(substr($value, 0, 4) != 'http')
-					{
-						$this->form_validation->set_message('tracked_urls', lang('newsletters.tracked_urls_error'));
-						
-						return FALSE;
-					}
+					$_POST[$key] = prep_url($value);
 				}
 			}
 		}
