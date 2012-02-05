@@ -88,8 +88,8 @@ class Fields
      *
      * @return	mixed
      */
- 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
- 	{ 	 		
+ 	public function build_form($stream, $method, $row = FALSE, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	{
  		$this->CI->load->helper(array('form', 'url'));
  	
  		// -------------------------------------
@@ -119,6 +119,8 @@ class Fields
 		{
 			if( ! isset($extra[$key])) $extra[$key] = $value;
 		}
+		
+		extract($extra);
 
  		// -------------------------------------
 		// Get Stream Fields
@@ -225,7 +227,7 @@ class Fields
 					
 					if ($plugin and $email_notifications)
 					{
-						foreach ($data->email_notifications as $notify)
+						foreach ($email_notifications as $notify)
 						{
 							$this->_send_email($notify, $result_id, $method = 'new', $stream);
 						}
