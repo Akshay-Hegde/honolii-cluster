@@ -38,8 +38,8 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 
 		$this->template
-			->append_metadata(css('themes.css', 'themes'))
-			->append_metadata(js('admin.js', 'themes'));
+			->append_css('module::themes.css')
+			->append_js('module::admin.js');
 	}
 
 	/**
@@ -201,7 +201,8 @@ class Admin extends Admin_Controller
 		$this->data->options_array 	= $all_options;
 		$this->data->controller		= &$this;
 
-		$this->template->set_layout('modal', 'admin')
+		$this->template
+			->set_layout('modal', 'admin')
 			->build('admin/options', $this->data);
 	}
 
@@ -321,7 +322,7 @@ class Admin extends Admin_Controller
 				$theme_name = urldecode($theme_name);
 				$to_delete++;
 
-				if($this->settings->default_theme == $theme_name)
+				if ($this->settings->default_theme == $theme_name)
 				{
 					$this->session->set_flashdata('error', lang('themes.default_delete_error'));
 				}
@@ -330,11 +331,11 @@ class Admin extends Admin_Controller
 				{
 					$theme_dir = ADDONPATH.'themes/'.$theme_name;
 
-					if( is_really_writable($theme_dir) )
+					if (is_really_writable($theme_dir))
 					{
 						delete_files($theme_dir, TRUE);
 
-						if(@rmdir($theme_dir))
+						if (@rmdir($theme_dir))
 						{
 							$deleted++;
 						}
@@ -347,7 +348,7 @@ class Admin extends Admin_Controller
 				}
 			}
 
-			if( $deleted == $to_delete)
+			if ($deleted == $to_delete)
 			{
 				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete) );
 			}
