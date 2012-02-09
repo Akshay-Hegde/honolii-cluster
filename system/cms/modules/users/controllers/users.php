@@ -285,6 +285,12 @@ class Users extends Public_Controller
 				// Return the validation error
 				$this->template->error_string = $this->form_validation->error_string();
 			}
+			
+			// Repopulate the form
+			foreach ($validation as $rule)
+			{
+				$user->{$rule['field']} = set_value($rule['field']);
+			}
 		}
 		
 		// Is there a user hash?
@@ -296,12 +302,6 @@ class Users extends Public_Controller
 			$user->last_name 		= ( ! empty($user_hash['last_name'])) ? $user_hash['last_name']: '';
 			$user->email 			= ( ! empty($user_hash['email'])) ? $user_hash['email']: '';
 			$user->username			= $user_hash['nickname'];
-		}
-		
-		// Repopulate the form
-		foreach ($validation as $rule)
-		{
-			$user->{$rule['field']} = set_value($rule['field']);
 		}
 		
 		$this->template
@@ -451,6 +451,8 @@ class Users extends Public_Controller
 	 */
 	public function reset_complete()
 	{
+		PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+		
 		//if user is logged in they don't need to be here. and should use profile options
 		if ($this->current_user)
 		{
@@ -577,6 +579,8 @@ class Users extends Public_Controller
 		// Settings valid?
 		if ($this->form_validation->run())
 		{
+			PYRO_DEMO and show_error(lang('global:demo_restrictions'));
+			
 			// Loop through each POST item and add it to the secure_post array
 			$secure_post = $this->input->post();
 
