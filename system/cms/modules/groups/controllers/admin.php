@@ -24,7 +24,7 @@ class Admin extends Admin_Controller
 		$this->load->model(array('subscription_m', 'group_m'));
 		$this->load->library('form_validation');
 		$this->lang->load('group');
-		$this->lang->load(array('subscriptions', 'permissions/permissions'));
+		$this->lang->load(array('permissions/permissions'));
 
 		// Validation rules
 		$this->validation_rules = array(
@@ -37,11 +37,6 @@ class Admin extends Admin_Controller
 				'field' => 'description',
 				'label' => lang('groups.description'),
 				'rules' => 'trim|required|max_length[250]',
-			),
-			array(
-				'field' => 'subscription_plan_id',
-				'label' => lang('subscriptions:plan'),
-				'rules' => 'numeric',
 			),
 		);
 	}
