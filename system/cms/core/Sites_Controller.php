@@ -71,7 +71,9 @@ class Sites_Controller extends MX_Controller {
 		// Load ion_auth config so our user's settings (password length, etc) are in sync
 		$this->load->config('users/ion_auth');
 
-		$this->asset->set_theme(ADMIN_THEME);
+		// Set the theme as a path for Asset library
+		Asset::add_path('theme', APPPATH.'themes/'.ADMIN_THEME.'/');
+		Asset::set_path('theme');
 		
 		// check to make sure they're logged in
 		if ( $this->method !== 'login' AND ! $this->user_m->logged_in())
@@ -79,20 +81,13 @@ class Sites_Controller extends MX_Controller {
 			redirect('sites/login');
 		}
 		
-		// Asset library needs to know where the admin theme directory is
-		$this->config->set_item('asset_dir', APPPATH.'themes/');
-		$this->config->set_item('asset_url', BASE_URL.APPPATH.'themes/');
-		$this->config->set_item('theme_asset_dir', APPPATH.'themes/');
-		$this->config->set_item('theme_asset_url', BASE_URL.APPPATH.'themes/');
-		
 		// Template configuration
 		$this->template
-				->append_metadata(css('common.css'))
-				->append_metadata(js('jquery/jquery.cooki.js'))
-				->enable_parser(FALSE)
-				->set('super_username', $this->session->userdata('super_username'))
-				->set_theme(ADMIN_THEME)
-				->set_layout('default', 'admin');
-
+			->append_css('theme::common.css')
+			->append_js('jquery/jquery.cooki.js')
+			->enable_parser(FALSE)
+			->set('super_username', $this->session->userdata('super_username'))
+			->set_theme(ADMIN_THEME)
+			->set_layout('default', 'admin');
 	}
 }
