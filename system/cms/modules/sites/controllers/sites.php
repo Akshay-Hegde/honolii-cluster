@@ -35,7 +35,7 @@ class Sites extends Sites_Controller
 			array(
 				'field' => 'ref',
 				'label' => 'lang:site.ref',
-				'rules' => 'trim|alpha_dash|callback__underscore|min_length[4]|max_length[20]|required'
+				'rules' => 'trim|alpha_dash|callback__underscore|min_length[1]|max_length[20]|required'
 			),
 			array(
 				'field' => 'username',
@@ -64,11 +64,6 @@ class Sites extends Sites_Controller
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
 				'rules'	=> 'trim|min_length[6]|required'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|min_length[6]|required|matches[password]'
 			)
 		);
 		
@@ -76,12 +71,7 @@ class Sites extends Sites_Controller
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|matches[confirm_password]'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|matches[password]'
+				'rules'	=> 'trim'
 			)
 		);
 		
