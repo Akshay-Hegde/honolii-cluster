@@ -136,11 +136,14 @@ class Admin_Entries extends Admin_Controller {
 	function add()
 	{
 		$this->load->library('streams_core/Fields');
+
+		$extra = array(
+			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
+			'success_message' 	=> $this->lang->line('streams.new_entry_success'),
+			'failure_message'	=> $this->lang->line('streams.new_entry_error')
+		);
 		
-		$this->data->success_message 	= $this->lang->line("streams.new_entry_success");
-		$this->data->failure_message 	= $this->lang->line("streams.new_entry_error");
-		
-		$fields = $this->fields->build_form($this->data->stream, "new");
+		$fields = $this->fields->build_form($this->data->stream, 'new', false, false, false, array(), $extra);
 	
 		if ($fields === FALSE)
         {
@@ -152,11 +155,11 @@ class Admin_Entries extends Admin_Controller {
 						'fields' 	=> $fields,
 						'stream'	=> $this->data->stream,
 						'mode'		=> 'new');
-			
+						
 			$form = $this->load->view('admin/partials/streams/form', $data, TRUE);
 		
 			$this->data->content = $form;
-		
+					
 			$this->template->build('admin/partials/blank_section', $this->data);
 		}
 	}
@@ -171,9 +174,6 @@ class Admin_Entries extends Admin_Controller {
 	 */
 	function edit($row_id_uri)
 	{
-		$this->data->success_message 	= $this->lang->line("streams.edit_entry_success");
-		$this->data->failure_message 	= $this->lang->line("streams.edit_entry_error");
-
 		// -------------------------------------
 		// Get Stream Data
 		// -------------------------------------
@@ -195,10 +195,14 @@ class Admin_Entries extends Admin_Controller {
 		// -------------------------------------
 
  		$this->load->library('streams_core/Fields');
- 		
- 		$this->data->row_edit_id = $row->id;
- 		
-		$fields = $this->fields->build_form($this->data->stream, 'edit', $row);
+
+		$extra = array(
+			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
+			'success_message' 	=> $this->lang->line('streams.edit_entry_success'),
+			'failure_message'	=> $this->lang->line('streams.edit_entry_error')
+		);
+		
+		$fields = $this->fields->build_form($this->data->stream, 'edit', $row, false, false, array(), $extra);
 	
 		if ($fields === FALSE)
         {
@@ -211,12 +215,12 @@ class Admin_Entries extends Admin_Controller {
 						'fields' 	=> $fields,
 						'stream'	=> $this->data->stream,
 						'entry'		=> $row,
-						'mode'		=> 'new');
+						'mode'		=> 'edit');
 			
 			$form = $this->load->view('admin/partials/streams/form', $data, TRUE);
 		
 			$this->data->content = $form;
-		
+
 			$this->template->build('admin/partials/blank_section', $this->data);
 		}
 
