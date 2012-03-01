@@ -11,7 +11,7 @@
  */
 class Module_Streams extends Module {
 
-	public $version = '2.1';
+	public $version = '2.1.2';
 	
 	// --------------------------------------------------------------------------
 
@@ -19,96 +19,122 @@ class Module_Streams extends Module {
 	{
 		$info = array(
 			'name' => array(
-				'en' => 'Streams',
-				'es' => 'Streams'
+				'en' 	=> 'Streams',
+				'es' 	=> 'Streams',
+				'de' 	=> 'Streams',
+				'el' 	=> 'Ροές',
+				'lt' 	=> 'Srautai',
+				'fr'	=> 'Streams'
 			),
 			'description' => array(
-				'en' => 'Manage, structure, and display data.',
-				'es' => 'Administra, estructura, y presenta datos.'
+				'en' 	=> 'Manage, structure, and display data.',
+				'es' 	=> 'Administra, estructura, y presenta datos.',
+				'de' 	=> 'Verwalte, strukturiere und veröffentliche Daten.',
+				'el' 	=> 'Διαχείριση, δόμηση και προβολή πληροφοριών και δεδομένων.',
+				'lt' 	=> null,
+				'fr'	=> 'Gérer, structurer et afficher des données'
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
-			'author' => 'Parse19',
-			'menu' => 'content',
-			'roles' => array('admin_streams', 'admin_fields'),
-			'sections' => array(
-			    'streams' => array(
-				    'name' => 	'streams.streams',
-				    'uri' => 	'admin/streams'
-				),
-				'fields' => array(
-				    'name' => 'streams.fields',
-				    'uri' => 'admin/streams/fields',
-				    'shortcuts' => array(
-						array(
-							'name' => 'streams.field_types',
-							'uri' => 'admin/streams/fields/types',
-						),
-						array(
-							'name' => 'streams.new_field',
-							'uri' => 'admin/streams/fields/add',
-							'class' => 'add'
-						)
-				    ),
-			    ),
-		    )
+			'frontend' 	=> false,
+			'backend' 	=> true,
+			'is_core' 	=> false,
+			'author' 	=> 'Parse19',
+			'menu' 		=> 'content',
+			'roles' 	=> array('admin_streams', 'admin_fields')
 		);
 
-		$assignment_uris = array('assignments', 'new_assignment', 'edit_assignment', 'edit', 'view_options');
-		
-		if(function_exists('group_has_role')):
-		
+		if (function_exists('group_has_role'))
+		{
+			if (group_has_role('streams', 'admin_streams'))
+			{
+				$info['sections']['streams'] = array(
+					    'name' => 	'streams.streams',
+					    'uri' => 	'admin/streams'
+					);
+			}
+			
+			if (group_has_role('streams', 'admin_fields'))
+			{
+				$info['sections']['fields'] = array(
+					    'name' => 'streams.fields',
+					    'uri' => 'admin/streams/fields',
+					    'shortcuts' => array(
+							array(
+								'name' => 'streams.field_types',
+								'uri' => 'admin/streams/fields/types',
+							),
+							array(
+								'name' => 'streams.new_field',
+								'uri' => 'admin/streams/fields/add',
+								'class' => 'add'
+							)
+						),
+					);
+			}
+
+			$assignment_uris = array('assignments', 'new_assignment', 'edit_assignment', 'edit', 'view_options');
+			
+			$shortcuts = array();
+			
 			// Streams Add 
 			if(
 				group_has_role('streams', 'admin_streams') and 
-				!in_array($this->uri->segment(3), $assignment_uris) and
+				! in_array($this->uri->segment(3), $assignment_uris) and
 				$this->uri->segment(3) != 'entries'
-			):
-			
-				$info['sections']['streams']['shortcuts'][] = array(
+			)
+			{
+				$shortcuts[] = array(
 						'name' => 'streams.add_stream',
 						'uri' => 'admin/streams/add',
 						'class' => 'add');
-					
-			endif;
+			}	
 			
 			// Assignment Add
 			if(
 				group_has_role('streams', 'admin_streams') and
 				in_array($this->uri->segment(3), $assignment_uris) and
 				$this->uri->segment(3) != 'entries' or 
-				$this->uri->segment(3) == 'manage'):
+				$this->uri->segment(3) == 'manage')
+			{
 			
-				$info['sections']['streams']['shortcuts'][] = array(
+				$shortcuts[] = array(
 						'name' => 'streams.new_field_assign',
 						'uri' => 'admin/streams/new_assignment/'.$this->uri->segment(4),
 						'class' => 'add');
-			
-			endif;
-						
+			}
+					
 			// Entries
 			if(
 				!in_array($this->uri->segment(3), $assignment_uris) and
 				$this->uri->segment(3) == 'entries'
 			):
-	
+
 				if(group_has_role('streams', 'admin_streams') ):
-	
-					$info['sections']['streams']['shortcuts'][] = array(
+
+				$shortcuts[] = array(
 						'name' => 'streams.manage',
 						'uri' => 'admin/streams/manage/'.$this->uri->segment(5));
 						
 				endif;
 			
-				$info['sections']['streams']['shortcuts'][] = array(
+				$shortcuts[] = array(
 						'name' => 'streams.add_entry',
 						'uri' => 'admin/streams/entries/add/'.$this->uri->segment(5),
 						'class' => 'add');
-	
+
 			endif;
-		
-		endif;
-		
+			
+			// We only need to nest the shortcuts in sections
+			// if we actually need sections.
+			if (group_has_role('streams', 'admin_streams') or group_has_role('streams', 'admin_fields'))
+			{
+				$info['sections']['streams']['shortcuts'] = $shortcuts;
+			}
+			else
+			{
+				$info['shortcuts'] = $shortcuts;
+			}
+		}
+
 		return $info;
 	}
 	
