@@ -108,13 +108,24 @@ class Row_m extends MY_Model {
 		extract($params, EXTR_OVERWRITE);
 
 		// -------------------------------------
+		// Set the site_ref
+		// -------------------------------------
+		// Experimental feature - would 
+		// theoretically allow you to dip into
+		// other sites on multi-site if
+		// you wanted.
+		// -------------------------------------
+		
+		$this->db->set_dbprefix($site_ref.'_');
+	
+		// -------------------------------------
 		// Get Data We'll Need
 		// -------------------------------------
 		
 		$this->data->stream = $stream;
 
 		//Just for sanity's sake
-		$this->full_select_prefix = PYROSTREAMS_DB_PRE.STR_PRE.$stream->stream_slug.'.';
+		$this->full_select_prefix = $this->db->dbprefix(STR_PRE.'_'.$stream->stream_slug.'.');
 		$this->base_prefix = STR_PRE.$stream->stream_slug.'.';
 		
 		// Get your asses in the seats
@@ -328,9 +339,9 @@ class Row_m extends MY_Model {
 				
 					// Check and see if a user is logged in
 					// and then set the param
-					if( $this->user->id ):
+					if( $this->current_user->id ):
 					
-						$restrict_user = $this->user->id;
+						$restrict_user = $this->current_user->id;
 					
 					endif;
 				
@@ -341,8 +352,7 @@ class Row_m extends MY_Model {
 				else:
 				
 					// Looks like they might have put in a user's handle
-					$this->db->limit(1)->select('id')->where('username', $user);
-					$db_obj = $this->db->get('users');
+					$db_obj = $this->db->limit(1)->select('id')->where('username', $user)->get('users');
 					
 					if( $db_obj->num_rows == 0 ):
 					
@@ -513,6 +523,7 @@ class Row_m extends MY_Model {
 		// Reset
 		$this->get_rows_hook = array();
 		$this->select_string = '';
+		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;
 	}

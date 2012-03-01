@@ -24,10 +24,6 @@ class Admin_Entries extends Admin_Controller {
     {
         parent::__construct();
                 
-        // If you are going to admin fields you gotta 
-        // pass the test!
-		role_or_die('streams', 'admin_fields');
-
   		$this->load->config('streams/streams');
   		$this->lang->load('streams/pyrostreams');    
         $this->load->helper('streams/streams');

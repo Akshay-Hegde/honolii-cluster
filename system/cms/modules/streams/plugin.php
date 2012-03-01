@@ -41,7 +41,8 @@ class Plugin_Streams extends Plugin
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
 			'pag_segment'		=> 2,
-			'partial'			=> null
+			'partial'			=> null,
+			'site_ref'			=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------
@@ -183,7 +184,7 @@ class Plugin_Streams extends Plugin
 	 */
 	public function cycle()
 	{		
-		$this->debug_status		 	= $this->streams_attribute('debug', 'off');
+		$this->debug_status		 	= $this->streams_attribute('debug', 'on');
 
 		// -------------------------------------
 		// Get Plugin Attributes
@@ -218,7 +219,7 @@ class Plugin_Streams extends Plugin
 		if(!isset($params['stream'])) $this->_error_out(lang('streams.no_stream_provided'));
 				
 		$stream = $this->streams_m->get_stream($params['stream'], true);
-				
+						
 		if(!$stream) $this->_error_out(lang('streams.invalid_stream'));
 				
 		// -------------------------------------
@@ -317,20 +318,30 @@ class Plugin_Streams extends Plugin
 		);
 		
 		$params = array(
-			'stream'		=> $join_stream->stream_slug,
-			'limit'			=> $this->streams_attribute('limit'),
-			'offset'		=> $this->streams_attribute('offset', 0),
-			'order_by'		=> $this->streams_attribute('order_by'),
-			'exclude'		=> $this->streams_attribute('exclude'),
-			'show_upcoming'	=> $this->streams_attribute('show_upcoming', 'yes'),
-			'show_past'		=> $this->streams_attribute('show_past', 'yes'),
-			'year'			=> $this->streams_attribute('year'),
-			'month'			=> $this->streams_attribute('month'),
-			'day'			=> $this->streams_attribute('day'),
-			'restrict_user'	=> $this->streams_attribute('restrict_user', 'no'),
-			'single'		=> $this->streams_attribute('single', 'no')
+			'stream'			=> $join_stream->stream_slug,
+			'limit'				=> $this->streams_attribute('limit'),
+			'offset'			=> $this->streams_attribute('offset', 0),
+			'id'				=> $this->streams_attribute('id', NULL),
+			'date_by'			=> $this->streams_attribute('date_by', 'created'),
+			'exclude'			=> $this->streams_attribute('exclude'),
+			'show_upcoming'		=> $this->streams_attribute('show_upcoming', 'yes'),
+			'show_past'			=> $this->streams_attribute('show_past', 'yes'),
+			'year'				=> $this->streams_attribute('year'),
+			'month'				=> $this->streams_attribute('month'),
+			'day'				=> $this->streams_attribute('day'),
+			'restrict_user'		=> $this->streams_attribute('restrict_user', 'no'),
+			'where'				=> $this->streams_attribute('where', NULL),
+			'exclude'			=> $this->streams_attribute('exclude', NULL),
+			'exclude_by'		=> $this->streams_attribute('exclude_by', 'id'),
+			'disable'			=> $this->streams_attribute('disable', NULL),
+			'order_by'			=> $this->streams_attribute('order_by'),
+			'sort'				=> $this->streams_attribute('sort', 'asc'),
+			'exclude_called'	=> $this->streams_attribute('exclude_called', 'no'),
+			'paginate'			=> $this->streams_attribute('paginate', 'no'),
+			'pag_segment'		=> $this->streams_attribute('pag_segment', 2),
+			'partial'			=> $this->streams_attribute('partial', NULL)			
 		);
-		
+
 		// Get the rows
 		$this->rows = $this->row_m->get_rows($params, $this->fields, $join_stream);
 		
@@ -671,7 +682,7 @@ class Plugin_Streams extends Plugin
 		$edit_id 				= $this->streams_attribute('edit_id', FALSE);
 
 		$edit_segment 			= $this->streams_attribute('edit_segment', FALSE);
-	
+
 		$stream_slug 			= $this->streams_attribute('stream');
 
 		$stream_segment 		= $this->streams_attribute('stream_segment');
@@ -689,6 +700,8 @@ class Plugin_Streams extends Plugin
 		$include 				= $this->streams_attribute('include');
 		
 		$exclude 				= $this->streams_attribute('exclude');
+
+		$creator_only 			= $this->streams_attribute('creator_only', false);
 
 		$recaptcha 				= $this->streams_attribute('use_recaptcha', 'no');
 		
@@ -725,7 +738,7 @@ class Plugin_Streams extends Plugin
 		// this data no matter what and the 
 		// form library takes care of the rest.
 		// -------------------------------------
-	
+			
 		$notifications 			= array();
 
 		$numbers = array('a', 'b');
@@ -747,7 +760,7 @@ class Plugin_Streams extends Plugin
 		$row = false;
 		
 		if( $mode == 'edit' ):
-		
+			
 			// Do they want us to grab the ID from the URL?
 			if( is_numeric($edit_segment) ):
 			
@@ -774,13 +787,37 @@ class Plugin_Streams extends Plugin
 					endif;
 	
 				endif;
+				
+			else:
+
+				// Get the row
+				$row = $this->row_m->get_row($edit_id, $data->stream, FALSE);
 					
 			endif;
-			
-			// Get the row
-			$row = $this->row_m->get_row( $edit_id, $data->stream, FALSE );
 		
 		endif;
+
+		// -------------------------------------
+		// Check Author Only
+		// -------------------------------------
+		// If this mode is on edit, and it is set
+		// to creator_only, we can check to see
+		// if the editor is the creator.
+		// -------------------------------------
+
+		if ($creator_only == 'yes' and $mode == 'edit')
+		{
+			// Must be logged in
+			if ( ! isset($this->current_user->id))
+			{
+				return null;
+			}
+			
+			if($this->current_user->id != $row->created_by)
+			{
+				return null;
+			}
+		}
 
 		// -------------------------------------
 		// Include/Exclude
@@ -832,7 +869,7 @@ class Plugin_Streams extends Plugin
 	
 				if( $mode == 'edit' ):
 				
-					$fields[$count]['input'] 			= $this->fields->build_form_input($field, $output->values[$field->field_slug], $row->id);
+					$fields[$count]['input'] 			= $this->fields->build_form_input($field, $output->values[$field->field_slug], $row);
 				
 				else:
 	
@@ -912,6 +949,7 @@ class Plugin_Streams extends Plugin
 		$params['class']		= $this->streams_attribute('form_class', 'crud_form');
 		
 		$hidden = array();
+		
 		if($mode == 'edit'):
 		
 			$hidden = array('row_edit_id' => $row->id);
@@ -1484,10 +1522,10 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		
 		$rep = array('{{ streams:related', '{{streams:related');
-		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
+		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry=id ', $content);
 
 		$rep = array('{{ streams:multiple', '{{streams:multiple');
-		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
+		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry=id ', $content);
 		
 		// -------------------------------------
 		// Parse Rows

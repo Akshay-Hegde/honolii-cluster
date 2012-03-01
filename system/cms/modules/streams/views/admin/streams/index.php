@@ -55,7 +55,22 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-	<div class="no_data"><?php echo lang('streams.start.no_streams');?> <?php echo anchor('admin/streams/add', lang('streams.start.adding_one')); ?>.</div>
+
+	<div class="no_data">
+	<?php 
+
+		if ( ! group_has_role('streams', 'admin_streams'))
+		{
+			echo lang('streams.start.no_streams_yet');
+		}
+		else
+		{
+			echo lang('streams.start.no_streams').' '.anchor('admin/streams/add', lang('streams.start.adding_one')).'.';
+		}
+
+	?>
+	</div>
+
 <?php endif;?>
 
 </section>
