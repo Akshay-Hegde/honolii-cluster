@@ -24,10 +24,10 @@ $lang['streams.stream_field_ass_upd_error']				= "Kilo kliučių naujinant lauko
 $lang['streams.stream_field_ass_upd_success']			= "Lauko assignment atnaujintas sėkmingai.";
 $lang['streams.delete_entry_error']						= "Kilo kliučių ištrinant šį įrašą.";
 $lang['streams.delete_entry_success']					= "Įrašas ištrintas sėkmingai.";
-$lang['streams.add_entry_error']						= "Kilo kliučių pridedant įrašą.";
-$lang['streams.entry_add_success']						= "Įrašas pridėtas sėkmingai.";
-$lang['streams.update_entry_error']						= "Kilo kliučių naujinant įrašą.";
-$lang['streams.entry_update_success']					= "Įrašas sėkmingai atnaujintas.";
+$lang['streams.new_entry_error']						= "Kilo kliučių pridedant įrašą.";
+$lang['streams.new_entry_success']						= "Įrašas pridėtas sėkmingai.";
+$lang['streams.edit_entry_error']						= "Kilo kliučių naujinant įrašą.";
+$lang['streams.edit_entry_success']						= "Įrašas sėkmingai atnaujintas.";
 $lang['streams.delete_summary']							= "Ar jūs esate tikri, kad norite pašalinti <strong>%s</strong> srautą? Bus <strong>ištrinta %s %s</strong> negrįžtamai.";
 
 /* Misc Errors */

@@ -115,6 +115,8 @@ class Row_m extends MY_Model {
 		// other sites on multi-site if
 		// you wanted.
 		// -------------------------------------
+
+		if ( ! isset($site_ref)) $site_ref = SITE_REF;
 		
 		$this->db->set_dbprefix($site_ref.'_');
 	
