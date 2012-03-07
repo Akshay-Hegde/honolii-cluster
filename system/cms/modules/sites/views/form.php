@@ -53,11 +53,6 @@
 				<?php echo form_label(lang('user_password'), 'password'); ?>
 				<?php echo form_password('password', set_value('password', $password), 'class="required"'); ?>
 			</li>
-			
-			<li class="<?php echo alternator('', 'even'); ?>">
-				<?php echo form_label(lang('user_confirm_password'), 'confirm_password'); ?>
-				<?php echo form_password('confirm_password', set_value('confirm_password', $confirm_password), 'class="required"'); ?>
-			</li>
 
 		</ol>
 

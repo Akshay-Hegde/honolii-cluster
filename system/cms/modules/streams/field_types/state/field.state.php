@@ -24,6 +24,68 @@ class Field_state
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Our glorious 50 states!
+	 *
+	 * @access 	public
+	 * @var 	array
+	 */
+	public $raw_states = array(
+		'AL' => 'Alabama',  
+		'AK'=> 'Alaska',  
+		'AZ'=> 'Arizona',  
+		'AR'=> 'Arkansas',
+		'CA'=> 'California',  
+		'CO'=> 'Colorado',  
+		'CT'=> 'Connecticut',  
+		'DE'=> 'Deleware',
+		'DC'=> 'District of Columbia',
+		'FL'=> 'Florida',
+		'GA'=> 'Georgia',
+		'HI'=> 'Hawaii',
+		'ID'=> 'Idaho',
+		'IL'=> 'Illinois',
+		'IN'=> 'Indiana',  
+		'IA'=> 'Iowa',
+		'KS'=> 'Kansas', 
+		'KY'=> 'Kentucky',
+		'LA'=> 'Louisiana',
+		'ME'=> 'Maine',
+		'MD'=> 'Maryland',
+		'MA'=> 'Massachusetts',
+		'MI'=> 'Michigan',  
+		'MN'=> 'Minnesota',
+		'MS'=> 'Mississippi',
+		'MO'=> 'Missouri',
+		'MT'=> 'Montana',
+		'NE'=> 'Nebraska',
+		'NV'=> 'Nevada',
+		'NH'=> 'New Hampshire',
+		'NJ'=> 'New Jersey',
+		'NM'=> 'New Mexico',
+		'NY'=> 'New York',
+		'NC'=> 'North Carolina',
+		'ND'=> 'North Dakota',
+		'OH'=> 'Ohio',
+		'OK'=> 'Oklahoma', 
+		'OR'=> 'Oregon',
+		'PA'=> 'Pennsylvania',
+		'RI'=> 'Rhode Island',  
+		'SC'=> 'South Carolina',
+		'SD'=> 'South Dakota',
+		'TN'=> 'Tennessee',
+		'TX'=> 'Texas',
+		'UT'=> 'Utah',
+		'VT'=> 'Vermont', 
+		'VA'=> 'Virginia',
+		'WA'=> 'Washington',
+		'WV'=> 'West Virginia',
+		'WI'=> 'Wisconsin',
+		'WY'=> 'Wyoming'
+	);
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Output form input
 	 *
 	 * @param	array
@@ -40,6 +102,30 @@ class Field_state
 		endif;
 	
 		return form_dropdown($data['form_slug'], $this->states($field->is_required, $data['custom']['state_display']), $data['value'], 'id="'.$data['form_slug'].'"');
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Output for Plugin
+	 * 
+	 * Has two options:
+	 *
+	 * - abbr
+	 * - full
+	 *
+	 * @param	array
+	 * @param	array
+	 * @return	string
+	 */
+	public function pre_output_plugin($input, $data)
+	{
+		if ( ! $input) return null;
+
+		return array(
+			'abbr'	=> $input,
+			'full' 	=> $this->raw_states[$input]
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -101,64 +187,11 @@ class Field_state
 	
 		if($is_required == 'no') $choices[null] = get_instance()->config->item('dropdown_choose_null');
 	
-		$raw_states = array('AL' => 'Alabama',  
-			'AK'=> 'Alaska',  
-			'AZ'=> 'Arizona',  
-			'AR'=> 'Arkansas',
-			'CA'=> 'California',  
-			'CO'=> 'Colorado',  
-			'CT'=> 'Connecticut',  
-			'DE'=> 'Deleware',
-			'DC'=> 'District of Columbia',
-			'FL'=> 'Florida',
-			'GA'=> 'Georgia',
-			'HI'=> 'Hawaii',
-			'ID'=> 'Idaho',
-			'IL'=> 'Illinois',
-			'IN'=> 'Indiana',  
-			'IA'=> 'Iowa',
-			'KS'=> 'Kansas', 
-			'KY'=> 'Kentucky',
-			'LA'=> 'Louisiana',
-			'ME'=> 'Maine',
-			'MD'=> 'Maryland',
-			'MA'=> 'Massachusetts',
-			'MI'=> 'Michigan',  
-			'MN'=> 'Minnesota',
-			'MS'=> 'Mississippi',
-			'MO'=> 'Missouri',
-			'MT'=> 'Montana',
-			'NE'=> 'Nebraska',
-			'NV'=> 'Nevada',
-			'NH'=> 'New Hampshire',
-			'NJ'=> 'New Jersey',
-			'NM'=> 'New Mexico',
-			'NY'=> 'New York',
-			'NC'=> 'North Carolina',
-			'ND'=> 'North Dakota',
-			'OH'=> 'Ohio',
-			'OK'=> 'Oklahoma', 
-			'OR'=> 'Oregon',
-			'PA'=> 'Pennsylvania',
-			'RI'=> 'Rhode Island',  
-			'SC'=> 'South Carolina',
-			'SD'=> 'South Dakota',
-			'TN'=> 'Tennessee',
-			'TX'=> 'Texas',
-			'UT'=> 'Utah',
-			'VT'=> 'Vermont', 
-			'VA'=> 'Virginia',
-			'WA'=> 'Washington',
-			'WV'=> 'West Virginia',
-			'WI'=> 'Wisconsin',
-			'WY'=> 'Wyoming'
-		);
-		
 		$states = array();
 		
 		if($state_display == 'abbr'):
 		
-			foreach($raw_states as $abbr => $full):
+			foreach($this->raw_states as $abbr => $full):
 			
 				$states[$abbr] = $abbr;
 			
@@ -166,7 +199,7 @@ class Field_state
 			
 		else:
 		
-			$states = $raw_states;
+			$states = $this->raw_states;
 		
 		endif; 
 		

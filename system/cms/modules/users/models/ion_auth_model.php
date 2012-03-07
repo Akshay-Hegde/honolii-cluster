@@ -146,7 +146,7 @@ class Ion_auth_model extends CI_Model
 		}
 		else
 		{
-			$salt = substr($result->password, 0, $this->salt_length);
+			$salt = substr($hash_password_db->password, 0, $this->salt_length);
 
 			return $salt . substr(sha1($salt . $password), 0, -$this->salt_length);
 		}
@@ -786,6 +786,12 @@ class Ion_auth_model extends CI_Model
 		{
 			$identity	= $this->config->item('identity', 'ion_auth');
 			$id			= NULL;
+		}
+		
+		//If no id is available return now to avoid db lookup
+		if ( ! $id)
+		{
+			return FALSE;
 		}
 
 		$this->db->where(sprintf('%s.%s', $this->tables['users'], $identity), $id);

@@ -41,7 +41,8 @@ class Plugin_Streams extends Plugin
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
 			'pag_segment'		=> 2,
-			'partial'			=> null
+			'partial'			=> null,
+			'site_ref'			=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------
@@ -183,7 +184,7 @@ class Plugin_Streams extends Plugin
 	 */
 	public function cycle()
 	{		
-		$this->debug_status		 	= $this->streams_attribute('debug', 'off');
+		$this->debug_status		 	= $this->streams_attribute('debug', 'on');
 
 		// -------------------------------------
 		// Get Plugin Attributes
@@ -218,7 +219,7 @@ class Plugin_Streams extends Plugin
 		if(!isset($params['stream'])) $this->_error_out(lang('streams.no_stream_provided'));
 				
 		$stream = $this->streams_m->get_stream($params['stream'], true);
-				
+						
 		if(!$stream) $this->_error_out(lang('streams.invalid_stream'));
 				
 		// -------------------------------------
@@ -262,18 +263,33 @@ class Plugin_Streams extends Plugin
 			$return['total'] 		= count($return['entries']);
 		
 		endif;
-				
+
 		// -------------------------------------
 		// No Results
 		// -------------------------------------
 		
-		if($return['total'] == 0) return $this->streams_attribute('no_results', "No results");
+		if($return['total'] == 0) return $this->streams_attribute('no_results', lang('streams.no_results'));
+
+		// -------------------------------------
+		// {{ entries }} Bypass
+		// -------------------------------------
+		// If we don't want to use {{ entries }},
+		// we don't have to!
+		// -------------------------------------
+
+		$loop = false;
+
+		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0)
+		{
+			$return = $return['entries'];
+			$loop = true;
+		}
 		
 		// -------------------------------------
 		// Return
 		// -------------------------------------
 		
-		return $this->streams_content_parse($this->content(), $return, $params['stream']);
+		return $this->streams_content_parse($this->content(), $return, $params['stream'], $loop);
 	}
 
 	// --------------------------------------------------------------------------
@@ -317,20 +333,30 @@ class Plugin_Streams extends Plugin
 		);
 		
 		$params = array(
-			'stream'		=> $join_stream->stream_slug,
-			'limit'			=> $this->streams_attribute('limit'),
-			'offset'		=> $this->streams_attribute('offset', 0),
-			'order_by'		=> $this->streams_attribute('order_by'),
-			'exclude'		=> $this->streams_attribute('exclude'),
-			'show_upcoming'	=> $this->streams_attribute('show_upcoming', 'yes'),
-			'show_past'		=> $this->streams_attribute('show_past', 'yes'),
-			'year'			=> $this->streams_attribute('year'),
-			'month'			=> $this->streams_attribute('month'),
-			'day'			=> $this->streams_attribute('day'),
-			'restrict_user'	=> $this->streams_attribute('restrict_user', 'no'),
-			'single'		=> $this->streams_attribute('single', 'no')
+			'stream'			=> $join_stream->stream_slug,
+			'limit'				=> $this->streams_attribute('limit'),
+			'offset'			=> $this->streams_attribute('offset', 0),
+			'id'				=> $this->streams_attribute('id', NULL),
+			'date_by'			=> $this->streams_attribute('date_by', 'created'),
+			'exclude'			=> $this->streams_attribute('exclude'),
+			'show_upcoming'		=> $this->streams_attribute('show_upcoming', 'yes'),
+			'show_past'			=> $this->streams_attribute('show_past', 'yes'),
+			'year'				=> $this->streams_attribute('year'),
+			'month'				=> $this->streams_attribute('month'),
+			'day'				=> $this->streams_attribute('day'),
+			'restrict_user'		=> $this->streams_attribute('restrict_user', 'no'),
+			'where'				=> $this->streams_attribute('where', NULL),
+			'exclude'			=> $this->streams_attribute('exclude', NULL),
+			'exclude_by'		=> $this->streams_attribute('exclude_by', 'id'),
+			'disable'			=> $this->streams_attribute('disable', NULL),
+			'order_by'			=> $this->streams_attribute('order_by'),
+			'sort'				=> $this->streams_attribute('sort', 'asc'),
+			'exclude_called'	=> $this->streams_attribute('exclude_called', 'no'),
+			'paginate'			=> $this->streams_attribute('paginate', 'no'),
+			'pag_segment'		=> $this->streams_attribute('pag_segment', 2),
+			'partial'			=> $this->streams_attribute('partial', NULL)
 		);
-		
+
 		// Get the rows
 		$this->rows = $this->row_m->get_rows($params, $this->fields, $join_stream);
 		
@@ -367,80 +393,110 @@ class Plugin_Streams extends Plugin
 	 */	
 	public function reverse_multiple()
 	{
-		$params['stream'] 			= $this->streams_attribute('stream');
-
-		$related_field				= $this->streams_attribute('related_field');
-
-		$entry_id 					= $this->streams_attribute('entry_id');
+		$stream_slug	= $this->streams_attribute('stream');
+		$field			= $this->streams_attribute('field');
+		$entry_id 		= $this->streams_attribute('entry_id');
 		
-		$params['limit'] 			= $this->streams_attribute('limit');
-		
-		$params['offset'] 			= $this->streams_attribute('offset', 0);
-
-		$params['date_by'] 			= $this->streams_attribute('date_by', 'created');
-
-		$params['year'] 			= $this->streams_attribute('year');
-		
-		$params['month'] 			= $this->streams_attribute('month');
-
-		$params['day'] 				= $this->streams_attribute('day');
-	
-		$params['show_upcoming'] 	= $this->streams_attribute('show_upcoming', 'yes');
-
-		$params['show_past'] 		= $this->streams_attribute('show_past', 'yes');
-		
-		$params['restrict_user']	= $this->streams_attribute('restrict_user', 'no');
-
-		$params['where'] 			= $this->streams_attribute('where');
-
-		$params['exclude'] 			= $this->streams_attribute('exclude');
-
-		$params['exclude_by']		= $this->streams_attribute('exclude_by', 'id');
-
-		$params['disable']			= $this->streams_attribute('disable');
-
-		$params['order_by'] 		= $this->streams_attribute('order_by');
-
-		$params['sort'] 			= $this->streams_attribute('sort', 'asc');
-		
-		// We need a related field
-		if(!$related_field) return;
+		if ( ! $field or ! $entry_id or ! $stream_slug)
+		{
+			return null;
+		}
 		
 		// We are pulling from the field stream, so we need to get that data
-		$field = $this->fields_m->get_field_by_slug($related_field);
-		
+		$field = $this->fields_m->get_field_by_slug($field);
+
 		// Make sure the field is a multiple
-		if($field->field_type != 'multiple') return;
-		
+		if ($field->field_type != 'multiple')
+		{
+			return null;
+		}
+
 		// Get the join stream
 		$join_stream = $this->streams_m->get_stream($field->field_data['choose_stream']);
 		
+		// Get our fields
 		$this->fields = $this->streams_m->get_stream_fields($join_stream->id);
 		
-		$stream = $this->streams_m->get_stream($params['stream'], TRUE);
+		$stream = $this->streams_m->get_stream($stream_slug, true);
 
 		// Add the join_multiple hook to the get_rows function
 		$this->row_m->get_rows_hook = array($this, 'join_multiple');
 		$this->row_m->get_rows_hook_data = array(
-		
-			'join_table' 	=> STR_PRE.$params['stream'].'_'.$join_stream->stream_slug,
+			'join_table' 	=> STR_PRE.$stream_slug.'_'.$join_stream->stream_slug,
 			'join_stream' 	=> $join_stream,
 			'row_id' 		=> $entry_id
-		
 		);
 
-		// Get the rows
-		$this->rows = $this->row_m->get_rows($params, $this->fields, $stream);
-
-		$this->load->library('streams/Simpletags');
-
-		$this->simpletags->set_trigger('entries');
+		$params = array();
 		
-		$parsed = $this->simpletags->parse($this->content(), array(), array($this, 'entries_parse'));
-	
-		return $parsed['content'];		
-	}
+		foreach($this->entries_params as $param_key => $param_default):
+		
+			$params[$param_key] = $this->streams_attribute($param_key, $param_default);
+		
+		endforeach;
 
+		$params['stream'] 	= $stream_slug;
+		$params['id']		= $entry_id;
+
+		// Get the rows
+		$rows = $this->row_m->get_rows($params, $this->fields, $stream);
+		
+		$return['entries'] = $rows['rows'];
+
+		// -------------------------------------
+		// Pagination Attributes & Limit
+		// -------------------------------------
+		
+		$pagination = array();
+		
+		foreach($this->pagination_config as $pag_key => $pag_value):
+		
+			$pagination[$pag_key] = $this->attribute($pag_key, $pag_value);
+		
+		endforeach;
+
+		if ($params['paginate'] == 'yes' and ! $params['limit']) $params['limit'] = 25;
+
+		// -------------------------------------
+		// Pagination
+		// -------------------------------------
+		
+		if($params['paginate'] == 'yes'):
+		
+			$return['total'] 	= $rows['pag_count'];
+			
+			// Add in our pagination config
+			// override varaibles.
+			foreach($this->pagination_config as $key => $var):
+			
+				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
+				
+				// Make sure we obey the FALSE params
+				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
+			
+			endforeach;
+			
+			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+					
+		else:
+			
+			$return['pagination'] 	= null;
+			$return['total'] 		= count($return['entries']);
+		
+		endif;
+				
+		// -------------------------------------
+		// No Results
+		// -------------------------------------
+		
+		if ($return['total'] == 0) return $this->streams_attribute('no_results', "No results");
+		
+		// -------------------------------------
+		// Return
+		// -------------------------------------
+		
+		return $this->streams_content_parse($this->content(), $return, $stream_slug);
+	}
 
 	// --------------------------------------------------------------------------
 	
@@ -671,7 +727,7 @@ class Plugin_Streams extends Plugin
 		$edit_id 				= $this->streams_attribute('edit_id', FALSE);
 
 		$edit_segment 			= $this->streams_attribute('edit_segment', FALSE);
-	
+
 		$stream_slug 			= $this->streams_attribute('stream');
 
 		$stream_segment 		= $this->streams_attribute('stream_segment');
@@ -689,6 +745,8 @@ class Plugin_Streams extends Plugin
 		$include 				= $this->streams_attribute('include');
 		
 		$exclude 				= $this->streams_attribute('exclude');
+
+		$creator_only 			= $this->streams_attribute('creator_only', false);
 
 		$recaptcha 				= $this->streams_attribute('use_recaptcha', 'no');
 		
@@ -725,7 +783,7 @@ class Plugin_Streams extends Plugin
 		// this data no matter what and the 
 		// form library takes care of the rest.
 		// -------------------------------------
-	
+			
 		$notifications 			= array();
 
 		$numbers = array('a', 'b');
@@ -747,7 +805,7 @@ class Plugin_Streams extends Plugin
 		$row = false;
 		
 		if( $mode == 'edit' ):
-		
+			
 			// Do they want us to grab the ID from the URL?
 			if( is_numeric($edit_segment) ):
 			
@@ -774,13 +832,37 @@ class Plugin_Streams extends Plugin
 					endif;
 	
 				endif;
+				
+			else:
+
+				// Get the row
+				$row = $this->row_m->get_row($edit_id, $data->stream, FALSE);
 					
 			endif;
-			
-			// Get the row
-			$row = $this->row_m->get_row( $edit_id, $data->stream, FALSE );
 		
 		endif;
+
+		// -------------------------------------
+		// Check Author Only
+		// -------------------------------------
+		// If this mode is on edit, and it is set
+		// to creator_only, we can check to see
+		// if the editor is the creator.
+		// -------------------------------------
+
+		if ($creator_only == 'yes' and $mode == 'edit')
+		{
+			// Must be logged in
+			if ( ! isset($this->current_user->id))
+			{
+				return null;
+			}
+			
+			if($this->current_user->id != $row->created_by)
+			{
+				return null;
+			}
+		}
 
 		// -------------------------------------
 		// Include/Exclude
@@ -832,7 +914,7 @@ class Plugin_Streams extends Plugin
 	
 				if( $mode == 'edit' ):
 				
-					$fields[$count]['input'] 			= $this->fields->build_form_input($field, $output->values[$field->field_slug], $row->id);
+					$fields[$count]['input'] 			= $this->fields->build_form_input($field, $output->values[$field->field_slug], $row);
 				
 				else:
 	
@@ -912,6 +994,7 @@ class Plugin_Streams extends Plugin
 		$params['class']		= $this->streams_attribute('form_class', 'crud_form');
 		
 		$hidden = array();
+		
 		if($mode == 'edit'):
 		
 			$hidden = array('row_edit_id' => $row->id);
@@ -1471,9 +1554,10 @@ class Plugin_Streams extends Plugin
 	 * @param	string - the tag content
 	 * @param	array - the return data
 	 * @param	string - stream slug
+	 * @param 	bool - whether or not to loop through the results or not
 	 * @return 	string - the parsed data
 	 */
-	private function streams_content_parse($content, $data, $stream_slug)
+	private function streams_content_parse($content, $data, $stream_slug, $loop = false)
 	{
 		// -------------------------------------
 		// Multiple Provision
@@ -1484,19 +1568,31 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		
 		$rep = array('{{ streams:related', '{{streams:related');
-		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
+		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry=id ', $content);
 
 		$rep = array('{{ streams:multiple', '{{streams:multiple');
-		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry="{{ id }}" ', $content);
+		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry=id ', $content);
 		
 		// -------------------------------------
-		// Parse Rows
+		// Parse
 		// -------------------------------------
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-				
-		return $parser->parse($content, $data, array($this->parser, 'parser_callback'));
+
+		if ( ! $loop)
+		{
+			return $parser->parse($content, $data, array($this->parser, 'parser_callback'));
+		}
+
+		$out = '';
+		
+		foreach ($data as $item)
+		{
+			$out .= $parser->parse($content, $item, array($this->parser, 'parser_callback'));
+		}
+	
+		return $out;
 	}
 
 	// --------------------------------------------------------------------------

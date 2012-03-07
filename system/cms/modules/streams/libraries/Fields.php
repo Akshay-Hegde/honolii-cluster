@@ -204,11 +204,22 @@ class Fields
 			if($method == 'new'):
 				
 				if( ! $result_id = $this->CI->row_m->insert_entry($_POST, $this->data->stream_fields, $this->data->stream, $skips ) ):
-				
+								
 					$this->CI->session->set_flashdata('notice', $data->failure_message);	
 				
 				else:
 
+					// -------------------------------------
+					// Event: Post Insert Entry
+					// -------------------------------------
+					
+					$trigger_data = array(
+						'entry_id'		=> $result_id,
+						'stream'		=> $this->data->stream
+					);
+				
+					Events::trigger('streams_post_insert_entry', $trigger_data);
+					
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -244,6 +255,17 @@ class Fields
 					$this->CI->session->set_flashdata('notice', $data->failure_message);	
 				
 				else:
+
+					// -------------------------------------
+					// Event: Post Insert Entry
+					// -------------------------------------
+					
+					$trigger_data = array(
+						'entry_id'		=> $result_id,
+						'stream'		=> $this->data->stream
+					);
+								
+					Events::trigger('streams_post_update_entry', $trigger_data);
 
 					// -------------------------------------
 					// Send Emails

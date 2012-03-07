@@ -214,11 +214,8 @@ class Newsletters extends Admin_Controller
 		}
 		else
 		{
-			//send a copy of $this->data along for the parser
-			$data =& $this->data;
-			
 			// Spit out the results for jQuery to pick up
-			$status = $this->newsletters_m->send_newsletter($this->input->post('id'), $this->input->post('batch'), $data);
+			$status = $this->newsletters_m->send_newsletter($this->input->post('id'), $this->input->post('batch'), $this);
 			
 			echo json_encode($status);
 		}

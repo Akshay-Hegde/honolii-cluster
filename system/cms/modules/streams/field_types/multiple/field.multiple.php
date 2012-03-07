@@ -201,10 +201,10 @@ class Field_multiple
 	/**
 	 * Process for when adding field assignment
 	 */
-	function field_assignment_construct( $field, $stream )
+	function field_assignment_construct($field, $stream)
 	{
 		$this->CI->load->dbforge();
-		
+				
 		// Get the stream we are attaching to.
 		$linked_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
 		
@@ -248,6 +248,12 @@ class Field_multiple
 	{
 		// Get the stream we are attaching to.
 		$linked_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
+		
+		// @todo:
+		// If the linked stream was already deleted, we have a bit
+		// of a problem since we can't get the stream slug.
+		// Until we figure that out, here's this:
+		if ( ! $linked_stream) return NULL;
 				
 		// Get the table name
 		$table_name = STR_PRE.$stream->stream_slug.'_'.$linked_stream->stream_slug;
@@ -412,27 +418,32 @@ $this->CI->db->join(STR_PRE.$stream->stream_slug, 'jt.'.$stream->stream_slug.'_i
 	 */
 	public function param_choose_stream($stream_id = FALSE)
 	{
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 		
 		$this->CI->db->select('id, stream_name');
 		$db_obj = $this->CI->db->get('data_streams');
 		
 		$streams = $db_obj->result();
 		
-		foreach( $streams as $stream ):
+		foreach ($streams as $stream):
 		
 			$choices[$stream->id] = $stream->stream_name;
 		
 		endforeach;
 		
-		// Is this an edit? Then, sorry, you can't change the stream.
+		// Is this an edit? and this has a field assignment
+		// already? Then unfortunately you can't change the stream.
 		// It would be pointless because we'd just have to wipe
 		// the data anyways
 		$extra = '';
-		
+				
 		if( $this->CI->uri->segment(4) == 'edit' ):
+
+			//$this->CI->db->select('COUNT(*) as total')->where('')->get('');
 		
-			$extra = 'disabled="disabled"';
+			return 'You cannot change a multiple relationship field stream once it has been assigned.';
+		
+			$extra = 'readonly';
 		
 		endif;
 		

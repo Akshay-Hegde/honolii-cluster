@@ -22,14 +22,6 @@ class Field_relationship
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
 	// --------------------------------------------------------------------------
-	
-	public function event()
-	{
-		// Add autocomplete CSS just in case
-		// $this->CI->type->add_css('relationship', 'autocomplete.css');	
-	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * Output form input
@@ -43,7 +35,7 @@ class Field_relationship
 		// Get slug stream
 		$stream = $this->CI->streams_m->get_stream($data['custom']['choose_stream']);
 		
-		if(!$stream) return '<em>Related stream does not exist.</em>';
+		if(!$stream) return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
 
 		$title_column = $stream->title_column;
 		
@@ -58,6 +50,14 @@ class Field_relationship
 		$obj = $this->CI->db->get(STR_PRE.$stream->stream_slug);
 		
 		$choices = array();
+		
+		// If this is not required, then
+		// let's allow a null option
+		if($field->is_required == 'no'):
+		
+			$choices[null] = $this->CI->config->item('dropdown_choose_null');
+		
+		endif;
 		
 		foreach($obj->result() as $row):
 		
@@ -190,36 +190,6 @@ class Field_relationship
 		return $this->CI->row_m->format_row($return, $stream_fields, $stream, FALSE, TRUE);
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Search a field and stream
- 	 *
-	 * Accessed via AJAX
-	 *
-	 * @access    public
-	 * @return    void
-	 */
-	public function ajax_rel_search()
-	{
-		/*$stream_slug = $this->CI->input->post('stream_slug');
-		$title_column = $this->CI->input->post('title_column');
-
-		$results = $this->CI->db->limit(6)
-			->select("id, {$title_column}")
-			->like($title_column, $this->CI->input->post('search_term'))
-			->get($this->CI->config->item('stream_prefix').$stream_slug)
-			->result();
-
-		echo '<ul class="streams_dropdown">';
-
-		foreach($results as $result):
-
-		echo '<li><a class="'.$stream_slug.'_autocomplete_item" id="'.$result->id.'" name="'.$result->$title_column.'">'.$result->$title_column.'</a></li>';
-
-		endforeach;
-
-		echo '<ul>';*/
-	}
-
 }
+
+/* End of file field.relationship.php */

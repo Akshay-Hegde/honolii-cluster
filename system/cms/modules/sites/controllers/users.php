@@ -39,15 +39,6 @@ class Users extends Sites_Controller
 							'min_length['.config_item('min_password_length').']|'.
 							'max_length['.config_item('max_password_length').']|'.
 							'required'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|'.
-							'min_length['.config_item('min_password_length').']|'.
-							'max_length['.config_item('max_password_length').']|'.
-							'required|'.
-							'matches[password]'
 			)
 		);
 
@@ -55,12 +46,7 @@ class Users extends Sites_Controller
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|matches[confirm_password]'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|matches[password]'
+				'rules'	=> 'trim'
 			)
 		);
 		
@@ -147,7 +133,6 @@ class Users extends Sites_Controller
 	{
 		$data = $this->user_m->get($id);
 		$data->password 		= '';
-		$data->confirm_password	= '';
 		
 		// Set the validation rules
 		$this->form_validation->set_rules($this->user_validation_rules);

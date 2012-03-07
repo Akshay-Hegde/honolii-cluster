@@ -56,7 +56,6 @@ class Sites_m extends MY_Model {
 		$site->first_name 		= $user->first_name;
 		$site->last_name 		= $user->last_name;
 		$site->password 		= '';
-		$site->confirm_password = '';
 		
 		return $site;
 	}

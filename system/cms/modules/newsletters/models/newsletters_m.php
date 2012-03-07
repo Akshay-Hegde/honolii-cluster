@@ -169,9 +169,11 @@ class Newsletters_m extends MY_Model
 						   ->where('active', 1)
 						   ->count_all_results();
 
+		$limit = Settings::get('newsletter_email_limit') > 0 ? Settings::get('newsletter_email_limit') : 50;
+
 		//we'll send them 50 per batch if Settings does not have a limit set
 		$emails = $this->db->where('active', 1)
-			->get('newsletter_emails', $this->settings->newsletter_email_limit > 0 ? $this->settings->newsletter_email_limit : 50, $offset)
+			->get('newsletter_emails', $limit, $offset)
 			->result();
 		
 		if(!$emails)
