@@ -19,7 +19,7 @@ $lang['user_details_label'] 			= 'Details';
 $lang['user_first_name_label'] 			= 'Voornaam';
 $lang['user_last_name_label'] 			= 'Achternaam';
 $lang['user_email_label'] 				= 'Email';
-$lang['user_role_label'] 				= 'Rol';
+$lang['user_group_label'] 				= 'Groep';
 $lang['user_activate_label'] 			= 'Activeer';
 $lang['user_password_label'] 			= 'Wachtwoord';
 $lang['user_password_confirm_label'] 	= 'Bevestig Wachtwoord';
@@ -71,6 +71,7 @@ $lang['user_reset_password_link'] 		= 'Wachtwoord vergeten?';
 
 $lang['user_activation_code_sent_notice']	= 'Er is een email naar u gestuurd met daarin uw activeringscode.';
 $lang['user_activation_by_admin_notice'] 	= 'Uw registratie wacht op goedkeuring door een beheerder.';
+$lang['user_registration_disabled']            = 'Sorry, but the user registration is disabled.'; #translate
 
 // -- Settings ---------------------------------------------------------------------------------------------
 
@@ -189,18 +190,7 @@ $lang['profile_address_line3'] 			= 'Regel #3';
 $lang['profile_address_postcode'] 		= 'Postcode';
 $lang['profile_website']				= 'Website';
 
-$lang['profile_messenger_section'] 		= 'IM-accounts';
-
-$lang['profile_msn_handle'] 			= 'MSN';
-$lang['profile_aim_handle'] 			= 'AIM';
-$lang['profile_yim_handle'] 			= 'Yahoo! messenger';
-$lang['profile_gtalk_handle'] 			= 'GTalk';
-
 $lang['profile_avatar_section'] 		= 'Avatar';
-$lang['profile_social_section'] 		= 'Social';
-
-$lang['profile_gravatar'] 				= 'Gravatar';
-$lang['profile_twitter'] 				= 'Twitter';
 
 $lang['profile_edit_success'] 			= 'Uw profiel is opgeslagen.';
 $lang['profile_edit_error'] 			= 'Er is een fout opgetreden.';
@@ -208,3 +198,4 @@ $lang['profile_edit_error'] 			= 'Er is een fout opgetreden.';
 // -- Buttons ------------------------------------------------------------------------------------------------
 
 $lang['profile_save_btn'] 				= 'Profiel Opslaan';
+/* End of file user_lang.php */

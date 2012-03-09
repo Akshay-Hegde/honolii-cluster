@@ -83,7 +83,7 @@ unset($base_uri, $base_url);
 |
 */
 
-define('CMS_VERSION', '2.1-dev');
+define('CMS_VERSION', '2.1.0-dev');
 
 /*
 |--------------------------------------------------------------------------
@@ -105,6 +105,6 @@ define('CMS_EDITION', 'Professional');
 |
 */
 
-define('CMS_DATE', '01/24/2012');
+define('CMS_DATE', '08/02/2012');
 
 /* End of file constants.php */

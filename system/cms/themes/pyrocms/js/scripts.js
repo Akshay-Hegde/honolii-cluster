@@ -99,19 +99,19 @@ jQuery(function($) {
 			});
 
 			// Check all?
-			$(".table_action_buttons .btn").removeAttr('disabled');
+			$(".table_action_buttons .btn").prop('disabled', false);
 		});
 
 		// Table action buttons start out as disabled
-		$(".table_action_buttons .btn").attr('disabled', 'disabled');
+		$(".table_action_buttons .btn").prop('disabled', true);
 
 		// Enable/Disable table action buttons
 		$('input[name="action_to[]"], .check-all').live('click', function () {
 
 			if( $('input[name="action_to[]"]:checked, .check-all:checked').length >= 1 ){
-				$(".table_action_buttons .btn").removeAttr('disabled');
+				$(".table_action_buttons .btn").prop('disabled', false);
 			} else {
-				$(".table_action_buttons .btn").attr('disabled', true);
+				$(".table_action_buttons .btn").prop('disabled', true);
 			}
 		});
 
@@ -348,7 +348,7 @@ jQuery(function($) {
 
 			if ( ! value.length ) return;
 
-			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюж]/,
+			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
 				value = value.toLowerCase(),
 				chars = pyro.foreign_characters,
 				search, replace;

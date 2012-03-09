@@ -6,14 +6,14 @@
  * This was a FuelPHP package converted for use within PyroCMS by Phil Sturgeon with 
  * express written consent from Antony Male to be used within PyroCMS Community and Professional
  *
- * @package    Asset
  * @version    v1.11
  * @author     Antony Male
- * @modified   Phil Sturgeon
  * @license    MIT License
  * @copyright  2011 Antony Male
- * @link       http://github.com/canton7/fuelphp-casset
+ * @author   Phil Sturgeon
+ * @package    PyroCMS\Core\Libraries\Asset
  */
+class Asset_Exception extends Exception {}
 
 include('Asset/jsmin.php');
 include('Asset/csscompressor.php');
@@ -1307,7 +1307,5 @@ class Asset {
 		return trim($attr_str);
 	}
 }
-
-class Asset_Exception extends Exception {}
 
 /* End of file asset_php */
