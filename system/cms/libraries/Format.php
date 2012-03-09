@@ -53,7 +53,7 @@ class Format
 	 * @param type $from_type
 	 * @throws Exception 
 	 */
-	protected function __construct($data = null, $from_type = null)
+	public function __construct($data = null, $from_type = null)
 	{
 		get_instance()->load->helper('inflector');
 

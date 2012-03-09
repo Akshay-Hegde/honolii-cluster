@@ -67,8 +67,8 @@ class Newsletters extends Admin_Controller
 		
 		$this->template->title($this->module_details['name'], lang('newsletters.templates'))
 						->set('active_section', 'newsletters')
-						->append_metadata(js('functions.js', 'newsletters'))
-						->append_metadata(css('admin.css', 'newsletters'))
+						->append_js('module::functions.js')
+						->append_css('module::admin.css')
 						->build('admin/index', $this->data);
 	}
 
@@ -79,7 +79,7 @@ class Newsletters extends Admin_Controller
 		$this->data->newsletter =  $this->newsletters_m->get_newsletter($id, $data);
 		
 		$this->template->set_layout('modal', 'admin')
-					   ->append_metadata(js('functions.js', 'newsletters'))
+					   ->append_js('module::functions.js')
 					   ->build('admin/view', $this->data);
 	}
 
@@ -137,8 +137,8 @@ class Newsletters extends Admin_Controller
 		$this->data->newsletter =& $newsletter;
 		$this->template->set('active_section', 'newsletters')
 						->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-					   ->append_metadata(js('functions.js', 'newsletters'))
-					   ->append_metadata(css('admin.css', 'newsletters'))
+					   ->append_js('module::functions.js')
+					   ->append_css('module::admin.css')
 					   ->build('admin/create', $this->data);
 	}
 
@@ -186,8 +186,8 @@ class Newsletters extends Admin_Controller
 		// Load WYSIWYG editor
 		$this->template->set('active_section', 'newsletters')
 						->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-					   ->append_metadata(js('functions.js', 'newsletters'))
-					   ->append_metadata(css('admin.css', 'newsletters'))
+					   ->append_js('module::functions.js')
+					   ->append_css('module::admin.css')
 					   ->build('admin/edit', $this->data);
 	}
 
@@ -232,8 +232,8 @@ class Newsletters extends Admin_Controller
 			$statistics = $this->newsletters_m->get_statistics($id);
 			
 			$this->data->statistics =& $statistics;
-			$this->template->append_metadata(js('functions.js', 'newsletters'))
-						   ->append_metadata(css('admin.css', 'newsletters'))
+			$this->template->append_js('module::functions.js')
+						   ->append_css('module::admin.css')
 						   ->build('admin/statistics', $this->data);
 		}
 		else

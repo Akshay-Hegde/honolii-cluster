@@ -45,7 +45,7 @@ class Newsletters extends Public_Controller
 	{
 		$this->load->library('form_validation');
 		
-		$this->form_validation->set_rules('email', lang('newsletters.email_label'), 'trim|required|valid_email|callback__default');
+		$this->form_validation->set_rules('email', lang('newsletters.email_label'), 'trim|required|valid_email|callback__check_email');
 		
 		if( $this->form_validation->run() )
 		{
@@ -53,21 +53,15 @@ class Newsletters extends Public_Controller
 			{
 				if ($this->settings->newsletter_opt_in == '0')
 				{
-					$this->session->set_flashdata(array('success'=> lang('newsletters.subscribed_success')));
-					redirect('newsletters/subscribe');
+					$this->data->subscribe_message = lang('newsletters.subscribed_success');
 				}
 				else
 				{
-					$this->session->set_flashdata(array('notice'=> lang('newsletters.opt_in_message')));
-					redirect('newsletters/subscribe');					
+					$this->data->subscribe_message = lang('newsletters.opt_in_message');
 				}
 			}
-			else
-			{
-				$this->session->set_flashdata(array('error'=> lang('newsletters.add_mail_success')));
-				redirect('newsletters/subscribe');
-			}
 		}
+
 		$this->template->build('subscribe_form', $this->data);
 	}
 	
@@ -123,7 +117,7 @@ class Newsletters extends Public_Controller
 	{
 		$this->newsletters_m->open($id);
 		
-		echo image('spacer.gif', 'newsletters');
+		echo Asset::img('spacer.gif', 'alt="spacer image"');
 	}
 	
 	//Fetch a file from the /uploads folder and output it
@@ -140,11 +134,19 @@ class Newsletters extends Public_Controller
 		}
 	}
 	
-	//make sure they didn't just submit the default email
-	function _default($email)
+	//make sure they didn't submit the default or a duplicate
+	function _check_email($email)
 	{
-		if($email == lang('newsletters.example_email'))
+		if ($email == lang('newsletters.example_email'))
 		{
+			$this->form_validation->set_message('_check_email', lang('newsletters.default_email'));
+
+			return FALSE;
+		}
+		elseif ($this->db->where('email', $email)->count_all_results('newsletter_emails'))
+		{
+			$this->form_validation->set_message('_check_email', lang('newsletters.duplicate_email'));
+
 			return FALSE;
 		}
 	}
