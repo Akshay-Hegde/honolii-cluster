@@ -3,7 +3,7 @@
 /**
  * PyroStreams Public AJAX Controller
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Controllers
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -20,7 +20,7 @@ class Public_ajax extends Public_Controller {
         $this->load->library('Type');
         
         // Only AJAX gets through!
-       	if ( !$this->input->is_ajax_request())
+       	if ( ! $this->input->is_ajax_request())
        	{
        		die('Invalid request.');
        	}
@@ -38,10 +38,10 @@ class Public_ajax extends Public_Controller {
 	 */
 	public function field()
 	{	
-		$field_type = $this->uri->segment(4);
-		$method = $this->uri->segment(5);
+		$field_type 	= $this->uri->segment(4);
+		$method 		= $this->uri->segment(5);
 		
-		if ( ! $field_type OR ! $method)
+		if ( ! $field_type or ! $method)
 		{
 			exit('No data.');
 		}

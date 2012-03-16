@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
  *
  * NOTICE OF LICENSE
  *
@@ -325,13 +325,6 @@ class CI_Cart {
 
 		// Is the quantity a number?
 		if ( ! is_numeric($items['qty']))
-		{
-			return FALSE;
-		}
-
-		// Is the new quantity different than what is already saved in the cart?
-		// If it's the same there's nothing to do
-		if ($this->_cart_contents[$items['rowid']]['qty'] == $items['qty'])
 		{
 			return FALSE;
 		}

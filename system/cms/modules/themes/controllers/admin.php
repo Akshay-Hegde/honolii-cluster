@@ -3,9 +3,7 @@
  * Admin controller for the themes module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Themes module
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Themes\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -37,9 +35,7 @@ class Admin extends Admin_Controller
 		$this->lang->load('themes');
 		$this->load->library('form_validation');
 
-		$this->template
-			->append_css('module::themes.css')
-			->append_js('module::admin.js');
+		$this->template->append_css('module::themes.css');
 	}
 
 	/**
@@ -123,14 +119,9 @@ class Admin extends Admin_Controller
 			if ($this->theme_m->get_all())
 			{
 				// Success...
-				$data = array();
-				$data['messages']['success'] = lang('themes.re-index_success');
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'success',
-					'message'	=> $message
-				));
+				$this->session->set_flashdata('success', lang('themes.re-index_success'));
+				
+				redirect('admin/themes/options/'.$slug);
 			}
 		}
 		
@@ -140,7 +131,7 @@ class Admin extends Admin_Controller
 		if ($all_options)
 		{
 			// Create dynamic validation rules
-			foreach($all_options as $option)
+			foreach ($all_options as $option)
 			{
 				$this->validation_rules[] = array(
 					'field' => $option->slug . (in_array($option->type, array('select-multiple', 'checkbox')) ? '[]' : ''),
@@ -158,7 +149,7 @@ class Admin extends Admin_Controller
 			if ($this->form_validation->run())
 			{
 				// Loop through again now we know it worked
-				foreach($options_array as $option_slug => $stored_value)
+				foreach ($options_array as $option_slug => $stored_value)
 				{
 					$input_value = $this->input->post($option_slug, FALSE);
 	
@@ -174,36 +165,22 @@ class Admin extends Admin_Controller
 					}
 				}
 	
+				// Fire an event. Theme options have been updated. 
+				Events::trigger('theme_options_updated', $options_array);
+					
 				// Success...
-				$data = array();
-				$data['messages']['success'] = lang('themes.save_success');
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$this->session->set_flashdata('success', lang('themes.save_success'));
+				
+				redirect('admin/themes/options/'.$slug);
 
-				return $this->template->build_json(array(
-					'status'	=> 'success',
-					'message'	=> $message
-				));
-
-			}
-			elseif (validation_errors())
-			{
-				$data = array();
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
-
-				return $this->template->build_json(array(
-					'status'	=> 'error',
-					'message'	=> $message
-				));
 			}
 		}
 		
-		$this->data->slug			= $slug;
-		$this->data->options_array 	= $all_options;
-		$this->data->controller		= &$this;
+		$data->slug			= $slug;
+		$data->options_array 	= $all_options;
+		$data->controller		= &$this;
 
-		$this->template
-			->set_layout('modal', 'admin')
-			->build('admin/options', $this->data);
+		$this->template->build('admin/options', $data);
 	}
 
 	/**
@@ -220,6 +197,9 @@ class Admin extends Admin_Controller
 		// Set the theme
 		if ($this->theme_m->set_default($this->input->post()))
 		{
+			// Fire an event. A default theme has been set. 
+			Events::trigger('theme_set_default', $theme);
+				
 			$this->session->set_flashdata('success', sprintf(lang('themes.set_default_success'), $theme));
 		}
 
@@ -249,7 +229,7 @@ class Admin extends Admin_Controller
 			show_error('Uploading add-ons has been disabled for this site. Please contact your administrator');
 		}
 
-		if($this->input->post('btnAction') == 'upload')
+		if ($this->input->post('btnAction') == 'upload')
 		{
 			$config['upload_path'] 		= FCPATH.UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
@@ -317,6 +297,8 @@ class Admin extends Admin_Controller
 		{
 			$deleted = 0;
 			$to_delete = 0;
+			$deleted_names = array();
+			
 			foreach ($name_array as $theme_name)
 			{
 				$theme_name = urldecode($theme_name);
@@ -338,6 +320,7 @@ class Admin extends Admin_Controller
 						if (@rmdir($theme_dir))
 						{
 							$deleted++;
+							$deleted_names[] = $theme_name;
 						}
 					}
 
@@ -350,6 +333,9 @@ class Admin extends Admin_Controller
 
 			if ($deleted == $to_delete)
 			{
+				// Fire an event. One or more themes have been deleted. 
+				Events::trigger('theme_deleted', $deleted_names);
+				
 				$this->session->set_flashdata('success', sprintf(lang('themes.mass_delete_success'), $deleted, $to_delete) );
 			}
 		}

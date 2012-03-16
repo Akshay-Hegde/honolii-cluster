@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
  *
  * NOTICE OF LICENSE
  *
@@ -82,6 +82,7 @@ function &DB($params = '', $active_record_override = NULL)
 		$params = array(
 				'dbdriver'	=> $dns['scheme'],
 				'hostname'	=> (isset($dns['host'])) ? rawurldecode($dns['host']) : '',
+				'port'		=> (isset($dns['port'])) ? rawurldecode($dns['port']) : '',
 				'username'	=> (isset($dns['user'])) ? rawurldecode($dns['user']) : '',
 				'password'	=> (isset($dns['pass'])) ? rawurldecode($dns['pass']) : '',
 				'database'	=> (isset($dns['path'])) ? rawurldecode(substr($dns['path'], 1)) : ''

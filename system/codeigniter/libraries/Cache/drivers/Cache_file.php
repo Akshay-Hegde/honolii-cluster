@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
  *
  * NOTICE OF LICENSE
  *
@@ -99,7 +99,7 @@ class CI_Cache_file extends CI_Driver {
 
 		if (write_file($this->_cache_path.$id, serialize($contents)))
 		{
-			@chmod($this->_cache_path.$id, 0777);
+			@chmod($this->_cache_path.$id, 0660);
 			return TRUE;
 		}
 

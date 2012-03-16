@@ -46,6 +46,7 @@ $lang['success_label'] 					= 'Berhasil';
 
 $lang['login_title'] 					= 'Masuk';
 $lang['cms_fatal_error'] 				= 'Kesalahan fatal, sudahkah CMS terinstall?';
+$lang['global:demo_restrictions']       = 'Some features on this page have been disabled for the demo.'; #translate
 
 $lang['login_error_label'] 				= 'Kesalahan ketika Masuk';
 $lang['forgot_password_label'] 			= 'Lupa Password ?';
@@ -62,12 +63,14 @@ $lang['activate_label'] 				= 'Aktifkan';
 $lang['approve_label']					= 'Setujui';
 $lang['unapprove_label']				= 'Tolak';
 $lang['publish_label'] 					= 'Publikasikan';
-$lang['upload_label'] 					= 'Upload';
-$lang['uninstall_label'] 				= 'Uninstall';
-$lang['install_label'] 					= 'Install';
-$lang['enable_label']					= 'Nyalakan';
-$lang['disable_label'] 					= 'Matikan';
-$lang['upgrade_label'] 					= 'Perbaharui';
+$lang['upload_label'] 					= 'Unggah';
+$lang['global:uninstall'] 				= 'Uninstall';
+$lang['global:install'] 				= 'Install';
+$lang['global:upgrade'] 				= 'Upgrade';
+$lang['global:enable']					= 'Nyalakan';
+$lang['global:disable'] 				= 'Matikan';
+$lang['global:enabled']					= 'Dinyalakan';
+$lang['global:disabled'] 				= 'Dimatikan';
 
 $lang['all_right_reserved']				= 'Hak Dilindungi Undang-undang.';
 $lang['powered_by_pyrocms']				= 'Didukung oleh PyroCMS';

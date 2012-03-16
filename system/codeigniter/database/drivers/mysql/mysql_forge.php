@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
  *
  * NOTICE OF LICENSE
  *
@@ -147,11 +147,11 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 			$sql .= 'IF NOT EXISTS ';
 		}
 
-		$sql .= $this->db->_escape_identifiers($table).' ('.$this->_process_fields($fields);
+		$sql .= $this->db->protect_identifiers($table).' ('.$this->_process_fields($fields);
 
 		if (count($primary_keys) > 0)
 		{
-			$key_name = $this->db->_protect_identifiers(implode('_', $primary_keys));
+			$key_name = $this->db->protect_identifiers(implode('_', $primary_keys));
 			$sql .= ",\n\tPRIMARY KEY ".$key_name.' ('.implode(', ', $this->db->protect_identifiers($primary_keys)).')';
 		}
 
@@ -161,12 +161,12 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 			{
 				if (is_array($key))
 				{
-					$key_name = $this->db->_protect_identifiers(implode('_', $key));
-					$key = $this->db->_protect_identifiers($key);
+					$key_name = $this->db->protect_identifiers(implode('_', $key));
+					$key = $this->db->protect_identifiers($key);
 				}
 				else
 				{
-					$key_name = $this->db->_protect_identifiers($key);
+					$key_name = $this->db->protect_identifiers($key);
 					$key = array($key_name);
 				}
 
@@ -187,7 +187,7 @@ class CI_DB_mysql_forge extends CI_DB_forge {
 	 */
 	public function _drop_table($table)
 	{
-		return 'DROP TABLE IF EXISTS '.$this->db->_escape_identifiers($table);
+		return 'DROP TABLE IF EXISTS '.$this->db->protect_identifiers($table);
 	}
 
 	// --------------------------------------------------------------------

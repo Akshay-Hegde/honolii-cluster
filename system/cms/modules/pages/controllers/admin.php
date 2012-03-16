@@ -2,10 +2,8 @@
 /**
  * Pages controller
  *
- * @author	PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Pages module
- * @category	Modules
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Pages\Controllers
  */
 class Admin extends Admin_Controller {
 
@@ -134,6 +132,7 @@ class Admin extends Admin_Controller {
 			
 			->append_js('jquery/jquery.ui.nestedSortable.js')
 			->append_js('jquery/jquery.cooki.js')
+			->append_js('jquery/jquery.stickyscroll.js')
 			->append_js('module::index.js')
 			
 			->append_css('module::index.css')
@@ -543,7 +542,7 @@ class Admin extends Admin_Controller {
 		}
 		$this->template->group_options = $group_options;
 		
-		$this->template->append_js('jquery/jquery.tagsinput.min.js');
+		$this->template->append_js('jquery/jquery.tagsinput.js');
 		$this->template->append_js('jquery/jquery.cooki.js');
 		$this->template->append_js('module::form.js');
 		$this->template->append_css('jquery/jquery.tagsinput.css');

@@ -4,9 +4,7 @@
  * Admin controller for the settings module
  *
  * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Settings
- * @category	Modules
+ * @package 	PyroCMS\Core\Modules\Settings\Controllers
  */
 class Admin extends Admin_Controller {
 
@@ -126,6 +124,12 @@ class Admin extends Admin_Controller {
 	 */
 	public function edit()
 	{
+		if (PYRO_DEMO)
+		{
+			$this->session->set_flashdata('notice', lang('global:demo_restrictions'));
+			redirect('admin/settings');
+		}
+		
 		$settings = $this->settings_m->get_many_by(array('is_gui'=>1));
 		$settings_stored = array();
 
@@ -163,6 +167,9 @@ class Admin extends Admin_Controller {
 					$this->settings->set_item($slug, $input_value);
 				}
 			}
+			
+			// Fire an event. Yay! We know when settings are updated. 
+			Events::trigger('settings_updated', $settings_stored);
 
 			// Success...
 			$this->session->set_flashdata('success', $this->lang->line('settings_save_success'));

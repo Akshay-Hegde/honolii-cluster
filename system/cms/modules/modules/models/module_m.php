@@ -2,11 +2,8 @@
 /**
  * Modules model
  *
- * @author 		PyroCMS Development Team
- * @package 	PyroCMS
- * @subpackage 	Modules
- * @category	Modules
- * @since 		v1.0
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Modules\Models
  */
 class Module_m extends MY_Model
 {
@@ -249,8 +246,6 @@ class Module_m extends MY_Model
 	 */
 	public function exists($module)
 	{
-		$this->_module_exists = array();
-
 		if ( ! $module)
 		{
 			return FALSE;
@@ -461,7 +456,13 @@ class Module_m extends MY_Model
 
 		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
     	{
-			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $path)
+			// some servers return false instead of an empty array
+			if ( ! $directory or ! ($temp_modules = glob($directory.'modules/*', GLOB_ONLYDIR)))
+			{
+				continue;
+			}
+			
+			foreach ($temp_modules as $path)
 			{
 				$slug = basename($path);
 
@@ -516,6 +517,7 @@ class Module_m extends MY_Model
 				// Looks like it installed ok, add a record
 				$this->add($input);
 			}
+			unset($temp_modules);
 
 			// Going back around, 2nd time is addons
 			$is_core = FALSE;

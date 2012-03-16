@@ -2,11 +2,9 @@
 
 /**
  * Admin controller for the widgets module.
- *
- * @package 		PyroCMS
- * @subpackage 		Modules
- * @category		Widgets
- * @author			PyroCMS Development Team
+ * 
+ * @author 		PyroCMS Dev Team
+ * @package 	PyroCMS\Core\Modules\Widgets\Controllers
  *
  */
 class Admin extends Admin_Controller {
@@ -183,6 +181,20 @@ class Admin extends Admin_Controller {
 			{
 				$status = 'error';
 				break;
+			}
+			else
+			{
+				// Fire an Event. A widget has been enabled or disabled. 
+				switch ($action)
+				{
+					case 'enable':		
+						Events::trigger('widget_enabled', $ids);
+						break;
+					
+					case 'disable':		
+						Events::trigger('widget_disabled', $ids);
+						break;
+				}
 			}
 		}
 

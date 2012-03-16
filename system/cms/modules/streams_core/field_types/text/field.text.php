@@ -3,7 +3,7 @@
 /**
  * PyroStreams Text Field Type
  *
- * @package		PyroStreams
+ * @package		PyroCMS\Core\Modules\Streams Core\Field Types
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -36,15 +36,12 @@ class Field_text
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
-		if( isset($data['max_length']) and is_numeric($data['max_length']) ):
-		
+		if (isset($data['max_length']) and is_numeric($data['max_length']))
+		{
 			$options['maxlength'] = $data['max_length'];
+		}
 		
-		endif;
-		
-		return form_input( $options );
+		return form_input($options);
 	}
 	
 }
-
-/* End of file field.text.php */

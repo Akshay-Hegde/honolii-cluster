@@ -2,7 +2,7 @@
 /**
  * CodeIgniter
  *
- * An open source application development framework for PHP 5.1.6 or newer
+ * An open source application development framework for PHP 5.2.4 or newer
  *
  * NOTICE OF LICENSE
  *
@@ -24,8 +24,6 @@
  * @since		Version 1.0
  * @filesource
  */
-
-// ------------------------------------------------------------------------
 
 /**
  * Input Class
@@ -152,7 +150,7 @@ class CI_Input {
 	public function get($index = NULL, $xss_clean = FALSE)
 	{
 		// Check if a field has been provided
-		if ($index === NULL AND ! empty($_GET))
+		if ($index === NULL && ! empty($_GET))
 		{
 			$get = array();
 
@@ -179,7 +177,7 @@ class CI_Input {
 	public function post($index = NULL, $xss_clean = FALSE)
 	{
 		// Check if a field has been provided
-		if ($index === NULL AND ! empty($_POST))
+		if ($index === NULL && ! empty($_POST))
 		{
 			$post = array();
 
@@ -206,9 +204,9 @@ class CI_Input {
 	*/
 	public function get_post($index = '', $xss_clean = FALSE)
 	{
-		return ( ! isset($_POST[$index]))
-			? $this->get($index, $xss_clean)
-			: $this->post($index, $xss_clean);
+		return isset($_POST[$index])
+			? $this->post($index, $xss_clean)
+			: $this->get($index, $xss_clean);
 	}
 
 	// --------------------------------------------------------------------
@@ -256,19 +254,19 @@ class CI_Input {
 			}
 		}
 
-		if ($prefix == '' AND config_item('cookie_prefix') != '')
+		if ($prefix == '' && config_item('cookie_prefix') != '')
 		{
 			$prefix = config_item('cookie_prefix');
 		}
-		if ($domain == '' AND config_item('cookie_domain') != '')
+		if ($domain == '' && config_item('cookie_domain') != '')
 		{
 			$domain = config_item('cookie_domain');
 		}
-		if ($path == '/' AND config_item('cookie_path') != '/')
+		if ($path == '/' && config_item('cookie_path') !== '/')
 		{
 			$path = config_item('cookie_path');
 		}
-		if ($secure == FALSE AND config_item('cookie_secure') != FALSE)
+		if ($secure == FALSE && config_item('cookie_secure') != FALSE)
 		{
 			$secure = config_item('cookie_secure');
 		}
@@ -320,11 +318,11 @@ class CI_Input {
 
 			$this->ip_address = in_array($_SERVER['REMOTE_ADDR'], $proxies) ? $_SERVER['HTTP_X_FORWARDED_FOR'] : $_SERVER['REMOTE_ADDR'];
 		}
-		elseif ( ! $this->server('HTTP_CLIENT_IP') AND $this->server('REMOTE_ADDR'))
+		elseif ( ! $this->server('HTTP_CLIENT_IP') && $this->server('REMOTE_ADDR'))
 		{
 			$this->ip_address = $_SERVER['REMOTE_ADDR'];
 		}
-		elseif ($this->server('REMOTE_ADDR') AND $this->server('HTTP_CLIENT_IP'))
+		elseif ($this->server('REMOTE_ADDR') && $this->server('HTTP_CLIENT_IP'))
 		{
 			$this->ip_address = $_SERVER['HTTP_CLIENT_IP'];
 		}
@@ -368,36 +366,7 @@ class CI_Input {
 	*/
 	public function valid_ip($ip)
 	{
-		// if php version >= 5.2, use filter_var to check validate ip.
-		if (function_exists('filter_var'))
-		{
-			return (bool) filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
-		}
-
-		$ip_segments = explode('.', $ip);
-
-		// Always 4 segments needed
-		if (count($ip_segments) !== 4)
-		{
-			return FALSE;
-		}
-		// IP can not start with 0
-		if ($ip_segments[0][0] == '0')
-		{
-			return FALSE;
-		}
-		// Check each segment
-		foreach ($ip_segments as $segment)
-		{
-			// IP segments must be digits and can not be
-			// longer than 3 digits or greater then 255
-			if ($segment == '' OR preg_match('/[^0-9]/', $segment) OR $segment > 255 OR strlen($segment) > 3)
-			{
-				return FALSE;
-			}
-		}
-
-		return TRUE;
+		return (bool) filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4);
 	}
 
 	// --------------------------------------------------------------------
@@ -414,7 +383,7 @@ class CI_Input {
 			return $this->user_agent;
 		}
 
-		return $this->user_agent = ( ! isset($_SERVER['HTTP_USER_AGENT'])) ? FALSE : $_SERVER['HTTP_USER_AGENT'];
+		return $this->user_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : FALSE;
 	}
 
 	// --------------------------------------------------------------------
@@ -469,19 +438,16 @@ class CI_Input {
 		{
 			$_GET = array();
 		}
-		else
+		elseif (is_array($_GET) && count($_GET) > 0)
 		{
-			if (is_array($_GET) AND count($_GET) > 0)
+			foreach ($_GET as $key => $val)
 			{
-				foreach ($_GET as $key => $val)
-				{
-					$_GET[$this->_clean_input_keys($key)] = $this->_clean_input_data($val);
-				}
+				$_GET[$this->_clean_input_keys($key)] = $this->_clean_input_data($val);
 			}
 		}
 
 		// Clean $_POST Data
-		if (is_array($_POST) AND count($_POST) > 0)
+		if (is_array($_POST) && count($_POST) > 0)
 		{
 			foreach ($_POST as $key => $val)
 			{
@@ -490,7 +456,7 @@ class CI_Input {
 		}
 
 		// Clean $_COOKIE Data
-		if (is_array($_COOKIE) AND count($_COOKIE) > 0)
+		if (is_array($_COOKIE) && count($_COOKIE) > 0)
 		{
 			// Also get rid of specially treated cookies that might be set by a server
 			// or silly application, that are of no use to a CI application anyway
@@ -568,7 +534,7 @@ class CI_Input {
 		}
 
 		// Standardize newlines if needed
-		if ($this->_standardize_newlines == TRUE AND strpos($str, "\r") !== FALSE)
+		if ($this->_standardize_newlines == TRUE && strpos($str, "\r") !== FALSE)
 		{
 			return str_replace(array("\r\n", "\r", "\r\n\n"), PHP_EOL, $str);
 		}
@@ -592,6 +558,7 @@ class CI_Input {
 	{
 		if ( ! preg_match('/^[a-z0-9:_\/-]+$/i', $str))
 		{
+			set_status_header(503);
 			exit('Disallowed Key Characters.');
 		}
 
@@ -624,7 +591,7 @@ class CI_Input {
 		}
 		else
 		{
-			$headers['Content-Type'] = (isset($_SERVER['CONTENT_TYPE'])) ? $_SERVER['CONTENT_TYPE'] : @getenv('CONTENT_TYPE');
+			$headers['Content-Type'] = isset($_SERVER['CONTENT_TYPE']) ? $_SERVER['CONTENT_TYPE'] : @getenv('CONTENT_TYPE');
 
 			foreach ($_SERVER as $key => $val)
 			{
@@ -654,9 +621,9 @@ class CI_Input {
 	 *
 	 * Returns the value of a single member of the headers class member
 	 *
-	 * @param 	string		array key for $this->headers
-	 * @param	boolean		XSS Clean or not
-	 * @return 	mixed		FALSE on failure, string on success
+	 * @param	string	array key for $this->headers
+	 * @param	bool	XSS Clean or not
+	 * @return	mixed	FALSE on failure, string on success
 	 */
 	public function get_request_header($index, $xss_clean = FALSE)
 	{
@@ -670,12 +637,9 @@ class CI_Input {
 			return FALSE;
 		}
 
-		if ($xss_clean === TRUE)
-		{
-			return $this->security->xss_clean($this->headers[$index]);
-		}
-
-		return $this->headers[$index];
+		return ($xss_clean === TRUE)
+			? $this->security->xss_clean($this->headers[$index])
+			: $this->headers[$index];
 	}
 
 	// --------------------------------------------------------------------
@@ -685,11 +649,11 @@ class CI_Input {
 	 *
 	 * Test to see if a request contains the HTTP_X_REQUESTED_WITH header
 	 *
-	 * @return 	boolean
+	 * @return 	bool
 	 */
 	public function is_ajax_request()
 	{
-		return ($this->server('HTTP_X_REQUESTED_WITH') === 'XMLHttpRequest');
+		return ( ! empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
 	}
 
 	// --------------------------------------------------------------------
@@ -699,11 +663,28 @@ class CI_Input {
 	 *
 	 * Test to see if a request was made from the command line
 	 *
-	 * @return 	boolean
+	 * @return 	bool
 	 */
 	public function is_cli_request()
 	{
-		return (php_sapi_name() === 'cli') or defined('STDIN');
+		return (php_sapi_name() === 'cli' OR defined('STDIN'));
+	}
+
+	// --------------------------------------------------------------------
+
+	/**
+	 * Get Request Method
+	 *
+	 * Return the Request Method
+	 *
+	 * @param	bool	uppercase or lowercase
+	 * @return 	bool
+	 */
+	public function method($upper = FALSE)
+	{
+		return ($upper)
+			? strtoupper($this->server('REQUEST_METHOD'))
+			: strtolower($this->server('REQUEST_METHOD'));
 	}
 
 }

@@ -5,7 +5,7 @@
  *
  * Handles forms and other field form logic.
  *
- * @package		PyroStreams Core
+ * @package		PyroCMS\Core\Modules\Streams Core\Libraries
  * @author		Parse19
  * @copyright	Copyright (c) 2011 - 2012, Parse19
  * @license		http://parse19.com/pyrostreams/docs/license
@@ -72,7 +72,7 @@ class Fields
      * @access	public
      * @param	obj
      * @param	string
-     * @param	bool
+     * @param	mixed - false or row object
      * @param	bool - is this a plugin call?
      * @param	bool - are we using reCAPTCHA?
      * @param	array - all the skips
@@ -221,6 +221,18 @@ class Fields
 				}
 				else
 				{
+
+					// -------------------------------------
+					// Event: Post Insert Entry
+					// -------------------------------------
+
+					$trigger_data = array(
+						'entry_id'		=> $result_id,
+						'stream'		=> $stream
+					);
+
+					Events::trigger('streams_post_insert_entry', $trigger_data);
+
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -252,6 +264,18 @@ class Fields
 				}
 				else
 				{
+
+					// -------------------------------------
+					// Event: Post Update Entry
+					// -------------------------------------
+
+					$trigger_data = array(
+						'entry_id'		=> $result_id,
+						'stream'		=> $stream
+					);
+
+					Events::trigger('streams_post_update_entry', $trigger_data);
+
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -270,15 +294,8 @@ class Fields
 				}
 			}
 			
-			// Redirect based on if this is a plugin call or not
-			if ($plugin)
-			{
-				redirect(str_replace('-id-', $result_id, $extra['return']));
-			}
-			else
-			{
-				redirect('admin/streams/entries/index/'.$stream->id);
-			}
+			// Redirect and replace -id- with the result ID
+			redirect(str_replace('-id-', $result_id, $extra['return']));
 		}
 		
 		// -------------------------------------

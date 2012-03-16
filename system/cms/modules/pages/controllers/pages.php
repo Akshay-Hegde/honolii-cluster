@@ -1,9 +1,8 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
- * @author 		PyroCMS Dev Team
- * @package 	PyroCMS
- * @subpackage 	Modules
- * @category 	Pages
+ * 
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Pages\Controllers
  */
 class Pages extends Public_Controller
 {
@@ -189,8 +188,10 @@ class Pages extends Public_Controller
 		foreach ($page->chunks as $chunk)
 		{
 			$chunk_html .= 	'<div class="page-chunk '.$chunk->slug.'">' .
+						'<div class="page-chunk-pad">' .
 								(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body) .
-							'</div>'.PHP_EOL;
+						'</div>' .
+					'</div>'.PHP_EOL;
 		}
 		
 		// Parse it so the content is parsed. We pass along $page so that {{ page:id }} and friends work in page content
