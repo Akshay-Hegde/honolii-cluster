@@ -32,12 +32,6 @@
 			</div>
 		</li>
 		
-		<?php if ( ! empty($subscriptions)): ?>
-		<li>
-			<label for="subscription_plan_id"><?php echo lang('subscriptions:plan');?></label>
-			<div class="input"><?php echo form_dropdown('subscription_plan_id', $subscriptions, $group->subscription_plan_id);?></div>
-		</li>
-		<?php endif; ?>
     </ul>
 
 </div>

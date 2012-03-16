@@ -20,7 +20,7 @@ class Admin extends Admin_Controller
 		parent::__construct();
 
 		// Load the required classes
-		$this->load->model(array('subscription_m', 'group_m'));
+		$this->load->model('group_m');
 		$this->load->library('form_validation');
 		$this->lang->load('group');
 		$this->lang->load(array('permissions/permissions'));
@@ -92,17 +92,9 @@ class Admin extends Admin_Controller
 			$group->{$rule['field']} = set_value($rule['field']);
 		}
 		
-		$subscriptions = $this->subscription_m->get_all();
-		$sub_select = array('' => lang('global:select-none'));
-		foreach ($subscriptions as $subscription)
-		{
-			$sub_select[$subscription->id] = $subscription->name;
-		}
-
 		$this->template
 			->title($this->module_details['name'], lang('groups.add_title'))
 			->set('group', $group)
-			->set('subscriptions', $sub_select)
 			->build('admin/form', $this->data);
 	}
 
@@ -152,17 +144,9 @@ class Admin extends Admin_Controller
 			}
 		}
 		
-		$subscriptions = $this->subscription_m->get_all();
-		$sub_select = array('' => lang('global:select-none'));
-		foreach ($subscriptions as $subscription)
-		{
-			$sub_select[$subscription->id] = $subscription->name;
-		}
-
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('groups.edit_title'), $group->name))
 			->set('group', $group)
-			->set('subscriptions', $sub_select)
 			->build('admin/form', $this->data);
 	}
 
