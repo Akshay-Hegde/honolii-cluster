@@ -8,7 +8,7 @@ class Api_key_m extends MY_Model
 			->select('key')
 			->join('users', 'api_keys.user_id = users.id')
 			->where('users.active', 1)
-			->order_by('date_created', 'desc')
+			->order_by('created_at', 'desc')
 			->limit(1)
 			->get('api_keys')
 			->row();
@@ -27,7 +27,7 @@ class Api_key_m extends MY_Model
 			'level' => 1,
 			'active' => true,
 			'key' => $key = $this->_generate_key(),
-			'date_created' => time(),
+			'created_at' => time(),
 		));
 		
 		return $key;

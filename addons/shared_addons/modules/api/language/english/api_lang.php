@@ -9,7 +9,11 @@ $lang['api:method'] = 'Method';
 $lang['api:params'] = 'Params';
 $lang['api:api_key'] = 'API Key';
 
-$lang['api:no_logs']          = 'There are no posts at the moment.';
+$lang['api:key_level'] = 'Level';
+$lang['api:key_ignore_limits'] = 'Ignore Limits';
+$lang['api:key_ignore_limits'] = 'Is active';
+
+$lang['api:no_logs'] = 'There are no posts at the moment.';
 
 $lang['api:enable_api'] = 'API Status';
 $lang['api:enable_api_description'] = 'This will allow anybody with an API Key to make requests and get data. Only do this if you understand the consequences.';
