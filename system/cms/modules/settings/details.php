@@ -85,15 +85,10 @@ class Module_Settings extends Module {
 			),
 		);
 
-		if ( ! $this->install_tables($tables))
-		{
-			return false;
-		}
-		log_message('debug', '-- -- ok settings table');
-
-		log_message('debug', '-- Settings: going to install the default settings');
-		// Regarding ordering: any additions to this table can have an order
-		// value the same as a sibling in the same section. For example if you
+		$this->install_tables($tables);
+		
+		// Regarding ordering: any additions to this table can have an order 
+		// value the same as a sibling in the same section. For example if you 
 		// add to the Email tab give it a value in the range of 983 to 975.
 		// Third-party modules should use lower numbers or 0.
 		$settings = array(

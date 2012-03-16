@@ -15,12 +15,15 @@ function add_field_parameters()
 	});
 }
 
-jQuery(document).ready(function() {
+(function($)
+{
+	$(function() {
 
-	$('#field_name').keyup(function() {
+		$('#field_name').keyup(function() {
   
- 	 	$('#field_slug').val(slugify($('#field_name').val()));
+ 	 		$('#field_slug').val(slugify($('#field_name').val()));
  	   
-	});
+		});
 
-});
+	});
+})(jQuery);

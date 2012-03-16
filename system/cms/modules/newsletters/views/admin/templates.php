@@ -14,7 +14,7 @@
 			<label for="template_list"><?php echo lang('newsletters.template_select');?></label>
 			<div class="input">
 				<?php echo form_dropdown('template_list', $template_list, '', 'class = "select_edit edit"'); ?>
-				<?php echo image('loading.gif', 'newsletters', array('id' => 'template-loading', 'alt' => 'loading template')); ?>
+				<?php echo Asset::img('module::loading.gif', 'alt="loading template"', array('id' => 'template-loading')); ?>
 				<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete') )); ?>
 			</div>
 		</li>
