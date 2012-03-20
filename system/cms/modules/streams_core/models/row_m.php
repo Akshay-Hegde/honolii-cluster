@@ -529,7 +529,6 @@ class Row_m extends MY_Model {
 		return $return;
 	}
 
-
 	// --------------------------------------------------------------------------
 
 	/**
@@ -969,70 +968,13 @@ class Row_m extends MY_Model {
 	 * @param	skips - optional array of skips
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $data, $skips = array())
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array())
 	{
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
 
-		$update_data = array();
-		
-		foreach ($fields as $field)
-		{
-			if ( ! in_array($field->field_slug, $skips))
-			{
-				$type_call = $field->field_type;
-			
-				$type = $this->type->types->$type_call;
-	
-				if ( ! isset($type->alt_process) or ! $type->alt_process)
-				{
-					// If a pre_save function exists, go ahead and run it
-					if (method_exists($type, 'pre_save'))
-					{
-						// Special case for data this is not there.
-						if ( ! isset($data[$field->field_slug]))
-						{
-							$data[$field->field_slug] = null;
-						}
-					
-						$update_data[$field->field_slug] = $type->pre_save(
-									$data[$field->field_slug],
-									$field,
-									$stream,
-									$row_id,
-									$data
-						);
-					}
-					else
-					{
-						$update_data[$field->field_slug] = $data[$field->field_slug];
-	
-						// Make null - some fields don't like just blank values
-						if ($update_data[$field->field_slug] == '')
-						{
-							$update_data[$field->field_slug] = null;
-						}
-					}
-				}	
-				else
-				{
-					// If this is an alt_process, there can still be a pre_save,
-					// it just won't return anything so we don't have to
-					// save the value
-					if (method_exists($type, 'pre_save'))
-					{
-						$type->pre_save(
-									$data[$field->field_slug],
-									$field,
-									$stream,
-									$row_id,
-									$data
-						);
-					}
-				}
-			}	
-		}
+		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips);
 
 		// -------------------------------------
 		// Set standard fields
@@ -1057,6 +999,85 @@ class Row_m extends MY_Model {
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * Run fields through their pre-process
+	 *
+	 * Just used for updating right now
+	 *
+	 * @access	public
+	 * @param	obj
+	 * @param 	string
+	 * @param	int
+	 * @param	array - update data
+	 * @param	skips - optional array of skips
+	 * @return	bool
+	 */
+	public function run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips = array())
+	{
+		$return_data = array();
+		
+		foreach ($fields as $field)
+		{
+			if ( ! in_array($field->field_slug, $skips))
+			{
+				$type_call = $field->field_type;
+			
+				$type = $this->type->types->$type_call;
+	
+				if ( ! isset($type->alt_process) or ! $type->alt_process)
+				{
+					// If a pre_save function exists, go ahead and run it
+					if (method_exists($type, 'pre_save'))
+					{
+						// Special case for data this is not there.
+						if ( ! isset($form_data[$field->field_slug]))
+						{
+							$form_data[$field->field_slug] = null;
+						}
+					
+						$return_data[$field->field_slug] = $type->pre_save(
+									$form_data[$field->field_slug],
+									$field,
+									$stream,
+									$row_id,
+									$form_data
+						);
+					}
+					else
+					{
+						$return_data[$field->field_slug] = $form_data[$field->field_slug];
+	
+						// Make null - some fields don't like just blank values
+						if ($return_data[$field->field_slug] == '')
+						{
+							$return_data[$field->field_slug] = null;
+						}
+					}
+				}	
+				else
+				{
+					// If this is an alt_process, there can still be a pre_save,
+					// it just won't return anything so we don't have to
+					// save the value
+					if (method_exists($type, 'pre_save'))
+					{
+						$type->pre_save(
+									$form_data[$field->field_slug],
+									$field,
+									$stream,
+									$row_id,
+									$form_data
+						);
+					}
+				}
+			}	
+		}
+
+		return $return_data;
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Insert field to a stream
@@ -1066,9 +1087,10 @@ class Row_m extends MY_Model {
 	 * @param	obj - our stream fields
 	 * @param	obj - our stream
 	 * @param	array - optional skipping fields
+	 * @param 	array - optional assoc array of data to exclude from processing
 	 * @return	mixed
 	 */
-	public function insert_entry($data, $fields, $stream, $skips = array())
+	public function insert_entry($data, $fields, $stream, $skips = array(), $extra = array())
 	{
 		// -------------------------------------
 		// Run through fields
@@ -1121,11 +1143,28 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Merge Extra Data
+		// -------------------------------------
+
+		if ( ! empty($extra))
+		{
+			$insert_data = array_merge($insert_data, $extra);
+		}
+
+		// -------------------------------------
 		// Set standard fields
 		// -------------------------------------
 
 		$insert_data['created'] 	= date('Y-m-d H:i:s');
-		$insert_data['created_by'] 	= $this->current_user->id;
+
+		if (isset($this->current_user->id))
+		{
+			$insert_data['created_by'] 	= $this->current_user->id;
+		}
+		else
+		{
+			$insert_data['created_by'] 	= null;
+		}
 
 		// -------------------------------------
 		// Set incremental ordering
