@@ -1,0 +1,17 @@
+<div class="mod big-list">
+	<div class="bd">
+		<ul>
+			{{ streams:cycle stream="value_list" }}
+			{{ entries }}
+			{{if last == 1}}
+				<li class="last {{wrapper_class}}">
+			{{elseif last == 0}}
+				<li class="{{wrapper_class}}">
+			{{endif}}
+					<span>{{headline}}</span>
+				</li>
+			{{ /entries }}
+			{{ /streams:cycle }}
+		</ul>
+	</div>
+</div>
