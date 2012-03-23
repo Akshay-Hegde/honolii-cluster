@@ -1,0 +1,26 @@
+<!-- Begin meta tags -->
+<meta name="author" content="WetumkaInteractive" />
+<meta name="copyright" content="wetumka.net" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="language" content="{{ lang:code }}" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width" />
+{{ theme:favicon file="favicon.ico" base="url" }}
+<base href="{{ url:base }}" />
+
+{{theme:css file="foundation.css"}}
+{{theme:css file="app.css"}}
+
+
+
+<!--[if lt IE 9]>
+{{theme:css file="ie.css"}}
+{{theme:js file="http://html5shiv.googlecode.com/svn/trunk/html5.js"}}
+<![endif]-->
+{{ integration:analytics }}
+{{theme:js file="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"}}
+{{theme:js file="http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min.js"}}
+{{theme:js file="default.js"}}
+{{ template:metadata }}
+<title>{{ settings:site_name }}&nbsp;&bull;&nbsp;{{ template:title }}</title>

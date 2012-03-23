@@ -1,0 +1,89 @@
+{{ contact:form
+	name="text|required"
+	company="text"
+	email="text|required|valid_email"
+	website="text"
+	phone="text"
+	fax="text"
+	make="text|required"
+	model="text|required"
+	year="text|required"
+	color=""
+	
+	pcode=""
+	message="textarea"
+	template="quote-request"
+	success-redirect="/request-a-quote/thank-you"
+}}
+<fieldset>
+<legend>Contact Information</legend>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">*</span>Full Name</label>
+		{{ name }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp</span>Company Name</label>
+		{{ company }}
+	</div>
+</div>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">*</span>E-Mail Address</label>
+		{{ email }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp</span>Website</label>
+		{{ website }}
+	</div>
+</div>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">*</span>Phone Number</label>
+		{{ phone }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp</span>Fax Number</label>
+		{{ fax }}
+	</div>
+</div>
+</fieldset>
+<fieldset>
+	<legend>Vehicle Information</legend>
+	<div class="row">
+		<div class="columns six">
+			<label><span class="required-field">*</span>Make</label>
+			{{ make }}
+		</div>
+		<div class="columns six">
+			<label><span class="required-field">*</span>Model</label>
+			{{ model }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns six">
+			<label><span class="required-field">*</span>Year</label>
+			{{ year }}
+		</div>
+		<div class="columns six">
+			<label><span class="required-field">&nbsp</span>Color</label>
+			{{ color }}
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Other Information</legend>
+	<div class="row">
+		<div class="columns six">
+			<label><span class="required-field">&nbsp</span>Promo Code</label>
+			{{ pcode }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns eleven">
+			<label><span class="required-field">&nbsp</span>Special details or instructions</label>
+			{{ message }}
+		</div>
+	</div>
+</fieldset>
+{{ /contact:form }}
