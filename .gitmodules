@@ -1,0 +1,6 @@
+[submodule "addons/shared_addons/modules/gallery"]
+	path = addons/shared_addons/modules/gallery
+	url = e:/projects-frameworks/pyrocms-module-gallery/
+[submodule "addons/shared_addons/modules/snippets"]
+	path = addons/shared_addons/modules/snippets
+	url = e:/projects-frameworks/pyrocms-module-snippets/
