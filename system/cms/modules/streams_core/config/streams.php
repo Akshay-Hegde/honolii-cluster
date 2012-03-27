@@ -150,8 +150,7 @@ $config['streams:schema'] = array(
 	        			'default' => 'no'
 	        		),
 	        	'instructions' => array(
-	        			'type' => 'VARCHAR',
-	        			'constraint' => 255,
+	        			'type' => 'TEXT',
 	        			'null' => TRUE
 	        		),
 	        	'field_name' => array(

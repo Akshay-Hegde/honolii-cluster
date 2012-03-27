@@ -33,30 +33,30 @@ class Fields
 	 * @param	bool
 	 * @return	string
 	 */
-	public function build_form_input($field, $value = false, $row_id = null)
+	public function build_form_input($field, $value = null, $row_id = null, $plugin = false)
 	{
-		$type = $this->CI->type->types->{$field->field_type};
-		
 		$form_data['form_slug']		= $field->field_slug;
-		
-		if ( ! isset($field->field_data['default_value']))
-		{
-			$field->field_data['default_value'] = null;
-		}
-				
-		// Set the value
-		$value ? $form_data['value'] = $value : $form_data['value'] = $field->field_data['default_value'];
+		$form_data['custom'] 		= $field->field_data;
+		$form_data['value']			= $value;
+		$form_data['max_length']	= (isset($field->field_data['max_length'])) ? $field->field_data['max_length'] : null;
 
-		$form_data['custom'] = $field->field_data;
-		
-		// Set the max_length
-		if (isset($field->field_data['max_length']))
+		// If this is for a plugin, this relies on a function that
+		// many field types will not have
+		if ($plugin)
 		{
-			$form_data['max_length'] = $field->field_data['max_length'];
+			if (method_exists($this->CI->type->types->{$field->field_type}, 'form_output_plugin'))
+			{
+				return $this->CI->type->types->{$field->field_type}->form_output_plugin($form_data, $row_id, $field);
+			}
+			else
+			{
+				return false;
+			}
 		}
-
-		// Get form output
-		return $type->form_output($form_data, $row_id, $field);
+		else
+		{
+			return $this->CI->type->types->{$field->field_type}->form_output($form_data, $row_id, $field);
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -86,7 +86,7 @@ class Fields
      *
      * @return	array - fields
      */
- 	public function build_form($stream, $method, $row = FALSE, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
+ 	public function build_form($stream, $method, $row = false, $plugin = false, $recaptcha = false, $skips = array(), $extra = array())
  	{
  		$this->CI->load->helper(array('form', 'url'));
  	
@@ -181,33 +181,7 @@ class Fields
 		// Set Values
 		// -------------------------------------
 
-		$values = array();
-		
-		foreach ($stream_fields as $stream_field)
-		{
-			if( ! in_array($stream_field->field_slug, $skips))
-			{
-				if ($method == "new")
-				{
-					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
-				}
-				else
-				{
-					$node = $stream_field->field_slug;
-					
-					if (isset($row->$node))
-					{
-						$values[$stream_field->field_slug] = $row->$node;
-					}
-					else
-					{
-						$values[$stream_field->field_slug] = NULL;
-					}
-					
-					$node = NULL;
-				}
-			}
-		}
+		$values = $this->set_values($stream_fields, $row, $method, $skips);
 
 		// -------------------------------------
 		// Validation
@@ -225,23 +199,11 @@ class Fields
 				}
 				else
 				{
-
-					// -------------------------------------
-					// Event: Post Insert Entry
-					// -------------------------------------
-
-					$trigger_data = array(
-						'entry_id'		=> $result_id,
-						'stream'		=> $stream
-					);
-
-					Events::trigger('streams_post_insert_entry', $trigger_data);
-
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
 					
-					if ($plugin and $email_notifications)
+					if ($plugin and (isset($email_notifications) and $email_notifications))
 					{
 						foreach ($email_notifications as $notify)
 						{
@@ -268,18 +230,6 @@ class Fields
 				}
 				else
 				{
-
-					// -------------------------------------
-					// Event: Post Update Entry
-					// -------------------------------------
-
-					$trigger_data = array(
-						'entry_id'		=> $result_id,
-						'stream'		=> $stream
-					);
-
-					Events::trigger('streams_post_update_entry', $trigger_data);
-
 					// -------------------------------------
 					// Send Emails
 					// -------------------------------------
@@ -306,7 +256,49 @@ class Fields
 		// Set Fields & Return Them
 		// -------------------------------------
 
-		return $this->build_fields($stream_fields, $values, $method, $skips, $extra['required']);
+		return $this->build_fields($stream_fields, $values, $row, $method, $skips, $extra['required']);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Gather values into an array
+	 * for a form
+	 *
+	 * @access 	public
+	 * @param 	object - stream_fields
+	 * @param 	object - row
+	 * @param 	string - edit or new
+	 * @param 	array
+	 * @return 	array
+	 */
+	public function set_values($stream_fields, $row, $mode, $skips)
+	{
+		$values = array();
+		
+		foreach ($stream_fields as $stream_field)
+		{
+			if ( ! in_array($stream_field->field_slug, $skips))
+			{
+				if ($mode == "new")
+				{
+					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
+				}
+				else
+				{
+					if (isset($row->{$stream_field->field_slug}))
+					{
+						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
+					}
+					else
+					{
+						$values[$stream_field->field_slug] = null;
+					}
+				}
+			}
+		}
+
+		return $values;		
 	}
 
 	// --------------------------------------------------------------------------
@@ -317,7 +309,7 @@ class Fields
 	 * Builds fields (no validation)
 	 *
 	 */
-	public function build_fields($stream_fields, $values = array(), $method = 'new', $skips = array(), $required = '<span>*</span>')
+	public function build_fields($stream_fields, $values = array(), $row = null, $method = 'new', $skips = array(), $required = '<span>*</span>')
 	{
 		$fields = array();
 
@@ -331,16 +323,29 @@ class Fields
 				$fields[$count]['input_slug'] 		= $field->field_slug;
 				$fields[$count]['instructions'] 	= $field->instructions;
 
-				// Set the value
+				// The default default value is null.
+				if ( ! isset($field->field_data['default_value']))
+				{
+					$field->field_data['default_value'] = null;
+				}
+						
+				// Set the value. The passed value or
+				// the default value?
+				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : $field->field_data['default_value'];
+
+				// Return the raw value as well - can be useful
+				$fields[$count]['value'] 			= $value;
 
 				// Get the acutal form input
 				if ($method == 'edit')
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug], $row->id);
+					$fields[$count]['input'] 		= $this->build_form_input($field, $value, $row->id);
+					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, $row->id, true);
 				}
 				else
 				{
-					$fields[$count]['input'] 		= $this->build_form_input($field, $values[$field->field_slug]);			
+					$fields[$count]['input'] 		= $this->build_form_input($field, $value, null);			
+					$fields[$count]['input_parts'] 	= $this->build_form_input($field, $value, null, true);
 				}
 
 				// Set the error if there is one
@@ -423,7 +428,20 @@ class Fields
 						$rules[] = 'required';
 					}
 				}
-				
+
+				// -------------------------------------
+				// Validation Function
+				// -------------------------------------
+				// We are using a generic streams validation
+				// function to use a validate() function
+				// in the field type itself.
+				// -------------------------------------
+
+				if (method_exists($type, 'validate'))
+				{
+					$rules[] = "streams_field_validation[{$stream_field->field_id}:{$method}]";
+				}
+
 				// -------------------------------------
 				// Set unique if necessary
 				// -------------------------------------
