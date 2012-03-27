@@ -481,7 +481,7 @@ class Plugin_Streams extends Plugin
 		
 		$this->rows = $this->row_m->get_rows($params, $this->fields, $stream);
 		
-		if ( ! $this->rows) return $this->streams_attribute('no_results', lang('streams.no_results'));
+		if ( ! $this->rows['rows']) return $this->streams_attribute('no_results', lang('streams.no_results'));
 		
 		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream']);
 	}
