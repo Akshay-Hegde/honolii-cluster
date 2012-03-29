@@ -1,0 +1,38 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		{{theme:partial name="metadata"}}
+		<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(
+		  	['_setAccount', 'UA-817697-4'],
+			['_setCustomVar', 1, 'cName', '{{session:flash name="contact_name"}', 3],
+		  	['_setCustomVar', 2, 'cEmail', '{{session:flash name="contact_email"}', 3],
+		  	['_trackPageview'],
+			['_trackPageLoadTime']
+			);
+
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+	</head>
+	<body>
+		<div class="wrapper">
+			<div id="container" class="container">
+				<div id="header">
+					{{theme:partial name="header"}}
+				</div>
+				<div id="content" class="clearfix">
+					{{template:body}}
+				</div>
+				<div id="footer">
+					{{theme:partial name="footer"}}
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

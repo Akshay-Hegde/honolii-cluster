@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		{{theme:partial name="metadata"}}
+		{{theme:partial name="google_analytics"}}
+	</head>
+	<body>
+		<div id="container">
+			<!-- Header -->
+			<div id="header" class="container">
+				{{theme:partial name="header"}}
+			</div>
+			<div id="banner">
+				<div class="scrollable container">
+					<ul class="items">
+					{{chunk:default}}
+					</ul>
+					<div class="navi"></div>
+				</div>
+			</div>
+			<hr class="color-bar"/>
+			<div id="content" class="container">
+				<!-- Content -->
+				{{session:messages success="success" notice="notice" error="error"}}
+				<div id="column_1" class="span-15 colborder body-content">
+					{{template:body}} 
+				</div>
+				<!-- Sidebar -->
+				<div id="column_2" class="span-8 last sidebar-content">
+					{{user:not_logged_in}}
+						<h3>Login to Account</h3>
+						<p>Do you have a user account with us? If so you can <a href="/users/login">login here</a>.</p>
+						<h3>Create Account</h3>
+						<p>If you don't already have an account, you can <a href="/register">register here</a>.</p>
+					{{/user:not_logged_in}}
+					{{user:logged_in}}
+						<h6>My Account</h6>
+						<ul class="vert-list">
+							<li><a href="/my-profile">View profile</a></li>
+							<li><a href="/users/logout">Logout</a></li>
+						</ul>
+						<hr class="space" />
+						<h6>Update Account</h6>
+						<ul class="vert-list">
+							<li><a href="/edit-profile">Edit profile</a></li>
+							<li><a href="/edit-settings">Edit password/settings</a></li>
+						</ul>
+						<hr class="space" />
+					{{/user:logged_in}}
+					{{user:logged_in group="admin"}}
+						<h6>Admin Account</h6>
+						<ul class="vert-list">
+							<li><a href="/admin">Admin access</a></li>
+						</ul>
+					{{/user:logged_in}}
+				</div>
+			</div>
+			<!-- Footer -->
+			<div id="footer">
+				<hr class="color-bar"/>
+				<div class="container">
+					{{theme:partial name="footer"}}
+				</div>
+			</div>
+		</div>
+		{{theme:partial name="overlay"}}
+	</body>
+</html>

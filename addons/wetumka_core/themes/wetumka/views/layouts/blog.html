@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>{{theme:partial name="metadata"}}
+		{{theme:partial name="google_analytics"}}
+</head>
+<body class="short-header">
+<div id="wrapper">
+	<div id="container" class="container">
+		<!-- Header -->
+		<div id="header" class="site-header">
+			{{theme:partial name="header"}}
+		</div>
+		<!-- Content -->
+		<div id="content" class="site-content">
+			{{theme:partial name="breadcrumbs"}}
+			{{session:messages success="success" notice="notice" error="error"}}
+			<!-- Main Content -->
+			<div id="column_1" class="span-16 body-content">
+				{{template:body}}
+			</div>
+			<!-- Sidebar -->
+			<div id="column_2" class="span-8 last sidebar-content">
+				{{widgets:area slug="blog-sidebar"}}
+			</div>
+			<hr class="space clear">
+		</div>
+	</div>
+	<div class="footer-bkg">
+		<!-- Footer -->
+		<div class="container">
+			<div id="footer" class="site-footer">
+				{{theme:partial name="footer"}}
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
