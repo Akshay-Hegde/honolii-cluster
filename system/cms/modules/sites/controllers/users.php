@@ -39,15 +39,6 @@ class Users extends Sites_Controller
 							'min_length['.config_item('min_password_length').']|'.
 							'max_length['.config_item('max_password_length').']|'.
 							'required'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|'.
-							'min_length['.config_item('min_password_length').']|'.
-							'max_length['.config_item('max_password_length').']|'.
-							'required|'.
-							'matches[password]'
 			)
 		);
 
@@ -55,12 +46,7 @@ class Users extends Sites_Controller
 			array(
 				'field' => 'password',
 				'label'	=> 'lang:user_password',
-				'rules'	=> 'trim|matches[confirm_password]'
-			),
-			array(
-				'field' => 'confirm_password',
-				'label'	=> 'lang:user_confirm_password',
-				'rules'	=> 'trim|matches[password]'
+				'rules'	=> 'trim'
 			)
 		);
 		
