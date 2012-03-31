@@ -69,6 +69,9 @@ class Sites_m extends MY_Model {
 	 */
 	public function create_site($input)
 	{
+		// set this for any modules that may depend on it
+		defined('ADDONPATH') or define('ADDONPATH', ADDON_FOLDER.$input['ref']);
+
 		$hash = $this->user_m->_hash_password($input['password']);
 		
 		$insert = array('name'		=>	$input['name'],
@@ -91,7 +94,7 @@ class Sites_m extends MY_Model {
 			{
 				// Install all modules
 				$this->db->set_dbprefix($insert['ref'].'_');
-				if ($this->module_import->import_all())
+				if ($this->user_m->create_default_user($user))
 				{
 					// we have to add schema_version so migrations don't start over
 					$this->dbforge->add_field(array(
@@ -102,7 +105,7 @@ class Sites_m extends MY_Model {
 		
 					if ($this->db->insert('migrations', array('version' => config_item('migration_version'))) )
 					{
-						return $this->user_m->create_default_user($user);
+						return $this->module_import->import_all();
 					}
 				}
 			}
