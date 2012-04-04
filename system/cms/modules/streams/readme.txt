@@ -1,4 +1,4 @@
-PyroStreams v2.1.1
+PyroStreams v2.2-dev
 =====================
 by Parse19
 www.parse19.com
@@ -7,7 +7,7 @@ www.parse19.com
 Installation
 ============
 
-To install PyroStreams just drop the streams folder it into the _addons/<site_name>/modules_ or _addons/shared_addons/modules_ folder. Then, install via the Add-ons section of the PyroCMS back end.
+To install PyroStreams just drop the streams folder it into the addons/<site_name>/modules or addons/shared_addons/modules folder. Then, install via the Add-ons section of the PyroCMS back end.
 
 Documentation
 =============

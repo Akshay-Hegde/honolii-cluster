@@ -24,6 +24,12 @@ class Events_Streams {
         
         // Register the admin_notification event
         Events::register('admin_notification', array($this, 'display_notifications'));
+
+        // Delete the row_m and streams cache on create/update/delete
+        Events::register('streams_post_insert_entry', array($this, 'clear_cache'));
+        Events::register('streams_post_update_entry', array($this, 'clear_cache'));
+        Events::register('streams_post_delete_entry', array($this, 'clear_cache'));
+
     }
  
  	// --------------------------------------------------------------------------
@@ -47,6 +53,22 @@ class Events_Streams {
 			endif;
 
 		endif;
+    }
+
+    // --------------------------------------------------------------------------
+
+    /**
+     * Empty PyroStreams Cache 
+     *
+     * Both the tag cache and the row_m cache.
+     *
+     * @access  public
+     * @return  void
+     */
+    public function clear_cache()
+    {
+        $this->CI->pyrocache->delete_all('row_m');
+        $this->CI->pyrocache->delete_all('pyrostreams');
     }
 
 }
