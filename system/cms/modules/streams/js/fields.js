@@ -1,13 +1,13 @@
 function add_field_parameters()
 {
-	var data = document.getElementById("field_type").value;
+	var data = $('#field_type').val();
 	
 	jQuery.ajax({
 		dataType: "text",
 		type: "POST",
-		data: 'data='+data,
+		data: 'data='+data+'&csrf_hash_name='+$.cookie('csrf_cookie_name'),
 		url:  BASE_URL+'index.php/streams_core/ajax/build_parameters',
-		success: function(returned_html){
+		success: function(returned_html) {
 			jQuery('.streams_param_input').remove();
 			jQuery('.form_inputs > ul').append(returned_html);
 			pyro.chosen();
@@ -18,12 +18,8 @@ function add_field_parameters()
 (function($)
 {
 	$(function() {
-
 		$('#field_name').keyup(function() {
-  
  	 		$('#field_slug').val(slugify($('#field_name').val()));
- 	   
 		});
-
 	});
 })(jQuery);

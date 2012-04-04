@@ -15,7 +15,7 @@
 				});
 				order = order.join(',');
 				
-				$.post(BASE_URI + 'index.php/streams_core/ajax/update_field_order', { order: order, offset: fields_offset }, function(data) {					
+				$.post(BASE_URI + 'index.php/streams_core/ajax/update_field_order', { order: order, offset: fields_offset, csrf_hash_name: $.cookie('csrf_cookie_name') }, function(data) {					
 					$('tr').removeClass('alt');
 					$('tr:even').addClass('alt');
 				});

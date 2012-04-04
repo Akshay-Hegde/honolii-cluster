@@ -35,13 +35,16 @@ class Plugin_Streams extends Plugin
 			'where'				=> null,
 			'exclude'			=> null,
 			'exclude_by'		=> 'id',
+			'include'			=> null,
+			'include_by'		=> 'id',
 			'disable'			=> null,
 			'order_by'			=> null,
 			'sort'				=> 'asc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
 			'pag_segment'		=> 2,
-			'partial'			=> null
+			'partial'			=> null,
+			'site_ref'			=> SITE_REF
 	);
 
 	// --------------------------------------------------------------------------
@@ -90,14 +93,13 @@ class Plugin_Streams extends Plugin
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Rows - in a class var
-	 * so it can be shared across some
-	 * different functions
-	 *
-	 * @access	public
-	 * @var		obj
+	 * Cache Vars
 	 */
-	public $rows;
+	public $cache_type				= 'query';		// tag or query
+	public $cache_time_format		= 'minutes'; 	// minutes or seconds
+	public $cache					= null;			// num of seconds or minutes
+	public $cache_hash				= null;
+	public $write_tag_cache			= false;		// Whether or not we need
 
 	// --------------------------------------------------------------------------
 	
@@ -171,13 +173,30 @@ class Plugin_Streams extends Plugin
 		
 		return $value;
 	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Fun little method to call a stream without
+	 * using cycle. Like:
+	 *
+	 * {{ streams:stream_slug }}
+	 *
+	 * @param	string
+	 * @param	string
+	 * @return	void
+	 */
+	function __call($name, $data)
+	{
+		$this->entries_params['stream'] = $name;
+
+		return $this->cycle();
+	}
 	
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Data Cycle
-	 *
-	 * List data from a stream
+	 * List stream entries
 	 *
 	 * @access	public
 	 */
@@ -194,6 +213,17 @@ class Plugin_Streams extends Plugin
 		foreach ($this->entries_params as $param_key => $param_default)
 		{
 			$params[$param_key] = $this->streams_attribute($param_key, $param_default);
+		}
+
+		// -------------------------------------
+		// Cache
+		// -------------------------------------
+
+		$this->setup_cache();
+
+		if ( ! is_null($full_tag_cache = $this->full_tag_cache()))
+		{
+			return $full_tag_cache;
 		}
 
 		// -------------------------------------
@@ -228,8 +258,15 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// Get Rows
 		// -------------------------------------
-		
-		$rows = $this->row_m->get_rows($params, $this->fields, $stream);
+
+		if ($this->cache_type == 'query' and is_numeric($this->cache))
+		{
+			$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $stream), $this->cache);
+		}
+		else
+		{
+			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
+		}
 		
 		$return['entries'] = $rows['rows'];
 				
@@ -263,13 +300,154 @@ class Plugin_Streams extends Plugin
 		// No Results
 		// -------------------------------------
 		
-		if ($return['total'] == 0) return $this->streams_attribute('no_results', "No results");
+		if ($return['total'] == 0) return $this->streams_attribute('no_results', lang('streams.no_results'));
+
+		// -------------------------------------
+		// {{ entries }} Bypass
+		// -------------------------------------
+		// If we don't want to use {{ entries }},
+		// we don't have to!
+		// -------------------------------------
+
+		$loop = false;
+
+		if (preg_match('/\{\{\s?entries\s?\}\}/', $this->content()) == 0)
+		{
+			$return = $return['entries'];
+			$loop = true;
+		}
 		
 		// -------------------------------------
-		// Return
+		// Parse Ouput Content
 		// -------------------------------------
 		
-		return $this->streams_content_parse($this->content(), $return, $params['stream']);
+		$return_content = $this->streams_content_parse($this->content(), $return, $params['stream'], $loop);
+	
+		// -------------------------------------
+		// Cache End Procedures
+		// -------------------------------------
+
+		$this->tag_cache_write($return_content);
+
+		$this->clear_cache_vars();
+
+		// -------------------------------------
+
+		return $return_content;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Setup the cache vars
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function setup_cache()
+	{
+		// 'tag' or 'query'
+		$this->cache_type				= $this->streams_attribute('cache_type', 'query');	
+
+		// 'minutes' or 'seconds'
+		$this->cache_time_format		= $this->streams_attribute('cache_time_format', 'minutes'); 
+
+		// num of seconds or minutes
+		$this->cache					= $this->streams_attribute('cache', null);
+
+		// Format the cache time. It can either be in seconds
+		// or minutes depending on a param.
+		if (is_numeric($this->cache))
+		{
+			if ($this->cache_time_format == 'minutes')
+			{
+				// If they specified minutes we just need to
+				// convert it to second
+				$this->cache = $this->cache*60;
+			}
+		}
+
+		$this->set_cache_hash();
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Set the cache hash
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function set_cache_hash()
+	{
+		$this->cache_hash = md5(implode('-', $this->attributes()).$this->content());
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Write tag cache if we need to
+	 *
+	 * @access 	private
+	 * @param 	string - the content to write
+	 * @return 	void
+	 */
+	private function tag_cache_write($content)
+	{
+		if ($this->write_tag_cache === true)
+		{
+			$this->pyrocache->write($content, 'pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash, $this->cache);
+		}		
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Full tag cache
+	 *
+	 * @access 	private
+	 * @return 	mixed - null or string
+	 */
+	private function full_tag_cache()
+	{
+		if ( ! $this->cache_hash)
+		{
+			$this->set_cache_hash();
+		}
+
+		// Check to see if we have a tag cache.
+		if ($this->cache_type == 'tag' and ! is_null($this->cache))
+		{
+			if ( ! $tag_cache_content = $this->pyrocache->get('pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash))
+			{
+				// Set this so functions know to write the
+				// cache when necesary.
+				$this->write_tag_cache = true;
+			}
+			else
+			{
+				return $tag_cache_content;
+			}
+		}
+
+		return null;
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Reset the cache vars to their defaults
+	 *
+	 * @access 	private
+	 * @return 	void
+	 */
+	private function clear_cache_vars()
+	{
+		$this->cache_type			= 'query';
+		$this->cache_time_format	= 'minutes';
+		$this->cache				= null;
+		$this->cache_hash			= null;
+		$this->write_tag_cache		= false;
 	}
 
 	// --------------------------------------------------------------------------
@@ -293,6 +471,14 @@ class Plugin_Streams extends Plugin
 	{
 		$rel_field 	= $this->attribute('field');
 		$entry_id 	= $this->attribute('entry');
+
+		// -------------------------------------
+		// Cache
+		// -------------------------------------
+
+		$this->setup_cache();
+
+		// -------------------------------------
 		
 		if ( ! $field = $this->fields_m->get_field_by_slug($rel_field, $this->core_namespace)) return NULL;
 
@@ -301,16 +487,19 @@ class Plugin_Streams extends Plugin
 		
 		// Get the fields		
 		$this->fields = $this->streams_m->get_stream_fields($join_stream->id);
+
+		$stream = $this->streams_m->get_stream($this->attribute('stream'), true, $this->attribute('namespace', $this->core_namespace));
 		
 		// Add the join_multiple hook to the get_rows function
 		$this->row_m->get_rows_hook = array($this, 'join_multiple');
 		$this->row_m->get_rows_hook_data = array(
-			'join_table' => STR_PRE.$this->attribute('stream').'_'.$join_stream->stream_slug,
+			'join_table' => $stream->stream_prefix.$stream->stream_slug.'_'.$join_stream->stream_slug,
 			'join_stream' => $join_stream,
 			'row_id' =>  $this->attribute('entry')		
 		);
 		
 		$params = array(
+			'arbitrary'			=> $entry_id, // For the cache
 			'stream'			=> $join_stream->stream_slug,
 			'limit'				=> $this->streams_attribute('limit'),
 			'offset'			=> $this->streams_attribute('offset', 0),
@@ -334,11 +523,19 @@ class Plugin_Streams extends Plugin
 			'pag_segment'		=> $this->streams_attribute('pag_segment', 2),
 			'partial'			=> $this->streams_attribute('partial', NULL)			
 		);
-		
-		// Get the rows
-		$this->rows = $this->row_m->get_rows($params, $this->fields, $join_stream);
-		
-		return $this->rows['rows'];
+
+		if ($this->cache_type == 'query' and is_numeric($this->cache))
+		{
+			$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $join_stream), $this->cache);
+		}
+		else
+		{
+			$rows = $this->row_m->get_rows($params, $this->fields, $join_stream);
+		}
+
+		$this->clear_cache_vars();
+
+		return $rows['rows'];
 	}
 
 	// --------------------------------------------------------------------------
@@ -354,11 +551,8 @@ class Plugin_Streams extends Plugin
 	 */
 	public function join_multiple($data)
 	{
-		$this->db->join(	
-			$data['join_table'],
-			$data['join_table'].'.'.$data['join_stream']->stream_slug.'_id = '.$data['join_stream']->stream_prefix.$data['join_stream']->stream_slug.".id",
-			'LEFT' );
-		$this->db->where($data['join_table'].'.row_id', $data['row_id']);
+		$this->row_m->sql['join'][] = "LEFT JOIN `{$this->db->dbprefix($data['join_table'])}` ON `{$this->db->dbprefix($data['join_table'])}`.`{$data['join_stream']->stream_slug}_id` = `{$this->db->dbprefix($data['join_stream']->stream_prefix.$data['join_stream']->stream_slug)}`.`id`";
+		$this->row_m->sql['where'][] = "`{$this->db->dbprefix($data['join_table'])}`.`row_id` = '{$data['row_id']}'";
 	}
 
 	// --------------------------------------------------------------------------
@@ -371,7 +565,33 @@ class Plugin_Streams extends Plugin
 	 */
 	public function total()
 	{
-		return $this->db->count_all(STR_PRE.$this->streams_attribute('stream'));
+		if ( ! $this->streams_attribute('stream'))
+		{
+			return null;
+		}
+
+		$this->setup_cache();
+
+		$this->load->config('streams/streams');
+
+		if ( ! is_null($this->cache))
+		{
+			if ( ! $cache_content = $this->pyrocache->get('pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash))
+			{
+				return $this->pyrocache->write(
+					$this->db->count_all(STR_PRE.$this->streams_attribute('stream')),
+					'pyrostreams'.DIRECTORY_SEPARATOR.$this->cache_hash, $this->cache);
+
+			}
+			else
+			{
+				return $cache_content;
+			}
+		}
+		else
+		{
+			return $this->db->count_all(STR_PRE.$this->streams_attribute('stream'));
+		}
 	}
 
 	// --------------------------------------------------------------------------
@@ -423,6 +643,17 @@ class Plugin_Streams extends Plugin
 	public function single()
 	{	
 		// -------------------------------------
+		// Cache
+		// -------------------------------------
+
+		$this->setup_cache();
+
+		if ( ! is_null($full_tag_cache = $this->full_tag_cache()))
+		{
+			return $full_tag_cache;
+		}
+
+		// -------------------------------------
 		// Get vars
 		// -------------------------------------
 
@@ -431,14 +662,14 @@ class Plugin_Streams extends Plugin
 		$params = array(
 			'limit'			=> 1,
 			'offset'		=> 0,
-			'order_by'		=> FALSE,
-			'sort'			=> FALSE,
-			'exclude'		=> FALSE,
-			'show_upcoming'	=> NULL,
-			'show_past'		=> NULL,
-			'year'			=> NULL,
-			'month'			=> NULL,
-			'day'			=> NULL,
+			'order_by'		=> false,
+			'sort'			=> false,
+			'exclude'		=> false,
+			'show_upcoming'	=> null,
+			'show_past'		=> null,
+			'year'			=> null,
+			'month'			=> null,
+			'day'			=> null,
 			'restrict_user'	=> 'no',
 			'single'		=> 'yes'
 		);
@@ -449,6 +680,7 @@ class Plugin_Streams extends Plugin
 		$params['where'] 			= $this->streams_attribute('where');
 		$params['disable']			= $this->streams_attribute('disable');
 		$params['sort']				= $this->streams_attribute('sort');
+		$params['namespace']		= $this->streams_attribute('namespace', $this->core_namespace);
 
 		// -------------------------------------
 		// Get stream
@@ -456,9 +688,9 @@ class Plugin_Streams extends Plugin
 		
 		if ( ! $params['stream'] ) return $this->_error_out(lang('streams.invalid_stream'));
 		
-		$stream = $this->streams_m->get_stream($params['stream'], TRUE, $this->core_namespace);
+		$stream = $this->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
 		
-		if ($stream === FALSE) return $this->_error_out(lang('streams.invalid_stream'));
+		if ($stream === false) return $this->_error_out(lang('streams.invalid_stream'));
 		
 		// -------------------------------------
 		// Disable
@@ -478,12 +710,40 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// Return Rows
 		// -------------------------------------
+
+		if ($this->cache_type == 'query' and ! is_null($this->cache))
+		{
+			$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $stream), $this->cache);
+		}
+		else
+		{
+			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
+		}
+	
+		// -------------------------------------
+		// Get content
+		// -------------------------------------
 		
-		$this->rows = $this->row_m->get_rows($params, $this->fields, $stream);
-		
-		if ( ! $this->rows['rows']) return $this->streams_attribute('no_results', lang('streams.no_results'));
-		
-		return $this->streams_content_parse($this->content(), $this->rows['rows'][0], $params['stream']);
+		if ( ! $rows)
+		{
+			$return_content = $this->streams_attribute('no_results', lang('streams.no_results'));
+		}
+		else
+		{
+			$return_content = $this->streams_content_parse($this->content(), $rows['rows'][0], $params['stream']);
+		}
+
+		// -------------------------------------
+		// Cache End Procedures
+		// -------------------------------------
+
+		$this->tag_cache_write($return_content);
+
+		$this->clear_cache_vars();
+
+		// -------------------------------------
+
+		return $return_content;
 	}
 
 	// --------------------------------------------------------------------------
@@ -502,7 +762,7 @@ class Plugin_Streams extends Plugin
 
 		$data = new stdClass;
 		
-		$this->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
+		$this->load->library(array('form_validation', 'streams_core/Fields'));
  
 		// -------------------------------------
 		// Get vars
@@ -523,6 +783,8 @@ class Plugin_Streams extends Plugin
 		$include 				= $this->streams_attribute('include');
 		$exclude 				= $this->streams_attribute('exclude');
 		$recaptcha 				= $this->streams_attribute('use_recaptcha', 'no');
+		$creator_only       	= $this->streams_attribute('creator_only', false);
+		$namespace 				= $this->streams_attribute('namespace', $this->core_namespace);
 
 		$extra['required'] 		= $this->streams_attribute('required', '<span class="required">* required</span>');
 		$extra['return'] 		= $this->streams_attribute('return', $this->uri->uri_string());
@@ -548,7 +810,7 @@ class Plugin_Streams extends Plugin
 		// Get Stream Data
 		// -------------------------------------
 		
-		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $this->core_namespace);
+		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $namespace);
 		
 		if ( ! $data->stream) return lang('streams.invalid_stream');
 		
@@ -579,7 +841,7 @@ class Plugin_Streams extends Plugin
 		// Get Edit ID from URL if in Edit Mode
 		// -------------------------------------
 		
-		$row = FALSE;
+		$row = false;
 		
 		if ($mode == 'edit')
 		{
@@ -607,44 +869,79 @@ class Plugin_Streams extends Plugin
 						$edit_id = $row->id;
 					}
 				}
-			}					
-			
-			// Get the row
-			$row = $this->row_m->get_row($edit_id, $data->stream, FALSE);
+			}
+			else
+			{
+				// Get the row
+				$row = $this->row_m->get_row($edit_id, $data->stream, FALSE);
+			}			
+		}
+
+		// -------------------------------------
+		// Check Author Only
+		// -------------------------------------
+		// If this mode is on edit, and it is set
+		// to creator_only, we can check to see
+		// if the editor is the creator.
+		// -------------------------------------
+
+		if ($creator_only == 'yes' and $mode == 'edit')
+		{
+			// Must be logged in
+			if ( ! isset($this->current_user->id))
+			{
+				return null;
+			}
+
+			if($this->current_user->id != $row->created_by)
+			{
+				return null;
+			}
 		}
 
 		// -------------------------------------
 		// Include/Exclude
 		// -------------------------------------
 
-		$skips = array();
-
-		if ($include)
-		{
-			$includes = explode('|', $include);
-
-			// We need to skip everything else
-			$raw_fields = $this->streams_m->get_stream_fields($data->stream_id);
-
-			foreach ($raw_fields as $field)
-			{
-				if ( ! in_array($field->field_slug, $includes))
-				{
-					$skips[] = $field->field_slug;
-				}
-			}
-		}
-		elseif ($exclude)
-		{
-			// Exlcudes are just our skips
-			$skips = explode('|', $exclude);
-		}
+		$skips = $this->determine_skips($include, $exclude, $data->stream_id);
 
 		// -------------------------------------
 		// Process and Output Form Data
 		// -------------------------------------
 	
 		$vars['fields'] = $this->fields->build_form($data->stream, $mode, $row, TRUE, $recaptcha, $skips, $extra);
+
+		// -------------------------------------
+		// Individual Field Access 
+		// -------------------------------------
+		// For greater form control, this allows
+		// users to access each form item
+		// indivudally.
+		// -------------------------------------
+
+		foreach($vars['fields'] as $field)
+		{
+			$vars[$field['input_slug']]['label'] 			= $field['input_title'];
+			$vars[$field['input_slug']]['slug'] 			= $field['input_slug'];
+			$vars[$field['input_slug']]['value'] 			= $field['value'];
+
+			if($field['input_parts'] !== false)
+			{
+				$vars[$field['input_slug']]['input']		= $field['input_parts'];
+				$vars[$field['input_slug']]['input_built']	= $field['input'];
+			}
+			else
+			{
+				$vars[$field['input_slug']]['input']		= $field['input'];
+				$vars[$field['input_slug']]['input_built']	= $field['input'];
+			}
+
+			$vars[$field['input_slug']]['error_raw'] 		= $field['error_raw'];
+			$vars[$field['input_slug']]['error'] 			= $field['error'];
+			$vars[$field['input_slug']]['is_required'] 		= ($field['required']) ? true : false;
+			$vars[$field['input_slug']]['required'] 		= $field['required'];
+			$vars[$field['input_slug']]['odd_even'] 		= $field['odd_even'];
+		}
 		
 		// -------------------------------------
 		// reCAPTCHA
@@ -657,10 +954,10 @@ class Plugin_Streams extends Plugin
 			$vars['recaptcha'] = $this->recaptcha->get_html();
 
 			// Output the error if we have one
-			if (isset($this->streams_validation->_field_data['recaptcha_response_field']['error'])
-				  and $this->streams_validation->_field_data['recaptcha_response_field']['error'] != '')
+			if (isset($this->form_validation->_field_data['recaptcha_response_field']['error'])
+				  and $this->form_validation->_field_data['recaptcha_response_field']['error'] != '')
 			{
-				$vars['recaptcha_error'] = $this->streams_validation->error('recaptcha_response_field');
+				$vars['recaptcha_error'] = $this->form_validation->error('recaptcha_response_field');
 			}	
 			else
 			{
@@ -683,9 +980,50 @@ class Plugin_Streams extends Plugin
 		$vars['form_submit']	= '<input type="submit" value="'.lang('save_label').'" />';
 		$vars['form_reset']		= '<input type="reset" value="'.lang('streams.reset').'" />';
 
+		$vars['validation_errors'] = validation_errors($extra['error_start'], $extra['error_end']);
+
 		// -------------------------------------
 		
 		return array($vars);				
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Determine the fields to skip
+	 * based on include/exclude
+	 */
+	private function determine_skips($include, $exclude, $stream_id, $stream_fields = null)
+	{
+		$skips = array();
+
+		if ($include)
+		{
+			$includes = explode('|', $include);
+
+			if (is_null($stream_fields))
+			{
+				$stream_fields = $this->streams_m->get_stream_fields($stream_id);
+			}
+
+			// We need to skip everything else
+			foreach ($stream_fields as $field)
+			{
+				if ( ! in_array($field->field_slug, $includes))
+				{
+					$skips[] = $field->field_slug;
+				}
+			}
+		}
+		if ($exclude)
+		{
+			// Exlcudes are just our skips
+			$excludes = explode('|', $exclude);
+		
+			$skips = array_merge($excludes, $skips);
+		}
+
+		return $skips;
 	}
 
 	// --------------------------------------------------------------------------
@@ -714,6 +1052,116 @@ class Plugin_Streams extends Plugin
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * Form CSRF input
+	 *
+	 * You might need this if you are not using the {{ form_open }} variable.
+	 *
+	 * @access 	public
+	 * @return 	mixed - null or string
+	 */
+	public function form_csrf()
+	{
+		if ($this->config->item('csrf_protection'))
+		{
+			return form_hidden($this->security->get_csrf_token_name(), $this->security->get_csrf_hash());
+		}		
+	}
+	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Form Fields
+	 *
+	 * Allows you to simple show form fields without 
+	 */
+	public function form_fields()
+	{
+		$this->load->library(array('form_validation', 'streams_core/Fields'));
+
+		$mode 				= $this->streams_attribute('mode', 'new');
+		$edit_id 			= $this->streams_attribute('edit_id', false);
+		$stream_slug 		= $this->streams_attribute('stream');
+		$namespace 			= $this->streams_attribute('namespace', $this->core_namespace);
+		$include 			= $this->streams_attribute('include');
+		$exclude 			= $this->streams_attribute('exclude');
+		$required 			= $this->streams_attribute('required', '<span class="required">* required</span>');
+		
+		// -------------------------------------
+		// Get Stream Data
+		// -------------------------------------
+		
+		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $namespace);
+		
+		if ( ! $data->stream) return lang('streams.invalid_stream');
+		
+		$data->stream_id		= $data->stream->id;
+		$vars = array();
+
+		// -------------------------------------
+		// Get the row in edit mode
+		// -------------------------------------
+		
+		$row = false;
+		
+		if ($mode == 'edit')
+		{
+			$row = $this->row_m->get_row($edit_id, $data->stream, false);
+		}
+
+		// -------------------------------------
+		// Set up skips & values
+		// -------------------------------------
+
+		$stream_fields = $this->streams_m->get_stream_fields($data->stream_id);
+
+		$skips = $this->determine_skips($include, $exclude, $data->stream_id, $stream_fields);
+
+		$values = $this->fields->set_values($stream_fields, $row, $mode, $skips);
+
+		// -------------------------------------
+		// Get & Return Fields
+		// -------------------------------------
+
+		$vars['fields'] = $this->fields->build_fields($stream_fields, $values, $row, $mode, $skips, $required);		
+
+		// -------------------------------------
+		// Individual Field Access 
+		// -------------------------------------
+		// For greater form control, this allows
+		// users to access each form item
+		// indivudally.
+		// -------------------------------------
+
+		foreach($vars['fields'] as $field)
+		{
+			$vars[$field['input_slug']]['label'] 			= $field['input_title'];
+			$vars[$field['input_slug']]['slug'] 			= $field['input_slug'];
+			$vars[$field['input_slug']]['value'] 			= $field['value'];
+
+			if($field['input_parts'] !== false)
+			{
+				$vars[$field['input_slug']]['input']		= $field['input_parts'];
+				$vars[$field['input_slug']]['input_built']	= $field['input'];
+			}
+			else
+			{
+				$vars[$field['input_slug']]['input']		= $field['input'];
+				$vars[$field['input_slug']]['input_built']	= $field['input'];
+			}
+
+			$vars[$field['input_slug']]['error_raw'] 		= $field['error_raw'];
+			$vars[$field['input_slug']]['error'] 			= $field['error'];
+			$vars[$field['input_slug']]['is_required'] 		= ($field['required']) ? true : false;
+			$vars[$field['input_slug']]['required'] 		= $field['required'];
+			$vars[$field['input_slug']]['odd_even'] 		= $field['odd_even'];
+		}
+
+		return array($vars);				
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Delete a row field
@@ -727,7 +1175,7 @@ class Plugin_Streams extends Plugin
 		// General Loads
 		// -------------------------------------
 
-		$this->load->library(array('form_validation', 'streams_core/Streams_validation', 'streams_core/Fields'));
+		$this->load->library(array('form_validation', 'streams_core/Fields'));
 
 		// -------------------------------------
 		// Get vars
@@ -790,11 +1238,11 @@ class Plugin_Streams extends Plugin
 				'single'		=> 'yes'
 			);
 
-			$this->rows = $this->row_m->get_rows($params, $this->fields, $stream);
+			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
 			
-			if ( ! isset($this->rows['rows'][0])) return $this->streams_attribute('no_entry', lang('streams.no_entry'));
+			if ( ! isset($rows['rows'][0])) return $this->streams_attribute('no_entry', lang('streams.no_entry'));
 			
-			$vars['entry'][0] = $this->rows['rows'][0];
+			$vars['entry'][0] = $rows['rows'][0];
 	
 			// -------------------------------------
 			// Parse other vars
@@ -804,7 +1252,7 @@ class Plugin_Streams extends Plugin
 			$vars['form_close']		= '</form>';
 			$vars['delete_confirm']	= '<input type="submit" name="delete_confirm" value="'.lang('streams.delete').'" />';
 			
-			$this->rows = NULL;
+			$rows = null;
 			
 			return array($vars);
 		}
@@ -861,6 +1309,17 @@ class Plugin_Streams extends Plugin
 	 */
 	public function calendar()
 	{
+		// -------------------------------------
+		// Cache
+		// -------------------------------------
+
+		$this->setup_cache();
+
+		if ( ! is_null($full_tag_cache = $this->full_tag_cache()))
+		{
+			return $full_tag_cache;
+		}
+
 		// -------------------------------------
 		// Get vars
 		// -------------------------------------
@@ -923,13 +1382,26 @@ class Plugin_Streams extends Plugin
 				'month' 		=> $month
 			);
 
-			$this->rows = $this->row_m->get_rows($params, $this->fields, $stream);
+			// -------------------------------------
+			// Get rows
+			// -------------------------------------
+
+			if ($this->cache_type == 'query' and ! is_null($this->cache))
+			{
+				$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $stream), $this->cache);
+			}
+			else
+			{
+				$rows = $this->row_m->get_rows($params, $this->fields, $stream);
+			}
+
+			$this->clear_cache_vars();
 				
 			// -------------------------------------
 			// Format Calendar Data
 			// -------------------------------------
 			
-			foreach ($this->rows as $above)
+			foreach ($rows as $above)
 			{
 				foreach ($above as $entry)
 				{
@@ -995,20 +1467,32 @@ class Plugin_Streams extends Plugin
 		$calendar_prefs['month_type']		= $this->streams_attribute('month_type', 'long');
 		$calendar_prefs['day_type']			= $this->streams_attribute('day_type', 'abr');
 		$calendar_prefs['show_next_prev']	= $this->streams_attribute('show_next_prev', 'yes');
-		$calendar_prefs['next_prev_url']	= $this->streams_attribute('next_prev_url', '');
+		$calendar_prefs['next_prev_url']	= $this->streams_attribute('next_prev_uri', '');
 
 		if ($calendar_prefs['show_next_prev'] == 'yes')
 		{
-			$calendar_prefs['show_next_prev'] = TRUE;
+			$calendar_prefs['show_next_prev'] = true;
 		}
 		else
 		{
-			$calendar_prefs['show_next_prev'] = FALSE;
+			$calendar_prefs['show_next_prev'] = false;
 		}
 
 		$this->load->library('calendar', $calendar_prefs);
 
-		return $this->calendar->generate($year, $month, $calendar);
+		$return_content = $this->calendar->generate($year, $month, $calendar);
+
+		// -------------------------------------
+		// Cache End Procedures
+		// -------------------------------------
+
+		$this->tag_cache_write($return_content);
+
+		$this->clear_cache_vars();
+
+		// -------------------------------------
+
+		return $return_content;
 	}
 
 	// --------------------------------------------------------------------------
@@ -1182,9 +1666,10 @@ class Plugin_Streams extends Plugin
 	 * @param	string - the tag content
 	 * @param	array - the return data
 	 * @param	string - stream slug
+	 * @param 	[bool - whether or not to loop through the results or not]
 	 * @return 	string - the parsed data
 	 */
-	private function streams_content_parse($content, $data, $stream_slug)
+	private function streams_content_parse($content, $data, $stream_slug, $loop = false)
 	{
 		// -------------------------------------
 		// Multiple Provision
@@ -1193,7 +1678,7 @@ class Plugin_Streams extends Plugin
 		// This makes it easier to call the multiple function
 		// from within the streams tags
 		// -------------------------------------
-		
+
 		$rep = array('{{ streams:related', '{{streams:related');
 		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry=id ', $content);
 
@@ -1201,13 +1686,25 @@ class Plugin_Streams extends Plugin
 		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry=id ', $content);
 		
 		// -------------------------------------
-		// Parse Rows
+		// Parse
 		// -------------------------------------
 
 		$parser = new Lex_Parser();
 		$parser->scope_glue(':');
-				
-		return $parser->parse($content, $data, array($this->parser, 'parser_callback'));
+
+		if ( ! $loop)
+		{
+			return $parser->parse($content, $data, array($this->parser, 'parser_callback'));
+		}
+
+		$out = '';
+
+		foreach ($data as $item)
+		{
+			$out .= $parser->parse($content, $item, array($this->parser, 'parser_callback'));
+		}
+
+		return $out;
 	}
 
 	// --------------------------------------------------------------------------

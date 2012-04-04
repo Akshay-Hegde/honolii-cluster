@@ -37,6 +37,8 @@
 		<?php endforeach;?>
 		</tbody>
     </table>
+
+    <br />
   
  	<div class="float-right buttons">
     	<?php echo anchor('admin/streams/entries/edit/'.$this->uri->segment(5).'/'.$row->id, lang('global:edit'), 'class="btn orange"')?>

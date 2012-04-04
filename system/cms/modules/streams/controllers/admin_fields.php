@@ -38,7 +38,6 @@ class Admin_Fields extends Admin_Controller {
 		$this->load->library('streams_core/Type');	
 	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
-		$this->load->library('streams_core/Streams_validation');	
        
  		$this->data->types = $this->type->types;
 	}
@@ -66,7 +65,7 @@ class Admin_Fields extends Admin_Controller {
 
 		$this->data->pagination = create_pagination(
 										'admin/streams/fields/index',
-										$this->fields_m->count_fields(),
+										$this->fields_m->count_fields($this->config->item('streams:core_namespace')),
 										$this->settings->item('records_per_page'),
 										5
 									);
@@ -108,19 +107,18 @@ class Admin_Fields extends Admin_Controller {
 		// Add in the unique callback
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
 		
-		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
+		$this->form_validation->set_rules($this->fields_m->fields_validation);
 				
-		foreach($this->fields_m->fields_validation as $field):
-	
+		foreach ($this->fields_m->fields_validation as $field)
+		{
 			$this->data->field->{$field['field']} = $this->input->post($field['field']);
-	
-		endforeach;
+		}
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( ! $this->fields_m->insert_field(
 								$this->input->post('field_name'),
@@ -252,7 +250,7 @@ class Admin_Fields extends Admin_Controller {
 		// Add in the unique callback
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$this->data->current_field->field_slug.']';
 		
-		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
+		$this->form_validation->set_rules( $this->fields_m->fields_validation  );
 				
 		foreach($this->fields_m->fields_validation as $field):
 		
@@ -276,7 +274,7 @@ class Admin_Fields extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( !$this->fields_m->update_field(
 										$this->fields_m->get_field($field_id),

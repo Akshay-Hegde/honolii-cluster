@@ -29,14 +29,16 @@ class Module_Streams extends Module {
 				'es' => 'Streams',
 				'de' => 'Streams',
 				'el' => 'Ροές',
-				'lt' => 'Srautai'
+				'lt' => 'Srautai',
+				'fr' => 'Streams'
 			),
 			'description' => array(
 				'en' => 'Manage, structure, and display data.',
 				'es' => 'Administra, estructura, y presenta datos.',
 				'de' => 'Verwalte, strukturiere und veröffentliche Daten.',
 				'el' => 'Διαχείριση, δόμηση και προβολή πληροφοριών και δεδομένων.',
-				'lt' => null
+				'lt' => null,
+				'fr' => 'Gérer, structurer et afficher des données'
 			),
 			'frontend' => FALSE,
 			'backend' => TRUE,
@@ -77,14 +79,26 @@ class Module_Streams extends Module {
 			
 			// Streams Add 
 			if(
-				group_has_role('streams', 'admin_streams') AND 
-				!in_array($this->uri->segment(3), $assignment_uris) AND
-				$this->uri->segment(3) != 'entries'
+				group_has_role('streams', 'admin_streams') and 
+				! in_array($this->uri->segment(3), $assignment_uris) and
+				($this->uri->segment(3) != 'entries' and $this->uri->segment(3) != 'manage')
 			)
 			{
 				$shortcuts[] = array(
 						'name' => 'streams.add_stream',
-						'uri' => 'admin/streams/add',
+						'uri' => 'admin/streams/add/',
+						'class' => 'add');
+			}	
+
+			// Entry Add 
+			if(
+				! in_array($this->uri->segment(3), $assignment_uris) and
+				($this->uri->segment(3) != 'entries' and $this->uri->segment(3))
+			)
+			{
+				$shortcuts[] = array(
+						'name' => 'streams.add_entry',
+						'uri' => 'admin/streams/entries/add/'.$this->uri->segment(4),
 						'class' => 'add');
 			}	
 			
@@ -151,10 +165,8 @@ class Module_Streams extends Module {
 	 */	
 	public function install()
 	{
-		$config = $this->_load_config();
-		
-		if ( ! $config OR ! isset($config['streams:searches_table'])) return FALSE;
-		
+		$this->load->config('streams/streams');
+				
 		// Our streams searches schema
 		$schema = array(
 			'fields' => array(
@@ -176,7 +188,6 @@ class Module_Streams extends Module {
 				'search_id' => array(
 					'type' => 'VARCHAR',
 					'constraint' => 255,
-					
 				),
 				'search_term' => array(
 					'type' => 'TEXT',
@@ -200,7 +211,7 @@ class Module_Streams extends Module {
 		
 		// Case where table does not exist.
 		// Add fields and keys.
-		if( ! $this->db->table_exists($config['streams:searches_table']))
+		if( ! $this->db->table_exists($this->config->item('streams:searches_table')))
 		{
 			$this->dbforge->add_field($schema['fields']);
 
@@ -210,27 +221,27 @@ class Module_Streams extends Module {
 				$this->dbforge->add_key($schema['primary_key'], TRUE);
 			}
 
-			$this->dbforge->create_table($config['streams:searches_table']);
+			$this->dbforge->create_table($this->config->item('streams:searches_table'));
 		}
 		else
 		{
 			foreach ($schema['fields'] as $field_name => $field_data)
 			{
 				// If a field does not exist, then create it.
-				if ( ! $this->db->field_exists($field_name, $config['streams:searches_table']))
+				if ( ! $this->db->field_exists($field_name, $this->config->item('streams:searches_table')))
 				{
-					$this->dbforge->add_column($config['streams:searches_table'], array($field_name => $field_data));	
+					$this->dbforge->add_column($this->config->item('streams:searches_table'), array($field_name => $field_data));	
 				}
 				else
 				{
 					// Okay, it exists, we are just going to modify it.
 					// If the schema is the same it won't hurt it.
-					$this->dbforge->modify_column($config['streams:searches_table'], array($field_name => $field_data));
+					$this->dbforge->modify_column($this->config->item('streams:searches_table'), array($field_name => $field_data));
 				}
 			}
 		}
 				
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -276,29 +287,6 @@ class Module_Streams extends Module {
 		<p><a href="http://parse19.com/support" target="_blank">http://parse19.com/support</a></p>';
 		
 		return $out;
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Manually load config that has all
-	 * of our streams table data.
-	 *
-	 * @access	private
-	 * @return	mixed - FALSE or config array
-	 */
-	private function _load_config()
-	{
-		if (defined('PYROPATH'))
-		{
-			require_once(PYROPATH.'modules/streams/config/streams.php');
-		}
-		elseif (defined('APPPATH'))
-		{
-			require_once(APPPATH.'modules/streams/config/streams.php');
-		}
-
-		return (isset($config)) ? $config : FALSE;
 	}
 
 }
