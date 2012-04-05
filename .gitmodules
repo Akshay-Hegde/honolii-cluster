@@ -1,6 +1,9 @@
-[submodule "addons/shared_addons/modules/gallery"]
-	path = addons/shared_addons/modules/gallery
+[submodule "PyroCMS Gallery Module"]
+	path = addons/shared_addons/modules/galleries
 	url = e:/projects-frameworks/pyrocms-module-gallery/
-[submodule "addons/shared_addons/modules/snippets"]
+[submodule "PyroCMS Snippets Module"]
 	path = addons/shared_addons/modules/snippets
 	url = e:/projects-frameworks/pyrocms-module-snippets/
+[submodule "addons/wetumka_core/themes/wetumka/build"]
+	path = addons/wetumka_core/themes/wetumka/build
+	url = e:/projects-frameworks/build-h5bp/

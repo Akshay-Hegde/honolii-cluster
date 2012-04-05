@@ -1,0 +1,28 @@
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>{{template:title}} | {{settings:site_name}}</title>
+<!-- CSS Stylesheets -->
+{{theme:css file="screen.css"}}
+{{theme:css file="print.css" media="print"}}
+{{theme:css file="http://fonts.googleapis.com/css?family=Muli"}}
+<!--[if lt IE 8]>{{theme:css file="ie.css"}}<![endif]-->
+{{theme:css file="main.css"}}
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+<script src="http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min.js"></script>
+{{theme:js file="jquery.cookie.js"}}
+{{theme:js file="main.js"}}
+<script type="text/javascript">
+	//Global JS Vars
+	pyro_vars = {
+		address_1:'{{variables:address_1}}',
+		address_2:'{{variables:address_2}}',
+		address_city:'{{variables:address_city}}',
+		address_state:'{{variables:address_state}}',
+		address_zip:'{{variables:address_zip}}',
+		site_name: '{{settings:site_name}}',
+		phone: '{{variables:phone}}'
+	}
+		
+</script>
+
+<!-- Page Template Meta -->
+{{template:metadata}}

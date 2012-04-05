@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+<head>{{theme:partial name="metadata"}}
+<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(
+		  	['_setAccount', 'UA-25729995-1'],
+		  	['_trackPageview'],
+			['_trackPageLoadTime']
+		  );
+		  
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+</head>
+<body>
+<div id="wrapper">
+	<div id="container" class="container">
+		<div id="header" class="header mod">
+			{{theme:partial name="header"}}
+		</div>
+		<div id="content">
+			<div class="mod slate font_size">
+				<div class="hd">
+				</div>
+				<div class="bd clearfix">
+					<div class="span-8 prepend-1 append-1">
+						<img src="/files/thumb/26/310" width="310" alt="North County Eye Surgery Associates office">
+						<hr class="space" />
+						<div class="span-4">
+							<a title="View office hours" class="cta modal overlay-hours"><span>Office Hours</span></a>
+						</div>
+						<div class="span-4 last">
+							<a title="Get turn by turn directions" class="cta modal overlay-directions"><span>Get Directions</span></a>
+						</div>
+					</div>
+					<div class="span-13 append-1 last">
+						<h2>{{settings:site_slogan}}</h2>
+						{{template:body}}
+					</div>
+				</div>
+				<div class="fd">
+				</div>
+			</div>
+			<div class="mod three-box font_size">
+				<div class="bd clearfix">
+					<div class="span-8 service">
+						<div class="box">
+							<h4>Services</h4>
+							<ul>
+								{{navigation:links group="services"}}
+							</ul>
+						</div>
+					</div>
+					<div class="span-8 testimonial">
+						<div class="box font_size">
+							<h4>Testimonials</h4>
+							{{snippet:testimonials}}
+							<div class="social-text">
+								Read more testimonials
+							</div>
+							<div class="social-icon">
+								<a href="http://maps.google.com/maps/place?q=north+county+eye+surgery+associates&amp;hl=en&amp;cid=6318094816240804958">{{theme:image file="google.png" alt="Google"}}</a> <a href="http://local.yahoo.com/info-20809428-scotti-frank-a-md-north-county-eye-surgery-association-encinitas">{{theme:image file="yahoo.png" alt="Yahoo"}}</a> <a href="http://www.yelp.com/biz/north-county-eye-surgery-associates-encinitas">{{theme:image file="yelp.png" alt="Yelp"}}</a>
+							</div>
+						</div>
+					</div>
+					<div class="span-8 blog last">
+						<div class="box">
+							<h4>Latest news/blog</h4>
+							<ul>
+								{{blog:posts limit="5"}}
+								<li> <a href="{{url}}" title="Read more about: {{title}}">{{title}}</a> </li>
+								{{/blog:posts}}
+							</ul>
+							<a href="/blog">View all blog posts</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			{{theme:partial name="footer"}}
+		</div>
+	</div>
+</div>
+</body>
+</html>

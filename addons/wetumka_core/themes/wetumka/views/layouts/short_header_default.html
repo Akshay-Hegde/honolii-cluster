@@ -1,7 +1,16 @@
-<!DOCTYPE HTML>
-<html>
-<head>{{theme:partial name="metadata"}}
-{{theme:partial name="google_analytics"}}
+<!doctype html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'production' }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
+{{ else }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="metadata"}}
+{{ endif }}
 </head>
 <body class="short-header">
 <div id="wrapper">
@@ -26,5 +35,13 @@
 		</div>
 	</div>
 </div>
+{{ if global:environment == 'production' }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/footer-scripts"}}
+	{{ integration:analytics }}	
+{{ else }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ endif }}
 </body>
 </html>

@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+<head>{pyro:theme:partial name="metadata"}
+<script type="text/javascript">
+		  var _gaq = _gaq || [];
+		  _gaq.push(
+		  	['_setAccount', 'UA-25729995-1'],
+		  	['_trackPageview'],
+			['_trackPageLoadTime']
+		  );
+		  
+		  (function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		  })();
+		
+		</script>
+</head>
+<body>
+<div data-role="page" id="page">
+	<div data-role="header" id="header">
+		{pyro:theme:partial name="header"}
+	</div>
+	<div data-role="content" id="content">
+		<div data-role="collapsible">
+			<h3>Menu</h3>
+			<div data-role="navbar">
+				<ul>
+					{pyro:navigation:links group="menu-mobile"}
+				</ul>
+			</div>
+		</div>
+		<div data-role="collapsible">
+			<h3>Services</h3>
+			<div data-role="navbar">
+				<ul>
+					{pyro:navigation:links group="services"}
+				</ul>
+			</div>
+		</div>
+		{pyro:session:messages success="success-box" notice="notice-box" error="error-box"}
+		<h2 class="slogan">{pyro:settings:site_slogan}</h2>
+		{pyro:theme:image file="header-bkg.jpg" width="100%"}
+		
+		{pyro:template:body}
+	</div>
+	<div data-role="footer" id="footer">
+		{pyro:theme:partial name="footer"}
+	</div>
+</div>
+</body>
+</html>
