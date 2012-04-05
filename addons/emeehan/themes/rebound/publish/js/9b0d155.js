@@ -1,0 +1,1 @@
+$(document).ready(function(){var a=$("form"),b=$(".twitter_feed","#col-rail");a.find(".contact-button input").addClass("btn");$.each(b.find("li"),function(a,b){$(b).addClass("item-"+a)});$.isFunction($().parallax)});

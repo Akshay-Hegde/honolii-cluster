@@ -7,3 +7,6 @@
 [submodule "addons/wetumka_core/themes/wetumka/build"]
 	path = addons/wetumka_core/themes/wetumka/build
 	url = e:/projects-frameworks/build-h5bp/
+[submodule "addons/emeehan/themes/rebound/build"]
+	path = addons/emeehan/themes/rebound/build
+	url = e:/projects-frameworks/build-h5bp/
