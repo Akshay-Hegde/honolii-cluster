@@ -32,7 +32,6 @@ class Admin extends Admin_Controller {
 		$this->load->library('streams_core/Type');	
 	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
-		$this->load->library('streams_core/Streams_validation');	
        
  		$this->data->types = $this->type->types;
 	}
@@ -195,7 +194,7 @@ class Admin extends Admin_Controller {
 
 		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique[new]';
 		
-		$this->streams_validation->set_rules($this->streams_m->streams_validation);
+		$this->form_validation->set_rules($this->streams_m->streams_validation);
 				
 		foreach($this->streams_m->streams_validation as $field)
 		{
@@ -211,7 +210,7 @@ class Admin extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( !$this->streams_m->create_new_stream(
 										$this->input->post('stream_name'),
@@ -292,13 +291,13 @@ class Admin extends Admin_Controller {
 
 		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique['.$this->data->stream->stream_slug.']';
 		
-		$this->streams_validation->set_rules($this->streams_m->streams_validation);
+		$this->form_validation->set_rules($this->streams_m->streams_validation);
 				
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( !$this->streams_m->update_stream($stream_id, $this->input->post() ) ):
 			
@@ -484,7 +483,7 @@ class Admin extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( ! $this->streams_m->add_field_to_stream(
 										$this->input->post('field_id'),
@@ -586,7 +585,7 @@ class Admin extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( !$this->fields_m->edit_assignment(
 										$this->data->row->id,
@@ -719,7 +718,7 @@ class Admin extends Admin_Controller {
 			)
 		);
 		
-		$this->streams_validation->set_rules($validation);
+		$this->form_validation->set_rules($validation);
 		
 		foreach($validation as $valid):
 		
@@ -793,6 +792,26 @@ class Admin extends Admin_Controller {
 		$this->load->helper('download');
 		
 		force_download($filename.'.zip', $backup);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Streams Schema Config Export
+	 *
+	 * Useful when you want to build a structure
+	 * that you want to run through Streams API.
+	 */
+	public function schema_export()
+	{
+		role_or_die('streams', 'admin_streams');
+
+		$this->_gather_stream_data();
+
+		$this->load->driver('streams');
+		$this->streams->utilities->config_export(
+									$this->data->stream->stream_slug,
+									$this->data->stream->stream_namespace);
 	}
 
 }

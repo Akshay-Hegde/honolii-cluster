@@ -33,7 +33,6 @@ class Admin_Entries extends Admin_Controller {
 		$this->load->library('streams_core/Type');	
 	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
-		$this->load->library('streams_core/Streams_validation');	
        
  		$this->data->types = $this->type->types;
  		
@@ -91,11 +90,9 @@ class Admin_Entries extends Admin_Controller {
 			// We need some variables to use in the sort. I guess.
 			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
 		
-			// We want to sort this shit
-		    $this->template->append_metadata( js('entry_sorting.js', 'streams') );
-		    		      
-			// Comeon' Livequery! You're goin' in!
-			$this->template->append_metadata( js('jquery.livequery.js', 'streams') );
+			// These will allow us to sort the entries.
+		   	$this->template->append_js('module::entry_sorting.js');
+		   	$this->template->append_js('module::jquery.livequery.js');
 		
 		endif;
   
@@ -267,15 +264,14 @@ class Admin_Entries extends Admin_Controller {
 	
 		$row_id = $this->uri->segment($row_uri_segment);
 		
-		if( ! $this->streams_m->delete_row($row_id, $this->data->stream)):
-
+		if( ! $this->row_m->delete_row($row_id, $this->data->stream))
+		{
 			$this->session->set_flashdata('notice', lang('streams.delete_entry_error'));	
-
-		else:
-
+		}
+		else
+		{
 			$this->session->set_flashdata('success', lang('streams.delete_entry_success'));	
-		
-		endif;
+		}
 
 		redirect('admin/streams/entries/index/'.$this->data->stream_id);
 	}
