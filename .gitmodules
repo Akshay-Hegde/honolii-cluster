@@ -4,9 +4,20 @@
 [submodule "PyroCMS Snippets Module"]
 	path = addons/shared_addons/modules/snippets
 	url = e:/projects-frameworks/pyrocms-module-snippets/
-[submodule "addons/wetumka_core/themes/wetumka/build"]
-	path = addons/wetumka_core/themes/wetumka/build
+[submodule "Wetumka Build"]
+
+	path = addons/wetumka_core/themes/custom/build
+
 	url = e:/projects-frameworks/build-h5bp/
-[submodule "addons/emeehan/themes/rebound/build"]
-	path = addons/emeehan/themes/rebound/build
+
+[submodule "eMeehan Build"]
+
+	path = addons/emeehan/themes/custom/build
+
+	url = e:/projects-frameworks/build-h5bp/
+
+[submodule "JASC_AWH Build"]
+
+	path = addons/jasc_awh/themes/custom/build
+
 	url = e:/projects-frameworks/build-h5bp/
