@@ -1,0 +1,59 @@
+{{ contact:form
+	name="text|required"
+	email="text|required|valid_email"
+	phone="text"
+	company="text"
+	subject="text|required"
+	department="dropdown" 
+	message="textarea|required"
+	success-redirect="/contact?tg=form-contact"
+	button="Send Message"
+	template="default-contact"
+}}
+<?php
+	// Form values and attributes
+	$form_data = array();
+	// Contact Information
+	$form_data['name'] = array('name'=>'name','id'=>'form_name','value'=>NULL,'class'=>'text required','maxlength'=>'80');
+	$form_data['email'] = array('name'=>'email','id'=>'form_email','value'=>NULL,'class'=>'text required email','maxlength'=>'80');
+	$form_data['phone'] = array('name'=>'phone','id'=>'form_phone','value'=>NULL,'class'=>'text','maxlength'=>'12', 'placeholder'=>'xxx-xxx-xxxx');
+	$form_data['company'] = array('name'=>'company','id'=>'form_company','value'=>NULL,'class'=>'text required','maxlength'=>'80');
+	$form_data['subject'] = array('name'=>'subject','id'=>'form_subject','value'=>NULL,'class'=>'text required','maxlength'=>'120');
+	$form_data['department'] = array('name'=>'department','id'=>'form_department','extra'=>'class="span-9"','options'=>array('support'=>'Support','payments'=>'Payments','biz-dev'=>'Business Development','feedback'=>'Feedback/Suggestions'));
+	$form_data['message'] = array('name'=>'message','id'=>'form_message','value'=>NULL,'class'=>'span-10');
+?>
+
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Full Name:',$form_data['name']['id']); ?></div></div>         
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['name']); ?></div></div>
+		<div class="prepend-4 span-9 field-help">Required</div>
+	</div>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('E-mail Address:',$form_data['email']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['email']);?></div></div>
+		<div class="prepend-4 span-9 field-help">Required</div>
+	</div>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Phone:',$form_data['phone']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['phone']);?></div></div>
+	</div>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Company:', $form_data['company']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['company']);?></div></div>
+	</div>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Subject:',$form_data['subject']['id']); ?></div></div>
+		<div class="span-9 last">
+			<div class="input-wrapper"><?= form_input($form_data['subject']);?></div>
+			<div class="span-9 last field-help">Required</div>
+			<?= form_dropdown($form_data['department']['name'],$form_data['department']['options'],NULL,$form_data['department']['extra'].'id="'.$form_data['department']['id'].'"'); ?>
+		</div>
+	</div>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><?= form_label('Message:',$form_data['message']['id']); ?></div>
+		<div class="span-10 last">
+			<div class="textarea-wrapper"><?= form_textarea($form_data['message']); ?></div>
+			<div class="span-10 field-help">Required</div>
+		</div>
+	</div>
+{{ /contact:form }}

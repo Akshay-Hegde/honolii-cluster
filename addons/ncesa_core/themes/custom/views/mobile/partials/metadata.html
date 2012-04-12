@@ -1,13 +1,27 @@
-<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<!-- Meta data -->
+{{ if {url:segments segment="1"} == 'utilities' || {url:segments segment="2"} == 'thank-you' }}
+<!-- Seach Engine Please Don't Index -->
+<meta name="googlebot" content="noarchive"/>
+<meta name="robots" content="none"/>
+<meta name="robots" content="noindex, nofollow" />
+{{ endif }}
+<meta name="author" content="WetumkaInteractive" />
+<!-- NOT VALID META
+<meta name="copyright" content="wetumka.net" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="language" content="{{ lang:code }}" />
+-->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{{ theme:favicon file="favicon.ico" base="url" }}
+<base href="{{ url:base }}" />
 <title>{{template:title}} | {{settings:site_name}}</title>
 <!-- CSS Stylesheets -->
-<link rel="stylesheet" href="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css" />
+{{theme:css file="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css"}}
 {{theme:css file="mobile.css"}}
-<script src="http://code.jquery.com/jquery-1.6.4.min.js"></script>
-{{theme:js file="mobile.js"}}
-<script src="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
+<!-- Global JS Vars -->
 <script type="text/javascript">
-	//Global JS Vars
 	pyro_vars = {
 		address_1:'{{variables:address_1}}',
 		address_2:'{{variables:address_2}}',
@@ -17,9 +31,26 @@
 		site_name: '{{settings:site_name}}',
 		phone: '{{variables:phone}}'
 	}
-		
 </script>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- JS Docs -->
+{{theme:js file="http://code.jquery.com/jquery-1.6.4.min.js"}}
+{{theme:js file="libs/mobile.js"}}
+{{theme:js file="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"}}
+<!-- GA Tracking -->
+<script type="text/javascript">
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', '{{ settings:ga_tracking }}']);
+_gaq.push(['_trackPageview']);
+_gaq.push(['_trackPageLoadTime']);
+</script>
 <!-- Page Template Meta -->
 {{template:metadata}}
+<!-- GA Tracking -->
+{{ if global:environment == 'production' }}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>
+{{ endif }}

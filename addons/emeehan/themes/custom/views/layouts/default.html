@@ -2,7 +2,7 @@
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 {{ if global:environment == 'production' }}
 	<!-- PRODUCTION FILES -->
@@ -18,6 +18,7 @@
 		<!-- Content -->
 		<div id="content" class="container site-content">
 			<div class="row">
+				{{session:messages success="success" notice="notice" error="error"}}
 				{{ template:body }}
 			</div>
 		</div>

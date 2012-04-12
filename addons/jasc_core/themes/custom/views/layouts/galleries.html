@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'production' }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
+{{ else }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="metadata"}}
+{{ endif }}
+<style type="text/css">
+@import url(//fonts.googleapis.com/css?family=Puritan:700);
+.product-lineup { background:url(files/large/137) no-repeat; width:950px; height:250px;}
+.product-lineup .title {font-family: 'Puritan', sans-serif;text-align: center;text-shadow: 0 4px 2px #000000; padding-top:67px; font-size:70px; line-height:1em;}
+.product-lineup a.cta { position: absolute; right:375px; top:140px; border:none; background:#831E02; font-size:1.5em;}
+.product-lineup a.cta:hover {color:#fff; background:#7A3515}?
+</style>
+</head>
+<body>
+<div class="wrapper">
+	<div id="container" class="container">
+		<div id="header">
+			{{theme:partial name="header"}}
+		</div>
+		<div id="content" class="clearfix">
+			{{session:messages success="success-box" notice="notice-box" error="error-box"}}
+			<div id="scroller" class="mod site-banner scrollable">
+				<ul class="items">
+					<li>{{snippet:product_1}}</li>
+				</ul>
+				<div class="banner-nav">
+				</div>
+			</div>
+			<div class="span-8">
+				<div class="mod sidebar">
+					{{widgets:area slug="gallery-sidebar"}}
+				</div>
+			</div>
+			<div class="span-16 last">
+				<div class="mod maincontent">
+					{{template:body}}
+				</div>
+			</div>
+		</div>
+		<div id="footer">
+			{{theme:partial name="footer"}}
+		</div>
+	</div>
+</div>
+{{ if global:environment == 'production' }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/footer-scripts"}}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>	
+{{ else }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ endif }}
+</body>
+</html>

@@ -1,4 +1,7 @@
 $(document).ready(function(){
+	// needed for functions in document head
+	try{window.$ready()}catch(err){/*do nothing*/}
+	
 	if($.cookie('font_size') == 'big_text'){
 		textToggle()
 	}

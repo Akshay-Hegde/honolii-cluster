@@ -1,0 +1,11 @@
+{{ if template:has_breadcrumbs }}
+	<h2 id="breadcrumbs">
+	{{ template:breadcrumbs }}
+		{{ if uri }}
+			{{ url:anchor segments=uri title=name }}&nbsp;:
+		{{ else }}
+			<span class="current">{{ name }}</span>
+		{{ endif }}
+	{{ /template:breadcrumbs }}
+	</h2>
+{{ endif }}

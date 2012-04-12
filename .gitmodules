@@ -21,3 +21,15 @@
 	path = addons/jasc_awh/themes/custom/build
 
 	url = e:/projects-frameworks/build-h5bp/
+
+[submodule "NCESA Build"]
+
+	path = addons/ncesa_core/themes/custom/build
+
+	url = e:/projects-frameworks/build-h5bp/
+
+[submodule "JASC_CORE Build"]
+
+	path = addons/jasc_core/themes/custom/build
+
+	url = e:/projects-frameworks/build-h5bp/
