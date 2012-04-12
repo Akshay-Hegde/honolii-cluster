@@ -4,12 +4,12 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-{{ if global:environment == 'production' }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/metadata"}}
-{{ else }}
+{{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
 {{ endif }}
 </head>
 <body>
@@ -25,7 +25,10 @@
 		<!-- Footer -->
 		{{ theme:partial name="footer" }}
 	</div>
-{{ if global:environment == 'production' }}
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
 	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/footer-scripts"}}
 	<script type="text/javascript">  (function() {
@@ -34,9 +37,6 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
 	</script>
-{{ else }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="footer-scripts"}}
 {{ endif }}
-	</body>
+</body>
 </html>
