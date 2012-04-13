@@ -81,7 +81,6 @@ class Group_m extends MY_Model
 		return parent::insert(array(
 			'name'			        => $input['name'],
 			'description'	        => $input['description'],
-			'subscription_plan_id'	=> $input['subscription_plan_id'],
 		));
 	}
 
@@ -98,7 +97,6 @@ class Group_m extends MY_Model
 		return parent::update($id, array(
 			'name'					=> $input['name'],
 			'description'			=> $input['description'],
-			'subscription_plan_id'	=> $input['subscription_plan_id'],
 		));
 	}
 
