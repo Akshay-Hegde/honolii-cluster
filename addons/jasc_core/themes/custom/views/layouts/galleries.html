@@ -26,7 +26,6 @@
 			{{theme:partial name="header"}}
 		</div>
 		<div id="content" class="clearfix">
-			{{session:messages success="success-box" notice="notice-box" error="error-box"}}
 			<div id="scroller" class="mod site-banner scrollable">
 				<ul class="items">
 					<li>{{snippet:product_1}}</li>
@@ -41,6 +40,7 @@
 			</div>
 			<div class="span-16 last">
 				<div class="mod maincontent">
+					{{session:messages success="success-box" notice="notice-box" error="error-box"}}
 					{{template:body}}
 				</div>
 			</div>

@@ -15,10 +15,12 @@
 <body>
 	{{ theme:partial name="header" }}
 	<!-- container -->
-	<div class="container" id="container">
+	<div class="container blog-layout" id="container">
 		<div class="row">
 			<div class="columns eight" id="primary">
+				{{session:messages success="success" notice="notice" error="error"}}
 				<div class="page-wrapper">
+				{{ theme:partial name="breadcrumbs" }}
 				{{ template:body }}
 				</div>
 			</div>

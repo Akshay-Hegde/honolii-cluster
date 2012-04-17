@@ -1,6 +1,6 @@
 # Multiple Environment config
 # Set this to development, staging or production
-SetEnv PYRO_ENV staging
+# SetEnv PYRO_ENV staging
 
 <IfModule mod_rewrite.c>
 

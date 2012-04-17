@@ -1,0 +1,110 @@
+{{ contact:form
+	name="text|required"
+	email="text|required|valid_email"
+	company="text"
+	phone="text"
+	url="text"
+	project="dropdown" 
+	project_loc="dropdown" 
+	project_time="dropdown"
+	attachment = "file|jpg|gif|png|pdf" 
+    max-size = "3500"	
+	promo="text"
+	message="textarea"
+	template="contact-quote"
+	success-redirect="/contact/thank-you"
+	button="Send Message"
+}}
+<?php
+	// Form values and attributes
+	$form_data = array();
+	// Contact Information
+	$form_data['name'] = array('name'=>'name','id'=>'form_name','value'=>NULL,'class'=>'text required','maxlength'=>'80');
+	$form_data['email'] = array('name'=>'email','id'=>'form_email','value'=>NULL,'class'=>'text required email','maxlength'=>'80');
+	$form_data['company'] = array('name'=>'company','id'=>'form_company','value'=>NULL,'class'=>'text','maxlength'=>'80');
+	$form_data['title'] = array('name'=>'title','id'=>'form_title','value'=>NULL,'class'=>'text','maxlength'=>'80');
+	$form_data['phone'] = array('name'=>'phone','id'=>'form_phone','value'=>NULL,'class'=>'text','maxlength'=>'12', 'placeholder'=>'xxx-xxx-xxxx');
+	$form_data['url'] = array('name'=>'url','id'=>'form_url','value'=>NULL,'class'=>'text','maxlength'=>'120','placeholder'=>'http://www.mysite.com');
+	// Project Information
+	$form_data['project'] = array('name'=>'project','id'=>'form_project','extra'=>'class="span-9 required"','options'=>array(""=>"",'personal'=>'Personal','small biz'=>'Small Business','large biz'=>'Large Business','hotel/resturant'=>'Hotel/Resturant','real estate'=>'Real Estate','other'=>'Other'));
+	$form_data['project_loc'] = array('name'=>'project_loc','id'=>'form_project_loc','extra'=>'class="span-9 required"',
+		'options'=>array(
+			""=>"",
+			'Kawaihae'=>'Kawaihae',
+			'Kohala'=>'Kohala',
+			'Waikoloa'=>'Waikoloa',
+			'Waimea'=>'Waimea',
+			'Honokaa'=>'Honokaa',
+			'Hilo'=>'Hilo',
+			'Kona'=>'Kona',
+			'Puna/Kau'=>'Puna/Kau',
+			'Outer Island'=>'Outer Island',
+			'Other'=>'Other')
+		);
+	$form_data['project_time'] = array('name'=>'project_time','id'=>'form_project_time','extra'=>'class="span-9 required"','options'=>array(""=>"",'week'=>'1 week','30 days'=>'30 days','90 days'=>'3 months','180 days'=>'6 months','270 days'=>'9 months','year'=>'1 year','other'=>'Other'));
+	// Other Information
+	$form_data['promo'] = array('name'=>'promo','id'=>'form_promo','value'=>NULL,'class'=>'text','maxlength'=>'25');
+	$form_data['message'] = array('name'=>'message','id'=>'form_message','class'=>'span-10');
+	$form_data['attachment'] = array('name'=>'attachment','id'=>'form_attachment','class'=>'file');
+?>
+
+<?= form_fieldset('Contact Information') ?>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Full Name:',$form_data['name']['id']); ?></div></div>         
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['name']); ?></div></div>
+		<div class="prepend-4 span-9 input-help required">Required</div>
+	</div>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('E-mail:',$form_data['email']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['email']);?></div></div>
+		<div class="prepend-4 span-9 input-help required">Required</div>
+	</div>
+	<div class="clearfix append-bottom">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Company:', $form_data['company']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['company']);?></div></div>
+	</div>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Phone:',$form_data['phone']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['phone']);?></div></div>
+	<div class="prepend-4 span-9 input-help">XXX-XXX-XXXX</div>
+	</div>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Website:',$form_data['url']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['url']);?></div></div>
+		<div class="prepend-4 span-9 input-help">http://www.mysite.com</div>
+	</div>
+	<?= form_fieldset_close() ?>
+	<?= form_fieldset('Sign Information') ?>
+	<div class="clearfix append-bottom">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Type:',$form_data['project']['id']); ?></div></div>
+		<div class="span-10 last"><div class="select-wrapper"><?= form_dropdown($form_data['project']['name'],$form_data['project']['options'],NULL,$form_data['project']['extra'].' id="'.$form_data['project']['id'].'"'); ?></div></div>
+	</div>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Location:',$form_data['project_loc']['id']); ?></div></div>
+		<div class="span-10 last"><div class="select-wrapper"><?= form_dropdown($form_data['project_loc']['name'],$form_data['project_loc']['options'],NULL,$form_data['project_loc']['extra'].' id="'.$form_data['project_loc']['id'].'"'); ?></div></div>
+	<div class="prepend-4 span-9 input-help">Installation location</div>
+	</div>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Timeline:',$form_data['project_time']['id']); ?></div></div>
+		<div class="span-10 last"><div class="select-wrapper"><?= form_dropdown($form_data['project_time']['name'],$form_data['project_time']['options'],NULL,$form_data['project_time']['extra'].' id="'.$form_data['project_time']['id'].'"'); ?></div></div>
+	<div class="prepend-4 span-9 input-help">When do you need your sign?</div>
+	</div>
+	<div class="clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Attach File:',$form_data['attachment']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><input type="file" id="<?= $form_data['attachment']['id'] ?>" class="file" name="attachment"/></div></div>
+	<div class="prepend-4 span-9 input-help">JPG, GIF, PNG, PDF files only, 3.5MB max file size.</div>
+	</div>
+	<?= form_fieldset_close() ?>
+	<?= form_fieldset('Other Information') ?>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><div class="label-wrapper"><?= form_label('Promo Code:',$form_data['promo']['id']); ?></div></div>
+		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['promo']);?></div></div>
+	</div>
+	<div class="append-bottom clearfix">
+		<div class="span-4"><?= form_label('Details:',$form_data['message']['id']); ?></div>
+		<div class="span-10 last">
+			<?= form_textarea($form_data['message']); ?>
+		</div>
+	</div>
+	<?= form_fieldset_close() ?>
+{{ /contact:form }}

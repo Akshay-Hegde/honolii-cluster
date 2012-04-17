@@ -1,5 +1,5 @@
 <div class="box">
-{{theme:partial name="breadcrumbs"}}
+<h2 id="breadcrumbs" class="icon portfolio"><span class="current">Gallery</span></h2>
 <hr/>
 </div>
 <!-- Div containing all galleries -->

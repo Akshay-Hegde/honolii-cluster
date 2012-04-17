@@ -59,6 +59,8 @@ footer {margin-top:30px; margin-bottom:30px; border: solid #ccc 1px; border-left
 .top-spacer {margin-top:2em;}
 .page-wrapper {background-color:rgba(255,255,255,.8); padding:1.5em;}
 ul.bullets { list-style:square; margin-left:15px;}
+img.left {padding-right:18px;}
+img.right {padding-left:18px;}
 /* -----------------------------------------
    Home Page
 ----------------------------------------- */
@@ -69,22 +71,48 @@ ul.bullets { list-style:square; margin-left:15px;}
 .page-header {background:#fff center center; height:262px; position:relative;}
 .page-header h1 {margin:0;  padding:10px; color:#fff; display:inline-block;background:rgba(0,0,0,.8); position:absolute; bottom:0;}
 
-
+/* -----------------------------------------
+   Blog Section
+----------------------------------------- */
+.blog-layout .breadcrumbs {border-bottom:1px dashed #eee; font-size:11px; line-height:16px; padding-bottom:15px; margin-bottom:1.5em;}
+.blog-layout .blog-latest .bd .post-wrapper {margin-bottom:50px; border-bottom: 1px dashed #999;}
+.comments-layout {}
+.comments-layout .comments{ margin-bottom:50px;}
 /* -----------------------------------------
    Modules
 ----------------------------------------- */
 .mod.blog-latest {position:relative;}
 .blog-latest .hd  a{ position:absolute; top:0; right:0; font-weight:bold;}
-.blog-latest .bd .post-wrapper { height:180px; margin-bottom:15px;}
+.blog-latest .bd .post-wrapper { margin-bottom:25px;}
 .blog-latest .bd .post-wrapper .image-loader{ width:180px; height:180px; float:right; background: url(../img/ajax-loader.gif) #fff no-repeat center center;}
 .blog-latest .bd .post-wrapper div.image-injected {width:100%; height:100%; background-position: center center; background-repeat:no-repeat;}
 .blog-latest .bd .post-title {font-size:2.3em; line-height:30px; margin-bottom:10px;}
 .blog-latest .bd .post-title a {color:#000;}
 .blog-latest .bd .post-title a:hover {}
 .blog-latest .bd .post-date {}
-.blog-latest .bd .post-intro { height:100px; max-height:100px; overflow:hidden;}
+.blog-latest .bd .post-intro { min-height:100px;}
+.blog-latest .bd .post-intro p{padding-right:200px; margin-bottom:0;}
 .blog-latest .bd .post-link { padding-right: 190px;}
+.blog-latest .bd .post-meta {font-size:8px; line-height:14px; font-family: verdana, sans-sarif; margin:0 0 20px 16px; color:#999;}
+.blog-latest .bd .post-meta p {margin-bottom:0;}
 .blog-latest .fd {}
+
+.mod.blog-post {}
+.blog-post .hd{}
+.blog-post .hd .post-meta{font-size:8px; line-height:14px; font-family: verdana, sans-sarif; margin:0 0 20px 16px; color:#999;}
+.blog-post .hd .post-meta p{margin-bottom:0;}
+.blog-post .bd{margin-bottom:50px; border-bottom: 1px dashed #999;}
+.blog-post .fd{}
+
+.mod.comment {}
+.comment .hd{margin-top:20px;}
+.comment .hd .user-avatar {float:left;}
+.comment .hd .user-avatar img {display:block; border-radius: 4px;}
+.comment .hd .user-meta {float:left;}
+.comment .hd .user-meta .name { line-height:40px; margin-bottom:0; padding-left:20px; float:left;}
+.comment .hd .user-meta .date {float:left; line-height:40px; font-size:11px; padding-left:20px;}
+.comment .bd{clear:both; padding-left:60px;}
+.comment .fd{border-bottom:dashed 1px #eee;}
 
 .mod.slider { height:310px; border:solid 20px rgba(255,255,255,0.5); position:relative; overflow:hidden; box-shadow:0 0 2px rgba(0,0,0,.3)}
 .slider .bd {position:absolute; width:9000px; background:url(../img/ajax-loader.gif) no-repeat 10px 10px #FFF;}
@@ -115,7 +143,8 @@ ul.bullets { list-style:square; margin-left:15px;}
 .mod.product-pod {margin-top:32px; margin-bottom:32px;}
 .product-pod a{display:block; height:200px; position:relative;}
 .product-pod a .title {font-size:1.53em; color:#000; line-height:20px; padding:10px; background-color:rgba(255,255,255,.5); display:block;}
-.product-pod a .cta { height: 0; overflow:hidden; line-height:40px; padding:0; width:95%; padding-right:5%; position:absolute; bottom:0;-webkit-transition: height .35s ease-in-out;-moz-transition: height .35s ease-in-out;-o-transition: height .35s ease-in-out;}
+.product-pod a .cta { height: 0; overflow:hidden; line-height:40px; padding:0; width:95%; padding-left:5%; position:absolute; bottom:0;-webkit-transition: height .35s ease-in-out;-moz-transition: height .35s ease-in-out;-o-transition: height .35s ease-in-out;}
+.product-pod a .cta:hover {color:#fff;}
 .product-pod.auto a{ background: url(../img/car-hover-action.jpg) no-repeat top center;}
 .product-pod.truck a{ background: url(../img/truck-hover-action.jpg) no-repeat top center;}
 .product-pod.boat a{ background: url(../img/boat-hover-action.jpg) no-repeat top center;}
@@ -188,9 +217,9 @@ ul.bullets { list-style:square; margin-left:15px;}
 .blue.button:hover		{ background-color: #388EE7;}
 
 .cta {}
-.cta.banner { background-image:url(../img/sprites-core-ui.png); background-position: 0 -45px; display:block;color: #FFFFFF;display: block;font-size: 1.38em;line-height: 20px;padding: 10px;text-align: right;}
+.cta.banner { background-image:url(../img/sprites-core-ui.png); background-position: 0 -45px; display:block;color: #FFFFFF;display: block;font-size: 1.38em;line-height: 20px;padding: 10px;}
 .cta.banner.lite {background-position: 0 -85px; color:#71B460;}
-.cta.banner.lite:hover {color:#11639D}
+.cta.banner.lite:hover, .cta.banner:hover {color:#11639D}
 
 .icon {}
 .icon-auto {background:url(../img/auto-icons.png) no-repeat; display:block;}
@@ -214,6 +243,19 @@ form legend {font-size:18px; font-weight:bold; padding:0 5px;}
 form textarea {width:100%; max-width:100%; min-width:100%}
 form textarea, form input{font-size:20px!important; margin-top:0!important;}
 form .columns {margin-bottom:14px; position:relative;}
+/* -----------------------------------------
+   Message Bar
+----------------------------------------- */
+div.error, div.alert, div.notice, div.success, div.info {padding:.65em 1em;margin-bottom:1.5em;border:2px solid #ddd;}
+div.error p, div.alert p, div.notice p, div.success p, div.info p{ margin-bottom:0;}
+div.error, div.alert {background:#fbe3e4;color:#8a1f11;border-color:#fbc2c4;}
+div.notice {background:#fff6bf;color:#514721;border-color:#ffd324;}
+div.success {background:#e6efc2;color:#264409;border-color:#c6d880;}
+div.info {background:#d5edf8;color:#205791;border-color:#92cae4;}
+div.error a, div.alert a {color:#8a1f11;}
+div.notice a {color:#514721;}
+div.success a {color:#264409;}
+div.info a {color:#205791;}
 /* -----------------------------------------
    UI Elements
 ----------------------------------------- */

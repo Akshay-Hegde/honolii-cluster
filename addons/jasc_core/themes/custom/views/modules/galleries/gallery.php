@@ -1,17 +1,20 @@
 <div class="box">
-{{theme:partial name="breadcrumbs"}}
+<h2 id="breadcrumbs" class="icon portfolio">
+	<a href="/galleries">Gallery</a>&nbsp;:
+	<span class="current"><?= $gallery->title; ?></span>	
+</h2>
 <hr/>
 </div>
 <!-- Div containing all galleries -->
 <div class="galleries_container clearfix" id="gallery_single">
 	<div class="box">
-		<?php echo $gallery->description; ?>
+		<?= $gallery->description; ?>
 	</div>
 	<div class="mod gallery-thumb clearfix">
 		<?php if ($gallery_images): ?>
 		<?php foreach ( $gallery_images as $image): ?>
 		<div class="span-5">
-			<a href="<?= base_url().'uploads/files/' . $image->filename; ?>" style=" background-image:url(<?= site_url() . 'files/thumb/' . $image->file_id . '/250/400' ?>);" class="prettyPhoto" data-src="<?= base_url().'uploads/files/' . $image->filename; ?>" title="<?= $image->description; ?>"></a>
+			<a href="<?= site_url() . 'files/thumb/' . $image->file_id . '/800/600' ?>" style=" background-image:url(<?= site_url() . 'files/thumb/' . $image->file_id . '/250/400' ?>);" class="prettyPhoto" data-src="<?= base_url().'uploads/files/' . $image->filename; ?>" title="<?= $image->description; ?>"></a>
 		</div>
 		<?= alternator('','', '<br class="clear"/>'); ?>
 		<?php endforeach; ?>

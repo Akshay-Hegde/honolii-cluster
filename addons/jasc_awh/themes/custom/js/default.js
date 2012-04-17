@@ -64,8 +64,7 @@ $(document).ready(function() {
 		pageform = $('form.contact-form'),
 		scrollAPI
 		;
-	// needed for functions in document head
-	try{window.$ready()}catch(err){/*do nothing*/}
+	
 	
 	topNav.find('a').append('<span class="arrow"></span>');
 	topNav.hover(
@@ -106,5 +105,8 @@ $(document).ready(function() {
 	pageform.addClass('nice');
 	pageform.find(':text').addClass('input-text');
 	pageform.find('.contact-button input').addClass('nice radius large blue button')
+	
+	// needed for functions in document head
+	try{window.$ready()}catch(err){/*do nothing*/}
   
 });

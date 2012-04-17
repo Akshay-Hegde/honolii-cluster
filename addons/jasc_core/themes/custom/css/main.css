@@ -99,7 +99,7 @@ a.cta:hover,a.button:hover, input.button:hover { color:#05F;}
 .pyro-image.right{float:right; margin-left:20px;}
 a .pyro-image { background:#fff;}
 a:hover .pyro-image { background:#05F;}
-.form-submit { text-align:right}
+.form-submit { text-align:right; display:block;}
 .pp_details { color:#000000;}
 .pp_social .facebook{ width:auto!important;}
 #breadcrumbs a{ text-decoration:none;}
@@ -107,3 +107,21 @@ a:hover .pyro-image { background:#05F;}
 .facebookframe {height: 172px;overflow: hidden;width: 270px;}
 .facebookframe > iframe { margin-left: -2px; margin-top: -2px;}
 legend {background:#171717;}
+/* banner */
+.best-banner-price {}
+.best-banner-price img.image { position:absolute; top:4px; right:49px;}
+.best-banner-price .title {font-family: 'Puritan', sans-serif; color:#fff;text-shadow: 0 4px 2px #000000; margin: 30px 20px 20px 35px;}
+.best-banner-price .title .line1 { font-size:34px; display:block;line-height: 1em;}
+.best-banner-price .title .line2 { font-size:110px; display:block; letter-spacing: -4px;line-height: 1em;}
+.best-banner-price .sub-text { font-size:12px; text-align:center; color:#666; padding-top:10px;}
+.best-sign-shop {}
+.best-sign-shop .title {font-family: 'Puritan', sans-serif; color:#fff;text-shadow: 0 4px 2px #000000; margin: 30px 20px 5px 35px;}
+.best-sign-shop .title .line1 { font-size:38px; display:block;line-height: 1em;}
+.best-sign-shop .title .line2 { font-size:71px; display:block; letter-spacing: -2px;line-height: 1em;}
+.best-sign-shop .sub-text { font-size: 14px;margin: 0 0 0 35px;text-align: left; width: 595px;}
+.best-sign-shop a.cta { position: absolute; right:100px; bottom:110px; border:none; background:#831E02; font-size:1.5em;}
+.best-sign-shop a.cta:hover {color:#fff; background:#7A3515}
+.product-lineup { background:url(/files/large/137) no-repeat; width:950px; height:250px;}
+.product-lineup .title {font-family: 'Puritan', sans-serif;text-align: center;text-shadow: 0 4px 2px #000000; padding-top:67px; font-size:70px; line-height:1em;}
+.product-lineup a.cta { position: absolute; right:375px; top:140px; border:none; background:#831E02; font-size:1.5em;}
+.product-lineup a.cta:hover {color:#fff; background:#7A3515}

@@ -19,7 +19,49 @@
 				{{theme:partial name="header"}}
 			</div>
 			<div id="content" class="clearfix">
-				{{template:body}}
+				<div id="scroller" class="mod site-banner scrollable">
+					<ul class="items">
+					{{ if page:id == '1' }}
+						<li>{{ snippet:banner_1 }}</li>
+						<li>{{ snippet:product_1 }}</li>
+						<li>{{ snippet:gallery_1 }}</li>
+					{{ elseif {url:segments segment="1"} == 'products' }}
+						<li>{{ snippet:banner_1 }}</li>
+					{{ else }}
+						<li>{{ snippet:gallery_1 }}</li>
+					{{ endif }}
+					</ul>
+					<div class="banner-nav"></div>
+				</div>
+				<div class="span-8">
+					<div class="mod sidebar">
+						{{ if page:id == '1' }}
+							{{ widgets:area slug="default-sidebar" }}
+							<div class="widget html">
+								<div class="facebookframe">
+									<div class="fb-like-box" data-href="http://www.facebook.com/pages/John-Allen-Sign-Company/180376958693320" data-width="270" data-colorscheme="dark" data-show-faces="true" data-border-color="#080808" data-stream="false" data-header="false"></div>
+								</div>
+							</div>			
+							<hr class="space"/>
+						{{ elseif {url:segments segment="1"} == 'products' }}
+							{{ widgets:area slug="products-sidebar" }}
+						{{ elseif {url:segments segment="1"} == 'services'}}
+							{{ widgets:area slug="services-sidebar" }}
+						{{ else }}
+							{{ widgets:area slug="default-sidebar" }}
+						{{ endif }}
+					</div>
+				</div>
+				<div class="span-16 last">
+					<div class="mod maincontent">
+						<div class="box page-header">
+							{{ session:messages success="success" notice="notice" error="error" }}
+							{{ theme:partial name="breadcrumbs" }}
+							<hr/>
+						</div>
+						{{template:body}}
+					</div>
+				</div>
 			</div>
 			<div id="footer">
 				{{theme:partial name="footer"}}
@@ -39,5 +81,6 @@
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}
 {{ endif }}
+<div id="fb-root"></div>
 </body>
 </html>

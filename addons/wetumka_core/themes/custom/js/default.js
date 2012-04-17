@@ -1,6 +1,4 @@
 $(function(){
-	// needed for functions in document head
-	try{window.$ready()}catch(err){/*do nothing*/}
 	
 	//setOverlay()
 	$("*[title]").tooltip({offset:[-30,0],predelay: 80,delay:0,layout:'<span class="tooltip"><span></span></span>'});
@@ -33,18 +31,12 @@ $(function(){
 	$('#mailchimp_signup form').validate()
 	
 	// validate other forms
-	var contactForm = $('#column_1 form'),
-		FormSelect = contactForm.find('select');
+	var contactForm = $('#column_1 form');
 		
 	contactForm.validate();
 	contactForm.find('.contact-button').addClass('span-14 form-submit');
 	contactForm.find('.contact-button input').addClass('submit');
 	
-	if(FormSelect.length != 0){
-		for(var x=FormSelect.length; x--;){
-			//$(FormSelect[x]).rules('add',{min:1, messages: {min:"This field is required."}}); 
-		}
-	}
 	
 	// text input fields focus state
 	textfields.focus(function () {
@@ -76,6 +68,9 @@ $(function(){
 			}
 		}
     });
+	
+	// needed for functions in document head
+	try{window.$ready()}catch(err){/*do nothing*/}
 });
 
 

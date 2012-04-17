@@ -1,8 +1,7 @@
 $(function(){
-	// needed for functions in document head
-	try{window.$ready()}catch(err){/*do nothing*/}
+	
 	// Product page tabs
-	$("#tabs").tabs("#tab_panels > div", { history: true });
+	$("#tabs").tabs("#tab_panels > div");
 	// Hover over gallery images
 	$('.mod.gallery-image, #main-nav .drop-down').hover(
 	  function(){$(this).addClass('hover')},
@@ -115,4 +114,6 @@ $(function(){
     });
 	// Form validation
 	$('form').validate()
+	// needed for functions in document head
+	try{window.$ready()}catch(err){/*do nothing*/}
 });
