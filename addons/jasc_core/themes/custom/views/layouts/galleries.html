@@ -4,20 +4,13 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-{{ if global:environment == 'production' }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/metadata"}}
-{{ else }}
+{{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
 {{ endif }}
-<style type="text/css">
-@import url(//fonts.googleapis.com/css?family=Puritan:700);
-.product-lineup { background:url(files/large/137) no-repeat; width:950px; height:250px;}
-.product-lineup .title {font-family: 'Puritan', sans-serif;text-align: center;text-shadow: 0 4px 2px #000000; padding-top:67px; font-size:70px; line-height:1em;}
-.product-lineup a.cta { position: absolute; right:375px; top:140px; border:none; background:#831E02; font-size:1.5em;}
-.product-lineup a.cta:hover {color:#fff; background:#7A3515}?
-</style>
 </head>
 <body>
 <div class="wrapper">
@@ -50,7 +43,10 @@
 		</div>
 	</div>
 </div>
-{{ if global:environment == 'production' }}
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
 	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/footer-scripts"}}
 	<script type="text/javascript">  (function() {
@@ -58,10 +54,7 @@
     ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
-	</script>	
-{{ else }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="footer-scripts"}}
+	</script>
 {{ endif }}
 </body>
 </html>

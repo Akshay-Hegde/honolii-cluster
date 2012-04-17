@@ -4,12 +4,12 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-{{ if global:environment == 'production' }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/metadata"}}
-{{ else }}
+{{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
 {{ endif }}
 </head>
 <body>
@@ -68,7 +68,10 @@
 			</div>
 		</div>
 	</div>
-{{ if global:environment == 'production' }}
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
 	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/footer-scripts"}}
 	<script type="text/javascript">  (function() {
@@ -76,10 +79,7 @@
     ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
     })();
-	</script>	
-{{ else }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="footer-scripts"}}
+	</script>
 {{ endif }}
 <div id="fb-root"></div>
 </body>
