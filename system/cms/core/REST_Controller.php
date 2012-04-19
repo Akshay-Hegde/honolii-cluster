@@ -1,16 +1,20 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * REST_controller V 2.5.x
- * 
- * @see https://github.com/philsturgeon/codeigniter-restserver
- * @author Phil Sturgeon
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Controllers
+ * CodeIgniter Rest Controller
+ *
+ * A fully RESTful server implementation for CodeIgniter using one library, one config file and one controller.
+ *
+ * @package        	CodeIgniter
+ * @subpackage    	Libraries
+ * @category    	Libraries
+ * @author        	Phil Sturgeon
+ * @license         http://philsturgeon.co.uk/code/dbad-license
+ * @link			https://github.com/philsturgeon/codeigniter-restserver
+ * @version 		2.6
  */
 class REST_Controller extends MY_Controller
 {
-
 	/**
 	 * This defines the rest format.
 	 * 
@@ -90,6 +94,7 @@ class REST_Controller extends MY_Controller
 	 * @var boolean
 	 */
 	protected $_allow = TRUE;
+	protected $_zlib_oc = FALSE; // Determines if output compression is enabled
 
 	/**
 	 * List all supported methods, the first will be the default format
@@ -123,16 +128,20 @@ class REST_Controller extends MY_Controller
 	{
 		parent::__construct();
 
+		$this->_zlib_oc = @ini_get('zlib.output_compression');
+
 		// Lets grab the config and get ready to party
 		$this->load->config('rest');
 
 		// How is this request being made? POST, DELETE, GET, PUT?
+		$this->request = new stdClass();
 		$this->request->method = $this->_detect_method();
 
 		// Set up our GET variables
 		$this->_get_args = array_merge($this->_get_args, $this->uri->ruri_to_assoc());
 
 		//$this->load->library('security');
+
 		// This library is bundled with REST_Controller 2.5+, but will eventually be part of CodeIgniter itself
 		$this->load->library('format');
 
@@ -183,12 +192,15 @@ class REST_Controller extends MY_Controller
 		if ($this->request->format and $this->request->body)
 		{
 			$this->request->body = $this->format->factory($this->request->body, $this->request->format)->to_array();
+			// Assign payload arguments to proper method container
+			$this->{'_'.$this->request->method.'_args'} = $this->request->body;
 		}
 
 		// Merge both for one mega-args variable
 		$this->_args = array_merge($this->_get_args, $this->_put_args, $this->_post_args, $this->_delete_args);
 
 		// Which format should the data be returned in?
+		$this->response = new stdClass();
 		$this->response->format = $this->_detect_output_format();
 
 		// Which format should the data be returned in?
@@ -236,7 +248,7 @@ class REST_Controller extends MY_Controller
 		}
 
 		// only allow ajax requests
-		if (!$this->input->is_ajax_request() AND config_item('rest_ajax_only'))
+		if ( ! $this->input->is_ajax_request() AND config_item('rest_ajax_only'))
 		{
 			$this->response(array('status' => false, 'error' => 'Only AJAX requests are accepted.'), 505);
 		}
@@ -280,7 +292,7 @@ class REST_Controller extends MY_Controller
 		}
 
 		// Sure it exists, but can they do anything with it?
-		if (!method_exists($this, $controller_method))
+		if ( ! method_exists($this, $controller_method))
 		{
 			$this->response(array('status' => false, 'error' => 'Unknown method.'), 404);
 		}
@@ -330,6 +342,8 @@ class REST_Controller extends MY_Controller
 	 */
 	public function response($data = array(), $http_code = null)
 	{
+		global $CFG;
+
 		// If data is empty and not code provide, error and bail
 		if (empty($data) && $http_code === null)
 		{
@@ -342,6 +356,18 @@ class REST_Controller extends MY_Controller
 		// Otherwise (if no data but 200 provided) or some data, carry on camping!
 		else
 		{
+			// Is compression requested?
+			if ($CFG->item('compress_output') === TRUE && $this->_zlib_oc == FALSE)
+			{
+				if (extension_loaded('zlib'))
+				{
+					if (isset($_SERVER['HTTP_ACCEPT_ENCODING']) AND strpos($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip') !== FALSE)
+					{
+						ob_start('ob_gzhandler');
+					}
+				}
+			}
+			
 			is_numeric($http_code) OR $http_code = 200;
 
 			// If the format method exists, call and return the output in that format
@@ -369,19 +395,25 @@ class REST_Controller extends MY_Controller
 			}
 		}
 
-		header('HTTP/1.1: '.$http_code);
-		header('Status: '.$http_code);
-		header('Content-Length: '.strlen($output));
+		header('HTTP/1.1: ' . $http_code);
+		header('Status: ' . $http_code);
+
+		// If zlib.output_compression is enabled it will compress the output,
+		// but it will not modify the content-length header to compensate for
+		// the reduction, causing the browser to hang waiting for more data.
+		// We'll just skip content-length in those cases.
+		if ( ! $this->_zlib_oc && ! $CFG->item('compress_output'))
+		{
+			header('Content-Length: ' . strlen($output));
+		}
 
 		exit($output);
 	}
 
-	/**
+	/*
 	 * Detect input format
 	 *
 	 * Detect which format the HTTP Body is provided in
-	 * 
-	 * @return null|string 
 	 */
 	protected function _detect_input_format()
 	{
@@ -475,8 +507,9 @@ class REST_Controller extends MY_Controller
 				}
 			}
 		} // End HTTP_ACCEPT checking
+
 		// Well, none of that has worked! Let's see if the controller has a default
-		if (!empty($this->rest_format))
+		if ( ! empty($this->rest_format))
 		{
 			return $this->rest_format;
 		}
@@ -495,10 +528,17 @@ class REST_Controller extends MY_Controller
 	protected function _detect_method()
 	{
 		$method = strtolower($this->input->server('REQUEST_METHOD'));
-
-		if ($this->config->item('enable_emulate_request') && $this->input->post('_method'))
+        
+		if ($this->config->item('enable_emulate_request'))
 		{
-			$method = $this->input->post('_method');
+			if ($this->input->post('_method'))
+			{
+				$method = strtolower($this->input->post('_method'));
+			}
+	        	else if ($this->input->server('HTTP_X_HTTP_METHOD_OVERRIDE'))
+		        {
+		            $method = strtolower($this->input->server('HTTP_X_HTTP_METHOD_OVERRIDE'));
+		        }			
 		}
 
 		if (in_array($method, array('get', 'delete', 'post', 'put')))
@@ -518,7 +558,6 @@ class REST_Controller extends MY_Controller
 	 */
 	protected function _detect_api_key()
 	{
-
 		// Get the api key name variable set in the rest config file
 		$api_key_variable = config_item('rest_key_name');
 
@@ -527,12 +566,13 @@ class REST_Controller extends MY_Controller
 
 		$this->rest->key = NULL;
 		$this->rest->level = NULL;
+		$this->rest->user_id = NULL;
 		$this->rest->ignore_limits = FALSE;
 
 		// Find the key from server or arguments
 		if (($key = isset($this->_args[$api_key_variable]) ? $this->_args[$api_key_variable] : $this->input->server($key_name)))
 		{
-			if (!($row = $this->rest->db->where('key', $key)->get(config_item('rest_keys_table'))->row()))
+			if ( ! ($row = $this->rest->db->where('key', $key)->get(config_item('rest_keys_table'))->row()))
 			{
 				return FALSE;
 			}
@@ -559,7 +599,7 @@ class REST_Controller extends MY_Controller
 	 */
 	protected function _detect_lang()
 	{
-		if (!$lang = $this->input->server('HTTP_ACCEPT_LANGUAGE'))
+		if ( ! $lang = $this->input->server('HTTP_ACCEPT_LANGUAGE'))
 		{
 			return NULL;
 		}
@@ -617,7 +657,7 @@ class REST_Controller extends MY_Controller
 	protected function _check_limit($controller_method)
 	{
 		// They are special, or it might not even have a limit
-		if (!empty($this->rest->ignore_limits) OR !isset($this->methods[$controller_method]['limit']))
+		if ( ! empty($this->rest->ignore_limits) OR !isset($this->methods[$controller_method]['limit']))
 		{
 			// On your way sonny-jim.
 			return TRUE;
@@ -634,7 +674,7 @@ class REST_Controller extends MY_Controller
 				->row();
 
 		// No calls yet, or been an hour since they called
-		if (!$result OR $result->hour_started < time() - (60 * 60))
+		if ( ! $result OR $result->hour_started < time() - (60 * 60))
 		{
 			// Right, set one up from scratch
 			$this->rest->db->insert(config_item('rest_limits_table'), array(
@@ -839,7 +879,7 @@ class REST_Controller extends MY_Controller
 
 		$valid_logins = & $this->config->item('rest_valid_logins');
 
-		if (!array_key_exists($username, $valid_logins))
+		if ( ! array_key_exists($username, $valid_logins))
 		{
 			return FALSE;
 		}
@@ -883,7 +923,7 @@ class REST_Controller extends MY_Controller
 			}
 		}
 
-		if (!$this->_check_login($username, $password))
+		if ( ! $this->_check_login($username, $password))
 		{
 			$this->_force_login();
 		}
@@ -927,7 +967,7 @@ class REST_Controller extends MY_Controller
 		preg_match_all('@(username|nonce|uri|nc|cnonce|qop|response)=[\'"]?([^\'",]+)@', $digest_string, $matches);
 		$digest = array_combine($matches[1], $matches[2]);
 
-		if (!array_key_exists('username', $digest) OR !$this->_check_login($digest['username']))
+		if ( ! array_key_exists('username', $digest) OR !$this->_check_login($digest['username']))
 		{
 			$this->_force_login($uniqid);
 		}
@@ -962,7 +1002,7 @@ class REST_Controller extends MY_Controller
 			$ip = trim($ip);
 		}
 
-		if (!in_array($this->input->ip_address(), $whitelist))
+		if ( ! in_array($this->input->ip_address(), $whitelist))
 		{
 			$this->response(array('status' => false, 'error' => 'Not authorized'), 401);
 		}
@@ -996,7 +1036,7 @@ class REST_Controller extends MY_Controller
 	protected function _force_loopable($data)
 	{
 		// Force it to be something useful
-		if (!is_array($data) AND !is_object($data))
+		if ( ! is_array($data) AND !is_object($data))
 		{
 			$data = (array) $data;
 		}

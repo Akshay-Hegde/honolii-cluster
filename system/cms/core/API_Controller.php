@@ -14,7 +14,7 @@ class API_Controller extends REST_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		
+
 		ci()->current_user = $this->current_user = $this->rest->user_id ? $this->ion_auth->get_user($this->rest->user_id) : null;
 	}
 	
