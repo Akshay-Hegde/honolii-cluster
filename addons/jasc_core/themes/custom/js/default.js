@@ -4,13 +4,13 @@ $(function(){
 	$("#tabs").tabs("#tab_panels > div");
 	// Hover over gallery images
 	$('.mod.gallery-image, #main-nav .drop-down').hover(
-	  function(){$(this).addClass('hover')},
-	  function(){$(this).removeClass('hover')}
-	)
+	  function(){$(this).addClass('hover');},
+	  function(){$(this).removeClass('hover');}
+	);
 	// Pretty Photo Lightbox
-	$("a.prettyPhoto").prettyPhoto({theme: 'facebook',overlay_gallery: false,})
+	$("a.prettyPhoto").prettyPhoto({theme: 'facebook',overlay_gallery: false});
 	// Add class names to sidebar headers to add icons
-	var sidebar_header = $('.sidebar .widget > h3:first-child')
+	var sidebar_header = $('.sidebar .widget > h3:first-child');
 	if(sidebar_header.length > 0){
 		for(var j = sidebar_header.length; j--;){
 			var x = $(sidebar_header[j])
