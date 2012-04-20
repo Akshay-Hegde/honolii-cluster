@@ -303,18 +303,41 @@ class Fields
 		{
 			if ( ! in_array($stream_field->field_slug, $skips))
 			{
-				if ($mode == "new")
+				if ( ! isset($_POST[$stream_field->field_slug]) and ! isset($_POST[$stream_field->field_slug.'[]']))
 				{
-					$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
-				}
-				else
-				{
+					// If this is a new entry and there is no post data,
+					// we see if:
+					// a - there is data from the DB to show
+					// b - there is a default value to show
+					// Otherwise, it's just null
 					if (isset($row->{$stream_field->field_slug}))
 					{
 						$values[$stream_field->field_slug] = $row->{$stream_field->field_slug};
 					}
 					else
 					{
+						$values[$stream_field->field_slug] = (isset($stream_field->field_data['default_value'])) ? $stream_field->field_data['default_value'] : null;
+					}
+				}
+				else
+				{
+					// Post Data - we always show
+					// post data above any other data that
+					// might be sitting around.
+
+					// There is the possibility that this could be an array
+					// post value, so we check for that as well.
+					if (isset($_POST[$stream_field->field_slug]))
+					{
+						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug);
+					}
+					elseif (isset($_POST[$stream_field->field_slug.'[]']))
+					{
+						$values[$stream_field->field_slug] = $this->CI->input->post($stream_field->field_slug.'[]');
+					}
+					else
+					{
+						// Last ditch.
 						$values[$stream_field->field_slug] = null;
 					}
 				}
@@ -351,10 +374,10 @@ class Fields
 				{
 					$field->field_data['default_value'] = null;
 				}
-						
-				// Set the value. The passed value or
-				// the default value?
-				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : $field->field_data['default_value'];
+				
+				// Set the value. In the odd case it isn't set,
+				// jst set it to null.
+				$value = (isset($values[$field->field_slug])) ? $values[$field->field_slug] : null;
 
 				// Return the raw value as well - can be useful
 				$fields[$count]['value'] 			= $value;
