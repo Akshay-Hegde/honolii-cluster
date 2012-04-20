@@ -780,7 +780,79 @@ class Module_Settings extends Module {
 				'is_gui' => true,
 				'module' => 'integration',
 				'order' => 1000,
-			)
+			),
+			'newsletter_opt_in' => array(
+				'title' => 'Require Opt In',
+				'description' => 'Subscribers will receive an activation email with a link that they must click to complete the sign up. Edit the email format in Email Templates.',
+				'type' => 'select',
+				'default' => '0',
+				'value' => '0',
+				'options' => '0=Disabled|1=Enabled',
+				'is_required' => true,
+				'is_gui' => true,
+				'module' => 'newsletters',
+				'order' => 970
+			),
+			'newsletter_from' => array(
+				'title' => '"From" Email Address',
+				'description' => 'This is the address that your recipients will see in the From field.',
+				'type' => 'text',
+				'default' => 'do.not.reply@example.com',
+				'value' => '',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'newsletters',
+				'order' => 971
+			),
+			'newsletter_reply_to' => array(
+				'title' => '"Reply To" Email Address',
+				'description' => 'This is the address that your recipients will respond to.',
+				'type' => 'text',
+				'default' => 'sales@example.com',
+				'value' => '',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'newsletters',
+				'order' => 972
+			),
+			'newsletter_email_limit' => array(
+				'title' => 'Limit',
+				'description' => 'If your host limits the number of outgoing emails per hour/day set it here. Otherwise set it to 0 for automatic send',
+				'type' => 'text',
+				'default' => '0',
+				'value' => '',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'newsletters',
+				'order' => 973
+			),
+			'newsletter_cron_enabled' => array(
+				'title' => 'Cron',
+				'description' => 'Send with Cron. If enabled you must have a cron job to send newsletters.',
+				'type' => 'select',
+				'default' => '0',
+				'value' => '0',
+				'options' => '0=Disabled|1=Enabled',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'newsletters',
+				'order' => 974
+			),
+			'newsletter_cron_key' => array(
+				'title' => 'Cron Key',
+				'description' => 'Set a key to prevent visitors from triggering a cron send. example.com/newsletters/cron/gy84kn',
+				'type' => 'text',
+				'default' => 'gy84kn',
+				'value' => 'gy84kn',
+				'options' => '',
+				'is_required' => false,
+				'is_gui' => true,
+				'module' => 'newsletters',
+				'order' => 975
+			),
 		);
 
 		// Lets add the settings for this module.
