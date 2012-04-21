@@ -25,6 +25,8 @@ $(document).ready(function(){
 	//Overlay Int
 	$(".overlay-hours").overlay({target: "#office_hours"});
 	$(".overlay-directions").overlay({target: "#map_directions"});
+	// Form validation
+	$('form').validate()
 });
 
 function initialize_map(){

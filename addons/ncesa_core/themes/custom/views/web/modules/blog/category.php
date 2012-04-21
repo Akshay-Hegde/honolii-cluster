@@ -1,8 +1,8 @@
 <div id="blog">
 	<div id="col-2" class="span-17 font_size">
 		<div class="box">
-			{pyro:theme:partial name="breadcrumbs"}
-			{pyro:session:messages success="success" notice="notice" error="error"}
+			{{theme:partial name="breadcrumbs"}}
+			{{session:messages success="success" notice="notice" error="error"}}
 			<h1><?php echo $category->title; ?></h1>
 			<?php if (!empty($blog)): ?>
 			<?php foreach ($blog as $post): ?>
@@ -27,7 +27,7 @@
 		</div>
 	</div>
 	<div id="col-1" class="span-7 last font_size">
-		{pyro:widgets:area slug="blog"}
+		{{widgets:area slug="blog"}}
 	</div>
 	<div class="clear">
 	</div>
