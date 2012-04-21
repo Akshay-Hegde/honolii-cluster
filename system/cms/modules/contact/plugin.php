@@ -95,6 +95,7 @@ class Plugin_Contact extends Plugin {
 		$max_size	= $this->attribute('max-size', 10000);
 		$redirect	= $this->attribute('success-redirect', FALSE);
 		$action		= $this->attribute('action', current_url());
+		$multi 		= $this->attribute('multi',FALSE);
 		$form_meta 	= array();
 		$validation	= array();
 		$output		= array();
@@ -110,7 +111,8 @@ class Plugin_Contact extends Plugin {
 			  $field_list['reply-to'],
 			  $field_list['max-size'],
 			  $field_list['redirect'],
-			  $field_list['action']
+			  $field_list['action'],
+			  $field_list['multi']
 			  );
 
 		foreach ($field_list AS $field => $rules)
@@ -199,6 +201,7 @@ class Plugin_Contact extends Plugin {
 
 		$this->form_validation->set_rules($validation);
 
+		
 		if ($this->form_validation->run())
 		{
 			// maybe it's a bot?
@@ -209,6 +212,24 @@ class Plugin_Contact extends Plugin {
 			}
 
 			$data = $this->input->post();
+			
+			// Setup up multi
+			if ($multi)
+			{
+				$multi_array = explode('|', $multi);
+				switch($form_meta[$multi_array[0]]['type'])
+				{
+					case 'input':
+						$to = $data[$multi_array[0]];
+					break;
+					case 'dropdown':
+						$to_value = $data[$multi_array[0]];
+						$to_array = $form_meta[$multi_array[0]]['dropdown'];
+						$multi_key = array_search($to_value, array_keys($to_array));
+						$to = $multi_array[$multi_key+1];
+					break;
+				}
+			}
 
 			// Add in some extra details about the visitor
 			$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
