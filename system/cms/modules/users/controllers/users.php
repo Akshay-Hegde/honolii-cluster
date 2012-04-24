@@ -107,7 +107,11 @@ class Users extends Public_Controller
 
 			if ($this->input->is_ajax_request())
 			{
-				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'))));
+				$user = $this->ion_auth->get_user_by_email($user->email);
+				$user->password = '';
+				$user->salt = '';
+
+				exit(json_encode(array('status' => true, 'message' => lang('user_logged_in'), 'data' => $user)));
 			}
 			else
 			{
@@ -226,7 +230,7 @@ class Users extends Public_Controller
 		// Get the profile data to pass to the register function.
 		foreach ($assignments as $assign)
 		{
-			if ($assign->is_required == 'yes' and $assign->field_slug != 'display_name')
+			if ($assign->field_slug != 'display_name')
 			{
 				if (isset($_POST[$assign->field_slug]))
 				{
