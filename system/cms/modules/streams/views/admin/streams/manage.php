@@ -28,9 +28,6 @@
 		<tr>
 			<td><?php echo anchor('admin/streams/delete/'.$this->uri->segment(4), lang('streams.delete_stream')); ?></td>
 		</tr>
-		<tr>
-			<td><?php echo anchor('admin/streams/schema_export/'.$this->uri->segment(4), lang('streams.export_schema')); ?></td>
-		</tr>
 	</table>
 
 </section>

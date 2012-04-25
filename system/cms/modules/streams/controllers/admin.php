@@ -794,24 +794,4 @@ class Admin extends Admin_Controller {
 		force_download($filename.'.zip', $backup);
 	}
 
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Streams Schema Config Export
-	 *
-	 * Useful when you want to build a structure
-	 * that you want to run through Streams API.
-	 */
-	public function schema_export()
-	{
-		role_or_die('streams', 'admin_streams');
-
-		$this->_gather_stream_data();
-
-		$this->load->driver('streams');
-		$this->streams->utilities->config_export(
-									$this->data->stream->stream_slug,
-									$this->data->stream->stream_namespace);
-	}
-
 }
