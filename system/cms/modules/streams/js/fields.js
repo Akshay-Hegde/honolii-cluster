@@ -6,7 +6,7 @@ function add_field_parameters()
 		dataType: "text",
 		type: "POST",
 		data: 'data='+data+'&csrf_hash_name='+$.cookie('csrf_cookie_name'),
-		url:  BASE_URL+'index.php/streams_core/ajax/build_parameters',
+		url: SITE_URL+'streams_core/ajax/build_parameters',
 		success: function(returned_html) {
 			jQuery('.streams_param_input').remove();
 			jQuery('.form_inputs > ul').append(returned_html);
