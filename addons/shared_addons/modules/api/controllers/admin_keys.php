@@ -31,17 +31,19 @@ class Admin_keys extends Admin_Controller
 	 */
 	public function index()
 	{
-		$this->streams->cp->entries_table('keys', 'api', Settings::get('records_per_page'), 'admin/api/keys/index', array(
-			array(
-		        'label'     => lang('global:edit'),
-		        'url'       => 'admin/api/keys/edit/-entry_id-',
-		    ),
-		    array(
-		        'label'     => lang('global:delete'),
-		        'url'       => 'admin/api/keys/delete/-entry_id-',
-		        'confirm'   => true,
-		    )
-		), true);
+		$this->streams->cp->entries_table('keys', 'api', Settings::get('records_per_page'), 'admin/api/keys/index', true, array(
+			'buttons' => array(
+				array(
+			        'label'     => lang('global:edit'),
+			        'url'       => 'admin/api/keys/edit/-entry_id-',
+			    ),
+			    array(
+			        'label'     => lang('global:delete'),
+			        'url'       => 'admin/api/keys/delete/-entry_id-',
+			        'confirm'   => true,
+			    ),
+			),
+		));
 	}
 
 	/**
@@ -57,7 +59,7 @@ class Admin_keys extends Admin_Controller
 	{
 		$this->template->title(lang('global:add'));
 
-		$this->streams->cp->form('keys', 'api', 'new', null, true, array(
+		$this->streams->cp->entry_form('keys', 'api', 'new', null, true, array(
 			'return'			=> 'admin/api/keys',
 			// 'success_message'	=> lang('faq:submit_success'),
 			// 'failure_message'	=> lang('faq:submit_failure'),
