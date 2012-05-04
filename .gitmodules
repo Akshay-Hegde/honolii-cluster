@@ -33,3 +33,6 @@
 	path = addons/jasc_core/themes/custom/build
 
 	url = e:/projects-frameworks/build-h5bp/
+[submodule "addons/mgms_core/themes/custom/build"]
+	path = addons/mgms_core/themes/custom/build
+	url = e:/projects-frameworks/build-h5bp/
