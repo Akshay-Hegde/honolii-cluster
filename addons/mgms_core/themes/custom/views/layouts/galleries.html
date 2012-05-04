@@ -19,7 +19,13 @@
 			<div id="block-1" class="block block-top clearfix">
 				{{session:messages success="success" notice="notice" error="error"}}
 				<div id="col-full">
-					{{ template:body }}
+					{{ if user:logged_in }}
+						{{ template:body }}
+					{{ else }}
+						<h3>You don't have permission to view this page</h3>
+						<img src="/files/thumb/79/566" />
+						<p>If you have an account please log in now to view, otherwise you will need to register and have your account approved before you can view any content. We do this to protect the privacy of our children and parents.</p>
+					{{ endif }}
 				</div>
 			</div>
             {{ theme:partial name="block-footer" }}
