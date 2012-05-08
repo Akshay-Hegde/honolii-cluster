@@ -219,23 +219,29 @@ class Admin_Fields extends Admin_Controller {
 		// Get the type.
 		// The form has not been submitted, we must use the 
 		// field's current field type
-		if(!isset($_POST['field_type'])):
-		
+		if ( ! isset($_POST['field_type']))
+		{
 			$this->data->current_type = $this->type->types->{$this->data->current_field->field_type};
-			
-		else:
-		
+		}	
+		else
+		{
 			$this->data->current_type = $this->type->types->{$this->input->post('field_type')};
-				
-			// Overwrite items out of post data
-			foreach($this->data->current_type->custom_parameters as $param):
-			
-				$this->data->current_field->field_data[$param] = $this->input->post($param);
-			
-			endforeach;
-			
-		endif;
+
+			if (isset($this->data->current_type->custom_parameters))
+			{		
+				// Overwrite items out of post data
+				foreach ($this->data->current_type->custom_parameters as $param)
+				{
+					$this->data->current_field->field_data[$param] = $this->input->post($param);
+				}
+			}
+		}
 		
+		if ( ! isset($this->data->current_field->field_data))
+		{
+			$this->data->current_field->field_data = array();
+		}
+
  		// Load Paramaters in case we need 'em
 		require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');		
 		$this->data->parameters = new Parameter_fields();

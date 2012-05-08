@@ -271,6 +271,20 @@ class Module_Streams extends Module {
 	
 	public function upgrade($old_version)
 	{
+		$this->load->config('streams/streams');
+
+		// Make sure we have the stream_namespace field in the search table
+        if ( ! $this->db->field_exists('stream_namespace', $this->config->item('streams:searches_table')))
+        {
+            $this->dbforge->add_column($this->config->item('streams:searches_table'), array(
+                'stream_namespace' => array(
+    				'type' => 'VARCHAR',
+    				'constraint' => 100,
+    				'null' => true
+    			)
+            ));
+        }
+
 		return TRUE;
 	}
 
