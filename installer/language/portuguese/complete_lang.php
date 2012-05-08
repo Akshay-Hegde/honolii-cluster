@@ -10,4 +10,4 @@ $lang['outro_text']			= 'E não se esqueça de <strong>remover a pasta de instal
 
 $lang['go_website']			= 'Entrar no site';
 $lang['go_control_panel']	= 'Entrar no Painel de Controlo';
-//$lang['go_multi_site']	= 'Entrar no Gestor Multi-Site';
+$lang['go_multi_site']	    = 'Entrar no Gestor Multi-Sites';

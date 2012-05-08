@@ -289,24 +289,27 @@ class Addons_m extends MY_Model
 
 		foreach (array(SHARED_ADDONPATH) AS $directory)
     	{
-			foreach (glob($directory.'plugins/*.php', GLOB_NOSORT) AS $location)
-			{
-				$plugin = basename($location);
-
-				// This isn't really a file
-				if ( ! is_file($location))
+    		if ($plugins_array = glob($directory.'plugins/*.php', GLOB_NOSORT))
+    		{
+				foreach ($plugins_array AS $location)
 				{
-					continue;
-				}
-				
-				$name = str_replace('.php', '', $plugin);
+					$plugin = basename($location);
 
-				// Get some basic info from the file
-				$plugins[$i]['name']		= ucfirst($name);
-				$plugins[$i]['slug']		= $name;
-				$plugins[$i]['shared']		= TRUE;
-				
-				$i++;
+					// This isn't really a file
+					if ( ! is_file($location))
+					{
+						continue;
+					}
+					
+					$name = str_replace('.php', '', $plugin);
+
+					// Get some basic info from the file
+					$plugins[$i]['name']		= ucfirst($name);
+					$plugins[$i]['slug']		= $name;
+					$plugins[$i]['shared']		= TRUE;
+					
+					$i++;
+				}
 			}
 		}
 
@@ -321,24 +324,27 @@ class Addons_m extends MY_Model
 
 		foreach (array(ADDON_FOLDER.$this->ref.'/', SHARED_ADDONPATH) AS $directory)
     	{
-			foreach (glob($directory.'themes/*', GLOB_ONLYDIR) as $theme_name)
-			{
-				$slug = basename($theme_name);
-
-				// This doesnt have a valid theme file! :o
-				if ( ! $theme_class = $this->_spawn_class('theme', $slug, $shared))
+    		if ($themes_array = glob($directory.'themes/*', GLOB_ONLYDIR))
+    		{
+				foreach ($themes_array as $theme_name)
 				{
-					continue;
-				}
+					$slug = basename($theme_name);
 
-				// Get some basic info from the file
-				$themes[$i]['name']			= $theme_class->name;
-				$themes[$i]['description']	= $theme_class->description;
-				$themes[$i]['slug']			= $slug;
-				$themes[$i]['version']		= $theme_class->version;
-				$themes[$i]['shared']		= $shared;
-				
-				$i++;
+					// This doesnt have a valid theme file! :o
+					if ( ! $theme_class = $this->_spawn_class('theme', $slug, $shared))
+					{
+						continue;
+					}
+
+					// Get some basic info from the file
+					$themes[$i]['name']			= $theme_class->name;
+					$themes[$i]['description']	= $theme_class->description;
+					$themes[$i]['slug']			= $slug;
+					$themes[$i]['version']		= $theme_class->version;
+					$themes[$i]['shared']		= $shared;
+					
+					$i++;
+				}
 			}
 
 			// Going back around, 2nd time is shared_addons
@@ -356,28 +362,31 @@ class Addons_m extends MY_Model
 
 		foreach (array(ADDON_FOLDER.$this->ref.'/', SHARED_ADDONPATH) AS $directory)
     	{
-			foreach (glob($directory.'widgets/*', GLOB_ONLYDIR) as $widget_name)
-			{
-				$slug = basename($widget_name);
-
-				// This doesnt have a valid widget file! :o
-				if ( ! $widget_class = $this->_spawn_class('widget', $slug, $shared))
+    		if ($widgets_array = glob($directory.'widgets/*', GLOB_ONLYDIR))
+    		{
+				foreach ($widgets_array as $widget_name)
 				{
-					continue;
-				}
+					$slug = basename($widget_name);
 
-				// Get some basic info from the file
-				$widgets[$i]['title']		= $widget_class->title;
-				$widgets[$i]['description']	= $widget_class->description;
-				$widgets[$i]['slug']		= $slug;
-				$widgets[$i]['version']		= $widget_class->version;
-				$widgets[$i]['shared']		= $shared;
-				
-				// Find out what the site knows about it
-				$widgets[$i]['database']	= $this->db->where('slug', $slug)
-												->get($this->ref.'_widgets')
-												->row_array();
-				$i++;
+					// This doesnt have a valid widget file! :o
+					if ( ! $widget_class = $this->_spawn_class('widget', $slug, $shared))
+					{
+						continue;
+					}
+
+					// Get some basic info from the file
+					$widgets[$i]['title']		= $widget_class->title;
+					$widgets[$i]['description']	= $widget_class->description;
+					$widgets[$i]['slug']		= $slug;
+					$widgets[$i]['version']		= $widget_class->version;
+					$widgets[$i]['shared']		= $shared;
+					
+					// Find out what the site knows about it
+					$widgets[$i]['database']	= $this->db->where('slug', $slug)
+													->get($this->ref.'_widgets')
+													->row_array();
+					$i++;
+				}
 			}
 
 			// Going back around, 2nd time is shared_addons
@@ -395,27 +404,30 @@ class Addons_m extends MY_Model
 
 		foreach (array(ADDON_FOLDER.$this->ref.'/', SHARED_ADDONPATH) AS $directory)
     	{
-			foreach (glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
-			{
-				$slug = basename($module_name);
-
-				// This doesnt have a valid details.php file! :o
-				if ( ! $details_class = $this->_spawn_class('module', $slug, $shared))
+    		if ($modules_array = glob($directory.'modules/*', GLOB_ONLYDIR))
+    		{
+				foreach ($modules_array as $module_name)
 				{
-					continue;
-				}
+					$slug = basename($module_name);
 
-				// Get some basic info from the file
-				$modules[$i]['info']		= $details_class->info();
-				$modules[$i]['slug']		= $slug;
-				$modules[$i]['version']		= $details_class->version;
-				$modules[$i]['shared']		= $shared;
-				
-				// Find out what the site knows about it
-				$modules[$i]['database']	= $this->db->where('slug', $slug)
-												->get($this->ref.'_modules')
-												->row_array();
-				$i++;
+					// This doesnt have a valid details.php file! :o
+					if ( ! $details_class = $this->_spawn_class('module', $slug, $shared))
+					{
+						continue;
+					}
+
+					// Get some basic info from the file
+					$modules[$i]['info']		= $details_class->info();
+					$modules[$i]['slug']		= $slug;
+					$modules[$i]['version']		= $details_class->version;
+					$modules[$i]['shared']		= $shared;
+					
+					// Find out what the site knows about it
+					$modules[$i]['database']	= $this->db->where('slug', $slug)
+													->get($this->ref.'_modules')
+													->row_array();
+					$i++;
+				}
 			}
 
 			// Going back around, 2nd time is shared_addons
