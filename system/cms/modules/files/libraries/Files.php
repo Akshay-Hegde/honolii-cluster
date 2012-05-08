@@ -395,7 +395,7 @@ class Files
 					return Files::move($file_id, $data['filename'], 'local', $folder->location, $folder->remote_container);
 				}
 
-				return self::result(TRUE, lang('files:file_uploaded'), $name);
+				return self::result(TRUE, lang('files:file_uploaded'), $data['name'], array('id' => $file_id) + $data);
 			}
 			else
 			{
@@ -832,22 +832,10 @@ class Files
 	**/
 	public static function rename_file($id = 0, $name)
 	{
-		$data = array('name' => $name);
-		$file = ci()->file_m->select('files.*, file_folders.location')
-			->join('file_folders', 'file_folders.id = files.folder_id')
-			->get_by('files.id', $id);
+		// physical filenames cannot be changed because of the risk of breaking embedded urls so we just change the db
+		ci()->file_m->update($id, array('name' => $name));
 
-		// if it's a local file we can rename the actual file
-		if ($file AND $file->location === 'local')
-		{
-			Files::move($id, $name);
-		}
-		else
-		{
-			ci()->file_m->update($id, $data);
-		}
-
-		return self::result(TRUE, lang('files:item_updated'), $name, $data);
+		return self::result(TRUE, lang('files:item_updated'), $name, array('name' => $name));
 	}
 
 	// ------------------------------------------------------------------------
