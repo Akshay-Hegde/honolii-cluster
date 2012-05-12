@@ -15,7 +15,7 @@
 				});
 				order = order.join(',');
 				
-				$.post(SITE_URL+'streams_core/ajax/ajax_entry_order_update', { order: order, offset: stream_offset, stream_id: stream_id, csrf_hash_name: $.cookie('csrf_cookie_name')}, function() {
+				$.post(SITE_URL+'streams_core/ajax/ajax_entry_order_update', { order: order, offset: stream_offset, stream_id: stream_id, csrf_hash_name: $.cookie(pyro.csrf_cookie_name)}, function() {
 					// Don't do anything.
 				});
 			},
