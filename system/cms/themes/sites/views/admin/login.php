@@ -1,69 +1,83 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!doctype html>
+
+<!--[if lt IE 7]> 
+	<html class="nojs ms lt_ie7" lang="en"> 
+<![endif]-->
+
+<!--[if IE 7]>    
+	<html class="nojs ms ie7" lang="en"> 
+<![endif]-->
+
+<!--[if IE 8]>    
+	<html class="nojs ms ie8" lang="en"> 
+<![endif]-->
+
+<!--[if gt IE 8]> 
+	<html class="nojs ms" lang="en"> 
+<![endif]-->
+
+<html lang="en">
+
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<title><?php echo lang('site.sites').' - '.lang('login_title');?></title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="author" content="iKreativ">
+	<meta name="description" content="PyroCMS Multi-Site manager">
+	<meta name="keywords" content="pyrocms, multi, site, manager, login">
+	
+	<!-- Mobile Viewport -->
+    <meta name="viewport" content="width=device-width">
+
+	<title>Multi-Site Manager - Login</title>
+	
+	<!-- Googlelicious -->
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,600,700,600italic,700italic,300italic' rel='stylesheet' type='text/css'>
 	
 	<base href="<?php echo base_url(); ?>" />
 	
 	<?php 
-	Asset::css('admin/style.css');
-	Asset::js('jquery/jquery.js');
-	Asset::js('admin/login.js');
-	echo Asset::render(); 
+		Asset::css('workless/minified.css.php');
+		Asset::js('workless/modernizr.js');
+		Asset::js('jquery/jquery.js');
+		Asset::js('admin/login.js');
+		echo Asset::render(); 
 	?>
-	
-	<!-- Place CSS bug fixes for IE 7 in this comment -->
-	<!--[if IE 7]>
-	<style type="text/css" media="screen">
-		#login-logo { margin: 15px auto 15px auto; }
-		.input-email { margin: -24px 0 0 10px;}
-		.input-password { margin: -30px 0 0 14px; }
-		body#login #login-box input { height: 20px; padding: 10px 4px 4px 35px; }
-		body#login{ margin-top: 14%;}
-	</style>
-	<![endif]-->
-
 </head>
 
-<body id="login">
+<body id="top">
 
-<div id="left"></div>
-<div id="right"></div>
-<div id="top"></div>
-<div id="bottom"></div>
+	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6 -->
+	<!--[if lt IE 7]>
+		<p>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p>
+	<![endif]-->
+	
+	<div id="login" <?php if (validation_errors()): ?>style="padding-bottom:140px;"<?php endif; ?>>
+		<?php echo Asset::img('workless/key.png', 'Login', array('class' => 'login_icon')); ?>
 
-	<div id="login-box">
-		<header id="main">
-			<div id="login-logo"></div>
-			<div id="multi-login"><?php echo lang('site.sites');?></div>
-		</header>
+		<h1><?php echo lang('site.sites');?></h1>
+		
 		<?php $this->load->view('admin/partials/notices') ?>
+		
 		<?php echo form_open('sites/login'); ?>
 			<ul>
 				<li>
 					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
-					<?php echo Asset::img('admin/email-icon.png', lang('email_label'), array('class' => 'input-email')) ?>
 				</li>
 				
 				<li>
-					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>" />
-					<?php echo Asset::img('admin/lock-icon.png', lang('password_label'), array('class' => 'input-password')) ?>
+					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>"  />
 				</li>
 				
-				<li>
-					<input class="remember" type="checkbox" name="remember" value="1" />
-					<label for="remember" class="remember"><?php echo lang('user_remember'); ?></label>
+				<li id="remember_me">
+					<input id="remember" type="checkbox" name="remember" value="1" />
+					<label for="remember"><?php echo lang('user_remember'); ?></label>
 				</li>
-
-				<li><center><input class="button" type="submit" name="submit" value="<?php echo lang('login_label'); ?>" /></center></li>
+				
+				<li id="login_button">
+					<input type="submit" name="submit" value="<?php echo lang('login_label'); ?>" />
+				</li>
 			</ul>
 		<?php echo form_close(); ?>
 	</div>
-	<center>
-		<ul id="login-footer">
-			<li><a href="http://pyrocms.com/">Powered by PyroCMS</a></li>
-		</ul>
-	</center>
 </body>
 </html>

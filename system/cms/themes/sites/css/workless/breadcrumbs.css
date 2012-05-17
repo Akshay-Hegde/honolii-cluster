@@ -1,0 +1,36 @@
+/**
+ * Breadcrumbs 
+*/
+.breadcrumbs 
+{
+	background: #ffffff;
+	width: 96.2%;
+  	padding: 9px 15px 12px 15px;
+  	margin: 0 0 18px 0;
+  	float: left;
+  	border-radius: 2px;
+}
+
+.breadcrumbs li 
+{
+  	display: inline;
+  	font-size: 13px;
+}
+
+.breadcrumbs a 
+{
+  	text-decoration: underline;
+}
+
+.breadcrumbs .divider
+{
+	margin-top: 5px;
+	margin-left: 5px;
+	margin-right: 5px;
+	color: #cccccc;
+}
+.breadcrumbs .divider:last-child
+{
+	display: none;
+}
+/* @end Breadcrumbs */

@@ -1,0 +1,496 @@
+/**
+ * All APP specific CSS goes in here.
+ *
+ * @Version: 1.0
+ * @Author: Scott Parry - PyroCMS Dev Team
+ * @URL: http://pyrocms.com
+ */
+
+
+body
+{
+	background: url(../../img/workless/bg_noise.jpg) repeat;
+}
+/**
+ * Login
+ */
+body.login 
+{
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background: #ffffff;
+	overflow: hidden;
+	text-shadow: none;
+	color: #333333;
+}
+
+body.login ul
+{
+	list-style: none;
+}
+
+#login 
+{
+	background: #ffffff;
+	width: 350px;
+	height: 350px;
+	padding: 35px 25px 50px 25px;
+	margin: 10% auto;
+	box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
+	border-radius: 5px;
+	border: 1px solid #cccccc;
+}
+
+#login .login_icon 
+{
+	width: 54px;
+	height: 54px;
+	margin-left: 150px;
+	filter: alpha(opacity=30);
+  	-khtml-opacity: 0.3;
+  	-moz-opacity: 0.3;
+  	opacity: 0.3;
+}
+
+#login h1 
+{
+	color: #F27F09;
+	font-weight: normal;
+	text-align: center;
+	text-shadow: none;
+	margin-top: 15px;
+	margin-bottom: 25px;
+}
+
+#login input[type="text"], 
+#login input[type="password"] 
+{
+	width: 268px;
+	padding: 10px;
+	margin-bottom: 15px;
+	margin-left: 25px;
+	font-size: 13px;
+	border: 1px solid #dddddd;
+	border-radius: 5px;
+	outline: none;
+  	background: #f9f9f9;
+	color: #6d6e76;
+	font-size: 16px;
+	-webkit-transition: 250ms linear all; 
+	-moz-transition: 250ms linear all; 
+	transition: 250ms linear all;
+}
+
+#login input[type="text"]:focus, 
+#login input[type="password"]:focus 
+{
+	background: #ffffff;
+	box-shadow: 0 0 3px #F27F09;
+	border: 1px solid #F26D00;
+}
+
+#login #remember_me 
+{
+	width: 350px;
+	color: #aaaaaa;
+	text-align: center;
+	margin: 0 auto;
+}
+
+#login #login_button
+{
+	width: 350px;
+	text-align: center;
+	margin: 25px auto;
+}
+
+#login #login_button input[type="submit"]
+{
+	width: 290px;
+	background: #F27F09; 
+	display: inline-block; 
+	margin: 0 auto;
+	margin-left: -10px;
+	padding: 10px 25px; 
+	font-size: 16px;
+	color: #ffffff; 
+	border-radius: 2px;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+	text-shadow: 0 -1px 1px rgba(0, 0, 0, 0.3);
+	cursor: pointer;
+	border: 0;
+	outline: 0;
+	-webkit-transition: 250ms linear all; 
+	-moz-transition: 250ms linear all; 
+	transition: 250ms linear all;
+}
+
+#login #login_button input[type="submit"]:hover	
+{ 
+	background: #F26D00; 
+}
+
+#login .block-message
+{
+	width: 260px!important;
+	margin: 0 auto;
+	margin-left: 25px;
+	text-align: center;
+	font-size: 14px;
+  	margin-bottom: 18px;
+  	padding: 14px;
+  	color: #333333;
+  	border-radius: 2px
+}
+
+#login .block-message p
+{
+	text-align: center;
+	margin-bottom: 5px;
+}
+
+.block-message-error 
+{
+  	background: #f8dcda;
+  	border: 1px solid #f4c8c5;
+}
+.block-message-warning 
+{
+  	background: #fff0c0;
+  	border: 1px solid #ffe38d;
+}
+.block-message-success 
+{
+  	background: #dff1df;
+  	border: 1px solid #bbe2bb;
+}
+.block-message-info 
+{
+  	background: #c7eefe;
+  	border: 1px solid #ade6fe;
+}
+
+
+/** Responsive @media queries for responsive design.
+ * Ensure this is included after all your other CSS.
+ */
+
+
+
+/** 
+ * Mobile
+ */
+nav .selector 
+{
+	display: inherit;
+}
+
+nav#mainnav ul 
+{ 
+	display: none; 
+}
+
+.one_full 
+{ 
+	width: 280px; 
+}
+
+.one_half 
+{ 
+	width: 280px; 
+}
+
+.one_third 
+{ 
+	width: 280px; 
+}
+
+.two_third 
+{ 
+	width: 280px; 
+}
+
+.one_quarter 
+{ 
+	width: 280px; 
+}
+	
+.wrapper 
+{
+	width: 280px;
+}
+
+/** 
+ * iPhone landscape 
+ */
+@media only screen and (min-width: 480px) {
+	
+	nav .selector  
+	{
+		display: inherit;
+	}
+	
+	nav#mainnav ul 
+	{ 
+		display: none; 
+	}
+	
+	.one_full 
+	{ 
+		width: 420px; 
+	}
+
+	.one_half 
+	{ 
+		width: 190px; 
+	}
+
+	.one_third 
+	{ 
+		width: 110px; 
+	}
+
+	.two_third 
+	{ 
+		width: 250px; 
+	}
+
+	.one_quarter 
+	{ 
+		width: 185px; 
+	}
+	
+	.wrapper 
+	{
+		width: 420px;
+	}
+}
+
+/** 
+ * Small tablet portrait 
+ */
+@media only screen and (min-width: 640px) {
+	
+	nav .selector  
+	{
+		display: inherit;
+	}
+	
+	nav#mainnav ul 
+	{ 
+		display: none; 
+	}
+	
+	.one_full 
+	{ 
+		width: 650px; 
+	}
+
+	.one_half 
+	{ 
+		width: 310px; 
+	}
+
+	.one_third 
+	{ 
+		width: 200px; 
+	}
+
+	.two_third 
+	{ 
+		width: 425px; 
+	}
+
+	.one_quarter 
+	{ 
+		width: 140px; 
+	}
+	
+	.wrapper 
+	{
+		width: 650px;
+	}
+}
+
+/** 
+ * iPad portrait 
+ */
+@media only screen and (min-width: 768px) {
+	
+	nav .selector 
+	{
+		display: none;
+	}
+	
+	nav#mainnav ul 
+	{ 
+		display: inherit; 
+	}
+	
+	.one_full 
+	{ 
+		width: 700px; 
+	}
+
+	.one_half 
+	{ 
+		width: 360px; 
+	}
+
+	.one_third 
+	{ 
+		width: 230px; 
+	}
+
+	.two_third 
+	{ 
+		width: 490px; 
+	}
+
+	.one_quarter 
+	{ 
+		width: 160px; 
+	}
+	
+	.wrapper 
+	{
+		width: 700px;
+	}
+}
+
+/**
+ * Small browser / iPad landscape 
+ */
+@media only screen and (min-width: 1024px) {
+	
+	nav .selector 
+	{
+		display: none;
+	}
+	
+	nav#mainnav ul 
+	{ 
+		display: inherit; 
+	}
+	
+	.one_full 
+	{ 
+		width: 700px; 
+	}
+
+	.one_half 
+	{ 
+		width: 385px; 
+	}
+
+	.one_third 
+	{ 
+		width: 250px; 
+	}
+
+	.two_third 
+	{ 
+		width: 525px; 
+	}
+
+	.one_quarter 
+	{ 
+		width: 180px; 
+	}
+	
+	.wrapper 
+	{
+		width: 700px;
+	}
+}
+
+/** 
+ * Generic browser 
+ */
+@media only screen and (min-width: 1280px) {
+	
+	nav .selector 
+	{
+		display: none;
+	}
+	
+	nav#mainnav ul 
+	{ 
+		display: inherit; 
+	}
+	
+	.one_full 
+	{ 
+		width: 700px; 
+	}
+
+	.one_half 
+	{ 
+		width: 400px; 
+	}
+
+	.one_third 
+	{ 
+		width: 265px; 
+	}
+
+	.two_third 
+	{ 
+		width: 555px; 
+	}
+
+	.one_quarter 
+	{ 
+		width: 185px; 
+	}
+	
+	.wrapper 
+	{
+		width: 700px;
+	}
+}
+
+/** 
+ * Large browser 
+ */
+@media only screen and (min-width: 1600px) {
+	
+	nav .selector 
+	{
+		display: none;
+	}
+	
+	nav#mainnav ul 
+	{ 
+		display: inherit; 
+	}
+	
+	.one_full 
+	{ 
+		width: 700px; 
+	}
+
+	.one_half 
+	{ 
+		width: 487px; 
+	}
+
+	.one_third 
+	{ 
+		width: 315px; 
+	}
+
+	.two_third 
+	{ 
+		width: 655px; 
+	}
+
+	.one_quarter 
+	{ 
+		width: 230px; 
+	}
+	
+	.wrapper 
+	{
+		width: 700px;
+	}
+}
