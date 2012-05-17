@@ -44,7 +44,7 @@
 	?>
 </head>
 
-<body id="top">
+<body class="login noise" id="top">
 
 	<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6 -->
 	<!--[if lt IE 7]>

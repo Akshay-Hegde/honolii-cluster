@@ -7,10 +7,12 @@
  */
 
 
-body
-{
-	background: url(../../img/workless/bg_noise.jpg) repeat;
-}
+/**
+ * Workless overrides
+ */
+
+
+
 /**
  * Login
  */
@@ -491,6 +493,6 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 700px;
+		width: 1000px;
 	}
 }
