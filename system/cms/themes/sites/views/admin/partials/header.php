@@ -1,5 +1,3 @@
 		<header id="main">
-			<div id="logo">
-				<h1><a href="sites"><?php echo lang('site.sites'); ?></a></h1>
-			</div>
+			<a class="button small flat orange" href="sites"><?php echo lang('site.sites'); ?></a>
 		</header>

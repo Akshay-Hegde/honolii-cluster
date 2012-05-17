@@ -10,6 +10,10 @@
 /**
  * Workless overrides
  */
+body.pyro
+{
+	background: #D9D2D2;
+}
 
 
 
@@ -172,6 +176,210 @@ body.login ul
 }
 
 
+
+/*
+ * Topbar
+ */
+.topbar 
+{
+	height: 50px;
+}
+
+header#main 
+{
+	margin: 8px 8px 0 8px;
+	padding: 0;
+	float: left;
+}
+
+header#main a 
+{
+	font-size: 12px;
+	color: #ffffff;
+}
+
+
+
+/*
+ * Navigation
+ */
+nav#primary
+{
+	float: right;
+	margin-right: -25px;
+}
+
+nav#primary select
+{
+	float: right;
+	margin-top: 15px;
+}
+
+
+
+/*
+ * Subbar
+ */
+.subbar 
+{
+	position: absolute;
+	z-index: 9997;
+	top: 25px!important;
+	right: 0;
+	left: 0;
+	height: 30px;
+	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	padding: 15px 15px 13px 0;
+  	margin-top: 15px;
+  	border-top-right-radius: 5px;
+  	-moz-border-radius-topright: 5px; 	
+  	-webkit-border-top-right-radius: 5px;
+  	border-top-left-radius: 5px;
+  	-moz-border-radius-topleft: 5px; 	
+  	-webkit-border-top-left-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+.subbar h2, 
+.subbar h2 a 
+{
+  	color: #555555;
+  	text-shadow: 1px 1px 0 #ffffff;
+	margin: 3px 0 0 0;
+	padding: 0 0 0 5px;
+	float: left;
+	font-size: 20px;
+}
+
+.subbar small 
+{
+	color: #888888;
+	margin: 12px 0 0 0;
+	float: left;
+	text-shadow: 0 1px 1px #ffffff;
+	font-size: 13px;
+	display: none;
+}
+
+
+
+/*
+ * Content
+ */
+#content-body 
+{
+	top: 150px;
+	position: relative;
+}
+
+#content
+{
+	background: #ffffff;
+	width: 100%;
+	min-height: 100px;
+	margin: 0;
+	padding: 16px;
+	float: left;
+	border-bottom-right-radius: 5px;
+  	-moz-border-radius-bottomright: 5px; 	
+  	-webkit-border-bottom-right-radius: 5px;
+  	border-bottom-left-radius: 5px;
+  	-moz-border-radius-bottomleft: 5px; 	
+  	-webkit-border-bottom-left-radius: 5px;
+	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+#content h3 {
+  	width: 100%;
+	min-height: 25px;
+  	background: #f7f7f7;
+  	background-repeat: repeat-x;
+  	background-image: -khtml-gradient(linear, left top, left bottom, from(#f7f7f7), to(#f3f3f3));
+  	background-image: -moz-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -ms-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #f7f7f7), color-stop(100%, #f3f3f3));
+  	background-image: -webkit-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: -o-linear-gradient(#f7f7f7, #f3f3f3);
+  	background-image: linear-gradient(#f7f7f7, #f3f3f3);
+  	border: 1px solid #ffffff;
+  	border-bottom: 1px solid #eeeeee;
+  	padding: 0 15px 0 15px;
+  	margin-top: -20px;
+	margin-left: -16px;
+  	border-top-right-radius: 5px;
+  	-moz-border-radius-topright: 5px; 	
+  	-webkit-border-top-right-radius: 5px;
+  	border-top-left-radius: 5px;
+  	-moz-border-radius-topleft: 5px; 	
+  	-webkit-border-top-left-radius: 5px;
+  	box-shadow: 0px 0px 1px #aaaaaa;
+  	-moz-box-shadow: 0px 0px 1px #aaaaaa;
+  	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
+}
+
+#content td .button
+{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	box-shadow: none;
+	text-shadow: none;
+}
+
+#content td a
+{
+	color: #ff5c00;
+	font-size: 12px;
+}
+
+#content td a:hover
+{
+	color: #333333;
+}
+
+
+
+/*
+ * Footer
+ */
+footer
+{
+	width: 100%;
+	background: #262626;
+	color: #cccccc;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.8);
+	font-size: 12px;
+	height: 25px;
+	padding: 35px 0 25px 0;
+	border-top: 1px solid #ffffff;
+	position: absolute;
+	bottom: 0;
+}
+
+#lang-select
+{
+	float: right;
+	margin-top: -10px;
+	margin-right: -35px;
+}
+
+
+
 /** Responsive @media queries for responsive design.
  * Ensure this is included after all your other CSS.
  */
@@ -181,12 +389,12 @@ body.login ul
 /** 
  * Mobile
  */
-nav .selector 
+nav#primary select
 {
 	display: inherit;
 }
 
-nav#mainnav ul 
+nav#primary ul 
 { 
 	display: none; 
 }
@@ -226,12 +434,12 @@ nav#mainnav ul
  */
 @media only screen and (min-width: 480px) {
 	
-	nav .selector  
+	nav#primary select
 	{
 		display: inherit;
 	}
-	
-	nav#mainnav ul 
+
+	nav#primary ul 
 	{ 
 		display: none; 
 	}
@@ -263,7 +471,7 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 420px;
+		width: 400px;
 	}
 }
 
@@ -272,12 +480,12 @@ nav#mainnav ul
  */
 @media only screen and (min-width: 640px) {
 	
-	nav .selector  
+	nav#primary select
 	{
 		display: inherit;
 	}
-	
-	nav#mainnav ul 
+
+	nav#primary ul 
 	{ 
 		display: none; 
 	}
@@ -309,7 +517,7 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 650px;
+		width: 500px;
 	}
 }
 
@@ -318,14 +526,14 @@ nav#mainnav ul
  */
 @media only screen and (min-width: 768px) {
 	
-	nav .selector 
+	nav#primary select
 	{
-		display: none;
+		display: inherit;
 	}
-	
-	nav#mainnav ul 
+
+	nav#primary ul 
 	{ 
-		display: inherit; 
+		display: none; 
 	}
 	
 	.one_full 
@@ -355,7 +563,7 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 700px;
+		width: 600px;
 	}
 }
 
@@ -364,12 +572,12 @@ nav#mainnav ul
  */
 @media only screen and (min-width: 1024px) {
 	
-	nav .selector 
+	nav#primary select
 	{
 		display: none;
 	}
 	
-	nav#mainnav ul 
+	nav#primary ul 
 	{ 
 		display: inherit; 
 	}
@@ -401,7 +609,7 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 700px;
+		width: 800px;
 	}
 }
 
@@ -410,12 +618,12 @@ nav#mainnav ul
  */
 @media only screen and (min-width: 1280px) {
 	
-	nav .selector 
+	nav#primary select
 	{
 		display: none;
 	}
 	
-	nav#mainnav ul 
+	nav#primary ul 
 	{ 
 		display: inherit; 
 	}
@@ -447,7 +655,7 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 700px;
+		width: 1000px;
 	}
 }
 
@@ -456,12 +664,12 @@ nav#mainnav ul
  */
 @media only screen and (min-width: 1600px) {
 	
-	nav .selector 
+	nav#primary select
 	{
 		display: none;
 	}
 	
-	nav#mainnav ul 
+	nav#primary ul 
 	{ 
 		display: inherit; 
 	}
@@ -493,6 +701,6 @@ nav#mainnav ul
 	
 	.wrapper 
 	{
-		width: 1000px;
+		width: 1200px;
 	}
 }

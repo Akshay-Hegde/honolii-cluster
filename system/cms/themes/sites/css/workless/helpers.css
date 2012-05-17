@@ -20,6 +20,153 @@
 /* @end Backgrounds */
 
 
+
+/*
+ * Topbar
+ */
+.topbar {
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9998;
+  overflow: visible;
+  background-color: #222222;
+  background-repeat: repeat-x;
+  background-image: -khtml-gradient(linear, left top, left bottom, from(#333333), to(#222222));
+  background-image: -moz-linear-gradient(top, #333333, #222222);
+  background-image: -ms-linear-gradient(top, #333333, #222222);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #333333), color-stop(100%, #222222));
+  background-image: -webkit-linear-gradient(top, #333333, #222222);
+  background-image: -o-linear-gradient(top, #333333, #222222);
+  background-image: linear-gradient(top, #333333, #222222);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+}
+
+.topbar nav {
+	float: left;
+}
+
+.topbar h3 {
+  position: relative;
+}
+
+.topbar ul {
+  display: block;
+  float: left;
+  margin: 0 10px 0 -15px;
+  position: relative;
+  padding-left: 5px!important;
+}
+
+.topbar ul li {
+  float: left;
+  font-size: 13px;
+  position: relative;
+}
+
+.topbar ul li a {
+  display: block;
+  float: none;
+  padding: 15px 10px 15px 10px;
+  line-height: 19px;
+  text-decoration: none;
+  color: #bfbfbf;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.topbar ul li a:hover {
+  background-color: #333333;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.topbar ul li.active a {
+  background-color: #333;
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.topbar ul li.menu {
+  position: relative;
+}
+
+.topbar ul li a.menu:after {
+  width: 0px;
+  height: 0px;
+  display: inline-block;
+  content: "&darr;";
+  text-indent: -99999px;
+  vertical-align: top;
+  margin-top: 8px;
+  margin-left: 4px;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #fff;
+  filter: alpha(opacity=50);
+  -khtml-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+
+.topbar ul li ul {
+  background-color: #333;
+  float: left;
+  display: none;
+  position: absolute;
+  top: 49px;
+  min-width: 160px;
+  max-width: 220px;
+  _width: 160px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0!important;
+  text-align: left;
+  border: 0;
+  zoom: 1;
+  z-index: 1;
+  -webkit-border-radius: 0 0 5px 5px;
+  -moz-border-radius: 0 0 5px 5px;
+  border-radius: 0 0 5px 5px;
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.topbar ul li ul li {
+  float: none;
+  clear: both;
+  display: block;
+  background: none;
+  font-size: 12px;
+  min-width: 160px;
+  max-width: 220px;
+  _width: 160px;
+}
+
+.topbar ul li ul li a {
+  display: block;
+  padding: 6px 15px;
+  clear: both;
+  font-weight: normal;
+  line-height: 19px;
+  color: #bbbbbb;
+}
+
+.topbar ul li ul li a:hover {
+  background-color: #333;
+  margin-left: 0!important;
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+}
+
+
+
 /** 
  * Intro Blocks
  */
