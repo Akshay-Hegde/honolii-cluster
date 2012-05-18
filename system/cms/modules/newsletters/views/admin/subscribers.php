@@ -7,7 +7,7 @@
 	<?php echo form_open('admin/newsletters/subscribers/subscribe', 'class="form_inputs"'); ?>
 		<ul>
 			<li class="<?php echo alternator('even', ''); ?>">
-				<h4><?php echo lang('newsletters.subscribe'); ?></h4>
+				<h4><?php echo lang('newsletters.admin_subscribe'); ?></h4>
 			</li>
 			<li>
 				<label for="email"><?php echo lang('newsletters.email_label');?>:</label>
@@ -25,7 +25,7 @@
 	<?php echo form_open('admin/newsletters/subscribers/unsubscribe', 'class="form_inputs"'); ?>
 		<ul>
 			<li class="<?php echo alternator('even', ''); ?>">
-				<h4><?php echo lang('newsletters.unsubscribe'); ?></h4>
+				<h4><?php echo lang('newsletters.admin_unsubscribe'); ?></h4>
 			</li>
 
 			<li class="<?php echo alternator('even', ''); ?>">
