@@ -18,7 +18,7 @@ class Admin extends Admin_Controller {
 	 */
 	protected $section = 'streams';
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
 
@@ -41,26 +41,28 @@ class Admin extends Admin_Controller {
     /**
      * List streams
      */
-    function index()
+    public function index()
     {
 		// -------------------------------------
 		// Get fields
 		// -------------------------------------
 		
 		$this->data->streams = $this->streams_m->get_streams(
-													$this->config->item('streams:core_namespace'),
-													$this->settings->item('records_per_page'),
-													$this->uri->segment(4));
+			$this->config->item('streams:core_namespace'),
+			Settings::get('records_per_page'),
+			$this->uri->segment(4)
+		);
 
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 
 		$this->data->pagination = create_pagination(
-										'admin/streams/index',
-										$this->streams_m->total_streams(),
-										$this->settings->item('records_per_page'),
-										4);
+			'admin/streams/index',
+			$this->streams_m->total_streams(),
+			Settings::get('records_per_page'),
+			4
+		);
 
 		// -------------------------------------
 		// Build Page
@@ -90,7 +92,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Manage Index
 	 */
-	function manage()
+	public function manage()
 	{
 		role_or_die('streams', 'admin_streams');
 	
@@ -124,7 +126,7 @@ class Admin extends Admin_Controller {
     /**
      * Choose which items to view
      */
- 	function view_options()
+ 	public function view_options()
  	{
 		role_or_die('streams', 'admin_streams');
 
@@ -404,7 +406,7 @@ class Admin extends Admin_Controller {
 		// Get fields
 		// -------------------------------------
 		
-		$this->data->stream_fields = $this->streams_m->get_stream_fields( $this->data->stream_id, $this->settings->item('records_per_page'), $offset );
+		$this->data->stream_fields = $this->streams_m->get_stream_fields( $this->data->stream_id, Settings::get('records_per_page'), $offset );
 
 		// -------------------------------------
 		// Get number of fields total
@@ -428,7 +430,7 @@ class Admin extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 										'admin/streams/assignments/'.$this->data->stream->id,
 										$this->streams_m->total_stream_fields( $this->data->stream_id ),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										5);
 
 		// -------------------------------------
