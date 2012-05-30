@@ -11,11 +11,6 @@ class Newsletters_m extends MY_Model
 {
 	protected $_table = 'newsletters';
 	
-	public function __construct()
-	{
-		parent::__construct();
-	}
-	
 	public function get_newsletters($params = array())
 	{	
 		if(isset($params['order'])) $this->db->order_by($params['order']);
@@ -186,10 +181,10 @@ class Newsletters_m extends MY_Model
 		
 			$this->email->clear();
 		
-			$this->email->from($this->settings->item('newsletter_from'));
-			$this->email->reply_to($this->settings->item('newsletter_reply_to'));
+			$this->email->from(Settings::get('newsletter_from'));
+			$this->email->reply_to(Settings::get('newsletter_reply_to'));
 			$this->email->to($data->recipient->email);
-			$this->email->subject($data->newsletter->title .' | '.$this->settings->item('site_name') .' '.lang('newsletters.subject_suffix'));
+			$this->email->subject($data->newsletter->title .' | '.Settings::get('site_name') .' '.lang('newsletters.subject_suffix'));
 			$this->email->message($body);
 
 			if( ! $this->email->send() )
