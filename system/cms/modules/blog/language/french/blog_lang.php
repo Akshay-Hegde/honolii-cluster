@@ -1,7 +1,7 @@
 <?php
 
 // labels
-$lang['blog_posted_label'] 							= 'Envoyé vers';
+$lang['blog_posted_label'] 							= 'Posté le';
 $lang['blog_posted_label_alt']						= 'Envoyé à';
 $lang['blog_written_by_label']				= 'Écrit par';
 $lang['blog_author_unknown']				= 'Inconnu';
@@ -15,8 +15,6 @@ $lang['blog_time_label'] 							= 'Heure';
 $lang['blog_status_label'] 							= 'Statut';
 $lang['blog_content_label'] 						= 'Contenu';
 $lang['blog_options_label'] 						= 'Options';
-$lang['blog_title_label'] 							= 'Titre';
-$lang['blog_slug_label'] 							= 'URL';
 $lang['blog_intro_label'] 							= 'Introduction';
 $lang['blog_draft_label'] 							= 'Brouillon';
 $lang['blog_live_label'] 							= 'Live';

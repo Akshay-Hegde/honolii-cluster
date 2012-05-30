@@ -258,7 +258,15 @@ class Widgets {
 
 		$output = '';
 
-		$view = 'widget_wrapper';
+		if ($area == 'dashboard')
+		{
+			$view = 'admin/widget_wrapper';
+		}
+		else
+		{
+			$view = 'widget_wrapper';
+		}
+
 		$path = $this->template->get_views_path() . 'modules/widgets/';
 
 		if ( ! file_exists($path . $view . EXT))
@@ -412,7 +420,7 @@ class Widgets {
 //		$_POST = $options;
 
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('title', lang('title_label'), 'trim|required|max_length[100]');
+		$this->form_validation->set_rules('title', lang('global:title'), 'trim|required|max_length[100]');
 
 		$this->_widget OR $this->_spawn_widget($name);
 

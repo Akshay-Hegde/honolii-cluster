@@ -1,6 +1,11 @@
 <?php if (isset($category->title)): ?>
 	<h2 id="page_title"><?php echo $category->title; ?></h2>
+
+<?php elseif (isset($tag)): ?>
+	<h2 id="page_title"><?php echo lang('blog_tagged_label').': '.$tag; ?></h2>
+
 <?php endif; ?>
+
 
 <?php if (!empty($blog)): ?>
 <?php foreach ($blog as $post): ?>
@@ -14,10 +19,12 @@
 				<?php echo lang('blog_category_label');?>: <?php echo anchor('blog/category/'.$post->category_slug, $post->category_title);?>
 			</p>
 			<?php endif; ?>
-			<?php if($post->keywords): ?>
+			<?php if ($post->keywords): ?>
 			<p class="post_keywords">
 				<?php echo lang('blog_tagged_label');?>:
-				<?php echo $post->keywords; ?>
+				<?php foreach ($post->keywords as $keyword): ?>
+					<?php echo anchor('blog/tagged/'.$keyword->name, $keyword->name, 'class="keyword"') ?>
+				<?php endforeach; ?>
 			</p>
 			<?php endif; ?>
 		</div>

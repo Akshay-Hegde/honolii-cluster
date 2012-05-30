@@ -222,7 +222,7 @@ class Fields
 					
 					if ($plugin AND (isset($extra['email_notifications']) AND is_array($extra['email_notifications'])))
 					{
-						foreach($data->email_notifications as $notify)
+						foreach($extra['email_notifications'] as $notify)
 						{
 							$this->send_email($notify, $result_id, $method = 'update', $stream);
 						}
@@ -719,7 +719,7 @@ class Fields
 		else
 		{
 			// Hmm. No from address. We'll just use the site setting.
-			$this->CI->email->from($this->CI->settings->item('server_email'), $this->CI->settings->item('site_name'));
+			$this->CI->email->from($this->CI->settings->get('server_email'), $this->CI->settings->get('site_name'));
 		}
 
 		// -------------------------------------

@@ -132,6 +132,16 @@ class Fields_m extends CI_Model {
 	 */
 	public function insert_field($field_name, $field_slug, $field_type, $field_namespace, $extra = array(), $locked = 'no')
 	{
+		if ( ! $locked)
+		{
+			$locked = 'no';
+		}
+
+		if ($locked != 'yes' and $locked != 'no')
+		{
+			$locked = 'no';
+		}
+
 		$insert_data = array(
 			'field_name' 		=> $field_name,
 			'field_slug'		=> $field_slug,
@@ -356,15 +366,16 @@ class Fields_m extends CI_Model {
 					$view_options 		= array();
 				}
 			}
-		}
 
-		// Run though alt rename column routines
-		foreach ($assignments as $assignment)
-		{
-			if (method_exists($type, 'alt_rename_column'))
+			// Run though alt rename column routines. Needs to be done
+			// after the above loop through assignments.
+			foreach ($assignments as $assignment)
 			{
-				// We run a different function for alt_process
-				$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+				if (method_exists($type, 'alt_rename_column'))
+				{
+					// We run a different function for alt_process
+					$type->alt_rename_column($field, $this->streams_m->get_stream($assignment->stream_slug), $assignment);
+				}
 			}
 		}
 
@@ -379,15 +390,29 @@ class Fields_m extends CI_Model {
 		if (isset($data['field_slug'])) 		$update_data['field_slug']		= $data['field_slug'];
 		if (isset($data['field_namespace'])) 	$update_data['field_namespace']	= $data['field_namespace'];
 		if (isset($data['field_type']))			$update_data['field_type']		= $data['field_type'];
-		
+
+		if (isset($data['is_locked']))
+		{
+			if ( ! $data['is_locked'])
+			{
+				$data['is_locked'] = 'no';
+			}
+
+			if ($data['is_locked'] != 'yes' and $data['is_locked']!= 'no')
+			{
+				$data['is_locked'] = 'no';
+			}
+		}
+
 		// Gather extra data		
 		if ( ! isset($type->custom_parameters) or $type->custom_parameters == '')
 		{
-			$custom_params = array();
 			$update_data['field_data'] = null;
 		}
 		else
 		{
+			$custom_params = array();
+
 			foreach ($type->custom_parameters as $param)
 			{
 				if (method_exists($type, 'param_'.$param.'_pre_save'))
@@ -400,7 +425,10 @@ class Fields_m extends CI_Model {
 				}
 			}
 
-			$update_data['field_data'] = serialize($custom_params);
+			if ( ! empty($custom_params))
+			{
+				$update_data['field_data'] = serialize($custom_params);
+			}
 		}
 		
 		$this->db->where('id', $field->id);

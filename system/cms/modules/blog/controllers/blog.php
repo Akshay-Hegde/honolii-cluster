@@ -33,7 +33,8 @@ class Blog extends Public_Controller
 
 		foreach ($_blog as &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords);
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		$this->template
@@ -75,7 +76,8 @@ class Blog extends Public_Controller
 
 		foreach ($blog AS &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords);
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		// Build the page
@@ -110,7 +112,8 @@ class Blog extends Public_Controller
 
 		foreach ($_blog AS &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		$this->template
@@ -142,46 +145,34 @@ class Blog extends Public_Controller
 			redirect('blog');
 		}
 
-		// if it uses markdown then display the parsed version
-		if ($post->type == 'markdown')
-		{
-			$post->body = $post->parsed;
-		}
+		$this->_single_view($post);
 
-		// IF this post uses a category, grab it
-		if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
-		{
-			$post->category = $category;
-		}
-
-		// Set some defaults
-		else
-		{
-			$post->category->id = 0;
-			$post->category->slug = '';
-			$post->category->title = '';
-		}
-
-		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
-
-		$this->template->title($post->title, lang('blog_blog_title'))
-			->set_metadata('description', $post->intro)
-			->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
-			->set_breadcrumb(lang('blog_blog_title'), 'blog');
-
-		if ($post->category->id > 0)
-		{
-			$this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
-		}
-
-		$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
-
-		$this->template
-			->set_breadcrumb($post->title)
-			->set('post', $post)
-			->build('view');
 	}
 
+    /**
+     * preview a post
+     *
+     * @param string $hash the preview_hash of post
+     */
+    public function preview($hash = '')
+    {
+        if ( ! $hash or ! $post = $this->blog_m->get_by('preview_hash', $hash))
+        {
+            redirect('blog');
+        }
+
+        if ($post->status == 'live')
+        {
+            redirect('blog/' . date('Y/m',$post->created_on) . '/' . $post->slug);
+        }
+
+        //set index nofollow to attempt to avoid search engine indexing
+        $this->template
+            ->set_metadata('index','nofollow');
+
+        $this->_single_view($post);
+
+    }
 	/**
 	 * @todo Document this.
 	 *
@@ -202,7 +193,8 @@ class Blog extends Public_Controller
 
 		foreach ($blog AS &$post)
 		{
-			$post->keywords = Keywords::get_links($post->keywords, 'blog/tagged');
+			$post->keywords = Keywords::get($post->keywords, 'blog/tagged');
+			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
 		}
 
 		// Set meta description based on post titles
@@ -220,7 +212,7 @@ class Blog extends Public_Controller
 			->set('blog', $blog)
 			->set('tag', $tag)
 			->set('pagination', $pagination)
-			->build('tagged');
+			->build('posts');
 	}
 
 	/**
@@ -253,4 +245,47 @@ class Blog extends Public_Controller
 			'description' => implode(', ', $description)
 		);
 	}
+
+    private function _single_view($post,$build='view')
+    {
+
+        // if it uses markdown then display the parsed version
+        if ($post->type == 'markdown')
+        {
+            $post->body = $post->parsed;
+        }
+
+        // IF this post uses a category, grab it
+        if ($post->category_id && ($category = $this->blog_categories_m->get($post->category_id)))
+        {
+            $post->category = $category;
+        }
+
+        // Set some defaults
+        else
+        {
+            $post->category->id = 0;
+            $post->category->slug = '';
+            $post->category->title = '';
+        }
+
+        $this->session->set_flashdata(array('referrer' => $this->uri->uri_string));
+
+        $this->template->title($post->title, lang('blog_blog_title'))
+            ->set_metadata('description', $post->intro)
+            ->set_metadata('keywords', implode(', ', Keywords::get_array($post->keywords)))
+            ->set_breadcrumb(lang('blog_blog_title'), 'blog');
+
+        if ($post->category->id > 0)
+        {
+            $this->template->set_breadcrumb($post->category->title, 'blog/category/'.$post->category->slug);
+        }
+
+        $post->keywords = Keywords::get($post->keywords);
+
+        $this->template
+            ->set_breadcrumb($post->title)
+            ->set('post', $post)
+            ->build($build);
+    }
 }
