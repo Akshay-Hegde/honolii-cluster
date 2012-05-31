@@ -509,11 +509,12 @@ class Ion_auth_model extends CI_Model
 		// If username is taken, use username1 or username2, etc.
 		if ($this->identity_column != 'username')
 		{
+			$original_username = $username;
 			for($i = 0; $this->username_check($username); $i++)
 			{
 				if($i > 0)
 				{
-					$username .= $i;
+					$username = $original_username.$i;
 				}
 			}
 		}
@@ -847,6 +848,12 @@ class Ion_auth_model extends CI_Model
 		{
 			$identity	= $this->config->item('identity', 'ion_auth');
 			$id			= NULL;
+		}
+		
+		//If no id is available return now to avoid db lookup
+		if ( ! $id)
+		{
+			return FALSE;
 		}
 
 		$this->db->where(sprintf('%s.%s', $this->tables['users'], $identity), $id);

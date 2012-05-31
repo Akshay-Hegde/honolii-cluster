@@ -30,9 +30,10 @@ class Search_m extends CI_Model {
 	 * @param	string - the search type
 	 * @param	string - the stream slug
 	 * @param	string - fields to search (sep by |)
+	 * @param 	string - stream namespace
 	 * @return 	int - cache id
 	 */
-	function perform_search($search_term, $search_type, $stream_slug, $fields)
+	function perform_search($search_term, $search_type, $stream_slug, $fields, $namespace)
 	{
 		// -------------------------------------
 		// Separate our fields
@@ -44,7 +45,7 @@ class Search_m extends CI_Model {
 		// Get Stream Data
 		// -------------------------------------
 		
-		$stream			= $this->CI->streams_m->get_stream($stream_slug, TRUE);
+		$stream			= $this->CI->streams_m->get_stream($stream_slug, true, $namespace);
 		
 		if(!$stream) show_error($stream_slug.' '.lang('streams.not_valid_stream'));
 	
@@ -127,7 +128,8 @@ class Search_m extends CI_Model {
 			'ip_address'		=> $this->CI->input->ip_address(),
 			'total_results'		=> $total->num_rows(),
 			'query_string'		=> base64_encode($query_string),
-			'stream_slug'		=> $stream_slug
+			'stream_slug'		=> $stream_slug,
+			'stream_namespace'	=> $namespace
 		);
 		
 		$this->CI->db->insert(SEARCH_TABLE, $insert_data);
@@ -138,7 +140,7 @@ class Search_m extends CI_Model {
 
 	// --------------------------------------------------------------------------   
 	
-	function get_cache($cache_id)
+	public function get_cache($cache_id)
 	{
 		$this->CI->db->limit(1)->where('search_id', $cache_id);
 		$query = $this->CI->db->get(SEARCH_TABLE);

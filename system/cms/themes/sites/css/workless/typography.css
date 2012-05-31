@@ -1,0 +1,345 @@
+/**
+ * Typography
+ */
+
+* { 
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; 
+	font-weight: normal;
+	line-height: 1.231; 
+	text-rendering: optimizeLegibility; 
+	font-size: 100%; 
+	-webkit-text-size-adjust: 100%; 
+	-ms-text-size-adjust: 100%; 
+	-webkit-font-smoothing: antialiased;
+}
+a 
+{ 
+	color: #ff5c00; 
+	font-weight: inherit; 
+	font-size: inherit; 
+	text-decoration: none; 
+	-webkit-transition: 250ms linear all; 
+	-moz-transition: 250ms linear all; 
+	transition: 250ms linear all; 
+}
+a:hover 
+{ 
+	color: #333333; 
+}
+a:active 
+{ 
+	color: #000000;
+}
+a:focus 
+{ 
+	outline: 0; 
+}
+a:hover, 
+a:active 
+{ 
+	outline: 0; 
+}
+abbr[title] 
+{ 
+	border-bottom: 1px dotted; 
+}
+b, 
+strong 
+{ 
+	color: inherit;
+	font-weight: bold; 
+}
+blockquote { 
+	margin: 0; 
+	padding: 0 0 0 5px; 
+	float: left; 
+}
+blockquote p 
+{ 
+	font-size: 16px; 
+	font-weight: 300; 
+	line-height: 18px; 
+	padding: 25px 0 0 45px; 
+}
+blockquote:before 
+{ 
+	content: '\201C'; 
+	font-size: 76px; 
+	position: absolute; 
+	color: #c7c7c7; 
+}
+
+dfn 
+{ 
+	font-style: italic; 
+}
+hr 
+{ 
+	display: block; 
+	height: 0px; 
+	width: 100%; 
+	border: 0; 
+	border-bottom: 1px solid #ffffff; 
+	border-top: 1px solid #dedede; 
+	margin: 25px 0 25px 0; 
+	padding: 0; 
+	float: left; 
+}
+ins 
+{ 
+	background: #ff9; 
+	color: #333333; 
+	text-decoration: none; 
+}
+mark 
+{ 
+	background: #ff0; 
+	color: #333333; 
+	font-style: italic; 
+	font-weight: bold; 
+}
+address 
+{ 
+	display: block; 
+	line-height: 18px; 
+	margin-bottom: 18px; 
+}
+pre, 
+code, 
+kbd, 
+samp 
+{ 
+	font-family: monospace; 
+}
+code, 
+pre 
+{
+	display: block;
+	overflow: hidden;
+	background: #111111;
+	color: #f8f8f8;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	padding: 10px;
+	border-radius: 2px;
+	white-space: pre; 
+	white-space: pre-wrap; 
+	word-wrap: break-word;
+}
+q 
+{ 
+	quotes: none; 
+}
+q:before, 
+q:after 
+{ 
+	content: ""; 
+	content: none; 
+}
+small 
+{ 
+	font-size: 85%;
+}
+
+/**
+ * Position subscript and superscript 
+ * content without affecting line-height. 
+ */
+sub, 
+sup 
+{ 
+	font-size: 75%; 
+	line-height: 0; 
+	position: relative; 
+	vertical-align: baseline; 
+}
+sup 
+{ 
+	top: -0.5em; 
+}
+sub 
+{ 
+	bottom: -0.25em; 
+}
+
+/** 
+ * Give paragraphs some default styling. 
+ */
+p 
+{ 
+	color: #555555;
+	font-size: 16px;
+	line-height: 1.125em;
+	margin: 0 0 1.125em 0;
+}
+p small 
+{ 
+	color: #666666;
+	font-size: 12px; 
+}
+
+/** 
+ * Give headings some default styling. 
+*/
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6
+{ 
+	color: #555555; 
+	font-weight: normal;
+}
+h1 small, 
+h2 small, 
+h3 small, 
+h4 small, 
+h5 small, 
+h6 small 
+{ 
+	color: #888888;
+	font-weight: normal; 
+}
+/** 
+ * Set individual heading styles 
+*/
+h1
+{ 
+	font-size: 2em;
+	line-height: 1.5em;
+	margin-top: 0.75em; 
+	margin-bottom: 0.7em; 
+}
+h1 small
+{
+	font-size: 0.5em;
+}
+h2
+{ 
+	font-size: 1.375em;
+	line-height: 1.6364em;
+	margin-top: 0.8182em; 
+	margin-bottom: 0.7em; 
+}
+h2 small
+{
+	font-size: 1.125em;
+}
+h3
+{ 
+	font-size: 1.25em; 
+	line-height: 1.8em; 
+	margin-top: 0.9em; 
+	margin-bottom: 0.7em; 
+}
+h3 small
+{
+	font-size: 1em; 
+}
+h4
+{ 
+	font-size: 1.125em; 
+	line-height: 1em; 
+	margin-top: 1em; 
+	margin-bottom: 0.6em; 
+}
+h4 small 
+{
+	font-size: 0.875em; 
+}
+h5
+{ 
+	font-size: 1em; 
+	line-height: 1.125em; 
+	margin-top: 1.125em; 
+	margin-bottom: 0.6em; 
+}
+h5 small 
+{
+	font-size: 0.75em; 
+}
+h6
+{ 
+	font-size: 0.875em; 
+	line-height: 1.2857em; 
+	margin-top: 1.2857em; 
+	margin-bottom: 0.5em; 
+}
+h6 small
+{
+	font-size: 0.75em; 
+}
+
+/**
+ * Lists
+ */
+ul, 
+ol 
+{ 
+	margin: 0 0 15px 0; 
+	padding: 0; 
+}
+ul ul, 
+ul ol, 
+ol ol, 
+ol ul 
+{ 
+	margin-bottom: 0; 
+}
+ul 
+{ 
+	list-style: disc; 
+}
+ol 
+{ 
+	list-style: decimal; 
+}
+li 
+{ 
+	font-size: 1em;
+	line-height: 1.4em;
+}
+dl 
+{ 
+	margin-bottom: 15px; 
+}
+dl dt, 
+dl dd 
+{ 
+	font-size: 1em;
+}
+dl dt 
+{ 
+	font-weight: bold; 
+}
+dl dd 
+{ 
+	margin-left: 9px; 
+}
+ul, ol 
+{ 
+	margin: 0 0 10px 20px; 
+	padding: 0; 
+}
+dd { 
+	margin: 0 0 0 20px; 
+}
+
+/** 
+ * We probably don't want list-styles if it's in a navigation. 
+ */
+nav ul, 
+nav ol, 
+#nav ul, 
+#nav ol, 
+#navigation ul, 
+#navigation ol, 
+.nav 
+{ 
+	list-style: none; 
+	list-style-image: none; 
+	margin: 0; 
+	padding: 0; 
+}
+/* @end Typography */

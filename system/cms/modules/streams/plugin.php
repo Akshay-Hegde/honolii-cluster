@@ -909,7 +909,7 @@ class Plugin_Streams extends Plugin
 		// Process and Output Form Data
 		// -------------------------------------
 	
-		$vars['fields'] = $this->fields->build_form($data->stream, $mode, $row, TRUE, $recaptcha, $skips, $extra);
+		$vars['fields'] = $this->fields->build_form($data->stream, $mode, $row, true, $recaptcha, $skips, $extra);
 
 		// -------------------------------------
 		// Individual Field Access 
@@ -1534,7 +1534,12 @@ class Plugin_Streams extends Plugin
 			$this->load->model('streams/search_m');
 			
 			// Write cache
-			$cache_id = $this->search_m->perform_search($this->input->post('search_term'), $search_type, $stream_slug, $fields);
+			$cache_id = $this->search_m->perform_search(
+				$this->input->post('search_term'),
+				$search_type,
+				$stream_slug,
+				$fields,
+				$this->core_namespace);
 		
 			// Redirect
 			$this->load->helper('url');
@@ -1568,13 +1573,13 @@ class Plugin_Streams extends Plugin
 	 */
 	function search_results()
 	{
-		// Pagination segment is always right after the cache hash segment
-		$pag_segment	= $cache_segment+1;
-
-		$paginate		= $this->streams_attribute('paginate', 'no');
+		$paginate		= $this->streams_attribute('paginate', 'yes');
 		$cache_segment	= $this->streams_attribute('cache_segment', 3);
 		$per_page		= $this->streams_attribute('per_page', 25);
 		$variables		= array();
+
+		// Pagination segment is always right after the cache hash segment
+		$pag_segment	= $cache_segment+1;
 
 		// -------------------------------------
 		// Check for Cached Search Query
@@ -1588,16 +1593,18 @@ class Plugin_Streams extends Plugin
 			show_error(lang('streams.search_not_found'));
 		}
 
-		$this->fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug($cache->stream_slug));
+		$stream = $this->streams_m->get_stream($cache->stream_slug, true, $cache->stream_namespace);
+
+		$this->fields = $this->streams_m->get_stream_fields($stream->id);
 
 		// Easy out for no results
 		if ($cache->total_results == 0)
 		{
 			return array(
 				'no_results' 		=> $this->streams_attribute('no_results', lang('streams.no_results')),
-				'results_exist'		=> FALSE,
+				'results_exist'		=> false,
 				'results'			=> array(),
-				'pagination'		=> NULL,
+				'pagination'		=> null,
 				'search_term' 		=> $this->streams_attribute('search_term', $cache->search_term),
 				'total_results'		=> (string)'0'
 			);		
@@ -1641,7 +1648,7 @@ class Plugin_Streams extends Plugin
 
 		$return['results'] = $this->row_m->format_rows(
 									$this->db->query($query_string)->result_array(),
-									$this->streams_m->get_stream($cache->stream_slug, true));
+									$stream);
 
 		// -------------------------------------
 		// Extra Data

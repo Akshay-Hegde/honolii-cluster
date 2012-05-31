@@ -57,6 +57,12 @@ class Module_Api extends Module
 			return false;
 		}
 
+		// Set the custom view fields for this stream
+		$this->db
+			->set('view_options', serialize(array('id', 'key', 'user_id', 'level', 'created')))
+			->where('stream_name', 'lang:api:api_keys')
+			->update('data_streams');
+
 		// Add some fields
 		$this->streams->fields->add_fields(array(
 			array(

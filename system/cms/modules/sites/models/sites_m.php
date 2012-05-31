@@ -196,13 +196,13 @@ class Sites_m extends MY_Model {
 		$tables = $this->db->list_tables();
 
 		// drop the db record
-		if ($this->delete($id) AND strlen($site->ref) >= 4)
+		if ($this->delete($id) AND strlen($site->ref) > 0)
 		{
 			// now drop the site's own tables
 			foreach ($tables AS $table)
 			{
 				// only delete the table if it starts with our prefix
-				if (strpos($table, $site->ref.'_') === (int) 0)
+				if (strpos($table, $site->ref.'_') === 0)
 				{
 					$this->db->query("DROP TABLE IF EXISTS `".$table."`");
 				}
