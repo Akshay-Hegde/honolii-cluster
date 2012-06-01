@@ -1,11 +1,9 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 /**
  * Navigation Plugin
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Navigation\Plugins
  */
 class Plugin_Navigation extends Plugin
 {
@@ -50,7 +48,7 @@ class Plugin_Navigation extends Plugin
 															//deprecated
 		$link_class		= $this->attribute('link-class', $this->attribute('link_class', ''));
 															//deprecated
-		$more_class		= $this->attribute('more-class', $this->attribute('more_class', ''));
+		$more_class		= $this->attribute('more-class', $this->attribute('more_class', 'has_children'));
 		$current_class	= $this->attribute('class', 'current');
 		$first_class	= $this->attribute('first-class', 'first');
 		$last_class		= $this->attribute('last-class', 'last');

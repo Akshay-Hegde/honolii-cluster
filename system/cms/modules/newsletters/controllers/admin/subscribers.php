@@ -44,8 +44,8 @@ class Subscribers extends Admin_Controller
 		
 		$this->template->title($this->module_details['name'], lang('newsletters.subscribers'))
 						->set('active_section', 'subscribers')
-						->append_metadata(js('functions.js', 'newsletters'))
-						->append_metadata(css('admin.css', 'newsletters'))
+						->append_js('module::functions.js')
+						->append_css('module::admin.css')
 						->build('admin/subscribers', $data);
 	}
 	

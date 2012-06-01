@@ -6,7 +6,7 @@
 	
 <?php if (!empty($newsletters)): ?>
 	<p class="newsletter-messages">
-	  <span class="sending" ><?php echo image('loading.gif', 'newsletters', array('alt' => 'sending')); ?>
+	  <span class="sending" ><?php echo Asset::img('module::loading.gif', 'alt="sending"'); ?>
 							 <?php echo lang('newsletters.sending'); ?>
 							 <br />
 	  </span>

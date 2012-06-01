@@ -1,4 +1,4 @@
-PyroStreams v2.1.3
+PyroStreams v2.2-dev
 =====================
 by Parse19
 www.parse19.com

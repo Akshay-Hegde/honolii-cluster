@@ -10,7 +10,7 @@
 			<label for="template_list"><?php echo lang('newsletters.template_select');?></label>
 			<div class="input">
 				<?php echo form_dropdown('template_list', $template_list, '', 'class = "select_edit"'); ?>
-				<?php echo image('loading.gif', 'newsletters', array('id' => 'template-loading', 'alt' => 'loading template')); ?>
+				<?php echo Asset::img('module::loading.gif', 'loading template', array('id' => 'template-loading')); ?>
 			</div>
 		</li>
 		

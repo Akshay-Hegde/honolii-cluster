@@ -24,6 +24,11 @@
 		</li>
 
 		<li>
+			<label for="stream_slug"><?php echo lang('streams:stream_prefix'); ?></label>
+			<div class="input"><?php echo form_input('stream_prefix', $stream->stream_prefix, 'maxlength="60" id="stream_prefix"'); ?></div>
+		</li>
+
+		<li>
 			<label for="about"><?php echo lang('streams.about_stream'); ?></label>
 			<div class="input"><?php echo form_input('about', $stream->about, 'maxlength="255"'); ?></div>
 		</li>

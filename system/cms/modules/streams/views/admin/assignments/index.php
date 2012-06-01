@@ -17,7 +17,7 @@
 		<tbody>		
 		<?php foreach ($stream_fields as $stream_field):?>
 			<tr>
-				<td width="30" class="handle"><?php echo image('icons/drag_handle.gif'); ?></td>
+				<td width="30" class="handle"><?php echo Asset::img('icons/drag_handle.gif', 'Drag Handle'); ?></td>
 				<td>
 					<input type="hidden" name="action_to[]" value="<?php echo $stream_field->assign_id;?>" />
 					<?php echo $stream_field->field_name; ?></td>
