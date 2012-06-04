@@ -1,13 +1,3 @@
-
-<?php echo css('admin/style.css'); ?>
-<?php echo css('jquery/jquery-ui.css'); ?>
-<?php echo css('jquery/colorbox.css'); ?>
-<?php echo js('jquery/jquery-ui.min.js'); ?>
-<?php echo js('jquery/jquery.colorbox.min.js'); ?>
-<?php echo js('jquery/jquery.livequery.min.js'); ?>
-<?php echo js('jquery/jquery.uniform.min.js'); ?>
-<?php echo js('admin/functions.js'); ?>
-
 <script type="text/javascript">
 	var APPPATH_URI			= "<?php echo APPPATH_URI;?>";
 	var SITE_URL			= "<?php echo rtrim(site_url(), '/').'/';?>";
@@ -17,7 +7,29 @@
 	var DIALOG_MESSAGE		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri			= "<?php echo BASE_URI; ?>";
-	jQuery.noConflict();
 </script>
+
+<?php
+
+Asset::css(array(
+	'admin/style.css',
+	'jquery/jquery-ui.css',
+	'jquery/colorbox.css',
+));
+
+Asset::js('jquery/jquery.js');
+Asset::js_inline('jQuery.noConflict();');
+
+Asset::js(array(
+	'jquery/jquery-ui.min.js',
+	'jquery/jquery.colorbox.min.js',
+	'jquery/jquery.livequery.min.js',
+	'jquery/jquery.uniform.min.js',
+	'admin/functions.js',
+));
+
+echo Asset::render();
+
+?>
 
 <?php echo $template['metadata']; ?>

@@ -2,10 +2,9 @@
 /**
  * Group model
  *
- * @author Phil Sturgeon - PyroCMS Dev Team
- * @package PyroCMS
- * @subpackage Groups module
- * @category Modules
+ * @author		Phil Sturgeon
+ * @author		PyroCMS Dev Team
+ * @package		PyroCMS\Core\Modules\Groups\Models
  *
  */
 class Group_m extends MY_Model
@@ -80,8 +79,8 @@ class Group_m extends MY_Model
 	public function insert($input = array())
 	{
 		return parent::insert(array(
-			'name'			=> $input['name'],
-			'description'	=> $input['description']
+			'name'			        => $input['name'],
+			'description'	        => $input['description'],
 		));
 	}
 
@@ -96,8 +95,8 @@ class Group_m extends MY_Model
 	public function update($id = 0, $input = array())
 	{
 		return parent::update($id, array(
-			'name'			=> $input['name'],
-			'description'	=> $input['description']
+			'name'					=> $input['name'],
+			'description'			=> $input['description'],
 		));
 	}
 

@@ -4,11 +4,9 @@
  * Contact Plugin
  *
  * Build and send contact forms
- *
- * @package		PyroCMS
+ * 
  * @author		PyroCMS Dev Team
- * @copyright	Copyright (c) 2008 - 2011, PyroCMS
- *
+ * @package		PyroCMS\Core\Modules\Contact\Plugins
  */
 class Plugin_Contact extends Plugin {
 
@@ -95,7 +93,6 @@ class Plugin_Contact extends Plugin {
 		$max_size	= $this->attribute('max-size', 10000);
 		$redirect	= $this->attribute('success-redirect', FALSE);
 		$action		= $this->attribute('action', current_url());
-		$multi 		= $this->attribute('multi',FALSE);
 		$form_meta 	= array();
 		$validation	= array();
 		$output		= array();
@@ -111,8 +108,7 @@ class Plugin_Contact extends Plugin {
 			  $field_list['reply-to'],
 			  $field_list['max-size'],
 			  $field_list['redirect'],
-			  $field_list['action'],
-			  $field_list['multi']
+			  $field_list['action']
 			  );
 
 		foreach ($field_list AS $field => $rules)
@@ -191,6 +187,14 @@ class Plugin_Contact extends Plugin {
 					$form_meta[$field]['config']['allowed_types'] = implode('|', $config);
 					$form_meta[$field]['config']['max_size'] = $max_size;
 					$form_meta[$field]['config']['upload_path'] = UPLOAD_PATH.'contact_attachments';
+				break;	
+				
+				case 'hidden':
+					$form_meta[$field]['type'] = 'hidden';
+					$value = preg_split('/=/',$rule_array[1]);
+					$value = $value[1];
+					$form_meta[$field]['value'] = $value;
+					
 				break;					
 			}
 
@@ -201,7 +205,6 @@ class Plugin_Contact extends Plugin {
 
 		$this->form_validation->set_rules($validation);
 
-		
 		if ($this->form_validation->run())
 		{
 			// maybe it's a bot?
@@ -212,24 +215,6 @@ class Plugin_Contact extends Plugin {
 			}
 
 			$data = $this->input->post();
-			
-			// Setup up multi
-			if ($multi)
-			{
-				$multi_array = explode('|', $multi);
-				switch($form_meta[$multi_array[0]]['type'])
-				{
-					case 'input':
-						$to = $data[$multi_array[0]];
-					break;
-					case 'dropdown':
-						$to_value = $data[$multi_array[0]];
-						$to_array = $form_meta[$multi_array[0]]['dropdown'];
-						$multi_key = array_search($to_value, array_keys($to_array));
-						$to = $multi_array[$multi_key+1];
-					break;
-				}
-			}
 
 			// Add in some extra details about the visitor
 			$data['sender_agent']	= $this->agent->browser() . ' ' . $this->agent->version();
@@ -335,6 +320,14 @@ class Plugin_Contact extends Plugin {
 														$form_meta[$form]['dropdown'],
 														set_value($form),
 														'id="contact_'.$form.'" class="'.$form.'"'
+													 );
+			}
+			elseif($value['type'] == 'hidden')
+			{
+				$parse_data[$form] .= call_user_func('form_'.$value['type'],
+														$form,
+														$value['value'],
+														'class="'.$form.'"'
 													 );
 			}
 			else

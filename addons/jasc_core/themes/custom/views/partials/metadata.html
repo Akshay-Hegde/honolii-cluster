@@ -14,11 +14,11 @@
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{{ theme:favicon file="favicon.ico" base="url" }}
+{{ theme:favicon }}
 <base href="{{ url:base }}" />
 <title>{{template:title}} | {{settings:site_name}}</title>
 <!-- CSS Stylesheets -->
-{{ theme:css file="//fonts.googleapis.com/css?family=Puritan:700" }}
+<link href="//fonts.googleapis.com/css?family=Puritan:700" type="text/css" rel="stylesheet">
 <link rel="stylesheet" href="/{{theme:path}}/css/build.css" />
 {{theme:css file="print.css" media="print"}}
 <!-- GA Tracking -->

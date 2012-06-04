@@ -38,7 +38,7 @@
 		
 		<li>
 			<label for="field_type"><?php echo lang('streams.label.field_type'); ?> <span>*</span></label>
-			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'data-placeholder="'.lang('streams.choose_a_field_type').'" id="field_type" onchange="add_field_parameters(\''.site_url($ajax_url).'\');"'); ?></div>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'data-placeholder="'.lang('streams.choose_a_field_type').'" id="field_type" onchange="add_field_parameters();"'); ?></div>
 		</li>
 	
 		<div id="parameters">
@@ -63,8 +63,20 @@
 				
 					$call = 'param_'.$param;
 					
-					$data['input'] 			= $current_type->$call($value);
-					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);				
+					$input = $current_type->$call($value);
+
+					if (is_array($input))
+					{
+						$data['input'] 			= $input['input'];
+						$data['instructions']	= $input['instructions'];
+					}
+					else
+					{
+						$data['input'] 			= $input;
+						$data['instructions']	= null;
+					}
+
+					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
 					
 				else:
 		
@@ -75,7 +87,7 @@
 				
 				$data['input_slug']		= $param;
 					
-				echo $this->load->view('admin/ajax/extra_field', $data, TRUE);
+				echo $this->load->view('streams_core/extra_field', $data, TRUE);
 				
 				$data['count']++;
 				unset($value);

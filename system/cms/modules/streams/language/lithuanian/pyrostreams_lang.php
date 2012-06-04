@@ -28,6 +28,7 @@ $lang['streams.new_entry_error']						= "Kilo kliučių pridedant įrašą.";
 $lang['streams.new_entry_success']						= "Įrašas pridėtas sėkmingai.";
 $lang['streams.edit_entry_error']						= "Kilo kliučių naujinant įrašą.";
 $lang['streams.edit_entry_success']						= "Įrašas sėkmingai atnaujintas.";
+
 $lang['streams.delete_summary']							= "Ar jūs esate tikri, kad norite pašalinti <strong>%s</strong> srautą? Bus <strong>ištrinta %s %s</strong> negrįžtamai.";
 
 /* Misc Errors */

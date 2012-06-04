@@ -2,16 +2,44 @@
 
 require APPPATH."libraries/MX/Controller.php";
 
-// Code here is run before ALL controllers
-class MY_Controller extends MX_Controller {
-
-	// Deprecated: No longer used globally
+/**
+ * Code here is run before ALL controllers
+ * 
+ * @package PyroCMS\Core\Controllers 
+ */
+class MY_Controller extends MX_Controller
+{
+	/**
+	 * No longer used globally
+	 * 
+	 * @deprecated remove in 2.2
+	 */
 	protected $data;
-	
+
+	/**
+	 * The name of the module that this controller instance actually belongs to.
+	 *
+	 * @var string 
+	 */
 	public $module;
+
+	/**
+	 * The name of the controller class for the current class instance.
+	 *
+	 * @var string
+	 */
 	public $controller;
+
+	/**
+	 * The name of the method for the current request.
+	 *
+	 * @var string 
+	 */
 	public $method;
 
+	/**
+	 * Load and set data for some common used libraries.
+	 */
 	public function __construct()
 	{
 		parent::__construct();
@@ -21,39 +49,10 @@ class MY_Controller extends MX_Controller {
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this new site.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
 		}
 		
-		// TODO: Remove this in v2.1.0 as it just renames tables for v2.0.0
-		if ($this->db->table_exists(SITE_REF.'_schema_version'))
-		{	
-			$this->load->dbforge();
-			if ($this->db->table_exists(SITE_REF.'_migrations'))
-			{
-				$this->dbforge->drop_table(SITE_REF.'_schema_version');
-			}
-			else
-			{
-				$this->dbforge->rename_table(SITE_REF.'_schema_version', SITE_REF.'_migrations');
-			}
-		}
-		
-		// Upgrading from something old? Erf, try to shoehorn them back on track
-		elseif ($this->db->table_exists('schema_version'))
-		{
-			$this->load->dbforge();
-			$this->dbforge->rename_table('schema_version', 'migrations');
-			
-			// Migration logic helps to make sure PyroCMS is running the latest changes
-			$this->load->library('migration');
-
-			if ( ! ($schema_version = $this->migration->version(28)))
-			{
-				show_error($this->migration->error_string());
-			}
-			redirect(current_url());
-		}
-		
+		// TODO: Work out what the hell this is...? Phil
 		if (defined('STATUS'))
 		{
 			show_error(STATUS);
@@ -100,12 +99,15 @@ class MY_Controller extends MX_Controller {
 			}
 		}
 
+		// What language us being used
 		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
 		$langs = $this->config->item('supported_languages');
 
 		$pyro['lang'] = $langs[CURRENT_LANGUAGE];
 		$pyro['lang']['code'] = CURRENT_LANGUAGE;
+
+		$this->load->vars($pyro);
 
 		// Set php locale time
 		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
@@ -120,11 +122,11 @@ class MY_Controller extends MX_Controller {
 		{
 			$this->config->set_item('language', $langs[CURRENT_LANGUAGE]['folder']);
 			$this->lang->is_loaded = array();
-			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings'));
+			$this->lang->load(array('errors', 'global', 'users/user', 'settings/settings', 'files/files'));
 		}
 		else
 		{
-			$this->lang->load(array('global', 'users/user'));
+			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
 		$this->load->library(array('events', 'users/ion_auth'));
@@ -135,9 +137,7 @@ class MY_Controller extends MX_Controller {
 		// Create a hook point with access to instance but before custom code
 		$this->hooks->_call_hook('post_core_controller_constructor');
 
-		// Load the user model and get user data
-		$this->load->library('users/ion_auth');
-
+		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
 
 		// Work out module, controller and method and make them accessable throught the CI instance
@@ -167,12 +167,15 @@ class MY_Controller extends MX_Controller {
 			$_POST = $this->security->xss_clean($_POST);
 		}
 
-		$this->load->vars($pyro);
-		
+		if ($this->module and isset($this->module_details['path']))
+		{
+			Asset::add_path('module', $this->module_details['path'].'/');
+		}
+
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if (ENVIRONMENT === PYRO_DEVELOPMENT AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
 	    {
 			unset($_GET['_debug']);
 	    	$this->output->enable_profiler(TRUE);
@@ -181,12 +184,11 @@ class MY_Controller extends MX_Controller {
 }
 
 /**
- * Returns the CI object.
+ * Returns the CodeIgniter object.
  *
  * Example: ci()->db->get('table');
  *
- * @staticvar	object	$ci
- * @return		object
+ * @return \CI_Controller
  */
 function ci()
 {

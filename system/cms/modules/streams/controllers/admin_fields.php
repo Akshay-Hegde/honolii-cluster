@@ -28,13 +28,17 @@ class Admin_Fields extends Admin_Controller {
         // pass the test!
 		role_or_die('streams', 'admin_fields');
 
-  		$this->load->config('streams/streams');
-  		$this->lang->load('streams/pyrostreams');    
-        $this->load->helper('streams/streams');
-        
-        streams_constants();
-        admin_resources();
-        
+ 		// -------------------------------------
+		// Resources Load
+		// -------------------------------------
+
+		$this->load->config('streams/streams');
+  		$this->load->config('streams_core/streams');
+  		$this->lang->load('streams_core/pyrostreams');    
+		$this->load->library('streams_core/Type');	
+	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
+		$this->load->library('form_validation');
+       
  		$this->data->types = $this->type->types;
 	}
 
@@ -49,7 +53,11 @@ class Admin_Fields extends Admin_Controller {
 		// Get fields
 		// -------------------------------------
 		
-		$this->data->fields = $this->fields_m->get_fields( $this->settings->item('records_per_page'), $this->uri->segment(5) );
+		$this->data->fields = $this->fields_m->get_fields(
+										$this->config->item('streams:core_namespace'),
+										$this->settings->item('records_per_page'),
+										$this->uri->segment(5)
+									);
 
 		// -------------------------------------
 		// Pagination
@@ -57,9 +65,10 @@ class Admin_Fields extends Admin_Controller {
 
 		$this->data->pagination = create_pagination(
 										'admin/streams/fields/index',
-										$this->fields_m->count_fields(),
+										$this->fields_m->count_fields($this->config->item('streams:core_namespace')),
 										$this->settings->item('records_per_page'),
-										5);
+										5
+									);
 
 		// -------------------------------------
 
@@ -77,6 +86,7 @@ class Admin_Fields extends Admin_Controller {
 	
 		// -------------------------------------
 		// Field Type Assets
+		// -------------------------------------
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
@@ -88,7 +98,7 @@ class Admin_Fields extends Admin_Controller {
         $this->data->method = 'new';
         
         //Prep the fields
-		$this->data->field_types = field_types_array(TRUE);
+		$this->data->field_types = $this->type->field_types_array(TRUE);
 
 		// -------------------------------------
 		// Validation & Setup
@@ -97,24 +107,24 @@ class Admin_Fields extends Admin_Controller {
 		// Add in the unique callback
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
 		
-		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
+		$this->form_validation->set_rules($this->fields_m->fields_validation);
 				
-		foreach($this->fields_m->fields_validation as $field):
-	
+		foreach ($this->fields_m->fields_validation as $field)
+		{
 			$this->data->field->{$field['field']} = $this->input->post($field['field']);
-	
-		endforeach;
+		}
 
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( ! $this->fields_m->insert_field(
 								$this->input->post('field_name'),
 								$this->input->post('field_slug'),
 								$this->input->post('field_type'),
+								$this->config->item('streams:core_namespace'),
 								$this->input->post()
 				) ):
 			
@@ -133,9 +143,9 @@ class Admin_Fields extends Admin_Controller {
 		// See if we need our param fields
 		// -------------------------------------
 		
-		if($this->input->post('field_type') and $this->input->post('field_type')!=''):
+		if ($this->input->post('field_type') and $this->input->post('field_type')!=''):
 		
-			if(isset($this->type->types->{$this->input->post('field_type')})):
+			if (isset($this->type->types->{$this->input->post('field_type')})):
 			
 				// Get the type so we can use the custom params
 				$this->data->current_type = $this->type->types->{$this->input->post('field_type')};
@@ -165,8 +175,8 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 		
 		$this->template
-				->append_metadata( js('slug.js', 'streams') )
-				->append_metadata( js('fields.js', 'streams') )
+        		->append_js('module::slug.js')
+        		->append_js('module::fields.js')
 				->build('admin/fields/form', $this->data);
 	}
 
@@ -198,7 +208,7 @@ class Admin_Fields extends Admin_Controller {
 
 		// -------------------------------------
 		
-        $this->template->append_metadata(js('fields.js', 'streams'));
+		$this->template->append_js('module::fields.js');
         
         $this->data->method = 'edit';
  
@@ -209,29 +219,35 @@ class Admin_Fields extends Admin_Controller {
 		// Get the type.
 		// The form has not been submitted, we must use the 
 		// field's current field type
-		if(!isset($_POST['field_type'])):
-		
+		if ( ! isset($_POST['field_type']))
+		{
 			$this->data->current_type = $this->type->types->{$this->data->current_field->field_type};
-			
-		else:
-		
+		}	
+		else
+		{
 			$this->data->current_type = $this->type->types->{$this->input->post('field_type')};
-				
-			// Overwrite items out of post data
-			foreach($this->data->current_type->custom_parameters as $param):
-			
-				$this->data->current_field->field_data[$param] = $this->input->post($param);
-			
-			endforeach;
-			
-		endif;
+
+			if (isset($this->data->current_type->custom_parameters))
+			{		
+				// Overwrite items out of post data
+				foreach ($this->data->current_type->custom_parameters as $param)
+				{
+					$this->data->current_field->field_data[$param] = $this->input->post($param);
+				}
+			}
+		}
 		
+		if ( ! isset($this->data->current_field->field_data))
+		{
+			$this->data->current_field->field_data = array();
+		}
+
  		// Load Paramaters in case we need 'em
 		require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');		
 		$this->data->parameters = new Parameter_fields();
        
         // Prep the fields
-		$this->data->field_types = field_types_array( $this->type->types );
+		$this->data->field_types = $this->type->field_types_array($this->type->types);
 
 		// -------------------------------------
 		// Validation & Setup
@@ -240,7 +256,7 @@ class Admin_Fields extends Admin_Controller {
 		// Add in the unique callback
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$this->data->current_field->field_slug.']';
 		
-		$this->streams_validation->set_rules( $this->fields_m->fields_validation  );
+		$this->form_validation->set_rules( $this->fields_m->fields_validation  );
 				
 		foreach($this->fields_m->fields_validation as $field):
 		
@@ -264,7 +280,7 @@ class Admin_Fields extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->streams_validation->run()):
+		if ($this->form_validation->run()):
 	
 			if( !$this->fields_m->update_field(
 										$this->fields_m->get_field($field_id),
@@ -315,17 +331,4 @@ class Admin_Fields extends Admin_Controller {
 		redirect('admin/streams/fields');
 	}
 
-	// --------------------------------------------------------------------------   
-
-	/**
-	 * Show field types with their
-	 * authors and versions
-	 */	
-	function types()
-	{	
-		$this->template->build('admin/fields/list_types', $this->data);
-	}
-
 }
-
-/* End of file admin_fields.php */
