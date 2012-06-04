@@ -14,11 +14,10 @@
 -->
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-{{ theme:favicon file="favicon.ico" base="url" }}
 <base href="{{ url:base }}" />
 <title>{{template:title}} | {{settings:site_name}}</title>
 <!-- CSS Stylesheets -->
-{{theme:css file="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css"}}
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css"/>
 {{theme:css file="mobile.css"}}
 <!-- Global JS Vars -->
 <script type="text/javascript">
@@ -33,9 +32,9 @@
 	}
 </script>
 <!-- JS Docs -->
-{{theme:js file="http://code.jquery.com/jquery-1.6.4.min.js"}}
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 {{theme:js file="libs/mobile.js"}}
-{{theme:js file="http://code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"}}
+<script src="//code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.js"></script>
 <!-- GA Tracking -->
 <script type="text/javascript">
 var _gaq = _gaq || [];
