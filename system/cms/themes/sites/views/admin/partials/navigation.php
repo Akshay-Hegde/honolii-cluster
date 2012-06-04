@@ -1,4 +1,4 @@
-<nav id="primary">
+<nav id="main-nav">
 	<ul>
 			<li>
 				<?php echo anchor('sites', lang('site.existing_sites'),
@@ -19,12 +19,6 @@
 			<li>
 				<?php echo anchor('sites/users/add', lang('site.add_super_admin'),
 								  ($this->uri->segment(3) == 'add') ? 'class="current last"' : 'class="last"');?>
-			</li>
-			<li>
-				<?php echo anchor('sites/logout', lang('cp_logout_label')); ?>
-			</li>
-			<li>
-				<?php echo anchor('sites/settings', lang('site.settings'), 'class="modal"'); ?>
 			</li>
 	</ul>
 </nav>
