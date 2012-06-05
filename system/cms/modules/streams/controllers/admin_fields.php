@@ -173,6 +173,12 @@ class Admin_Fields extends Admin_Controller {
 		endif;
 
 		// -------------------------------------
+		// Run field setup events
+		// -------------------------------------
+
+		$this->fields->run_field_setup_events();
+
+		// -------------------------------------
 		
 		$this->template
         		->append_js('module::slug.js')

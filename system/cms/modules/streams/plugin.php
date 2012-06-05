@@ -13,43 +13,6 @@ class Plugin_Streams extends Plugin
 {
 
 	/**
-	 * Available entry parameters
-	 * and their defaults.
-	 *
-	 * @access	public
-	 * @var		array
-	 */
-	public $entries_params = array(
-			'stream'			=> null,
-			'limit'				=> null,
-			'offset'			=> 0,
-			'single'			=> 'no',
-			'id'				=> null,
-			'date_by'			=> 'created',
-			'year'				=> null,
-			'month'				=> null,
-			'day'				=> null,
-			'show_upcoming'		=> 'yes',
-			'show_past'			=> 'yes',
-			'restrict_user'		=> 'no',
-			'where'				=> null,
-			'exclude'			=> null,
-			'exclude_by'		=> 'id',
-			'include'			=> null,
-			'include_by'		=> 'id',
-			'disable'			=> null,
-			'order_by'			=> null,
-			'sort'				=> 'asc',
-			'exclude_called'	=> 'no',
-			'paginate'			=> 'no',
-			'pag_segment'		=> 2,
-			'partial'			=> null,
-			'site_ref'			=> SITE_REF
-	);
-
-	// --------------------------------------------------------------------------
-
-	/**
 	 * Pagination config
 	 *
 	 * These are the CI defaults that can be
@@ -112,18 +75,17 @@ class Plugin_Streams extends Plugin
 	 * @return	void
 	 */
 	public function __construct()
-	{	
-		$this->load->language('streams_core/pyrostreams');
+	{
+		$this->load->driver('Streams');
 
-		$this->load->config('streams_core/streams');
- 		$this->load->config('streams/streams');
-       
-		$this->load->library('streams_core/Type');
-	
-		$this->load->model(array('streams_core/row_m', 'streams_core/streams_m', 'streams_core/fields_m'));
-		
+		// Load our PyroStreams-exclusive config
+		$this->load->config('streams/streams');
+
 		// Set our core namespace.
 		$this->core_namespace = $this->config->item('streams:core_namespace');
+
+		// Get our master cycle params/default list form the API
+		$this->entries_params = $this->streams->entries->entries_params;
 	}
 
 	// --------------------------------------------------------------------------
@@ -153,6 +115,7 @@ class Plugin_Streams extends Plugin
 				'segment_5' => $this->uri->segment(5),
 				'segment_6' => $this->uri->segment(6),
 				'segment_7' => $this->uri->segment(7),
+				'current_url' => current_url()
 			);
 						
 			// We can only get the user data if it is available
@@ -182,11 +145,12 @@ class Plugin_Streams extends Plugin
 	 *
 	 * {{ streams:stream_slug }}
 	 *
+	 * @access 	public
 	 * @param	string
 	 * @param	string
 	 * @return	void
 	 */
-	function __call($name, $data)
+	public function __call($name, $data)
 	{
 		$this->entries_params['stream'] = $name;
 
@@ -316,12 +280,12 @@ class Plugin_Streams extends Plugin
 			$return = $return['entries'];
 			$loop = true;
 		}
-		
+
 		// -------------------------------------
 		// Parse Ouput Content
 		// -------------------------------------
 		
-		$return_content = $this->streams_content_parse($this->content(), $return, $params['stream'], $loop);
+		$return_content = $this->streams->parse->parse_tag_content($this->content(), $return, $params['stream'], $this->core_namespace, $loop, $this->fields);
 	
 		// -------------------------------------
 		// Cache End Procedures
@@ -463,6 +427,8 @@ class Plugin_Streams extends Plugin
 	 * Multiple Related Entries
 	 *
 	 * This works with the multiple relationship field
+	 *
+	 * @todo - move this to the multple relationship field itself.
 	 *
 	 * @access	public
 	 * @return	array
@@ -1660,58 +1626,6 @@ class Plugin_Streams extends Plugin
 		$return['search_term'] 		= $cache->search_term;
 		
 		return $this->streams_content_parse($this->content(), $return, $cache->stream_slug);
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Streams content parse
-	 *
-	 * Special content parser for PyroStreams plugin
-	 *
-	 * @access	private
-	 * @param	string - the tag content
-	 * @param	array - the return data
-	 * @param	string - stream slug
-	 * @param 	[bool - whether or not to loop through the results or not]
-	 * @return 	string - the parsed data
-	 */
-	private function streams_content_parse($content, $data, $stream_slug, $loop = false)
-	{
-		// -------------------------------------
-		// Multiple Provision
-		// -------------------------------------
-		// Automatically add in multiple streams data.
-		// This makes it easier to call the multiple function
-		// from within the streams tags
-		// -------------------------------------
-
-		$rep = array('{{ streams:related', '{{streams:related');
-		$content = str_replace($rep, '{{ streams:related stream="'.$stream_slug.'" entry=id ', $content);
-
-		$rep = array('{{ streams:multiple', '{{streams:multiple');
-		$content = str_replace($rep, '{{ streams:multiple stream="'.$stream_slug.'" entry=id ', $content);
-		
-		// -------------------------------------
-		// Parse
-		// -------------------------------------
-
-		$parser = new Lex_Parser();
-		$parser->scope_glue(':');
-
-		if ( ! $loop)
-		{
-			return $parser->parse($content, $data, array($this->parser, 'parser_callback'));
-		}
-
-		$out = '';
-
-		foreach ($data as $item)
-		{
-			$out .= $parser->parse($content, $item, array($this->parser, 'parser_callback'));
-		}
-
-		return $out;
 	}
 
 	// --------------------------------------------------------------------------

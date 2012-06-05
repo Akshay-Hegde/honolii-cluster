@@ -10,6 +10,8 @@
 
 <?php echo form_open(uri_string()); ?>
 
+<input type="hidden" name="fields_current_namespace" id="fields_current_namespace" value="<?php echo $this->config->item('streams:core_namespace');?>" />
+
 <div class="form_inputs">
 
 	<ul>
@@ -28,11 +30,10 @@
 			// We send some special params in an edit situation
 			$ajax_url = 'streams/ajax/build_parameters';	
 		
-			if($this->uri->segment(4) == 'edit'):
-			
+			if ($this->uri->segment(4) == 'edit')
+			{
 				$ajax_url .= '/edit/'.$current_field->id;
-			
-			endif;
+			}
 		
 		?>
 		
