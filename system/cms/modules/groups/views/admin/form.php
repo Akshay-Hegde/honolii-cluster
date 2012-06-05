@@ -19,20 +19,19 @@
 			<div class="input"><?php echo form_input('description', $group->description);?></div>
 		</li>
 		
-		<li class="even">
+		<li>
 			<label for="name"><?php echo lang('groups.short_name');?> <span>*</span></label>
 			
 			<div class="input">
+				<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
+				<?php echo form_input('name', $group->name);?>
 
-			<?php if ( ! in_array($group->name, array('user', 'admin'))): ?>
-			<?php echo form_input('name', $group->name);?>
-
-			<?php else: ?>
-			<p><?php echo $group->name; ?></p>
-			<?php endif; ?>
-			
+				<?php else: ?>
+				<p><?php echo $group->name; ?></p>
+				<?php endif; ?>
 			</div>
 		</li>
+		
     </ul>
 
 </div>

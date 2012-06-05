@@ -84,8 +84,8 @@ class Templates extends Admin_Controller
 		$this->template->title($this->module_details['name'], lang('newsletters.templates'))
 						->set('active_section', 'templates')
 						->append_metadata( $this->load->view('fragments/wysiwyg', $this->data, TRUE) )
-						->append_metadata(js('functions.js', 'newsletters'))
-						->append_metadata(css('admin.css', 'newsletters'))
+						->append_js('module::functions.js')
+						->append_css('module::admin.css')
 						->build('admin/templates', $this->data);
 	}
 	

@@ -23,18 +23,26 @@ class Admin_Entries extends Admin_Controller {
     function __construct()
     {
         parent::__construct();
-                
-  		$this->load->config('streams/streams');
-  		$this->lang->load('streams/pyrostreams');    
-        $this->load->helper('streams/streams');
         
-        streams_constants();
-        admin_resources();
-        
+ 		// -------------------------------------
+		// Resources Load
+		// -------------------------------------
+
+  		$this->load->config('streams_core/streams');
+  		$this->lang->load('streams_core/pyrostreams');    
+		$this->load->library('streams_core/Type');	
+	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
+		$this->load->library('form_validation');
+       
  		$this->data->types = $this->type->types;
  		
+		// -------------------------------------
  		// Gather stream data.
- 		// Each one of our functions requires we are within a stream.
+		// -------------------------------------
+ 		// Each one of our functions requires
+ 		// us to be within a stream.
+		// -------------------------------------
+		
 		$this->data->stream_id = $this->uri->segment(5);
 		
 		if(!$this->data->stream = $this->streams_m->get_stream($this->data->stream_id)):
@@ -42,6 +50,13 @@ class Admin_Entries extends Admin_Controller {
 			show_error(lang('streams.invalid_stream_id'));
 		
 		endif;
+		
+		// -------------------------------------
+ 		// Makes sure stream is in the core
+ 		// namespace
+		// -------------------------------------
+
+		// @todo
 	}
 
 	// --------------------------------------------------------------------------   
@@ -75,11 +90,9 @@ class Admin_Entries extends Admin_Controller {
 			// We need some variables to use in the sort. I guess.
 			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
 		
-			// We want to sort this shit
-		    $this->template->append_metadata( js('entry_sorting.js', 'streams') );
-		    		      
-			// Comeon' Livequery! You're goin' in!
-			$this->template->append_metadata( js('jquery.livequery.js', 'streams') );
+			// These will allow us to sort the entries.
+		   	$this->template->append_js('module::entry_sorting.js');
+		   	$this->template->append_js('module::jquery.livequery.js');
 		
 		endif;
   
@@ -101,7 +114,7 @@ class Admin_Entries extends Admin_Controller {
 
 		$this->data->pagination = create_pagination(
 									$pagination_uri,
-									$this->db->count_all(STR_PRE.$this->data->stream->stream_slug ),
+									$this->db->count_all($this->data->stream->stream_prefix.$this->data->stream->stream_slug ),
 									$this->settings->item('records_per_page'),
 									6);
 
@@ -119,26 +132,33 @@ class Admin_Entries extends Admin_Controller {
 	 */
 	function add()
 	{
-		$this->load->library('streams/Fields');
+		$this->load->library('streams_core/Fields');
+
+		$extra = array(
+			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
+			'success_message' 	=> $this->lang->line('streams.new_entry_success'),
+			'failure_message'	=> $this->lang->line('streams.new_entry_error')
+		);
 		
-		$this->data->success_message 	= $this->lang->line("streams.new_entry_success");
-		$this->data->failure_message 	= $this->lang->line("streams.new_entry_error");
+		$fields = $this->fields->build_form($this->data->stream, 'new', false, false, false, array(), $extra);
 	
-		if( $this->fields->build_form( $this->data, "new" ) === FALSE ):
-        
+		if ($fields === FALSE)
+        {
         	$this->template->build('admin/entries/no_fields', $this->data);
-				
-		endif;
-	}
-
-	// --------------------------------------------------------------------------   
-
-	/**
-	 * Edit an entry
-	 */
-	function edit()
-	{			
-		$this->_edit_row(6);	
+		}		
+		else
+		{
+			$data = array(
+						'fields' 	=> $fields,
+						'stream'	=> $this->data->stream,
+						'mode'		=> 'new');
+						
+			$form = $this->load->view('admin/partials/streams/form', $data, TRUE);
+		
+			$this->data->content = $form;
+					
+			$this->template->build('admin/partials/blank_section', $this->data);
+		}
 	}
 
 	// --------------------------------------------------------------------------   
@@ -149,11 +169,8 @@ class Admin_Entries extends Admin_Controller {
 	 * @access	private
 	 * @param	string
 	 */
-	function _edit_row($row_id_uri)
+	function edit($row_id_uri)
 	{
-		$this->data->success_message 	= $this->lang->line("streams.edit_entry_success");
-		$this->data->failure_message 	= $this->lang->line("streams.edit_entry_error");
-
 		// -------------------------------------
 		// Get Stream Data
 		// -------------------------------------
@@ -166,7 +183,7 @@ class Admin_Entries extends Admin_Controller {
 		// Get Row
 		// -------------------------------------
 		
-		$row_id = $this->uri->segment($row_id_uri);
+		$row_id = $this->uri->segment(6);
 		
 		if(!$row = $this->row_m->get_row($row_id, $this->data->stream, FALSE ) ) show_error(lang('streams.invalid_row'));
 
@@ -174,11 +191,36 @@ class Admin_Entries extends Admin_Controller {
 		// Run Form
 		// -------------------------------------
 
- 		$this->load->library('streams/Fields');
- 		
- 		$this->data->row_edit_id = $row->id;
- 		
-		$this->fields->build_form($this->data, "edit", $row);	
+ 		$this->load->library('streams_core/Fields');
+
+		$extra = array(
+			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
+			'success_message' 	=> $this->lang->line('streams.edit_entry_success'),
+			'failure_message'	=> $this->lang->line('streams.edit_entry_error')
+		);
+		
+		$fields = $this->fields->build_form($this->data->stream, 'edit', $row, false, false, array(), $extra);
+	
+		if ($fields === FALSE)
+        {
+        	// @todo - message about not finding an entry
+        	$this->template->build('admin/entries/no_fields', $this->data);
+		}		
+		else
+		{
+			$data = array(
+						'fields' 	=> $fields,
+						'stream'	=> $this->data->stream,
+						'entry'		=> $row,
+						'mode'		=> 'edit');
+			
+			$form = $this->load->view('admin/partials/streams/form', $data, TRUE);
+		
+			$this->data->content = $form;
+
+			$this->template->build('admin/partials/blank_section', $this->data);
+		}
+
 	}
 
 	// --------------------------------------------------------------------------
@@ -198,10 +240,11 @@ class Admin_Entries extends Admin_Controller {
 		
 		$row_id = $this->uri->segment($row_uri_segment, FALSE);
 		
+		// @todo - languagize
 		if(!$row_id || !is_numeric($row_id)) show_error("Invalid ID");
 		
 		// Get the row
-		$this->data->row = $this->row_m->get_row( $row_id, $this->data->stream );
+		$this->data->row = $this->row_m->get_row($row_id, $this->data->stream);
 				
 		// -------------------------------------
 		// Build Page
@@ -221,19 +264,16 @@ class Admin_Entries extends Admin_Controller {
 	
 		$row_id = $this->uri->segment($row_uri_segment);
 		
-		if( ! $this->streams_m->delete_row( $row_id, $this->data->stream) ):
-
+		if( ! $this->row_m->delete_row($row_id, $this->data->stream))
+		{
 			$this->session->set_flashdata('notice', lang('streams.delete_entry_error'));	
-
-		else:
-
+		}
+		else
+		{
 			$this->session->set_flashdata('success', lang('streams.delete_entry_success'));	
-		
-		endif;
+		}
 
 		redirect('admin/streams/entries/index/'.$this->data->stream_id);
 	}
 
 }
-
-/* end admin_entries.php */

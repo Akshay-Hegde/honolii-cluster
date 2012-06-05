@@ -1,5 +1,5 @@
+<?php if ( ! empty($sites)): ?>
 
-<?php if (!empty($sites)): ?>
 	<h3><?php echo lang('site.sites'); ?></h3>
 
 	<table border="0" class="table-list">

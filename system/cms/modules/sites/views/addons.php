@@ -54,13 +54,13 @@
 							<td class="align-center buttons">
 								<?php if (isset($module['database']['installed']) AND $module['database']['installed'] == '1'): ?>
 									<?php if ($module['database']['enabled']): ?>
-										<?php echo anchor('sites/addons/disable/' . $site->ref . '/module/' . $module['slug'], lang('disable_label'), array('class'=>'button')); ?>
+										<?php echo anchor('sites/addons/disable/' . $site->ref . '/module/' . $module['slug'], lang('global:disable'), array('class'=>'button')); ?>
 									<?php else: ?>
-										<?php echo anchor('sites/addons/enable/' . $site->ref . '/module/' . $module['slug'], lang('enable_label'), array('class'=>'button')); ?>
+										<?php echo anchor('sites/addons/enable/' . $site->ref . '/module/' . $module['slug'], lang('global:enable'), array('class'=>'button')); ?>
 									<?php endif; ?>
 									&nbsp;&nbsp;
 									<?php if ($module['version'] == $module['database']['version']): ?>
-										<?php echo anchor('sites/addons/uninstall/' . $site->ref . '/module/' . $module['slug'], lang('uninstall_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_uninstall'))); ?>
+										<?php echo anchor('sites/addons/uninstall/' . $site->ref . '/module/' . $module['slug'], lang('	'), array('class'=>'confirm button', 'title'=>lang('site.confirm_uninstall'))); ?>
 									<?php else: ?>
 										<?php echo anchor('sites/addons/upgrade/' . $site->ref . '/module/' . $module['slug'], lang('upgrade_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_upgrade'))); ?>
 									<?php endif; ?>
@@ -121,13 +121,13 @@
 							<td class="align-center buttons">
 								<?php if (isset($module['database']['installed']) AND $module['database']['installed'] == '1'): ?>
 									<?php if ($module['database']['enabled']): ?>
-										<?php echo anchor('sites/addons/disable/' . $site->ref . '/module/' . $module['slug'], lang('disable_label'), array('class'=>'button')); ?>
+										<?php echo anchor('sites/addons/disable/' . $site->ref . '/module/' . $module['slug'], lang('global:disable'), array('class'=>'button')); ?>
 									<?php else: ?>
-										<?php echo anchor('sites/addons/enable/' . $site->ref . '/module/' . $module['slug'], lang('enable_label'), array('class'=>'button')); ?>
+										<?php echo anchor('sites/addons/enable/' . $site->ref . '/module/' . $module['slug'], lang('global:enable'), array('class'=>'button')); ?>
 									<?php endif; ?>
 									&nbsp;&nbsp;
 									<?php if ($module['version'] == $module['database']['version']): ?>
-										<?php echo anchor('sites/addons/uninstall/' . $site->ref . '/module/' . $module['slug'] . '/1', lang('uninstall_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_uninstall'))); ?>
+										<?php echo anchor('sites/addons/uninstall/' . $site->ref . '/module/' . $module['slug'] . '/1', lang('global:uninstall'), array('class'=>'confirm button', 'title'=>lang('site.confirm_uninstall'))); ?>
 									<?php else: ?>
 										<?php echo anchor('sites/addons/upgrade/' . $site->ref . '/module/' . $module['slug'] . '/1', lang('upgrade_label'), array('class'=>'confirm button', 'title'=>lang('site.confirm_upgrade'))); ?>
 									<?php endif; ?>
@@ -189,9 +189,9 @@
 							<td class="align-center"><?php echo $widget['version']; ?></td>
 							<td class="align-center buttons">
 								<?php if (isset($widget['database']['enabled']) AND $widget['database']['enabled'] == '1'): ?>
-									<?php echo anchor('sites/addons/disable/' . $site->ref . '/widget/' . $widget['slug'], lang('disable_label'), array('class'=>'button')); ?>
+									<?php echo anchor('sites/addons/disable/' . $site->ref . '/widget/' . $widget['slug'], lang('global:disable'), array('class'=>'button')); ?>
 								<?php else: ?>
-									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'], lang('enable_label'), array('class'=>'button')); ?>
+									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'], lang('global:enable'), array('class'=>'button')); ?>
 								<?php endif; ?>
 								&nbsp;&nbsp;
 								<?php echo anchor('sites/addons/delete/' . $site->ref . '/widget/' . $widget['slug'], lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_delete'))); ?>
@@ -247,9 +247,9 @@
 							<td class="align-center"><?php echo $widget['version']; ?></td>
 							<td class="align-center buttons">
 								<?php if (isset($widget['database']['enabled']) AND $widget['database']['enabled'] == '1'): ?>
-									<?php echo anchor('sites/addons/disable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('disable_label'), array('class'=>'button')); ?>
+									<?php echo anchor('sites/addons/disable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('global:disable'), array('class'=>'button')); ?>
 								<?php else: ?>
-									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('enable_label'), array('class'=>'button')); ?>
+									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('global:enable'), array('class'=>'button')); ?>
 								<?php endif; ?>
 								&nbsp;&nbsp;
 								<?php echo anchor('sites/addons/delete/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('global:delete'), array('class'=>'confirm button', 'title'=>lang('site.confirm_shared_delete'))); ?>

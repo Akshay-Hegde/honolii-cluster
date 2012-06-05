@@ -29,7 +29,7 @@ class Plugin_Less extends Plugin
 		$attributes	= $this->attributes();
 		$module		= $this->attribute('module', '_theme_');
 		$output 	= $this->attribute('output', 'style.css');
-		$base		= $this->attribute('base', '');
+		$base		= $this->attribute('base', 'css');
 		
 		foreach (array('file', 'module', 'base', 'output') as $key)
 		{
@@ -45,9 +45,13 @@ class Plugin_Less extends Plugin
 		
 		try {
 			
-			lessc::ccompile('./'.$this->asset->css_path($file,$module),'./'.$this->asset->css_path($output,$module));
+			$viewsPath = rtrim($this->load->get_var('template_views'), '/');
+			$themePath = preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $viewsPath).'/';
 			
-			return $this->asset->css($output, $module, $attributes, $base);
+			
+			lessc::ccompile(Asset::get_filepath_css($file, false),Asset::get_filepath_css($output, false));
+			
+			return link_tag(Asset::get_filepath_css($output, true), 'stylesheet');
 			
 		} catch (exception $ex) {
 			exit('lessc fatal error:<br />'.$file.','.$module.','.$base.'<br />'.$ex->getMessage());

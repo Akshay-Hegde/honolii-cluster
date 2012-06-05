@@ -2,14 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
 	<title><?php echo lang('site.sites').' - '.lang('login_title');?></title>
 	
 	<base href="<?php echo base_url(); ?>" />
 	
-	<?php echo css('admin/style.css'); ?>
-	<?php echo js('jquery/jquery.js'); ?>
-	<?php echo js('admin/login.js'); ?>
+	<?php 
+	Asset::css('admin/style.css');
+	Asset::js('jquery/jquery.js');
+	Asset::js('admin/login.js');
+	echo Asset::render(); 
+	?>
 	
 	<!-- Place CSS bug fixes for IE 7 in this comment -->
 	<!--[if IE 7]>
@@ -40,13 +42,13 @@
 		<?php echo form_open('sites/login'); ?>
 			<ul>
 				<li>
-					<input type="text" name="email" value="<?php echo lang('email_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('email_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('email_label'); ?>') {this.value = '';}" />
-					<img class="input-email" src="<?php echo image_path('admin/email-icon.png');?>" alt="<?php echo lang('email_label'); ?>" />
+					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
+					<?php echo Asset::img('admin/email-icon.png', lang('email_label'), array('class' => 'input-email')) ?>
 				</li>
 				
 				<li>
-					<input type="password" name="password" value="<?php echo lang('password_label'); ?>" onblur="if (this.value == '') {this.value = '<?php echo lang('password_label'); ?>';}"  onfocus="if (this.value == '<?php echo lang('password_label'); ?>') {this.value = '';}"  />
-					<img class="input-password" src="<?php echo image_path('admin/lock-icon.png');?>" alt="<?php echo lang('password_label'); ?>" />
+					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>" />
+					<?php echo Asset::img('admin/lock-icon.png', lang('password_label'), array('class' => 'input-password')) ?>
 				</li>
 				
 				<li>

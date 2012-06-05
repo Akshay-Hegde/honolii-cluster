@@ -1,13 +1,13 @@
-function add_field_parameters(datasource)
+function add_field_parameters()
 {
-	var data = document.getElementById("field_type").value;
+	var data = $('#field_type').val();
 	
 	jQuery.ajax({
 		dataType: "text",
 		type: "POST",
-		data: 'data='+data,
-		url:  datasource,
-		success: function(returned_html){
+		data: 'data='+data+'&csrf_hash_name='+$.cookie('csrf_cookie_name'),
+		url: SITE_URL+'streams_core/ajax/build_parameters',
+		success: function(returned_html) {
 			jQuery('.streams_param_input').remove();
 			jQuery('.form_inputs > ul').append(returned_html);
 			pyro.chosen();
@@ -15,12 +15,11 @@ function add_field_parameters(datasource)
 	});
 }
 
-jQuery(document).ready(function() {
-
-	$('#field_name').keyup(function() {
-  
- 	 	$('#field_slug').val(slugify($('#field_name').val()));
- 	   
+(function($)
+{
+	$(function() {
+		$('#field_name').keyup(function() {
+ 	 		$('#field_slug').val(slugify($('#field_name').val()));
+		});
 	});
-
-});
+})(jQuery);

@@ -53,7 +53,6 @@
 				<?php echo form_label(lang('user_password'), 'password'); ?>
 				<?php echo form_password('password', set_value('password', $password), 'class="required"'); ?>
 			</li>
-
 		</ol>
 
 	<div class="buttons align-right padding-top">

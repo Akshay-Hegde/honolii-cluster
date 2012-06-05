@@ -133,6 +133,7 @@ class Users extends Sites_Controller
 	{
 		$data = $this->user_m->get($id);
 		$data->password 		= '';
+		$data->confirm_password	= '';
 		
 		// Set the validation rules
 		$this->form_validation->set_rules($this->user_validation_rules);

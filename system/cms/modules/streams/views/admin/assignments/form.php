@@ -1,6 +1,6 @@
 <section class="title">
 <?php if( $method == 'new' ): ?>
-	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.assign_field');?></h4>
+	<h4><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a> &rarr; <?php echo lang('streams.assign_field');?></h4>
 <?php else: ?>
 	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.edit_assign');?></h4>
 <?php endif; ?>
@@ -20,7 +20,7 @@
 		
 		<li>
 			<label for="field_id"><?php echo lang('streams.label.field');?></label>
-			<div class="inputs"><?php
+			<div class="input"><?php
 			
 			if($method == 'edit'):
 			
@@ -37,22 +37,22 @@
 
 		<li>
 			<label for="is_required"><?php echo lang('streams.label.field_required');?></label>
-			<div class="inputs"><?php echo form_checkbox('is_required', 'yes', $values->is_required, 'id="is_required"');?></div>
+			<div class="input"><?php echo form_checkbox('is_required', 'yes', $values->is_required, 'id="is_required"');?></div>
 		</li>
 
 		<li>
 			<label for="is_unique"><?php echo lang('streams.label.field_unique');?></label>
-			<div class="inputs"><?php echo form_checkbox('is_unique', 'yes', $values->is_unique, 'id="is_unique"'); ?></div>
+			<div class="input"><?php echo form_checkbox('is_unique', 'yes', $values->is_unique, 'id="is_unique"'); ?></div>
 		</li>
 
 		<li>
 			<label for="field_instructions"><?php echo lang('streams.label.field_instructions');?><br /><small><?php echo lang('streams.instr.field_instructions');?></small></label>
-			<div class="inputs"><?php echo form_input('instructions', $values->instructions, 'id="field_instructions"');?></div>
+			<div class="input"><?php echo form_textarea('instructions', $values->instructions, 'id="field_instructions"');?></div>
 		</li>
 
 		<li>
 			<label for="title_column"><?php echo lang('streams.label.make_field_title_column');?></label>
-			<div class="inputs"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
+			<div class="input"><?php echo form_checkbox('title_column', 'yes', $title_column_status, 'id="title_column"');?></div>
 		</li>
 			
 	</ul>
