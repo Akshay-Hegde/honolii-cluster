@@ -2,15 +2,7 @@
 	<div class="columns twelve">
 		<div class="slider mod">
 			<div class="bd">
-				{{ streams:cycle stream="slider_home" }}
-				{{ entries }}
-				<div class="slide {{wrapper_class}}" style="background-image:url(/files/large/{{file_id}})">
-				<h1>{{headline}}</h1><br/>
-				<h3>{{subheader}}</h3><br/>
-				<a href="{{target_url}}" class="nice radius large green button">{{cta_text}}</a>
-				</div>
-				{{ /entries }}
-				{{ /streams:cycle }}
+				{{ snippet:mod_slider }}
 			</div>
 			<div class="fd"></div>
 		</div>
