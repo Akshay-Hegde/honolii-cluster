@@ -1,26 +1,24 @@
-PyroCMS Professional License
+PyroCMS "Professional Edition" License
 
 Copyright (c) 2010 - 2012, PyroCMS LLC
 All rights reserved.
 
-This license is a legal agreement between you and PyroCMS LLC, for the use of PyroCMS Professional (the "Software"). By obtaining the Software you agree to be bound by the terms and conditions of this license. PyroCMS LLC reserves the right to alter this agreement at any time, for any reason, without notice.
+This license is a legal agreement between you and PyroCMS LLC, for the use of PyroCMS Software (the "Software"). By obtaining the Software you agree to be bound by the terms and conditions of this license. PyroCMS LLC reserves the right to alter this agreement at any time, for any reason, without notice.
 
 Permitted Use
 
 You are permitted to use, copy, modify, and distribute the Software with or without modification, for any purpose, provided that the following conditions are met:
 
-    Copies of the Software may only be installed once on a production server for each license paid for. Development and testing copies for internal use may be used without purchasing additional licenses. Production websites created from the Multi-Site Manager interface do not require additional licenses as long as they run on the original installation of the Software.
-    Redistributions of source code must retain the above copyright notice in all source code files.
+    A copy of this license agreement must be included with the distribution.
+    Redistributions of source code must retain the above copyright notice in all source code files that originally contained it.
     Redistributions in binary form must reproduce the above copyright notice in the documentation and/or other materials provided with the distribution.
+    Any files within the Software itself that have been modified must carry notices stating the nature of the change and the names of those who changed them.
+    Products derived from the Software must include an acknowledgment that they are derived from PyroCMS in their documentation and/or other materials provided with the distribution.
     Products derived from the Software may not be called "PyroCMS", nor may "PyroCMS" appear in their name, without prior written permission from PyroCMS LLC.
-
-Making Copies
-
-You may make copies of the Software for back-up purposes, provided that you reproduce the Software in its original form and with all copyright information, attribution and proprietary notices remaining intact within the files of the back-up copy.
 
 Display of Copyright Notices
 
-Copyright information, attribution, proprietary notices and logos which are displayed to the browser (such as in the Control Panel) section may be removed. All notices within the Software source-code and LICENSE file must remain intact.
+All copyright information, attribution, proprietary notices and logos within the footer of the Administration section and within the Software files themselves must remain intact.
 
 Indemnity
 
@@ -33,5 +31,3 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESSED OR IMP
 Limitations Of Liability
 
 YOU ASSUME ALL RISK ASSOCIATED WITH THE INSTALLATION AND USE OF THE SOFTWARE. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS OF THE SOFTWARE BE LIABLE FOR CLAIMS, DAMAGES OR OTHER LIABILITY ARISING FROM, OUT OF, OR IN CONNECTION WITH THE SOFTWARE. LICENSE HOLDERS ARE SOLELY RESPONSIBLE FOR DETERMINING THE APPROPRIATENESS OF USE AND ASSUME ALL RISKS ASSOCIATED WITH ITS USE, INCLUDING BUT NOT LIMITED TO THE RISKS OF PROGRAM ERRORS, DAMAGE TO EQUIPMENT, LOSS OF DATA OR SOFTWARE PROGRAMS, OR UNAVAILABILITY OR INTERRUPTION OF OPERATIONS.
-
-Last revised: Monday 4th June 2012
