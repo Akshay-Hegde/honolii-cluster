@@ -116,29 +116,15 @@ img.right {padding-left:18px;}
 
 .mod.slider { height:310px; border:solid 20px rgba(255,255,255,0.5); position:relative; overflow:hidden; box-shadow:0 0 2px rgba(0,0,0,.3)}
 .slider .bd {position:absolute; width:9000px; background:url(../img/ajax-loader.gif) no-repeat 10px 10px #FFF;}
-.slider .bd .slide { float:left; width:940px; height:260px; padding-top:50px; text-align:right; cursor:default;}
+.slider .bd .slide { float:none; width:940px; height:260px; padding-top:50px; text-align:right; cursor:default;}
 .slider .bd .slide  h1,.mod.slider .bd .slide  h3 { padding:10px; color:#fff; margin:0; display:inline-block;}
 .slider .bd .slide  h1 { background:rgba(0,0,0,.8)}
 .slider .bd .slide  h3 { background:rgba(0,0,0,.5)}
 .slider .bd .slide a.button { margin:20px 20px 0 0;}
-.slider .bd .slide.coming-soon {height:245px; padding-top:75px;}
-.slider .bd .slide.coming-soon a{display:none;}
-.slider.product .bd .slide {float:none;}
-.slider.product .fd {position:absolute; bottom:10px; left:10px; z-index:100;}
-.slider.product .fd a {background:#fff; display:block; width:14px; height:14px; float:left; border:solid 1px #ccc; margin-right:8px; box-shadow: 0 0 2px #000;}
-.slider.product .fd a:hover {border-color:#333;}
-.slider.product .fd a.active, .slider.product .fd a.active:hover{background-color:#388EE7; border-color:#388EE7; cursor:default;}
-
-.mod.small-slider {height:160px; border:solid 20px rgba(255,255,255,0.5); position:relative; overflow:hidden; box-shadow:0 0 2px rgba(0,0,0,.3)}
-.small-slider .bd {position:absolute; width:9000px;}
-.small-slider .bd .slide { float:left; width:343px; height:160px; text-align:right; background-position: center center; }
-.small-slider .bd .slide h5{ margin:0;font-size:2em;}
-.small-slider .bd .slide a{ display:block; height:200px; color:#fff;}
-.small-slider .bd .slide a span { background:rgba(0,0,0,.8);padding: 3px 15px;}
-.small-slider .fd {position:absolute; bottom:10px; left:10px; z-index:100;}
-.small-slider .fd a {background:#fff; display:block; width:14px; height:14px; float:left; border:solid 1px #ccc; margin-right:8px; box-shadow: 0 0 2px #000;}
-.small-slider .fd a:hover {border-color:#333;}
-.small-slider .fd a.active, .small-slider .fd a.active:hover{background-color:#388EE7; border-color:#388EE7; cursor:default;}
+.slider .fd {position:absolute; bottom:10px; left:10px; z-index:100;}
+.slider .fd a {background:#fff; display:block; width:14px; height:14px; float:left; border:solid 1px #ccc; margin-right:8px; box-shadow: 0 0 2px #000;}
+.slider .fd a:hover {border-color:#333;}
+.slider .fd a.active, .slider.product .fd a.active:hover{background-color:#388EE7; border-color:#388EE7; cursor:default;}
 
 .mod.product-pod {margin-top:32px; margin-bottom:32px;}
 .product-pod a{display:block; height:200px; position:relative;}
@@ -236,6 +222,7 @@ img.right {padding-left:18px;}
 .contact-button input {font-size:18px;}
 .required-field {color:#B91F24; font-size:30px; position:relative; top:8px; vertical-align:text-bottom;}
 .validation-error {font-size:10px; color:#B91F24; position:absolute; bottom:-10px;}
+span.error {font-size:10px; color:#B91F24; position:absolute; bottom:-12px;}
 
 form label {font-size:12px;margin-bottom:0;}
 form fieldset {background-color:rgba(255,255,255,.8); padding:15px 20px;}
@@ -243,6 +230,7 @@ form legend {font-size:18px; font-weight:bold; padding:0 5px;}
 form textarea {width:100%; max-width:100%; min-width:100%}
 form textarea, form input{font-size:20px!important; margin-top:0!important;}
 form .columns {margin-bottom:14px; position:relative;}
+input.input-text, textarea { width: 96%; }
 /* -----------------------------------------
    Message Bar
 ----------------------------------------- */
@@ -263,6 +251,7 @@ div.panel {box-shadow:0 0 2px rgba(0,0,0,.3);}
 .nice.tabs {border-bottom: 1px solid #ddd; margin:0;}
 .nice.tabs dd a { color:#71B460; font-weight:bold;}
 .nice.tabs dd a.active, .nice.tabs dd a.current { border-top-color:#71B460;border-left: 1px solid #DDDDDD;border-right: 1px solid #DDDDDD;}
+.tabs-content img {display:block; margin: 0 0 20px 20px; border: solid 10px #fff; box-shadow: 0 0 2px #ccc; float:right;}
 /* -----------------------------------------
 	IE Styles
 ------------------------------------------*/
