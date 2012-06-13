@@ -35,15 +35,6 @@
 	
 	<base href="<?php echo base_url(); ?>" />
 	
-	<?php 
-		Asset::css('workless/minified.css.php');
-		Asset::js('workless/modernizr.js');
-		Asset::js('jquery/jquery.js');
-		Asset::js('admin/login.js');
-		Asset::js('workless/application.js');
-		echo Asset::render(); 
-	?>
-
 	<?php file_partial('metadata'); ?>
 </head>
 
