@@ -41,7 +41,7 @@
 
 			<td><?php if($table_exists): echo number_format($this->streams_m->count_stream_entries($stream->stream_slug, $stream->stream_namespace)); endif; ?></td>
 			
-			<td class="actions">
+			<td class="actions" style="width:225px">
 				<?php if(group_has_role('streams', 'admin_streams')): echo anchor('admin/streams/manage/' . $stream->id, lang('streams.manage'), 'class="btn orange edit"'); endif; ?> 
 				<?php echo anchor('admin/streams/entries/index/' . $stream->id, lang('streams.entries'), 'class="btn orange edit"');?> 
 				<?php echo anchor('admin/streams/entries/add/'.$stream->id, lang('streams.new_entry'), 'class="btn green"');?> 
