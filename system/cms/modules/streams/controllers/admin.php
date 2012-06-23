@@ -44,31 +44,33 @@ class Admin extends Admin_Controller {
     public function index()
     {
 		// -------------------------------------
-		// Get fields
-		// -------------------------------------
-		
-		$this->data->streams = $this->streams_m->get_streams(
-			$this->config->item('streams:core_namespace'),
-			Settings::get('records_per_page'),
-			$this->uri->segment(4)
-		);
-
-		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 
-		$this->data->pagination = create_pagination(
+		$pagination = create_pagination(
 			'admin/streams/index',
-			$this->streams_m->total_streams(),
+			$this->streams_m->total_streams($this->config->item('streams:core_namespace')),
 			Settings::get('records_per_page'),
 			4
+		);
+
+		// -------------------------------------
+		// Get fields
+		// -------------------------------------
+		
+		list($limit, $offset)=$pagination['limit'];
+
+		$streams = $this->streams_m->get_streams(
+			$this->config->item('streams:core_namespace'),
+			$limit,
+			$offset
 		);
 
 		// -------------------------------------
 		// Build Page
 		// -------------------------------------
 
-        $this->template->build('admin/streams/index', $this->data);
+        $this->template->build('admin/streams/index', compact('pagination', 'streams'));
     }
   
  	// --------------------------------------------------------------------------   
