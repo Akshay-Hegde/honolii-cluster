@@ -23,9 +23,9 @@
 		<table border="0" class="table-list">    
 		  <thead>
 				<tr>
-					<th>URL</th>
-					<th>Unique Clicks</th>
-					<th>Total Clicks</th>
+					<th><?php echo lang('newsletters.url'); ?></th>
+					<th><?php echo lang('newsletters.unique_clicks'); ?></th>
+					<th><?php echo lang('newsletters.unique_opens'); ?></th>
 				</tr>
 		  </thead>
 			<tbody>

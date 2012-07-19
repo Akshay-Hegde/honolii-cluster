@@ -8,10 +8,12 @@ class Module_Newsletters extends Module {
 	{
 		return array(
 			'name' => array(
-				'en' => 'Newsletters'
+				'en' => 'Newsletters',
+				'de' => 'Newsletter'
 			),
 			'description' => array(
-				'en' => 'Send email newsletters to your subscribers.'
+				'en' => 'Send email newsletters to your subscribers.',
+				'de' => 'Versende E-Mail Newsletter an deine Abonnenten.'
 			),
 			'skip_xss' => TRUE,
 			'frontend' => TRUE,
