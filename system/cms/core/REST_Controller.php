@@ -11,14 +11,14 @@
  * @author        	Phil Sturgeon
  * @license         http://philsturgeon.co.uk/code/dbad-license
  * @link			https://github.com/philsturgeon/codeigniter-restserver
- * @version 		2.6
+ * @version 		2.6.0
  */
-class REST_Controller extends MY_Controller
+abstract class REST_Controller extends CI_Controller
 {
 	/**
 	 * This defines the rest format.
-	 * 
-	 * Must be overriden it in a controller so that it is set.
+	 *
+	 * Must be overridden it in a controller so that it is set.
 	 *
 	 * @var string|null
 	 */
@@ -27,42 +27,49 @@ class REST_Controller extends MY_Controller
 	/**
 	 * Defines the list of method properties such as limit, log and level
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	protected $methods = array();
+
+	/**
+	 * List of allowed HTTP methods
+	 *
+	 * @var array
+	 */
+	protected $allowed_http_methods = array('get', 'delete', 'post', 'put');
 
 	/**
 	 * General request data and information.
 	 * Stores accept, language, body, headers, etc.
 	 *
-	 * @var object 
+	 * @var object
 	 */
 	protected $request = NULL;
 
 	/**
 	 * What is gonna happen in output?
-	 * 
-	 * @var object 
+	 *
+	 * @var object
 	 */
 	protected $response = NULL;
 
 	/**
 	 * Stores DB, keys, key level, etc
 	 *
-	 * @var object 
+	 * @var object
 	 */
 	protected $rest = NULL;
 
 	/**
 	 * The arguments for the GET request method
 	 *
-	 * @var array 
+	 * @var array
 	 */
 	protected $_get_args = array();
 
 	/**
 	 * The arguments for the POST request method
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $_post_args = array();
@@ -90,11 +97,18 @@ class REST_Controller extends MY_Controller
 
 	/**
 	 * If the request is allowed based on the API key provided.
-	 * 
+	 *
 	 * @var boolean
 	 */
 	protected $_allow = TRUE;
 	protected $_zlib_oc = FALSE; // Determines if output compression is enabled
+
+	/**
+	 * Determines if output compression is enabled
+	 *
+	 * @var boolean
+	 */
+	protected $_zlib_oc = FALSE;
 
 	/**
 	 * List all supported methods, the first will be the default format
@@ -103,7 +117,6 @@ class REST_Controller extends MY_Controller
 	 */
 	protected $_supported_formats = array(
 		'xml' => 'application/xml',
-		'rawxml' => 'application/xml',
 		'json' => 'application/json',
 		'jsonp' => 'application/javascript',
 		'serialized' => 'application/vnd.php.serialized',
@@ -117,7 +130,7 @@ class REST_Controller extends MY_Controller
 	 */
 	protected function early_checks()
 	{
-		
+
 	}
 
 	/**
@@ -137,6 +150,12 @@ class REST_Controller extends MY_Controller
 		$this->request = new stdClass();
 		$this->request->method = $this->_detect_method();
 
+		// Create argument container, if nonexistent
+		if ( ! isset($this->{'_'.$this->request->method.'_args'}))
+		{
+			$this->{'_'.$this->request->method.'_args'} = array();
+		}
+
 		// Set up our GET variables
 		$this->_get_args = array_merge($this->_get_args, $this->uri->ruri_to_assoc());
 
@@ -151,42 +170,7 @@ class REST_Controller extends MY_Controller
 		// Some Methods cant have a body
 		$this->request->body = NULL;
 
-		switch ($this->request->method)
-		{
-			case 'get':
-				// Grab proper GET variables
-				parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $get);
-
-				// Merge both the URI segements and GET params
-				$this->_get_args = array_merge($this->_get_args, $get);
-				break;
-
-			case 'post':
-				$this->_post_args = $_POST;
-
-				$this->request->format and $this->request->body = file_get_contents('php://input');
-				break;
-
-			case 'put':
-				// It might be a HTTP body
-				if ($this->request->format)
-				{
-					$this->request->body = file_get_contents('php://input');
-				}
-
-				// If no file type is provided, this is probably just arguments
-				else
-				{
-					parse_str(file_get_contents('php://input'), $this->_put_args);
-				}
-
-				break;
-
-			case 'delete':
-				// Set up out DELETE variables (which shouldn't really exist, but sssh!)
-				parse_str(file_get_contents('php://input'), $this->_delete_args);
-				break;
-		}
+		$this->{'_parse_' . $this->request->method}();
 
 		// Now we know all about our request, let's try and parse the body if it exists
 		if ($this->request->format and $this->request->body)
@@ -197,7 +181,7 @@ class REST_Controller extends MY_Controller
 		}
 
 		// Merge both for one mega-args variable
-		$this->_args = array_merge($this->_get_args, $this->_put_args, $this->_post_args, $this->_delete_args);
+		$this->_args = array_merge($this->_get_args, $this->_put_args, $this->_post_args, $this->_delete_args, $this->{'_'.$this->request->method.'_args'});
 
 		// Which format should the data be returned in?
 		$this->response = new stdClass();
@@ -229,6 +213,7 @@ class REST_Controller extends MY_Controller
 			}
 		}
 
+		$this->rest = new StdClass();
 		// Load DB if its enabled
 		if (config_item('rest_database_group') AND (config_item('rest_enable_keys') OR config_item('rest_enable_logging')))
 		{
@@ -257,8 +242,8 @@ class REST_Controller extends MY_Controller
 	/**
 	 * Remap
 	 *
-	 * Requests are not made to methods directly, the request will be for 
-	 * an "object". This simply maps the object and method to the correct 
+	 * Requests are not made to methods directly, the request will be for
+	 * an "object". This simply maps the object and method to the correct
 	 * Controller method.
 	 *
 	 * @param string $object_called
@@ -329,7 +314,20 @@ class REST_Controller extends MY_Controller
 		}
 
 		// And...... GO!
-		call_user_func_array(array($this, $controller_method), $arguments);
+		$this->_fire_method(array($this, $controller_method), $arguments);
+	}
+
+	/**
+	 * Fire Method
+	 *
+	 * Fires the designated controller method with the given arguments.
+	 *
+	 * @param array $method The controller method to fire
+	 * @param array $args The arguments to pass to the controller method
+	 */
+	protected function _fire_method($method, $args)
+	{
+		call_user_func_array($method, $args);
 	}
 
 	/**
@@ -338,7 +336,7 @@ class REST_Controller extends MY_Controller
 	 * Takes pure data and optionally a status code, then creates the response.
 	 *
 	 * @param array $data
-	 * @param null|int $http_code 
+	 * @param null|int $http_code
 	 */
 	public function response($data = array(), $http_code = null)
 	{
@@ -349,8 +347,8 @@ class REST_Controller extends MY_Controller
 		{
 			$http_code = 404;
 
-			//create the output variable here in the case of $this->response(array());
-			$output = $data;
+			// create the output variable here in the case of $this->response(array());
+			$output = NULL;
 		}
 
 		// Otherwise (if no data but 200 provided) or some data, carry on camping!
@@ -367,7 +365,11 @@ class REST_Controller extends MY_Controller
 					}
 				}
 			}
+<<<<<<< HEAD
 			
+=======
+
+>>>>>>> 9f5d98b8a0f0c5cc35f04249eb7259262976b0f9
 			is_numeric($http_code) OR $http_code = 200;
 
 			// If the format method exists, call and return the output in that format
@@ -441,8 +443,8 @@ class REST_Controller extends MY_Controller
 	 * Detect format
 	 *
 	 * Detect which format should be used to output the data.
-	 * 
-	 * @return string The output format. 
+	 *
+	 * @return string The output format.
 	 */
 	protected function _detect_output_format()
 	{
@@ -492,13 +494,13 @@ class REST_Controller extends MY_Controller
 					// HTML or XML have shown up as a match
 					else
 					{
-						// If it is truely HTML, it wont want any XML
+						// If it is truly HTML, it wont want any XML
 						if ($format == 'html' AND strpos($this->input->server('HTTP_ACCEPT'), 'xml') === FALSE)
 						{
 							return $format;
 						}
 
-						// If it is truely XML, it wont want any HTML
+						// If it is truly XML, it wont want any HTML
 						elseif ($format == 'xml' AND strpos($this->input->server('HTTP_ACCEPT'), 'html') === FALSE)
 						{
 							return $format;
@@ -521,27 +523,38 @@ class REST_Controller extends MY_Controller
 	/**
 	 * Detect method
 	 *
-	 * Detect which method (POST, PUT, GET, DELETE) is being used
-	 * 
-	 * @return string 
+	 * Detect which HTTP method is being used
+	 *
+	 * @return string
 	 */
 	protected function _detect_method()
 	{
 		$method = strtolower($this->input->server('REQUEST_METHOD'));
+<<<<<<< HEAD
         
+=======
+
+>>>>>>> 9f5d98b8a0f0c5cc35f04249eb7259262976b0f9
 		if ($this->config->item('enable_emulate_request'))
 		{
 			if ($this->input->post('_method'))
 			{
 				$method = strtolower($this->input->post('_method'));
 			}
+<<<<<<< HEAD
 	        	else if ($this->input->server('HTTP_X_HTTP_METHOD_OVERRIDE'))
 		        {
 		            $method = strtolower($this->input->server('HTTP_X_HTTP_METHOD_OVERRIDE'));
 		        }			
+=======
+			elseif ($this->input->server('HTTP_X_HTTP_METHOD_OVERRIDE'))
+			{
+				$method = strtolower($this->input->server('HTTP_X_HTTP_METHOD_OVERRIDE'));
+			}
+>>>>>>> 9f5d98b8a0f0c5cc35f04249eb7259262976b0f9
 		}
 
-		if (in_array($method, array('get', 'delete', 'post', 'put')))
+		if (in_array($method, $this->allowed_http_methods) && method_exists($this, '_parse_' . $method))
 		{
 			return $method;
 		}
@@ -553,8 +566,8 @@ class REST_Controller extends MY_Controller
 	 * Detect API Key
 	 *
 	 * See if the user has provided an API key
-	 * 
-	 * @return boolean 
+	 *
+	 * @return boolean
 	 */
 	protected function _detect_api_key()
 	{
@@ -594,7 +607,7 @@ class REST_Controller extends MY_Controller
 	 * Detect language(s)
 	 *
 	 * What language do they want it in?
-	 * 
+	 *
 	 * @return null|string The language code.
 	 */
 	protected function _detect_lang()
@@ -629,9 +642,9 @@ class REST_Controller extends MY_Controller
 	 * Log request
 	 *
 	 * Record the entry for awesomeness purposes
-	 * 
+	 *
 	 * @param boolean $authorized
-	 * @return object 
+	 * @return object
 	 */
 	protected function _log_request($authorized = FALSE)
 	{
@@ -651,8 +664,8 @@ class REST_Controller extends MY_Controller
 	 *
 	 * Check if the requests are coming in a tad too fast.
 	 *
-	 * @param string $controller_method The method deing called.
-	 * @return boolean 
+	 * @param string $controller_method The method being called.
+	 * @return boolean
 	 */
 	protected function _check_limit($controller_method)
 	{
@@ -707,10 +720,10 @@ class REST_Controller extends MY_Controller
 	/**
 	 * Auth override check
 	 *
-	 * Check if there is a specific auth type set for the current class/method 
+	 * Check if there is a specific auth type set for the current class/method
 	 * being called.
 	 *
-	 * @return boolean 
+	 * @return boolean
 	 */
 	protected function _auth_override_check()
 	{
@@ -757,9 +770,58 @@ class REST_Controller extends MY_Controller
 			return true;
 		}
 
-		// Return false when there is an override value set but it does not match 
+		// Return false when there is an override value set but it does not match
 		// 'basic', 'digest', or 'none'. (the value was misspelled)
 		return false;
+	}
+
+	/**
+	 * Parse GET
+	 */
+	protected function _parse_get()
+	{
+		// Grab proper GET variables
+		parse_str(parse_url($_SERVER['REQUEST_URI'], PHP_URL_QUERY), $get);
+
+		// Merge both the URI segments and GET params
+		$this->_get_args = array_merge($this->_get_args, $get);
+	}
+
+	/**
+	 * Parse POST
+	 */
+	protected function _parse_post()
+	{
+		$this->_post_args = $_POST;
+
+		$this->request->format and $this->request->body = file_get_contents('php://input');
+	}
+
+	/**
+	 * Parse PUT
+	 */
+	protected function _parse_put()
+	{
+		// It might be a HTTP body
+		if ($this->request->format)
+		{
+			$this->request->body = file_get_contents('php://input');
+		}
+
+		// If no file type is provided, this is probably just arguments
+		else
+		{
+			parse_str(file_get_contents('php://input'), $this->_put_args);
+		}
+	}
+
+	/**
+	 * Parse DELETE
+	 */
+	protected function _parse_delete()
+	{
+		// Set up out DELETE variables (which shouldn't really exist, but sssh!)
+		parse_str(file_get_contents('php://input'), $this->_delete_args);
 	}
 
 	// INPUT FUNCTION --------------------------------------------------------------
@@ -795,7 +857,7 @@ class REST_Controller extends MY_Controller
 			return $this->_post_args;
 		}
 
-		return $this->input->post($key, $xss_clean);
+		return array_key_exists($key, $this->_post_args) ? $this->_xss_clean($this->_post_args[$key], $xss_clean) : FALSE;
 	}
 
 	/**
@@ -852,7 +914,7 @@ class REST_Controller extends MY_Controller
 	/**
 	 * Retrieve the validation errors.
 	 *
-	 * @return array 
+	 * @return array
 	 */
 	public function validation_errors()
 	{
@@ -868,7 +930,7 @@ class REST_Controller extends MY_Controller
 	 *
 	 * @param string $username The user's name
 	 * @param string $password The user's password
-	 * @return boolean 
+	 * @return boolean
 	 */
 	protected function _check_login($username = '', $password = NULL)
 	{
@@ -894,7 +956,7 @@ class REST_Controller extends MY_Controller
 	}
 
 	/**
-	 * @todo document this. 
+	 * @todo document this.
 	 */
 	protected function _prepare_basic_auth()
 	{
@@ -930,7 +992,7 @@ class REST_Controller extends MY_Controller
 	}
 
 	/**
-	 * @todo Document this. 
+	 * @todo Document this.
 	 */
 	protected function _prepare_digest_auth()
 	{
@@ -956,7 +1018,7 @@ class REST_Controller extends MY_Controller
 			$digest_string = "";
 		}
 
-		// The $_SESSION['error_prompted'] variable is used to ask the password 
+		// The $_SESSION['error_prompted'] variable is used to ask the password
 		// again if none given or if the user enters wrong auth information.
 		if (empty($digest_string))
 		{
@@ -1011,7 +1073,7 @@ class REST_Controller extends MY_Controller
 	/**
 	 * @todo Document this.
 	 *
-	 * @param string $nonce 
+	 * @param string $nonce
 	 */
 	protected function _force_login($nonce = '')
 	{
@@ -1031,7 +1093,7 @@ class REST_Controller extends MY_Controller
 	 * Force it into an array
 	 *
 	 * @param object|array $data
-	 * @return array 
+	 * @return array
 	 */
 	protected function _force_loopable($data)
 	{
@@ -1049,9 +1111,9 @@ class REST_Controller extends MY_Controller
 
 	/**
 	 * Encode as JSONP
-	 * 
+	 *
 	 * @param array $data The input data.
-	 * @return string The JSONP data string (loadable from Javascript). 
+	 * @return string The JSONP data string (loadable from Javascript).
 	 */
 	protected function _format_jsonp($data = array())
 	{
