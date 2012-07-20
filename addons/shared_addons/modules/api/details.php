@@ -109,6 +109,7 @@ class Module_Api extends Module
 			array(
 				'name'			=> 'lang:api:key_is_active',
 				'slug'			=> 'active',
+				'assign'		=> 'keys',
 				'namespace'		=> 'api',
 				'type'			=> 'choice',
 				'extra'			=> array(
