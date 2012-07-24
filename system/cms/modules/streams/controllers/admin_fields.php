@@ -20,35 +20,35 @@ class Admin_Fields extends Admin_Controller {
 
 	// --------------------------------------------------------------------------   
 
-    function __construct()
-    {
-        parent::__construct();
-        
-        // If you are going to admin fields you gotta 
-        // pass the test!
+	function __construct()
+	{
+		parent::__construct();
+
+		// If you are going to admin fields you gotta 
+		// pass the test!
 		role_or_die('streams', 'admin_fields');
 
- 		// -------------------------------------
+		// -------------------------------------
 		// Resources Load
 		// -------------------------------------
 
 		$this->load->config('streams/streams');
-  		$this->load->config('streams_core/streams');
-  		$this->lang->load('streams_core/pyrostreams');    
+		$this->load->config('streams_core/streams');
+		$this->lang->load('streams_core/pyrostreams');    
 		$this->load->library('streams_core/Type');	
-	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
+		$this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
-       
- 		$this->data->types = $this->type->types;
-	}
+
+		$this->data->types = $this->type->types;
+		}
 
 	// --------------------------------------------------------------------------   
 
-    /**
-     * List fields
-     */
-    function index()
-    {     	
+	/**
+	 * List fields
+	 */
+	public function index()
+	{
 		// -------------------------------------
 		// Get fields
 		// -------------------------------------
@@ -72,15 +72,15 @@ class Admin_Fields extends Admin_Controller {
 
 		// -------------------------------------
 
-        $this->template->build('admin/fields/index', $this->data);
-    }
-  
+		$this->template->build('admin/fields/index', $this->data);
+	}
+
 	// --------------------------------------------------------------------------   
 
-    /**
+	/**
      * Create a new field
      */
-	function add()
+	public function add()
 	{
 		role_or_die('streams', 'admin_fields');
 	
@@ -90,14 +90,14 @@ class Admin_Fields extends Admin_Controller {
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
-   		
-   		$this->type->load_field_crud_assets();
-   		
-   		// -------------------------------------
-        
-        $this->data->method = 'new';
-        
-        //Prep the fields
+
+		$this->type->load_field_crud_assets();
+
+		// -------------------------------------
+
+		$this->data->method = 'new';
+
+		//Prep the fields
 		$this->data->field_types = $this->type->field_types_array(TRUE);
 
 		// -------------------------------------
@@ -181,9 +181,9 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 		
 		$this->template
-        		->append_js('module::slug.js')
-        		->append_js('module::fields.js')
-				->build('admin/fields/form', $this->data);
+			->append_js('module::slug.js')
+			->append_js('module::fields.js')
+			->build('admin/fields/form', $this->data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -191,7 +191,7 @@ class Admin_Fields extends Admin_Controller {
 	/**
 	 * Edit a field
 	 */
-	function edit()
+	public function edit()
 	{
 		role_or_die('streams', 'admin_fields');
 	
@@ -209,15 +209,15 @@ class Admin_Fields extends Admin_Controller {
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
-   		
-   		$this->type->load_field_crud_assets();
+		
+		$this->type->load_field_crud_assets();
 
 		// -------------------------------------
 		
 		$this->template->append_js('module::fields.js');
-        
-        $this->data->method = 'edit';
- 
+
+		$this->data->method = 'edit';
+
  		// -------------------------------------
 		// Parameters
 		// -------------------------------------
@@ -251,8 +251,8 @@ class Admin_Fields extends Admin_Controller {
  		// Load Paramaters in case we need 'em
 		require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');		
 		$this->data->parameters = new Parameter_fields();
-       
-        // Prep the fields
+
+		// Prep the fields
 		$this->data->field_types = $this->type->field_types_array($this->type->types);
 
 		// -------------------------------------
@@ -304,6 +304,12 @@ class Admin_Fields extends Admin_Controller {
 			redirect('admin/streams/fields');
 		
 		endif;
+
+		// -------------------------------------
+		// Run field setup events
+		// -------------------------------------
+
+		$this->fields->run_field_setup_events();
 
 		// -------------------------------------
 		

@@ -18,7 +18,7 @@ class Admin extends Admin_Controller {
 	 */
 	protected $section = 'streams';
 
-    public function __construct()
+    function __construct()
     {
         parent::__construct();
 
@@ -41,36 +41,32 @@ class Admin extends Admin_Controller {
     /**
      * List streams
      */
-    public function index()
+    function index()
     {
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
-
-		$pagination = create_pagination(
-			'admin/streams/index',
-			$this->streams_m->total_streams($this->config->item('streams:core_namespace')),
-			Settings::get('records_per_page'),
-			4
-		);
-
 		// -------------------------------------
 		// Get fields
 		// -------------------------------------
 		
-		list($limit, $offset)=$pagination['limit'];
+		$this->data->streams = $this->streams_m->get_streams(
+													$this->config->item('streams:core_namespace'),
+													Settings::get('records_per_page'),
+													$this->uri->segment(4));
 
-		$streams = $this->streams_m->get_streams(
-			$this->config->item('streams:core_namespace'),
-			$limit,
-			$offset
-		);
+		// -------------------------------------
+		// Pagination
+		// -------------------------------------
+
+		$this->data->pagination = create_pagination(
+										'admin/streams/index',
+										$this->streams_m->total_streams(),
+										Settings::get('records_per_page'),
+										4);
 
 		// -------------------------------------
 		// Build Page
 		// -------------------------------------
 
-        $this->template->build('admin/streams/index', compact('pagination', 'streams'));
+        $this->template->build('admin/streams/index', $this->data);
     }
   
  	// --------------------------------------------------------------------------   
@@ -94,7 +90,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Manage Index
 	 */
-	public function manage()
+	function manage()
 	{
 		role_or_die('streams', 'admin_streams');
 	
@@ -128,7 +124,7 @@ class Admin extends Admin_Controller {
     /**
      * Choose which items to view
      */
- 	public function view_options()
+ 	function view_options()
  	{
 		role_or_die('streams', 'admin_streams');
 

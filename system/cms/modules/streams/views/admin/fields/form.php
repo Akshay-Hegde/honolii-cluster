@@ -11,6 +11,7 @@
 <?php echo form_open(uri_string()); ?>
 
 <input type="hidden" name="fields_current_namespace" id="fields_current_namespace" value="<?php echo $this->config->item('streams:core_namespace');?>" />
+<input type="hidden" name="field_namespace" id="field_namespace" value="<?php echo $this->config->item('streams:core_namespace');?>" />
 
 <div class="form_inputs">
 
@@ -47,24 +48,24 @@
 		<?php if( $method == "edit" or isset($current_type->custom_parameters) ): ?>
 		
 		<?php
-		
+
 		$data = array();
 		
 		$data['count'] = 0;
 				
-		if( isset($current_type->custom_parameters) ):
-		
-			foreach( $current_type->custom_parameters as $param ):
-			
+		if (isset($current_type->custom_parameters))
+		{
+			foreach ($current_type->custom_parameters as $param)
+			{
 				// Sometimes these values may not be set. Let's set
 				// them to null if they are not.
 				(isset($current_field->field_data[$param])) ? $value = $current_field->field_data[$param] : $value = null;
 						
-				if( method_exists($current_type, 'param_'.$param) ):
-				
+				if (method_exists($current_type, 'param_'.$param))
+				{
 					$call = 'param_'.$param;
 					
-					$input = $current_type->$call($value);
+					$input = $current_type->$call($value, $current_field->field_namespace, $current_field);
 
 					if (is_array($input))
 					{
@@ -77,14 +78,13 @@
 						$data['instructions']	= null;
 					}
 
-					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
-					
-				else:
-		
-					$data['input'] 			= $parameters->$param($value);
-					$data['input_name']		= $this->lang->line('streams.'.$param);
-				
-				endif;
+					$data['input_name']			= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
+				}	
+				else
+				{		
+					$data['input'] 				= $parameters->$param($value);
+					$data['input_name']			= $this->lang->line('streams.'.$param);
+				}
 				
 				$data['input_slug']		= $param;
 					
@@ -92,10 +92,8 @@
 				
 				$data['count']++;
 				unset($value);
-			
-			endforeach;
-		
-		endif;
+			}
+		}
 	
 		?>
 		

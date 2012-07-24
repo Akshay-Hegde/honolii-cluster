@@ -20,7 +20,7 @@ class Admin_Entries extends Admin_Controller {
 
 	// --------------------------------------------------------------------------   
 
-    function __construct()
+    public function __construct()
     {
         parent::__construct();
         
@@ -130,7 +130,7 @@ class Admin_Entries extends Admin_Controller {
 	/**
 	 * Add an entry
 	 */
-	function add()
+	public function add()
 	{
 		$this->load->library('streams_core/Fields');
 
