@@ -168,8 +168,25 @@ body{background-image:url(../img/content-bkg.png)}
 			a{text-shadow:0 1px 0 rgba(0,0,0,.3);}
 		}
 	}
+	
+	&.archive, &.latest_posts{
+		ul{
+			list-style:none;margin:0;
+			/* li{padding:5px 10px; color:@black; margin-bottom:1px; background:#333;} */
+			a{text-shadow:0 1px 0 rgba(0,0,0,.3); padding:5px 10px; margin-bottom:1px; background:#333; display:block;
+				-webkit-transition: background-color .35s ease-in-out;
+				-moz-transition: background-color .35s ease-in-out;
+				-o-transition: background-color .35s ease-in-out;
+			}
+			a:hover{
+				background:#222;
+			}
+		}
+	}
+	
 	.divider{height:2em;}
 }
+
 
 /* Footer */
 .site-footer{
