@@ -55,7 +55,7 @@ class Admin_Fields extends Admin_Controller {
 		
 		$this->data->fields = $this->fields_m->get_fields(
 										$this->config->item('streams:core_namespace'),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										$this->uri->segment(5)
 									);
 
@@ -66,7 +66,7 @@ class Admin_Fields extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 										'admin/streams/fields/index',
 										$this->fields_m->count_fields($this->config->item('streams:core_namespace')),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										5
 									);
 
@@ -171,6 +171,12 @@ class Admin_Fields extends Admin_Controller {
 			endif;
 			
 		endif;
+
+		// -------------------------------------
+		// Run field setup events
+		// -------------------------------------
+
+		$this->fields->run_field_setup_events(null, null, null);
 
 		// -------------------------------------
 		

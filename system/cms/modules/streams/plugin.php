@@ -954,8 +954,7 @@ class Plugin_Streams extends Plugin
 			$vars['recaptcha'] = $this->recaptcha->get_html();
 
 			// Output the error if we have one
-			if (isset($this->form_validation->_field_data['recaptcha_response_field']['error'])
-				  and $this->form_validation->_field_data['recaptcha_response_field']['error'] != '')
+			if ($this->form_validation->field_data('recaptcha_response_field'))
 			{
 				$vars['recaptcha_error'] = $this->form_validation->error('recaptcha_response_field');
 			}	

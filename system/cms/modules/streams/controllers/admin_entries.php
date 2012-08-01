@@ -100,12 +100,12 @@ class Admin_Entries extends Admin_Controller {
 		// Get data
 		// -------------------------------------
 
-		$this->db->limit($this->settings->item('records_per_page'), $offset);		
+		$this->db->limit(Settings::get('records_per_page'), $offset);		
 	
 		$this->data->data = $this->streams_m->get_stream_data(
 														$this->data->stream,
 														$this->data->stream_fields, 
-														$this->settings->item('records_per_page'),
+														Settings::get('records_per_page'),
 														$this->uri->segment($offset_uri));
 	
 		// -------------------------------------
@@ -115,7 +115,7 @@ class Admin_Entries extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 									$pagination_uri,
 									$this->db->count_all($this->data->stream->stream_prefix.$this->data->stream->stream_slug ),
-									$this->settings->item('records_per_page'),
+									Settings::get('records_per_page'),
 									6);
 
 		// -------------------------------------

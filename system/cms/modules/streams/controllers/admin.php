@@ -49,7 +49,7 @@ class Admin extends Admin_Controller {
 		
 		$this->data->streams = $this->streams_m->get_streams(
 													$this->config->item('streams:core_namespace'),
-													$this->settings->item('records_per_page'),
+													Settings::get('records_per_page'),
 													$this->uri->segment(4));
 
 		// -------------------------------------
@@ -59,7 +59,7 @@ class Admin extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 										'admin/streams/index',
 										$this->streams_m->total_streams(),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										4);
 
 		// -------------------------------------
@@ -404,7 +404,7 @@ class Admin extends Admin_Controller {
 		// Get fields
 		// -------------------------------------
 		
-		$this->data->stream_fields = $this->streams_m->get_stream_fields( $this->data->stream_id, $this->settings->item('records_per_page'), $offset );
+		$this->data->stream_fields = $this->streams_m->get_stream_fields( $this->data->stream_id, Settings::get('records_per_page'), $offset );
 
 		// -------------------------------------
 		// Get number of fields total
@@ -428,7 +428,7 @@ class Admin extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 										'admin/streams/assignments/'.$this->data->stream->id,
 										$this->streams_m->total_stream_fields( $this->data->stream_id ),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										5);
 
 		// -------------------------------------
@@ -774,20 +774,20 @@ class Admin extends Admin_Controller {
 
 		$this->load->dbutil();
 
-		$tables = array( PYROSTREAMS_DB_PRE.STR_PRE.$this->data->stream->stream_slug );
+		$table_name = $this->data->stream->stream_prefix.$this->data->stream->stream_slug;
 		
-		$filename = $this->data->stream->stream_slug.'_backup_'.date('Y-m-d');
+		$filename = $table_name.'_backup_'.date('Y-m-d');
 
 		$backup_prefs = array(
-	        'tables'      => $tables,
+	        'tables'      => array($this->db->dbprefix($table_name)),
 			'format'      => 'zip',
 	        'filename'    => $filename.'.sql',
-	        'add_drop'    => TRUE,
-	        'add_insert'  => TRUE,
+	        'add_drop'    => true,
+	        'add_insert'  => true,
 	        'newline'     => "\n"
 		);
 		
-		$backup =& $this->dbutil->backup( $backup_prefs ); 
+		$backup =& $this->dbutil->backup($backup_prefs); 
 
 		$this->load->helper('download');
 		
