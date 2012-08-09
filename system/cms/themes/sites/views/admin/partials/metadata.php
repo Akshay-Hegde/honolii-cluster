@@ -5,6 +5,7 @@
 	var BASE_URI			= "<?php echo BASE_URI;?>";
 	var DEFAULT_TITLE		= "<?php echo lang('site.sites'); ?>";
 	var DIALOG_MESSAGE		= "<?php echo lang('global:dialog:delete_message'); ?>";
+	var pyro				= {};
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";
 	pyro.base_uri			= "<?php echo BASE_URI; ?>";
 </script>
