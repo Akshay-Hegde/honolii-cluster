@@ -1,0 +1,23 @@
+*version 0.3*
+Added changelog
+Fixed ckeditor issue l.lang.contextmenu is undefined
+
+*version 0.4*
+Code Style Changes
+Fixed CKEDITOR init errors - ajax should now function correctly
+
+*version 0.5*
+Made compatible with PyroCMS v1.2 - Due to this,  this version will likely break
+in earlier versions.  The problem lies in the js.  You will need to add
+var SITE_URL = 'http://www.example.com/index.php/'; to the js/faq.js file for it to work
+in PyroCMS versions BEFORE v1.2
+
+Fixed uniform select issues.
+Fixed text box size of the edit category form
+Fixed sorting issues
+
+*version 1.0*
+Made compatible with PyroCMS v1.3 thus getting rid of installer errors
+
+*version 2.0*
+Made compatible with PyroCMS v2.0
