@@ -1,0 +1,40 @@
+/* Pretty printing styles. Used with prettify.js. */
+
+/* SPAN elements with the classes below are added by prettyprint. */
+.pln { color: #FFF }  /* plain text */
+
+@media screen {
+  .str { color: #66D9EF }  /* string content */
+  .kwd { color: #92E22E }  /* a keyword */
+  .com { color: #75715E }  /* a comment */
+  .typ { color: #6F74FF }  /* a type name */
+  .lit { color: #6F74FF }  /* a literal value */
+  /* punctuation, lisp open bracket, lisp close bracket */
+  .pun { color: #F92672 }
+  .opn, .clo { color: #FFF }
+  .tag { color: #F92672 }  /* a markup tag name */
+  .atn { color: #92E22E }  /* a markup attribute name */
+  .atv { color: #66D9EF }  /* a markup attribute value */
+  .dec, .var { color: #606 }  /* a declaration; a variable name */
+  .fun { color: red }  /* a function name */
+}
+
+/* Use higher contrast and text-weight for printable form. */
+@media print, projection {
+  .str { color: #060 }
+  .kwd { color: #006; font-weight: bold }
+  .com { color: #600; font-style: italic }
+  .typ { color: #404; font-weight: bold }
+  .lit { color: #044 }
+  .pun, .opn, .clo { color: #440 }
+  .tag { color: #006; font-weight: bold }
+  .atn { color: #404 }
+  .atv { color: #060 }
+}
+
+/* Put a border around prettyprinted code snippets. */
+pre.prettyprint { background:#1B1B1B; padding:1em; border:0;}
+
+pre.prettyprint.linenums {padding:0;}
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums { margin-top: 0; margin-bottom: 0; padding:1em; } /* IE indents via margin-left */

@@ -1,0 +1,38 @@
+<!-- Begin footer -->
+<footer id="footer" class="site-footer">
+	<div class="container">
+		<div class="row">
+			<div class="span10">&nbsp;
+				<!--
+				<h3>Who is Edward?</h3>
+				{{ pages:chunk id="5" name="default" }}
+				-->
+			</div>
+			<div class="span8 offset1">
+				{{ if {url:segments segment="1"} != 'contact' }}
+					<h3>Say Hello</h3>
+					{{ theme:partial name="form-contact-short" }}
+				{{else}}
+					<h3>Woot!</h3>
+					<p>This is the contact page!</p>
+				{{ endif }}
+			</div>
+			<div class="span4 offset1">
+				<h3>Find Me</h3>
+				<ul class="social-icon">
+				{{ streams:cycle stream="social_network" }}
+					{{ entries }}
+					<li><a href="{{url}}" title="Visit my {{name}} profile" class="icon"><img width="32" height="32" src="/{{theme:path}}img/social/32px/{{class}}.png" alt="{{name}} logo" /></a></li>
+					{{ /entries }}
+				{{ /streams:cycle }}
+				</ul>
+			</div>
+		</div>
+		<div class="row">
+			<div class="span24">
+				<p>&copy; {{ helper:date format="Y" }} {{ settings:site_name }}, all rights reserved</p>
+				<p>Website powered by <a href="http://pyrocms.com/" title="PyroCMS">PyroCMS</a></p>
+			</div>
+		</div>
+	</div>
+</footer>
