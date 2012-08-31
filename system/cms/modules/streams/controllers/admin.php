@@ -32,6 +32,8 @@ class Admin extends Admin_Controller {
 		$this->load->library('streams_core/Type');	
 	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
+
+		$this->data = new stdClass();
        
  		$this->data->types = $this->type->types;
 	}
@@ -195,11 +197,13 @@ class Admin extends Admin_Controller {
 		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique[new]';
 		
 		$this->form_validation->set_rules($this->streams_m->streams_validation);
+
+		$this->data->stream = new stdClass();
 				
 		foreach($this->streams_m->streams_validation as $field)
 		{
 			$key = $field['field'];
-			
+
 			// For some reason, set_value() isn't working.
 			$this->data->stream->$key = $this->input->post($key);
 			
@@ -443,7 +447,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Add a new field to a stream
 	 */
-	function new_assignment()
+	public function new_assignment()
 	{
  		role_or_die('streams', 'admin_streams');
 
@@ -477,7 +481,8 @@ class Admin extends Admin_Controller {
 		endforeach;
 		
 		// Dummy row id
-		$this->data->row->field_id = NULL;
+		$this->data->row = new stdClass();
+		$this->data->row->field_id = null;
 		
 		// -------------------------------------
 		// Process Data
@@ -515,7 +520,7 @@ class Admin extends Admin_Controller {
 	/**
 	 * Edit a field assignment
 	 */
-	function edit_assignment()
+	public function edit_assignment()
 	{	
 		role_or_die('streams', 'admin_streams');
 
@@ -618,7 +623,7 @@ class Admin extends Admin_Controller {
  	/**
  	 * Remove a field assignment
  	 */
- 	function remove_assignment()
+ 	public function remove_assignment()
  	{ 	
  		role_or_die('streams', 'admin_streams');
 
@@ -719,6 +724,8 @@ class Admin extends Admin_Controller {
 		);
 		
 		$this->form_validation->set_rules($validation);
+
+		$this->data->values = new stdClass();
 		
 		foreach($validation as $valid):
 		
@@ -740,11 +747,11 @@ class Admin extends Admin_Controller {
 			
 				if( $current_value == 'yes' ):
 				
-					$this->data->values->$key = TRUE;
+					$this->data->values->$key = true;
 					
 				else:
 				
-					$this->data->values->$key = FALSE;
+					$this->data->values->$key = false;
 				
 				endif;
 			
