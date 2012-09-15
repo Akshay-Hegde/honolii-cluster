@@ -9,7 +9,6 @@ system/cms/logs/log-*.php
 nbproject/
 
 !wetumka custom below
-installer/
 addons/sandbox/
 uploads/
 Capfile
