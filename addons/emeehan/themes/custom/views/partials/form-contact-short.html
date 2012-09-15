@@ -1,0 +1,28 @@
+{{ contact:form
+	name="text|required"
+	email="text|required|valid_email"
+	message="textarea"
+	class="well"
+}}
+<?php
+	// Form values and attributes
+	$form_data = array();
+	// Contact Information
+	$form_data['name'] = array('name'=>'name','id'=>'form_name','value'=>NULL,'class'=>'span8','maxlength'=>'80','placeholder'=>'Name...');
+	$form_data['email'] = array('name'=>'email','id'=>'form_email','value'=>NULL,'class'=>'span8','maxlength'=>'80','placeholder'=>'Email...');
+	$form_data['message'] = array('name'=>'message','id'=>'form_message','value'=>NULL,'class'=>'span8','rows'=>'5','placeholder'=>'Click me to say hi!');
+?>
+
+<div>
+	<?= form_label('Name:',$form_data['name']['id']); ?>
+	<?= form_input($form_data['name']); ?>
+</div>
+<div>
+	<?= form_label('Email:',$form_data['email']['id']); ?>
+	<?= form_input($form_data['email']); ?>
+</div>
+<div>
+	<?= form_label('Message:',$form_data['message']['id']); ?>
+	<?= form_textarea($form_data['message']); ?>
+</div>
+{{ /contact:form }}

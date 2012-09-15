@@ -1,0 +1,96 @@
+{{ contact:form
+	name="text"
+	company="text"
+	email="text|valid_email"
+	website="text"
+	phone="text"
+	fax="text"
+	message="textarea"
+	message_service="textarea"
+	message_review="textarea"
+	service_drop="dropdown|0=Not Selected|5=Exellent|4=Above Average|3=Average|2=Below Average|1=Poor"
+	attachment_1 = "file|jpg|png|gif"
+	attachment_2 = "file|jpg|png|gif"
+    max-size = "5000"
+	template="interview"
+	to = "edward.meehan@wetumka.net"  
+    sent = "Your message has been sent. Thank you for contacting us"
+	success-redirect="/contact/interview?tg=form-interview"
+	
+}}
+<fieldset>
+<legend>How did we do?</legend>
+	<p>Write a review, or tell us about your experience with us.</p>
+	<div class="row">
+		<div class="columns three">
+			<label><span class="required-field">&nbsp;</span>Service Was:</label>
+		</div>
+		<div class="columns five">
+			{{ service_drop }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns eleven">
+			<label><span class="required-field">&nbsp;</span>Review or Recommendation</label>
+			{{ message_review }}
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+<legend>Company Contact</legend>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Full Name</label>
+		{{ name }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Company Name</label>
+		{{ company }}
+	</div>
+</div>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>E-Mail Address</label>
+		{{ email }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Website URL</label>
+		{{ website }}
+	</div>
+</div>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Phone Number</label>
+		{{ phone }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Fax Number</label>
+		{{ fax }}
+	</div>
+</div>
+</fieldset>
+<fieldset>
+<legend>Company Information</legend>
+	<p>A maximum of two paragraphs per section will be displayed.</p>
+	<div class="row">
+		<div class="columns eleven">
+			<label><span class="required-field">&nbsp;</span>Business Information</label>
+			{{ message }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns eleven">
+			<label><span class="required-field">&nbsp;</span>Services/Products Information</label>
+			{{ message_service }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns eleven">
+			<label><span class="required-field">&nbsp;</span>Company Logo or Image</label>
+			{{ attachment_1 }}<br/>
+			{{ attachment_2 }}
+			<p style="font-size:11px">JPG, PNG, and GIF only, 5MB Max file size. Logo must be on white background or with transparency as a PNG file.</p>
+		</div>
+	</div>
+</fieldset>
+{{ /contact:form }}

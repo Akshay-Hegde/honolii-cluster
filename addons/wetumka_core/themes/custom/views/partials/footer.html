@@ -1,0 +1,44 @@
+<!-- Footer Boxes -->
+
+<div id="footer_boxs" class="mod box-style-1 box-info">
+	<div class="bd clearfix">
+		<div class="company-info span-7 border prepend-1">
+			<div>
+				<h3>Company</h3>
+				<p>Wetumka Interactive, LLC. is a small web design studio dedicated to helping your business make an impact on the web.</p>
+				<a class="cta type-1" href="{{pages:url id='4'}}">About Us<span>&raquo;</span></a>
+			</div>
+		</div>
+		<div class="service-info span-8 border">
+			<div>
+				<h3>Services</h3>
+				<p>We offer a range of online services such as design, web development, mobile development, web hosting, and online marketing.</p>
+				<a class="cta type-1" href="{{pages:url id='5'}}">Services<span>&raquo;</span></a>
+			</div>
+		</div>
+		<div class="newsletter-info span-7 append-1 last">
+			<div>
+				<h3>Newsletter</h3>
+				<p>Get updates about our team and services, because we rock!</p>
+				<div id="mailchimp_signup">
+					<form action="http://wetumka.us1.list-manage.com/subscribe/post?u=ccbb6b4497d9be484948781a6&amp;id=86d51b6932" method="post" target="_blank">
+						<div class="input-wrapper"><input placeholder="E-Mail Address" class="required email" type="text" name="EMAIL"></div>
+						<div class="form-submit"><input class="submit alt" type="submit" value="Subscribe" name="subscribe"></div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="fd">
+	</div>
+</div>
+<!-- Footer Links -->
+<div id="footer_nav" class="footer-nav">
+	<ul class="horz-list client-links">
+		{{navigation:links group="footer-client-links"}}
+	</ul>
+	<ul class="horz-list legal-links">
+		{{navigation:links group="footer-legal-links"}}
+	</ul>
+</div>
+<p class="copyright">Copyright &copy; {{helper:date format="Y"}} {{settings:site_name}} all rights reserved</p>

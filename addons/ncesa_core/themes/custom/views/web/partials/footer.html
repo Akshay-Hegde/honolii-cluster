@@ -1,0 +1,40 @@
+<div class="mod footer">
+	<div class="hd">
+	</div>
+	<div class="bd clearfix">
+		<div class="span-13 prepend-1 append-1">
+			<div class="span-5">
+				<ul>
+					{{navigation:links group="footer"}}
+				</ul>
+			</div>
+			<div class="span-8 last">
+				<ul>
+					{{navigation:links group="services"}}
+				</ul>
+			</div>
+			<hr class="clear space"/>
+			<div class="copyright">
+				Copyright &copy; {{helper:date format="Y"}} {{settings:site_name}}. All Rights Reserved.
+			</div>
+			<hr class="prepend-top" />
+			<div class="span-5">
+				<a href="http://www.wetumka.net" title="Visit Wetumka Interactive, helping your business make an impact on the web.">Wetumka Built</a>
+			</div>
+			<div class="span-8 last">
+				<a href="mailto:ncesa-ticket@project.wetumka.net" title="Submit a ticket to report a bug">Report a site bug</a>
+			</div>
+		</div>
+		<div class="span-8 append-1 last">
+			<div class="map">
+				<img alt="Google map" src="http://maps.googleapis.com/maps/api/staticmap?center=800+Santa+Fe+Drive+Encinitas,CA+92024&amp;zoom=13&amp;size=310x250&amp;sensor=false&amp;markers=320+Santa+Fe+Drive+Suite+104+Encinitas,CA+92024" /> <a class="cta modal overlay-directions"><span>Get Directions</span></a>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="overlay" id="map_directions">
+	{{snippet:map_directions}}
+</div>
+<div class="overlay" id="office_hours">
+{{snippet:office_hours}}
+</div>

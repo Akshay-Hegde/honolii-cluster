@@ -1,0 +1,93 @@
+{{ 
+	streams:form
+	stream="quote_request"
+	mode="new"
+	notify_a="captured_email"
+	notify_template_a="request_reply"
+	
+	notify_b="salesleadsgroup@johnallensigncompany.com"
+	notify_template_b="request_notice"
+	
+	return="/contact/thank-you?tg=form-quote"
+}}
+
+{{ form_open }}
+<fieldset>
+<legend>Contact Information</legend>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">*</span>Full Name</label>
+		{{full_name:input }}{{ full_name:error }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Company Name</label>
+		{{company_name:input}}
+	</div>
+</div>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">*</span>E-Mail Address</label>
+		{{captured_email:input}}{{ captured_email:error }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Website</label>
+		{{website_url:input}}{{ website_url:error }}
+	</div>
+</div>
+<div class="row">
+	<div class="columns six">
+		<label><span class="required-field">*</span>Phone Number</label>
+		{{phone_number:input}}{{ phone_number:error }}
+	</div>
+	<div class="columns six">
+		<label><span class="required-field">&nbsp;</span>Fax Number</label>
+		{{fax_number:input}}
+	</div>
+</div>
+</fieldset>
+<fieldset>
+	<legend>Vehicle Information</legend>
+	<div class="row">
+		<div class="columns six">
+			<label><span class="required-field">*</span>Make</label>
+			{{vehicle_make:input}}{{ vehicle_make:error }}
+		</div>
+		<div class="columns six">
+			<label><span class="required-field">*</span>Model</label>
+			{{vehicle_model:input}}{{ vehicle_model:error }}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns six">
+			<label><span class="required-field">*</span>Year</label>
+			{{vehicle_year:input}}{{ vehicle_year:error }}
+		</div>
+		<div class="columns six">
+			<label><span class="required-field">&nbsp;</span>Color</label>
+			{{vehicle_color:input}}
+		</div>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Other Information</legend>
+	<div class="row">
+		<div class="columns six">
+			<label><span class="required-field">&nbsp;</span>Promo Code</label>
+			{{promo_code:input}}
+		</div>
+	</div>
+	<div class="row">
+		<div class="columns eleven">
+			<label><span class="required-field">&nbsp;</span>Special details or instructions</label>
+			{{message:input}}
+		</div>
+	</div>
+</fieldset>
+
+<span class="contact-button">
+	<input type="submit" value="Send" />
+</span>
+	  
+{{ form_close }}
+
+{{ /streams:form }}

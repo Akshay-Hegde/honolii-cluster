@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html lang="{{ lang:code }}">
+<head>{{theme:partial name="metadata"}}</head>
+<body>
+<div data-role="page" id="page">
+	<div data-role="header" id="header">
+		{{theme:partial name="header"}}
+	</div>
+	<div data-role="content" id="content">
+		<div data-role="collapsible">
+			<h3>Menu</h3>
+			<div data-role="navbar">
+				<ul>
+					{{navigation:links group="menu-mobile"}}
+				</ul>
+			</div>
+		</div>
+		<div data-role="collapsible">
+			<h3>Services</h3>
+			<div data-role="navbar">
+				<ul>
+					{{navigation:links group="services"}}
+				</ul>
+			</div>
+		</div>
+		{{session:messages success="success-box" notice="notice-box" error="error-box"}}
+		{{template:body}}
+	</div>
+	<div data-role="footer" id="footer">
+		{{theme:partial name="footer"}}
+	</div>
+</div>
+{{ if global:environment != 'development' }}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>
+{{ endif }}
+</body>
+</html>

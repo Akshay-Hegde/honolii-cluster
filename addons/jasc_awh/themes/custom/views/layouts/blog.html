@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
+{{ endif }}
+</head>
+<body>
+	{{ theme:partial name="header" }}
+	<!-- container -->
+	<div class="container blog-layout" id="container">
+		<div class="row">
+			<div class="columns eight" id="primary">
+				{{session:messages success="success" notice="notice" error="error"}}
+				<div class="page-wrapper">
+				{{ theme:partial name="breadcrumbs" }}
+				{{ template:body }}
+				</div>
+			</div>
+			<div class="columns four" id="secondary">
+				<div class="panel">{{ widgets:area slug="blog" }}</div>
+				<hr class="space"/>
+				{{ snippet:mod_kingkam }}
+				{{ snippet:mod_newsletter_signup }}
+			</div>
+		</div>
+		{{ theme:partial name="footer" }}
+	</div>
+	<!-- container end -->
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/footer-scripts"}}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>
+{{ endif }}
+</body>
+</html>
