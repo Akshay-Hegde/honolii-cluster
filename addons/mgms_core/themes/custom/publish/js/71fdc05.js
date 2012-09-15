@@ -1,0 +1,1 @@
+$(document).ready(function(){$("h1").hover(function(){$(this).next("em").stop(!0,!0).animate({opacity:"show",top:"60"},"slow")},function(){$(this).next("em").animate({opacity:"hide",top:"100"},"fast")})});
