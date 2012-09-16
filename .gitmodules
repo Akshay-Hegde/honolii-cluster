@@ -1,3 +1,6 @@
 [submodule "addons/shared_addons/modules/galleries"]
 	path = addons/shared_addons/modules/galleries
 	url = git@github.com:edmeehan/galleries.git
+[submodule "addons/shared_addons/modules/snippets"]
+	path = addons/shared_addons/modules/snippets
+	url = git@github.com:edmeehan/PyroSnippets.git
