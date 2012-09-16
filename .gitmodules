@@ -1,0 +1,3 @@
+[submodule "addons/shared_addons/modules/galleries"]
+	path = addons/shared_addons/modules/galleries
+	url = git@github.com:edmeehan/galleries.git
