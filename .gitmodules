@@ -1,37 +1,23 @@
 [submodule "PyroCMS Gallery Module"]
 	path = addons/shared_addons/modules/galleries
-	url = e:/projects-frameworks/pyrocms-module-gallery/
+	url = git://github.com/pyrocms/galleries.git
 [submodule "PyroCMS Snippets Module"]
 	path = addons/shared_addons/modules/snippets
-	url = e:/projects-frameworks/pyrocms-module-snippets/
+	url = git://github.com/parse19/PyroSnippets.git
 [submodule "Wetumka Build"]
-
 	path = addons/wetumka_core/themes/custom/build
-
 	url = e:/projects-frameworks/build-h5bp/
-
 [submodule "eMeehan Build"]
-
 	path = addons/emeehan/themes/custom/build
-
 	url = e:/projects-frameworks/build-h5bp/
-
 [submodule "JASC_AWH Build"]
-
 	path = addons/jasc_awh/themes/custom/build
-
 	url = e:/projects-frameworks/build-h5bp/
-
 [submodule "NCESA Build"]
-
 	path = addons/ncesa_core/themes/custom/build
-
 	url = e:/projects-frameworks/build-h5bp/
-
 [submodule "JASC_CORE Build"]
-
 	path = addons/jasc_core/themes/custom/build
-
 	url = e:/projects-frameworks/build-h5bp/
 [submodule "MGMS Build"]
 	path = addons/mgms_core/themes/custom/build
