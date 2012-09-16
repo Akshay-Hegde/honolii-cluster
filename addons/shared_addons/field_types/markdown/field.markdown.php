@@ -45,10 +45,10 @@ class Field_markdown
 	 */
 	public function pre_output($input)
 	{
-	    $this->CI = get_instance();
+	    $parser = new Markdown_Parser;
 
-		$this->CI->load->library('Markdown_Parser');
-
-		return $this->CI->markdown_parser->transform($input);
+	    return $parser->transform($input);
 	}
 }
+
+require_once(APPPATH.'libraries/Markdown_parser.php');
