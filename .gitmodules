@@ -1,6 +1,0 @@
-[submodule "PyroCMS Gallery Module"]
-    path = addons/shared_addons/modules/galleries
-    url = https://github.com/pyrocms/galleries.git
-[submodule "PyroCMS Snippets Module"]
-    path = addons/shared_addons/modules/snippets
-    url = https://github.com/parse19/PyroSnippets.git
