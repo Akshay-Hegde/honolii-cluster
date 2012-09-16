@@ -1,30 +1,30 @@
 [submodule "PyroCMS Gallery Module"]
 	path = addons/shared_addons/modules/galleries
-	url = git://github.com/pyrocms/galleries.git
+	url = https://github.com/pyrocms/galleries.git
 [submodule "PyroCMS Snippets Module"]
 	path = addons/shared_addons/modules/snippets
-	url = git://github.com/parse19/PyroSnippets.git
+	url = https://github.com/parse19/PyroSnippets.git
 [submodule "Wetumka Build"]
 	path = addons/wetumka_core/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "eMeehan Build"]
 	path = addons/emeehan/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "JASC_AWH Build"]
 	path = addons/jasc_awh/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "NCESA Build"]
 	path = addons/ncesa_core/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "JASC_CORE Build"]
 	path = addons/jasc_core/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "MGMS Build"]
 	path = addons/mgms_core/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "MXTB Build"]
 	path = addons/mxtb_core/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
 [submodule "USTL Build"]
 	path = addons/ustl_core/themes/custom/build
-	url = git://github.com/edmeehan/pyro-h5bp.git
+	url = git@github.com:edmeehan/pyro-h5bp.git
