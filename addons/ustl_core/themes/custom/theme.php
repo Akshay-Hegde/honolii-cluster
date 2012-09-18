@@ -2,11 +2,11 @@
 
 class Theme_Custom extends Theme {
 
-    public $name = 'Rebound';
+    public $name = 'US Techline';
     public $author = 'Edward Meehan - Wetumka';
     public $author_website = 'http://www.wetumka.net/';
     public $website = 'http://www.pyrocms.com/';
-    public $description = 'Custom Theme built for a blog site.';
+    public $description = 'Templete Theme conversion.';
     public $version = '1.0';
 
 }

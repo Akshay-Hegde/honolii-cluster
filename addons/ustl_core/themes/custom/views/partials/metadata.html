@@ -17,14 +17,7 @@
 <base href="{{ url:base }}" />
 <title>{{ settings:site_name }} &bull; {{ template:title }}</title>
 <!-- CSS Stylesheets -->
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Michroma|Orbitron"/>
-{{ if global:environment == 'development' }}
-<!-- DEVELOPMENT FILES -->
-{{ less:compile file="build.less" output="style.css" }}
-{{ else }}
-<!-- PRODUCTION FILES -->
-<link rel="stylesheet" href="/{{theme:path}}/css/style.css" />
-{{ endif }}
+<link rel="stylesheet" href="/{{theme:path}}/css/build.css" />
 <!-- GA Tracking -->
 <script type="text/javascript">
 var _gaq = _gaq || [];
