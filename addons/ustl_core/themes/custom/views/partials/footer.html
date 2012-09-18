@@ -1,38 +1,58 @@
 <!-- Begin footer -->
-<footer id="footer" class="site-footer">
-	<div class="container">
-		<div class="row">
-			<div class="span10">&nbsp;
-				<!--
-				<h3>Who is Edward?</h3>
-				{{ pages:chunk id="5" name="default" }}
-				-->
-			</div>
-			<div class="span8 offset1">
-				{{ if {url:segments segment="1"} != 'contact' }}
-					<h3>Say Hello</h3>
-					{{ theme:partial name="form-contact-short" }}
-				{{else}}
-					<h3>Woot!</h3>
-					<p>This is the contact page!</p>
-				{{ endif }}
-			</div>
-			<div class="span4 offset1">
-				<h3>Find Me</h3>
-				<ul class="social-icon">
-				{{ streams:cycle stream="social_network" }}
-					{{ entries }}
-					<li><a href="{{url}}" title="Visit my {{name}} profile" class="icon"><img width="32" height="32" src="/{{theme:path}}img/social/32px/{{class}}.png" alt="{{name}} logo" /></a></li>
-					{{ /entries }}
-				{{ /streams:cycle }}
-				</ul>
-			</div>
-		</div>
-		<div class="row">
-			<div class="span24">
-				<p>&copy; {{ helper:date format="Y" }} {{ settings:site_name }}, all rights reserved</p>
-				<p>Website powered by <a href="http://pyrocms.com/" title="PyroCMS">PyroCMS</a></p>
-			</div>
+<footer id="footer" class="bot1">
+	<div class="main2">
+		<nav class="menu">
+			<ul id="menu">
+				<li id="nav1">
+					<span><img src="images/bb1.png"></span>
+					<a href="#!/page_HOME"><span></span> home <b>start here</b></a>
+				</li>
+
+				<li id="nav2">
+					<span><img src="images/bb2.png"></span>
+					<a href="#!/page_SERVICES"><span></span> services <b>services overview</b></a>
+				</li>
+
+				<li id="nav3">
+					<span><img src="images/bb3.png"></span>
+					<a href="#!/page_ABOUT"><span></span> about <b>little about us</b></a>
+
+					<div class="submenu">
+						<ul>
+							<li>
+								<a href="#!/page_MORE">who we are</a>
+							</li>
+							<li>
+								<a href="#!/page_MORE">Our team</a>
+							</li>
+							<li>
+								<a href="#!/page_MORE">Company info</a>
+							</li>
+						</ul>
+					</div>
+				</li>
+
+				<li id="nav4">
+					<span><img src="images/bb4.png"></span>
+					<a href="#!/page_SOLUTIONS"><span></span> solutions <b>best solutions</b></a>
+				</li>
+
+				<li id="nav5">
+					<span><img src="images/bb5.png"></span>
+					<a href="#!/page_PARTNERS"><span></span> partners <b>clients & partners</b></a>
+				</li>
+
+				<li id="nav6">
+					<span><img src="images/bb6.png"></span>
+					<a href="#!/page_CONTACTS"><span></span> CONTACTS <b>contact information</b></a>
+				</li>
+			</ul>
+		</nav>
+
+	</div>
+	<div class="bot2">
+		<div class="copyright">
+			Copyright © {{ helper:date format="Y" }}. All rights reserved. <a href="#!/page_PRIVACY">Privacy policy</a>
 		</div>
 	</div>
 </footer>
