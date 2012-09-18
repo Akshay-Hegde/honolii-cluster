@@ -1,3 +1,11 @@
+# Wetumka Team
+
+This project has been modified slightly to work with out custom installation.
+
+## Submodules
+ * Galleries
+ * Snippets
+
 # PyroCMS Professional Edition
 
 * [Website](http://pyrocms.com/)

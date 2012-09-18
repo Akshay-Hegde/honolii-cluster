@@ -2,41 +2,53 @@
 <!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
 <!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-{{ if global:environment == 'development' }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="metadata"}}
-{{ else }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/metadata"}}
-{{ endif }}
-</head>
-<body>
-	<div id="wrapper">	
-		{{ theme:partial name="header" }}
-		<!-- Content -->
-		<div id="content" class="container site-content">
-			<div class="row">
-				{{session:messages success="success" notice="notice" error="error"}}
-				{{ template:body }}
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+	<!--<![endif]-->
+	<head>
+		{{ if global:environment == 'development' }}
+		<!-- DEVELOPMENT FILES -->
+		{{theme:partial name="metadata"}}
+		{{ else }}
+		<!-- PRODUCTION FILES -->
+		{{theme:partial name="publish/metadata"}}
+		{{ endif }}
+	</head>
+	<body>
+		<div class="spinner"></div>
+		<div id="wrapper" class="extra">
+			{{ theme:partial name="header" }}
+			<!-- Content -->
+			<div class="main1">
+				<article id="content">
+						<div class="logo">
+							<a href="index.html" id="logo"><img alt="Site Logo" src="/{{theme:path}}/img/logo.png" width="377" height="76"></a>
+						</div>
+
+				</article>
 			</div>
+			<div class="block1"></div>
+
+			<div class="bg1"></div>
 		</div>
 		<!-- Footer -->
-		{{ theme:partial name="footer" }}
-	</div>
-{{ if global:environment == 'development' }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="footer-scripts"}}
-{{ else }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/footer-scripts"}}
-	<script type="text/javascript">  (function() {
-    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-	</script>
-{{ endif }}
-</body>
+		
+		{{ if global:environment == 'development' }}
+		<!-- DEVELOPMENT FILES -->
+		{{theme:partial name="footer-scripts"}}
+		{{ else }}
+		<!-- PRODUCTION FILES -->
+		{{theme:partial name="publish/footer-scripts"}}
+		<script type="text/javascript">
+            (function() {
+                var ga = document.createElement('script');
+                ga.type = 'text/javascript';
+                ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0];
+                s.parentNode.insertBefore(ga, s);
+            })();
+		</script>
+		{{ endif }}
+	</body>
 </html>
