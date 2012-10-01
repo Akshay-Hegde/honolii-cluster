@@ -29,6 +29,12 @@ class Module_import {
 
 		// Get some basic info
 		$module = $details_class->info();
+		
+		// Only install 3rd party modules if defined
+		if( $is_core === false AND ( ! isset($module['default_install']) OR $module['default_install'] === FALSE ) )
+		{
+			return FALSE;
+		}
 
 		// Now lets set some details ourselves
 		$module['version'] = $details_class->version;
