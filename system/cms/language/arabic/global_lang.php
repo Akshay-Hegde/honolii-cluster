@@ -9,7 +9,8 @@ $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 
@@ -28,6 +29,13 @@ $lang['global:operators:equal'] 		= 'يساري';
 $lang['global:operators:not-equal'] 	= 'لا يساوي';
 $lang['global:operators:less-than'] 	= 'أقل من';
 $lang['global:operators:greater-than'] 	= 'أكثر من';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'الروابط';
 $lang['breadcrumb_base_label'] 			= 'الرئيسية';
@@ -62,7 +70,7 @@ $lang['activate_label'] 				= 'تنشيط';
 $lang['approve_label']					= 'اعتماد';
 $lang['unapprove_label']				= 'حجب';
 $lang['publish_label'] 					= 'نشر';
-$lang['upload_label'] 					= 'رفع';
+$lang['global:upload'] 					= 'رفع';
 $lang['global:uninstall'] 				= 'إزالة';
 $lang['global:install'] 					= 'تثبيت';
 $lang['global:enable']					= 'تمكين';

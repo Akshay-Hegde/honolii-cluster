@@ -22,14 +22,14 @@ class Plugin_Theme extends Plugin
 	 * @return string The final rendered partial view.
 	 */
 	public function partial()
-	{	
+	{
 		$name = $this->attribute('name');
 
 		$path = $this->load->get_var('template_views');
 		$data = $this->load->get_vars();
 
-		$string = $this->load->file($path.'partials/'.$name.'.html', TRUE);
-		return $this->parser->parse_string($string, $data, TRUE, TRUE);
+		$string = $this->load->file($path.'partials/'.$name.'.html', true);
+		return $this->parser->parse_string($string, $data, true, true);
 	}
 
 	/**
@@ -79,8 +79,9 @@ class Plugin_Theme extends Plugin
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
 		$type = $this->attribute('type', 'text/css');
+        $rel = $this->attribute('rel', 'stylesheet');
 
-		return link_tag($this->css_url($file), 'stylesheet', $type, $title, $media);
+		return link_tag($this->css_url($file), $rel, $type, $title, $media);
 	}
 
 	/**
@@ -241,7 +242,7 @@ class Plugin_Theme extends Plugin
 		$name = $this->attribute('name');
 		$value = $this->attribute('value');
 
-		if ($value !== NULL)
+		if ($value !== null)
 		{
 			$variables[$name] = $value;
 			return;

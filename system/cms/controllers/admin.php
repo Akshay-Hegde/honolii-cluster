@@ -2,8 +2,9 @@
 /**
  * The admin class is basically the main controller for the backend.
  *
- * @author PyroCMS Development Team
- * @package	 PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package	 	PyroCMS\Core\Controllers
  */
 class Admin extends Admin_Controller
 {
@@ -23,7 +24,7 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		$this->template
-			->enable_parser(TRUE)
+			->enable_parser(true)
 			->title(lang('global:dashboard'));
 
 		if (is_dir('./installer'))
@@ -60,13 +61,18 @@ class Admin extends Admin_Controller
 		$this->form_validation->set_rules($this->validation_rules);
 
 		// If the validation worked, or the user is already logged in
-		if ($this->form_validation->run() OR $this->ion_auth->logged_in())
+		if ($this->form_validation->run() or $this->ion_auth->logged_in())
 		{
-			redirect('admin');
+			// if they were trying to go someplace besides the 
+			// dashboard we'll have stored it in the session
+			$redirect = $this->session->userdata('admin_redirect');
+			$this->session->unset_userdata('admin_redirect');
+
+			redirect($redirect ? $redirect : 'admin');
 		}
 
 		$this->template
-			->set_layout(FALSE)
+			->set_layout(false)
 			->build('admin/login');
 	}
 

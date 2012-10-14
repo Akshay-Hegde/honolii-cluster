@@ -104,7 +104,7 @@ class Field_choice
 				{
 					$selected = ($params['value'] == $choice_key) ? true : false;
 			
-					$return .= '<label class="checkbox">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
+					$return .= '<label class="radio">'.form_radio($params['form_slug'], $this->format_choice($choice_key), $selected, $this->active_state($choice)).'&nbsp;'.$this->format_choice($choice).'</label>'.$line_end ;
 				}
 				else
 				{
@@ -239,6 +239,10 @@ class Field_choice
 
 			// One per line
 			return implode("\n", array_unique($input));		
+		}
+		elseif ($field->field_data['choice_type'] == 'checkboxes' and ! $input)
+		{
+			return '';
 		}
 		else
 		{

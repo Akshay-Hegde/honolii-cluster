@@ -15,10 +15,12 @@ class Migration_Install_newsletters extends CI_Migration {
 			$this->module_m->upgrade('newsletters');
 			$this->module_m->update('modules', array('is_core' => 1));
 		}
+
+		return true;
 	}
 
 	public function down()
 	{
-		return TRUE;
+		return true;
 	}
 }

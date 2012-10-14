@@ -10,6 +10,7 @@ $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Author';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.';
 $lang['global:user'] 					= 'User';
 
 $lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
@@ -30,6 +31,13 @@ $lang['global:operators:equal'] 		= 'Equal to';
 $lang['global:operators:not-equal'] 	= 'Not equal to';
 $lang['global:operators:less-than'] 	= 'Less than';
 $lang['global:operators:greater-than'] 	= 'Greater than';
+
+$lang['global:duration:1-day']			= 'One day';
+$lang['global:duration:1-week']			= 'One week';
+$lang['global:duration:2-weeks']		= 'Two weeks';
+$lang['global:duration:1-month']		= 'One month';
+$lang['global:duration:3-months']		= 'Three Months';
+$lang['global:duration:always']			= 'Always';
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';
@@ -64,7 +72,7 @@ $lang['activate_label'] 				= 'Activate';
 $lang['approve_label']					= 'Approve';
 $lang['unapprove_label']				= 'Unapprove';
 $lang['publish_label'] 					= 'Publish';
-$lang['upload_label'] 					= 'Upload';
+$lang['global:upload'] 					= 'Upload';
 $lang['global:uninstall'] 				= 'Uninstall';
 $lang['global:install'] 				= 'Install';
 $lang['global:upgrade'] 				= 'Upgrade';

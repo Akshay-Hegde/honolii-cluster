@@ -9,11 +9,13 @@ $lang['desc_label'] 					= 'Beschreibung';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Aktion';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.delete_message'] 			= 'Bist du sicher, dass du das löschen möchtest? Es gibt keine Möglichkeit das Löschen rückgängig zu machen.';
-$lang['dialog.confirm'] 				= 'Bestätigen';
-$lang['dialog.yes'] 					= 'Ja';
-$lang['dialog.no'] 						= 'Nein';
+$lang['global:dialog:confirm'] 				= 'Bestätigen';
+$lang['global:yes'] 					= 'Ja';
+$lang['global:no'] 						= 'Nein';
 
 $lang['global:select-none'] 			= '-- Keine --';
 $lang['global:select-all'] 				= '-- Alle --';
@@ -23,10 +25,17 @@ $lang['global:select-pick']			 	= '-- Auswählen --';
 $lang['global:check-none'] 				= 'Keine';
 $lang['global:check-all']				= 'Alle';
 
-$lang['operators.equal'] 				= 'Gleicht';
-$lang['operators.not_equal'] 			= 'Gleicht nicht';
-$lang['operators.less_than'] 			= 'Kleiner als';
-$lang['operators.greater_than'] 		= 'Größer als';
+$lang['global:operators:equal'] 				= 'Gleicht';
+$lang['global:operators:not-equal'] 			= 'Gleicht nicht';
+$lang['global:operators:less-than'] 			= 'Kleiner als';
+$lang['global:operators:greater-than'] 		= 'Größer als';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Start';
@@ -61,7 +70,7 @@ $lang['activate_label'] 				= 'Aktivieren';
 $lang['approve_label']					= 'Bestätigen';
 $lang['unapprove_label']				= 'Bestätigung aufheben';
 $lang['publish_label'] 					= 'Veröffentlichen';
-$lang['upload_label'] 					= 'Hochladen';
+$lang['global:upload'] 					= 'Hochladen';
 $lang['global:uninstall'] 				= 'Deinstallieren';
 $lang['global:install'] 					= 'Installieren';
 $lang['global:enable']					= 'Aktivieren';

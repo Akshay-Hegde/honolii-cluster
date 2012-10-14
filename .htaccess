@@ -6,6 +6,8 @@
 
     # Make sure directory listing is disabled
 	Options +FollowSymLinks -Indexes
+	# disable the Apache MultiViews directive if it is enabled on the server. It plays havoc with URL rewriting
+	Options -MultiViews
 	RewriteEngine on
 
 	# NOTICE: If you get a 404 play with combinations of the following commented out lines
@@ -27,7 +29,7 @@
 	#RewriteRule ^(.*)$ http://www.%1/$1 [R=301,L]
 
 	# Keep people out of codeigniter directory and Git/Mercurial data
-	RedirectMatch 403 ^/(system\/cms\/cache|system\/codeigniter|\.git|\.hg).*$
+	RedirectMatch 403 ^/.*/(system/cms/cache|system/codeigniter|system/cms/config|system/cms/logs|\.git|\.hg).*$
 
 	# Send request via index.php (again, not if its a real file or folder)
 	RewriteCond %{REQUEST_FILENAME} !-f

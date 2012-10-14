@@ -10,7 +10,7 @@ $lang['version_label'] 					= 'Verze';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Akce';
 $lang['global:slug'] 					= 'Slug';
-
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'Opravdu chcete položku vymazat? Akci nebude možno vrátit.';
 $lang['global:dialog:confirm'] 			= 'Potvrdit';
 
@@ -29,6 +29,13 @@ $lang['global:operators:equal'] 		= 'Shodné s';
 $lang['global:operators:not-equal'] 	= 'Rozdílné od';
 $lang['global:operators:less-than'] 	= 'Méně než';
 $lang['global:operators:greater-than'] 	= 'Více než';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigace';
 $lang['breadcrumb_base_label'] 			= 'Domů';
@@ -63,7 +70,7 @@ $lang['activate_label'] 				= 'Aktivovat';
 $lang['approve_label']					= 'Schválit';
 $lang['unapprove_label']				= 'Zamítnout';
 $lang['publish_label'] 					= 'Publikovat';
-$lang['upload_label'] 					= 'Nahrát';
+$lang['global:upload'] 					= 'Nahrát';
 $lang['global:uninstall'] 				= 'Odinstalovat';
 $lang['global:install'] 					= 'Instalovat';
 $lang['global:enable']					= 'Zapnout';

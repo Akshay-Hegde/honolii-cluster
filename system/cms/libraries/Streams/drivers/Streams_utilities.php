@@ -20,10 +20,9 @@ class Streams_utilities extends CI_Driver {
 	/**
 	 * Constructor
 	 *
-	 * @access	public
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->CI =& get_instance();
 	}
@@ -36,12 +35,15 @@ class Streams_utilities extends CI_Driver {
 	 * Performs all uninstall actions for a specific
 	 * namespace.
 	 *
-	 * @access	public
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	function remove_namespace($namespace)
-	{		
+	public function remove_namespace($namespace)
+	{
+		// Some field destructs use stream data from the cache,
+		// so let's make sure that the slug cache has run.
+		$this->CI->streams_m->run_slug_cache();
+
 		// Get all the streams in this namespace and remove each one:
 		$streams = $this->CI->streams_m->get_streams($namespace);
 		
@@ -68,7 +70,6 @@ class Streams_utilities extends CI_Driver {
 	 * in this function, lest we get anything else
 	 * in the database messed up.
  	 *
-	 * @access	public
 	 * @param	string - table slug
 	 * @param	string - namespace
 	 * @param	string - stream prefix
@@ -78,7 +79,7 @@ class Streams_utilities extends CI_Driver {
 	 * @param	[array - view options]
 	 * @return	bool
 	 */
-	function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created'))
+	public function convert_table_to_stream($table_slug, $namespace, $prefix, $stream_name, $about = null, $title_column = null, $view_options = array('id', 'created'))
 	{
 		// ----------------------------
 		// Table data checks
@@ -100,11 +101,10 @@ class Streams_utilities extends CI_Driver {
 		// Maybe this table already exsits in our streams table?
 		// If so we can't have that.
 		if($this->CI->db
-						->where('stream_slug', $table_slug)
-						->where('stream_prefix', $prefix)
-						->where('stream_namespace', $namespace)
-						->get($this->CI->config->item('streams:streams_table'))
-						->num_rows > 0)
+			->where('stream_slug', $table_slug)
+			->where('stream_prefix', $prefix)
+			->where('stream_namespace', $namespace)
+			->count_all_results($this->CI->config->item('streams:streams_table')) > 0)
 		{
 			return false;
 		}
@@ -182,11 +182,10 @@ class Streams_utilities extends CI_Driver {
 	 * Allows you to take a column in a stream table
 	 * and turn it into a stream field.
 	 *
-	 * @access	public
 	 * @param	string - namespace
 	 * @return	bool
 	 */
-	function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
+	public function convert_column_to_field($stream_slug, $namespace, $field_name, $field_slug, $field_type, $extra = array(), $assign_data = array())
 	{
 		// Get the stream
 		if ( ! $stream = $this->stream_obj($stream_slug, $namespace))

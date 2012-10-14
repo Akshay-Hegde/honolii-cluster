@@ -63,16 +63,47 @@ class Streams_m extends MY_Model {
 	
     // --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = STREAMS_TABLE;
 		
 		// We just grab all the streams now.
 		// That way we don't have to do a separate DB
 		// call for each.
-		$obj = $this->db->get($this->table);
-		
-		foreach($obj->result() as $stream)
+		$this->run_cache();
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Run Slug Cache
+	 *
+	 * This function can be used in the case where you need
+	 * to make sure that all streams data is in the cache.
+	 *
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function run_slug_cache()
+	{
+		$this->run_cache('slug');
+	}
+
+    // --------------------------------------------------------------------------
+
+	/**
+	 * Run Cache
+	 *
+	 * Puts streams data into cache to reduce
+	 * database load.
+	 *
+	 * @access 	private
+	 * @param 	string - type 'id' or 'slug'
+	 * @return 	void
+	 */
+	private function run_cache($type = 'id')
+	{		
+		foreach($this->db->get($this->table)->result() as $stream)
 		{
 			if (trim($stream->view_options) == '')
 			{
@@ -89,8 +120,16 @@ class Streams_m extends MY_Model {
 				}
 			}
 
-			$this->streams_cache[$stream->id] = $stream;	
+			if ($type == 'id')
+			{
+				$this->streams_cache[$stream->id] = $stream;	
+			}
+			elseif ($type == 'slug')
+			{
+				$this->streams_cache['ns'][$stream->stream_namespace][$stream->stream_slug] = $stream;
+			}
 		}
+
 	}
     
     // --------------------------------------------------------------------------
@@ -138,7 +177,7 @@ class Streams_m extends MY_Model {
      * @param	[mixed - provide a namespace string to restrict total]
      * @return	int
      */
-	public function total_streams($namespace = FALSE)
+	public function total_streams($namespace = null)
 	{
 		$where = ($namespace) ? "WHERE stream_namespace='$namespace'" : null;
 	
@@ -190,7 +229,7 @@ class Streams_m extends MY_Model {
 		// Add in our standard fields		
 		$standard_fields = array(
 	        'created' 			=> array('type' => 'DATETIME'),
-            'updated'	 		=> array('type' => 'DATETIME', 'null' => TRUE),
+            'updated'	 		=> array('type' => 'DATETIME', 'null' => true),
             'created_by'		=> array('type' => 'INT', 'constraint' => '11', 'null' => true),
             'ordering_count'	=> array('type' => 'INT', 'constraint' => '11')
 		);
@@ -205,7 +244,7 @@ class Streams_m extends MY_Model {
 		$insert_data['stream_prefix']		= $prefix;
 		$insert_data['stream_namespace']	= $namespace;
 		$insert_data['about']				= $about;
-		$insert_data['title_column']		= NULL;
+		$insert_data['title_column']		= null;
 		
 		// Since this is a new stream, we are going to add a basic view profile
 		// with data we know will be there.	
@@ -229,7 +268,7 @@ class Streams_m extends MY_Model {
 		// See if the stream slug is different
 		$stream = $this->get_stream($stream_id);
 		
-		if ($stream->stream_slug != $data['stream_slug'] or $stream->stream_prefix != $data['stream_prefix'])
+		if ($stream->stream_slug != $data['stream_slug'] or (isset($data['stream_prefix']) and $stream->stream_prefix != $data['stream_prefix']))
 		{
 			// Use the right DB prefix
 			if (isset($data['stream_prefix']))
@@ -314,12 +353,14 @@ class Streams_m extends MY_Model {
 		
 		if (is_array($assignments))
 		{
+			//echo '<pre>'.print_r($assignments, true).'</pre>';
+
 			foreach ($assignments as $assignment)
 			{
 				// Run the destruct
 				if(method_exists($this->type->types->{$assignment->field_type}, 'field_assignment_destruct'))
 				{
-					$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->fields_m->get_field($assignment->field_id), $this->streams_m->get_stream($assignment->stream_slug, true));
+					$this->type->types->{$assignment->field_type}->field_assignment_destruct($this->fields_m->get_field($assignment->field_id), $this->get_stream($assignment->stream_id));
 				}
 			}		
 		}
@@ -389,14 +430,29 @@ class Streams_m extends MY_Model {
 	 */
 	public function get_stream($stream_id, $by_slug = false, $namespace = null)
 	{
-		// Check for cache. We only cache by ID.
+		// -------------------------------------
+		// Check for cache
+		// -------------------------------------
+		// We can cache by either slug or ID.
+		// We need a namespace for slug though.
+		// -------------------------------------
+
 		if ( ! $by_slug and is_numeric($stream_id))
 		{
 			if (isset($this->streams_cache[$stream_id]))
 			{
 				return $this->streams_cache[$stream_id];
 			}
-		}	
+		}
+		elseif ($by_slug and $namespace)
+		{
+			if (isset($this->streams_cache['ns'][$namespace]->$stream_id))
+			{
+				return $this->streams_cache['ns'][$namespace]->$stream_id;
+			}
+		}
+
+		// -------------------------------------
 
 		$this->db->limit(1);
 		
@@ -449,7 +505,7 @@ class Streams_m extends MY_Model {
 	 * @param	int
 	 * @return 	obj
 	 */
-	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0)
+	public function get_stream_data($stream, $stream_fields, $limit = null, $offset = 0, $filter_data = null)
 	{
 		$this->load->config('streams');
 
@@ -471,6 +527,20 @@ class Streams_m extends MY_Model {
 		else
 		{
 			$this->db->order_by('created', 'DESC');
+		}
+
+		// -------------------------------------
+		// Filter results
+		// -------------------------------------
+
+		if ( $filter_data != null )
+		{
+
+			// Loop through and apply the filters
+			foreach ( $filter_data['filters'] as $filter=>$value )
+			{
+				if ( !empty($value) ) $this->db->like(str_replace('f_', '', $filter), $value);
+			}
 		}
 
 		// -------------------------------------

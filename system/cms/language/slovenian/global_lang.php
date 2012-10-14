@@ -9,6 +9,8 @@ $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
 $lang['global:author'] 					= 'Avtor';
 $lang['global:action'] 					= 'Dejanje';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['global:dialog:confirm'] 			= 'Potrdi';
@@ -23,10 +25,17 @@ $lang['global:select-pick'] 			= '-- Izberi --';
 $lang['global:check-none'] 				= 'Nič';
 $lang['global:check-all']				= 'Vse';
 
-$lang['operators.equal'] 				= 'Enako kot';
-$lang['operators.not_equal'] 			= 'Ni enako kot';
-$lang['operators.less_than'] 			= 'Manj kot';
-$lang['operators.greater_than'] 		= 'Več kot';
+$lang['global:operators:equal'] 				= 'Enako kot';
+$lang['global:operators:not-equal'] 			= 'Ni enako kot';
+$lang['global:operators:less-than'] 			= 'Manj kot';
+$lang['global:operators:greater-than'] 		= 'Več kot';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Meni';
 $lang['breadcrumb_base_label'] 			= 'Domov';
@@ -61,7 +70,7 @@ $lang['activate_label'] 				= 'Aktiviraj';
 $lang['approve_label']					= 'Oddobri';
 $lang['unapprove_label']				= 'Prekliči oddobritev';
 $lang['publish_label'] 					= 'Objavi';
-$lang['upload_label'] 					= 'Naloži';
+$lang['global:upload'] 					= 'Naloži';
 $lang['global:uninstall'] 				= 'Odstrani';
 $lang['global:install'] 					= 'Namesti';
 $lang['global:enable']					= 'Omogoči';

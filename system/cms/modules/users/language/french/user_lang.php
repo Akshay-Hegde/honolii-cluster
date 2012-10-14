@@ -44,8 +44,8 @@ $lang['indicates_required'] = 'Désignez les champs obligatoires';
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
+$lang['user_send_activation_email']            = 'Envoyer un Email d\'activation';
+$lang['user_do_not_activate']                  = 'Inactif';
 $lang['user_register_title']          = 'Enregistrez-vous';
 $lang['user_activate_account_title']  = 'Activez le compte';
 $lang['user_activate_label']          = 'Activez';
@@ -63,7 +63,6 @@ $lang['user_last_name'] 		= 'Nom';
 $lang['user_username']          = 'Nom Utilisateur';
 $lang['user_display_name']      = 'Pseudonyme';
 $lang['user_email_use'] 		= 'utilisé pour se connecter';
-$lang['user_password']			= 'Mot de passe';
 $lang['user_remember']          = 'Rester connecté';
 $lang['user_group_id_label']    = 'ID Groupe';
 
@@ -93,11 +92,12 @@ $lang['user_settings_saved_error']   = 'Une erreur est survenue.';
 
 $lang['user_register_btn']   = 'Enregistrement';
 $lang['user_activate_btn']   = 'Activation';
-$lang['user_reset_pass_btn'] = 'Réinit Mot de passe';
+$lang['user_reset_pass_btn'] = 'Réinitialiser le Mot de passe';
 $lang['user_login_btn']      = 'Connexion';
 $lang['user_settings_btn']   = 'Sauvegarder les paramètres';
 
 // -- Errors & Messages ------------------------------------------------------------------------------------
+
 // Create
 $lang['user_added_and_activated_success'] = 'Un nouvel utilisateur a été créé et activé.';
 $lang['user_added_not_activated_success'] = 'Un nouvel utilisateur a été créé, le compte a besoin d\'être activé.';
@@ -145,6 +145,7 @@ $lang['user_password_reset_message'] = "Votre mot de passe a été ré-initialis
 
 
 // Emails ----------------------------------------------------------------------------------------------------
+
 // Activation
 $lang['user_activation_email_subject'] = 'Activation requise';
 $lang['user_activation_email_body']    = 'Merci d\'avoir activé votre compte chez %s. Pour vous connecter au site, veuillez cliquer le lien ci-dessous:';

@@ -10,11 +10,9 @@ $lang['version_label'] 					= 'Versie';
 $lang['global:author'] 					= 'Auteur';
 $lang['global:action'] 					= 'Actie';
 $lang['global:slug'] 					= 'Slug';
-
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'Weet u zeker dat u dit wilt verwijderen? Dit kan niet ongedaan worden gemaakt.';
 $lang['global:dialog:confirm'] 			= 'Bevestigen';
-$lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
-$lang['global:dialog:confirm'] 			= 'Confirm';
 
 $lang['global:yes'] 					= 'Ja';
 $lang['global:no'] 						= 'Nee';
@@ -28,9 +26,16 @@ $lang['global:check-all']				= 'Alles';
 $lang['global:check-none'] 				= 'Geen';
 
 $lang['global:operators:equal'] 		= 'Gelijk aan';
-$lang['global:operators:not_equal'] 	= 'Ongelijk aan';
-$lang['global:operators:less_than'] 	= 'Kleiner dan';
-$lang['global:operators:greater_than'] 	= 'Groter dan';
+$lang['global:operators:not-equal'] 	= 'Ongelijk aan';
+$lang['global:operators:less-than'] 	= 'Kleiner dan';
+$lang['global:operators:greater-than'] 	= 'Groter dan';
+
+$lang['global:duration:1-day']			= 'One day'; #translate
+$lang['global:duration:1-week']			= 'One week'; #translate
+$lang['global:duration:2-weeks']		= 'Two weeks'; #translate
+$lang['global:duration:1-month']		= 'One month'; #translate
+$lang['global:duration:3-months']		= 'Three Months'; #translate
+$lang['global:duration:always']			= 'Always'; #translate
 
 $lang['navigation_headline'] 			= 'Navigatie';
 $lang['breadcrumb_base_label'] 			= 'Home';
@@ -65,7 +70,7 @@ $lang['activate_label'] 				= 'Activeren';
 $lang['approve_label']					= 'Goedkeuren';
 $lang['unapprove_label']				= 'Afkeuren';
 $lang['publish_label'] 					= 'Publiceren';
-$lang['upload_label'] 					= 'Uploaden';
+$lang['global:upload'] 					= 'Uploaden';
 
 $lang['global:uninstall'] 				= 'Deinstalleren';
 $lang['global:install'] 				= 'Installeren';

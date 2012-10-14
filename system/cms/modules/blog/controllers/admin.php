@@ -22,12 +22,12 @@ class Admin extends Admin_Controller
 		'title' => array(
 			'field' => 'title',
 			'label' => 'lang:global:title',
-			'rules' => 'trim|htmlspecialchars|required|max_length[100]|callback__check_title'
+			'rules' => 'trim|htmlspecialchars|required|max_length[200]|callback__check_title'
 		),
 		'slug' => array(
 			'field' => 'slug',
 			'label' => 'lang:global:slug',
-			'rules' => 'trim|required|alpha_dot_dash|max_length[100]|callback__check_slug'
+			'rules' => 'trim|required|alpha_dot_dash|max_length[200]|callback__check_slug'
 		),
 		array(
 			'field' => 'category_id',
@@ -76,7 +76,7 @@ class Admin extends Admin_Controller
         array(
 			'field' => 'comments_enabled',
 			'label'	=> 'lang:blog:comments_enabled_label',
-			'rules'	=> 'trim|numeric'
+			'rules'	=> 'trim|required'
 		),
         array(
             'field' => 'preview_hash',
@@ -122,14 +122,12 @@ class Admin extends Admin_Controller
 	public function index()
 	{
 		//set the base/default where clause
-		$base_where = array('show_future' => TRUE, 'status' => 'all');
+		$base_where = array('show_future' => true, 'status' => 'all');
 
 		//add post values to base_where if f_module is posted
-		$this->input->post('f_category') and $base_where + array('category' => $this->input->post('f_category'));
-
-		$base_where['status'] = $this->input->post('f_status') ? $this->input->post('f_status') : $base_where['status'];
-
-		$this->input->post('f_keywords') and $base_where + array('keywords' => $this->input->post('f_keywords'));
+		if ($this->input->post('f_category')) 	$base_where['category'] = $this->input->post('f_category');
+		if ($this->input->post('f_status')) 	$base_where['status'] 	= $this->input->post('f_status');
+		if ($this->input->post('f_keywords')) 	$base_where['keywords'] = $this->input->post('f_keywords');
 
 		// Create pagination links
 		$total_rows = $this->blog_m->count_by($base_where);
@@ -139,11 +137,12 @@ class Admin extends Admin_Controller
 		$blog = $this->blog_m->limit($pagination['limit'])->get_many_by($base_where);
 
 		//do we need to unset the layout because the request is ajax?
-		$this->input->is_ajax_request() and $this->template->set_layout(FALSE);
+		$this->input->is_ajax_request() and $this->template->set_layout(false);
 
 		$this->template
 			->title($this->module_details['name'])
 			->append_js('admin/filter.js')
+			->set_partial('filters', 'admin/partials/filters')
 			->set('pagination', $pagination)
 			->set('blog', $blog);
 
@@ -237,7 +236,7 @@ class Admin extends Admin_Controller
 
 		$this->template
 			->title($this->module_details['name'], lang('blog:create_title'))
-			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', $this->data, true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
@@ -257,6 +256,10 @@ class Admin extends Admin_Controller
 		$id OR redirect('admin/blog');
 
 		$post = $this->blog_m->get($id);
+
+		// If we have keywords before the update, we'll want to remove them from keywords_applied
+		$old_keywords_hash = (trim($post->keywords) != '') ? $post->keywords : null;
+
 		$post->keywords = Keywords::get_string($post->keywords);
 
 		// If we have a useful date, use it
@@ -304,7 +307,7 @@ class Admin extends Admin_Controller
 				'title'				=> $this->input->post('title'),
 				'slug'				=> $this->input->post('slug'),
 				'category_id'		=> $this->input->post('category_id'),
-				'keywords'			=> Keywords::process($this->input->post('keywords')),
+				'keywords'			=> Keywords::process($this->input->post('keywords'), $old_keywords_hash),
 				'intro'				=> $this->input->post('intro'),
 				'body'				=> $this->input->post('body'),
 				'status'			=> $this->input->post('status'),
@@ -353,7 +356,7 @@ class Admin extends Admin_Controller
 		
 		$this->template
 			->title($this->module_details['name'], sprintf(lang('blog:edit_title'), $post->title))
-			->append_metadata($this->load->view('fragments/wysiwyg', array(), TRUE))
+			->append_metadata($this->load->view('fragments/wysiwyg', array(), true))
 			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::blog_form.js')
 			->append_css('jquery/jquery.tagsinput.css')
@@ -462,7 +465,7 @@ class Admin extends Admin_Controller
 	 */
 	public function delete($id = 0)
 	{
-		$this->load->model('comments/comments_m');
+		$this->load->model('comments/comment_m');
 
 		role_or_die('blog', 'delete_live');
 
@@ -481,7 +484,7 @@ class Admin extends Admin_Controller
 				{
 					if ($this->blog_m->delete($id))
 					{
-						$this->comments_m->where('module', 'blog')->delete_by('module_id', $id);
+						$this->comment_m->where('module', 'blog')->delete_by('module_id', $id);
 
 						// Wipe cache for this model, the content has changed
 						$this->pyrocache->delete('blog_m');
@@ -543,46 +546,13 @@ class Admin extends Admin_Controller
 	}
 
 	/**
-	 * method to fetch filtered results for blog list
+	 * Generate a preview hash
 	 * 
-	 * @return void
+	 * @param string slug The Slug to check
+	 * @return bool
 	 */
-	public function ajax_filter()
-	{
-		$category = $this->input->post('f_category');
-		$status = $this->input->post('f_status');
-		$keywords = $this->input->post('f_keywords');
-
-		$post_data = array();
-
-		if ($status == 'live' OR $status == 'draft')
-		{
-			$post_data['status'] = $status;
-		}
-
-		if ($category != 0)
-		{
-			$post_data['category_id'] = $category;
-		}
-
-		//keywords, lets explode them out if they exist
-		if ($keywords)
-		{
-			$post_data['keywords'] = $keywords;
-		}
-		$results = $this->blog_m->search($post_data);
-
-		//set the layout to false and load the view
-		$this->template
-			->set_layout(FALSE)
-			->set('blog', $results)
-			->build('admin/tables/posts');
-	}
-
     private function _preview_hash()
     {
-
         return md5(microtime() + mt_rand(0,1000));
-
     }
 }

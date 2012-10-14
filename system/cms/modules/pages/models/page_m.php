@@ -193,7 +193,7 @@ class Page_m extends MY_Model
 			}
 
 			// if we didn't find a page with that exact uri AND there's more than one segment
-			if ( ! $page AND strpos($uri, '/') !== false)
+			if ( ! $page and strpos($uri, '/') !== false)
 			{
 				// pop the last segment off and we'll try again
 				$uri = preg_replace('@^(.+)/(.*?)$@', '$1', $uri);
@@ -210,7 +210,7 @@ class Page_m extends MY_Model
 		{
 			// so we found a page but if strict uri matching is required and the unmodified
 			// uri doesn't match the page we fetched then we pretend it didn't happen
-			if ($is_request AND (bool)$page->strict_uri AND $original_uri !== $uri)
+			if ($is_request and (bool)$page->strict_uri and $original_uri !== $uri)
 			{
 				return false;
 			}
@@ -550,7 +550,7 @@ class Page_m extends MY_Model
 			'css'				=> isset($input['css']) ? $input['css'] : null,
 			'js'				=> isset($input['js']) ? $input['js'] : null,
 			'meta_title'    	=> isset($input['meta_title']) ? $input['meta_title'] : '',
-			'meta_keywords' 	=> isset($input['meta_keywords']) ? Keywords::process($input['meta_keywords']) : '',
+			'meta_keywords' 	=> isset($input['meta_keywords']) ? $this->keywords->process($input['meta_keywords'], (isset($input['old_keywords_hash'])) ? $input['old_keywords_hash'] : null) : '',
 			'meta_description' 	=> isset($input['meta_description']) ? $input['meta_description'] : '',
 			'rss_enabled'		=> ! empty($input['rss_enabled']),
 			'comments_enabled'	=> ! empty($input['comments_enabled']),

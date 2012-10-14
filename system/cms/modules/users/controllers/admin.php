@@ -19,17 +19,17 @@ class Admin extends Admin_Controller
 	 * @var array
 	 */
 	private $validation_rules = array(
-		array(
+		'email' => array(
 			'field' => 'email',
 			'label' => 'lang:global:email',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
-		array(
+		'password' => array(
 			'field' => 'password',
 			'label' => 'lang:global:password',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
-		array(
+		'username' => array(
 			'field' => 'username',
 			'label' => 'lang:user_username',
 			'rules' => 'required|alpha_dot_dash|min_length[3]|max_length[20]'
@@ -104,17 +104,17 @@ class Admin extends Admin_Controller
 		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
 		// Using this data, get the relevant results
-		$users = $this->user_m
-			->order_by('active', 'desc')
+		$this->db->order_by('active', 'desc')
 			->join('groups', 'groups.id = users.group_id')
 			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit'])
-			->get_many_by($base_where);
+			->limit($pagination['limit']);
+			
+		$users = $this->user_m->get_many_by($base_where);
 
 		// Unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request())
 		{
-			$this->template->set_layout(FALSE);
+			$this->template->set_layout(false);
 		}
 
 		// Render the view
@@ -161,9 +161,9 @@ class Admin extends Admin_Controller
 	public function create()
 	{
 		// Extra validation for basic data
-		$this->validation_rules[1]['rules'] .= '|callback__email_check';
-		$this->validation_rules[2]['rules'] .= '|required';
-		$this->validation_rules[3]['rules'] .= '|callback__username_check';
+		$this->validation_rules['email']['rules'] .= '|callback__email_check';
+		$this->validation_rules['password']['rules'] .= '|required';
+		$this->validation_rules['username']['rules'] .= '|callback__username_check';
 
 		// Get the profile fields validation array from streams
 		$this->load->driver('Streams');
@@ -219,7 +219,9 @@ class Admin extends Admin_Controller
 
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
-				redirect('admin/users');
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$user_id);
 			}
 			// Error
 			else
@@ -233,8 +235,13 @@ class Admin extends Admin_Controller
 			// re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
+		}
+
+		if ( ! isset($member))
+		{
+			$member = new stdClass();
 		}
 
 		// Loop through each validation rule
@@ -267,17 +274,17 @@ class Admin extends Admin_Controller
 			$this->session->set_flashdata('error', lang('user_edit_user_not_found_error'));
 			redirect('admin/users');
 		}
-
+		
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
-			$this->validation_rules[3]['rules'] .= '|callback__username_check';
+			$this->validation_rules['username']['rules'] .= '|callback__username_check';
 		}
 
 		// Check to see if we are changing emails
 		if ($member->email != $this->input->post('email'))
 		{
-			$this->validation_rules[1]['rules'] .= '|callback__email_check';
+			$this->validation_rules['email']['rules'] .= '|callback__email_check';
 		}
 
 		// Get the profile fields validation array from streams
@@ -357,21 +364,22 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('admin/users');
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$id);
 		}
 		else
 		{
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
 		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== false)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$member->{$rule['field']} = set_value($rule['field']);
 			}
@@ -495,9 +503,9 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _username_check($username)
+	public function _username_check()
 	{
-		if ($this->ion_auth->username_check($username))
+		if ($this->ion_auth->username_check($this->input->post('username')))
 		{
 			$this->form_validation->set_message('_username_check', lang('user_error_username'));
 			return false;
@@ -514,13 +522,14 @@ class Admin extends Admin_Controller
 	 *
 	 * @return bool
 	 */
-	public function _email_check($email)
+	public function _email_check()
 	{
-		if ($this->ion_auth->email_check($email))
+		if ($this->ion_auth->email_check($this->input->post('email')))
 		{
 			$this->form_validation->set_message('_email_check', lang('user_error_email'));
 			return false;
 		}
+
 		return true;
 	}
 

@@ -24,6 +24,7 @@ class Widget_Navigation extends Widgets
 		'ru' => 'Навигация',
 		'id' => 'Navigasi',
 		'fi' => 'Navigaatio',
+		'fr' => 'Navigation',
 	);
 
 	/**
@@ -40,6 +41,7 @@ class Widget_Navigation extends Widgets
 		'ru' => 'Отображает навигационную группу внутри виджета',
 		'id' => 'Menampilkan grup navigasi menggunakan widget',
 		'fi' => 'Näytä widgetillä navigaatio ryhmä',
+		'fr' => 'Affichez un groupe de navigation dans un widget',
 	);
 
 	/**
@@ -75,7 +77,15 @@ class Widget_Navigation extends Widgets
 			'rules' => 'required'
 		)
 	);
-
+	/**	
+	 * Constructor method
+	 */	
+	public function __construct()	
+	{
+		// Load the navigation model from the navigation module.	
+		$this->load->model('navigation/navigation_m');
+	}
+	
 	/**
 	 * Get the navigation groups.
 	 *
@@ -83,9 +93,6 @@ class Widget_Navigation extends Widgets
 	 */
 	public function form()
 	{
-		// Load the navigation model from the navigation module.
-		$this->load->model('navigation/navigation_m');
-
 		// Loop aroung them and add them in an array keyed by their abbreviated 
 		// title.
 		$groups = array();

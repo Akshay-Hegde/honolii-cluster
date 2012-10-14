@@ -2,10 +2,11 @@
 /**
  * PyroCMS Tree Helpers
  *
- * @author 	PyroCMS Dev Team
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package PyroCMS\Core\Helpers
  */
-if (!function_exists('tree_builder'))
+if ( ! function_exists('tree_builder'))
 {
 	/**
 	 * Build the html for a tree view
@@ -26,6 +27,10 @@ if (!function_exists('tree_builder'))
 				{
 					// if there are children we build their html and set it up to be parsed as {{ children }}
 					$item['children'] = '<ul>'.tree_builder($item['children'], $html).'</ul>';
+				}
+				else
+				{
+					$item['children'] = null;
 				}
 
 				// now that the children html is sorted we parse the html that they passed

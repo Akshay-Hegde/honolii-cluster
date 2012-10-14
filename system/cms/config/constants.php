@@ -107,6 +107,6 @@ define('CMS_EDITION', 'Professional');
 |
 */
 
-define('CMS_DATE', '03/06/2012');
+define('CMS_DATE', '31/08/2012');
 
 /* End of file constants.php */

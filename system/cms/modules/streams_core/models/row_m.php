@@ -75,7 +75,7 @@ class Row_m extends MY_Model {
 	 * @access 	public
 	 * @var 	obj
 	 */
-	public $all_fields;
+	public $all_fields = array();
 	
 	// --------------------------------------------------------------------------
 			
@@ -119,22 +119,44 @@ class Row_m extends MY_Model {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Set Fields
+	 *
+	 * Grab the fields for a stream
+	 *
+	 * @access 	private
+	 * @param 	stream object
+	 * @return 	void
+	 */
+	private function set_fields($stream_namespace)
+	{
+		// If our stream namespace doesn't exist
+		if ( ! isset($this->all_fields[$stream_namespace]))
+		{
+			$this->all_fields[$stream_namespace] = $this->fields_m->get_all_fields($stream_namespace);
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
 	 * Get rows from a stream
 	 *
 	 * @return 	array 
 	 * @param	array
-	 * @param	obj
-	 * @param	obj
+	 * @param	obj - @todo - not used, so needs to be removed
 	 * @param	obj
 	 * @return	array
 	 */
-	public function get_rows($params, $fields, $stream)
+	public function get_rows($params, $field = null, $stream)
 	{
 		$return = array();
 
+		// Set our fields for formatting.
+		$this->set_fields($stream->stream_namespace);
+
 		// First, let's get all out fields. That's
 		// right. All of them.
-		$this->all_fields = $this->fields_m->get_all_fields();
+		$this->all_fields[] = $this->fields_m->get_all_fields();
 		
 		// Now the structure. We will need this as well.
 		$this->structure = $this->gather_structure();
@@ -166,6 +188,7 @@ class Row_m extends MY_Model {
 		// Convenience Vars
 		// -------------------------------------
 		
+		$this->data = new stdClass();
 		$this->data->stream = $stream;
 
 		$this->select_prefix 	= $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug, true).'.';
@@ -190,7 +213,7 @@ class Row_m extends MY_Model {
 
 		if (isset($get_day) and $get_day == true)
 		{
-			$this->sql['select'][] = 'DAY('.$this->format_mysql_date($date_by).') as pyrostreams_cal_day';
+			$this->sql['select'][] = 'DAY('.$this->format_mysql_date($date_by, $stream->stream_namespace).') as pyrostreams_cal_day';
 		}
 	
 		// -------------------------------------
@@ -333,7 +356,7 @@ class Row_m extends MY_Model {
 
 		if (isset($show_upcoming) and $show_upcoming == 'no')
 		{
-			$this->sql['where'][] = $this->format_mysql_date($date_by).' <= CURDATE()';
+			$this->sql['where'][] = $this->format_mysql_date($date_by, $stream->stream_namespace).' <= CURDATE()';
 		}
 
 		// -------------------------------------
@@ -345,7 +368,7 @@ class Row_m extends MY_Model {
 
 		if (isset($show_past) and $show_past == 'no')
 		{
-			$this->sql['where'][] = $this->format_mysql_date($date_by).' >= CURDATE()';
+			$this->sql['where'][] = $this->format_mysql_date($date_by, $stream->stream_namespace).' >= CURDATE()';
 		}
 
 		// -------------------------------------
@@ -354,17 +377,17 @@ class Row_m extends MY_Model {
 		
 		if (isset($year) and is_numeric($year))
 		{
-			$this->sql['where'][] = 'YEAR('.$this->format_mysql_date($date_by).')='.$this->db->escape($year);
+			$this->sql['where'][] = 'YEAR('.$this->format_mysql_date($date_by, $stream->stream_namespace).')='.$this->db->escape($year);
 		}
 
 		if (isset($month) and is_numeric($month))
 		{
-			$this->sql['where'][] = 'MONTH('.$this->format_mysql_date($date_by).')='.$this->db->escape($month);
+			$this->sql['where'][] = 'MONTH('.$this->format_mysql_date($date_by, $stream->stream_namespace).')='.$this->db->escape($month);
 		}
 
 		if (isset($day) and is_numeric($day))
 		{
-			$this->sql['where'][] = 'DAY('.$this->format_mysql_date($date_by).')='.$this->db->escape($day);
+			$this->sql['where'][] = 'DAY('.$this->format_mysql_date($date_by, $stream->stream_namespace).')='.$this->db->escape($day);
 		}
 
 		// -------------------------------------
@@ -547,16 +570,17 @@ class Row_m extends MY_Model {
 	 *
 	 * @access 	public
 	 * @param 	string - date by
+	 * @param 	stream namespace
 	 * @return 	string
 	 */
-	public function format_mysql_date($date_by)
+	public function format_mysql_date($date_by, $stream_namespace)
 	{
 		$return = $date_by;
 
 		// Get the field and see if it has a preference for UNIX vs. MySQL
-		if (array_key_exists($date_by, $this->all_fields) and ($date_by != 'created' and $date_by != 'updated'))
+		if (array_key_exists($date_by, $this->all_fields[$stream_namespace]) and ($date_by != 'created' and $date_by != 'updated'))
 		{
-			if (isset($this->all_fields[$date_by]['field_data']['storage']) and $this->all_fields[$date_by]['field_data']['storage'] == 'unix')
+			if (isset($this->all_fields[$stream_namespace][$date_by]['field_data']['storage']) and $this->all_fields[$stream_namespace][$date_by]['field_data']['storage'] == 'unix')
 			{
 				return 'FROM_UNIXTIME('.$this->select_prefix.$this->db->protect_identifiers($date_by).')';
 			}
@@ -612,7 +636,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = NULL;
+			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = null;
 		}
 
 		// -------------------------------------
@@ -625,7 +649,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = NULL;
+			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = null;
 		}
 
 		if ($where != '')
@@ -646,7 +670,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = NULL;
+			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = null;
 		}
 
 		if ($order_by)
@@ -664,7 +688,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = NULL;
+			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = null;
 		}
 
 		// -------------------------------------
@@ -731,7 +755,7 @@ class Row_m extends MY_Model {
 		$count = 1;
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
-		
+
 		$total = count($data);
 		
 		foreach ($data as $id => $item)
@@ -770,13 +794,6 @@ class Row_m extends MY_Model {
 	 */
 	public function get_row($id, $stream, $format_output = true)
 	{
-		// First, let's get all out fields. That's
-		// right. All of them.
-		if ( ! $this->all_fields)
-		{
-			$this->all_fields = $this->fields_m->get_all_fields();
-		}
-		
 		// Now the structure. We will need this as well.
 		if ( ! $this->structure)
 		{
@@ -822,13 +839,12 @@ class Row_m extends MY_Model {
 	 * @param	[array - things to disable]
 	 */
 	public function format_row($row, $stream_fields, $stream, $return_object = true, $plugin_call = false,  $disable = array())
-	{		
-		// First, let's get all out fields. That's
-		// right. All of them.
-		if ( ! $this->all_fields)
-		{
-			$this->all_fields = $this->fields_m->get_all_fields();
-		}
+	{
+		// Set our fields for formatting.
+		$this->set_fields($stream->stream_namespace);
+
+		// This is dumb and wil be refactored in 2.2 (I hope)
+		$all_fields =& $this->all_fields[$stream->stream_namespace];
 
 		// Now the structure. We will need this as well.
 		if ( ! $this->structure)
@@ -893,18 +909,18 @@ class Row_m extends MY_Model {
 			// Format Columns
 			// -------------------------------------
 
-			if (array_key_exists($row_slug, $this->all_fields))
+			if (array_key_exists($row_slug, $all_fields))
 			{
 
 				if ($return_object)
 				{
 					$row->$row_slug = $this->format_column($row_slug,
-						$row->$row_slug, $row->id, $this->all_fields[$row_slug]['field_type'], $this->all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+						$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
 				}
 				else
 				{
 					$row[$row_slug] = $this->format_column($row_slug,
-						$row[$row_slug], $row['id'], $this->all_fields[$row_slug]['field_type'], $this->all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+						$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, $stream_fields->$row_slug->field_data, $stream, $plugin_call);
 				}
 			}
 		}		
@@ -931,7 +947,7 @@ class Row_m extends MY_Model {
 							method_exists($this->type->types->{$f->field_type}, 'alt_pre_output')
 						)
 						{
-							$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $this->all_fields[$row_slug]['field_data'], $f->field_type, $stream);
+							$out = $this->type->types->{$f->field_type}->alt_pre_output($row->id, $all_fields[$row_slug]['field_data'], $f->field_type, $stream);
 								
 							($return_object) ? $row->$row_slug = $out : $row[$row_slug] = $out;
 						}
@@ -958,7 +974,7 @@ class Row_m extends MY_Model {
 		{
 			return null;
 		}
-
+		$plugin_call = null;
 		// Is this an alt process type?
 		if (isset($this->type->types->{$type_slug}->alt_process) and $this->type->types->{$type_slug}->alt_process === true)
 		{
@@ -1109,7 +1125,14 @@ class Row_m extends MY_Model {
 		
 		foreach ($fields as $field)
 		{
-			if ( ! isset($form_data[$field->field_slug])) continue;
+			// If we don't have a post item for this field, 
+			// then simply set the value to null. This is necessary
+			// for fields that want to run a pre_save but may have
+			// a situation where no post data is sent (like a single checkbox)
+			if ( ! isset($form_data[$field->field_slug]))
+			{
+				$form_data[$field->field_slug] = null;
+			}
 
 			if ( ! in_array($field->field_slug, $skips))
 			{
@@ -1122,12 +1145,6 @@ class Row_m extends MY_Model {
 					// If a pre_save function exists, go ahead and run it
 					if (method_exists($type, 'pre_save'))
 					{
-						// Special case for data this is not there.
-						if ( ! isset($form_data[$field->field_slug]))
-						{
-							$form_data[$field->field_slug] = null;
-						}
-					
 						$return_data[$field->field_slug] = $type->pre_save(
 									$form_data[$field->field_slug],
 									$field,
@@ -1135,6 +1152,8 @@ class Row_m extends MY_Model {
 									$row_id,
 									$form_data);
 
+						// We are unsetting the null values to as to
+						// not upset db can be null rules.
 						if (is_null($return_data[$field->field_slug]))
 						{
 							unset($return_data[$field->field_slug]);
@@ -1321,7 +1340,8 @@ class Row_m extends MY_Model {
 
 			$trigger_data = array(
 				'entry_id'		=> $id,
-				'stream'		=> $stream
+				'stream'		=> $stream,
+				'insert_data'	=> $insert_data
 			);
 
 			Events::trigger('streams_post_insert_entry', $trigger_data);

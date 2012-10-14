@@ -37,7 +37,7 @@ class Plugin_User extends Plugin
 
 		if ($this->current_user)
 		{
-			if ($group AND $group !== $this->current_user->group)
+			if ($group and $group !== $this->current_user->group)
 			{
 				return '';
 			}
@@ -67,7 +67,7 @@ class Plugin_User extends Plugin
 		$group = $this->attribute('group', null);
 
 		// Logged out or not the right user
-		if ( ! $this->current_user OR ($group AND $group !== $this->current_user->group))
+		if ( ! $this->current_user or ($group and $group !== $this->current_user->group))
 		{
 			return $this->content() ? $this->content() : true;
 		}
@@ -93,7 +93,7 @@ class Plugin_User extends Plugin
 	{
 		if ($this->current_user)
 		{
-			if (!(($this->current_user->group == 'admin') OR $this->permission_m->get_group($this->current_user->group_id)))
+			if (!(($this->current_user->group == 'admin') or $this->permission_m->get_group($this->current_user->group_id)))
 			{
 				return '';
 			}
@@ -122,7 +122,7 @@ class Plugin_User extends Plugin
 
 		$plugin_data[] = array(
 							'value'		=> $profile_data['email'],
-							'name'		=> lang('user_email'),
+							'name'		=> lang('global:email'),
 							'slug'		=> 'email'
 						);
 
@@ -284,13 +284,14 @@ class Plugin_User extends Plugin
 		if(array_key_exists($var, $this->ion_auth_model->user_stream_fields))
 		{
 			$formatted_column = $this->row_m->format_column(
-												$var,
-												$user[$var],
-												$user['profile_id'],
-												$this->ion_auth_model->user_stream_fields->{$var}->field_type,
-												$this->ion_auth_model->user_stream_fields->{$var}->field_data,
-												$this->ion_auth_model->user_stream,
-												true);
+				$var,
+				$user[$var],
+				$user['profile_id'],
+				$this->ion_auth_model->user_stream_fields->{$var}->field_type,
+				$this->ion_auth_model->user_stream_fields->{$var}->field_data,
+				$this->ion_auth_model->user_stream,
+				true
+			);
 		}
 		else
 		{
@@ -323,8 +324,13 @@ class Plugin_User extends Plugin
 	 * @param	string
 	 * @return	string
 	 */
-	function __call($name, $data)
+	public function __call($name, $data)
 	{
+		if (in_array($name, array('password', 'salt')))
+		{
+			return;
+		}
+
 		$user_id = $this->attribute('user_id', null);
 
 		// If we do not have a user id and there is

@@ -7,7 +7,7 @@
 */
 
 $config['allowed_functions']	=	array(
-	'character_limit',
+	'character_limiter',
 	'count',
 	'count_chars',
 	'empty',
@@ -26,6 +26,7 @@ $config['allowed_functions']	=	array(
 	'ltrim',
 	'md5',
 	'money_format',
+	'nl2br',
 	'number_format',
 	'preg_match',
 	'preg_replace',
