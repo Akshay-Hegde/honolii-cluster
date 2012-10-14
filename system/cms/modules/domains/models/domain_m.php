@@ -14,7 +14,7 @@ class Domain_m extends MY_Model
 
 	public function get($id)
 	{
-		return $this->db->query("SELECT * FROM core_domains WHERE id = ".$this->db->escape($id)." AND site_id = ".$this->db->escape($this->_site_id))->row(0);
+		return $this->db->query("SELECT * FROM core_domains WHERE id = ".$this->db->escape($id)." and site_id = ".$this->db->escape($this->_site_id))->row(0);
 	}
 
 	public function get_all()
@@ -34,12 +34,12 @@ class Domain_m extends MY_Model
 
 	public function update($id, $input = array(), $skip_validation = false)
 	{
-		return $this->db->query("UPDATE core_domains SET type = '".$this->db->escape_str($input['type'])."', domain = '".$this->db->escape_str($input['domain'])."' WHERE id = ".$this->db->escape($id)." AND site_id = ".$this->db->escape($this->_site_id));
+		return $this->db->query("UPDATE core_domains SET type = '".$this->db->escape_str($input['type'])."', domain = '".$this->db->escape_str($input['domain'])."' WHERE id = ".$this->db->escape($id)." and site_id = ".$this->db->escape($this->_site_id));
 	}
 
 	public function delete($id)
 	{
-		return $this->db->query("DELETE FROM core_domains WHERE id = ".$this->db->escape($id)." AND site_id = ".$this->db->escape($this->_site_id));
+		return $this->db->query("DELETE FROM core_domains WHERE id = ".$this->db->escape($id)." and site_id = ".$this->db->escape($this->_site_id));
 	}
 
 	// Callbacks
@@ -51,7 +51,7 @@ class Domain_m extends MY_Model
 		*/
 		if($id > 0)
 		{
-			return $this->db->query("SELECT id FROM core_domains WHERE id != ".$this->db->escape($id)." AND domain = '".$this->db->escape_str($domain)."'")->num_rows();
+			return $this->db->query("SELECT id FROM core_domains WHERE id != ".$this->db->escape($id)." and domain = '".$this->db->escape_str($domain)."'")->num_rows();
 		}
 		else
 		{

@@ -38,7 +38,7 @@
 						'class' => 'select-rule',
 						'name' => 'module_roles[' . $module['slug'] . ']['.$role.']',
 						'value' => true,
-						'checked' => isset($edit_permissions[$module['slug']]) AND array_key_exists($role, (array) $edit_permissions[$module['slug']])
+						'checked' => isset($edit_permissions[$module['slug']]) and array_key_exists($role, (array) $edit_permissions[$module['slug']])
 					)); ?>
 					<?php echo lang($module['slug'].'.role_'.$role); ?>
 				</label>

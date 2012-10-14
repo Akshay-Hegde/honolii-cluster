@@ -99,7 +99,7 @@ class Admin extends Admin_Controller {
 
 		$result = Files::create_folder($parent_id, $name);
 
-		$result['status'] AND Events::trigger('file_folder_created', $result['data']);
+		$result['status'] and Events::trigger('file_folder_created', $result['data']);
 
 		echo json_encode($result);
 	}
@@ -187,7 +187,7 @@ class Admin extends Admin_Controller {
 		{
 			$result = Files::rename_folder($id, $name);
 			
-			$result['status'] AND Events::trigger('file_folder_updated', $id);
+			$result['status'] and Events::trigger('file_folder_updated', $id);
 
 			echo json_encode($result);
 		}
@@ -208,7 +208,7 @@ class Admin extends Admin_Controller {
 		{
 			$result = Files::delete_folder($id);
 
-			$result['status'] AND Events::trigger('file_folder_deleted', $id);
+			$result['status'] and Events::trigger('file_folder_deleted', $id);
 
 			echo json_encode($result);
 		}
@@ -231,7 +231,7 @@ class Admin extends Admin_Controller {
 		{
 			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
 
-			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
+			$result['status'] and Events::trigger('file_uploaded', $result['data']);
 
 			echo json_encode($result);
 		}
@@ -252,7 +252,7 @@ class Admin extends Admin_Controller {
 		{
 			$result = Files::rename_file($id, $name);
 
-			$result['status'] AND Events::trigger('file_updated', $result['data']);
+			$result['status'] and Events::trigger('file_updated', $result['data']);
 
 			echo json_encode($result);
 		}
@@ -327,7 +327,7 @@ class Admin extends Admin_Controller {
 		{
 			$result = Files::delete_file($id);
 
-			$result['status'] AND Events::trigger('file_deleted', $id);
+			$result['status'] and Events::trigger('file_deleted', $id);
 
 			echo json_encode($result);
 		}

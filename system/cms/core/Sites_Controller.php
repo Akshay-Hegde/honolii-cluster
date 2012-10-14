@@ -85,7 +85,7 @@ class Sites_Controller extends MX_Controller {
 		$this->template
 			->append_css('theme::common.css')
 			->append_js('jquery/jquery.cooki.js')
-			->enable_parser(FALSE)
+			->enable_parser(false)
 			->set('super_username', $this->session->userdata('super_username'))
 			->set_theme(ADMIN_THEME)
 			->set_layout('default', 'admin');

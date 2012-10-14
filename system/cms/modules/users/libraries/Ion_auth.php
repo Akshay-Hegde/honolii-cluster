@@ -588,7 +588,7 @@ class Ion_auth
 		}
 		else
 		{
-			return FALSE;
+			return false;
 		}
 	}
 

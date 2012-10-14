@@ -29,7 +29,7 @@ class Plugin_Navigation extends Plugin
 		$params = array(
 			$group,
 			array(
-				'user_group' => ($this->current_user AND isset($this->current_user->group)) ? $this->current_user->group : false,
+				'user_group' => ($this->current_user and isset($this->current_user->group)) ? $this->current_user->group : false,
 				'front_end' => true,
 				'is_secure' => IS_SECURE,
 			)
@@ -148,10 +148,10 @@ class Plugin_Navigation extends Plugin
 
 			// is the link we're currently working with found inside the children html?
 			if ( ! in_array($current_class, $wrapper['class']) and 
-				isset($wrapper['children']) AND 
-				$current_link AND 
-				((is_array($wrapper['children']) AND in_array($current_link, $wrapper['children'])) OR 
-				(is_string($wrapper['children']) AND strpos($wrapper['children'], $current_link))))
+				isset($wrapper['children']) and 
+				$current_link and 
+				((is_array($wrapper['children']) and in_array($current_link, $wrapper['children'])) OR 
+				(is_string($wrapper['children']) and strpos($wrapper['children'], $current_link))))
 			{
 				// that means that this link is a parent
 				$wrapper['class'][] = 'has_' . $current_class;
@@ -196,7 +196,7 @@ class Plugin_Navigation extends Plugin
 					$output .= $add_first_tag ? "<{$list_tag}>" . PHP_EOL : '';
 					$output .= $ident_b . '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>') . PHP_EOL;
 					if (strstr($classes, 'current')) $output .= $ident_c . '<span>'.$item['title'].'</span>';
-					else $output .= $ident_c . ((($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
+					else $output .= $ident_c . ((($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])))) . PHP_EOL;
 
 					if ($wrapper['children'])
 					{
@@ -218,7 +218,7 @@ class Plugin_Navigation extends Plugin
 					$output .= '<' . $tag . ($classes > '' ? ' class="' . $classes . '">' : '>');
 
 					if (strstr($classes, 'current')) $output .= '<span>'.$item['title'].'</span>';
-					else $output .= (($level == 0) AND $top == 'text' AND $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
+					else $output .= (($level == 0) and $top == 'text' and $wrapper['children']) ? $item['title'] : anchor($item['url'], $item['title'], trim(implode(' ', $item['attributes'])));
 
 					if ($wrapper['children'])
 					{

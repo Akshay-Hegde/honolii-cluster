@@ -98,7 +98,7 @@ class Admin_Fields extends Admin_Controller {
 		$this->data->method = 'new';
 
 		//Prep the fields
-		$this->data->field_types = $this->type->field_types_array(TRUE);
+		$this->data->field_types = $this->type->field_types_array(true);
 
 		// -------------------------------------
 		// Validation & Setup

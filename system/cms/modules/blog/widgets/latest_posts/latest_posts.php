@@ -51,7 +51,7 @@ class Widget_Latest_posts extends Widgets
 
         public function form($options)
         {
-                !empty($options['limit']) OR $options['limit'] = 5;
+                !empty($options['limit']) or $options['limit'] = 5;
 
                 return array(
                     'options' => $options
@@ -61,10 +61,10 @@ class Widget_Latest_posts extends Widgets
         public function run($options)
         {
                 // load the blog module's model
-                class_exists('Blog_m') OR $this->load->model('blog/blog_m');
+                class_exists('Blog_m') or $this->load->model('blog/blog_m');
 
                 // sets default number of posts to be shown
-                empty($options['limit']) AND $options['limit'] = 5;
+                empty($options['limit']) and $options['limit'] = 5;
 
                 // retrieve the records using the blog module's model
                 $blog_widget = $this->blog_m->limit($options['limit'])->get_many_by(array('status' => 'live'));

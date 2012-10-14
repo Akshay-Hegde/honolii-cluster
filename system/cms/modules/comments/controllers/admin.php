@@ -267,7 +267,7 @@ class Admin extends Admin_Controller {
 	{
 		$id && $this->_do_action($id, 'approve');
 
-		$redirect AND redirect('admin/comments');
+		$redirect and redirect('admin/comments');
 	}
 
 	/**

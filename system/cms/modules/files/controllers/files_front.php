@@ -137,7 +137,7 @@ class Files_front extends Public_Controller
 					}
 					elseif (empty(${$var1}) or ${$var1} === 'auto')
 					{
-						${$var1} = (empty(${$var2}) OR ${$var2} === 'auto' OR ! is_null($mode)) ? null : 100000;
+						${$var1} = (empty(${$var2}) or ${$var2} === 'auto' OR ! is_null($mode)) ? null : 100000;
 					}
 				}
 				break;

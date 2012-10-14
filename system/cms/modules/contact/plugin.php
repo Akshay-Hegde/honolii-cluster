@@ -200,7 +200,7 @@ class Plugin_Contact extends Plugin {
 
 			$validation[$field]['field'] = $field;
 			$validation[$field]['label'] = ucfirst($field);
-			$validation[$field]['rules'] = ($rule_array[0] == 'file' OR $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
+			$validation[$field]['rules'] = ($rule_array[0] == 'file' or $rule_array[0] == 'dropdown') ? $other_rules : implode('|', $rule_array);
 		}
 
 		$this->form_validation->set_rules($validation);
@@ -222,7 +222,7 @@ class Plugin_Contact extends Plugin {
 			$data['sender_os']		= $this->agent->platform();
 			$data['slug'] 			= $template;
 			// they may have an email field in the form. If they do we'll use that for reply-to.
-			$data['reply-to']		= (empty($reply_to) AND isset($data['email'])) ? $data['email'] : $reply_to;
+			$data['reply-to']		= (empty($reply_to) and isset($data['email'])) ? $data['email'] : $reply_to;
 			$data['to']				= $to;
 			$data['from']			= $from;
 

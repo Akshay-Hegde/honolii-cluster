@@ -88,7 +88,7 @@
 				
 				$data['input_slug']		= $param;
 					
-				echo $this->load->view('streams_core/extra_field', $data, TRUE);
+				echo $this->load->view('streams_core/extra_field', $data, true);
 				
 				$data['count']++;
 				unset($value);

@@ -459,7 +459,7 @@ class Admin extends Admin_Controller {
 	
         $this->data->method = 'new';
         
-        $this->data->title_column_status = FALSE;
+        $this->data->title_column_status = false;
         
 		$this->_manage_fields();
 		
@@ -477,7 +477,7 @@ class Admin extends Admin_Controller {
 		endforeach;
 		
 		// Dummy row id
-		$this->data->row->field_id = NULL;
+		$this->data->row->field_id = null;
 		
 		// -------------------------------------
 		// Process Data
@@ -557,11 +557,11 @@ class Admin extends Admin_Controller {
 						
 		if($field->field_slug == $this->data->stream->title_column):
 		
-			$this->data->title_column_status = TRUE;
+			$this->data->title_column_status = true;
 		
 		else:
 		
-			$this->data->title_column_status = FALSE;
+			$this->data->title_column_status = false;
 		
 		endif;
 
@@ -740,11 +740,11 @@ class Admin extends Admin_Controller {
 			
 				if( $current_value == 'yes' ):
 				
-					$this->data->values->$key = TRUE;
+					$this->data->values->$key = true;
 					
 				else:
 				
-					$this->data->values->$key = FALSE;
+					$this->data->values->$key = false;
 				
 				endif;
 			
@@ -782,8 +782,8 @@ class Admin extends Admin_Controller {
 	        'tables'      => $tables,
 			'format'      => 'zip',
 	        'filename'    => $filename.'.sql',
-	        'add_drop'    => TRUE,
-	        'add_insert'  => TRUE,
+	        'add_drop'    => true,
+	        'add_insert'  => true,
 	        'newline'     => "\n"
 		);
 		

@@ -33,18 +33,18 @@
 					<?php if ($module['shared']) continue; ?>
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>">
-								<?php if (is_array($module['info']['name']) AND isset($module['info']['name'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($module['info']['name']) and isset($module['info']['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $module['info']['name'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($module['info']['name']) AND isset($module['info']['name'][config_item('default_language')])): ?>
+								<?php elseif (is_array($module['info']['name']) and isset($module['info']['name'][config_item('default_language')])): ?>
 									<?php echo $module['info']['name'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $module['info']['name']; ?>
 								<?php endif; ?>
 							</td>
 							<td>
-								<?php if (is_array($module['info']['description']) AND isset($module['info']['description'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($module['info']['description']) and isset($module['info']['description'][CURRENT_LANGUAGE])): ?>
 									<?php echo $module['info']['description'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($module['info']['description']) AND isset($module['info']['description'][config_item('default_language')])): ?>
+								<?php elseif (is_array($module['info']['description']) and isset($module['info']['description'][config_item('default_language')])): ?>
 									<?php echo $module['info']['description'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $module['info']['description']; ?>
@@ -52,7 +52,7 @@
 							</td>
 							<td class="align-center"><?php echo $module['version']; ?></td>
 							<td class="align-center buttons">
-								<?php if (isset($module['database']['installed']) AND $module['database']['installed'] == '1'): ?>
+								<?php if (isset($module['database']['installed']) and $module['database']['installed'] == '1'): ?>
 									<?php if ($module['database']['enabled']): ?>
 										<?php echo anchor('sites/addons/disable/' . $site->ref . '/module/' . $module['slug'], lang('global:disable'), array('class'=>'button')); ?>
 									<?php else: ?>
@@ -100,18 +100,18 @@
 					<?php if ( ! $module['shared']) continue; ?>
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>">
-								<?php if (is_array($module['info']['name']) AND isset($module['info']['name'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($module['info']['name']) and isset($module['info']['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $module['info']['name'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($module['info']['name']) AND isset($module['info']['name'][config_item('default_language')])): ?>
+								<?php elseif (is_array($module['info']['name']) and isset($module['info']['name'][config_item('default_language')])): ?>
 									<?php echo $module['info']['name'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $module['info']['name']; ?>
 								<?php endif; ?>
 							</td>
 							<td>
-								<?php if (is_array($module['info']['description']) AND isset($module['info']['description'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($module['info']['description']) and isset($module['info']['description'][CURRENT_LANGUAGE])): ?>
 									<?php echo $module['info']['description'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($module['info']['description']) AND isset($module['info']['description'][config_item('default_language')])): ?>
+								<?php elseif (is_array($module['info']['description']) and isset($module['info']['description'][config_item('default_language')])): ?>
 									<?php echo $module['info']['description'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $module['info']['description']; ?>
@@ -119,7 +119,7 @@
 							</td>
 							<td class="align-center"><?php echo $module['version']; ?></td>
 							<td class="align-center buttons">
-								<?php if (isset($module['database']['installed']) AND $module['database']['installed'] == '1'): ?>
+								<?php if (isset($module['database']['installed']) and $module['database']['installed'] == '1'): ?>
 									<?php if ($module['database']['enabled']): ?>
 										<?php echo anchor('sites/addons/disable/' . $site->ref . '/module/' . $module['slug'], lang('global:disable'), array('class'=>'button')); ?>
 									<?php else: ?>
@@ -169,18 +169,18 @@
 					<?php if ($widget['shared']) continue; ?>
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>">
-								<?php if (is_array($widget['title']) AND isset($widget['title'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($widget['title']) and isset($widget['title'][CURRENT_LANGUAGE])): ?>
 									<?php echo $widget['title'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($widget['title']) AND isset($widget['title'][config_item('default_language')])): ?>
+								<?php elseif (is_array($widget['title']) and isset($widget['title'][config_item('default_language')])): ?>
 									<?php echo $widget['title'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $widget['title']; ?>
 								<?php endif; ?>
 							</td>
 							<td>
-								<?php if (is_array($widget['description']) AND isset($widget['description'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($widget['description']) and isset($widget['description'][CURRENT_LANGUAGE])): ?>
 									<?php echo $widget['description'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($widget['description']) AND isset($widget['description'][config_item('default_language')])): ?>
+								<?php elseif (is_array($widget['description']) and isset($widget['description'][config_item('default_language')])): ?>
 									<?php echo $widget['description'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $widget['description']; ?>
@@ -188,7 +188,7 @@
 							</td>
 							<td class="align-center"><?php echo $widget['version']; ?></td>
 							<td class="align-center buttons">
-								<?php if (isset($widget['database']['enabled']) AND $widget['database']['enabled'] == '1'): ?>
+								<?php if (isset($widget['database']['enabled']) and $widget['database']['enabled'] == '1'): ?>
 									<?php echo anchor('sites/addons/disable/' . $site->ref . '/widget/' . $widget['slug'], lang('global:disable'), array('class'=>'button')); ?>
 								<?php else: ?>
 									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'], lang('global:enable'), array('class'=>'button')); ?>
@@ -227,18 +227,18 @@
 					<?php if ( ! $widget['shared']) continue; ?>
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>">
-								<?php if (is_array($widget['title']) AND isset($widget['title'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($widget['title']) and isset($widget['title'][CURRENT_LANGUAGE])): ?>
 									<?php echo $widget['title'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($widget['title']) AND isset($widget['title'][config_item('default_language')])): ?>
+								<?php elseif (is_array($widget['title']) and isset($widget['title'][config_item('default_language')])): ?>
 									<?php echo $widget['title'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $widget['title']; ?>
 								<?php endif; ?>
 							</td>
 							<td>
-								<?php if (is_array($widget['description']) AND isset($widget['description'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($widget['description']) and isset($widget['description'][CURRENT_LANGUAGE])): ?>
 									<?php echo $widget['description'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($widget['description']) AND isset($widget['description'][config_item('default_language')])): ?>
+								<?php elseif (is_array($widget['description']) and isset($widget['description'][config_item('default_language')])): ?>
 									<?php echo $widget['description'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $widget['description']; ?>
@@ -246,7 +246,7 @@
 							</td>
 							<td class="align-center"><?php echo $widget['version']; ?></td>
 							<td class="align-center buttons">
-								<?php if (isset($widget['database']['enabled']) AND $widget['database']['enabled'] == '1'): ?>
+								<?php if (isset($widget['database']['enabled']) and $widget['database']['enabled'] == '1'): ?>
 									<?php echo anchor('sites/addons/disable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('global:disable'), array('class'=>'button')); ?>
 								<?php else: ?>
 									<?php echo anchor('sites/addons/enable/' . $site->ref . '/widget/' . $widget['slug'] . '/1', lang('global:enable'), array('class'=>'button')); ?>
@@ -287,18 +287,18 @@
 					<?php if ($theme['shared']) continue; ?>
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>">
-								<?php if (is_array($theme['name']) AND isset($theme['name'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($theme['name']) and isset($theme['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $theme['name'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($theme['name']) AND isset($theme['name'][config_item('default_language')])): ?>
+								<?php elseif (is_array($theme['name']) and isset($theme['name'][config_item('default_language')])): ?>
 									<?php echo $theme['name'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $theme['name']; ?>
 								<?php endif; ?>
 							</td>
 							<td>
-								<?php if (is_array($theme['description']) AND isset($theme['description'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($theme['description']) and isset($theme['description'][CURRENT_LANGUAGE])): ?>
 									<?php echo $theme['description'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($theme['description']) AND isset($theme['description'][config_item('default_language')])): ?>
+								<?php elseif (is_array($theme['description']) and isset($theme['description'][config_item('default_language')])): ?>
 									<?php echo $theme['description'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $theme['description']; ?>
@@ -339,18 +339,18 @@
 					<?php if ( ! $theme['shared']) continue; ?>
 						<tr>
 							<td class="<?php echo alternator('', 'even'); ?>">
-								<?php if (is_array($theme['name']) AND isset($theme['name'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($theme['name']) and isset($theme['name'][CURRENT_LANGUAGE])): ?>
 									<?php echo $theme['name'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($theme['name']) AND isset($theme['name'][config_item('default_language')])): ?>
+								<?php elseif (is_array($theme['name']) and isset($theme['name'][config_item('default_language')])): ?>
 									<?php echo $theme['name'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $theme['name']; ?>
 								<?php endif; ?>
 							</td>
 							<td>
-								<?php if (is_array($theme['description']) AND isset($theme['description'][CURRENT_LANGUAGE])): ?>
+								<?php if (is_array($theme['description']) and isset($theme['description'][CURRENT_LANGUAGE])): ?>
 									<?php echo $theme['description'][CURRENT_LANGUAGE]; ?>
-								<?php elseif (is_array($theme['description']) AND isset($theme['description'][config_item('default_language')])): ?>
+								<?php elseif (is_array($theme['description']) and isset($theme['description'][config_item('default_language')])): ?>
 									<?php echo $theme['description'][config_item('default_language')]; ?>
 								<?php else: ?>
 									<?php echo $theme['description']; ?>

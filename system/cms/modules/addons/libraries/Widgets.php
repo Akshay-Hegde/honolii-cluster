@@ -298,10 +298,10 @@ class Widgets
 		}
 
 		// If we have true, just make an empty array
-		$data !== true OR $data = array();
+		$data !== true or $data = array();
 
 		// convert to array
-		is_array($data) OR $data = (array) $data;
+		is_array($data) or $data = (array) $data;
 
 		$data['options'] = $options;
 
@@ -357,7 +357,7 @@ class Widgets
 		$data = method_exists($this->_widget, 'form') ? call_user_func(array(&$this->_widget, 'form'), $options) : array();
 
 		// Options we'rent changed, lets use the defaults
-		isset($data['options']) OR $data['options'] = $options;
+		isset($data['options']) or $data['options'] = $options;
 
 		return $this->load_view('form', $data);
 	}
@@ -548,7 +548,7 @@ class Widgets
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('title', lang('global:title'), 'trim|required|max_length[100]');
 
-		$this->_widget OR $this->_spawn_widget($name);
+		$this->_widget or $this->_spawn_widget($name);
 
 		if (property_exists($this->_widget, 'fields'))
 		{
@@ -628,7 +628,7 @@ class Widgets
 	{
 		$options = (array) unserialize($options);
 
-		isset($options['show_title']) OR $options['show_title'] = false;
+		isset($options['show_title']) or $options['show_title'] = false;
 
 		return $options;
 	}

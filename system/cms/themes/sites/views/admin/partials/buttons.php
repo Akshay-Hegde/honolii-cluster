@@ -5,7 +5,7 @@
 		 * @var		$extra	array associative
 		 * @since	1.2.0-beta2
 		 */ ?>
-		<?php $extra	= NULL; ?>
+		<?php $extra	= null; ?>
 		<?php $button	= ! is_numeric($key) && ($extra = $button) ? $key : $button; ?>
 
 		<?php switch ($button) :
@@ -41,7 +41,7 @@
 			 * @since	1.2.0-beta2
 			 */
 			case 'edit':
-				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
+				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : null;
 
 				echo anchor('sites/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="button ' . $button . '"');
 				break; ?>

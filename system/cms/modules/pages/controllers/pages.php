@@ -97,7 +97,7 @@ class Pages extends Public_Controller
 		}
 
 		// the home page won't have a base uri
-		isset($page->base_uri) OR $page->base_uri = $url_segments;
+		isset($page->base_uri) or $page->base_uri = $url_segments;
 
 		// If this is a homepage, do not show the slug in the URL
 		if ($page->is_home and $url_segments)
@@ -181,7 +181,7 @@ class Pages extends Public_Controller
 		// If a Page Layout has a Theme Layout that exists, use it
 		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
-			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
+			AND ($this->template->layout_is('default.html') or $page->layout->theme_layout !== 'default.html')
 		)
 		{
 			$this->template->set_layout($page->layout->theme_layout);
@@ -269,7 +269,7 @@ class Pages extends Public_Controller
 		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
-		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
+		$include_draft = ! empty($this->current_user) and $this->current_user->group !== 'admin';
 
 		// If page is missing or not live (and not an admin) show 404
 		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled)

@@ -48,7 +48,7 @@ class Admin_areas extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(false);
+		$this->input->is_ajax_request() and $this->template->set_layout(false);
 
 		$this->template
 			->append_js('module::widgets.js')

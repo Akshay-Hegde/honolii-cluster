@@ -8,7 +8,7 @@ class Migration_Install_newsletters extends CI_Migration {
 		
 		if ( ! $this->db->table_exists('newsletters'))
 		{
-			$this->module_m->install('newsletters', TRUE);
+			$this->module_m->install('newsletters', true);
 		}
 		else
 		{

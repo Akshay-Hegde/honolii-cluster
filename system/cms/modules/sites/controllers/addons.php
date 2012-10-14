@@ -80,7 +80,7 @@ class Addons extends Sites_Controller
 			$config['upload_path'] 		= FCPATH.'uploads/'.$this->ref;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
-			$config['overwrite'] 		= TRUE;
+			$config['overwrite'] 		= true;
 
 			$this->load->library('upload', $config);
 
@@ -101,7 +101,7 @@ class Addons extends Sites_Controller
 					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php', 'txt', 'eot', 'svg', 'ttf', 'woff'));
 
 					// Try and extract
-					if ( ! is_string($this->slug = $this->unzip->extract($upload_data['full_path'], $path.$this->type.'s', TRUE, TRUE)) )
+					if ( ! is_string($this->slug = $this->unzip->extract($upload_data['full_path'], $path.$this->type.'s', true, true)) )
 					{
 						$this->session->set_flashdata('error', $this->unzip->error_string());
 					}
@@ -160,7 +160,7 @@ class Addons extends Sites_Controller
 		$slug	= $this->slug;
 		
 		// Don't allow user to delete the entire module folder
-		if ($this->slug == '/' OR $this->slug == '*' OR empty($this->slug))
+		if ($this->slug == '/' or $this->slug == '*' OR empty($this->slug))
 		{
 			show_error(lang('site.addon_not_specified'));
 		}
@@ -180,7 +180,7 @@ class Addons extends Sites_Controller
 		}
 
 		// delete the files
-		if ( ! in_array(FALSE, $status))
+		if ( ! in_array(false, $status))
 		{
 			$this->session->set_flashdata('success', sprintf(lang('site.delete_success'), $slug));
 
@@ -331,6 +331,6 @@ class Addons extends Sites_Controller
 			}
 			@rmdir($str);
 		}
-		return (is_dir($str) OR is_file($str)) ? FALSE : TRUE;
+		return (is_dir($str) OR is_file($str)) ? false : true;
     }
 }

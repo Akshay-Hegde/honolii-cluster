@@ -127,7 +127,7 @@ class Plugin_Files extends Plugin
 		}
 		else
 		{
-			$type AND $this->file_m->select('files.*, file_folders.location')
+			$type and $this->file_m->select('files.*, file_folders.location')
 						->join('file_folders', 'file_folders.id = files.folder_id')
 						->where('type', $type);
 
@@ -150,7 +150,7 @@ class Plugin_Files extends Plugin
 		{
 			if ($size = $this->attribute('size', ''))
 			{
-				strpos($size, 'x') === false AND $size .= 'x';
+				strpos($size, 'x') === false and $size .= 'x';
 
 				list($width, $height) = explode('/', strtr($size, 'x', '/'));
 			}
@@ -160,8 +160,8 @@ class Plugin_Files extends Plugin
 				$height	= $this->attribute('height', '');
 			}
 
-			is_numeric($width) OR $width = 'auto';
-			is_numeric($height) OR $height = 'auto';
+			is_numeric($width) or $width = 'auto';
+			is_numeric($height) or $height = 'auto';
 
 			if ($width === 'auto' && $height === 'auto')
 			{

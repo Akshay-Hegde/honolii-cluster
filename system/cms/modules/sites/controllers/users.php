@@ -207,13 +207,13 @@ class Users extends Sites_Controller
 		$this->form_validation->set_rules($this->login_rules);
 		
 	    // If the validation worked, or the user is already logged in
-	    if ($this->form_validation->run() OR $this->user_m->logged_in())
+	    if ($this->form_validation->run() or $this->user_m->logged_in())
 	    {
 	    	redirect('sites');
 		}
 
 	    $this->template
-			->set_layout(FALSE)
+			->set_layout(false)
 			->build('admin/login');
 	}
 	
@@ -238,18 +238,18 @@ class Users extends Sites_Controller
 	 */
 	public function _check_login($email)
 	{
-		$remember = FALSE;
+		$remember = false;
 		if ($this->input->post('remember') == 1)
 		{
-			$remember = TRUE;
+			$remember = true;
 		}
 
 		if ($this->user_m->login($email, $this->input->post('password'), $remember))
 		{
-			return TRUE;
+			return true;
 		}
 
 		$this->form_validation->set_message('_check_login', lang('user_login_incorrect'));
-		return FALSE;
+		return false;
 	}
 }

@@ -147,7 +147,7 @@ class Sites extends Sites_Controller
 				// Try to create the site
 				$message = $this->sites_m->create_site($this->input->post());
 				
-				if ($message === TRUE)
+				if ($message === true)
 				{
 					// All good...
 					$this->session->set_flashdata('success', lang('site.create_success'));
@@ -211,7 +211,7 @@ class Sites extends Sites_Controller
 			{
 				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('domain'));
 			}
-			elseif ( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === TRUE)
+			elseif ( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === true)
 			{
 				// All good...
 				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $data->name));
@@ -261,11 +261,11 @@ class Sites extends Sites_Controller
 	{
 		$site = $this->sites_m->get($id);
 		
-		if ($this->input->post('id') AND $this->input->post('btnAction'))
+		if ($this->input->post('id') and $this->input->post('btnAction'))
 		{
 			$message = $this->sites_m->delete_site($id, $site);
 			
-			if ($message === TRUE)
+			if ($message === true)
 			{
 				$this->session->set_flashdata('success', lang('site.site_deleted'));
 				redirect('sites');

@@ -177,7 +177,7 @@ class Page_m extends MY_Model
 		$page = false;
 		$i = 0;
 
-		while ( ! $page AND $uri AND $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
+		while ( ! $page and $uri and $i < 15) /* max of 15 in case it all goes wrong (this shouldn't ever be used) */
 		{
 			$page = $this->db
 				->where('uri', $uri)
@@ -192,7 +192,7 @@ class Page_m extends MY_Model
 				break;
 			}
 
-			// if we didn't find a page with that exact uri AND there's more than one segment
+			// if we didn't find a page with that exact uri and there's more than one segment
 			if ( ! $page and strpos($uri, '/') !== false)
 			{
 				// pop the last segment off and we'll try again

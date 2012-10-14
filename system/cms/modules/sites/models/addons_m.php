@@ -43,17 +43,17 @@ class Addons_m extends MY_Model
 			$this->type == 'module') AND
 			$this->db->where('slug', $slug)->count_all_results($this->type.'s') > 0)
 		{
-			return TRUE;
+			return true;
 		}
 		elseif (is_dir($shared_path) OR is_file($shared_path))
 		{
-			return TRUE;
+			return true;
 		}
 		elseif (is_dir($addon_path) OR is_file($addon_path))
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -75,7 +75,7 @@ class Addons_m extends MY_Model
 			'skip_xss'		=> ! empty($module['skip_xss']),
 			'is_frontend'	=> ! empty($module['frontend']),
 			'is_backend'	=> ! empty($module['backend']),
-			'menu'			=> ! empty($module['menu']) ? $module['menu'] : FALSE,
+			'menu'			=> ! empty($module['menu']) ? $module['menu'] : false,
 			'enabled'		=> ! empty($module['enabled']),
 			'installed'		=> ! empty($module['installed']),
 			'is_core'		=> ! empty($module['is_core'])
@@ -114,7 +114,7 @@ class Addons_m extends MY_Model
 			{
 				if ( ! $widget_class = $this->_spawn_class($this->type, $this->slug, $this->shared))
 				{
-					return FALSE;
+					return false;
 				}
 	
 				// Get some basic info from the file
@@ -162,7 +162,7 @@ class Addons_m extends MY_Model
 	{	
 		if ( ! $details_class = $this->_spawn_class($this->type, $this->slug, $this->shared))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		if ($this->db->where('slug', $this->slug)->count_all_results($this->type.'s') == 0)
@@ -173,9 +173,9 @@ class Addons_m extends MY_Model
 			// Now lets set some details ourselves
 			$module['slug']			= $this->slug;
 			$module['version']		= $details_class->version;
-			$module['enabled']		= FALSE;
-			$module['installed']	= TRUE;
-			$module['is_core']		= FALSE;
+			$module['enabled']		= false;
+			$module['installed']	= true;
+			$module['is_core']		= false;
 		
 			// It's a valid module let's make a record of it
 			$this->add_module($module);
@@ -216,7 +216,7 @@ class Addons_m extends MY_Model
 		// Run the uninstall method to drop the module's tables
 		if ( ! $details_class->uninstall())
 		{
-			return FALSE;
+			return false;
 		}
 
 		if ($this->delete())
@@ -227,14 +227,14 @@ class Addons_m extends MY_Model
 			// Now lets set some details ourselves
 			$module['slug']			= $this->slug;
 			$module['version']		= $details_class->version;
-			$module['enabled']		= FALSE;
-			$module['installed']	= FALSE;
-			$module['is_core']		= FALSE;
+			$module['enabled']		= false;
+			$module['installed']	= false;
+			$module['is_core']		= false;
 	
 			// We record it again here. If they really want to get rid of it they'll use Delete
 			return $this->add_module($module);
 		}
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -249,13 +249,13 @@ class Addons_m extends MY_Model
 		// Get info on the new module
 		if ( ! $details_class = $this->_spawn_class($this->type, $this->slug, $this->shared ))
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// Get info on the old module
 		if ( ! $old_module = $this->db->where('slug', $this->slug)->get('modules')->row_array() )
 		{
-			return FALSE;
+			return false;
 		}
 		
 		// Get the old module version number
@@ -272,13 +272,13 @@ class Addons_m extends MY_Model
 			$this->db->where('slug', $this->slug)
 				->update('modules', array('version' => $details_class->version));
 			
-			return TRUE;
+			return true;
 		}
 		
 		// The upgrade failed
 		else
 		{
-			return FALSE;
+			return false;
 		}
 	}
 	
@@ -306,7 +306,7 @@ class Addons_m extends MY_Model
 					// Get some basic info from the file
 					$plugins[$i]['name']		= ucfirst($name);
 					$plugins[$i]['slug']		= $name;
-					$plugins[$i]['shared']		= TRUE;
+					$plugins[$i]['shared']		= true;
 					
 					$i++;
 				}
@@ -319,7 +319,7 @@ class Addons_m extends MY_Model
 	public function index_themes()
     {
     	$themes = array();
-		$shared = FALSE;
+		$shared = false;
 		$i = 0;
 
 		foreach (array(ADDON_FOLDER.$this->ref.'/', SHARED_ADDONPATH) AS $directory)
@@ -348,7 +348,7 @@ class Addons_m extends MY_Model
 			}
 
 			// Going back around, 2nd time is shared_addons
-			$shared = TRUE;
+			$shared = true;
 		}
 
 		return $themes;
@@ -357,7 +357,7 @@ class Addons_m extends MY_Model
 	public function index_widgets()
     {
     	$widgets = array();
-		$shared = FALSE;
+		$shared = false;
 		$i = 0;
 
 		foreach (array(ADDON_FOLDER.$this->ref.'/', SHARED_ADDONPATH) AS $directory)
@@ -390,7 +390,7 @@ class Addons_m extends MY_Model
 			}
 
 			// Going back around, 2nd time is shared_addons
-			$shared = TRUE;
+			$shared = true;
 		}
 
 		return $widgets;
@@ -399,7 +399,7 @@ class Addons_m extends MY_Model
 	public function index_modules()
     {
     	$modules = array();
-		$shared = FALSE;
+		$shared = false;
 		$i = 0;
 
 		foreach (array(ADDON_FOLDER.$this->ref.'/', SHARED_ADDONPATH) AS $directory)
@@ -431,7 +431,7 @@ class Addons_m extends MY_Model
 			}
 
 			// Going back around, 2nd time is shared_addons
-			$shared = TRUE;
+			$shared = true;
 		}
 
 		return $modules;
@@ -449,7 +449,7 @@ class Addons_m extends MY_Model
 	 * @access	private
 	 * @return	array
 	 */
-	private function _spawn_class($type, $slug, $shared = FALSE)
+	private function _spawn_class($type, $slug, $shared = false)
 	{
 		$path = $shared ? SHARED_ADDONPATH : ADDON_FOLDER.$this->ref.'/';
 
@@ -474,13 +474,13 @@ class Addons_m extends MY_Model
 		if ( class_exists($class_segment.ucfirst(strtolower($slug))) )
 		{
 			$this->template->set('messages', array('error' => sprintf(lang('site.addon_duplicate'), $slug)));
-			return FALSE;
+			return false;
 		}
 
 		// Check if the details file exists
 		if ( ! is_file($details_file))
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Sweet, include the file
@@ -490,6 +490,6 @@ class Addons_m extends MY_Model
 		$class = $class_segment.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : FALSE;
+		return class_exists($class) ? new $class : false;
 	}
 }

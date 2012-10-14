@@ -147,7 +147,7 @@ class Search_m extends CI_Model {
 		
 		if($query->num_rows() == 0):
 		
-			return FALSE;
+			return false;
 		
 		else:
 		

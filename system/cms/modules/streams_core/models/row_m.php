@@ -649,7 +649,7 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = null;
+			(isset($this->sql['where'])) ? $where = implode(' and ', $this->sql['where']) : $where = null;
 		}
 
 		if ($where != '')

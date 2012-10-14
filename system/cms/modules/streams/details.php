@@ -40,9 +40,9 @@ class Module_Streams extends Module {
 				'lt' => null,
 				'fr' => 'Gérer, structurer et afficher des données'
 			),
-			'frontend' => FALSE,
-			'backend' => TRUE,
-			'is_core' => FALSE,
+			'frontend' => false,
+			'backend' => true,
+			'is_core' => false,
 			'author' => 'Parse19',
 			'menu' => 'content',
 			'roles' => array('admin_streams', 'admin_fields')
@@ -173,8 +173,8 @@ class Module_Streams extends Module {
 				'id' => array(
 					'type' => 'INT',
 					'constraint' => 11,
-					'unsigned' => TRUE,
-					'auto_increment' => TRUE
+					'unsigned' => true,
+					'auto_increment' => true
 				),
 				'stream_slug' => array(
 					'type' => 'VARCHAR',
@@ -183,7 +183,7 @@ class Module_Streams extends Module {
 				'stream_namespace' => array(
 					'type' => 'VARCHAR',
 					'constraint' => 100,
-					'null' => TRUE
+					'null' => true
 				),
 				'search_id' => array(
 					'type' => 'VARCHAR',
@@ -191,12 +191,12 @@ class Module_Streams extends Module {
 				),
 				'search_term' => array(
 					'type' => 'TEXT',
-					'null' => TRUE
+					'null' => true
 				),
 				'ip_address' => array(
 					'type' => 'VARCHAR',
 					'constraint' => 100,
-					'null' => TRUE
+					'null' => true
 				),
 				'total_results' => array(
 					'type' => 'INT',
@@ -204,7 +204,7 @@ class Module_Streams extends Module {
 				),
 				'query_string' => array(
 					'type' => 'LONGTEXT',
-					'null' => TRUE
+					'null' => true
 				)),
 			'primary_key' => 'id'
 		);
@@ -218,7 +218,7 @@ class Module_Streams extends Module {
 			// Add primary key
 			if( isset($schema['primary_key']))
 			{
-				$this->dbforge->add_key($schema['primary_key'], TRUE);
+				$this->dbforge->add_key($schema['primary_key'], true);
 			}
 
 			$this->dbforge->create_table($this->config->item('streams:searches_table'));
@@ -264,7 +264,7 @@ class Module_Streams extends Module {
 		
 		$this->streams->utilities->remove_namespace('streams');
 		
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------
@@ -285,7 +285,7 @@ class Module_Streams extends Module {
             ));
         }
 
-		return TRUE;
+		return true;
 	}
 
 	// --------------------------------------------------------------------------

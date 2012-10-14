@@ -148,7 +148,7 @@ class Admin_layouts extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
-		empty($id) AND redirect('admin/pages/layouts');
+		empty($id) and redirect('admin/pages/layouts');
 
 		// We use this controller property for a validation callback later on
 		$this->page_layout_id = $id;

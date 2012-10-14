@@ -47,7 +47,7 @@ class Admin_instances extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(false);
+		$this->input->is_ajax_request() and $this->template->set_layout(false);
 
 		$this->template
 			->set_partial('shortcuts', 'admin/partials/shortcuts')
@@ -113,7 +113,7 @@ class Admin_instances extends Admin_Controller {
 			{
 				$data = array();
 
-				$status === 'success' AND $data['messages'][$status] = $message;
+				$status === 'success' and $data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
@@ -185,7 +185,7 @@ class Admin_instances extends Admin_Controller {
 			{
 				$data = array();
 
-				$status === 'success' AND $data['messages'][$status] = $message;
+				$status === 'success' and $data['messages'][$status] = $message;
 				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(

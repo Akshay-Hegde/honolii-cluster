@@ -101,7 +101,7 @@ class Sites_m extends MY_Model {
 						'version' => array('type' => 'INT', 'constraint' => 3),
 					));
 		
-					$this->dbforge->create_table('migrations', TRUE);
+					$this->dbforge->create_table('migrations', true);
 		
 					if ($this->db->insert('migrations', array('version' => config_item('migration_version'))) )
 					{
@@ -110,7 +110,7 @@ class Sites_m extends MY_Model {
 				}
 			}
 		}
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -135,7 +135,7 @@ class Sites_m extends MY_Model {
 					  'last_name'	=>	$input['last_name']
 		);
 		
-		if($input['password'] > '' AND strlen($input['password']) > 3)
+		if($input['password'] > '' and strlen($input['password']) > 3)
 		{
 			$hash = $this->user_m->_hash_password($input['password']);
 			
@@ -178,9 +178,9 @@ class Sites_m extends MY_Model {
 				
 				return $this->_rename_folders($input['ref'], $site->ref);
 			}
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -196,7 +196,7 @@ class Sites_m extends MY_Model {
 		$tables = $this->db->list_tables();
 
 		// drop the db record
-		if ($this->delete($id) AND strlen($site->ref) > 0)
+		if ($this->delete($id) and strlen($site->ref) > 0)
 		{
 			// now drop the site's own tables
 			foreach ($tables AS $table)
@@ -221,7 +221,7 @@ class Sites_m extends MY_Model {
 				}
 			}
 		}
-		return (count($unwritable) > 0) ? $unwritable : TRUE;
+		return (count($unwritable) > 0) ? $unwritable : true;
 	}
 	
 	/**
@@ -255,7 +255,7 @@ class Sites_m extends MY_Model {
 		{
 			$size = 0;
 			
-			$folder = get_dir_file_info($location.'/'.$site->ref, FALSE);
+			$folder = get_dir_file_info($location.'/'.$site->ref, false);
 			
 			if (is_array($folder))
 			{
@@ -288,7 +288,7 @@ class Sites_m extends MY_Model {
 	/**
 	 * Create a new site's folder set
 	 *
-	 * return TRUE on success or array of failed folders
+	 * return true on success or array of failed folders
 	 *
 	 * @param	string	$new_ref	The new site ref
 	 * @return	boolean
@@ -323,7 +323,7 @@ class Sites_m extends MY_Model {
 					{
 						if ( ! is_dir($location.'/'.$new_ref.'/'.$folder))
 						{
-							@mkdir($location.'/'.$new_ref.'/'.$folder, 0777, TRUE);
+							@mkdir($location.'/'.$new_ref.'/'.$folder, 0777, true);
 							write_file($location.'/'.$new_ref.'/'.$folder.'/index.html', '');
 							write_file($location.'/'.$new_ref.'/index.html', '');
 						}
@@ -333,19 +333,19 @@ class Sites_m extends MY_Model {
 				{
 					if ( ! is_dir($location.'/'.$new_ref))
 					{
-						@mkdir($location.'/'.$new_ref, 0777, TRUE);
+						@mkdir($location.'/'.$new_ref, 0777, true);
 						write_file($location.'/'.$new_ref.'/index.html', '');
 					}
 				}
 			}
 		}
-		return (count($unwritable) > 0) ? $unwritable : TRUE;
+		return (count($unwritable) > 0) ? $unwritable : true;
 	}
 	
 	/**
 	 * Rename an array of folders
 	 *
-	 * return TRUE on success or array of failed folders
+	 * return true on success or array of failed folders
 	 *
 	 * @param	string	$new_ref	The new site ref
 	 * @param	string	$old_ref	The old site's ref
@@ -367,7 +367,7 @@ class Sites_m extends MY_Model {
 				rename($location.'/'.$old_ref, $location.'/'.$new_ref);
 			}
 		}
-		return (count($unwritable) > 0) ? $unwritable : TRUE;
+		return (count($unwritable) > 0) ? $unwritable : true;
 	}
 	
 	/**

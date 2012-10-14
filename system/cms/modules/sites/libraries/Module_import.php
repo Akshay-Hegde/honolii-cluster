@@ -23,7 +23,7 @@ class Module_import {
 	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function install($slug, $is_core = FALSE)
+	public function install($slug, $is_core = false)
 	{
 		$details_class = $this->_spawn_class($slug, $is_core);
 
@@ -31,22 +31,22 @@ class Module_import {
 		$module = $details_class->info();
 		
 		// Only install 3rd party modules if defined
-		if( $is_core === false AND ( ! isset($module['default_install']) OR $module['default_install'] === FALSE ) )
+		if( $is_core === false and ( ! isset($module['default_install']) or $module['default_install'] === false ) )
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Now lets set some details ourselves
 		$module['version'] = $details_class->version;
 		$module['is_core'] = $is_core;
-		$module['enabled'] = TRUE;
-		$module['installed'] = TRUE;
+		$module['enabled'] = true;
+		$module['installed'] = true;
 		$module['slug'] = $slug;
 
 		// Run the install method to get it into the database
 		if ( ! $details_class->install())
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Looks like it installed ok, add a record
@@ -63,7 +63,7 @@ class Module_import {
 			'skip_xss' => !empty($module['skip_xss']),
 			'is_frontend' => !empty($module['frontend']),
 			'is_backend' => !empty($module['backend']),
-			'menu' => !empty($module['menu']) ? $module['menu'] : FALSE,
+			'menu' => !empty($module['menu']) ? $module['menu'] : false,
 			'enabled' => $module['enabled'],
 			'installed' => $module['installed'],
 			'is_core' => $module['is_core']
@@ -107,7 +107,7 @@ class Module_import {
 			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
 			 `user_agent` varchar(120) NOT NULL,
 			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
-			 `user_data` text NULL,
+			 `user_data` text null,
 			PRIMARY KEY (`session_id`)
 			);
 		";
@@ -116,7 +116,7 @@ class Module_import {
 		$this->ci->db->query($session);
 
 		// Loop through directories that hold modules
-		$is_core = TRUE;
+		$is_core = true;
 
 		foreach (array(APPPATH, SHARED_ADDONPATH) as $directory)
 		{
@@ -134,10 +134,10 @@ class Module_import {
 			}
 
 			// Going back around, 2nd time is addons
-			$is_core = FALSE;
+			$is_core = false;
 		}
 
-		return TRUE;
+		return true;
 	}
 
 	/**
@@ -149,7 +149,7 @@ class Module_import {
 	 * @access	private
 	 * @return	array
 	 */
-	private function _spawn_class($slug, $is_core = FALSE)
+	private function _spawn_class($slug, $is_core = false)
 	{
 		$path = $is_core ? APPPATH : SHARED_ADDONPATH;
 
@@ -159,7 +159,7 @@ class Module_import {
 		// Check the details file exists
 		if ( ! is_file($details_file))
 		{
-			return FALSE;
+			return false;
 		}
 
 		// Sweet, include the file
@@ -169,6 +169,6 @@ class Module_import {
 		$class = 'Module_'.ucfirst(strtolower($slug));
 
 		// Now we need to talk to it
-		return class_exists($class) ? new $class : FALSE;
+		return class_exists($class) ? new $class : false;
 	}
 }

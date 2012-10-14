@@ -108,7 +108,7 @@ class Field_multiple
 		$html = '<ul>';
 				
 		$this->CI->db->from($join_table.' AS jt');
-		$this->CI->db->where('jt.row_id', $row_id, FALSE);
+		$this->CI->db->where('jt.row_id', $row_id, false);
 		$this->CI->db->join($stream->stream_prefix.$join_stream->stream_slug, 'jt.'.$join_stream->stream_slug.'_id = '.$stream->stream_prefix.$join_stream->stream_slug.'.id');
 		$query = $this->CI->db->get();
 		
@@ -158,7 +158,7 @@ class Field_multiple
 		
 		foreach ($this->rows['rows'] as $row)
 		{
-			$html .= $this->CI->raw_parser->parse_string($data['content'], $row, TRUE);
+			$html .= $this->CI->raw_parser->parse_string($data['content'], $row, true);
 		}	
 		
 		return $html;
@@ -224,7 +224,7 @@ class Field_multiple
 		);
 		
 		$this->CI->dbforge->add_field($fields);
-		$this->CI->dbforge->add_key('id', TRUE);
+		$this->CI->dbforge->add_key('id', true);
 		
 		$this->CI->dbforge->create_table($table_name);
 	}

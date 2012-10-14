@@ -28,7 +28,7 @@ class Admin extends Admin_Controller {
 		$this->load->library('widgets');
 		$this->lang->load('widgets');
 
-		$this->input->is_ajax_request() AND $this->template->set_layout(false);
+		$this->input->is_ajax_request() and $this->template->set_layout(false);
 
 		if (in_array($this->method, array('index', 'manage')))
 		{
@@ -156,7 +156,7 @@ class Admin extends Admin_Controller {
 	{
 		$id && $this->_do_action($id, 'disable');
 
-		$redirect AND redirect('admin/widgets/manage');
+		$redirect and redirect('admin/widgets/manage');
 	}
 
 	/**

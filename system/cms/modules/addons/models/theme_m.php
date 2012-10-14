@@ -72,7 +72,7 @@ class Theme_m extends MY_Model
 	 */
 	public function get($slug = '')
 	{
-		$slug OR $slug = $this->_theme;
+		$slug or $slug = $this->_theme;
 
 		foreach ($this->template->theme_locations() as $location)
 		{
@@ -99,7 +99,7 @@ class Theme_m extends MY_Model
 	 */
 	public function get_admin($slug = '')
 	{
-		$slug OR $slug = $this->_admin_theme;
+		$slug or $slug = $this->_admin_theme;
 
 		foreach ($this->template->theme_locations() as $location)
 		{

@@ -142,7 +142,7 @@ class Admin_Entries extends Admin_Controller {
 		
 		$fields = $this->fields->build_form($this->data->stream, 'new', false, false, false, array(), $extra);
 	
-		if ($fields === FALSE)
+		if ($fields === false)
         {
         	$this->template->build('admin/entries/no_fields', $this->data);
 		}		
@@ -153,7 +153,7 @@ class Admin_Entries extends Admin_Controller {
 						'stream'	=> $this->data->stream,
 						'mode'		=> 'new');
 						
-			$form = $this->load->view('admin/partials/streams/form', $data, TRUE);
+			$form = $this->load->view('admin/partials/streams/form', $data, true);
 		
 			$this->data->content = $form;
 					
@@ -185,7 +185,7 @@ class Admin_Entries extends Admin_Controller {
 		
 		$row_id = $this->uri->segment(6);
 		
-		if(!$row = $this->row_m->get_row($row_id, $this->data->stream, FALSE ) ) show_error(lang('streams.invalid_row'));
+		if(!$row = $this->row_m->get_row($row_id, $this->data->stream, false ) ) show_error(lang('streams.invalid_row'));
 
  		// -------------------------------------
 		// Run Form
@@ -201,7 +201,7 @@ class Admin_Entries extends Admin_Controller {
 		
 		$fields = $this->fields->build_form($this->data->stream, 'edit', $row, false, false, array(), $extra);
 	
-		if ($fields === FALSE)
+		if ($fields === false)
         {
         	// @todo - message about not finding an entry
         	$this->template->build('admin/entries/no_fields', $this->data);
@@ -214,7 +214,7 @@ class Admin_Entries extends Admin_Controller {
 						'entry'		=> $row,
 						'mode'		=> 'edit');
 			
-			$form = $this->load->view('admin/partials/streams/form', $data, TRUE);
+			$form = $this->load->view('admin/partials/streams/form', $data, true);
 		
 			$this->data->content = $form;
 
@@ -238,7 +238,7 @@ class Admin_Entries extends Admin_Controller {
 
 		$this->data->stream_fields = $this->streams_m->get_stream_fields($this->data->stream_id);
 		
-		$row_id = $this->uri->segment($row_uri_segment, FALSE);
+		$row_id = $this->uri->segment($row_uri_segment, false);
 		
 		// @todo - languagize
 		if(!$row_id || !is_numeric($row_id)) show_error("Invalid ID");

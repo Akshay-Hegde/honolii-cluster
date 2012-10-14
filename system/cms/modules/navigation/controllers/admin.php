@@ -462,7 +462,7 @@ class Admin extends Admin_Controller {
 		switch ($link) {
 
 			case 'url':
-				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://');
+				$status = ($this->input->post('url') > '' and $this->input->post('url') !== 'http://');
 			break;
 
 			case 'module':
