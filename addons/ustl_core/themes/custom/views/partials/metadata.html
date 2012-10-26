@@ -17,7 +17,13 @@
 <base href="{{ url:base }}" />
 <title>{{ settings:site_name }} &bull; {{ template:title }}</title>
 <!-- CSS Stylesheets -->
-<link rel="stylesheet" href="/{{theme:path}}/css/build.css" />
+{{ if global:environment == 'development' }}
+<!-- DEVELOPMENT FILES -->
+{{ less:compile file="style.less" output="style.css" }}
+{{ else }}
+<!-- PRODUCTION FILES -->
+<link rel="stylesheet" href="/{{theme:path}}/css/style.css" />
+{{ endif }}
 <!-- GA Tracking -->
 <script type="text/javascript">
 var _gaq = _gaq || [];
