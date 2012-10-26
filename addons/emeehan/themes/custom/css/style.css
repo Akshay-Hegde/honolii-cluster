@@ -2876,6 +2876,12 @@ body { padding-top:100px; }
 }
 .mod.block-post .hd, .mod.page-post .hd { height:130px; }
 .mod.block-post .bd, .mod.page-post .bd { margin-bottom:4em; }
+.mod.block-gallery { position:relative; }
+.mod.block-gallery .hd h4 { position:absolute; }
+.mod.block-gallery .bd { position:absolute; }
+@media (max-width: 767px) {
+  .block-gallery img { width:100%; }
+}
 .site-footer .social-icon {
   list-style:none;
   margin:0;
@@ -2939,6 +2945,7 @@ body { background-image:url(../img/content-bkg.png); }
 }
 .site-content .category-title.journal-title { color:#72ca1e; }
 .site-content .category-title.article-title { color:#3fd7fe; }
+.site-content .category-title.gallery-title { color:#ff0076; }
 .parallax-scroller .mod .hd h1, .parallax-scroller .mod .hd h2, .parallax-scroller .mod .hd h3 {
   font-family:'Orbitron', Arial, sans-serif;
   font-size:34px;
@@ -3028,11 +3035,11 @@ body { background-image:url(../img/content-bkg.png); }
   width:17px;
   position:absolute;
 }
-.mod.block-post >.hd.post-heading, .mod.page-post >.hd.post-heading {
+.mod.block-post >.hd.post-heading, .mod.block-post >.hd.gallery-heading, .mod.page-post >.hd.post-heading, .mod.page-post >.hd.gallery-heading, .mod.block-gallery >.hd.post-heading, .mod.block-gallery >.hd.gallery-heading, .mod.page-gallery >.hd.post-heading, .mod.page-gallery >.hd.gallery-heading {
   position:relative;
   margin-bottom:1em;
 }
-.mod.block-post >.hd.post-heading h4, .mod.block-post >.hd.post-heading h2, .mod.page-post >.hd.post-heading h4, .mod.page-post >.hd.post-heading h2 {
+.mod.block-post >.hd.post-heading h4, .mod.block-post >.hd.post-heading h2, .mod.block-post >.hd.gallery-heading h4, .mod.block-post >.hd.gallery-heading h2, .mod.page-post >.hd.post-heading h4, .mod.page-post >.hd.post-heading h2, .mod.page-post >.hd.gallery-heading h4, .mod.page-post >.hd.gallery-heading h2, .mod.block-gallery >.hd.post-heading h4, .mod.block-gallery >.hd.post-heading h2, .mod.block-gallery >.hd.gallery-heading h4, .mod.block-gallery >.hd.gallery-heading h2, .mod.page-gallery >.hd.post-heading h4, .mod.page-gallery >.hd.post-heading h2, .mod.page-gallery >.hd.gallery-heading h4, .mod.page-gallery >.hd.gallery-heading h2 {
   font-family:'Orbitron', Arial, sans-serif;
   font-size:24px;
   text-transform:uppercase;
@@ -3042,12 +3049,12 @@ body { background-image:url(../img/content-bkg.png); }
   line-height:21px;
   color:#ffffff;
 }
-.mod.block-post >.hd.post-heading h4 a, .mod.block-post >.hd.post-heading h2 a, .mod.page-post >.hd.post-heading h4 a, .mod.page-post >.hd.post-heading h2 a { color:#ffffff; }
-.mod.block-post >.hd.post-heading h4 a:hover, .mod.block-post >.hd.post-heading h2 a:hover, .mod.page-post >.hd.post-heading h4 a:hover, .mod.page-post >.hd.post-heading h2 a:hover {
+.mod.block-post >.hd.post-heading h4 a, .mod.block-post >.hd.post-heading h2 a, .mod.block-post >.hd.gallery-heading h4 a, .mod.block-post >.hd.gallery-heading h2 a, .mod.page-post >.hd.post-heading h4 a, .mod.page-post >.hd.post-heading h2 a, .mod.page-post >.hd.gallery-heading h4 a, .mod.page-post >.hd.gallery-heading h2 a, .mod.block-gallery >.hd.post-heading h4 a, .mod.block-gallery >.hd.post-heading h2 a, .mod.block-gallery >.hd.gallery-heading h4 a, .mod.block-gallery >.hd.gallery-heading h2 a, .mod.page-gallery >.hd.post-heading h4 a, .mod.page-gallery >.hd.post-heading h2 a, .mod.page-gallery >.hd.gallery-heading h4 a, .mod.page-gallery >.hd.gallery-heading h2 a { color:#ffffff; }
+.mod.block-post >.hd.post-heading h4 a:hover, .mod.block-post >.hd.post-heading h2 a:hover, .mod.block-post >.hd.gallery-heading h4 a:hover, .mod.block-post >.hd.gallery-heading h2 a:hover, .mod.page-post >.hd.post-heading h4 a:hover, .mod.page-post >.hd.post-heading h2 a:hover, .mod.page-post >.hd.gallery-heading h4 a:hover, .mod.page-post >.hd.gallery-heading h2 a:hover, .mod.block-gallery >.hd.post-heading h4 a:hover, .mod.block-gallery >.hd.post-heading h2 a:hover, .mod.block-gallery >.hd.gallery-heading h4 a:hover, .mod.block-gallery >.hd.gallery-heading h2 a:hover, .mod.page-gallery >.hd.post-heading h4 a:hover, .mod.page-gallery >.hd.post-heading h2 a:hover, .mod.page-gallery >.hd.gallery-heading h4 a:hover, .mod.page-gallery >.hd.gallery-heading h2 a:hover {
   color:#d9d9d9;
   text-decoration:none;
 }
-.mod.block-post >.hd.post-heading .post-date, .mod.page-post >.hd.post-heading .post-date {
+.mod.block-post >.hd.post-heading .post-date, .mod.block-post >.hd.gallery-heading .post-date, .mod.page-post >.hd.post-heading .post-date, .mod.page-post >.hd.gallery-heading .post-date, .mod.block-gallery >.hd.post-heading .post-date, .mod.block-gallery >.hd.gallery-heading .post-date, .mod.page-gallery >.hd.post-heading .post-date, .mod.page-gallery >.hd.gallery-heading .post-date {
   font-family:'Michroma', Arial, sans-serif;
   text-align:right;
   position:absolute;
@@ -3060,8 +3067,8 @@ body { background-image:url(../img/content-bkg.png); }
   top:0;
   right:15px;
 }
-.mod.block-post >.hd.post-heading .post-date .post-month, .mod.page-post >.hd.post-heading .post-date .post-month { font-size:10px; }
-.mod.block-post >.hd.post-heading .post-meta, .mod.page-post >.hd.post-heading .post-meta {
+.mod.block-post >.hd.post-heading .post-date .post-month, .mod.block-post >.hd.gallery-heading .post-date .post-month, .mod.page-post >.hd.post-heading .post-date .post-month, .mod.page-post >.hd.gallery-heading .post-date .post-month, .mod.block-gallery >.hd.post-heading .post-date .post-month, .mod.block-gallery >.hd.gallery-heading .post-date .post-month, .mod.page-gallery >.hd.post-heading .post-date .post-month, .mod.page-gallery >.hd.gallery-heading .post-date .post-month { font-size:10px; }
+.mod.block-post >.hd.post-heading .post-meta, .mod.block-post >.hd.gallery-heading .post-meta, .mod.page-post >.hd.post-heading .post-meta, .mod.page-post >.hd.gallery-heading .post-meta, .mod.block-gallery >.hd.post-heading .post-meta, .mod.block-gallery >.hd.gallery-heading .post-meta, .mod.page-gallery >.hd.post-heading .post-meta, .mod.page-gallery >.hd.gallery-heading .post-meta {
   background:rgba(0,0,0,0.2);
   position:absolute;
   bottom:0;
@@ -3071,7 +3078,21 @@ body { background-image:url(../img/content-bkg.png); }
   text-transform:uppercase;
   padding-left:1%;
 }
-.mod.block-post.journal-post .post-heading, .mod.page-post.journal-post .post-heading {
+.mod.block-post >.hd.gallery-heading h4, .mod.page-post >.hd.gallery-heading h4, .mod.block-gallery >.hd.gallery-heading h4, .mod.page-gallery >.hd.gallery-heading h4 {
+  padding:0;
+  width:100%;
+  background-color:#ff0076;
+}
+.mod.block-post >.hd.gallery-heading h4 a, .mod.page-post >.hd.gallery-heading h4 a, .mod.block-gallery >.hd.gallery-heading h4 a, .mod.page-gallery >.hd.gallery-heading h4 a { padding:.5em; }
+.mod.block-post >.hd.gallery-heading a, .mod.block-post >.hd.gallery-heading img, .mod.page-post >.hd.gallery-heading a, .mod.page-post >.hd.gallery-heading img, .mod.block-gallery >.hd.gallery-heading a, .mod.block-gallery >.hd.gallery-heading img, .mod.page-gallery >.hd.gallery-heading a, .mod.page-gallery >.hd.gallery-heading img { display:block; }
+.mod.block-post >.bd.gallery-body, .mod.page-post >.bd.gallery-body, .mod.block-gallery >.bd.gallery-body, .mod.page-gallery >.bd.gallery-body {
+  bottom:0;
+  background:rgba(0,0,0,0.4);
+  width:94%;
+  padding:1em 3%;
+}
+.mod.block-post >.bd.gallery-body p, .mod.page-post >.bd.gallery-body p, .mod.block-gallery >.bd.gallery-body p, .mod.page-gallery >.bd.gallery-body p { margin-bottom:0; }
+.mod.block-post.journal-post .post-heading, .mod.page-post.journal-post .post-heading, .mod.block-gallery.journal-post .post-heading, .mod.page-gallery.journal-post .post-heading {
   background-color:#72ca1e;
   background-image:-moz-linear-gradient(left,#393939,#72ca1e);
   background-image:-ms-linear-gradient(left,#393939,#72ca1e);
@@ -3082,12 +3103,12 @@ body { background-image:url(../img/content-bkg.png); }
   background-repeat:repeat-x;
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#393939', endColorstr='#72ca1e', GradientType=1);
 }
-.mod.block-post.journal-post .post-heading .post-meta a, .mod.block-post.journal-post .post-heading p a, .mod.page-post.journal-post .post-heading .post-meta a, .mod.page-post.journal-post .post-heading p a { color:#72ca1e; }
-.mod.block-post.journal-post .post-heading .post-meta a:hover, .mod.block-post.journal-post .post-heading p a:hover, .mod.page-post.journal-post .post-heading .post-meta a:hover, .mod.page-post.journal-post .post-heading p a:hover {
+.mod.block-post.journal-post .post-heading .post-meta a, .mod.block-post.journal-post .post-heading p a, .mod.page-post.journal-post .post-heading .post-meta a, .mod.page-post.journal-post .post-heading p a, .mod.block-gallery.journal-post .post-heading .post-meta a, .mod.block-gallery.journal-post .post-heading p a, .mod.page-gallery.journal-post .post-heading .post-meta a, .mod.page-gallery.journal-post .post-heading p a { color:#72ca1e; }
+.mod.block-post.journal-post .post-heading .post-meta a:hover, .mod.block-post.journal-post .post-heading p a:hover, .mod.page-post.journal-post .post-heading .post-meta a:hover, .mod.page-post.journal-post .post-heading p a:hover, .mod.block-gallery.journal-post .post-heading .post-meta a:hover, .mod.block-gallery.journal-post .post-heading p a:hover, .mod.page-gallery.journal-post .post-heading .post-meta a:hover, .mod.page-gallery.journal-post .post-heading p a:hover {
   color:#4c8714;
   text-decoration:none;
 }
-.mod.block-post.article-post .post-heading, .mod.page-post.article-post .post-heading {
+.mod.block-post.article-post .post-heading, .mod.page-post.article-post .post-heading, .mod.block-gallery.article-post .post-heading, .mod.page-gallery.article-post .post-heading {
   background-color:#3fd7fe;
   background-image:-moz-linear-gradient(left,#393939,#3fd7fe);
   background-image:-ms-linear-gradient(left,#393939,#3fd7fe);
@@ -3098,8 +3119,8 @@ body { background-image:url(../img/content-bkg.png); }
   background-repeat:repeat-x;
   filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#393939', endColorstr='#3fd7fe', GradientType=1);
 }
-.mod.block-post.article-post .post-heading .post-meta a, .mod.block-post.article-post .post-heading p a, .mod.page-post.article-post .post-heading .post-meta a, .mod.page-post.article-post .post-heading p a { color:#3fd7fe; }
-.mod.block-post.article-post .post-heading .post-meta a:hover, .mod.block-post.article-post .post-heading p a:hover, .mod.page-post.article-post .post-heading .post-meta a:hover, .mod.page-post.article-post .post-heading p a:hover {
+.mod.block-post.article-post .post-heading .post-meta a, .mod.block-post.article-post .post-heading p a, .mod.page-post.article-post .post-heading .post-meta a, .mod.page-post.article-post .post-heading p a, .mod.block-gallery.article-post .post-heading .post-meta a, .mod.block-gallery.article-post .post-heading p a, .mod.page-gallery.article-post .post-heading .post-meta a, .mod.page-gallery.article-post .post-heading p a { color:#3fd7fe; }
+.mod.block-post.article-post .post-heading .post-meta a:hover, .mod.block-post.article-post .post-heading p a:hover, .mod.page-post.article-post .post-heading .post-meta a:hover, .mod.page-post.article-post .post-heading p a:hover, .mod.block-gallery.article-post .post-heading .post-meta a:hover, .mod.block-gallery.article-post .post-heading p a:hover, .mod.page-gallery.article-post .post-heading .post-meta a:hover, .mod.page-gallery.article-post .post-heading p a:hover {
   color:#01bfef;
   text-decoration:none;
 }
@@ -3116,6 +3137,30 @@ body { background-image:url(../img/content-bkg.png); }
   margin-bottom:1em;
 }
 .mod.comments >.bd h4 { margin-bottom:3px; }
+@media (min-width: 980px) {
+  .mod.block-gallery {
+    top:0;
+    box-shadow:0 0 0 #000000;
+    -webkit-transition:top .5s, box-shadow .5s;
+    -moz-transition:top .5s, box-shadow .5s;
+    -ms-transition:top .5s, box-shadow .5s;
+    -o-transition:top .5s, box-shadow .5s;
+    transition:top .5s, box-shadow .5s;
+  }
+  .mod.block-gallery .hd.gallery-heading h4 {
+    background-color:rgba(255,0,118,0.5);
+    -webkit-transition:background-color 1s;
+    -moz-transition:background-color 1s;
+    -ms-transition:background-color 1s;
+    -o-transition:background-color 1s;
+    transition:background-color 1s;
+  }
+  .mod:hover.block-gallery {
+    top:-5px;
+    box-shadow:0 6px 8px #000000;
+  }
+  .mod:hover >.hd.gallery-heading h4 { background-color:#ff0076; }
+}
 .widget > h3 {
   font-family:'Orbitron', Arial, sans-serif;
   text-transform:uppercase;

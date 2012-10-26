@@ -1,4 +1,4 @@
-<div id="col-main" class="span12">
+<section id="col-main" class="span12">
 <?php if (isset($category->title)): ?>
 <h2 id="page_title" class="category-title <?= $category->slug; ?>-title"><?= $category->title; ?></h2>
 <?php endif; ?>
@@ -50,7 +50,7 @@
 	<p><?php echo lang('blog_currently_no_posts');?></p>
 <?php endif; ?>
 
-</div>
+</section>
 <aside id="col-rail" class="span11 offset1">
 	<div class="row">
 		<div class="span8">{{ widgets:area slug="category" }}{{ widgets:area slug="default" }}</div>

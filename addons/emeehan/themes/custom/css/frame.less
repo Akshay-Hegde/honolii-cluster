@@ -28,10 +28,23 @@ body{padding-top:100px;}
 			margin-bottom:4em;
 		}
 	}
+	&.block-gallery{
+	 position:relative;
+	 .hd{
+	   h4{position:absolute;}
+	 }
+	 .bd{
+	   position:absolute;
+	 }
+	}
 	&.comments{
 	
 	}
 }
+@media (max-width: 767px) {
+ .block-gallery img{width:100%;}
+}
+
 /* Footer */
 .site-footer{
 	.social-icon{
