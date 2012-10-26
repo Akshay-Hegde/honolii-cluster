@@ -49,7 +49,7 @@ body{background-image:url(../img/content-bkg.png)}
 		font-family:@webFontOne;text-transform:uppercase; font-size:@baseFontSize + 10; background-color:@blackCustom; padding: 1em 3px 0; line-height:1em; margin-bottom:2em;
 		&.journal-title{color:@journalColor;}
 		&.article-title{color:@articleColor;}
-	
+	  &.gallery-title{color:@galleryColor;}
 	}
 }
 .parallax-scroller{
@@ -90,10 +90,11 @@ body{background-image:url(../img/content-bkg.png)}
 }
 
 .mod {
-	&.block-post,&.page-post{
-		
+	
+	&.block-post,&.page-post,&.block-gallery,&.page-gallery{
+	
 		>.hd{
-			&.post-heading{
+			&.post-heading,&.gallery-heading{
 				position:relative; margin-bottom:1em;
 				
 				h4,h2 {
@@ -111,8 +112,20 @@ body{background-image:url(../img/content-bkg.png)}
 				}
 				
 			}
+			&.gallery-heading{
+			  h4 {padding:0; width:100%; background-color: @galleryColor;
+			     a {padding:.5em;}
+			  }
+			  a,img{display:block;}
+			}
+			
 		}
-		>.bd{}
+		>.bd{
+		  &.gallery-body{
+        bottom:0; background: rgba(0,0,0,.4); width:94%; padding:1em 3%;
+        p {margin-bottom:0;}
+      }
+		}
 		
 		&.journal-post{
 			.post-heading{
@@ -150,6 +163,36 @@ body{background-image:url(../img/content-bkg.png)}
 		}
 		>.fd{}
 	}
+}
+
+@media (min-width: 980px) {
+  .mod{
+    &.block-gallery{
+      top:0; box-shadow: 0 0 0 #000;
+      @block-gallery:top .5s, box-shadow .5s;
+      .transition(@block-gallery);
+      .hd{
+        &.gallery-heading{
+          h4{background-color: fade(@galleryColor, 50%);
+            @gallery-heading:background-color 1s;
+            .transition(@gallery-heading);
+          }
+        }
+      }
+    }
+    
+    &:hover{
+      &.block-gallery{
+       top:-5px;
+       box-shadow:0 6px 8px #000;
+      }
+      >.hd{
+        &.gallery-heading{
+          h4 {background-color: fade(@galleryColor, 100%);}
+        }
+      }
+    }
+  }
 }
 
 .widget{
