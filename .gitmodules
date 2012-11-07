@@ -4,3 +4,6 @@
 [submodule "addons/shared_addons/modules/snippets"]
 	path = addons/shared_addons/modules/snippets
 	url = git@github.com:edmeehan/PyroSnippets.git
+[submodule "library/twitter-bootstrap"]
+	path = library/twitter-bootstrap
+	url = git@github.com:edmeehan/bootstrap.git
