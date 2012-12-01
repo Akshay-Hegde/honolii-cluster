@@ -1,11 +1,13 @@
 <!-- Begin header -->
-<header id="header" class="site-header navbar navbar-fixed-top">
+<header id="header" class="site-header">
 	<div class="container">
 		<h1 id="logo" class="logo"><a href="/" title="">{{ settings:site_name }}</a></h1>
-		<nav id="top-nav">
-			<ul class="navigation">
-			{{ navigation:links group="header" }}
-			</ul>
+		<nav id="top-nav" class="navbar">
+			<div class="navbar-inner">
+				<ul class="nav">
+					{{ navigation:links group="header" }}
+				</ul>
+			</div>
 		</nav>
 	</div>
 </header>

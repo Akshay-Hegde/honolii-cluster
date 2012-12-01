@@ -18,13 +18,46 @@
 		<!-- Content -->
 		<div id="content" class="container site-content">
 			<div class="row">
-				{{session:messages success="success" notice="notice" error="error"}}
-				{{ template:body }}
+				<div class="span12">
+					
+				
+				<div class="box-line">
+					<div class="row-fluid">
+						<div class="span8">
+							{{session:messages success="success" notice="notice" error="error"}}
+							{{ template:body }}
+					<h1>Headline Test</h1>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt lectus nec ante consectetur quis rutrum arcu volutpat. Integer mollis tellus at metus convallis id porttitor neque egestas. Nullam odio diam, porttitor at bibendum iaculis, facilisis a enim. Fusce ultricies augue vitae magna viverra adipiscing. Phasellus id nunc metus. Maecenas blandit massa nec ligula porttitor id luctus sapien consequat. Suspendisse potenti. Etiam pulvinar mollis aliquet. Nunc at enim quam, at convallis quam. Phasellus commodo porttitor mi a vulputate. Quisque pharetra, ligula sed molestie pharetra, purus urna aliquet neque, a laoreet dui erat eu nisl. Vivamus fermentum orci at ipsum auctor ultricies.</p>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt lectus nec ante consectetur quis rutrum arcu volutpat. Integer mollis tellus at metus convallis id porttitor neque egestas. Nullam odio diam, porttitor at bibendum iaculis, facilisis a enim. Fusce ultricies augue vitae magna viverra adipiscing. Phasellus id nunc metus. Maecenas blandit massa nec ligula porttitor id luctus sapien consequat. Suspendisse potenti. Etiam pulvinar mollis aliquet. Nunc at enim quam, at convallis quam. Phasellus commodo porttitor mi a vulputate. Quisque pharetra, ligula sed molestie pharetra, purus urna aliquet neque, a laoreet dui erat eu nisl. Vivamus fermentum orci at ipsum auctor ultricies.</p>
+						</div>
+						<div class="span4">
+							<h4 class="headline">Headline Test</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt lectus nec ante consectetur quis rutrum arcu volutpat. Integer mollis tellus at metus convallis id porttitor neque egestas. Nullam odio diam, porttitor at bibendum iaculis, facilisis a enim. Fusce ultricies augue vitae magna viverra adipiscing. Phasellus id nunc metus. Maecenas blandit massa nec ligula porttitor id luctus sapien consequat. Suspendisse potenti. Etiam pulvinar mollis aliquet. Nunc at enim quam, at convallis quam. Phasellus commodo porttitor mi a vulputate. Quisque pharetra, ligula sed molestie pharetra, purus urna aliquet neque, a laoreet dui erat eu nisl. Vivamus fermentum orci at ipsum auctor ultricies.</p>
+					
+						</div>
+					</div>
+				</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="span6">
+					<div class="box">
+						<h3 class="headline">Headline Test</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt lectus nec ante consectetur quis rutrum arcu volutpat. Integer mollis tellus at metus convallis id porttitor neque egestas. Nullam odio diam, porttitor at bibendum iaculis, facilisis a enim. Fusce ultricies augue vitae magna viverra adipiscing. Phasellus id nunc metus. Maecenas blandit massa nec ligula porttitor id luctus sapien consequat. Suspendisse potenti. Etiam pulvinar mollis aliquet. Nunc at enim quam, at convallis quam. Phasellus commodo porttitor mi a vulputate. Quisque pharetra, ligula sed molestie pharetra, purus urna aliquet neque, a laoreet dui erat eu nisl. Vivamus fermentum orci at ipsum auctor ultricies.</p>
+					</div>
+				</div>
+				<div class="span6">
+					<div class="box">
+						<h3 class="headline">Headline Test</h3>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus tincidunt lectus nec ante consectetur quis rutrum arcu volutpat. Integer mollis tellus at metus convallis id porttitor neque egestas. Nullam odio diam, porttitor at bibendum iaculis, facilisis a enim. Fusce ultricies augue vitae magna viverra adipiscing. Phasellus id nunc metus. Maecenas blandit massa nec ligula porttitor id luctus sapien consequat. Suspendisse potenti. Etiam pulvinar mollis aliquet. Nunc at enim quam, at convallis quam. Phasellus commodo porttitor mi a vulputate. Quisque pharetra, ligula sed molestie pharetra, purus urna aliquet neque, a laoreet dui erat eu nisl. Vivamus fermentum orci at ipsum auctor ultricies.</p>
+					</div>
+				</div>
 			</div>
 		</div>
-		<!-- Footer -->
-		{{ theme:partial name="footer" }}
+		
 	</div>
+	<!-- Footer -->
+	{{ theme:partial name="footer" }}
 {{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}

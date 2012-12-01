@@ -1,4 +1,4 @@
-<div id="col-main" class="span12">
+<div id="col-main" class="span7">
 <?php if (isset($category->title)): ?>
 <h2 id="page_title" class="category-title <?= $category->slug; ?>-title"><?= $category->title; ?></h2>
 <?php endif; ?>
@@ -51,9 +51,6 @@
 <?php endif; ?>
 
 </div>
-<aside id="col-rail" class="span11 offset1">
-	<div class="row">
-		<div class="span8">{{ widgets:area slug="category" }}{{ widgets:area slug="default" }}</div>
-		<div class="span3">&nbsp;</div>
-	</div>
+<aside id="col-rail" class="span5">
+	{{ widgets:area slug="blog-cat" }}
 </aside>

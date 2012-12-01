@@ -18,9 +18,17 @@
 		<!-- Content -->
 		<div id="content" class="container site-content">
 			<div class="row">
-				{{session:messages success="success" notice="notice" error="error"}}
-				<!-- view > module > blog content -->
-				{{ template:body }}
+				<div class="span12">
+					<div class="box-line">
+						{{ theme:partial name="breadcrumbs" }}
+						<div class="row-fluid">
+							
+						{{session:messages success="success" notice="notice" error="error"}}
+						<!-- view > module > blog content -->
+						{{ template:body }}
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<!-- Footer -->

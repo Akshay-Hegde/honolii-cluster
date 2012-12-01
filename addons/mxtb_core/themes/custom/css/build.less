@@ -1,4 +1,221 @@
-/* Used to compile less files */
-@import "less/bootstrap.less";
+// CSS Reset
+@import "../../../../../library/twitter-bootstrap/less/reset.less";
+
+// Core variables and mixins
+@import "less/variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "../../../../../library/twitter-bootstrap/less/mixins.less";
+
+// Grid system and page structure
+@import "../../../../../library/twitter-bootstrap/less/scaffolding.less";
+@import "../../../../../library/twitter-bootstrap/less/grid.less";
+@import "../../../../../library/twitter-bootstrap/less/layouts.less";
+
+// Base CSS
+@import "../../../../../library/twitter-bootstrap/less/type.less";
+@import "../../../../../library/twitter-bootstrap/less/code.less";
+@import "../../../../../library/twitter-bootstrap/less/forms.less";
+@import "../../../../../library/twitter-bootstrap/less/tables.less";
+
+// Components: common
+@import "../../../../../library/twitter-bootstrap/less/sprites.less";
+@import "../../../../../library/twitter-bootstrap/less/dropdowns.less";
+@import "../../../../../library/twitter-bootstrap/less/wells.less";
+@import "../../../../../library/twitter-bootstrap/less/component-animations.less";
+@import "../../../../../library/twitter-bootstrap/less/close.less";
+
+// Components: Buttons & Alerts
+@import "../../../../../library/twitter-bootstrap/less/buttons.less";
+@import "../../../../../library/twitter-bootstrap/less/button-groups.less";
+@import "../../../../../library/twitter-bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+@import "../../../../../library/twitter-bootstrap/less/navs.less";
+@import "../../../../../library/twitter-bootstrap/less/navbar.less";
+@import "../../../../../library/twitter-bootstrap/less/breadcrumbs.less";
+@import "../../../../../library/twitter-bootstrap/less/pagination.less";
+@import "../../../../../library/twitter-bootstrap/less/pager.less";
+
+// Components: Popovers
+@import "../../../../../library/twitter-bootstrap/less/modals.less";
+@import "../../../../../library/twitter-bootstrap/less/tooltip.less";
+@import "../../../../../library/twitter-bootstrap/less/popovers.less";
+
+// Components: Misc
+@import "../../../../../library/twitter-bootstrap/less/thumbnails.less";
+@import "../../../../../library/twitter-bootstrap/less/media.less";
+@import "../../../../../library/twitter-bootstrap/less/labels-badges.less";
+@import "../../../../../library/twitter-bootstrap/less/progress-bars.less";
+@import "../../../../../library/twitter-bootstrap/less/accordion.less";
+@import "../../../../../library/twitter-bootstrap/less/carousel.less";
+@import "../../../../../library/twitter-bootstrap/less/hero-unit.less";
+
+// Utility classes
+@import "../../../../../library/twitter-bootstrap/less/utilities.less"; // Has to be last to override when necessary
 
 /* Start Custom Styles Below */
+
+html {background: url('../img/background-pattern.jpg') repeat}
+body {background:none;}
+
+/* Header */
+.site-header {
+  
+  h1 {
+    background: url('../img/header-slice.png') no-repeat top left;
+    margin:0;
+    height:180px;
+    
+    a{
+      overflow:hidden;
+      text-indent:-9999px;
+      display: block;
+      height: 100%;
+      width: 340px;
+    }
+  }
+  // fit to logo
+  .csstransforms & h1 a{
+      height: 132px;
+      width: 318px;
+      position: absolute;
+      top: 25px;
+      left: 15px;
+      .rotate(-6deg);
+  }
+  
+  nav {
+    position:absolute;
+    right:4px;
+    bottom:-3px;
+    margin-bottom:0;
+    font-family: @sansFontFamily2;
+    font-size: 22px;
+    line-height: 1em;
+    
+
+    .navbar-inner {
+      background-color: @mxblue;
+      #gradient > .vertical(lighten(@mxblue,25%), lighten(@mxblue,2%));
+      padding-left:0;
+      padding-right:0;
+      border: 0;
+      .border-radius(3px);
+      .box-shadow(~"0 -4px 2px 0 rgba(0, 0, 0, 0.35) inset, 0 -7px 7px 0 rgba(255, 255, 255, 0.6) inset, 0 1px 2px 1px rgba(0,0,0,.6)");
+      .nav {
+        margin-right:0;
+      }
+      a {
+        color:@white;
+        text-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
+        padding:12px 35px 18px;
+      }
+    }
+  }
+  
+  > .container {
+    position:relative;
+  }
+}
+
+/* Content Area */
+
+.headline {
+	border-bottom: solid 2px #E4A423;
+	text-transform: uppercase;
+	line-height:1.1em;
+	color:#202020;
+}
+
+.box {
+  border: 3px @grayDark solid;
+  background-color: @white;
+  .box-shadow(0 0 0 3px @grayLight inset);
+  padding: 15px 25px;
+  margin-bottom:20px;
+}
+
+.box-line{
+	.box;
+	background-image: url(../img/box-pattern.png);
+}
+
+/* Footer */
+.site-footer {
+  //background: url(../img/background-bottom-tile.png) no-repeat bottom center;
+  //height:300px;
+  padding-bottom:80px;
+  color: @white;
+  text-shadow: 0 1px 0 #777;
+  
+  .copy {
+    text-align: center;
+    font-size: 9px;
+    font-family: Verdana, sans-serif;
+  }
+  
+  .social {
+    a {
+      margin-right:10px;
+    }
+  }
+  
+  > .container {
+    background: url(../img/footer-pattern.png) repeat rgba(255,255,255,.2);
+    width:900px;
+    padding:20px;
+  }
+  
+  h4 {
+    font-weight:normal;
+    margin: 20px 0 0;
+  }
+  
+  ul {
+    list-style:none;
+    margin-top:8px;
+    margin-bottom:8px;
+    
+    li {
+      padding-bottom:@baseLineHeight;
+      &:last-child{
+        padding-bottom:0;
+      }
+      a {
+        color:@white;
+        display:block;
+        padding:3px;
+        border-bottom: dotted 1px transparent;
+        &:hover{
+          color: darken(@white, 15%);
+          text-decoration:none;
+          border-bottom: dotted 1px fade(#fff,30%);
+        }
+      } 
+    }
+  }
+}
+
+/* Icons */
+.icon {
+  width: 32px;
+  height: 32px;
+  line-height:32px;
+  display: inline-block;
+  text-indent: -9999px;
+  overflow: hidden;
+}
+
+.icon-youtube {
+  .icon;
+  background: url(../img/social/32px/youtube.png) no-repeat top left;
+}
+
+.icon-vimeo {
+  .icon;
+  background: url(../img/social/32px/vimeo.png) no-repeat top left;
+}
+
+.icon-facebook {
+  .icon;
+  background: url(../img/social/32px/facebook.png) no-repeat top left;
+}

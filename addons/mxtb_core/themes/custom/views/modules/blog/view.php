@@ -1,4 +1,4 @@
-<div id="col-main" class="span15">
+<div id="col-main" class="span7">
 	<?php $category_class = $post->category->slug ? $post->category->slug : 'nocat'; ?>
 	<div class="mod page-post <?= $category_class ?>-post">
 		<!-- Post heading -->
@@ -42,8 +42,6 @@
 		<?php echo display_comments($post->id); ?>
 	<?php endif; ?>
 </div>
-<aside id="col-rail" class="span8 offset1">
-	<div class="row">
-		<div class="span8">{{ widgets:area slug="post" }}{{ widgets:area slug="default" }}</div>
-	</div>
+<aside id="col-rail" class="span5">
+	{{ widgets:area slug="blog-post" }}
 </aside>
