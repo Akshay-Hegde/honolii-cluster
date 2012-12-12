@@ -11,8 +11,8 @@
 @import "../../../../../library/twitter-bootstrap/less/layouts.less";
 
 // Base CSS
-@import "../../../../../library/twitter-bootstrap/less/type.less";
-@import "../../../../../library/twitter-bootstrap/less/code.less";
+@import "less/type.less";
+//@import "../../../../../library/twitter-bootstrap/less/code.less";
 @import "../../../../../library/twitter-bootstrap/less/forms.less";
 @import "../../../../../library/twitter-bootstrap/less/tables.less";
 
@@ -38,16 +38,16 @@
 // Components: Popovers
 @import "../../../../../library/twitter-bootstrap/less/modals.less";
 @import "../../../../../library/twitter-bootstrap/less/tooltip.less";
-@import "../../../../../library/twitter-bootstrap/less/popovers.less";
+//@import "../../../../../library/twitter-bootstrap/less/popovers.less";
 
 // Components: Misc
 @import "../../../../../library/twitter-bootstrap/less/thumbnails.less";
 @import "../../../../../library/twitter-bootstrap/less/media.less";
 @import "../../../../../library/twitter-bootstrap/less/labels-badges.less";
-@import "../../../../../library/twitter-bootstrap/less/progress-bars.less";
-@import "../../../../../library/twitter-bootstrap/less/accordion.less";
+//@import "../../../../../library/twitter-bootstrap/less/progress-bars.less";
+//@import "../../../../../library/twitter-bootstrap/less/accordion.less";
 @import "../../../../../library/twitter-bootstrap/less/carousel.less";
-@import "../../../../../library/twitter-bootstrap/less/hero-unit.less";
+//@import "../../../../../library/twitter-bootstrap/less/hero-unit.less";
 
 // Utility classes
 @import "../../../../../library/twitter-bootstrap/less/utilities.less"; // Has to be last to override when necessary
@@ -60,7 +60,7 @@ body {background:none;}
 /* Header */
 .site-header {
   
-  h1 {
+  h2 {
     background: url('../img/header-slice.png') no-repeat top left;
     margin:0;
     height:180px;
@@ -91,7 +91,7 @@ body {background:none;}
     font-family: @sansFontFamily2;
     font-size: 22px;
     line-height: 1em;
-    
+    z-index: @zindexDropdown;
 
     .navbar-inner {
       background-color: @mxblue;
@@ -100,14 +100,47 @@ body {background:none;}
       padding-right:0;
       border: 0;
       .border-radius(3px);
-      .box-shadow(~"0 -4px 2px 0 rgba(0, 0, 0, 0.35) inset, 0 -7px 7px 0 rgba(255, 255, 255, 0.6) inset, 0 1px 2px 1px rgba(0,0,0,.6)");
+      .box-shadow(~"0 -4px 3px 0 rgba(0, 112, 223, 1) inset, 0 -7px 7px 0 rgba(255, 255, 255, 0.6) inset, 0 1px 2px 1px rgba(0,0,0,.6)");
       .nav {
         margin-right:0;
       }
       a {
         color:@white;
         text-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
-        padding:12px 35px 18px;
+        padding:14px 35px 16px;
+        display:block;
+      }
+      li {
+        &:before{
+          content:'';
+          width:1px;
+          background-color:fade(@mxblue,80%);
+          height:28px;
+          display:block;
+          position:absolute;
+          margin-top:9px;
+          .box-shadow(0 0 3px 1px rgba(255,255,255,.5));
+        }
+        &:first-child:before{
+            content:none;
+        }
+        &.has_children{
+          > ul{
+            display:none;
+            position:absolute;
+            margin-left:0;
+            background-color:@mxblue;
+            list-style:none;
+            li{
+              &:before{
+                content:none;
+              }
+            }
+          }
+          &:hover > ul{
+            display:block;
+          }
+        }
       }
     }
   }
@@ -120,9 +153,8 @@ body {background:none;}
 /* Content Area */
 
 .headline {
-	border-bottom: solid 2px #E4A423;
+	border-bottom: solid 2px @mxorange;
 	text-transform: uppercase;
-	line-height:1.1em;
 	color:#202020;
 }
 
@@ -139,6 +171,52 @@ body {background:none;}
 	background-image: url(../img/box-pattern.png);
 }
 
+.breadcrumbs{
+  border-bottom: solid 2px @mxorange;
+  font-size:@fontSizeSmall;
+  color: @gray;
+  margin-bottom:30px;
+  a{
+    color:@black;
+  }
+}
+
+.hero-header {
+  position:relative;
+  min-height:150px;
+  margin-bottom: 40px;
+  margin-top: -25px;
+  
+  background-image: url('http://placehold.it/884x300&text=hero+header');
+  height:300px;
+  
+  h2{
+    position:absolute;
+    bottom:10px;
+    margin:0;
+    text-align:right;
+    width:100%;
+    background-color:fade(@mxblue,30%);
+    color:@white;
+    font-size: 44px;
+    line-height:1.5em;
+    text-shadow: 2px 4px 0px rgba(0,0,0,.5);
+    span{
+      display:inline-block;
+      padding:0 30px 0 40px;
+      background-color:fade(@mxblue,60%);
+    }
+  }
+}
+/* Utility Styles */
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
 /* Footer */
 .site-footer {
   //background: url(../img/background-bottom-tile.png) no-repeat bottom center;
@@ -146,6 +224,7 @@ body {background:none;}
   padding-bottom:80px;
   color: @white;
   text-shadow: 0 1px 0 #777;
+  font-size: @fontSizeSmall;
   
   .copy {
     text-align: center;
@@ -176,7 +255,8 @@ body {background:none;}
     margin-bottom:8px;
     
     li {
-      padding-bottom:@baseLineHeight;
+      padding-bottom:20px;
+      line-height:20px;
       &:last-child{
         padding-bottom:0;
       }
@@ -193,6 +273,150 @@ body {background:none;}
       } 
     }
   }
+}
+/* Widgets */
+aside > .widget{
+  margin-bottom:30px;
+  &:last-child{
+    margin-bottom:0;
+  }
+}
+
+
+.widget {
+  
+  > h3{
+    margin:0 0 8px 0;
+    font-size:40px;
+    line-height:1em;
+    font-weight:normal;
+    border-bottom: solid 2px @black; 
+  }
+  
+  .siderail_posts{
+    
+    .blog-post{
+      padding:10px 0;
+      border-bottom: solid 1px @black;
+      margin-bottom: 10px;
+      .post-content{
+        font-size:@fontSizeSmall;
+        
+        h4{
+          margin:0;
+        }
+        .intro{
+          line-height:21px;
+        }
+      }
+    }
+  }
+  
+  &.blog_categories{
+    ul{
+      margin-top:-7px;
+    }
+    li{
+      border-bottom: solid 1px @black;
+      position:relative;
+      a{
+        display:block;
+        color:@black;
+        padding:7px 12px;
+        &:after{
+          content:'»';
+          color: @gray;
+          position:absolute;
+          right:14px;
+        }
+      }
+    }
+  }
+}
+
+
+/* Blocks */
+
+
+.latest-news-block {
+  .box{
+    position:relative;
+  }
+  
+  h2{
+    margin-top:15px;
+    line-height:1em;
+    margin-bottom:.5em;
+  }
+  
+  .btn{
+    position:absolute;
+    bottom: 40px;
+    right: 60px;
+  }
+  
+  .blog-post {
+    margin-bottom:25px;
+    border-bottom: 1px solid @grayDark;
+    font-size: @fontSizeSmall;
+    
+    &:nth-child(2n+1){
+      margin-left:0;
+      clear:left;
+    }
+    &:last-child{
+      margin-bottom:0;
+      border-bottom:none;
+    }
+    .post-content, .post-image {
+      margin-bottom: 10px;
+    }
+    h4{
+      margin-top:0;
+      font-size: @baseFontSize;
+    }
+  }
+}
+
+.services-block{
+  margin-bottom:20px;
+  
+  .block {
+    width:100%;
+    height:250px;
+    display:block;
+    background:no-repeat top left;
+    position:relative;
+    .btn{
+      position:absolute;
+      bottom:20px;
+      right:20px;
+    }
+    
+    &:hover{
+      
+      .btn{
+        
+      }
+    }
+  }
+  .span6{
+    background-color:@white;
+  }
+  .track-construction{
+    .block;
+    background-image:url('../img/track-construction.jpg');
+  }
+  .track-design{
+    .block;
+    background-image:url('../img/track-design.jpg');
+  }
+}
+
+.splash-block{
+  width:928px;
+  margin-left:-22px;
+  margin-top:-12px;
 }
 
 /* Icons */
@@ -218,4 +442,27 @@ body {background:none;}
 .icon-facebook {
   .icon;
   background: url(../img/social/32px/facebook.png) no-repeat top left;
+}
+/* Widgets */
+
+.widget{
+  position:relative;
+  ul {
+    list-style:none;
+    margin:0;
+  }
+  &.videos{
+    a.youtube{
+      .icon-youtube;
+      position:absolute;
+      top:0;
+      right:0;
+    }
+    li{
+      margin-bottom:20px;
+      &:last-child{
+        margin-bottom:0;
+      }
+    }
+  }
 }

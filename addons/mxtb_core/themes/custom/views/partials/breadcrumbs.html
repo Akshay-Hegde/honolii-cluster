@@ -1,8 +1,9 @@
 {{ if template:has_breadcrumbs }}
 	<p class="breadcrumbs">
+	   <a href="/" >Home</a>&nbsp;&raquo;
 	{{ template:breadcrumbs }}
 		{{ if uri }}
-			{{ url:anchor segments=uri title=name }}&nbsp;>&nbsp;
+			{{ url:anchor segments=uri title=name }}&nbsp;&raquo;
 		{{ else }}
 			<span class="current">{{ name }}</span>
 		{{ endif }}

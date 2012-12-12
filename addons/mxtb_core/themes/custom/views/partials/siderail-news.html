@@ -1,0 +1,16 @@
+<div class="siderail_posts">
+{{ blog:posts limit="3" order-dir="desc" }}
+    <div class="blog-post">
+        <div class="row-fluid">
+            <div class="span4 post-image">
+                <a href="{{ url }}" title="Read more about: {{ title }}"><img src="http://placehold.it/212x250" alt="Placeholder Image" /></a>
+            </div>
+            <div class="span8 post-content">
+                <h4>{{ title }}</h4>
+                <div class="intro">{{ intro }}</div>
+                <a href="{{ url }}" title="Read more about: {{ title }}">Read more</a>
+            </div>
+        </div>
+    </div>
+{{ /blog:posts }}
+</div>

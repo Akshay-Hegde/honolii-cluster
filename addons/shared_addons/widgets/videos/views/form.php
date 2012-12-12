@@ -11,4 +11,12 @@
 		<label>Cache time - minutes</label>
 		<?php echo form_input('cache', $options['cache']); ?>
 	</li>
+	<li class="odd">
+        <label>Width</label>
+        <?php echo form_input('width', $options['width']); ?>
+    </li>
+    <li class="even">
+        <label>Height</label>
+        <?php echo form_input('height', $options['height']); ?>
+    </li>
 </ol>

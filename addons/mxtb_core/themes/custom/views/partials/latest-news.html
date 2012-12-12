@@ -1,0 +1,24 @@
+<div id="home-blog-posts" class="row latest-news-block">
+    <div class="span12">
+        <div class="box">
+            <h2 class="headline">Latest News</h2>
+            <div class="row-fluid">
+                {{ blog:posts limit="5" order-dir="desc" }}
+                <div class="span6 blog-post">
+                    <div class="row-fluid">
+                        <div class="span6 post-image">
+                            <a href="{{ url }}" title="Read more about: {{ title }}"><img src="http://placehold.it/212x250" alt="Placeholder Image" /></a>
+                        </div>
+                        <div class="span6 post-content">
+                            <h4>{{ title }}</h4>
+                            <div class="intro">{{ intro }}</div>
+                            <a href="{{ url }}" title="Read more about: {{ title }}">Read more</a>
+                        </div>
+                    </div>
+                </div>
+                {{ /blog:posts }}
+            </div>
+            <a class="btn" href="/blog">View More</a>
+        </div>
+    </div>
+</div>
