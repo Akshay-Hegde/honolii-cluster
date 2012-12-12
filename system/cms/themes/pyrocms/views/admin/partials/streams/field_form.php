@@ -23,7 +23,7 @@
 
 		</li>
 		<li>
-			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span></label>
+			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span><br /><small><?php echo lang('global:slug_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
@@ -90,8 +90,8 @@
 				// them to null if they are not.
 				$value = (isset($current_field->field_data[$param])) ? $current_field->field_data[$param] : null;
 						
-				if( method_exists($current_type, 'param_'.$param) ):
-				
+				if (method_exists($current_type, 'param_'.$param))
+				{
 					$call = 'param_'.$param;
 					
 					$input = $current_type->$call($value);
@@ -108,17 +108,16 @@
 					}
 
 					$data['input_name']		= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
-					
-				else:
-		
+				}
+				else
+				{			
 					$data['input'] 			= $parameters->$param($value);
 					$data['input_name']		= $this->lang->line('streams.'.$param);
-				
-				endif;
+				}
 				
 				$data['input_slug']		= $param;
 					
-				echo $this->load->view('streams_core/extra_field', $data, true);
+				echo $this->load->view('streams_core/extra_field', $data, TRUE);
 				
 				$data['count']++;
 				unset($value);

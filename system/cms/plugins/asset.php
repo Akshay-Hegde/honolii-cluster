@@ -1,15 +1,25 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Asset Plugin
  *
  * Load and print asset data
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Asset extends Plugin
 {
+
+	public $version = '1.0';
+	public $name = array(
+		'en' => 'Asset',
+	);
+	public $description = array(
+		'en' => 'Access to static content such as CSS or Javascript file assets.',
+		'el' => 'Πρόσβαση σε στατικό περιεχόμενο όπως αρχεία CSS ή Javascript.',
+		'fr' => 'Accéder à des ressources CSS et Javascript (Assets).'
+	);
 
 	/**
 	 * Asset CSS
@@ -64,7 +74,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_css($file, false);
+		return BASE_URI . Asset::get_filepath_css($file, false);
 	}
 
 	/**
@@ -123,7 +133,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_img($file, false);
+		return BASE_URI . Asset::get_filepath_img($file, false);
 	}
 
 	/**
@@ -179,7 +189,7 @@ class Plugin_Asset extends Plugin
 	{
 		$file = $this->attribute('file');
 
-		return BASE_URI.Asset::get_filepath_js($file, false);
+		return BASE_URI . Asset::get_filepath_js($file, false);
 	}
 
 	/**
@@ -199,7 +209,7 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render($group);
 	}
-	
+
 	/**
 	 * Asset Render CSS
 	 *
@@ -217,7 +227,7 @@ class Plugin_Asset extends Plugin
 
 		return Asset::render_css($group);
 	}
-	
+
 	/**
 	 * Asset Render Javascript
 	 *

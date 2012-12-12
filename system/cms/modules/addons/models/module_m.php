@@ -9,14 +9,27 @@ class Module_m extends MY_Model
 {
 	protected $_table = 'modules';
 
+	/**
+	 * Caches modules that exist
+	 */
 	private $_module_exists = array();
+	
+	/**
+	 * Caches modules that are enabled
+	 */
+	private $_module_enabled = array();
+	
+	/**
+	 * Caches modules that are installed
+	 */
+	private $_module_installed = array();
 
 	/**
 	 * Get
 	 *
 	 * Return an array containing module data
 	 *
-	 * @param	string	$module		The name of the module to load
+	 * @param	string	$slug		The name of the module to load
 	 * @return	array
 	 */
 	public function get($slug = '')
@@ -49,6 +62,11 @@ class Module_m extends MY_Model
 			->where('slug', $slug)
 			->get($this->_table)
 			->row();
+		
+		// store these
+		$this->_module_exists[$slug] = count($row) > 0;
+		$this->_module_enabled[$slug] = $row->enabled;
+		$this->_module_installed[$slug] = $row->installed;
 
 		if ($row)
 		{
@@ -57,10 +75,10 @@ class Module_m extends MY_Model
 			{
 				return false;
 			}
-			
+
 			list($class, $location) = $module;
 			$info = $class->info();
-			
+
 			// Return false if the module is disabled
 			if ($row->enabled == 0)
 			{
@@ -92,7 +110,7 @@ class Module_m extends MY_Model
 
 		return $null_array;
 	}
-	
+
 	/**
 	 * Get Modules
 	 *
@@ -100,7 +118,6 @@ class Module_m extends MY_Model
 	 *
 	 * @param   array   $params             The array containing the modules to load
 	 * @param   bool    $return_disabled    Whether to return disabled modules
-	 * @access  public
 	 * @return  array
 	 */
 	public function get_all($params = array(), $return_disabled = false)
@@ -132,34 +149,40 @@ class Module_m extends MY_Model
 			// Let's get REAL
 			if ( ! $module = $this->_spawn_class($row->slug, $row->is_core))
 			{
-				// If module is not able to spawn a class, 
+				// If module is not able to spawn a class,
 				// just forget about it and move on, man.
 				continue;
 			}
-			
+
 			list($class, $location) = $module;
 			$info = $class->info();
-			
+
 			$name = ! isset($info['name'][CURRENT_LANGUAGE]) ? $info['name']['en'] : $info['name'][CURRENT_LANGUAGE];
 			$description = ! isset($info['description'][CURRENT_LANGUAGE]) ? $info['description']['en'] : $info['description'][CURRENT_LANGUAGE];
 
 			$module = array(
-				'name'				=> $name,
-				'slug'				=> $row->slug,
-				'version'			=> $row->version,
-				'description'		=> $description,
-				'skip_xss'			=> $row->skip_xss,
-				'is_frontend'		=> $row->is_frontend,
-				'is_backend'		=> $row->is_backend,
-				'menu'				=> $row->menu,
-				'enabled'			=> $row->enabled,
-				'installed'			=> $row->installed,
-				'is_core'			=> $row->is_core,
-				'is_current'		=> version_compare($row->version, $this->version($row->slug),  '>='),
-				'current_version'	=> $this->version($row->slug),
-				'path' 				=> $location,
-				'updated_on'		=> $row->updated_on
+				'name'            => $name,
+				'module'          => $class,
+				'slug'            => $row->slug,
+				'version'         => $row->version,
+				'description'     => $description,
+				'skip_xss'        => $row->skip_xss,
+				'is_frontend'     => $row->is_frontend,
+				'is_backend'      => $row->is_backend,
+				'menu'            => $row->menu,
+				'enabled'         => $row->enabled,
+				'installed'       => $row->installed,
+				'is_core'         => $row->is_core,
+				'is_current'      => version_compare($row->version, $this->version($row->slug),  '>='),
+				'current_version' => $this->version($row->slug),
+				'path'            => $location,
+				'updated_on'      => $row->updated_on
 			);
+			
+			// store these
+			$this->_module_exists[$row->slug] = true;
+			$this->_module_enabled[$row->slug] = $row->enabled;
+			$this->_module_installed[$row->slug] = $row->installed;
 			
 			if ( ! empty($params['is_backend']))
 			{
@@ -172,7 +195,7 @@ class Module_m extends MY_Model
 
 			$modules[$module['name']] = $module;
 		}
-		
+
 		ksort($modules);
 
 		return array_values($modules);
@@ -190,18 +213,18 @@ class Module_m extends MY_Model
 	public function add($module)
 	{
 		return $this->db->replace($this->_table, array(
-			'name'			=> serialize($module['name']),
-			'slug'			=> $module['slug'],
-			'version'		=> $module['version'],
-			'description'	=> serialize($module['description']),
-			'skip_xss'		=> ! empty($module['skip_xss']),
-			'is_frontend'	=> ! empty($module['frontend']),
-			'is_backend'	=> ! empty($module['backend']),
-			'menu'			=> ! empty($module['menu']) ? $module['menu'] : false,
-			'enabled'		=> ! empty($module['enabled']),
-			'installed'		=> ! empty($module['installed']),
-			'is_core'		=> ! empty($module['is_core']),
-			'updated_on'	=> now()
+			'name'        => serialize($module['name']),
+			'slug'        => $module['slug'],
+			'version'     => $module['version'],
+			'description' => serialize($module['description']),
+			'skip_xss'    => ! empty($module['skip_xss']),
+			'is_frontend' => ! empty($module['frontend']),
+			'is_backend'  => ! empty($module['backend']),
+			'menu'        => ! empty($module['menu']) ? $module['menu'] : false,
+			'enabled'     => ! empty($module['enabled']),
+			'installed'   => ! empty($module['installed']),
+			'is_core'     => ! empty($module['is_core']),
+			'updated_on'  => now()
 		));
 	}
 
@@ -241,24 +264,79 @@ class Module_m extends MY_Model
 	 *
 	 * Checks if a module exists
 	 *
-	 * @param	string	$module	The module slug
+	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function exists($module)
+	public function exists($slug)
 	{
-		if ( ! $module)
+		if ( ! $slug)
 		{
 			return false;
 		}
 
 		// We already know about this module
-		if (isset($this->_module_exists[$module]))
+		if (isset($this->_module_exists[$slug]))
 		{
-			return $this->_module_exists[$module];
+			return $this->_module_exists[$slug];
 		}
 
-		return $this->_module_exists[$module] = $this->db
-			->where('slug', $module)
+		return $this->_module_exists[$slug] = $this->db
+			->where('slug', $slug)
+			->count_all_results($this->_table) > 0;
+	}
+	
+	/**
+	 * Enabled
+	 *
+	 * Checks if a module is enabled
+	 *
+	 * @param	string	$slug	The module slug
+	 * @return	bool
+	 */
+	public function enabled($slug)
+	{
+		if ( ! $slug)
+		{
+			return false;
+		}
+
+		// We already know about this module
+		if (isset($this->_module_enabled[$slug]))
+		{
+			return $this->_module_enabled[$slug];
+		}
+
+		return $this->_module_enabled[$slug] = $this->db
+			->where('slug', $slug)
+			->where('enabled', 1)
+			->count_all_results($this->_table) > 0;
+	}
+	
+	
+	/**
+	 * Installed
+	 *
+	 * Checks if a module is installed
+	 *
+	 * @param	string	$slug	The module slug
+	 * @return	bool
+	 */
+	public function installed($slug)
+	{
+		if ( ! $slug)
+		{
+			return false;
+		}
+
+		// We already know about this module
+		if (isset($this->_module_installed[$slug]))
+		{
+			return $this->_module_installed[$slug];
+		}
+
+		return $this->_module_installed[$slug] = $this->db
+			->where('slug', $slug)
+			->where('installed', 1)
 			->count_all_results($this->_table) > 0;
 	}
 
@@ -267,19 +345,24 @@ class Module_m extends MY_Model
 	 *
 	 * Enables a module
 	 *
-	 * @param	string	$module	The module slug
+	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
-	public function enable($module)
+	public function enable($slug)
 	{
-		if ($this->exists($module))
+		if ($this->exists($slug))
 		{
-			$this->db->where('slug', $module)->update($this->_table, array('enabled' => 1));
+
+			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 1));
+			$this->_module_enabled[$slug] = true;
+			$this->module_widget_task($slug, 'enable');
+
 			return true;
 		}
 		return false;
 	}
-
+	
+	
 	/**
 	 * Disable
 	 *
@@ -293,9 +376,48 @@ class Module_m extends MY_Model
 		if ($this->exists($slug))
 		{
 			$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 0));
+			$this->_module_enabled[$slug] = false;
+			$this->module_widget_task($slug, 'disable');
+			
 			return true;
 		}
 		return false;
+	}
+	
+	/**
+	 * Module_widget_task
+	 *
+	 * Enable | disable widgets inside module folder
+	 *
+	 * @param	string	$slug	The module slug
+	 * @param	string	$task	enable | disable
+	 * @return	NULL
+	 */
+	private function module_widget_task($slug, $task)
+	{
+		foreach(array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $path)
+		{
+			foreach((array) glob($path.'modules/'.$slug.'/widgets/*', GLOB_ONLYDIR) as $widget_path)
+			{
+				$widget = basename($widget_path);
+
+				switch($task)
+				{
+					case 'enable':
+						$this->db
+							->where('slug', $widget)
+							->where('enabled', 0)
+							->update('widgets', array('enabled' => 1));
+					break;
+					case 'disable':
+						$this->db
+							->where('slug', $widget)
+							->where('enabled', 1)
+							->update('widgets', array('enabled' => 0));
+					break;
+				}
+			}
+		}
 	}
 
 	/**
@@ -312,28 +434,33 @@ class Module_m extends MY_Model
 		{
 			return false;
 		}
-		
+
 		list($class) = $module;
-		
+
 		// They've just finished uploading it so we need to make a record
 		if ($insert)
 		{
 			// Get some info for the db
 			$input = $class->info();
-	
+
 			// Now lets set some details ourselves
 			$input['slug']			= $slug;
 			$input['version']		= $class->version;
 			$input['enabled']		= $is_core; // enable if core
 			$input['installed']	= $is_core; // install if core
 			$input['is_core']		= $is_core; // is core if core
-	
+
 			// It's a valid module let's make a record of it
 			$this->add($input);
 		}
 
 		// TURN ME ON BABY!
-		$this->db->where('slug', $slug)->update('modules', array('enabled' => 1, 'installed' => 1));
+		$this->db->where('slug', $slug)->update($this->_table, array('enabled' => 1, 'installed' => 1));
+		
+		// enable it
+		$this->_module_exists[$slug] = true;
+		$this->_module_enabled[$slug] = true;
+		$this->_module_installed[$slug] = true;
 		
 		// set the site_ref and upload_path for third-party devs
 		$class->site_ref 	= SITE_REF;
@@ -348,7 +475,7 @@ class Module_m extends MY_Model
 	 *
 	 * Unnstalls a module
 	 *
-	 * @param	string	$module	The module slug
+	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
 	public function uninstall($slug, $is_core = false)
@@ -358,9 +485,9 @@ class Module_m extends MY_Model
 			// the files are missing so let's clean the "modules" table
 			return $this->delete($slug);
 		}
-		
+
 		list($class) = $module;
-			
+
 		// set the site_ref and upload_path for third-party devs
 		$class->site_ref 	= SITE_REF;
 		$class->upload_path	= 'uploads/'.SITE_REF.'/';
@@ -375,26 +502,26 @@ class Module_m extends MY_Model
 		{
 			// Get some info for the db
 			$input = $class->info();
-	
+
 			// Now lets set some details ourselves
-			$input['slug']			= $slug;
-			$input['version']		= $class->version;
-			$input['enabled']		= $is_core; // enable if core
-			$input['installed']		= $is_core; // install if core
-			$input['is_core']		= $is_core; // is core if core
-	
+			$input['slug']      = $slug;
+			$input['version']   = $class->version;
+			$input['enabled']   = $is_core; // enable if core
+			$input['installed'] = $is_core; // install if core
+			$input['is_core']   = $is_core; // is core if core
+
 			// We record it again here. If they really want to get rid of it they'll use Delete
 			return $this->add($input);
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Upgrade
 	 *
 	 * Upgrade a module
 	 *
-	 * @param	string	$module	The module slug
+	 * @param	string	$slug	The module slug
 	 * @return	bool
 	 */
 	public function upgrade($slug)
@@ -404,35 +531,35 @@ class Module_m extends MY_Model
 		{
 			return false;
 		}
-		
+
 		// Get info on the old module
 		if ( ! $old_module = $this->get($slug))
 		{
 			return false;
 		}
-		
+
 		list($class) = $module;
-		
+
 		// Get the old module version number
 		$old_version = $old_module['version'];
-		
+
 		// set the site_ref and upload_path for third-party devs
 		$class->site_ref 	= SITE_REF;
 		$class->upload_path	= 'uploads/'.SITE_REF.'/';
-		
+
 		// Run the update method to get it into the database
 		if ($class->upgrade($old_version))
 		{
 			// Update version number
-			$this->db->where('slug', $slug)->update('modules', array('version' => $class->version));
+			$this->db->where('slug', $slug)->update($this->_table, array('version' => $class->version));
 			
 			return true;
 		}
-		
+
 		// The upgrade failed
 		return false;
 	}
-	
+
 	public function import_unknown()
     {
     	$modules = array();
@@ -461,7 +588,7 @@ class Module_m extends MY_Model
 			{
 				continue;
 			}
-			
+
 			foreach ($temp_modules as $path)
 			{
 				$slug = basename($path);
@@ -476,18 +603,18 @@ class Module_m extends MY_Model
 						$module = $this->_spawn_class($slug, $is_core))
 					{
 						list($class) = $module;
-						
+
 						// Get some basic info
 						$input = $class->info();
 
 						$this->update($slug, array(
-							'name'			=> serialize($input['name']),
-							'description'	=> serialize($input['description']),
-							'is_frontend'	=> ! empty($input['frontend']),
-							'is_backend'	=> ! empty($input['backend']),
-							'skip_xss'		=> ! empty($input['skip_xss']),
-							'menu'			=> ! empty($input['menu']) ? $input['menu'] : false,
-							'updated_on'	=> now()
+							'name'        => serialize($input['name']),
+							'description' => serialize($input['description']),
+							'is_frontend' => ! empty($input['frontend']),
+							'is_backend'  => ! empty($input['backend']),
+							'skip_xss'    => ! empty($input['skip_xss']),
+							'menu'        => ! empty($input['menu']) ? $input['menu'] : false,
+							'updated_on'  => now()
 						));
 
 						log_message('debug', sprintf('The information of the module "%s" has been updated', $slug));
@@ -496,23 +623,23 @@ class Module_m extends MY_Model
 					continue;
 				}
 
-				// This doesnt have a valid details.php file! :o
+				// This doesn't have a valid details.php file! :o
 				if ( ! $module = $this->_spawn_class($slug, $is_core))
 				{
 					continue;
 				}
-				
+
 				list ($class) = $module;
 
 				// Get some basic info
 				$input = $class->info();
 
 				// Now lets set some details ourselves
-				$input['slug']			= $slug;
-				$input['version']		= $class->version;
-				$input['enabled']		= $is_core; // enable if core
-				$input['installed']		= $is_core; // install if core
-				$input['is_core']		= $is_core; // is core if core
+				$input['slug']      = $slug;
+				$input['version']   = $class->version;
+				$input['enabled']   = $is_core; // enable if core
+				$input['installed'] = $is_core; // install if core
+				$input['is_core']   = $is_core; // is core if core
 
 				// Looks like it installed ok, add a record
 				$this->add($input);
@@ -546,7 +673,7 @@ class Module_m extends MY_Model
 		if ( ! is_file($details_file))
 		{
 			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;
-			
+
 			if ( ! is_file($details_file))
 			{
 				// we return false to let them know that the module isn't here, keep looking
@@ -583,12 +710,12 @@ class Module_m extends MY_Model
     	{
 			$languages = $this->config->item('supported_languages');
 			$default = $languages[$this->config->item('default_language')]['folder'];
-		
+
 			//first try it as a core module
 			if ($module = $this->_spawn_class($slug, $is_core))
 			{
 				list ($class, $location) = $module;
-			
+
 				// Check for a hep language file, if not show the default help text from the details.php file
 				if (file_exists($location.'/language/'.$default.'/help_lang.php'))
 				{
@@ -637,7 +764,7 @@ class Module_m extends MY_Model
 
 		return array();
 	}
-	
+
 	/**
 	 * Help
 	 *

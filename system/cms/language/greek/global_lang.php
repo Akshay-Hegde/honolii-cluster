@@ -10,7 +10,8 @@ $lang['version_label'] 			= 'Έκδοση';
 $lang['global:author'] 			= 'Συγγραφέας';
 $lang['global:action'] 			= 'Ενέργεια';
 $lang['global:slug'] 			= 'Slug';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug_instructions']		= 'Μόνο πεζά γράμματα λατινικού αλφάβητου και κάτω παύλες.';
+$lang['global:user'] 					= 'Χρήστης';
 
 $lang['global:dialog:delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['global:dialog:confirm'] 		= 'Επιβεβαίωση';
@@ -30,6 +31,13 @@ $lang['global:operators:equal'] 	= 'Ίσο με';
 $lang['global:operators:not-equal'] 	= 'Όχι ίσο με';
 $lang['global:operators:less-than'] 	= 'Μικρότερο από';
 $lang['global:operators:greater-than'] 	= 'Μεγαλύτερο από';
+
+$lang['global:duration:1-day']			= 'Μία μέρα';
+$lang['global:duration:1-week']			= 'Μία εβδομάδα';
+$lang['global:duration:2-weeks']		= 'Δύο εβδομάδες';
+$lang['global:duration:1-month']		= 'Ένα μήνα';
+$lang['global:duration:3-months']		= 'Τρείς Μήνες';
+$lang['global:duration:always']			= 'Πάντοτε';
 
 $lang['navigation_headline'] 		= 'Πλοήγηση';
 $lang['breadcrumb_base_label'] 		= 'Αρχική';
@@ -79,7 +87,7 @@ $lang['top_page']			= 'Κορυφή';
 $lang['back_to_top']			= 'Πίσω στην Κορυφή';
 
 $lang['global:filters'] 		= 'Φίλτρα';
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Εικόνα';
 $lang['global:description'] 		= 'Περιγραφή';
 $lang['global:actions']			= 'Ενέργειες';
 $lang['global:view']			= 'Προβολή';
@@ -91,5 +99,14 @@ $lang['global:delete']			= 'Διαγραφή';
 $lang['global:remove']			= 'Διαγραφή';
 
 $lang['global:keywords']		= 'Λέξεις Κλειδιά';
+
+$lang['global:or']						= 'ή';
+$lang['global:and']						= 'και';
+$lang['global:at']						= 'στο';
+
+$lang['global:widgets']					= 'Widgets';
+$lang['global:fieldtypes']				= 'Τύποι Πεδίων';
+$lang['global:plugins']					= 'Πρόσθετα';
+$lang['global:plugin']					= 'Πρόσθετο';
 
 /* End of file main_lang.php */

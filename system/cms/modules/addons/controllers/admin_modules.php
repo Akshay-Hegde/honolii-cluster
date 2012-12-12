@@ -37,9 +37,25 @@ class Admin_modules extends Admin_Controller
 	{
 		$this->module_m->import_unknown();
 
+		$all_modules = $this->module_m->get_all(null, true);
+
+		$core_modules = $addon_modules = array();
+		foreach ($all_modules as $module)
+		{
+			if ($module['is_core'])
+			{
+				$core_modules[] = $module;
+			}
+			else
+			{
+				$addon_modules[] = $module;
+			}
+		}
+
 		$this->template
 			->title($this->module_details['name'])
-			->set('all_modules', $this->module_m->get_all(null, true))
+			->set('core_modules', $core_modules)
+			->set('addon_modules', $addon_modules)
 			->build('admin/modules/index');
 	}
 
@@ -59,7 +75,6 @@ class Admin_modules extends Admin_Controller
 
 		if ($this->input->post('btnAction') == 'upload')
 		{
-			
 			$config['upload_path'] 		= UPLOAD_PATH;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= 2048;
@@ -71,37 +86,20 @@ class Admin_modules extends Admin_Controller
 			{
 				$upload_data = $this->upload->data();
 
-				// Check if we already have a dir with same name
-				if ($this->module_m->exists($upload_data['raw_name']))
-				{
-					$this->session->set_flashdata('error', sprintf(lang('addons:modules:already_exists_error'), $upload_data['raw_name']));
-				}
+				// Now try to unzip
+				$this->load->library('unzip');
+				$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
 
+				// Try and extract
+				if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', true, true)) )
+				{
+					$redirect = 'addons/modules';
+					$this->session->set_flashdata('success', sprintf(lang('addons:modules:upload_success'), $slug));
+				}
 				else
 				{
-					// Now try to unzip
-					$this->load->library('unzip');
-					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php'));
-
-					// Try and extract
-					if ( is_string($slug = $this->unzip->extract($upload_data['full_path'], ADDONPATH.'modules/', true, true)) )
-					{
-						if ($this->module_m->install($slug, false, true))
-						{
-							// Fire an event. A module has been enabled when uploaded. 
-							Events::trigger('module_enabled', $slug);
-		
-							$this->session->set_flashdata('success', sprintf(lang('addons:modules:install_success'), $slug));
-						}
-						else
-						{
-							$this->session->set_flashdata('notice', sprintf(lang('addons:modules:install_error'), $slug));
-						}
-					}
-					else
-					{
-						$this->session->set_flashdata('error', $this->unzip->error_string());
-					}
+					$redirect = 'addons/modules/upload';
+					$this->session->set_flashdata('error', $this->unzip->error_string());
 				}
 
 				// Delete uploaded file
@@ -109,10 +107,11 @@ class Admin_modules extends Admin_Controller
 			}
 			else
 			{
+				$redirect = 'addons/modules/upload';
 				$this->session->set_flashdata('error', $this->upload->display_errors());
 			}
 
-			redirect('admin/addons/modules');
+			redirect('admin/'.$redirect);
 		}
 
 		$this->template

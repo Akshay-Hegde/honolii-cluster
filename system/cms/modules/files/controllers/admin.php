@@ -49,8 +49,9 @@ class Admin extends Admin_Controller {
 				pyro.files.max_size_possible = '".Files::$max_size_possible."';
 				pyro.files.max_size_allowed = '".Files::$max_size_allowed."';
 				pyro.files.valid_extensions = '/".trim($allowed_extensions, '|')."$/i';
-				pyro.lang.file_type_not_allowed = '".lang('files:file_type_not_allowed')."';
-				pyro.lang.new_folder_name = '".lang('files:new_folder_name')."';
+				pyro.lang.file_type_not_allowed = '".addslashes(lang('files:file_type_not_allowed'))."';
+				pyro.lang.new_folder_name = '".addslashes(lang('files:new_folder_name'))."';
+				pyro.lang.alt_attribute = '".addslashes(lang('files:alt_attribute'))."';
 			</script>");
 	}
 
@@ -61,8 +62,10 @@ class Admin extends Admin_Controller {
 	{
 		$this->template
 			->title($this->module_details['name'])
+			->append_css('jquery/jquery.tagsinput.css')
 			->append_css('module::jquery.fileupload-ui.css')
 			->append_css('module::files.css')
+			->append_js('jquery/jquery.tagsinput.js')
 			->append_js('module::jquery.fileupload.js')
 			->append_js('module::jquery.fileupload-ui.js')
 			->append_js('module::functions.js')
@@ -220,21 +223,29 @@ class Admin extends Admin_Controller {
 	public function upload()
 	{
 		// this is just a safeguard if they circumvent the JS permissions
-		if ( ! in_array('upload', Files::allowed_actions()))
+		if ( ! in_array('upload', Files::allowed_actions()) AND
+			// replacing files needs upload and delete permission
+			! ( $this->input->post('replace_id') && ! in_array('delete', Files::allowed_actions()) )
+		)
 		{
 			show_error(lang('files:no_permissions'));
 		}
 
+		$result = null;
 		$input = $this->input->post();
 
-		if ($input['folder_id'] and $input['name'])
+		if($input['replace_id'] > 0)
 		{
-			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio']);
-
-			$result['status'] and Events::trigger('file_uploaded', $result['data']);
-
-			echo json_encode($result);
+			$result = Files::replace_file($input['replace_id'], $input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], $input['alt_attribute']);
+			$result['status'] AND Events::trigger('file_replaced', $result['data']);
 		}
+		elseif ($input['folder_id'] and $input['name'])
+		{
+			$result = Files::upload($input['folder_id'], $input['name'], 'file', $input['width'], $input['height'], $input['ratio'], null, $input['alt_attribute']);
+			$result['status'] AND Events::trigger('file_uploaded', $result['data']);
+		}
+
+		echo json_encode($result);		
 	}
 
 	/**
@@ -263,13 +274,32 @@ class Admin extends Admin_Controller {
 	 */
 	public function save_description()
 	{
-		if ($id = $this->input->post('file_id') and $description = $this->input->post('description'))
+		$this->load->library('keywords/keywords');
+
+		$description 	= $this->input->post('description');
+		$keywords_hash	= $this->keywords->process($this->input->post('keywords'), $this->input->post('old_hash'));
+		$alt_attribute	= $this->input->post('alt_atttibute');
+
+		if ($id = $this->input->post('file_id'))
 		{
-			$this->file_m->update($id, array('description' => $description));
+			$this->file_m->update($id, array('description' => $description, 'keywords' => $keywords_hash, 'alt_attribute' => $alt_attribute));
 
 			echo json_encode(Files::result(true, lang('files:description_saved')));
 		}
 	}
+		
+	/**
+	 * Edit the "alt" attribute of an image file
+	 */
+	public function save_alt()
+	{
+		if ($id = $this->input->post('file_id') AND $alt_attribute = $this->input->post('alt_attribute'))
+		{
+			$this->file_m->update($id, array('alt_attribute' => $alt_attribute));
+			
+			echo json_encode(Files::result(TRUE, lang('files:alt_saved')));
+		}
+	}	 	
 
 	/**
 	 * Edit location of a folder (S3/Cloud Files/Local)

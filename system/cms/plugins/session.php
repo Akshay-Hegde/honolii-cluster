@@ -1,15 +1,25 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Session Plugin
  *
  * Read and write session data
- * 
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ *
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Session extends Plugin
 {
+
+	public $version = '1.0';
+	public $name = array(
+		'en' => 'Session',
+	);
+	public $description = array(
+		'en' => 'Access and set session variables.',
+		'el' => 'Ανάκτηση και απόθεση τιμών και μεταβλητών του session.',
+		'fr' => 'Accéder aux variables de session. '
+	);
 
 	/**
 	 * Data
@@ -17,8 +27,9 @@ class Plugin_Session extends Plugin
 	 * Sets and retrieves flash data
 	 *
 	 * Usage:
-	 *   {{ session:data name="foo"[ value="bar"] }}
-	 * 
+	 *
+	 *     {{ session:data name="foo"[ value="bar"] }}
+	 *
 	 * @return void|string The value of $name from the session user data.
 	 */
 	public function data()
@@ -30,8 +41,10 @@ class Plugin_Session extends Plugin
 		if ($value !== null)
 		{
 			$this->session->set_userdata($name, $value);
+
 			return;
 		}
+
 		// No value? Just getting
 		return $this->session->userdata($name);
 	}
@@ -42,8 +55,9 @@ class Plugin_Session extends Plugin
 	 * Sets and retrieves flash data
 	 *
 	 * Usage:
-	 *   {{ session:flash name="(success|notice|error)"[ value="bar"] }}
-	 * 
+	 *
+	 *     {{ session:flash name="(success|notice|error)"[ value="bar"] }}
+	 *
 	 * @return void|string The value of $name from the session flash user data.
 	 */
 	public function flash()
@@ -55,6 +69,7 @@ class Plugin_Session extends Plugin
 		if ($value !== null)
 		{
 			$this->session->set_flashdata($name, $value);
+
 			return;
 		}
 
@@ -68,7 +83,8 @@ class Plugin_Session extends Plugin
 	 * Include the session notices
 	 *
 	 * Usage:
-	 *   {{ session:data name="foo" }}
+	 *
+	 *     {{ session:data name="foo" }}
 	 *
 	 * @return string The HTML of the notices.
 	 */
@@ -82,17 +98,17 @@ class Plugin_Session extends Plugin
 
 		if ($this->session->flashdata('success'))
 		{
-			$output .= '<div class="'.$success_class.'">'.$this->session->flashdata('success').'</div>';
+			$output .= '<div class="' . $success_class . '">' . $this->session->flashdata('success') . '</div>';
 		}
 
 		if ($this->session->flashdata('notice'))
 		{
-			$output .= '<div class="'.$notice_class.'">'.$this->session->flashdata('notice').'</div>';
+			$output .= '<div class="' . $notice_class . '">' . $this->session->flashdata('notice') . '</div>';
 		}
 
 		if ($this->session->flashdata('error'))
 		{
-			$output .= '<div class="'.$error_class.'">'.$this->session->flashdata('error').'</div>';
+			$output .= '<div class="' . $error_class . '">' . $this->session->flashdata('error') . '</div>';
 		}
 
 		return $output;

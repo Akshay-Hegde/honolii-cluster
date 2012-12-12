@@ -3,7 +3,7 @@
 </section>
 
 <section class="item">
-<?php echo form_open_multipart('admin/modules/upload', array('class' => 'crud'));?>
+<?php echo form_open_multipart('admin/addons/modules/upload', array('class' => 'crud'));?>
 
 	<ul>
 		<li>
@@ -13,7 +13,7 @@
 	</ul>
 	
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('upload') )) ?>
 	</div>
-<?php echo form_close(); ?>
+<?php echo form_close() ?>
 </section>

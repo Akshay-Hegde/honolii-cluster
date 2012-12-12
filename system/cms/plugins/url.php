@@ -1,22 +1,33 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed');
+<?php defined('BASEPATH') or exit('No direct script access allowed');
 
 /**
  * Session Plugin
  *
  * Read and write session data
  *
- * @author		PyroCMS Dev Team
- * @package		PyroCMS\Core\Plugins
+ * @author  PyroCMS Dev Team
+ * @package PyroCMS\Core\Plugins
  */
 class Plugin_Url extends Plugin
 {
+
+	public $version = '1.0';
+	public $name = array(
+		'en' => 'URL',
+	);
+	public $description = array(
+		'en' => 'Access URL variables, segments, and more.',
+		'el' => 'Πρόσβαση σε μεταβλητές που βρήσκονται σε URL, τμήματα URL και αλλού.',
+		'fr' => 'Accéder aux informations sur une URL (URL courante, segments, ancres, etc.).'
+	);
 
 	/**
 	 * Current uri string
 	 *
 	 * Usage:
-	 *   {{ url:current }}
-	 * 
+	 *
+	 *     {{ url:current }}
+	 *
 	 * @return string The current URI string.
 	 */
 	public function current()
@@ -28,8 +39,9 @@ class Plugin_Url extends Plugin
 	 * Current uri string
 	 *
 	 * Usage:
-	 *   {{ url:get key="foo" }}
-	 * 
+	 *
+	 *     {{ url:get key="foo" }}
+	 *
 	 * @return string The key of the item in $_GET
 	 */
 	public function get()
@@ -41,7 +53,8 @@ class Plugin_Url extends Plugin
 	 * Site URL of the installation.
 	 *
 	 * Usage:
-	 *   {{ url:site }}
+	 *
+	 *     {{ url:site }}
 	 *
 	 * @return string Site URL of the install.
 	 */
@@ -49,14 +62,15 @@ class Plugin_Url extends Plugin
 	{
 		$uri = $this->attribute('uri');
 
-		return $uri ? site_url($uri) : rtrim(site_url(), '/').'/';
+		return $uri ? site_url($uri) : rtrim(site_url(), '/') . '/';
 	}
 
 	/**
 	 * Base URL of the installation.
 	 *
 	 * Usage:
-	 *   {{ url:base }}
+	 *
+	 *     {{ url:base }}
 	 *
 	 * @return string The base URL for the installation.
 	 */
@@ -69,7 +83,8 @@ class Plugin_Url extends Plugin
 	 * Get URI segment.
 	 *
 	 * Usage:
-	 *   {{ url:segments segment="1" default="home" }}
+	 *
+	 *     {{ url:segments segment="1" default="home" }}
 	 *
 	 * @return string The URI segment, or the provided default.
 	 */
@@ -85,7 +100,8 @@ class Plugin_Url extends Plugin
 	 * Build an anchor tag
 	 *
 	 * Usage:
-	 *   {{ url:anchor segments="users/login" title="Login" class="login" }}
+	 *
+	 *     {{ url:anchor segments="users/login" title="Login" class="login" }}
 	 *
 	 * @return string The anchor HTML tag.
 	 */
@@ -95,9 +111,23 @@ class Plugin_Url extends Plugin
 		$title = $this->attribute('title', '');
 		$class = $this->attribute('class', '');
 
-		$class = !empty($class) ? 'class="'.$class.'"' : '';
+		$class = !empty($class) ? 'class="' . $class . '"' : '';
 
 		return anchor($segments, $title, $class);
+	}
+
+	/**
+	 * Test if the current protocol is SSL or not (https)
+	 *
+	 * Usage:
+	 *
+	 *     {{ if url:is_ssl }} Yep {{ else }} Nope {{ endif }}
+	 *
+	 * @return bool
+	 */
+	function is_ssl()
+	{
+		return (isset($_SERVER['HTTPS']) ? ($_SERVER['HTTPS'] == "on" ? true : false) : false);
 	}
 
 }

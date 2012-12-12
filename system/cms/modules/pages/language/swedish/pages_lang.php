@@ -1,17 +1,14 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
 
-/**
+ /**
  * Swedish translation.
  *
  * @author		marcus@incore.se
  * @package		PyroCMS  
  * @link		http://pyrocms.com
- * @date		2012-03-13
- * @version		1.0.0
+ * @date		2012-10-22
+ * @version		1.1.0
  */
-
-$lang['pages:page']							= 'Sida';
-$lang['pages:pages']						= 'Sidor';
 
 $lang['pages:content_label']				= 'Sidinnehåll';
 $lang['pages:meta_label']					= 'Metadata';
@@ -29,7 +26,7 @@ $lang['pages:body_label']					= 'Sidkropp';
 $lang['pages:meta_title_label']				= 'Metatitel';
 $lang['pages:meta_keywords_label']			= 'Metanyckelord';
 $lang['pages:meta_desc_label']				= 'Metabeskrivning';
-$lang['pages:layout_id_label']				= 'Sidlayout';
+$lang['pages:type_id_label']				= 'Sidlayout';
 $lang['pages:css_label']					= 'CSS';
 $lang['pages:js_label']						= 'Javaskript';
 $lang['pages:access_label']					= 'Visningsbehörighet';
@@ -49,8 +46,8 @@ $lang['pages:duplicate_label']				= 'Duplicera';
 $lang['pages:create_title']					= 'Lägg till sida';
 $lang['pages:edit_title']					= 'Redigera sidan "%s"';
 $lang['pages:list_title']					= 'Sidor';
-$lang['pages:layouts_create_title']			= 'Lägg till sidlayout';
-$lang['pages:layouts_list_title']			= 'Layouter';
+$lang['pages:types_create_title']			= 'Lägg till sidlayout';
+$lang['pages:types_list_title']			= 'Typeer';
 $lang['pages:no_pages']						= 'Det finns inga sidor.';
 $lang['pages_create_success']				= 'Sidan skapades.';
 $lang['pages_create_error']					= 'Ingen sida har skapats.';
@@ -69,3 +66,4 @@ $lang['pages:tree_explanation']				= 'Listan till vänster representerar sidor p
 $lang['pages:rss_explanation']				= 'Genom att aktivera RSS för denna sida kommer användarna ges möjlighet att prenumerera på ett RSS-flöde som visar varje undersida som som en ny post.';
 
 /* End of file pages_lang.php */  
+/* Location: system/cms/modules/pages/language/swedish/pages_lang.php */  

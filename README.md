@@ -4,7 +4,7 @@
 * [Documentation](http://pyrocms.com/docs)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.1.4
+* Version: 2.2.0-dev
 
 ## Team
 
@@ -78,7 +78,8 @@ Think you should be on this list? Add yourself in the next pull request you subm
 * [imamo](http://www.imamo.si/) Slovenian
 * [Petsagourakis George](https://github.com/petsagouris) Greek
 * [Mikael Kundert](https://github.com/mikaelkundert) Finnish
-* [Jack Sun](http://www.o-matic.com.tw/) Chinese Traditional
+* [Jack Sun](http://www.omatic.com.tw/) Chinese Traditional
+* [Kefeng Deng](http://www.51any.com/) Chinese Simplified
 * [Toni Haryanto](http://toniharyanto.cs.upi.edu/) Indonesian
 * [Nateetorn Lertkhonsan](http://twitter.com/ikwannnnn) Thai
 * [Christian Giupponi](https://github.com/ChristianGiupponi) Italian

@@ -44,8 +44,8 @@ $lang['indicates_required']                    = 'Ενδειξη των απαι
 
 // -- Registration / Activation / Reset Password ----------------------------------------------------------
 
-$lang['user_send_activation_email']            = 'Send Activation Email'; #translate
-$lang['user_do_not_activate']                  = 'Inactive'; #translate
+$lang['user_send_activation_email']            = 'Αποστολή E-mail Ενεργοποίησης';
+$lang['user_do_not_activate']                  = 'Ανενεργός';
 $lang['user_register_title']                   = 'Εγγραφή';
 $lang['user_activate_account_title']           = 'Ενεργοποίηση Λογαριασμού';
 $lang['user_activate_label']                   = 'Ενεργοποίηση';
@@ -166,6 +166,7 @@ $lang['profile_registred_on_label']   = 'Ημερομηνία εγγραφής';
 $lang['profile_last_login_label']     = 'Πρόσφατη σύνδεση';
 $lang['profile_male_label']           = 'Άνδρας';
 $lang['profile_female_label']         = 'Γυναίκα';
+$lang['user_profile_fields_label']	  = 'Πεδία Προφίλ';
 
 $lang['profile_not_set_up']           = 'Αυτός ο χρήστης δεν έχει φτιάξει το προφίλ του.';
 
