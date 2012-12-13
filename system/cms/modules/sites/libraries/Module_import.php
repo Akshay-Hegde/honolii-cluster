@@ -16,12 +16,12 @@ class Module_import {
 	}
 
 	/**
-	 * Install
-	 *
 	 * Installs a module
 	 *
-	 * @param	string	$slug	The module slug
-	 * @return	bool
+	 * @param string $slug The module slug
+	 * @param bool   $is_core
+	 *
+	 * @return bool
 	 */
 	public function install($slug, $is_core = false)
 	{
@@ -44,7 +44,7 @@ class Module_import {
 		$module['slug'] = $slug;
 
 		// Run the install method to get it into the database
-		if ( ! $details_class->install())
+		if (!$details_class->install())
 		{
 			return false;
 		}
@@ -60,10 +60,10 @@ class Module_import {
 			'slug' => $module['slug'],
 			'version' => $module['version'],
 			'description' => serialize($module['description']),
-			'skip_xss' => !empty($module['skip_xss']),
-			'is_frontend' => !empty($module['frontend']),
-			'is_backend' => !empty($module['backend']),
-			'menu' => !empty($module['menu']) ? $module['menu'] : false,
+			'skip_xss' => ! empty($module['skip_xss']),
+			'is_frontend' => ! empty($module['frontend']),
+			'is_backend' => ! empty($module['backend']),
+			'menu' => ( ! empty($module['menu'])) ? $module['menu'] : false,
 			'enabled' => $module['enabled'],
 			'installed' => $module['installed'],
 			'is_core' => $module['is_core']
@@ -94,46 +94,63 @@ class Module_import {
 			  `is_core` tinyint(1) NOT NULL,
 			  `updated_on` int(11) NOT NULL DEFAULT '0',
 			  PRIMARY KEY (`id`),
-			  UNIQUE KEY `slug` (`slug`)
+			  UNIQUE KEY `slug` (`slug`),
+			  INDEX `enabled` (`enabled`)
 			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
 
 		//create the modules table so that we can import all modules including the modules module
 		$this->ci->db->query($modules);
-		
+
 		$session = "
 			CREATE TABLE IF NOT EXISTS ".$this->ci->db->dbprefix(str_replace('default_', '', config_item('sess_table_name')))." (
 			 `session_id` varchar(40) DEFAULT '0' NOT NULL,
 			 `ip_address` varchar(16) DEFAULT '0' NOT NULL,
 			 `user_agent` varchar(120) NOT NULL,
 			 `last_activity` int(10) unsigned DEFAULT 0 NOT NULL,
-			 `user_data` text null,
-			PRIMARY KEY (`session_id`)
-			);
+			 `user_data` text NULL,
+			PRIMARY KEY (`session_id`),
+			KEY `last_activity_idx` (`last_activity`)
+			) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 		";
-		
+
 		// create a session table so they can use it if they want
 		$this->ci->db->query($session);
 
-		// Loop through directories that hold modules
+		// Install settings and streams core first. Other modules may need them.
+		$this->install('settings', true);
+		$this->ci->load->library('settings/settings');
+		$this->install('streams_core', true);
+
 		$is_core = true;
 
-		foreach (array(APPPATH, SHARED_ADDONPATH) as $directory)
+		// Loop through directories that hold modules
+		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
 		{
-			// Loop through modules
-			foreach(glob($directory.'modules/*', GLOB_ONLYDIR) as $module_name)
+			// Are there any modules to install on this path?
+			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
 			{
-				$slug = basename($module_name);
-
-				if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+				// Loop through modules
+				foreach ($modules as $module_name)
 				{
-					continue;
-				}
+					$slug = basename($module_name);
 
-				$this->install($slug, $is_core);
+					if ($slug == 'streams_core' or $slug == 'settings')
+					{
+						continue;
+					}
+
+					// invalid details class?
+					if ( ! $details_class = $this->_spawn_class($slug, $is_core))
+					{
+						continue;
+					}
+
+					$this->install($slug, true);
+				}
 			}
 
-			// Going back around, 2nd time is addons
+			// the second loop installs addons and shared addons
 			$is_core = false;
 		}
 
@@ -145,21 +162,27 @@ class Module_import {
 	 *
 	 * Checks to see if a details.php exists and returns a class
 	 *
-	 * @param	string	$module_slug	The folder name of the module
-	 * @access	private
-	 * @return	array
+	 * @param string $slug    The folder name of the module
+	 * @param bool   $is_core
+	 *
+	 * @return    array
 	 */
 	private function _spawn_class($slug, $is_core = false)
 	{
-		$path = $is_core ? APPPATH : SHARED_ADDONPATH;
+		$path = $is_core ? APPPATH : ADDONPATH;
 
 		// Before we can install anything we need to know some details about the module
-		$details_file = $path . 'modules/' . $slug . '/details'.EXT;
+		$details_file = $path.'modules/'.$slug.'/details'.EXT;
 
-		// Check the details file exists
+		// If it didn't exist as a core module or an addon then check shared_addons
 		if ( ! is_file($details_file))
 		{
-			return false;
+			$details_file = SHARED_ADDONPATH.'modules/'.$slug.'/details'.EXT;
+
+			if ( ! is_file($details_file))
+			{
+				return false;
+			}
 		}
 
 		// Sweet, include the file
