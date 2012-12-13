@@ -22,6 +22,7 @@
 
 $route['addons/admin/index']				= 'admin_modules';
 $route['addons/admin/modules(/:any)?']		= 'admin_modules$1';
+$route['addons/admin/admin-themes(/:any)?']	= 'admin_themes/admin$1';
 $route['addons/admin/themes(/:any)?']		= 'admin_themes$1';
 $route['addons/admin/widgets(/:any)?']		= 'admin_widgets$1';
 $route['addons/admin/plugins?']				= 'admin_plugins';

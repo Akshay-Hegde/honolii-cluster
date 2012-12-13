@@ -78,6 +78,10 @@ class Module_Addons extends Module
 					'name' => 'global:themes',
 					'uri' => 'admin/addons/themes',
 				),
+				'admin_themes' => array(
+					'name' => 'global:admin_themes',
+					'uri' => 'admin/addons/admin-themes',
+				),
 				'plugins' => array(
 					'name' => 'global:plugins',
 					'uri' => 'admin/addons/plugins',
