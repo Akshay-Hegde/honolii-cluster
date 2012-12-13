@@ -79,7 +79,7 @@ class Module_Addons extends Module
 					'uri' => 'admin/addons/themes',
 				),
 				'admin_themes' => array(
-					'name' => 'global:admin_themes',
+					'name' => 'addons:admin_themes',
 					'uri' => 'admin/addons/admin-themes',
 				),
 				'plugins' => array(
@@ -109,6 +109,14 @@ class Module_Addons extends Module
 			);
 
 			$info['sections']['themes']['shortcuts'] = array(
+				array(
+					'name' => 'global:upload',
+					'uri' => 'admin/addons/themes/upload',
+					'class' => 'add',
+				),
+			);
+
+			$info['sections']['admin_themes']['shortcuts'] = array(
 				array(
 					'name' => 'global:upload',
 					'uri' => 'admin/addons/themes/upload',
