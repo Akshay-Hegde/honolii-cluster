@@ -2,7 +2,7 @@
 
 	<h3><?php echo lang('site:settings');?></h3>
 	
-	<div class="box-container">	
+	<div class="box-container settings">	
 	
 		<?php foreach ($settings AS $setting): ?>
 			<li class="<?php echo alternator('', 'even'); ?>" >
@@ -11,7 +11,7 @@
 			</li>
 		<?php endforeach; ?>
 		
-		<div class="buttons float-right padding-top padding-right">
+		<div class="float-right padding-top padding-right">
 			<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
 		</div>
 		
