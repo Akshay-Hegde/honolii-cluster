@@ -30,6 +30,8 @@ class Addons extends Sites_Controller
 	 */
 	public function index()
 	{
+		$data = new stdClass();
+		
 		// set it so we can access the core_sites table
 		$this->db->set_dbprefix('core_');
 		$data->site = $this->sites_m->get_by('ref', $this->ref);

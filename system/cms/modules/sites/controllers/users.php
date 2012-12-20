@@ -79,6 +79,8 @@ class Users extends Sites_Controller
 	 */
 	public function	index()
 	{
+		$data = new stdClass();
+
 		$data->users = $this->user_m->get_all();
 		
 		// Load the view
@@ -92,6 +94,8 @@ class Users extends Sites_Controller
 	 */
 	public function add()
 	{
+		$data = new stdClass();
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->user_validation_rules);
 		
@@ -160,7 +164,6 @@ class Users extends Sites_Controller
 	 */
 	public function enable($id = 0)
 	{
-
 		$this->user_m->update($id, array('active' => 1));
 
 		redirect('sites/users');

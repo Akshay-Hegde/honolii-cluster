@@ -84,6 +84,7 @@ class Sites extends Sites_Controller
 	public function index($offset = 0)
 	{
 		$limit = 20;
+		$data = new stdClass();
 		
 		$data->sites = $this->sites_m
 			->limit($limit, $offset)
@@ -104,6 +105,8 @@ class Sites extends Sites_Controller
 	 */
 	public function create()
 	{
+		$data = new stdClass();
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
@@ -259,6 +262,7 @@ class Sites extends Sites_Controller
 	 */
 	public function confirm($id = '')
 	{
+		$data = new stdClass();
 		$site = $this->sites_m->get($id);
 		
 		if ($this->input->post('id') and $this->input->post('btnAction'))
@@ -300,6 +304,7 @@ class Sites extends Sites_Controller
 	 */
 	public function stats($id = 0)
 	{
+		$data = new stdClass();
 		$data->stats = $this->sites_m->get_stats($id);
 
 		$this->template->set_layout('modal')

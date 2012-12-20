@@ -32,6 +32,8 @@ class Sites_settings extends Sites_Controller
 	 */
 	public function index()
 	{
+		$data = new stdClass();
+		
 		$data->settings = $this->settings_m->get_all();
 		
 		// Set the validation rules
