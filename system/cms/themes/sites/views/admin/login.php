@@ -61,16 +61,16 @@
 		<?php echo form_open('sites/login'); ?>
 			<ul>
 				<li>
-					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
+					<input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>" />
 				</li>
 				
 				<li>
-					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>"  />
+					<input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"  />
 				</li>
 				
 				<li id="remember_me">
 					<input id="remember" type="checkbox" name="remember" value="1" />
-					<label for="remember"><?php echo lang('user_remember'); ?></label>
+					<label for="remember"><?php echo lang('user:remember'); ?></label>
 				</li>
 				
 				<li id="login_button">

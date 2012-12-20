@@ -29,13 +29,13 @@
 				<td><?php echo format_date($user->created_on); ?></td>
 				<td><?php echo format_date($user->last_login); ?></td>
 				<td class="buttons">
-					<?php echo  anchor('sites/users/edit/'.$user->id, 		lang('buttons:edit'), 'class="button"'); ?>
+					<?php echo  anchor('sites/users/edit/'.$user->id, 		lang('global:edit'), 'class="btn"'); ?>
 					<?php echo $user->active != 1 ?
-								anchor('sites/users/enable/'.$user->id, 	lang('buttons:enable'), 'class="button"') :
-								anchor('sites/users/disable/'.$user->id, 	lang('buttons:disable'), 'class="button"'); ?>
+								anchor('sites/users/enable/'.$user->id, 	lang('global:enable'), 'class="btn orange"') :
+								anchor('sites/users/disable/'.$user->id, 	lang('global:disable'), 'class="btn orange"'); ?>
 		
 					<?php if (count($users) > 1): ?>
-						<?php echo  anchor('sites/users/delete/'.$user->id, 	lang('buttons:delete'), 'class="button confirm"'); ?>
+						<?php echo  anchor('sites/users/delete/'.$user->id, 	lang('global:delete'), 'class="btn red confirm"'); ?>
 					<?php endif; ?>
 				</td>
 			</tr>

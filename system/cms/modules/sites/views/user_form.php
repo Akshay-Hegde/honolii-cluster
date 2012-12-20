@@ -5,7 +5,7 @@
 	<h3><?php echo sprintf(lang('site:edit_admin'), $username); ?></h3>
 	<?php endif; ?>
 	
-	<?php echo form_open(uri_string(), 'class="crud"'); ?>
+	<?php echo form_open(uri_string(), 'class="crud add-user"'); ?>
 	
 			<ol>
 				<?php echo form_hidden('id', $id); ?>

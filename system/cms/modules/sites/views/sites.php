@@ -47,10 +47,10 @@
 								'<span class="green" style="display:none;">'.lang('site:active').'</span>'; ?>
 				</td>
 				<td class="buttons">
-					<?php echo anchor('sites/stats/'.$site->id, lang('site:stats'), 'class="button modal"'); ?>
-					<?php echo anchor('sites/addons/index/'.$site->ref, lang('site:addons'), 'class="button"'); ?>
-					<?php echo anchor('sites/edit/'.$site->id, 	lang('buttons:edit'), 'class="button"'); ?>
-					<?php echo anchor('sites/delete/'.$site->id, 	lang('buttons:delete'), 'class="button modal"'); ?>
+					<?php echo anchor('sites/stats/'.$site->id, lang('site:stats'), 'class="btn blue modal"'); ?>
+					<?php echo anchor('sites/addons/index/'.$site->ref, lang('site:addons'), 'class="btn"'); ?>
+					<?php echo anchor('sites/edit/'.$site->id, 	lang('buttons:edit'), 'class="btn"'); ?>
+					<?php echo anchor('sites/delete/'.$site->id, 	lang('buttons:delete'), 'class="btn red modal"'); ?>
 				</td>
 			</tr>
 			<?php endforeach; ?>
