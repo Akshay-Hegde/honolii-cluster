@@ -45,12 +45,12 @@
 			</li>
 			
 			<li class="<?php echo alternator('', 'even'); ?>">
-				<?php echo form_label(lang('user:email'), 'email'); ?>
+				<?php echo form_label(lang('global:email'), 'email'); ?>
 				<?php echo form_input('email', set_value('email', $email), 'class="required"'); ?>
 			</li>
 			
 			<li class="<?php echo alternator('', 'even'); ?>">
-				<?php echo form_label(lang('user:password'), 'password'); ?>
+				<?php echo form_label(lang('global:password'), 'password'); ?>
 				<?php echo form_password('password', set_value('password', $password), 'class="required"'); ?>
 			</li>
 		</ol>
