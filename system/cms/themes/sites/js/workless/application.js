@@ -47,7 +47,7 @@ jQuery(document).ready(function($) {
 				$(checkbox).parent().find('span').toggle();
 				
 				// Allow the checkbox to check (or uncheck)
-				$(checkbox).attr('checked', state);
+				$(checkbox).prop('checked', state);
 			}
 			$(checkbox).removeAttr('disabled');
 		});
@@ -71,7 +71,7 @@ jQuery(document).ready(function($) {
 				$(checkbox).parent().find('span').toggle();
 				
 				// Allow the checkbox to check (or uncheck)
-				$(checkbox).attr('checked', state);
+				$(checkbox).prop('checked', state);
 			}
 			$(checkbox).removeAttr('disabled');
 		});
