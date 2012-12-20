@@ -52,7 +52,8 @@ jQuery(function($){
 				break;
 			}
 
-			$('<li class="' + li_status_class + '"><i class="' + status_class + '"></i>' + results.message + '</li>').prependTo('#console');
+			$('#activity').find('span').fadeOut();
+			$('#activity').html('<span class="' + li_status_class + '"><i class="' + status_class + '"></i>' + results.message + '</span>');
 		}
 	});
 
@@ -61,9 +62,15 @@ jQuery(function($){
 	 ***************************************************************************/
 	$search_results = $('ul#search-results');
 
+	$('.sidebar-right').find('.close').on('click', function() {
+		$search_results.empty();
+		$('.sidebar-right').slideUp();
+	});
+
 	$('input#file-search').keyup(function(e){
 
 		$search_results.empty();
+		$('.sidebar-right').slideUp();
 
 		// submit on Enter
 		if (e.which === 13) {
@@ -84,6 +91,7 @@ jQuery(function($){
 				} else {
 					 $('<li><div class="info"></div>' + results.message + '</li>').appendTo('ul#search-results');
 				}
+				$('.sidebar-right').slideDown();
 			});
 
 		}
@@ -678,8 +686,8 @@ jQuery(function($){
 
 					// if it's an image then we set the thumbnail as the content
 					var li_content = '<span class="name-text">'+item.name+'</span>';
-					if (item.type && item.type === 'i') {
-						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'" alt="'+item.name+'"/>'+li_content;
+					if (item.type && item.type === 'i') {                                 /* without this the thumb doesn't update with Replace */
+						li_content = '<img src="'+SITE_URL+'files/cloud_thumb/'+item.id+'?'+new Date().getMilliseconds()+'" alt="'+item.name+'"/>'+li_content;
 					}
 
 					$folders_center.append(
