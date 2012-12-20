@@ -54,7 +54,7 @@
 	<div id="login" <?php if (validation_errors()): ?>style="padding-bottom:140px;"<?php endif; ?>>
 		<?php echo Asset::img('workless/key.png', 'Login', array('class' => 'login_icon')); ?>
 
-		<h1><?php echo lang('site.sites');?></h1>
+		<h1><?php echo lang('site:sites');?></h1>
 		
 		<?php $this->load->view('admin/partials/notices') ?>
 		

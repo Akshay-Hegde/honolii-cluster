@@ -82,8 +82,8 @@ class Users extends Sites_Controller
 		$data->users = $this->user_m->get_all();
 		
 		// Load the view
-		$this->template->title(lang('site.sites'), lang('site.user_manager'))
-						->set('description', lang('site.super_admin_list'))
+		$this->template->title(lang('site:sites'), lang('site:user_manager'))
+						->set('description', lang('site:super_admin_list'))
 						->build('users', $data);
 	}
 	
@@ -100,18 +100,18 @@ class Users extends Sites_Controller
 			// check if this email is already registered
 			if ($this->user_m->get_by('email', $this->input->post('email')))
 			{
-				$data->{'messages'}['error'] = sprintf(lang('site.user_exists'), $this->input->post('email'));
+				$data->{'messages'}['error'] = sprintf(lang('site:user_exists'), $this->input->post('email'));
 			}
 			// did it work?
 			elseif ($this->user_m->add_admin($this->input->post()))
 			{
-				$this->session->set_flashdata('success', sprintf(lang('site.admin_create_success'), $_POST['username']));
+				$this->session->set_flashdata('success', sprintf(lang('site:admin_create_success'), $_POST['username']));
 				redirect('sites/users');
 			}
 			// no it didn't :'(
 			else
 			{
-				$this->session->set_flashdata('error', lang('site.db_error'));
+				$this->session->set_flashdata('error', lang('site:db_error'));
 			}
 		}
 
@@ -121,8 +121,8 @@ class Users extends Sites_Controller
 		}
 
 		// Load the view
-		$this->template->title(lang('site.sites'), lang('site.create_admin'))
-						->set('description', lang('site.create_admin_desc'))
+		$this->template->title(lang('site:sites'), lang('site:create_admin'))
+						->set('description', lang('site:create_admin_desc'))
 						->build('user_form', $data);
 	}
 	
@@ -142,16 +142,16 @@ class Users extends Sites_Controller
 		{
 			if ($this->user_m->edit_admin($this->input->post()))
 			{
-				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $_POST['username']));
+				$this->session->set_flashdata('success', sprintf(lang('site:edit_success'), $_POST['username']));
 				redirect('sites/users');
 			}
-			$this->session->set_flashdata('error', lang('site.db_error'));
+			$this->session->set_flashdata('error', lang('site:db_error'));
 			redirect('sites/users');
 		}
 
 		// Load the view
-		$this->template->title(lang('site.sites'), sprintf(lang('site.edit_admin'), $data->username))
-						->set('description', lang('site.create_admin_desc'))
+		$this->template->title(lang('site:sites'), sprintf(lang('site:edit_admin'), $data->username))
+						->set('description', lang('site:create_admin_desc'))
 						->build('user_form', $data);
 	}
 	
@@ -173,7 +173,7 @@ class Users extends Sites_Controller
 	{
 		if ($this->session->userdata('super_id') == $id)
 		{
-			$this->session->set_flashdata('notice', lang('site.disable_self'));
+			$this->session->set_flashdata('notice', lang('site:disable_self'));
 		}
 		else
 		{
@@ -249,7 +249,7 @@ class Users extends Sites_Controller
 			return true;
 		}
 
-		$this->form_validation->set_message('_check_login', lang('user_login_incorrect'));
+		$this->form_validation->set_message('_check_login', lang('user:login_incorrect'));
 		return false;
 	}
 }

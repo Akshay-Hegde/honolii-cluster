@@ -2,7 +2,7 @@
 
 	<div class="box width-50">
 		<h3 class="align-center padding-top">
-			<?php echo sprintf(lang('site.really_delete'), $name); ?>
+			<?php echo sprintf(lang('site:really_delete'), $name); ?>
 			<?php echo form_hidden('id', $id); ?>
 		</h3>
 		

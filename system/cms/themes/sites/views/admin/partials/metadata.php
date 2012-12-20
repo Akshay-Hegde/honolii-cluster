@@ -3,7 +3,7 @@
 	var SITE_URL			= "<?php echo rtrim(site_url(), '/').'/';?>";
 	var BASE_URL			= "<?php echo BASE_URL;?>";
 	var BASE_URI			= "<?php echo BASE_URI;?>";
-	var DEFAULT_TITLE		= "<?php echo lang('site.sites'); ?>";
+	var DEFAULT_TITLE		= "<?php echo lang('site:sites'); ?>";
 	var DIALOG_MESSAGE		= "<?php echo lang('global:dialog:delete_message'); ?>";
 	var pyro 				= {};
 	pyro.apppath_uri		= "<?php echo APPPATH_URI; ?>";

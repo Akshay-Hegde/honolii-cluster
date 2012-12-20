@@ -170,7 +170,7 @@ class Sites_m extends MY_Model {
 				{
 					if (is_dir($folder_check.'/'.$insert['ref']))
 					{
-						$this->session->set_flashdata('error', sprintf(lang('site.folder_exists'),
+						$this->session->set_flashdata('error', sprintf(lang('site:folder_exists'),
 																	   $folder_check.'/'.$insert['ref']));
 						redirect('sites/edit/'.$input['id']);
 					}

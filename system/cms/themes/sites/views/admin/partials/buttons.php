@@ -11,12 +11,12 @@
 		<?php switch ($button) :
 			case 'delete': ?>
 				<button type="submit" name="btnAction" value="delete" class="button confirm">
-					<span><?php echo lang('buttons.delete'); ?></span>
+					<span><?php echo lang('buttons:delete'); ?></span>
 				</button>
 				<?php break;
 			case 're-index': ?>
 				<button type="submit" name="btnAction" value="re-index" class="button">
-					<span><?php echo lang('buttons.re-index'); ?></span>
+					<span><?php echo lang('buttons:re-index'); ?></span>
 				</button>
 				<?php break;
 			case 'activate':
@@ -27,13 +27,13 @@
 			case 'unapprove':
 			case 'upload': ?>
 				<button type="submit" name="btnAction" value="<?php echo $button ?>" class="button">
-					<span><?php echo lang('buttons.' . $button); ?></span>
+					<span><?php echo lang('buttons:' . $button); ?></span>
 				</button>
 				<?php break;
 			case 'cancel':
 			case 'close':
 			case 'preview':
-				echo anchor('sites/' . $this->module_details['slug'], lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('sites/' . $this->module_details['slug'], lang('buttons:' . $button), 'class="button ' . $button . '"');
 				break;
 
 			/**
@@ -43,7 +43,7 @@
 			case 'edit':
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : null;
 
-				echo anchor('sites/' . $this->module_details['slug'] . $id, lang('buttons.' . $button), 'class="button ' . $button . '"');
+				echo anchor('sites/' . $this->module_details['slug'] . $id, lang('buttons:' . $button), 'class="button ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>
