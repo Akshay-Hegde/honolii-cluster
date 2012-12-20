@@ -11,7 +11,7 @@
 class Plugin_Twitter extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Twitter',
 	);
@@ -20,6 +20,42 @@ class Plugin_Twitter extends Plugin
 		'el' => 'Προβάλλει μια σειρά από tweets.',
 		'fr' => 'Afficher le flux Twitter'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 * 
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'feed' => array(
+				'description' => array(
+					'en' => 'Allows a Twitter feed to be output anywhere on the site.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => 'id|created_at|text|source|truncated|in_reply_to_status_id|in_reply_to_user_id|in_reply_to_screen_name|geo|coordinates|place|contributors|retweet_count|favorited|retweeted|timespan',
+				'attributes' => array(
+					'username' => array(
+						'type' => 'text',
+						'flags' => '',
+						'default' => '',
+						'required' => true,
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '5',
+						'required' => false,
+					),
+				),
+			),// end first method
+		);
+	
+		return $info;
+	}
 
 	/**
 	 * The URL used to retrieve tweets from the Twitter API
@@ -44,9 +80,9 @@ class Plugin_Twitter extends Plugin
 	public function feed()
 	{
 		$username = $this->attribute('username');
-		$limit = $this->attribute('limit', 5);
+		$limit    = $this->attribute('limit', 5);
 
-		if (!($tweets = $this->pyrocache->get('twitter-' . $username)))
+		if ( ! ($tweets = $this->pyrocache->get('twitter-' . $username)))
 		{
 			$tweets = json_decode(@file_get_contents($this->feed_url . '&screen_name=' . $username . '&count=' . $limit));
 
@@ -64,16 +100,16 @@ class Plugin_Twitter extends Plugin
 			'|#([a-z0-9-_]+)|i' => '<a href="http://twitter.com/search?q=%23$1" target="_blank">$0</a>'
 		);
 
-		if (!$tweets)
+		if ( ! $tweets)
 		{
 			return array();
 		}
 
 		foreach ($tweets as &$tweet)
 		{
-			$tweet->id = sprintf('%.0f', $tweet->id);
-			$tweet->text = str_replace($username . ': ', '', $tweet->text);
-			$tweet->text = preg_replace(array_keys($patterns), $patterns, $tweet->text);
+			$tweet->id       = sprintf('%.0f', $tweet->id);
+			$tweet->text     = str_replace($username . ': ', '', $tweet->text);
+			$tweet->text     = preg_replace(array_keys($patterns), $patterns, $tweet->text);
 			$tweet->timespan = strtolower(current(explode(',', timespan(strtotime($tweet->created_at))))) . ' ago';
 		}
 

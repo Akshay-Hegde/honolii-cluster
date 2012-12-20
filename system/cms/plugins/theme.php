@@ -11,7 +11,7 @@
 class Plugin_Theme extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Theme',
 	);
@@ -20,6 +20,48 @@ class Plugin_Theme extends Plugin
 		'el' => 'Φορτώνει και προβάλλει πόρους του θέματος εμφάνισης.',
 		'fr' => 'Permet de charger et d\'afficher les différentes ressources du thème.'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Blog plugin for a larger example
+	 *
+	 * @todo fill the  array with details about this plugin, then uncomment the return value.
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'your_method' => array(// the name of the method you are documenting
+				'description' => array(// a single sentence to explain the purpose of this method
+					'en' => 'Displays some data from some module.'
+				),
+				'single' => true,// will it work as a single tag?
+				'double' => false,// how about as a double tag?
+				'variables' => '',// list all variables available inside the double tag. Separate them|like|this
+				'attributes' => array(
+					'order-dir' => array(// this is the order-dir="asc" attribute
+						'type' => 'flag',// Can be: slug, number, flag, text, array, any.
+						'flags' => 'asc|desc|random',// flags are predefined values like this.
+						'default' => 'asc',// attribute defaults to this if no value is given
+						'required' => false,// is this attribute required?
+					),
+					'limit' => array(
+						'type' => 'number',
+						'flags' => '',
+						'default' => '20',
+						'required' => false,
+					),
+				),
+			),// end first method
+		);
+	
+		//return $info;
+		return array();
+	}
 
 	/**
 	 * Partial
@@ -91,11 +133,11 @@ class Plugin_Theme extends Plugin
 	 */
 	public function css()
 	{
-		$file = $this->attribute('file');
+		$file  = $this->attribute('file');
 		$title = $this->attribute('title');
 		$media = $this->attribute('media');
-		$type = $this->attribute('type', 'text/css');
-		$rel = $this->attribute('rel', 'stylesheet');
+		$type  = $this->attribute('type', 'text/css');
+		$rel   = $this->attribute('rel', 'stylesheet');
 
 		return link_tag($this->css_url($file), $rel, $type, $title, $media);
 	}
@@ -144,8 +186,8 @@ class Plugin_Theme extends Plugin
 	 */
 	public function image()
 	{
-		$file = $this->attribute('file');
-		$alt = $this->attribute('alt', $file);
+		$file       = $this->attribute('file');
+		$alt        = $this->attribute('alt', $file);
 		$attributes = $this->attributes();
 
 		foreach (array('file', 'alt') as $key)
@@ -299,9 +341,9 @@ class Plugin_Theme extends Plugin
 		$this->load->library('asset');
 		$file = Asset::get_filepath_img($this->attribute('file', 'favicon.ico'), true);
 
-		$rel = $this->attribute('rel', 'shortcut icon');
-		$type = $this->attribute('type', 'image/x-icon');
-		$is_xhtml = in_array($this->attribute('xhtml', 'true'), array('1', 'y', 'yes', 'true'));
+		$rel      = $this->attribute('rel', 'shortcut icon');
+		$type     = $this->attribute('type', 'image/x-icon');
+		$is_xhtml = str_to_bool($this->attribute('xhtml', true));
 
 		$link = '<link ';
 		$link .= 'href="' . $file . '" ';
@@ -326,10 +368,10 @@ class Plugin_Theme extends Plugin
 	public function lang()
 	{
 		$lang_file = $this->attribute('lang');
-		$line = $this->attribute('line');
-		$default = $this->attribute('default');
+		$line      = $this->attribute('line');
+		$default   = $this->attribute('default');
 		// Return an empty string as the attribute LINE is missing
-		if (!isset($line))
+		if ( ! isset($line))
 		{
 			return "";
 		}

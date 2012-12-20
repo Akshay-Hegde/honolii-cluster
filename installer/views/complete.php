@@ -6,7 +6,6 @@
 <section class="item">
 <p>{intro_text}</p>
 
-<div class="block-message">
 <p>
 	<strong>{email}:</strong> {user_email}
 </p>
@@ -15,9 +14,12 @@
 </p>
 <p><a class="button show-pass" href="#"> {show_password}</a></p>
 
-<p>{outro_text}</p>
+<p><?php echo lang('outro_text'); ?></p>
 
-<hr>
+<p>
+	<?php echo anchor($website_url, lang('go_website'), 'class="button go_to_site"'); ?> 
+	<?php echo anchor($control_panel_url, lang('go_control_panel'), 'class="button go_to_site"'); ?>
+</p>
 
 <?php echo anchor($website_url, lang('go_website'), 'class="button go_to_site"'); ?>
 <?php echo anchor($control_panel_url, lang('go_control_panel'), 'class="button go_to_site"'); ?>
@@ -32,6 +34,5 @@
 		});
 	});
 </script>
-</div>
 
 </section>

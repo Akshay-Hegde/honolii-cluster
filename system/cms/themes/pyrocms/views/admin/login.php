@@ -44,18 +44,18 @@
 		<?php echo form_open('admin/login'); ?>
 			<ul>
 				<li>
-					<input type="text" name="email" placeholder="<?php echo lang('email_label'); ?>" />
-					<?php echo Asset::img('admin/email-icon.png', lang('email_label'), array('class' => 'input-email'));?>
+					<input type="text" name="email" placeholder="<?php echo lang('global:email'); ?>" />
+					<?php echo Asset::img('admin/email-icon.png', lang('global:email'), array('class' => 'input-email'));?>
 				</li>
 				
 				<li>
-					<input type="password" name="password" placeholder="<?php echo lang('password_label'); ?>"  />
-					<?php echo Asset::img('admin/lock-icon.png', lang('password_label'), array('class' => 'input-password'));?>
+					<input type="password" name="password" placeholder="<?php echo lang('global:password'); ?>"  />
+					<?php echo Asset::img('admin/lock-icon.png', lang('global:password'), array('class' => 'input-password'));?>
 				</li>
 				
 				<li>
 					<input class="remember" class="remember" id="remember" type="checkbox" name="remember" value="1" />
-					<label for="remember" class="remember"><?php echo lang('user_remember'); ?></label>
+					<label for="remember" class="remember"><?php echo lang('user:remember'); ?></label>
 				</li>
 				
 				<li><center><input class="button" type="submit" name="submit" value="<?php echo lang('login_label'); ?>" /></center></li>

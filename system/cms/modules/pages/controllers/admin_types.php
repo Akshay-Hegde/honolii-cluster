@@ -144,7 +144,7 @@ class Admin_types extends Admin_Controller
 				// check to see if they want us to make a table and then see if we can
 				if ( ! $stream_slug and $this->db->table_exists($stream_slug))
 				{
-					$this->session->set_flashdata('notice', lang('page_types.already_exist_error'));
+					$this->session->set_flashdata('notice', lang('page_types:already_exist_error'));
 					redirect('admin/pages/types/create');
 				}
 				else
@@ -153,7 +153,7 @@ class Admin_types extends Admin_Controller
 				}
 			}
 
-			// If they've indicated we 
+			// If they've indicated we create a new stream
 			if ($input['stream_id'] == 'new')
 			{
 				// Since this an automatically generated stream, we're not going to
@@ -169,7 +169,7 @@ class Admin_types extends Admin_Controller
 					$count++;
 				}
 
-				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types.list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages_');
+				$input['stream_id'] = $this->streams->streams->add_stream(lang('page_types:list_title_sing').' '.$input['title'], $stream_slug, 'pages', 'pages:');
 			}
 
 			// Insert the page type
@@ -199,16 +199,24 @@ class Admin_types extends Admin_Controller
 					$this->page_type_m->place_page_layout_files($input);
 				}
 
-				$this->session->set_flashdata('success', lang('page_types.create_success'));
+				$this->session->set_flashdata('success', lang('page_types:create_success'));
 
 				$this->pyrocache->delete_all('page_m');
 				
 				// Event: page_type_created
 				Events::trigger('page_type_created', $id);
+
+				if ($this->input->post('stream_id') == 'new')
+				{
+					$this->session->set_flashdata('success', lang('page_types:create_success_add_fields'));
+
+					// send them off to create their first fields
+					redirect('admin/pages/types/fields/' . $id);
+				}
 			}
 			else
 			{
-				$this->session->set_flashdata('notice', lang('page_types.create_error'));
+				$this->session->set_flashdata('notice', lang('page_types:create_error'));
 			}
 
 			redirect('admin/pages/types');
@@ -236,7 +244,7 @@ class Admin_types extends Admin_Controller
 
 		// Load WYSIWYG editor
 		$this->template
-			->title($this->module_details['name'], lang('pages:type_id_label'), lang('page_types.create_title'))
+			->title($this->module_details['name'], lang('pages:type_id_label'), lang('page_types:create_title'))
 			->append_js('module::page_type_form.js')
 			->build('admin/types/form', $data);
 	}
@@ -297,7 +305,7 @@ class Admin_types extends Admin_Controller
 		// Set data, if it exists
 		if ( ! $data->page_type = $this->page_type_m->get($id))
 		{
-			$this->session->set_flashdata('error', lang('page_types.page_not_found_error'));
+			$this->session->set_flashdata('error', lang('page_types:page_not_found_error'));
 			redirect('admin/pages/types/create');
 		}
 
@@ -324,7 +332,7 @@ class Admin_types extends Admin_Controller
 			// Wipe cache for this model as the data has changed
 			$this->pyrocache->delete_all('page_type_m');
 
-			$this->session->set_flashdata('success', sprintf(lang('page_types.edit_success'), $this->input->post('title')));
+			$this->session->set_flashdata('success', sprintf(lang('page_types:edit_success'), $this->input->post('title')));
 
 			$input['slug'] = $data->page_type->slug;
 			if ($this->input->post('save_as_files') == 'y')
@@ -365,7 +373,7 @@ class Admin_types extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('pages:type_id_label'), sprintf(lang('page_types.edit_title'), $data->page_type->title))
+			->title($this->module_details['name'], lang('pages:type_id_label'), sprintf(lang('page_types:edit_title'), $data->page_type->title))
 			->append_js('module::page_type_form.js')
 			->build('admin/types/form', $data);
 	}
@@ -392,11 +400,33 @@ class Admin_types extends Admin_Controller
 		{
 			return $this->_new_field($stream);
 		}
-
+		elseif ($this->uri->segment(6) == 'edit_field')
+		{
+			return $this->_edit_field($stream);
+		}	
+		elseif ($this->uri->segment(6) == 'delete_field')
+		{
+			return $this->_delete_field($stream);
+		}
+		
 		$extra = array(
 			'add_uri'		=> 'admin/pages/types/fields/'.$page_type->id.'/new_field',
 			'title'			=> $stream->stream_name.' '.lang('global:fields')
 		);
+
+		// Our buttons.
+		$extra['buttons'] = array(
+			array(
+				'label'     => lang('global:edit'),
+				'url'       => 'admin/pages/types/fields/'.$this->uri->segment(5).'/edit_field/-assign_id-'
+			),
+			array(
+				'label'     => lang('global:delete'),
+				'url'       => 'admin/pages/types/fields/'.$this->uri->segment(5).'/delete_field/-assign_id-',
+				'confirm'   => true,
+			)
+		);
+
 
 		// Show our fields list.		
 		$this->streams->cp->assignments_table($stream->stream_slug, $stream->stream_namespace, 25, 'admin/pages/types/fields/'.$page_type->id, true, $extra);
@@ -433,16 +463,16 @@ class Admin_types extends Admin_Controller
  		{
  			if (count($update_data) != 0)
  			{
-				$this->session->set_flashdata('notice', sprintf(lang('page_types.sync_notice'), implode(', ', $update_data)));
+				$this->session->set_flashdata('notice', sprintf(lang('page_types:sync_notice'), implode(', ', $update_data)));
  			}
  			else
  			{
-				$this->session->set_flashdata('error', lang('page_types.sync_fail'));
+				$this->session->set_flashdata('error', lang('page_types:sync_fail'));
  			}
  		}
  		else
  		{
-			$this->session->set_flashdata('success', lang('page_types.sync_success'));
+			$this->session->set_flashdata('success', lang('page_types:sync_success'));
  		}
 	
  		redirect('admin/pages/types');
@@ -481,9 +511,40 @@ class Admin_types extends Admin_Controller
 	private function _new_field($stream)
 	{
 		$extra = array(
-			'title'			=> $stream->stream_name.' : '.lang('streams.new_field')
+			'title'				=> $stream->stream_name.' : '.lang('streams:new_field'),
+			'success_message' 	=> lang('page_types:success_add_tag'),
 		);
-		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra);
+
+		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'new', 'admin/pages/types/fields/'.$this->uri->segment(5), null, array(), true, $extra, array('chunks'));
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Edit Fields for a certain page type.
+	 *
+	 */
+	private function _edit_field($stream)
+	{
+		$extra = array(
+			'title'				=> $stream->stream_name.' : '.lang('streams:edit_field'),
+			'success_message' 	=> lang('page_types:success_add_tag'),
+		);
+
+		$this->streams->cp->field_form($stream->stream_slug, $stream->stream_namespace, 'edit', 'admin/pages/types/fields/'.$this->uri->segment(5), $this->uri->segment(7), array(), true, $extra, array('chunks'));
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Edit Fields for a certain page type.
+	 *
+	 */
+	private function _delete_field($stream)
+	{
+		$this->streams->cp->teardown_assignment_field($this->uri->segment(7));
+
+		redirect('admin/pages/types/fields/'.$this->uri->segment(5));
 	}
 
 	// --------------------------------------------------------------------------
@@ -539,7 +600,7 @@ class Admin_types extends Admin_Controller
 			// Wipe cache for this model, the content has changd
 			$this->pyrocache->delete_all('page_type_m');
 		
-			$this->session->set_flashdata('success', sprintf(lang('page_types.delete_success'), $id));
+			$this->session->set_flashdata('success', sprintf(lang('page_types:delete_success'), $id));
 			
 			Events::trigger('page_type_deleted', $id);
 

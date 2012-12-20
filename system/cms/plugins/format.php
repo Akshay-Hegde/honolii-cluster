@@ -11,7 +11,7 @@
 class Plugin_format extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Format',
 	);
@@ -20,6 +20,68 @@ class Plugin_format extends Plugin
 		'el' => 'Μορφοποίηση κειμενοσειρών, συμπεριλαμβανομένων των Markdown και Textile.',
 		'fr' => 'Formatter des chaînes de caractères, incluant Markdown et Textile.'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Format plugin for a larger example
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'markdown' => array(
+				'description' => array(
+					'en' => 'Send some content through the Markdown processor.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			
+			'textile' => array(
+				'description' => array(
+					'en' => 'Send some content through the Textile processor.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			
+			'url_title' => array(
+				'description' => array(
+					'en' => 'A Plugin shortcut to the CodeIgniter url_title() function.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'string' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+					'separator' => array(
+						'type' => 'text',
+						'default' => 'dash',
+						'required' => false,
+					),
+					'lowercase' => array(
+						'type' => 'bool',
+						'flags' => 'true|false',
+						'default' => 'false',
+						'required' => false,
+					),
+				),
+			),
+		);
+	
+		return $info;
+	}
 
 	/**
 	 * Markdown
@@ -89,10 +151,12 @@ class Plugin_format extends Plugin
 		if (count($attrs) > 2)
 		{
 			$bool = array_slice($attrs, 2);
-			array_splice($attrs, 2, 1, (bool) $bool);
+			array_splice($attrs, 2, 1, str_to_bool($bool));
 		}
 
 		return call_user_func_array('url_title', $attrs);
 	}
 
 }
+
+/* EOF */

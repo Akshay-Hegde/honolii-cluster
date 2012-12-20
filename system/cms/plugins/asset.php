@@ -11,7 +11,7 @@
 class Plugin_Asset extends Plugin
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 	public $name = array(
 		'en' => 'Asset',
 	);
@@ -20,6 +20,262 @@ class Plugin_Asset extends Plugin
 		'el' => 'Πρόσβαση σε στατικό περιεχόμενο όπως αρχεία CSS ή Javascript.',
 		'fr' => 'Accéder à des ressources CSS et Javascript (Assets).'
 	);
+
+	/**
+	 * Returns a PluginDoc array that PyroCMS uses 
+	 * to build the reference in the admin panel
+	 *
+	 * All options are listed here but refer 
+	 * to the Asset plugin for a larger example
+	 *
+	 * @return array
+	 */
+	public function _self_doc()
+	{
+		$info = array(
+			'css' => array(
+				'description' => array(
+					'en' => 'Add a StyleSheet to a specific group. Returns empty.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+					'file_min' => array(
+						'type' => 'text',
+						'default' => '(uses normal file)',
+						'required' => false,
+					),
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'css_inline' => array(
+				'description' => array(
+					'en' => 'Add inline CSS to the Assets Library. Automatically wrapped in <style> tag.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			'css_url' => array(
+				'description' => array(
+					'en' => 'Get the full file URL to a CSS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			'css_path' => array(
+				'description' => array(
+					'en' => 'Get the file path to a CSS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			
+			'js' => array(
+				'description' => array(
+					'en' => 'Add a JavaScript file to a specific group. Returns empty.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+					'file_min' => array(
+						'type' => 'text',
+						'default' => '(uses normal file)',
+						'required' => false,
+					),
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'js_inline' => array(
+				'description' => array(
+					'en' => 'Add inline JS to the Assets Library. Automatically wrapped in <script> tag.'
+				),
+				'single' => false,
+				'double' => true,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			'js_url' => array(
+				'description' => array(
+					'en' => 'Get the full file URL to a JS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			'js_path' => array(
+				'description' => array(
+					'en' => 'Get the file path to a JS asset.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			
+			'image' => array(
+				'description' => array(
+					'en' => 'Return an <img/> tag with an image from Assets.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+					'alt' => array(
+						'type' => 'text',
+						'default' => '',
+						'required' => false,
+					),
+					'[attribute]' => array(
+						'type' => 'text',
+						'required' => false,
+					),
+				),
+			),
+			'image_url' => array(
+				'description' => array(
+					'en' => 'Get the URL of an image from Assets.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			'image_path' => array(
+				'description' => array(
+					'en' => 'Get the file path of an image from Assets.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'file' => array(
+						'type' => 'text',
+						'required' => true,
+					),
+				),
+			),
+			
+			'render' => array(
+				'description' => array(
+					'en' => 'Render the CSS and JS of a specific group.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'render_css' => array(
+				'description' => array(
+					'en' => 'Render only the CSS of a specific group.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'render_css_inline' => array(
+				'description' => array(
+					'en' => 'Render only the inline CSS.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),
+			'render_js' => array(
+				'description' => array(
+					'en' => 'Render only the JS of a specific group.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(
+					'group' => array(
+						'type' => 'text',
+						'default' => 'global',
+						'required' => false,
+					),
+				),
+			),
+			'render_js_inline' => array(
+				'description' => array(
+					'en' => 'Render only the inline JS.'
+				),
+				'single' => true,
+				'double' => false,
+				'variables' => '',
+				'attributes' => array(),
+			),
+		);
+	
+		return $info;
+	}
 
 	/**
 	 * Asset CSS
@@ -34,11 +290,31 @@ class Plugin_Asset extends Plugin
 	 */
 	public function css()
 	{
-		$file = $this->attribute('file');
+		$file     = $this->attribute('file');
 		$file_min = $this->attribute('file_min');
-		$group = $this->attribute('group');
+		$group    = $this->attribute('group');
 
 		return Asset::css($file, $file_min, $group);
+	}
+	
+	/**
+	 * Asset Inline CSS
+	 *
+	 * Insert a CSS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:css_inline }}
+	 *   #id .class { background: red }
+	 * {{ /asset:css_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function css_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::css_inline($string);
 	}
 
 	/**
@@ -149,11 +425,31 @@ class Plugin_Asset extends Plugin
 	 */
 	public function js()
 	{
-		$file = $this->attribute('file');
+		$file     = $this->attribute('file');
 		$file_min = $this->attribute('file_min');
-		$group = $this->attribute('group');
+		$group    = $this->attribute('group');
 
 		return Asset::js($file, $file_min, $group);
+	}
+	
+	/**
+	 * Asset Inline JS
+	 *
+	 * Insert a JS tag
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:js_inline }}
+	 *   alert('Are you sure?');
+	 * {{ /asset:js_inline }}
+	 *
+	 * @return string empty
+	 */
+	public function js_inline()
+	{
+		$string = $this->content();
+		
+		return Asset::js_inline($string);
 	}
 
 	/**
@@ -229,6 +525,22 @@ class Plugin_Asset extends Plugin
 	}
 
 	/**
+	 * Asset Render CSS Inline
+	 *
+	 * Render inline CSS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_css_inline }}
+	 *
+	 * @return string Inline CSS content
+	 */
+	public function render_css_inline()
+	{
+		return Asset::render_css_inline();
+	}
+	
+	/**
 	 * Asset Render Javascript
 	 *
 	 * Render a Javascript asset group.
@@ -244,6 +556,22 @@ class Plugin_Asset extends Plugin
 		$group = $this->attribute('group', false);
 
 		return Asset::render_js($group);
+	}
+	
+	/**
+	 * Asset Render JS Inline
+	 *
+	 * Render inline JS.
+	 *
+	 * Usage:
+	 *
+	 * {{ asset:render_js_inline }}
+	 *
+	 * @return string Inline JS content
+	 */
+	public function render_js_inline()
+	{
+		return Asset::render_js_inline();
 	}
 
 }
