@@ -100,12 +100,12 @@ class Plugin_Streams extends Plugin
 	 * @param	[string]
 	 * @return	string
 	 */	
-	public function streams_attribute($param, $default = null)
+	public function streams_attribute($param, $default = NULL)
 	{
 		$value = $this->attribute($param, $default);
 		
 		// See if we have any vars in there
-		if(strpos($value, '[') !== false):
+		if(strpos($value, '[') !== FALSE):
 		
 			$segs = array(
 				'segment_1' => $this->uri->segment(1),
@@ -207,11 +207,11 @@ class Plugin_Streams extends Plugin
 		// Stream Data Check
 		// -------------------------------------
 		
-		if ( ! isset($params['stream'])) $this->_error_out(lang('streams.no_stream_provided'));
+		if ( ! isset($params['stream'])) $this->_error_out(lang('streams:no_stream_provided'));
 				
-		$stream = $this->streams_m->get_stream($params['stream'], true, $this->core_namespace);
+		$stream = $this->streams_m->get_stream($params['stream'], TRUE, $this->core_namespace);
 				
-		if ( ! $stream) $this->_error_out(lang('streams.invalid_stream'));
+		if ( ! $stream) $this->_error_out(lang('streams:invalid_stream'));
 				
 		// -------------------------------------
 		// Get Stream Fields
@@ -232,6 +232,41 @@ class Plugin_Streams extends Plugin
 			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
 		}
 		
+		// -------------------------------------
+		// Rename
+		// -------------------------------------
+
+		$renames = array();
+
+		foreach ($this->attributes() as $key => $to)
+		{
+			if (substr($key, 0, 7) == 'rename:' and strlen($key) > 7)
+			{
+				$pieces = explode(':', $key);
+			
+				$renames[$pieces[1]] = $to;
+			}
+		}
+
+		if ($renames)
+		{
+			foreach ($rows['rows'] as $k => $arr)
+			{
+				foreach ($renames as $from => $to)
+				{
+					if (isset($rows['rows'][$k][$from]))
+					{
+						$rows['rows'][$k][$to] = $rows['rows'][$k][$from];
+						unset($rows['rows'][$k][$from]);
+					}
+				}
+			}
+		}
+
+		// -------------------------------------
+		// Set rows to 'entries' var
+		// -------------------------------------
+
 		$return['entries'] = $rows['rows'];
 				
 		// -------------------------------------
@@ -248,15 +283,15 @@ class Plugin_Streams extends Plugin
 			{
 				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
 				
-				// Make sure we obey the false params
-				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = false;
+				// Make sure we obey the FALSE params
+				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
 			}
 			
 			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
 		}	
 		else
 		{	
-			$return['pagination'] 	= null;
+			$return['pagination'] 	= NULL;
 			$return['total'] 		= count($return['entries']);
 		}
 				
@@ -264,7 +299,7 @@ class Plugin_Streams extends Plugin
 		// No Results
 		// -------------------------------------
 		
-		if ($return['total'] == 0) return $this->streams_attribute('no_results', lang('streams.no_results'));
+		if ($return['total'] == 0) return $this->streams_attribute('no_results', lang('streams:no_results'));
 
 		// -------------------------------------
 		// {{ entries }} Bypass
@@ -446,7 +481,7 @@ class Plugin_Streams extends Plugin
 
 		// -------------------------------------
 		
-		if ( ! $field = $this->fields_m->get_field_by_slug($rel_field, $this->core_namespace)) return null;
+		if ( ! $field = $this->fields_m->get_field_by_slug($rel_field, $this->core_namespace)) return NULL;
 
 		// Get the stream
 		$join_stream = $this->streams_m->get_stream($field->field_data['choose_stream']);
@@ -469,7 +504,7 @@ class Plugin_Streams extends Plugin
 			'stream'			=> $join_stream->stream_slug,
 			'limit'				=> $this->streams_attribute('limit'),
 			'offset'			=> $this->streams_attribute('offset', 0),
-			'id'				=> $this->streams_attribute('id', null),
+			'id'				=> $this->streams_attribute('id', NULL),
 			'date_by'			=> $this->streams_attribute('date_by', 'created'),
 			'exclude'			=> $this->streams_attribute('exclude'),
 			'show_upcoming'		=> $this->streams_attribute('show_upcoming', 'yes'),
@@ -478,16 +513,16 @@ class Plugin_Streams extends Plugin
 			'month'				=> $this->streams_attribute('month'),
 			'day'				=> $this->streams_attribute('day'),
 			'restrict_user'		=> $this->streams_attribute('restrict_user', 'no'),
-			'where'				=> $this->streams_attribute('where', null),
-			'exclude'			=> $this->streams_attribute('exclude', null),
+			'where'				=> $this->streams_attribute('where', NULL),
+			'exclude'			=> $this->streams_attribute('exclude', NULL),
 			'exclude_by'		=> $this->streams_attribute('exclude_by', 'id'),
-			'disable'			=> $this->streams_attribute('disable', null),
+			'disable'			=> $this->streams_attribute('disable', NULL),
 			'order_by'			=> $this->streams_attribute('order_by'),
 			'sort'				=> $this->streams_attribute('sort', 'asc'),
 			'exclude_called'	=> $this->streams_attribute('exclude_called', 'no'),
 			'paginate'			=> $this->streams_attribute('paginate', 'no'),
 			'pag_segment'		=> $this->streams_attribute('pag_segment', 2),
-			'partial'			=> $this->streams_attribute('partial', null)			
+			'partial'			=> $this->streams_attribute('partial', NULL)			
 		);
 
 		if ($this->cache_type == 'query' and is_numeric($this->cache))
@@ -581,7 +616,7 @@ class Plugin_Streams extends Plugin
 		
 		// No sense in trying to get down
 		// with somedata that isn't there
-		if ( ! $date or ! $format) return null;
+		if ( ! $date or ! $format) return NULL;
 		
 		$this->load->helper('date');
 	
@@ -652,11 +687,11 @@ class Plugin_Streams extends Plugin
 		// Get stream
 		// -------------------------------------
 		
-		if ( ! $params['stream'] ) return $this->_error_out(lang('streams.invalid_stream'));
+		if ( ! $params['stream'] ) return $this->_error_out(lang('streams:invalid_stream'));
 		
-		$stream = $this->streams_m->get_stream($params['stream'], true, $params['namespace']);
+		$stream = $this->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
 		
-		if ($stream === false) return $this->_error_out(lang('streams.invalid_stream'));
+		if ($stream === false) return $this->_error_out(lang('streams:invalid_stream'));
 		
 		// -------------------------------------
 		// Disable
@@ -692,7 +727,7 @@ class Plugin_Streams extends Plugin
 		
 		if ( ! $rows)
 		{
-			$return_content = $this->streams_attribute('no_results', lang('streams.no_results'));
+			$return_content = $this->streams_attribute('no_results', lang('streams:no_results'));
 		}
 		else
 		{
@@ -741,8 +776,8 @@ class Plugin_Streams extends Plugin
 		// Make sure that we have a valid mode.
 		if ($mode != 'new' and $mode != 'edit') $mode = 'new';
 
-		$edit_id 				= $this->streams_attribute('edit_id', false);
-		$edit_segment 			= $this->streams_attribute('edit_segment', false);
+		$edit_id 				= $this->streams_attribute('edit_id', FALSE);
+		$edit_segment 			= $this->streams_attribute('edit_segment', FALSE);
 		$stream_slug 			= $this->streams_attribute('stream');
 		$stream_segment 		= $this->streams_attribute('stream_segment');
 		$where 					= $this->streams_attribute('where');
@@ -757,7 +792,7 @@ class Plugin_Streams extends Plugin
 		$extra['error_start'] 	= $this->streams_attribute('error_start', '<span class="error">');
 		$extra['error_end']		= $this->streams_attribute('error_end', '</span>');
 		
-		$this->streams_attribute('use_recaptcha', 'no') == 'yes' ? $recaptcha = true : $recaptcha = false;
+		$this->streams_attribute('use_recaptcha', 'no') == 'yes' ? $recaptcha = TRUE : $recaptcha = FALSE;
 
 		// -------------------------------------
 		// Messages
@@ -776,9 +811,9 @@ class Plugin_Streams extends Plugin
 		// Get Stream Data
 		// -------------------------------------
 		
-		$data->stream			= $this->streams_m->get_stream($stream_slug, true, $namespace);
+		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $namespace);
 		
-		if ( ! $data->stream) return lang('streams.invalid_stream');
+		if ( ! $data->stream) return lang('streams:invalid_stream');
 		
 		$data->stream_id		= $data->stream->id;
 
@@ -839,7 +874,7 @@ class Plugin_Streams extends Plugin
 			else
 			{
 				// Get the row
-				$row = $this->row_m->get_row($edit_id, $data->stream, false);
+				$row = $this->row_m->get_row($edit_id, $data->stream, FALSE);
 			}			
 		}
 
@@ -872,10 +907,36 @@ class Plugin_Streams extends Plugin
 		$skips = $this->determine_skips($include, $exclude, $data->stream_id);
 
 		// -------------------------------------
+		// Form key
+		// -------------------------------------
+		// Add a unique identifier to the form. This is needed if
+		// you have multiple stream forms per page. If they are new entry forms,
+		// there is no real way to determine a unique identifer, so the user
+		// will need to add one themselves. This is a little different for editing
+		// forms, 
+		// -------------------------------------
+
+		$hidden = array();
+
+		if ($form_key = $this->streams_attribute('form_key'))
+		{
+			$hidden['_streams_form_key'] = $form_key;
+			$extra['form_key'] = $form_key;
+		}
+		elseif ($mode == 'edit')
+		{
+			$hidden['_streams_form_key'] = $data->stream->stream_namespace.'_'.$data->stream->stream_slug.'_'.$row->id;
+			$extra['form_key'] = $hidden['_streams_form_key'];
+		}
+
+		// -------------------------------------
 		// Process and Output Form Data
 		// -------------------------------------
 	
 		$vars['fields'] = $this->fields->build_form($data->stream, $mode, $row, true, $recaptcha, $skips, $extra);
+
+		// We can't have a form if we have no fields.
+		if ( ! $vars['fields']) return;
 
 		// -------------------------------------
 		// Individual Field Access 
@@ -920,8 +981,7 @@ class Plugin_Streams extends Plugin
 			$vars['recaptcha'] = $this->recaptcha->get_html();
 
 			// Output the error if we have one
-			if (isset($this->form_validation->_field_data['recaptcha_response_field']['error'])
-				  and $this->form_validation->_field_data['recaptcha_response_field']['error'] != '')
+			if ($this->form_validation->field_data('recaptcha_response_field'))
 			{
 				$vars['recaptcha_error'] = $this->form_validation->error('recaptcha_response_field');
 			}	
@@ -932,20 +992,25 @@ class Plugin_Streams extends Plugin
 		}
 		
 		// -------------------------------------
-		// Form elements
+		// Basic Form elements
 		// -------------------------------------
 		
 		$params['class']		= $this->streams_attribute('form_class', 'crud_form');
-		
-		$hidden = array();
-		
+				
+		// Add a row_edit_id where needed
 		if ($mode == 'edit') $hidden = array('row_edit_id' => $row->id);
 		
-		$vars['form_open']		= form_open_multipart($this->uri->uri_string(), $params, $hidden);				
+		// Always add a stream_id to the form.
+		$hidden['stream_id'] = $data->stream_id;
+
+		// -------------------------------------
+		// Compile {{ tag }} form elements
+		// -------------------------------------
+
+		$vars['form_open']		= form_open_multipart($this->uri->uri_string(), $params, $hidden);	
 		$vars['form_close']		= '</form>';
 		$vars['form_submit']	= '<input type="submit" value="'.lang('save_label').'" />';
-		$vars['form_reset']		= '<input type="reset" value="'.lang('streams.reset').'" />';
-
+		$vars['form_reset']		= '<input type="reset" value="'.lang('streams:reset').'" />';
 		$vars['validation_errors'] = validation_errors($extra['error_start'], $extra['error_end']);
 
 		// -------------------------------------
@@ -1058,9 +1123,9 @@ class Plugin_Streams extends Plugin
 		// Get Stream Data
 		// -------------------------------------
 		
-		$data->stream			= $this->streams_m->get_stream($stream_slug, true, $namespace);
+		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $namespace);
 		
-		if ( ! $data->stream) return lang('streams.invalid_stream');
+		if ( ! $data->stream) return lang('streams:invalid_stream');
 		
 		$data->stream_id		= $data->stream->id;
 		$vars = array();
@@ -1148,23 +1213,32 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 
 		$stream_slug 			= $this->streams_attribute('stream');
-		$entry_id 				= $this->streams_attribute('entry_id', false);
+		$entry_id 				= $this->streams_attribute('entry_id', FALSE);
 		$return 				= $this->streams_attribute('return', '');
 		$vars					= array();
+
+		// -------------------------------------
+		// Create Hidden Hash
+		// -------------------------------------
+
+		$hidden['delete_id'] = md5($stream_slug.$entry_id);
 
 		// -------------------------------------
 		// Get Stream Data
 		// -------------------------------------
 		
-		$stream			= $this->streams_m->get_stream($stream_slug, true, $this->core_namespace);
+		$stream			= $this->streams_m->get_stream($stream_slug, TRUE, $this->core_namespace);
 		
-		if ( ! $stream) show_error(lang('streams.invalid_stream'));
+		if ( ! $stream) show_error(lang('streams:invalid_stream'));
 	
 		// -------------------------------------
 		// Check Delete
 		// -------------------------------------
 	
-		if ($this->input->post('delete_confirm'))
+		if (
+			$this->input->post('delete_confirm')
+			and $this->input->post('delete_id') == $hidden['delete_id']
+		)
 		{
 			$this->db->where('id', $entry_id)->delete($stream->stream_prefix.$stream->stream_slug);
 			
@@ -1191,22 +1265,22 @@ class Plugin_Streams extends Plugin
 				'id' 			=> $entry_id,
 				'limit'			=> 1,
 				'offset'		=> 0,
-				'order_by'		=> false,
-				'exclude'		=> false,
-				'show_upcoming'	=> null,
-				'show_past'		=> null,
-				'where'			=> null,
+				'order_by'		=> FALSE,
+				'exclude'		=> FALSE,
+				'show_upcoming'	=> NULL,
+				'show_past'		=> NULL,
+				'where'			=> NULL,
 				'disable'		=> array(),
-				'year'			=> null,
-				'month'			=> null,
-				'day'			=> null,
+				'year'			=> NULL,
+				'month'			=> NULL,
+				'day'			=> NULL,
 				'restrict_user'	=> 'no',
 				'single'		=> 'yes'
 			);
 
 			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
 			
-			if ( ! isset($rows['rows'][0])) return $this->streams_attribute('no_entry', lang('streams.no_entry'));
+			if ( ! isset($rows['rows'][0])) return $this->streams_attribute('no_entry', lang('streams:no_entry'));
 			
 			$vars['entry'][0] = $rows['rows'][0];
 	
@@ -1214,9 +1288,9 @@ class Plugin_Streams extends Plugin
 			// Parse other vars
 			// -------------------------------------
 
-			$vars['form_open'] 		= form_open($this->uri->uri_string());
+			$vars['form_open'] 		= form_open($this->uri->uri_string(), null, $hidden);
 			$vars['form_close']		= '</form>';
-			$vars['delete_confirm']	= '<input type="submit" name="delete_confirm" value="'.lang('streams.delete').'" />';
+			$vars['delete_confirm']	= '<input type="submit" name="delete_confirm" value="'.lang('streams:delete').'" />';
 			
 			$rows = null;
 			
@@ -1299,13 +1373,13 @@ class Plugin_Streams extends Plugin
 		$passed_display 		= $this->streams_attribute('display', '<strong>[id]</strong>');
 		$passed_link 			= $this->streams_attribute('link', '');
 		$title_col				= $this->streams_attribute('title_col', 'id');
-		$template				= $this->streams_attribute('template', false);
+		$template				= $this->streams_attribute('template', FALSE);
 
 		// -------------------------------------
 		// Figure out year & month
 		// -------------------------------------
 
-		if (is_numeric($year_segment) and is_numeric($this->uri->segment($year_segment)))
+		if (is_numeric($year_segment) AND is_numeric($this->uri->segment($year_segment)))
 		{
 			$year = $this->uri->segment($year_segment);
 		}
@@ -1337,13 +1411,13 @@ class Plugin_Streams extends Plugin
 		{
 			$date_field = $date_fields[$count];
 
-			$stream = $this->streams_m->get_stream($stream_slug, true, $this->core_namespace);
+			$stream = $this->streams_m->get_stream($stream_slug, TRUE, $this->core_namespace);
 	
 			$this->fields = $this->streams_m->get_stream_fields($stream->id);
 			
 			$params = array(
 				'date_by'	 	=> $date_field,
-				'get_day' 		=> true,
+				'get_day' 		=> TRUE,
 				'year' 			=> $year,
 				'month' 		=> $month
 			);
@@ -1488,7 +1562,7 @@ class Plugin_Streams extends Plugin
 		
 		if ( ! in_array($search_type, $search_types))
 		{
-			show_error($search_type.' '.lang('streams.invalid_search_type'));
+			show_error($search_type.' '.lang('streams:invalid_search_type'));
 		}
 
 		// -------------------------------------
@@ -1523,7 +1597,7 @@ class Plugin_Streams extends Plugin
 		              'id'          => 'search_term');
 		
 		$vars['search_input'] 		= form_input($search_input);
-		$vars['form_submit'] 		= form_submit('search_submit', lang('streams.search'));
+		$vars['form_submit'] 		= form_submit('search_submit', lang('streams:search'));
 		$vars['form_close'] 		= '</form>';
 
 		return array($vars);
@@ -1556,7 +1630,7 @@ class Plugin_Streams extends Plugin
 		if ( ! $cache = $this->search_m->get_cache($this->uri->segment($cache_segment)))
 		{
 			// Invalid search
-			show_error(lang('streams.search_not_found'));
+			show_error(lang('streams:search_not_found'));
 		}
 
 		$stream = $this->streams_m->get_stream($cache->stream_slug, true, $cache->stream_namespace);
@@ -1567,7 +1641,7 @@ class Plugin_Streams extends Plugin
 		if ($cache->total_results == 0)
 		{
 			return array(
-				'no_results' 		=> $this->streams_attribute('no_results', lang('streams.no_results')),
+				'no_results' 		=> $this->streams_attribute('no_results', lang('streams:no_results')),
 				'results_exist'		=> false,
 				'results'			=> array(),
 				'pagination'		=> null,
@@ -1592,8 +1666,8 @@ class Plugin_Streams extends Plugin
 			{
 				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
 				
-				// Make sure we obey the false params
-				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = false;
+				// Make sure we obey the FALSE params
+				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
 			}
 
 			$return['pagination'] = $this->row_m->build_pagination($pag_segment, $per_page, $return['total'], $this->pagination_config);
@@ -1604,7 +1678,7 @@ class Plugin_Streams extends Plugin
 		}
 		else
 		{
-			$return['pagination'] 	= null;	
+			$return['pagination'] 	= NULL;	
 			$query_string = $cache->query_string;
 		}
 
@@ -1632,7 +1706,7 @@ class Plugin_Streams extends Plugin
 	
 	/**
 	 * Output debug message or just
-	 * return false.
+	 * return FALSE.
 	 *
 	 * @access	private
 	 * @param	string
@@ -1640,7 +1714,7 @@ class Plugin_Streams extends Plugin
 	 */	
 	private function _error_out($msg)
 	{
-		return ($this->debug_status == 'on') ? show_error($msg) : false;
+		return ($this->debug_status == 'on') ? show_error($msg) : FALSE;
 	}
 
 }

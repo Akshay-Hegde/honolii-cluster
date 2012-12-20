@@ -40,9 +40,9 @@ class Module_Streams extends Module {
 				'lt' => null,
 				'fr' => 'Gérer, structurer et afficher des données'
 			),
-			'frontend' => false,
-			'backend' => true,
-			'is_core' => false,
+			'frontend' => FALSE,
+			'backend' => TRUE,
+			'is_core' => FALSE,
 			'author' => 'Parse19',
 			'menu' => 'content',
 			'roles' => array('admin_streams', 'admin_fields')
@@ -53,7 +53,7 @@ class Module_Streams extends Module {
 			if (group_has_role('streams', 'admin_streams'))
 			{
 				$info['sections']['streams'] = array(
-					    'name' => 	'streams.streams',
+					    'name' => 	'streams:streams',
 					    'uri' => 	'admin/streams'
 					);
 			}
@@ -61,11 +61,11 @@ class Module_Streams extends Module {
 			if (group_has_role('streams', 'admin_fields'))
 			{
 				$info['sections']['fields'] = array(
-					    'name' => 'streams.fields',
+					    'name' => 'streams:fields',
 					    'uri' => 'admin/streams/fields',
 					    'shortcuts' => array(
 							array(
-								'name' => 'streams.new_field',
+								'name' => 'streams:new_field',
 								'uri' => 'admin/streams/fields/add',
 								'class' => 'add'
 							)
@@ -85,7 +85,7 @@ class Module_Streams extends Module {
 			)
 			{
 				$shortcuts[] = array(
-						'name' => 'streams.add_stream',
+						'name' => 'streams:add_stream',
 						'uri' => 'admin/streams/add/',
 						'class' => 'add');
 			}	
@@ -97,7 +97,7 @@ class Module_Streams extends Module {
 			)
 			{
 				$shortcuts[] = array(
-						'name' => 'streams.add_entry',
+						'name' => 'streams:add_entry',
 						'uri' => 'admin/streams/entries/add/'.$this->uri->segment(4),
 						'class' => 'add');
 			}	
@@ -111,7 +111,7 @@ class Module_Streams extends Module {
 			{
 			
 				$shortcuts[] = array(
-						'name' => 'streams.new_field_assign',
+						'name' => 'streams:new_field_assign',
 						'uri' => 'admin/streams/new_assignment/'.$this->uri->segment(4),
 						'class' => 'add');
 			}
@@ -125,13 +125,13 @@ class Module_Streams extends Module {
 				if(group_has_role('streams', 'admin_streams') ):
 	
 				$shortcuts[] = array(
-						'name' => 'streams.manage',
+						'name' => 'streams:manage',
 						'uri' => 'admin/streams/manage/'.$this->uri->segment(5));
 						
 				endif;
 			
 				$shortcuts[] = array(
-						'name' => 'streams.add_entry',
+						'name' => 'streams:add_entry',
 						'uri' => 'admin/streams/entries/add/'.$this->uri->segment(5),
 						'class' => 'add');
 	
@@ -173,8 +173,8 @@ class Module_Streams extends Module {
 				'id' => array(
 					'type' => 'INT',
 					'constraint' => 11,
-					'unsigned' => true,
-					'auto_increment' => true
+					'unsigned' => TRUE,
+					'auto_increment' => TRUE
 				),
 				'stream_slug' => array(
 					'type' => 'VARCHAR',
@@ -183,7 +183,7 @@ class Module_Streams extends Module {
 				'stream_namespace' => array(
 					'type' => 'VARCHAR',
 					'constraint' => 100,
-					'null' => true
+					'null' => TRUE
 				),
 				'search_id' => array(
 					'type' => 'VARCHAR',
@@ -191,12 +191,12 @@ class Module_Streams extends Module {
 				),
 				'search_term' => array(
 					'type' => 'TEXT',
-					'null' => true
+					'null' => TRUE
 				),
 				'ip_address' => array(
 					'type' => 'VARCHAR',
 					'constraint' => 100,
-					'null' => true
+					'null' => TRUE
 				),
 				'total_results' => array(
 					'type' => 'INT',
@@ -204,7 +204,7 @@ class Module_Streams extends Module {
 				),
 				'query_string' => array(
 					'type' => 'LONGTEXT',
-					'null' => true
+					'null' => TRUE
 				)),
 			'primary_key' => 'id'
 		);
@@ -218,7 +218,7 @@ class Module_Streams extends Module {
 			// Add primary key
 			if( isset($schema['primary_key']))
 			{
-				$this->dbforge->add_key($schema['primary_key'], true);
+				$this->dbforge->add_key($schema['primary_key'], TRUE);
 			}
 
 			$this->dbforge->create_table($this->config->item('streams:searches_table'));
@@ -264,7 +264,7 @@ class Module_Streams extends Module {
 		
 		$this->streams->utilities->remove_namespace('streams');
 		
-		return true;
+		return TRUE;
 	}
 
 	// --------------------------------------------------------------------------
@@ -285,7 +285,7 @@ class Module_Streams extends Module {
             ));
         }
 
-		return true;
+		return TRUE;
 	}
 
 	// --------------------------------------------------------------------------

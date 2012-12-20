@@ -20,7 +20,7 @@ class Admin_Fields extends Admin_Controller {
 
 	// --------------------------------------------------------------------------   
 
-	function __construct()
+	public function __construct()
 	{
 		parent::__construct();
 
@@ -39,8 +39,9 @@ class Admin_Fields extends Admin_Controller {
 		$this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
 
-		$this->data->types = $this->type->types;
-		}
+		$this->data = new stdClass();
+ 		$this->data->types = $this->type->types;
+	}
 
 	// --------------------------------------------------------------------------   
 
@@ -98,7 +99,7 @@ class Admin_Fields extends Admin_Controller {
 		$this->data->method = 'new';
 
 		//Prep the fields
-		$this->data->field_types = $this->type->field_types_array(true);
+		$this->data->field_types = $this->type->field_types_array();
 
 		// -------------------------------------
 		// Validation & Setup
@@ -108,7 +109,9 @@ class Admin_Fields extends Admin_Controller {
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
 		
 		$this->form_validation->set_rules($this->fields_m->fields_validation);
-				
+		
+		$this->data->field = new stdClass();
+
 		foreach ($this->fields_m->fields_validation as $field)
 		{
 			$this->data->field->{$field['field']} = $this->input->post($field['field']);
@@ -128,11 +131,11 @@ class Admin_Fields extends Admin_Controller {
 								$this->input->post()
 				) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.save_field_error'));	
+				$this->session->set_flashdata('notice', lang('streams:save_field_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.field_add_success'));	
+				$this->session->set_flashdata('success', lang('streams:field_add_success'));	
 			endif;
 	
 			redirect('admin/streams/fields');
@@ -176,7 +179,7 @@ class Admin_Fields extends Admin_Controller {
 		// Run field setup events
 		// -------------------------------------
 
-		$this->fields->run_field_setup_events();
+		$this->fields->run_field_setup_events(null, null, null);
 
 		// -------------------------------------
 		
@@ -262,7 +265,9 @@ class Admin_Fields extends Admin_Controller {
 		// Add in the unique callback
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$this->data->current_field->field_slug.']';
 		
-		$this->form_validation->set_rules( $this->fields_m->fields_validation  );
+		$this->form_validation->set_rules($this->fields_m->fields_validation);
+
+		$this->data->field = new stdClass();
 				
 		foreach($this->fields_m->fields_validation as $field):
 		
@@ -293,11 +298,11 @@ class Admin_Fields extends Admin_Controller {
 										$this->input->post()
 									) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.field_update_error'));	
+				$this->session->set_flashdata('notice', lang('streams:field_update_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.field_update_success'));	
+				$this->session->set_flashdata('success', lang('streams:field_update_success'));	
 			
 			endif;
 	
@@ -332,11 +337,11 @@ class Admin_Fields extends Admin_Controller {
 		
 		if( ! $this->fields_m->delete_field($field_id) ):
 		
-			$this->session->set_flashdata('notice', lang('streams.field_delete_error'));	
+			$this->session->set_flashdata('notice', lang('streams:field_delete_error'));	
 		
 		else:
 		
-			$this->session->set_flashdata('success', lang('streams.field_delete_success'));	
+			$this->session->set_flashdata('success', lang('streams:field_delete_success'));	
 		
 		endif;
 	

@@ -13,44 +13,62 @@ class Admin extends Admin_Controller {
 
 	/**
 	 * The current active section
+	 *
 	 * @access protected
 	 * @var string
 	 */
 	protected $section = 'streams';
 
-    function __construct()
+	// --------------------------------------------------------------------------   
+
+	/**
+	 * Core Namespace
+	 *
+	 * This is the namespace that streams operates on.
+	 * Set in the constructor.
+	 * Default is usually 'streams'.
+	 *
+	 * @access 	protected
+	 * @var 	string
+	 */
+	protected $namespace;
+
+	// --------------------------------------------------------------------------   
+
+    public function __construct()
     {
         parent::__construct();
 
- 		// -------------------------------------
-		// Resources Load
-		// -------------------------------------
+        $this->load->driver('Streams');
 
-  		$this->load->config('streams/streams');
-  		$this->load->config('streams_core/streams');
-  		$this->lang->load('streams_core/pyrostreams');    
-		$this->load->library('streams_core/Type');	
-	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
-		$this->load->library('form_validation');
-       
- 		$this->data->types = $this->type->types;
+        $this->load->config('streams/streams');
+
+        $this->data = new stdClass();
+
+        $this->load->helper('streams/streams');
+	
+		// Set our namespace
+        $this->namespace = $this->config->item('streams:core_namespace');
 	}
     
 	// --------------------------------------------------------------------------   
 
     /**
-     * List streams
+     * List Streams
+     *
+     * Displays a list of streams in our core namespace.
+     *
+     * @access 	public
+     * @return 	void
      */
-    function index()
+    public function index()
     {
 		// -------------------------------------
 		// Get fields
 		// -------------------------------------
 		
-		$this->data->streams = $this->streams_m->get_streams(
-													$this->config->item('streams:core_namespace'),
-													Settings::get('records_per_page'),
-													$this->uri->segment(4));
+		$this->db->where('is_hidden', 'no');
+    	$this->data->streams = $this->streams->streams->get_streams($this->namespace, Settings::get('records_per_page'), $this->uri->segment(4));
 
 		// -------------------------------------
 		// Pagination
@@ -58,7 +76,7 @@ class Admin extends Admin_Controller {
 
 		$this->data->pagination = create_pagination(
 										'admin/streams/index',
-										$this->streams_m->total_streams(),
+										$this->streams_m->total_streams($this->namespace),
 										Settings::get('records_per_page'),
 										4);
 
@@ -74,27 +92,33 @@ class Admin extends Admin_Controller {
     /**
      * Traffic Cop for manage section
      */
-    private function _gather_stream_data()
+    private function gather_stream_data()
     {
 		$this->data->stream_id = $this->uri->segment(4);
 		
-		if(!$this->data->stream = $this->streams_m->get_stream($this->data->stream_id)):
-		
-			show_error(lang('streams.invalid_stream_id'));
-		
-		endif;
+		if ( ! $this->data->stream = $this->streams_m->get_stream($this->data->stream_id))
+		{
+			show_error(lang('streams:invalid_stream_id'));
+		}
     }
 
 	// --------------------------------------------------------------------------   
 
 	/**
-	 * Manage Index
+	 * Manage Stream
+	 *
+	 * Shows basic streams data and menu options
+	 * for managing a stream.
+	 *
+     * @access 	public
+     * @return 	void
 	 */
-	function manage()
+	public function manage()
 	{
 		role_or_die('streams', 'admin_streams');
 	
-		$this->_gather_stream_data();
+		$this->gather_stream_data();
+		check_stream_permission($this->data->stream);
 		
 		// Get DB table name
 		$this->data->table_name = $this->data->stream->stream_prefix.$this->data->stream->stream_slug;
@@ -106,17 +130,26 @@ class Admin extends Admin_Controller {
 		$this->load->helper('number');
 		$this->data->total_size = byte_format($info->Data_length);
 		
-		// Last updated time
-		$this->data->last_updated = ( ! $info->Update_time) ? $info->Create_time : $info->Update_time;
-		
-		// Get the number of rows (the table status data on this can't be trusted)
-		$this->data->total_rows = $this->db->count_all($this->data->table_name);
-		
-		// Get the number of fields
-		$f_obj = $this->db->select('id')->where('stream_id', $this->data->stream->id)->get(ASSIGN_TABLE);
-		$this->data->num_of_fields = $f_obj->num_rows();
+		$this->data->meta = $this->streams->streams->get_stream_metadata($this->data->stream, $this->namespace);
+
+		$this->set_perm_lang();
 		
 		$this->template->build('admin/streams/manage', $this->data);
+	}
+
+	// --------------------------------------------------------------------------   
+
+	// I know this is goofy
+	private function set_perm_lang()
+	{
+		// Let's hijack the word 'Permissions'. Just so we don't have to bother our
+		// translators.
+		require_once(APPPATH.'modules/permissions/details.php');
+		$perm = new Module_Permissions();
+		$perm_info = $perm->info();
+		$perm_lang = (isset($perm_info['name'][CURRENT_LANGUAGE])) ? $perm_info['name'][CURRENT_LANGUAGE] : $perm_info['name']['en'];
+		$this->template->set('perm_lang', $perm_lang);
+		return $perm_lang;
 	}
 
 	// --------------------------------------------------------------------------   
@@ -124,11 +157,12 @@ class Admin extends Admin_Controller {
     /**
      * Choose which items to view
      */
- 	function view_options()
+ 	public function view_options()
  	{
 		role_or_die('streams', 'admin_streams');
 
-  		$this->_gather_stream_data();
+  		$this->gather_stream_data();
+  		check_stream_permission($this->data->stream);
 
   		// -------------------------------------
 		// Process Data
@@ -144,11 +178,11 @@ class Admin extends Admin_Controller {
 			
 			if( !$this->db->update(STREAMS_TABLE, $update_data) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.view_options_update_error'));
+				$this->session->set_flashdata('notice', lang('streams:view_options_update_error'));
 				
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.view_options_update_success'));
+				$this->session->set_flashdata('success', lang('streams:view_options_update_success'));
 			
 			endif;
 			
@@ -170,6 +204,62 @@ class Admin extends Admin_Controller {
         $this->template->build('admin/streams/view_options', $this->data);
  	}
  
+	// --------------------------------------------------------------------------   
+
+ 	/**
+ 	 * Manage roles for a certain stream.
+ 	 *
+ 	 * @access 	public
+ 	 * @return 	void
+ 	 */
+ 	public function permissions()
+ 	{
+ 		role_or_die('streams', 'admin_streams');
+
+  		$this->gather_stream_data();
+  		check_stream_permission($this->data->stream);
+
+  		$this->set_perm_lang();
+
+		// Get our groups.
+		$this->data->groups = $this->db
+									->select('*, groups.id as group_id')
+									->from('groups, permissions')
+									->where('groups.id', 'permissions.group_id')
+									->where('permissions.module', 'streams')
+									->where('groups.name !=', 'admin')->get()->result();
+
+		// Set permissions
+		if (isset($this->data->stream->permissions))
+		{
+			$permissions = @unserialize($this->data->stream->permissions);
+
+			if ( ! is_array($permissions)) $permissions = array();
+		}
+		else
+		{
+			$permissions = array();
+		}
+		$this->template->set('permissions', $permissions);
+
+		// Did we have an edit? If so let's just save it to the db
+		// and get out of here!
+		if ($this->input->post('edited') == 'y')
+		{
+			$groups = ( ! is_array($this->input->post('groups'))) ? array() : $this->input->post('groups');
+
+			// Sorry about serializing this. It's not what I would do
+			// in 2013, but 2009 me thinks it's awesome.
+			$this->db->limit(1)->where('id', $this->data->stream->id)->update(STREAMS_TABLE, array('permissions' => serialize($groups)));
+
+			$this->session->set_flashdata('success', lang('permissions:message_group_saved_success'));
+			redirect('admin/streams/manage/'.$this->data->stream->id);
+		}
+
+        $this->template
+        		->build('admin/streams/permissions', $this->data);
+ 	}
+
 	// --------------------------------------------------------------------------   
 
     /**
@@ -195,11 +285,13 @@ class Admin extends Admin_Controller {
 		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique[new]';
 		
 		$this->form_validation->set_rules($this->streams_m->streams_validation);
+
+		$this->data->stream = new stdClass();
 				
 		foreach($this->streams_m->streams_validation as $field)
 		{
 			$key = $field['field'];
-			
+
 			// For some reason, set_value() isn't working.
 			$this->data->stream->$key = $this->input->post($key);
 			
@@ -220,11 +312,11 @@ class Admin extends Admin_Controller {
 										$this->input->post('about')
 								) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.create_stream_error'));	
+				$this->session->set_flashdata('notice', lang('streams:create_stream_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.create_stream_success'));	
+				$this->session->set_flashdata('success', lang('streams:create_stream_success'));	
 			
 			endif;
 	
@@ -245,7 +337,7 @@ class Admin extends Admin_Controller {
     /**
      * Edit stream
      */
-	function edit()
+	public function edit()
 	{
 		role_or_die('streams', 'admin_streams');
 
@@ -261,11 +353,12 @@ class Admin extends Admin_Controller {
 		
 		$stream_id = $this->uri->segment(4);
 		
-		if( ! $this->data->stream = $this->streams_m->get_stream( $stream_id ) ):
-		
+		if ( ! $this->data->stream = $this->streams_m->get_stream($stream_id))
+		{
 			show_error("Invalid Stream");
-		
-		endif;
+		}
+
+		check_stream_permission($this->data->stream);
 		
  		// -------------------------------------
 		// Get Columns & Put into Array
@@ -301,11 +394,11 @@ class Admin extends Admin_Controller {
 	
 			if( !$this->streams_m->update_stream($stream_id, $this->input->post() ) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.stream_update_error'));	
+				$this->session->set_flashdata('notice', lang('streams:stream_update_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.stream_update_success'));	
+				$this->session->set_flashdata('success', lang('streams:stream_update_success'));	
 			
 			endif;
 	
@@ -325,17 +418,18 @@ class Admin extends Admin_Controller {
 	/**
 	 * Delete a stream
 	 */
-	function delete()
+	public function delete()
 	{
 		role_or_die('streams', 'admin_streams');
 
 		$stream_id = $this->uri->segment(4);
 		
-		if( ! $this->data->stream = $this->streams_m->get_stream( $stream_id ) ):
-		
+		if ( ! $this->data->stream = $this->streams_m->get_stream($stream_id))
+		{
 			show_error("Invalid Stream");
-		
-		endif;	
+		}
+
+		check_stream_permission($this->data->stream);
 
 		// -------------------------------------
 		// Action
@@ -353,11 +447,11 @@ class Admin extends Admin_Controller {
 			
 				if( ! $this->streams_m->delete_stream( $this->data->stream ) ):
 				
-					$this->session->set_flashdata('notice', lang('streams.stream_delete_error'));	
+					$this->session->set_flashdata('notice', lang('streams:stream_delete_error'));	
 				
 				else:
 				
-					$this->session->set_flashdata('success', lang('streams.stream_delete_success'));	
+					$this->session->set_flashdata('success', lang('streams:stream_delete_success'));	
 				
 				endif;
 			
@@ -387,55 +481,50 @@ class Admin extends Admin_Controller {
 	
 	/**
 	 * List out fields assigned to a stream
+	 *
+	 * @access 	public
+	 * @return 	void
 	 */
-	function assignments()
+	public function assignments()
 	{
 		role_or_die('streams', 'admin_streams');
 
-		$this->_gather_stream_data();
+		$this->gather_stream_data();
+		check_stream_permission($this->data->stream);
 
-		// -------------------------------------
-		// Get offset
-		// -------------------------------------
-		
-		$offset	= $this->uri->segment(5, 0);
+		$extra = array(
+			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
+			'success_message' 	=> $this->lang->line('streams:new_entry_success'),
+			'failure_message'	=> $this->lang->line('streams:new_entry_error')
+		);
 
-		// -------------------------------------
-		// Get fields
-		// -------------------------------------
-		
-		$this->data->stream_fields = $this->streams_m->get_stream_fields( $this->data->stream_id, Settings::get('records_per_page'), $offset );
+		$extra['title'] = '<a href="admin/streams/manage/'.$this->data->stream->id.'">'.$this->data->stream->stream_name.'</a> &rarr; '.lang('streams:field_assignments');
 
-		// -------------------------------------
-		// Get number of fields total
-		// -------------------------------------
-		
-		$this->data->total_existing_fields = $this->db->count_all(FIELDS_TABLE);
+		if ( ! $this->db->select('id')->limit(1)->where('field_namespace', $this->data->stream->stream_namespace)->get('data_fields')->row())
+		{
+			$extra['no_assignments_message'] = lang('streams:start.no_fields').' '.anchor('admin/streams/fields/add', lang('streams:start.add_one'));
+		}
 
-		// -------------------------------------
-		// Sorting Includes
-		// -------------------------------------
+		$extra['buttons']	= array(
+			array(
+				'label' 	=> lang('global:edit'),
+				'url'		=> 'admin/streams/edit_assignment/'.$this->data->stream->id.'/-assign_id-',
+				'confirm'	=> false
+			),
+			array(
+				'label' 	=> lang('global:delete'),
+				'url'		=> 'admin/streams/remove_assignment/'.$this->data->stream->id.'/-assign_id-',
+				'confirm'	=> true
+			)
+		);
 
-		$this->template->append_metadata('<script type="text/javascript" language="javascript">var fields_offset='.$offset.';</script>');
-		$this->template
-					->append_js('module::assignment_sorting.js')
-					->append_js('module::jquery.livequery.js');
-		
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
-		
-		$this->data->pagination = create_pagination(
-										'admin/streams/assignments/'.$this->data->stream->id,
-										$this->streams_m->total_stream_fields( $this->data->stream_id ),
-										Settings::get('records_per_page'),
-										5);
-
-		// -------------------------------------
-		// Build Page
-		// -------------------------------------
-
-        $this->template->build('admin/assignments/index', $this->data);
+		$this->streams->cp->assignments_table(
+								$this->data->stream,
+								$this->config->item('streams:core_namespace'),
+								Settings::get('records_per_page'),
+								'admin/streams/assignments/'.$this->data->stream->id,
+								true,
+								$extra);
 	}
 
 	// --------------------------------------------------------------------------
@@ -443,11 +532,12 @@ class Admin extends Admin_Controller {
 	/**
 	 * Add a new field to a stream
 	 */
-	function new_assignment()
+	public function new_assignment()
 	{
  		role_or_die('streams', 'admin_streams');
 
-		$this->_gather_stream_data();
+		$this->gather_stream_data();
+		check_stream_permission($this->data->stream);
 
 		// -------------------------------------
 		// Get number of fields total
@@ -459,49 +549,46 @@ class Admin extends Admin_Controller {
 	
         $this->data->method = 'new';
         
-        $this->data->title_column_status = false;
+        $this->data->title_column_status = FALSE;
         
 		$this->_manage_fields();
 		
 		// Get fields that are available
 		$this->data->available_fields = array(null => null);
 		
-		foreach($this->data->fields as $field):
-		
-			if( !in_array($field->id, $this->data->in_use)):
-			
+		foreach ($this->data->fields as $field)
+		{
+			if ( ! in_array($field->id, $this->data->in_use))
+			{
 				$this->data->available_fields[$field->id] = $field->field_name;
-			
-			endif;
-		
-		endforeach;
+			}
+		}
 		
 		// Dummy row id
+		$this->data->row = new stdClass();
 		$this->data->row->field_id = null;
 		
 		// -------------------------------------
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->form_validation->run()):
-	
-			if( ! $this->streams_m->add_field_to_stream(
+		if ($this->form_validation->run())
+		{
+			if ( ! $this->streams_m->add_field_to_stream(
 										$this->input->post('field_id'),
 										$this->data->stream_id,
 										$this->input->post()
-									)):
-			
-				$this->session->set_flashdata('notice', lang('streams.stream_field_ass_add_error'));	
-			
-			else:
-			
-				$this->session->set_flashdata('success', lang('streams.stream_field_ass_add_success'));	
-			
-			endif;
+									))
+			{
+				$this->session->set_flashdata('notice', lang('streams:stream_field_ass_add_error'));	
+			}
+			else
+			{
+				$this->session->set_flashdata('success', lang('streams:stream_field_ass_add_success'));	
+			}
 	
 			redirect('admin/streams/assignments/'.$this->data->stream_id);
-		
-		endif;
+		}
 
 		// -------------------------------------
 		// Build Page
@@ -515,11 +602,12 @@ class Admin extends Admin_Controller {
 	/**
 	 * Edit a field assignment
 	 */
-	function edit_assignment()
+	public function edit_assignment()
 	{	
 		role_or_die('streams', 'admin_streams');
 
-		$this->_gather_stream_data();
+		$this->gather_stream_data();
+		check_stream_permission($this->data->stream);
 
 		// -------------------------------------
 		// Get number of fields total
@@ -533,13 +621,13 @@ class Admin extends Admin_Controller {
 		
 		$id = $this->uri->segment(5);
 		
-		if( !is_numeric($id) ) show_error(lang('streams.invalid_id'));
+		if( !is_numeric($id) ) show_error(lang('streams:invalid_id'));
 		
 		$this->db->limit(1)->where('id', $id);
 		
 		$db_obj = $this->db->get(ASSIGN_TABLE);
 		
-		if( $db_obj->num_rows() == 0 ) show_error(lang('streams.invalid_id'));
+		if( $db_obj->num_rows() == 0 ) show_error(lang('streams:invalid_id'));
 		
 		$this->data->row = $db_obj->row();
 		
@@ -557,11 +645,11 @@ class Admin extends Admin_Controller {
 						
 		if($field->field_slug == $this->data->stream->title_column):
 		
-			$this->data->title_column_status = true;
+			$this->data->title_column_status = TRUE;
 		
 		else:
 		
-			$this->data->title_column_status = false;
+			$this->data->title_column_status = FALSE;
 		
 		endif;
 
@@ -594,11 +682,11 @@ class Admin extends Admin_Controller {
 										$this->input->post()
 									) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.stream_field_ass_upd_error'));	
+				$this->session->set_flashdata('notice', lang('streams:stream_field_ass_upd_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.stream_field_ass_upd_success'));	
+				$this->session->set_flashdata('success', lang('streams:stream_field_ass_upd_success'));	
 			
 			endif;
 	
@@ -618,11 +706,12 @@ class Admin extends Admin_Controller {
  	/**
  	 * Remove a field assignment
  	 */
- 	function remove_assignment()
+ 	public function remove_assignment()
  	{ 	
  		role_or_die('streams', 'admin_streams');
 
- 		$this->_gather_stream_data();
+ 		$this->gather_stream_data();
+ 		check_stream_permission($this->data->stream);
 
  		$field_assign_id = $this->uri->segment(5);
  
@@ -632,7 +721,7 @@ class Admin extends Admin_Controller {
 
 		$obj = $this->db->limit(1)->where('id', $field_assign_id)->get(ASSIGN_TABLE);
 		
-		if( $obj->num_rows() == 0 ) show_error(lang('streams.cannot_find_assign'));
+		if( $obj->num_rows() == 0 ) show_error(lang('streams:cannot_find_assign'));
 		
 		$assignment = $obj->row();
  		
@@ -648,11 +737,11 @@ class Admin extends Admin_Controller {
 		
 		if( ! $this->streams_m->remove_field_assignment($assignment, $field, $this->data->stream)  ):
 
-			$this->session->set_flashdata('notice', lang('streams.remove_field_error'));
+			$this->session->set_flashdata('notice', lang('streams:remove_field_error'));
 		
 		else:
 
-			$this->session->set_flashdata('success', lang('streams.remove_field_success'));
+			$this->session->set_flashdata('success', lang('streams:remove_field_success'));
 		
 		endif;
 
@@ -719,6 +808,8 @@ class Admin extends Admin_Controller {
 		);
 		
 		$this->form_validation->set_rules($validation);
+
+		$this->data->values = new stdClass();
 		
 		foreach($validation as $valid):
 		
@@ -770,16 +861,17 @@ class Admin extends Admin_Controller {
 	{
 		role_or_die('streams', 'admin_streams');
 
-  		$this->_gather_stream_data();
+  		$this->gather_stream_data();
+  		check_stream_permission($this->data->stream);
 
 		$this->load->dbutil();
 
-		$tables = array( PYROSTREAMS_DB_PRE.STR_PRE.$this->data->stream->stream_slug );
+		$table_name = $this->data->stream->stream_prefix.$this->data->stream->stream_slug;
 		
-		$filename = $this->data->stream->stream_slug.'_backup_'.date('Y-m-d');
+		$filename = $table_name.'_backup_'.date('Y-m-d');
 
 		$backup_prefs = array(
-	        'tables'      => $tables,
+	        'tables'      => array($this->db->dbprefix($table_name)),
 			'format'      => 'zip',
 	        'filename'    => $filename.'.sql',
 	        'add_drop'    => true,
@@ -787,7 +879,7 @@ class Admin extends Admin_Controller {
 	        'newline'     => "\n"
 		);
 		
-		$backup =& $this->dbutil->backup( $backup_prefs ); 
+		$backup = $this->dbutil->backup($backup_prefs); 
 
 		$this->load->helper('download');
 		

@@ -13,6 +13,7 @@ class Admin_Entries extends Admin_Controller {
 
 	/**
 	 * The current active section
+	 *
 	 * @access protected
 	 * @var string
 	 */
@@ -24,16 +25,11 @@ class Admin_Entries extends Admin_Controller {
     {
         parent::__construct();
         
- 		// -------------------------------------
-		// Resources Load
-		// -------------------------------------
+		$this->load->driver('Streams');
+		$this->load->config('streams/streams');
+		$this->load->helper('streams/streams');
 
-  		$this->load->config('streams_core/streams');
-  		$this->lang->load('streams_core/pyrostreams');    
-		$this->load->library('streams_core/Type');	
-	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
-		$this->load->library('form_validation');
-       
+		$this->data = new stdClass();
  		$this->data->types = $this->type->types;
  		
 		// -------------------------------------
@@ -45,24 +41,20 @@ class Admin_Entries extends Admin_Controller {
 		
 		$this->data->stream_id = $this->uri->segment(5);
 		
-		if(!$this->data->stream = $this->streams_m->get_stream($this->data->stream_id)):
-		
-			show_error(lang('streams.invalid_stream_id'));
-		
-		endif;
-		
-		// -------------------------------------
- 		// Makes sure stream is in the core
- 		// namespace
-		// -------------------------------------
+		if ( ! $this->data->stream = $this->streams_m->get_stream($this->data->stream_id))
+		{
+			show_error(lang('streams:invalid_stream_id'));
+		}
 
-		// @todo
+		check_stream_permission($this->data->stream);
 	}
 
 	// --------------------------------------------------------------------------   
 
 	/**
 	 * Entries Index
+	 *
+	 * View a list of entries.
 	 *
 	 * @access	private
 	 * @return	void
@@ -73,92 +65,55 @@ class Admin_Entries extends Admin_Controller {
 		$pagination_uri = 'admin/streams/entries/index/'.$this->data->stream->id;
 	
  		// -------------------------------------
-		// Get fields for headers and add specials
-		// -------------------------------------
-		
- 		$this->data->stream_fields = $this->streams_m->get_stream_fields($this->data->stream_id);
- 		
-  		$this->data->stream_fields->id->field_name 				= lang('streams.id');
-		$this->data->stream_fields->created->field_name 		= lang('streams.created_date');
- 		$this->data->stream_fields->updated->field_name 		= lang('streams.updated_date');
- 		$this->data->stream_fields->created_by->field_name 		= lang('streams.created_by');
-
- 		$offset = $this->uri->segment($offset_uri, 0);
-
-		if( $this->data->stream->sorting == 'custom' ):
-
-			// We need some variables to use in the sort. I guess.
-			$this->template->append_metadata('<script type="text/javascript" language="javascript">var stream_id='.$this->data->stream->id.';var stream_offset='.$offset.';</script>');
-		
-			// These will allow us to sort the entries.
-		   	$this->template->append_js('module::entry_sorting.js');
-		   	$this->template->append_js('module::jquery.livequery.js');
-		
-		endif;
-  
- 		// -------------------------------------
-		// Get data
+		// Get Streams Entries Table
 		// -------------------------------------
 
-		$this->db->limit(Settings::get('records_per_page'), $offset);		
-	
-		$this->data->data = $this->streams_m->get_stream_data(
-														$this->data->stream,
-														$this->data->stream_fields, 
-														Settings::get('records_per_page'),
-														$this->uri->segment($offset_uri));
-	
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
+		$extra = array(
+				'title'		=> $this->data->stream->stream_name,
+				'buttons'	=> array(
+					array(
+						'label' 	=> lang('global:edit'),
+						'url'		=> 'admin/streams/entries/edit/'.$this->data->stream->id.'/-entry_id-',
+						'confirm'	=> false
+					),
+					array(
+						'label' 	=> lang('global:delete'),
+						'url'		=> 'admin/streams/entries/delete/'.$this->data->stream->id.'/-entry_id-',
+						'confirm'	=> true
+					)
+				)
+			);
 
-		$this->data->pagination = create_pagination(
-									$pagination_uri,
-									$this->db->count_all($this->data->stream->stream_prefix.$this->data->stream->stream_slug ),
-									Settings::get('records_per_page'),
-									6);
+		$this->streams->cp->entries_table(
+								$this->data->stream->stream_slug,
+								$this->data->stream->stream_namespace,
+								Settings::get('records_per_page'),
+								$pagination_uri,
+								true,
+								$extra);
 
-		// -------------------------------------
-		// Build Pages
-		// -------------------------------------
-		
-        $this->template->build('admin/entries/index', $this->data);
 	}
 
 	// --------------------------------------------------------------------------   
 
 	/**
 	 * Add an entry
+	 *
+	 * @access 	public
+	 * @return 	void
 	 */
 	public function add()
 	{
-		$this->load->library('streams_core/Fields');
-
 		$extra = array(
 			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
-			'success_message' 	=> $this->lang->line('streams.new_entry_success'),
-			'failure_message'	=> $this->lang->line('streams.new_entry_error')
+			'success_message' 	=> $this->lang->line('streams:new_entry_success'),
+			'failure_message'	=> $this->lang->line('streams:new_entry_error')
 		);
-		
-		$fields = $this->fields->build_form($this->data->stream, 'new', false, false, false, array(), $extra);
-	
-		if ($fields === false)
-        {
-        	$this->template->build('admin/entries/no_fields', $this->data);
-		}		
-		else
-		{
-			$data = array(
-						'fields' 	=> $fields,
-						'stream'	=> $this->data->stream,
-						'mode'		=> 'new');
-						
-			$form = $this->load->view('admin/partials/streams/form', $data, true);
-		
-			$this->data->content = $form;
-					
-			$this->template->build('admin/partials/blank_section', $this->data);
-		}
+
+		// Title
+		$extra['title'] = '<a href="admin/streams/entries/index/'.$this->data->stream->id.'">'.$this->data->stream->stream_name.'</a> &rarr; '.lang('streams:new_entry');
+
+		$this->streams->cp->entry_form($this->data->stream, $this->config->item('streams:core_namespace'), 'new', null, true, $extra);		
 	}
 
 	// --------------------------------------------------------------------------   
@@ -166,67 +121,37 @@ class Admin_Entries extends Admin_Controller {
 	/**
 	 * Shared Edit Row Function
 	 *
-	 * @access	private
+	 * @access	public
 	 * @param	string
 	 */
-	function edit($row_id_uri)
+	public function edit()
 	{
-		// -------------------------------------
-		// Get Stream Data
-		// -------------------------------------
-		
-		$stream_id = $this->uri->segment(5);
-		
-		if(!$this->data->stream = $this->streams_m->get_stream($stream_id)) show_error(lang('streams.invalid_stream'));
-	
- 		// -------------------------------------
-		// Get Row
-		// -------------------------------------
-		
-		$row_id = $this->uri->segment(6);
-		
-		if(!$row = $this->row_m->get_row($row_id, $this->data->stream, false ) ) show_error(lang('streams.invalid_row'));
-
- 		// -------------------------------------
-		// Run Form
-		// -------------------------------------
-
- 		$this->load->library('streams_core/Fields');
-
 		$extra = array(
 			'return' 			=> 'admin/streams/entries/index/'.$this->data->stream->id,
-			'success_message' 	=> $this->lang->line('streams.edit_entry_success'),
-			'failure_message'	=> $this->lang->line('streams.edit_entry_error')
+			'success_message' 	=> $this->lang->line('streams:edit_entry_success'),
+			'failure_message'	=> $this->lang->line('streams:edit_entry_error')
 		);
-		
-		$fields = $this->fields->build_form($this->data->stream, 'edit', $row, false, false, array(), $extra);
-	
-		if ($fields === false)
-        {
-        	// @todo - message about not finding an entry
-        	$this->template->build('admin/entries/no_fields', $this->data);
-		}		
-		else
-		{
-			$data = array(
-						'fields' 	=> $fields,
-						'stream'	=> $this->data->stream,
-						'entry'		=> $row,
-						'mode'		=> 'edit');
-			
-			$form = $this->load->view('admin/partials/streams/form', $data, true);
-		
-			$this->data->content = $form;
 
-			$this->template->build('admin/partials/blank_section', $this->data);
+		// Title
+		$extra['title'] = '<a href="admin/streams/entries/index/'.$this->data->stream->id.'">'.$this->data->stream->stream_name.'</a> &rarr; '.lang('streams:edit_entry');
+
+		$entry_id = $this->uri->segment(6);
+
+		if ( ! $entry_id)
+		{
+			show_error('streams:invalid_row');
 		}
 
+		$this->streams->cp->entry_form($this->data->stream, $this->config->item('streams:core_namespace'), 'edit', $entry_id, true, $extra);
 	}
 
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * View row
+	 * View Entry
+	 *
+	 * @access	public
+	 * @param	string
 	 */
 	public function view()
 	{
@@ -240,9 +165,11 @@ class Admin_Entries extends Admin_Controller {
 		
 		$row_id = $this->uri->segment($row_uri_segment, false);
 		
-		// @todo - languagize
-		if(!$row_id || !is_numeric($row_id)) show_error("Invalid ID");
-		
+		if ( ! $row_id or ! is_numeric($row_id))
+		{
+			show_error(lang('streams:invalid_id'));
+		}
+
 		// Get the row
 		$this->data->row = $this->row_m->get_row($row_id, $this->data->stream);
 				
@@ -258,7 +185,7 @@ class Admin_Entries extends Admin_Controller {
 	/**
 	 * Delete row
 	 */	
-	function delete()
+	public function delete()
 	{
 		$row_uri_segment = 6;
 	
@@ -266,11 +193,11 @@ class Admin_Entries extends Admin_Controller {
 		
 		if( ! $this->row_m->delete_row($row_id, $this->data->stream))
 		{
-			$this->session->set_flashdata('notice', lang('streams.delete_entry_error'));	
+			$this->session->set_flashdata('notice', lang('streams:delete_entry_error'));	
 		}
 		else
 		{
-			$this->session->set_flashdata('success', lang('streams.delete_entry_success'));	
+			$this->session->set_flashdata('success', lang('streams:delete_entry_success'));	
 		}
 
 		redirect('admin/streams/entries/index/'.$this->data->stream_id);

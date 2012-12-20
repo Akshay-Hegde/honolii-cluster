@@ -1,12 +1,13 @@
 <section class="title">
 <?php if($method == 'new'): ?>
-	<h4><?php echo lang('streams.add_field'); ?></h4>
+	<h4><?php echo lang('streams:add_field'); ?></h4>
 <?php else: ?>
-	<h4><?php echo lang('streams.edit_field'); ?></h4>
+	<h4><?php echo lang('streams:edit_field'); ?></h4>
 <?php endif; ?>
 </section>
 
 <section class="item">
+<div class="content">
 
 <?php echo form_open(uri_string()); ?>
 
@@ -18,11 +19,11 @@
 	<ul>
 
 		<li>
-			<label for="field_name"><?php echo lang('streams.label.field_name');?> <span>*</span></label>
+			<label for="field_name"><?php echo lang('streams:label.field_name');?> <span>*</span></label>
 			<div class="input"><?php echo form_input('field_name', $field->field_name, 'maxlength="60" id="field_name" autocomplete="off"'); ?></div>
 		</li>
 		<li>
-			<label for="field_slug"><?php echo lang('streams.label.field_slug');?> <span>*</span></label>
+			<label for="field_slug"><?php echo lang('streams:label.field_slug');?> <span>*</span></label>
 			<div class="input"><?php echo form_input('field_slug', $field->field_slug, 'maxlength="60" id="field_slug"'); ?></div>
 		</li>
 
@@ -39,8 +40,8 @@
 		?>
 		
 		<li>
-			<label for="field_type"><?php echo lang('streams.label.field_type'); ?> <span>*</span></label>
-			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'data-placeholder="'.lang('streams.choose_a_field_type').'" id="field_type" onchange="add_field_parameters();"'); ?></div>
+			<label for="field_type"><?php echo lang('streams:label.field_type'); ?> <span>*</span></label>
+			<div class="input"><?php echo form_dropdown('field_type', $field_types, $field->field_type, 'data-placeholder="'.lang('streams:choose_a_field_type').'" id="field_type" onchange="add_field_parameters();"'); ?></div>
 		</li>
 	
 		<div id="parameters">
@@ -78,17 +79,17 @@
 						$data['instructions']	= null;
 					}
 
-					$data['input_name']			= $this->lang->line('streams.'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
+					$data['input_name']			= $this->lang->line('streams:'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
 				}	
 				else
 				{		
 					$data['input'] 				= $parameters->$param($value);
-					$data['input_name']			= $this->lang->line('streams.'.$param);
+					$data['input_name']			= $this->lang->line('streams:'.$param);
 				}
 				
 				$data['input_slug']		= $param;
 					
-				echo $this->load->view('streams_core/extra_field', $data, true);
+				echo $this->load->view('streams_core/extra_field', $data, TRUE);
 				
 				$data['count']++;
 				unset($value);
@@ -104,10 +105,11 @@
 	</ul>
 		
 		<div class="float-right buttons">
-		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
-		<a href="<?php echo site_url('admin/streams/fields'); ?>" class="btn gray cancel"><?php echo lang('buttons.cancel'); ?></a>
+		<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+		<a href="<?php echo site_url('admin/streams/fields'); ?>" class="btn gray cancel"><?php echo lang('buttons:cancel'); ?></a>
 	</div>
 	
 <?php echo form_close();?>
 
+</div>
 </section>
