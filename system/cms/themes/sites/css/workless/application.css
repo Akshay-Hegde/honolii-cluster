@@ -39,6 +39,11 @@ div.settings li
 	list-style: none;
 }
 
+ol.site, ol.user, .add-user ol
+{
+	list-style: none;
+}
+
 #login 
 {
 	background: #ffffff;

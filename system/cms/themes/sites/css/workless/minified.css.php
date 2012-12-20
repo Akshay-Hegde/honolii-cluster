@@ -20,7 +20,6 @@ ob_start("compress");
   	include('tables.css');
   	include('buttons.css');
   	include('alerts.css');
- 	include('tabs.css');
   	include('pagination.css');
   	include('breadcrumbs.css');
   	include('icons.css');
