@@ -77,7 +77,7 @@
 	
 	<footer>
 		<div class="wrapper">
-			Copyright &copy; 2010 PyroCMS &nbsp; -- &nbsp;
+			Copyright &copy; 2009 - <?php echo date('Y') ?> PyroCMS LLC &nbsp; -- &nbsp;
 			Version <?php echo CMS_VERSION; ?> &nbsp; -- &nbsp;
 			Rendered in {elapsed_time} sec. using {memory_usage}.
 			
