@@ -20,19 +20,25 @@
 		</li>
 
 		<li>
-			<label for="about"><?php echo lang('streams:about_stream'); ?><small>A short description of your stream.</small></label>
+			<label for="about"><?php echo lang('streams:about_stream'); ?><small><?php echo lang('streams:about_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('about', $stream->about, 'maxlength="255"'); ?></div>
 		</li>
 
 		<li>
-			<label for="stream_slug"><?php echo lang('streams:stream_slug'); ?> <span>*</span><small>This will also be the database table name.</small></label>
+			<label for="stream_slug"><?php echo lang('streams:stream_slug'); ?> <span>*</span><small><?php echo lang('streams:slug_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('stream_slug', $stream->stream_slug, 'maxlength="60" id="stream_slug"'); ?></div>
 		</li>
 
 		<li>
-			<label for="stream_slug"><?php echo lang('streams:stream_prefix'); ?> <small>Optional. If added, this will prefxi the table in the database.</small></label>
+			<label for="stream_slug"><?php echo lang('streams:stream_prefix'); ?> <small><?php echo lang('streams:prefix_instructions'); ?></small></label>
 			<div class="input"><?php echo form_input('stream_prefix', $stream->stream_prefix, 'maxlength="60" id="stream_prefix"'); ?></div>
 		</li>
+
+		<li>
+			<label for="stream_slug"><?php echo lang('streams:menu_path'); ?> <small><?php echo lang('streams:menu_path_instructions'); ?></small></label>
+			<div class="input"><?php echo form_input('menu_path', $stream->menu_path, 'maxlength="255" id="menu_path"'); ?></div>
+		</li>
+
 
 		<?php if( $method == 'edit' ): ?>
 

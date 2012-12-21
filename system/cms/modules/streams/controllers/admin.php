@@ -283,12 +283,18 @@ class Admin extends Admin_Controller {
 		// -------------------------------------
 
 		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique[new]';
-		
+	
+		$this->streams_m->streams_validation[] = array(
+			'field'	=> 'menu_path',
+			'label' => 'lang:streams:menu_path',
+			'rules'	=> 'trim|required|max_length[60]'
+		);
+
 		$this->form_validation->set_rules($this->streams_m->streams_validation);
 
 		$this->data->stream = new stdClass();
 				
-		foreach($this->streams_m->streams_validation as $field)
+		foreach ($this->streams_m->streams_validation as $field)
 		{
 			$key = $field['field'];
 
@@ -302,27 +308,48 @@ class Admin extends Admin_Controller {
 		// Process Data
 		// -------------------------------------
 		
-		if ($this->form_validation->run()):
-	
-			if( !$this->streams_m->create_new_stream(
+		if ($this->form_validation->run())
+		{
+			$extra = array();
+
+			// If they posted a menu path, let's get that in there.
+			$extra['menu_path'] = $this->input->post('menu_path');
+
+			// To start out with, we are going to say that everyone
+			// who has access to streams has access to this stream.
+			// Admins can tweak it later.
+            $groups = $this->db
+                            ->select('*, groups.id as group_id')
+                            ->from('groups, permissions')
+                            ->where('groups.id', 'permissions.group_id')
+                            ->where('permissions.module', 'streams')
+                            ->where('groups.name !=', 'admin')->get()->result();
+
+            $groups_arr = array();
+            foreach ($groups as $g)
+            {
+                $groups_arr[] = $g->group_id;
+            }
+            $extra['permissions'] = serialize($groups_arr);			
+
+			if ( ! $this->streams_m->create_new_stream(
 										$this->input->post('stream_name'),
 										$this->input->post('stream_slug'),
 										$this->input->post('stream_prefix'),
 										$this->config->item('streams:core_namespace'),
-										$this->input->post('about')
-								) ):
-			
+										$this->input->post('about'),
+										$extra
+								) )
+			{
 				$this->session->set_flashdata('notice', lang('streams:create_stream_error'));	
-			
-			else:
-			
+			}
+			else
+			{
 				$this->session->set_flashdata('success', lang('streams:create_stream_success'));	
-			
-			endif;
+			}
 	
 			redirect('admin/streams');
-		
-		endif;
+		}
 
 		// -------------------------------------
 		
@@ -383,6 +410,12 @@ class Admin extends Admin_Controller {
 		// -------------------------------------
 
 		$this->streams_m->streams_validation[1]['rules'] .= '|stream_unique['.$this->data->stream->stream_slug.']';
+
+		$this->streams_m->streams_validation[] = array(
+			'field'	=> 'menu_path',
+			'label' => 'lang:streams:menu_path',
+			'rules'	=> 'trim|required|max_length[60]'
+		);
 		
 		$this->form_validation->set_rules($this->streams_m->streams_validation);
 				
@@ -392,7 +425,7 @@ class Admin extends Admin_Controller {
 		
 		if ($this->form_validation->run()):
 	
-			if( !$this->streams_m->update_stream($stream_id, $this->input->post() ) ):
+			if( ! $this->streams_m->update_stream($stream_id, $this->input->post())):
 			
 				$this->session->set_flashdata('notice', lang('streams:stream_update_error'));	
 			

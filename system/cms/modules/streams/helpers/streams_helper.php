@@ -14,20 +14,26 @@
  * @access 	private
  * @return 	mixed
  */
-function check_stream_permission($stream)
+function check_stream_permission($stream, $redirect = true)
 {
 	$CI = get_instance();
 
-	if ( ! isset($CI->current_user->group) or $CI->current_user->group == 'admin') return;
+	if ( ! isset($CI->current_user->group) or $CI->current_user->group == 'admin') return true;
 
-	if ( ! isset($stream->permissions)) return;
+	if ( ! isset($stream->permissions)) return true;
 
 	$perms = @unserialize($stream->permissions);
-	if ( ! is_array($perms)) return;
+	if ( ! is_array($perms)) return true;
 
-	if (in_array($CI->current_user->group_id, $perms)) return;
+	if (in_array($CI->current_user->group_id, $perms)) return true;
 
-	$CI->session->set_flashdata('error', lang('cp:access_denied'));
-
-	redirect('admin/streams');
+	if ($redirect)
+	{
+		$CI->session->set_flashdata('error', lang('cp:access_denied'));
+		redirect('admin/streams');
+	}
+	else
+	{
+		return false;
+	}
 }

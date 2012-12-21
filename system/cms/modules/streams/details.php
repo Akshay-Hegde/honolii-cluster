@@ -151,6 +151,43 @@ class Module_Streams extends Module {
 		
 		return $info;
 	}
+
+	// --------------------------------------------------------------------------
+
+	public function admin_menu(&$menu)
+	{
+		$this->load->helper('streams/streams');
+
+		// Get our streams in the streams core namespace
+		$streams = $this->db
+						->where('stream_namespace', 'streams')
+						->where('menu_path !=', "''")
+						->get('data_streams')->result();
+
+		foreach ($streams as $stream)
+		{
+			if (check_stream_permission($stream, false))
+			{
+				$pieces = explode('/', $stream->menu_path, 2);
+
+				$pieces[0] = trim($pieces[0]);
+
+				if (substr($pieces[0], 0, 4) == 'nav_')
+				{
+					$pieces[0] = 'lang:cp:'.$pieces[0];
+				}
+
+				if (count($pieces) == 1)
+				{
+					$menu[$pieces[0]] = 'admin/streams/entries/index/'.$stream->id;
+				}
+				elseif (count($pieces) == 2)
+				{
+					$menu[$pieces[0]][trim($pieces[1])] = 'admin/streams/entries/index/'.$stream->id;
+				}
+			}
+		}
+	}
 	
 	// --------------------------------------------------------------------------
 
