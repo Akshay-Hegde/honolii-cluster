@@ -14,18 +14,18 @@
 @import "less/type.less";
 //@import "../../../../../library/twitter-bootstrap/less/code.less";
 @import "../../../../../library/twitter-bootstrap/less/forms.less";
-@import "../../../../../library/twitter-bootstrap/less/tables.less";
+//@import "../../../../../library/twitter-bootstrap/less/tables.less";
 
 // Components: common
-@import "../../../../../library/twitter-bootstrap/less/sprites.less";
-@import "../../../../../library/twitter-bootstrap/less/dropdowns.less";
-@import "../../../../../library/twitter-bootstrap/less/wells.less";
+//@import "../../../../../library/twitter-bootstrap/less/sprites.less";
+//@import "../../../../../library/twitter-bootstrap/less/dropdowns.less";
+//@import "../../../../../library/twitter-bootstrap/less/wells.less";
 @import "../../../../../library/twitter-bootstrap/less/component-animations.less";
 @import "../../../../../library/twitter-bootstrap/less/close.less";
 
 // Components: Buttons & Alerts
-@import "../../../../../library/twitter-bootstrap/less/buttons.less";
-@import "../../../../../library/twitter-bootstrap/less/button-groups.less";
+@import "less/buttons.less";
+//@import "../../../../../library/twitter-bootstrap/less/button-groups.less";
 @import "../../../../../library/twitter-bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 
 // Components: Nav
@@ -41,12 +41,12 @@
 //@import "../../../../../library/twitter-bootstrap/less/popovers.less";
 
 // Components: Misc
-@import "../../../../../library/twitter-bootstrap/less/thumbnails.less";
+//@import "../../../../../library/twitter-bootstrap/less/thumbnails.less";
 @import "../../../../../library/twitter-bootstrap/less/media.less";
 @import "../../../../../library/twitter-bootstrap/less/labels-badges.less";
 //@import "../../../../../library/twitter-bootstrap/less/progress-bars.less";
 //@import "../../../../../library/twitter-bootstrap/less/accordion.less";
-@import "../../../../../library/twitter-bootstrap/less/carousel.less";
+@import "less/carousel.less";
 //@import "../../../../../library/twitter-bootstrap/less/hero-unit.less";
 
 // Utility classes
@@ -109,6 +109,11 @@ body {background:none;}
         text-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
         padding:14px 35px 16px;
         display:block;
+        .transition(~"color .4s, padding .4s");
+        &:hover{
+          padding-top:11px;
+          padding-bottom:19px;
+        }
       }
       li {
         &:before{
@@ -176,6 +181,8 @@ body {background:none;}
   font-size:@fontSizeSmall;
   color: @gray;
   margin-bottom:30px;
+  line-height:1em;
+  padding:0 0 14px;
   a{
     color:@black;
   }
@@ -196,7 +203,7 @@ body {background:none;}
     margin:0;
     text-align:right;
     width:100%;
-    background-color:fade(@mxblue,30%);
+    background: url(../img/blue-pattern.png) repeat;
     color:@white;
     font-size: 44px;
     line-height:1.5em;
@@ -274,6 +281,224 @@ body {background:none;}
     }
   }
 }
+/* Gallery */
+.galleries-container{
+  .gallery-title{
+    position:absolute;
+    top:20px;
+    width:100%;
+    h3,h2{
+      margin:0;
+      font-family: @sansFontFamily2;
+      font-weight:normal;
+      background:url(../img/blue-pattern.png) repeat;
+      color:@white;
+      font-size: 36px;
+      line-height:1.5em;
+      text-shadow: 2px 4px 0px rgba(0,0,0,.5);
+      span{
+        display:inline-block;
+        padding:0 30px 0 40px;
+        background-color:fade(@mxblue,60%);
+      }
+    }
+    .btn {
+      position:absolute;
+      top:15px;
+      right:15px;
+    }
+  }
+  
+  
+  > .gallery-single, > .gallery-single-image{
+    position:relative;
+    .gallery-image{
+      min-height:200px;
+      position:relative;
+      background:url(../img/ajax-loader.gif) center center no-repeat;
+      .image-control{
+        a.left{
+          left:-50px;
+        }
+        a.right{
+          right:-50px;
+        }
+      }
+    }
+    .gallery-images{
+      margin-top:18px;
+      margin-bottom:10px;
+      overflow:auto;
+      .gallery-image-list{
+        margin:0;
+        list-style:none;
+        .clearfix;
+        width:9999px;
+        .gallery-image-item{
+          margin-right:18px;
+          background:#000;
+          &:last-child{
+            margin-right:0;
+          }
+          &:hover{
+            img{
+              opacity:1!important;
+            }
+          }
+          float:left;
+          a.gallery-image{
+            height:110px;
+            min-height:110px;
+            width:110px;
+            background-image:none;
+            display:block;
+            img{
+              opacity:.6;
+              .transition(opacity .4s);
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  > .gallery-item {
+    position:relative;
+    margin-bottom:50px;
+    .gallery-heading{
+      min-height:220px;
+      background:url(../img/ajax-loader.gif) center center no-repeat;
+      a {
+        display:block;
+        color:@white;
+      }
+    }
+    .gallery-sublist{
+      height:0;
+      overflow:hidden;
+      .box-shadow(0 0 5px 0 rgba(0,0,0,.8) inset);
+      .transition(height 1.2s);
+      padding:0 10px;
+      .sublist-item{
+        position:relative;
+        margin-top:10px;
+      }
+      .gallery-sublist-content{
+        padding-bottom:10px;
+      }
+      h4 {
+        position:absolute;
+        font-size:13px;
+        margin:0;
+        width:100%;
+        background-color:rgba(0,0,0,.5);
+        color:@white;
+        span{
+          padding-left:10px;
+        }
+      }
+      img {
+        display:block;
+      }
+      a {
+        position:absolute;
+        width:100%;
+        height:100%;
+        top:0;
+        text-indent:-9999px;
+        overflow:hidden;
+      }
+    }
+  }
+}
+/* Blog */
+.category-title{
+  margin-top:0;
+}
+
+.page-post{
+  .post-heading{
+    h2{
+      color:@mxgray;
+      font-size:29px;
+      line-height:1em;
+      font-weight:normal;
+      margin:0;
+      font-family:@sansFontFamily;
+    }
+    .post-date{
+      color:@black;
+      font-size:@fontSizeSmall;
+      margin-bottom:@baseLineHeight/2;
+    }
+  }
+  .post-body{
+    
+  }
+}
+
+.block-post{
+  .post-heading{
+    h4{
+      color:@mxgray;
+      font-size:29px;
+      line-height:1em;
+      font-weight:normal;
+      margin:0;
+      a{
+        color:inherit;
+        
+      }
+    }
+    .post-date{
+      color:@black;
+      font-size:@fontSizeSmall;
+      margin-bottom:@baseLineHeight/2;
+    }
+  }
+  .post-body{
+    
+  }
+  .post-full{
+    margin:@baseLineHeight 0;
+  }
+  > hr{
+    border-color:@gray;
+    border-bottom:none;
+    color:@gray;
+  }
+}
+.pagination{
+  .pagination-small;
+  margin-bottom:10px;
+  ul{
+    .border-radius(0);
+    background-color:#ddd;
+    border-color:#ccc;
+    > li{
+      > span, > a{
+        font-family:@sansFontFamily2;
+        font-size:@fontSizeLarge;
+        background-color:#ddd;
+        border-color:#ccc;
+        color:#888;
+      }
+      &:first-child,&:last-child{
+        > span, > a{
+          .border-radius(0);
+        }
+      }
+      &.active{
+        > span, > a{
+          background-color:#ddd;
+          color: darken(#ddd,10%);
+        }
+      }
+    }
+  }
+}
+
+
 /* Widgets */
 aside > .widget{
   margin-bottom:30px;
@@ -325,9 +550,10 @@ aside > .widget{
         padding:7px 12px;
         &:after{
           content:'»';
-          color: @gray;
+          color: #bbb;
           position:absolute;
           right:14px;
+          font-size:@fontSizeLarge;
         }
       }
     }
