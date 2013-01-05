@@ -1,10 +1,10 @@
 # PyroCMS Professional Edition
 
 * [Website](http://pyrocms.com/)
-* [Documentation](http://pyrocms.com/docs)
+* [Documentation](https://www.pyrocms.com/support/documentation)
 * [License](http://pyrocms.com/legal/license)
 * [Forums](http://pyrocms.com/forums)
-* Version: 2.2.0-dev
+* Version: 2.2.0-beta1
 
 ## Team
 
@@ -28,7 +28,7 @@ Run http://example.com/installer to run the web-based installation script.
 
 ## Upgrading
 
-For a detailed upgrade guide please look at the [2.0 Upgrading Documentation](http://www.pyrocms.com/docs/2.0/getting-started/upgrading-within-2.0).
+* [Upgrading v2.1.x to v2.2.x](http://docs.pyrocms.com/2.2/manual/index.php/setup/upgrade-guides/upgrade-2-1-to-2-2)
 
 ## Bugs & Feature Requests
 
@@ -67,7 +67,7 @@ Think you should be on this list? Add yourself in the next pull request you subm
 ### Translators
 
 * [Demostenes Garcia](http://www.demogar.com/) Spanish
-* [Frederic Quie](http://www.bleekom.org/) French
+* [Frederic Quie](http://www.bleekom.org/) & [Khalil Tabbal](http://www.khalil-tabbal.com) French
 * [TheLoops](http://codeigniter.com/forums/member/62232/) German
 * [Bartosz Majewski](http://404design.pl/) Polish
 * [diederikeijgelaar](http://github.com/diederikeijgelaar) Dutch
