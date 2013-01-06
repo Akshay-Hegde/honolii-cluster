@@ -125,7 +125,7 @@ class Module_import {
 		$is_core = true;
 
 		// Loop through directories that hold modules
-		foreach (array(APPPATH, ADDONPATH, SHARED_ADDONPATH) as $directory)
+		foreach (array(APPPATH, ADDONPATH) as $directory)
 		{
 			// Are there any modules to install on this path?
 			if ($modules = glob($directory.'modules/*', GLOB_ONLYDIR))
