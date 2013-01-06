@@ -53,7 +53,7 @@
 			case 'close':
 			case 'preview':
 				if($btn_class == 'btn') $btn_class .= ' gray';
-				$uri = 'admin/' . $this->module_details['slug'];
+				$uri = 'sites/' . $this->module_details['slug'];
 				$active_section = $this->load->get_var('active_section');
 
 				if ($active_section && isset($this->module_details['sections'][$active_section]['uri']))
@@ -72,7 +72,7 @@
 				$id = is_array($extra) && array_key_exists('id', $extra) ? '/' . $button . '/' . $extra['id'] : NULL;
 				if($btn_class == 'btn') $btn_class .= ' gray';
 
-				echo anchor('admin/' . $this->module_details['slug'] . $id, lang('buttons:' . $button), 'class="'.$btn_class.' ' . $button . '"');
+				echo anchor('sites/' . $this->module_details['slug'] . $id, lang('buttons:' . $button), 'class="'.$btn_class.' ' . $button . '"');
 				break; ?>
 
 		<?php endswitch; ?>
