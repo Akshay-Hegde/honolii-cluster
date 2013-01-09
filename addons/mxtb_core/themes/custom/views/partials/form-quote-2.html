@@ -1,0 +1,25 @@
+<fieldset>
+    <legend>Track Information</legend>
+    
+    <div class="control-group">
+        <label class="control-label">City</label>
+        <div class="controls">
+            {{track_address_city:input}}
+            <span class="help-inline">{{ track_address_city:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">State</label>
+        <div class="controls">
+            {{track_address_state:input}}
+            <span class="help-inline">{{ track_address_state:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Zip Code</label>
+        <div class="controls">
+            {{track_address_zip:input}}
+            <span class="help-inline">{{ track_address_zip:error }}</span>
+        </div>
+    </div>
+</fieldset>

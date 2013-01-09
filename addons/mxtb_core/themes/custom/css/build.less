@@ -109,11 +109,7 @@ body {background:none;}
         text-shadow: 0 2px 2px rgba(0, 0, 0, 0.35);
         padding:14px 35px 16px;
         display:block;
-        .transition(~"color .4s, padding .4s");
-        &:hover{
-          padding-top:11px;
-          padding-bottom:19px;
-        }
+        .transition(color .4s);
       }
       li {
         &:before{
@@ -131,19 +127,30 @@ body {background:none;}
         }
         &.has_children{
           > ul{
-            display:none;
+            display:block;
+            visibility:collapse;
             position:absolute;
             margin-left:0;
-            background-color:@mxblue;
+            background: rgba(0,0,0,.9);
             list-style:none;
+            opacity:0;
+            .transition(opacity .5s);
+            .box-shadow(0 5px 5px rgba(0,0,0,.8));
             li{
+              a{
+                &:hover{
+                  text-decoration:none;
+                  background:#000;
+                }
+              }
               &:before{
                 content:none;
               }
             }
           }
           &:hover > ul{
-            display:block;
+            visibility:visible;
+            opacity:1;
           }
         }
       }
@@ -287,6 +294,7 @@ body {background:none;}
     position:absolute;
     top:20px;
     width:100%;
+    z-index:100;
     h3,h2{
       margin:0;
       font-family: @sansFontFamily2;
@@ -457,7 +465,13 @@ body {background:none;}
     }
   }
   .post-body{
-    
+    img{
+      display:none;
+      &.active{
+        display:block;
+        margin-bottom:10px;
+      }
+    }
   }
   .post-full{
     margin:@baseLineHeight 0;
@@ -497,7 +511,24 @@ body {background:none;}
     }
   }
 }
-
+/* Form */
+form{
+  label{
+    
+  }
+  .help-inline{
+    font-size:@fontSizeSmall;
+    .error{
+      color: @errorText;
+      + .help-inline{
+        display:none;
+      }
+    }
+    .help-inline{
+      
+    }
+  }
+}
 
 /* Widgets */
 aside > .widget{
@@ -597,6 +628,15 @@ aside > .widget{
     .post-content, .post-image {
       margin-bottom: 10px;
     }
+    .post-image a{
+      display:block;
+      img{
+        display:block;
+      }
+    }
+    .post-content .intro img{
+      display:none;
+    }
     h4{
       margin-top:0;
       font-size: @baseFontSize;
@@ -690,5 +730,21 @@ aside > .widget{
         margin-bottom:0;
       }
     }
+  }
+}
+
+/* Other */
+blockquote {
+  font-size:28px;
+  line-height:1.5em;
+  margin: 1em 0;
+  padding: 0;
+  border:none;
+  color: @mxgray;
+  &:before {
+    content:'“'
+  }
+  &:after {
+    content:'”'
   }
 }

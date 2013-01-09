@@ -33,10 +33,7 @@
                         {{ else }}
                             {{ theme:partial name="breadcrumbs" }}
                         {{ endif }}
-                       
-                        
-                        
-                        <div class="row-fluid">
+                        <div class="template-wrapper">
                         {{session:messages success="success" notice="notice" error="error"}}
                         <!-- view > default -->
                         {{ template:body }}

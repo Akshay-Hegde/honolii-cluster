@@ -1,0 +1,199 @@
+{{ 
+    streams:form
+    stream="quote_request"
+    mode="new"
+    
+}}
+
+{{ form_open }}
+
+<fieldset>
+    <legend>Contact Information</legend>
+    <div class="control-group">
+        <label class="control-label">Full Name</label>
+        <div class="controls">
+            {{full_name:input }}
+            <span class="help-inline">{{ full_name:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">E-Mail Address</label>
+        <div class="controls">{{email:input }}
+            <span class="help-inline">{{ email:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Phone Number</label>
+        <div class="controls">
+            {{phone:input}}
+            <span class="help-inline">{{ phone:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Address</label>
+        <div class="controls">
+            {{address:input}}
+            <span class="help-inline">{{ address:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">City</label>
+        <div class="controls">
+            {{address_city:input}}
+            <span class="help-inline">{{ address_city:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">State</label>
+        <div class="controls">
+            {{address_state:input}}
+            <span class="help-inline">{{ address_state:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Zip Code</label>
+        <div class="controls">
+            {{address_zip:input}}
+            <span class="help-inline">{{ address_zip:error }}</span>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Track Information</legend>
+    <div class="control-group">
+        <div class="controls">
+            <label class="checkbox">
+                <input id="populate-address" type="checkbox"> Same address
+            </label>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Address</label>
+        <div class="controls">
+            {{track_address:input}}
+            <span class="help-inline">{{ track_address:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">City</label>
+        <div class="controls">
+            {{track_address_city:input}}
+            <span class="help-inline">{{ track_address_city:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">State</label>
+        <div class="controls">
+            {{track_address_state:input}}
+            <span class="help-inline">{{ track_address_state:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Zip Code</label>
+        <div class="controls">
+            {{track_address_zip:input}}
+            <span class="help-inline">{{ track_address_zip:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Public or private?</label>
+        <div class="controls">
+            {{track_type:input}}
+            <span class="help-inline">{{ track_type:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Proper permits acquired</label>
+        <div class="controls">
+            {{track_permits:input}}
+            <span class="help-inline">{{ track_permits:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Style</label>
+        <div class="controls">
+            {{track_style:input}}
+            <span class="help-inline">{{ track_style:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Supercross lanes</label>
+        <div class="controls">
+            {{track_size:input}}
+            <span class="help-inline">{{ track_size:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Length of track</label>
+        <div class="controls">
+            {{track_length:input}}
+            <span class="help-inline">{{ track_length:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Size of lot area</label>
+        <div class="controls">
+            {{track_lot_size:input}}
+            <span class="help-inline">{{ track_lot_size:error }}<span class="help-inline">Required</span></span>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Track Features</legend>
+    <div class="control-group">
+        <label class="control-label">Are you intersted in any of the following features?</label>
+        <div class="controls">
+            {{track_features:input}}
+            <span class="help-inline">{{ track_features:error }}<span class="help-inline">Select all that apply</span></span>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Lot Conditions &amp; Details</legend>
+    <div class="control-group">
+        <label class="control-label">Lot soil conditions</label>
+        <div class="controls">
+            {{lot_soil_conditions:input}}
+            <span class="help-inline">{{ lot_soil_conditions:error }}<span class="help-inline">Select all that apply</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Lot features &amp; conditions</label>
+        <div class="controls">
+            {{lot_conditions:input}}
+            <span class="help-inline">{{ lot_conditions:error }}<span class="help-inline">Select all that apply</span></span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Upload Lot Image</label>
+        <div class="controls">
+            {{lot_photograph:input}}
+            <span class="help-inline">{{ lot_photograph:error }}<span class="help-inline">JPG, PNG, TIFF, GIF file formats</span></span>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Additional Information</legend>
+    <div class="control-group">
+        <label class="control-label">Start date</label>
+        <div class="controls">
+            {{project_start_date:input}}
+            <span class="help-inline">{{ project_start_date:error }}</span>
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label">Budget</label>
+        <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">$</span>{{project_budget:input}}
+            </div>
+            <span class="help-inline">{{ project_budget:error }}</span>
+        </div>
+    </div>
+</fieldset>
+
+<button class='btn pull-right' type="submit">Continue</button>
+      
+{{ form_close }}
+
+{{ /streams:form }}
