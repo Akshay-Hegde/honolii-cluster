@@ -3,6 +3,9 @@
 </section>
 
 <section class="item">
+<div class="content">
+
+<?php if ($groups): ?>
 
 <?php echo form_open(uri_string(), 'class="crud"'); ?>
 
@@ -25,9 +28,16 @@
 
 <input type="hidden" name="edited" value="y">
 
-<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons.save'); ?></span></button>	
-<a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons.cancel'); ?></a>
+<button type="submit" name="btnAction" value="save" class="btn blue"><span><?php echo lang('buttons:save'); ?></span></button>	
+<a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>" class="btn gray"><?php echo lang('buttons:cancel'); ?></a>
 	
 <?php echo form_close();?>
 
+<?php else: ?>
+
+<div class="no_data">No eligible groups found.</div>
+
+<?php endif; ?>
+
+</div>
 </section>

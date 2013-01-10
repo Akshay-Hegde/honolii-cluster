@@ -1,18 +1,19 @@
 <section class="title">
-	<h4><?php echo lang('streams.streams');?></h4>
+	<h4><?php echo lang('streams:streams');?></h4>
 </section>
 
 <section class="item">
+<div class="content">
 
 <?php if (!empty($streams)): ?>
 			
-<table class="table-list">
+<table border="0" class="table-list" cellspacing="0">
 	<thead>
 		<tr>
-		    <th><?php echo lang('streams.stream_name');?></th>
-		    <th><?php echo lang('streams.stream_slug');?></th>
-		    <th><?php echo lang('streams.about');?></th>
-		    <th><?php echo lang('streams.total_entries');?></th>
+		    <th><?php echo lang('streams:stream_name');?></th>
+		    <th><?php echo lang('streams:stream_slug');?></th>
+		    <th><?php echo lang('streams:about');?></th>
+		    <th><?php echo lang('streams:total_entries');?></th>
 		    <th></th>
 		</tr>
 	</thead>
@@ -42,9 +43,9 @@
 			<td><?php if($table_exists): echo number_format($this->streams_m->count_stream_entries($stream->stream_slug, $stream->stream_namespace)); endif; ?></td>
 			
 			<td class="actions">
-				<?php if(group_has_role('streams', 'admin_streams')): echo anchor('admin/streams/manage/' . $stream->id, lang('streams.manage'), 'class="btn orange edit"'); endif; ?> 
-				<?php echo anchor('admin/streams/entries/index/' . $stream->id, lang('streams.entries'), 'class="btn orange edit"');?> 
-				<?php echo anchor('admin/streams/entries/add/'.$stream->id, lang('streams.new_entry'), 'class="btn green"');?> 
+				<?php if(group_has_role('streams', 'admin_streams')): echo anchor('admin/streams/manage/' . $stream->id, lang('streams:manage'), 'class="btn orange edit"'); endif; ?> 
+				<?php echo anchor('admin/streams/entries/index/' . $stream->id, lang('streams:entries'), 'class="btn orange edit"');?> 
+				<?php echo anchor('admin/streams/entries/add/'.$stream->id, lang('streams:new_entry'), 'class="btn green"');?> 
 			
 			</td>
 		</tr>
@@ -60,15 +61,16 @@
 	
 		if ( ! group_has_role('streams', 'admin_streams'))
 		{
-			echo lang('streams.start.no_streams_yet');
+			echo lang('streams:start.no_streams_yet');
 		}
 		else
 		{
-			echo lang('streams.start.no_streams').' '.anchor('admin/streams/add', lang('streams.start.adding_one')).'.';
+			echo lang('streams:start.no_streams').' '.anchor('admin/streams/add', lang('streams:start.adding_one')).'.';
 		}
 			
 	?>
 	</div>
 <?php endif;?>
 
+</div>
 </section>

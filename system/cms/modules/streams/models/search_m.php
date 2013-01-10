@@ -47,7 +47,7 @@ class Search_m extends CI_Model {
 		
 		$stream			= $this->CI->streams_m->get_stream($stream_slug, true, $namespace);
 		
-		if(!$stream) show_error($stream_slug.' '.lang('streams.not_valid_stream'));
+		if(!$stream) show_error($stream_slug.' '.lang('streams:not_valid_stream'));
 	
 		// -------------------------------------
 		// Hose off the Keywords
