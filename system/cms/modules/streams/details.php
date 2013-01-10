@@ -17,7 +17,7 @@ class Module_Streams extends Module {
 	 * @access	public
 	 * @var		string
 	 */
-	public $version = '2.3-dev';
+	public $version = '2.2.2';
 
 	// --------------------------------------------------------------------------
 
@@ -53,7 +53,7 @@ class Module_Streams extends Module {
 			if (group_has_role('streams', 'admin_streams'))
 			{
 				$info['sections']['streams'] = array(
-					    'name' => 	'streams:streams',
+					    'name' => 	'streams.streams',
 					    'uri' => 	'admin/streams'
 					);
 			}
@@ -61,11 +61,11 @@ class Module_Streams extends Module {
 			if (group_has_role('streams', 'admin_fields'))
 			{
 				$info['sections']['fields'] = array(
-					    'name' => 'streams:fields',
+					    'name' => 'streams.fields',
 					    'uri' => 'admin/streams/fields',
 					    'shortcuts' => array(
 							array(
-								'name' => 'streams:new_field',
+								'name' => 'streams.new_field',
 								'uri' => 'admin/streams/fields/add',
 								'class' => 'add'
 							)
@@ -85,7 +85,7 @@ class Module_Streams extends Module {
 			)
 			{
 				$shortcuts[] = array(
-						'name' => 'streams:add_stream',
+						'name' => 'streams.add_stream',
 						'uri' => 'admin/streams/add/',
 						'class' => 'add');
 			}	
@@ -97,7 +97,7 @@ class Module_Streams extends Module {
 			)
 			{
 				$shortcuts[] = array(
-						'name' => 'streams:add_entry',
+						'name' => 'streams.add_entry',
 						'uri' => 'admin/streams/entries/add/'.$this->uri->segment(4),
 						'class' => 'add');
 			}	
@@ -111,7 +111,7 @@ class Module_Streams extends Module {
 			{
 			
 				$shortcuts[] = array(
-						'name' => 'streams:new_field_assign',
+						'name' => 'streams.new_field_assign',
 						'uri' => 'admin/streams/new_assignment/'.$this->uri->segment(4),
 						'class' => 'add');
 			}
@@ -125,13 +125,13 @@ class Module_Streams extends Module {
 				if(group_has_role('streams', 'admin_streams') ):
 	
 				$shortcuts[] = array(
-						'name' => 'streams:manage',
+						'name' => 'streams.manage',
 						'uri' => 'admin/streams/manage/'.$this->uri->segment(5));
 						
 				endif;
 			
 				$shortcuts[] = array(
-						'name' => 'streams:add_entry',
+						'name' => 'streams.add_entry',
 						'uri' => 'admin/streams/entries/add/'.$this->uri->segment(5),
 						'class' => 'add');
 	
@@ -150,43 +150,6 @@ class Module_Streams extends Module {
 		}
 		
 		return $info;
-	}
-
-	// --------------------------------------------------------------------------
-
-	public function admin_menu(&$menu)
-	{
-		$this->load->helper('streams/streams');
-
-		// Get our streams in the streams core namespace
-		$streams = $this->db
-						->where('stream_namespace', 'streams')
-						->where('menu_path !=', "''")
-						->get('data_streams')->result();
-
-		foreach ($streams as $stream)
-		{
-			if (check_stream_permission($stream, false))
-			{
-				$pieces = explode('/', $stream->menu_path, 2);
-
-				$pieces[0] = trim($pieces[0]);
-
-				if (substr($pieces[0], 0, 4) == 'nav_')
-				{
-					$pieces[0] = 'lang:cp:'.$pieces[0];
-				}
-
-				if (count($pieces) == 1)
-				{
-					$menu[$pieces[0]] = 'admin/streams/entries/index/'.$stream->id;
-				}
-				elseif (count($pieces) == 2)
-				{
-					$menu[$pieces[0]][trim($pieces[1])] = 'admin/streams/entries/index/'.$stream->id;
-				}
-			}
-		}
 	}
 	
 	// --------------------------------------------------------------------------

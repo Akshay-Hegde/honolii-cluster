@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><?php echo '<span>'.$stream->stream_name.'</span> &rarr; '. lang('streams:stream_entries'); ?></h4>
+	<h4><?php echo '<span>'.$stream->stream_name.'</span> &rarr; '. lang('streams.stream_entries'); ?></h4>
 </section>
 
 <section class="item">
@@ -58,7 +58,7 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-    <div class="no_data"><?php echo sprintf(lang('streams:start.no_entries'), $stream->stream_name);?> <?php echo anchor('admin/streams/new_assignment/'.$this->uri->segment(5), lang('streams:add_fields'));?> <?php echo lang('streams:to_this_stream_or');?> <?php echo anchor('admin/streams/entries/add/'.$this->uri->segment(5), lang('streams:add_an_entry'));?>.</div>
+    <div class="no_data"><?php echo sprintf(lang('streams.start.no_entries'), $stream->stream_name);?> <?php echo anchor('admin/streams/new_assignment/'.$this->uri->segment(5), lang('streams.add_fields'));?> <?php echo lang('streams.to_this_stream_or');?> <?php echo anchor('admin/streams/entries/add/'.$this->uri->segment(5), lang('streams.add_an_entry'));?>.</div>
 <?php endif;?>
 
 </section>

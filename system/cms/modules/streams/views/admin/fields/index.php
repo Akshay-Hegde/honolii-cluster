@@ -1,18 +1,17 @@
 <section class="title">
-	<h4><?php echo lang('streams:fields');?></h4>
+	<h4><?php echo lang('streams.fields');?></h4>
 </section>
 
 <section class="item">
-<div class="content">
 
 <?php if (!empty($fields)): ?>
 
-    <table class="table-list" cellpadding="0" cellspacing="0">
+    <table class="table-list">
 		<thead>
 			<tr>
-			    <th><?php echo lang('streams:label.field_name');?></th>
-			    <th><?php echo lang('streams:label.field_slug');?></th>
-			    <th><?php echo lang('streams:label.field_type');?></th>
+			    <th><?php echo lang('streams.label.field_name');?></th>
+			    <th><?php echo lang('streams.label.field_slug');?></th>
+			    <th><?php echo lang('streams.label.field_type');?></th>
 			    <th><?php echo lang('pyro.actions');?></th>
 			</tr>
 		</thead>
@@ -23,8 +22,8 @@
 				<td><?php echo $field->field_slug; ?></td>
 				<td><?php echo $this->type->types->{$field->field_type}->field_type_name; ?></td>
 				<td class="actions">
-					<?php echo anchor('admin/streams/fields/edit/' . $field->id, lang('streams:edit'), 'class="button"');?> 					
-					<?php echo anchor('admin/streams/fields/delete/' . $field->id, lang('streams:delete'), 'class="button confirm"'); ?>
+					<?php echo anchor('admin/streams/fields/edit/' . $field->id, lang('streams.edit'), 'class="button"');?> 					
+					<?php echo anchor('admin/streams/fields/delete/' . $field->id, lang('streams.delete'), 'class="button confirm"'); ?>
 				</td>
 			</tr>
 		<?php endforeach;?>
@@ -34,8 +33,7 @@
 <?php echo $pagination['links']; ?>
 
 <?php else: ?>
-	<div class="no_data"><?php echo lang('streams:start.no_fields');?> <?php echo anchor('admin/streams/fields/add', lang('streams:start.add_one'), 'class="add"'); ?>.</div>
+	<div class="no_data"><?php echo lang('streams.start.no_fields');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.add_one'), 'class="add"'); ?>.</div>
 <?php endif;?>
 
-</div>
 </section>
