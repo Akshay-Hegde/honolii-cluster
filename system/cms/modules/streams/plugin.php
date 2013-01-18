@@ -178,7 +178,8 @@ class Plugin_Streams extends Plugin
 		{
 			$params[$param_key] = $this->streams_attribute($param_key, $param_default);
 		}
-
+		// Check namespace fallback
+		$params['namespace'] = $this->attribute('namespace', $this->core_namespace);
 		// -------------------------------------
 		// Cache
 		// -------------------------------------
@@ -209,7 +210,7 @@ class Plugin_Streams extends Plugin
 		
 		if ( ! isset($params['stream'])) $this->_error_out(lang('streams:no_stream_provided'));
 				
-		$stream = $this->streams_m->get_stream($params['stream'], TRUE, $this->core_namespace);
+		$stream = $this->streams_m->get_stream($params['stream'], true, $params['namespace']);
 				
 		if ( ! $stream) $this->_error_out(lang('streams:invalid_stream'));
 				
