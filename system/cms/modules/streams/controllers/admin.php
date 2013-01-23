@@ -287,7 +287,7 @@ class Admin extends Admin_Controller {
 		$this->streams_m->streams_validation[] = array(
 			'field'	=> 'menu_path',
 			'label' => 'lang:streams:menu_path',
-			'rules'	=> 'trim|required|max_length[60]'
+			'rules'	=> 'trim|max_length[60]'
 		);
 
 		$this->form_validation->set_rules($this->streams_m->streams_validation);
@@ -414,7 +414,7 @@ class Admin extends Admin_Controller {
 		$this->streams_m->streams_validation[] = array(
 			'field'	=> 'menu_path',
 			'label' => 'lang:streams:menu_path',
-			'rules'	=> 'trim|required|max_length[60]'
+			'rules'	=> 'trim|max_length[60]'
 		);
 		
 		$this->form_validation->set_rules($this->streams_m->streams_validation);

@@ -3,8 +3,9 @@
 </section>
 
 <section class="item">
+<div class="content">
 
-    <table class="table-list">
+    <table class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
 				<th><?php echo lang('streams:label.field');?></th>
@@ -26,7 +27,7 @@
 		</tr>
 		<tr>
 			<td><strong><?php echo lang('streams:created_by');?></strong></td>
-			<td><a href="<?php echo site_url('admin/users/edit/'. $row->created_by['user_id']); ?>"><?php echo $row->created_by['display_name']; ?></a></td>
+			<td><a href="<?php echo site_url('admin/users/edit/'. $row->created_by_user_id); ?>"><?php echo $row->created_by_username; ?></a></td>
 		</tr>
 		
 		<?php foreach ($stream_fields as $stream_field):?>
@@ -45,4 +46,5 @@
 	    <?php echo anchor('admin/streams/entries/delete/'.$this->uri->segment(5).'/'.$row->id, lang('global:delete'), 'class="btn red confirm"')?>
 	</div>
    
+</div><!--.content-->
 </section>

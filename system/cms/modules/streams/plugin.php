@@ -11,39 +11,6 @@
  */
 class Plugin_Streams extends Plugin
 {
-
-	/**
-	 * Pagination config
-	 *
-	 * These are the CI defaults that can be
-	 * overridden by PyroStreams
-	 *
-	 * @access	private
-	 * @var		array
-	 */
-	public $pagination_config = array(
-			'num_links'			=> 3,
-			'full_tag_open'		=> '<p>',
-			'full_tag_close'	=> '</p>',
-			'first_link'		=> 'First',
-			'first_tag_open'	=> '<div>',
-			'first_tag_close'	=> '</div>',
-			'last_link'			=> 'Last',
-			'last_tag_open'		=> '<div>',
-			'last_tag_close'	=> '</div>',
-			'next_link'			=> '&gt;',
-			'next_tag_open'		=> '<div>',
-			'next_tag_close'	=> '</div>',
-			'prev_link'			=> '&lt;',
-			'prev_tag_open'		=> '<div>',
-			'prev_tag_close'	=> '</div>',
-			'cur_tag_open'		=> '<span>',
-			'cur_tag_close'		=> '</span>',
-			'num_tag_open'		=> '<div>',
-			'num_tag_close'		=> '</div>'
-	);
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Field Types
@@ -57,6 +24,9 @@ class Plugin_Streams extends Plugin
 	
 	/**
 	 * Cache Vars
+	 *
+	 * These variables control the cache of
+	 * PyroStreams tags.
 	 */
 	public $cache_type				= 'query';		// tag or query
 	public $cache_time_format		= 'minutes'; 	// minutes or seconds
@@ -94,6 +64,12 @@ class Plugin_Streams extends Plugin
 	 * PyroStreams attribute function
 	 *
 	 * Allows you to pass stuff like [segment_1], etc.
+	 *
+	 * In PyroCMS 2.2, this has been deprecated by the
+	 * parse_parameter() function in the Plugins library.
+	 *
+	 * However, since the syntax is slightly different,
+	 * we will keep this around for backwards compat.
 	 *
 	 * @access	public
 	 * @param	string
@@ -140,6 +116,8 @@ class Plugin_Streams extends Plugin
 	// --------------------------------------------------------------------------
 
 	/**
+	 * _call
+	 *
 	 * Fun little method to call a stream without
 	 * using cycle. Like:
 	 *
@@ -152,20 +130,22 @@ class Plugin_Streams extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		$this->entries_params['stream'] = $name;
-
-		return $this->cycle();
+		return $this->cycle($name);
 	}
 	
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * List stream entries
+	 * Cycle
+	 *
+	 * List entries in a stream.
 	 *
 	 * @access	public
+	 * @param 	string 	[$stream_slug]	Option stream slug to pass.
+	 * @return 	string
 	 */
-	public function cycle()
-	{		
+	public function cycle($stream_slug = null)
+	{
 		$this->debug_status		 	= $this->streams_attribute('debug', 'on');
 
 		// -------------------------------------
@@ -178,10 +158,27 @@ class Plugin_Streams extends Plugin
 		{
 			$params[$param_key] = $this->streams_attribute($param_key, $param_default);
 		}
-		// Check namespace fallback
-		$params['namespace'] = $this->attribute('namespace', $this->core_namespace);
+
+		// -------------------------------------
+		// Stream Slug Override
+		// -------------------------------------
+		// If we have a stream slug that has been
+		// passed, we will take that value over
+		// the passed $params value. This is so
+		// if we have {{ streams:stream_slug stream="another" }}
+		// We will ignore "another" in favor of "stream_slug"
+		// -------------------------------------
+
+		if ($stream_slug)
+		{
+			$params['stream'] = $stream_slug;
+		}
+
 		// -------------------------------------
 		// Cache
+		// -------------------------------------
+		// Setup cache. If we have a full tag cache,
+		// we will just go ahead and return that.
 		// -------------------------------------
 
 		$this->setup_cache();
@@ -192,28 +189,46 @@ class Plugin_Streams extends Plugin
 		}
 
 		// -------------------------------------
-		// Pagination Attributes & Limit
+		// Pagination & Limit
+		// -------------------------------------
+		// Gather any pagination config overrides
+		// from the plugin. Also, set limit if 
+		// there is none and we are using pagination.
 		// -------------------------------------
 		
-		$pagination = array();
+		$pagination_config = array();
 		
-		foreach ($this->pagination_config as $pag_key => $pag_value)
+		foreach ($this->streams->entries->pag_config as $pag_key)
 		{
-			$pagination[$pag_key] = $this->attribute($pag_key, $pag_value);
+			if ($this->attribute($pag_key))
+			{
+				$pagination_config[$pag_key] = $this->attribute($pag_key);
+			}
 		}
 
-		if ($params['paginate'] == 'yes' and !$params['limit']) $params['limit'] = 25;
+		if ($params['paginate'] == 'yes' and ! $params['limit'])
+		{
+			$params['limit'] = Settings::get('records_per_page');
+		}
 
 		// -------------------------------------
 		// Stream Data Check
 		// -------------------------------------
+		// Check for a retrieve our stream.
+		// -------------------------------------
 		
-		if ( ! isset($params['stream'])) $this->_error_out(lang('streams:no_stream_provided'));
+		if ( ! isset($params['stream']))
+		{
+			$this->_error_out(lang('streams:no_stream_provided'));
+		}
+
+		$stream = $this->streams_m->get_stream($params['stream'], true, $this->core_namespace);
 				
-		$stream = $this->streams_m->get_stream($params['stream'], true, $params['namespace']);
-				
-		if ( ! $stream) $this->_error_out(lang('streams:invalid_stream'));
-				
+		if ( ! $stream)
+		{
+			$this->_error_out(lang('streams:invalid_stream'));
+		}
+
 		// -------------------------------------
 		// Get Stream Fields
 		// -------------------------------------
@@ -235,6 +250,9 @@ class Plugin_Streams extends Plugin
 		
 		// -------------------------------------
 		// Rename
+		// -------------------------------------
+		// Allows us to rename variables in our
+		// parameters. So, rename:old_name="new_name"
 		// -------------------------------------
 
 		$renames = array();
@@ -278,17 +296,9 @@ class Plugin_Streams extends Plugin
 		{
 			$return['total'] 	= $rows['pag_count'];
 			
-			// Add in our pagination config
-			// override varaibles.
-			foreach ($this->pagination_config as $key => $var)
-			{
-				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
-				
-				// Make sure we obey the FALSE params
-				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
-			}
+			$pag_segment = (isset($params['pag_segment'])) ? $params['pag_segment'] : null;
 			
-			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
 		}	
 		else
 		{	
@@ -299,8 +309,14 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// No Results
 		// -------------------------------------
+		// In the case of no results, we will return
+		// our no_results paramter value.
+		// -------------------------------------
 		
-		if ($return['total'] == 0) return $this->streams_attribute('no_results', lang('streams:no_results'));
+		if ($return['total'] == 0)
+		{
+			return $this->streams_attribute('no_results', lang('streams:no_results'));
+		}
 
 		// -------------------------------------
 		// {{ entries }} Bypass
@@ -321,14 +337,15 @@ class Plugin_Streams extends Plugin
 		// Parse Ouput Content
 		// -------------------------------------
 		
-		$return_content = $this->streams->parse->parse_tag_content($this->content(), $return, $params['stream'], $this->core_namespace, $loop, $this->fields);
+		$return_content = $this->streams->parse->parse_tag_content(
+								$this->content(), $return, $params['stream'],
+								$this->core_namespace, $loop, $this->fields);
 	
 		// -------------------------------------
 		// Cache End Procedures
 		// -------------------------------------
 
 		$this->tag_cache_write($return_content);
-
 		$this->clear_cache_vars();
 
 		// -------------------------------------
@@ -339,7 +356,9 @@ class Plugin_Streams extends Plugin
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Setup the cache vars
+	 * Setup the Cache Vars
+	 *
+	 * Set cache type, time format, and hash
 	 *
 	 * @access 	private
 	 * @return 	void
@@ -374,6 +393,9 @@ class Plugin_Streams extends Plugin
 
 	/**
 	 * Set the cache hash
+	 *
+	 * This creates a unique cache hash based on the
+	 * unique set of tag parameters.
 	 *
 	 * @access 	private
 	 * @return 	void
@@ -453,114 +475,9 @@ class Plugin_Streams extends Plugin
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Legacy
-	 */
-	public function related() { return $this->multiple(); }
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Multiple Related Entries
+	 * Total
 	 *
-	 * This works with the multiple relationship field
-	 *
-	 * @todo - move this to the multple relationship field itself.
-	 *
-	 * @access	public
-	 * @return	array
-	 */
-	function multiple()
-	{
-		$rel_field 	= $this->attribute('field');
-		$entry_id 	= $this->attribute('entry');
-
-		// -------------------------------------
-		// Cache
-		// -------------------------------------
-
-		$this->setup_cache();
-
-		// -------------------------------------
-		
-		if ( ! $field = $this->fields_m->get_field_by_slug($rel_field, $this->core_namespace)) return NULL;
-
-		// Get the stream
-		$join_stream = $this->streams_m->get_stream($field->field_data['choose_stream']);
-		
-		// Get the fields		
-		$this->fields = $this->streams_m->get_stream_fields($join_stream->id);
-
-		$stream = $this->streams_m->get_stream($this->attribute('stream'), true, $this->attribute('namespace', $this->core_namespace));
-		
-		// Add the join_multiple hook to the get_rows function
-		$this->row_m->get_rows_hook = array($this, 'join_multiple');
-		$this->row_m->get_rows_hook_data = array(
-			'join_table' => $stream->stream_prefix.$stream->stream_slug.'_'.$join_stream->stream_slug,
-			'join_stream' => $join_stream,
-			'row_id' =>  $this->attribute('entry')		
-		);
-		
-		$params = array(
-			'arbitrary'			=> $entry_id, // For the cache
-			'stream'			=> $join_stream->stream_slug,
-			'limit'				=> $this->streams_attribute('limit'),
-			'offset'			=> $this->streams_attribute('offset', 0),
-			'id'				=> $this->streams_attribute('id', NULL),
-			'date_by'			=> $this->streams_attribute('date_by', 'created'),
-			'exclude'			=> $this->streams_attribute('exclude'),
-			'show_upcoming'		=> $this->streams_attribute('show_upcoming', 'yes'),
-			'show_past'			=> $this->streams_attribute('show_past', 'yes'),
-			'year'				=> $this->streams_attribute('year'),
-			'month'				=> $this->streams_attribute('month'),
-			'day'				=> $this->streams_attribute('day'),
-			'restrict_user'		=> $this->streams_attribute('restrict_user', 'no'),
-			'where'				=> $this->streams_attribute('where', NULL),
-			'exclude'			=> $this->streams_attribute('exclude', NULL),
-			'exclude_by'		=> $this->streams_attribute('exclude_by', 'id'),
-			'disable'			=> $this->streams_attribute('disable', NULL),
-			'order_by'			=> $this->streams_attribute('order_by'),
-			'sort'				=> $this->streams_attribute('sort', 'asc'),
-			'exclude_called'	=> $this->streams_attribute('exclude_called', 'no'),
-			'paginate'			=> $this->streams_attribute('paginate', 'no'),
-			'pag_segment'		=> $this->streams_attribute('pag_segment', 2),
-			'partial'			=> $this->streams_attribute('partial', NULL)			
-		);
-
-		if ($this->cache_type == 'query' and is_numeric($this->cache))
-		{
-			$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $join_stream), $this->cache);
-		}
-		else
-		{
-			$rows = $this->row_m->get_rows($params, $this->fields, $join_stream);
-		}
-
-		$this->clear_cache_vars();
-
-		return $rows['rows'];
-	}
-
-	// --------------------------------------------------------------------------
-	
-	/**
-	 * Join multiple
-	 *
-	 * Multiple join callback
-	 *
-	 * @access	public
-	 * @param	array - array of settings
-	 * @return	void
-	 */
-	public function join_multiple($data)
-	{
-		$this->row_m->sql['join'][] = "LEFT JOIN `{$this->db->dbprefix($data['join_table'])}` ON `{$this->db->dbprefix($data['join_table'])}`.`{$data['join_stream']->stream_slug}_id` = `{$this->db->dbprefix($data['join_stream']->stream_prefix.$data['join_stream']->stream_slug)}`.`id`";
-		$this->row_m->sql['where'][] = "`{$this->db->dbprefix($data['join_table'])}`.`row_id` = '{$data['row_id']}'";
-	}
-
-	// --------------------------------------------------------------------------
-
-	/**
-	 * Get the total number of rows
+	 * Get the total number of rows for a stream.
 	 *
 	 * @access	public
 	 * @return	int
@@ -599,153 +516,18 @@ class Plugin_Streams extends Plugin
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Format date variables
-	 *
-	 * This could be done in an external plugin,
-	 * but it is needed so much that were are
-	 * going to add it in natively here.
-	 *
-	 * @access	public
-	 * @return	string - formatted date
-	 */
-	public function date()
-	{
-	 	$date_formats = array('DATE_ATOM', 'DATE_COOKIE', 'DATE_ISO8601', 'DATE_RFC822', 'DATE_RFC850', 'DATE_RFC1036', 'DATE_RFC1123', 'DATE_RFC2822', 'DATE_RSS', 'DATE_W3C');
-	 	
-		$date 		= $this->attribute('date');
-		$format 	= $this->attribute('format');
-		
-		// No sense in trying to get down
-		// with somedata that isn't there
-		if ( ! $date or ! $format) return NULL;
-		
-		$this->load->helper('date');
-	
-		// Make sure we have a UNIX date
-		if ( ! is_numeric($date)) $date = mysql_to_unix($date);
-		
-		// Is this a preset?
-		if (in_array($format, $date_formats)) return standard_date($format, $date);
-
-		// Default is PHP date		
-		return date($format, $date);
-	}
-	
-	// --------------------------------------------------------------------------
-	
-	/**
 	 * Single
 	 *
-	 * Show a single item without the total,
-	 * pagination, etc.
+	 * Show a single stream entry.
 	 *
 	 * @access	public
 	 * @return	array
 	 */
 	public function single()
 	{	
-		// -------------------------------------
-		// Cache
-		// -------------------------------------
+		$this->set_attribute('limit', 1);
 
-		$this->setup_cache();
-
-		if ( ! is_null($full_tag_cache = $this->full_tag_cache()))
-		{
-			return $full_tag_cache;
-		}
-
-		// -------------------------------------
-		// Get vars
-		// -------------------------------------
-
-		// We are going to set these to inert values
-		// to start off with.
-		$params = array(
-			'limit'			=> 1,
-			'offset'		=> 0,
-			'order_by'		=> false,
-			'sort'			=> false,
-			'exclude'		=> false,
-			'show_upcoming'	=> null,
-			'show_past'		=> null,
-			'year'			=> null,
-			'month'			=> null,
-			'day'			=> null,
-			'restrict_user'	=> 'no',
-			'single'		=> 'yes'
-		);
-		
-		$this->debug_status		 	= $this->streams_attribute('debug', 'on');
-		$params['stream'] 			= $this->streams_attribute('stream');
-		$params['id'] 				= $this->streams_attribute('entry_id');
-		$params['where'] 			= $this->streams_attribute('where');
-		$params['disable']			= $this->streams_attribute('disable');
-		$params['sort']				= $this->streams_attribute('sort');
-		$params['namespace']		= $this->streams_attribute('namespace', $this->core_namespace);
-
-		// -------------------------------------
-		// Get stream
-		// -------------------------------------
-		
-		if ( ! $params['stream'] ) return $this->_error_out(lang('streams:invalid_stream'));
-		
-		$stream = $this->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
-		
-		if ($stream === false) return $this->_error_out(lang('streams:invalid_stream'));
-		
-		// -------------------------------------
-		// Disable
-		// -------------------------------------
-		// Allows users to turn off relationships
-		// and created_by
-		// -------------------------------------
-		
-		$params['disable'] ? $params['disable'] = explode("|", $params['disable']) : $params['disable'] = array();
-		
-		// -------------------------------------
-		// Get stream fields
-		// -------------------------------------
-		
-		$this->fields = $this->streams_m->get_stream_fields($stream->id);
-		
-		// -------------------------------------
-		// Return Rows
-		// -------------------------------------
-
-		if ($this->cache_type == 'query' and ! is_null($this->cache))
-		{
-			$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $stream), $this->cache);
-		}
-		else
-		{
-			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
-		}
-	
-		// -------------------------------------
-		// Get content
-		// -------------------------------------
-		
-		if ( ! $rows)
-		{
-			$return_content = $this->streams_attribute('no_results', lang('streams:no_results'));
-		}
-		else
-		{
-			$return_content = $this->streams_content_parse($this->content(), $rows['rows'][0], $params['stream']);
-		}
-
-		// -------------------------------------
-		// Cache End Procedures
-		// -------------------------------------
-
-		$this->tag_cache_write($return_content);
-
-		$this->clear_cache_vars();
-
-		// -------------------------------------
-
-		return $return_content;
+		return $this->cycle();
 	}
 
 	// --------------------------------------------------------------------------
@@ -805,8 +587,8 @@ class Plugin_Streams extends Plugin
 		// - edit_entry_error
 		// -------------------------------------
 		
-		$extra['success_message'] 	= $this->streams_attribute('success_message', $this->lang->line("streams.{$mode}_entry_success"));
-		$extra['failure_message'] 	= $this->streams_attribute('failure_message', $this->lang->line("streams.{$mode}_entry_error"));
+		$extra['success_message'] 	= $this->streams_attribute('success_message', "lang:streams:{$mode}_entry_success");
+		$extra['failure_message'] 	= $this->streams_attribute('failure_message', "lang:streams:{$mode}_entry_error");
 							
 		// -------------------------------------
 		// Get Stream Data
@@ -949,7 +731,7 @@ class Plugin_Streams extends Plugin
 
 		foreach($vars['fields'] as $field)
 		{
-			$vars[$field['input_slug']]['label'] 			= $field['input_title'];
+			$vars[$field['input_slug']]['label'] 			= translate_label($field['input_title']);
 			$vars[$field['input_slug']]['slug'] 			= $field['input_slug'];
 			$vars[$field['input_slug']]['value'] 			= $field['value'];
 
@@ -1716,6 +1498,42 @@ class Plugin_Streams extends Plugin
 	private function _error_out($msg)
 	{
 		return ($this->debug_status == 'on') ? show_error($msg) : FALSE;
+	}
+
+	// --------------------------------------------------------------------------
+	// Legacy Functions
+	// --------------------------------------------------------------------------
+	
+	/**
+	 * Format date variables
+	 *
+	 * Legacy. This is now done by the date helper
+	 * or in the datetime field type.
+	 *
+	 * @access	public
+	 * @return	string - formatted date
+	 */
+	public function date()
+	{
+	 	$date_formats = array('DATE_ATOM', 'DATE_COOKIE', 'DATE_ISO8601', 'DATE_RFC822', 'DATE_RFC850', 'DATE_RFC1036', 'DATE_RFC1123', 'DATE_RFC2822', 'DATE_RSS', 'DATE_W3C');
+	 	
+		$date 		= $this->attribute('date');
+		$format 	= $this->attribute('format');
+		
+		// No sense in trying to get down
+		// with somedata that isn't there
+		if ( ! $date or ! $format) return NULL;
+		
+		$this->load->helper('date');
+	
+		// Make sure we have a UNIX date
+		if ( ! is_numeric($date)) $date = mysql_to_unix($date);
+		
+		// Is this a preset?
+		if (in_array($format, $date_formats)) return standard_date($format, $date);
+
+		// Default is PHP date		
+		return date($format, $date);
 	}
 
 }
