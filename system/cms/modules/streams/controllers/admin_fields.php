@@ -20,24 +20,22 @@ class Admin_Fields extends Admin_Controller {
 
 	// --------------------------------------------------------------------------   
 
+	/**
+	 * Construct
+	 *
+	 * @access 	public
+	 * @return 	void
+	 */
 	public function __construct()
 	{
 		parent::__construct();
 
-		// If you are going to admin fields you gotta 
-		// pass the test!
+		// If you are going to admin fields you need to
+		// be authorized for admin_fields.
 		role_or_die('streams', 'admin_fields');
 
-		// -------------------------------------
-		// Resources Load
-		// -------------------------------------
-
 		$this->load->config('streams/streams');
-		$this->load->config('streams_core/streams');
-		$this->lang->load('streams_core/pyrostreams');    
-		$this->load->library('streams_core/Type');	
-		$this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
-		$this->load->library('form_validation');
+		$this->load->driver('Streams');
 
 		$this->data = new stdClass();
  		$this->data->types = $this->type->types;
@@ -46,34 +44,35 @@ class Admin_Fields extends Admin_Controller {
 	// --------------------------------------------------------------------------   
 
 	/**
-	 * List fields
+	 * Index
+	 *
+	 * List fields (using the Streams API fields_table
+	 * functionality).
+	 *
+	 * @access 	public
+	 * @return 	void
 	 */
 	public function index()
 	{
-		// -------------------------------------
-		// Get fields
-		// -------------------------------------
-		
-		$this->data->fields = $this->fields_m->get_fields(
-										$this->config->item('streams:core_namespace'),
-										Settings::get('records_per_page'),
-										$this->uri->segment(5)
-									);
+		$extra = array();
 
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
+		$extra['title'] = lang('streams:fields');
+		$extra['buttons'] = array(
+			array(
+				'label'		=> lang('global:edit'),
+				'url'		=> 'admin/streams/fields/edit/-field_id-'
+			),
+			array(
+				'label'		=> lang('global:delete'),
+				'url'		=> 'admin/streams/fields/delete/-field_id-',
+				'confirm'	=> true,
+			)
+		);
 
-		$this->data->pagination = create_pagination(
-										'admin/streams/fields/index',
-										$this->fields_m->count_fields($this->config->item('streams:core_namespace')),
-										Settings::get('records_per_page'),
-										5
-									);
-
-		// -------------------------------------
-
-		$this->template->build('admin/fields/index', $this->data);
+		$this->streams->cp->fields_table(
+				$this->config->item('streams:core_namespace'),
+				Settings::get('records_per_page'),
+				'admin/streams/fields/index', true, $extra);
 	}
 
 	// --------------------------------------------------------------------------   

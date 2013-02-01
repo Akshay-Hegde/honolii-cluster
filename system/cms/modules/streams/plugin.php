@@ -731,7 +731,7 @@ class Plugin_Streams extends Plugin
 
 		foreach($vars['fields'] as $field)
 		{
-			$vars[$field['input_slug']]['label'] 			= translate_label($field['input_title']);
+			$vars[$field['input_slug']]['label'] 			= lang_label($field['input_title']);
 			$vars[$field['input_slug']]['slug'] 			= $field['input_slug'];
 			$vars[$field['input_slug']]['value'] 			= $field['value'];
 
@@ -779,6 +779,7 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		
 		$params['class']		= $this->streams_attribute('form_class', 'crud_form');
+		$params['id']			= $this->streams_attribute('form_id');
 				
 		// Add a row_edit_id where needed
 		if ($mode == 'edit') $hidden = array('row_edit_id' => $row->id);
