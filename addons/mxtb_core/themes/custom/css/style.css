@@ -4023,3 +4023,40 @@ blockquote:before {
 blockquote:after {
   content: '”';
 }
+.pyro-image.left,
+.media.left {
+  float: left;
+  margin-right: 1em;
+  margin-bottom: 1em;
+}
+.pyro-image.right,
+.media.right {
+  float: right;
+  margin-left: 1em;
+  margin-bottom: 1em;
+}
+.pyro-image.center,
+.media.center {
+  display: block;
+  margin: 1em auto;
+}
+.logo-headline {
+  font-family: "pt-sans", Arial, sans-serif;
+  color: #545454;
+  font-size: 29px;
+  border-bottom: solid 2px #E4A423;
+  line-height: 1.1em;
+  padding-bottom: 25px;
+  padding-left: 200px;
+  position: relative;
+}
+.logo-headline:before {
+  display: block;
+  position: absolute;
+  content: '';
+  width: 181px;
+  height: 126px;
+  left: 0;
+  top: -25px;
+  background: url(../img/logo-small.png) no-repeat center left;
+}
