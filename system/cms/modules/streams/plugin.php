@@ -677,7 +677,7 @@ class Plugin_Streams extends Plugin
 				return null;
 			}
 
-			if($this->current_user->id != $row->created_by)
+			if ($this->current_user->id != $row->created_by)
 			{
 				return null;
 			}
@@ -782,8 +782,11 @@ class Plugin_Streams extends Plugin
 		$params['id']			= $this->streams_attribute('form_id');
 				
 		// Add a row_edit_id where needed
-		if ($mode == 'edit') $hidden = array('row_edit_id' => $row->id);
-		
+		if ($mode == 'edit')
+		{
+			$hidden['row_edit_id'] = $row->id;
+		}
+
 		// Always add a stream_id to the form.
 		$hidden['stream_id'] = $data->stream_id;
 
