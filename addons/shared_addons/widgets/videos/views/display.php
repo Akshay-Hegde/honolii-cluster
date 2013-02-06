@@ -2,7 +2,7 @@
 <ul class="youtube-feed-list">
     <?php foreach($videoFeed->entry as $video): ?>
     <li>
-        <iframe width="<?= $width ?>" height="<?= $height ?>" src="http://www.youtube.com/embed/<?= $video ?>" frameborder="0" allowfullscreen></iframe>
+        <iframe width="<?= $width ?>" height="<?= $height ?>" src="http://www.youtube.com/embed/<?= $video ?>?rel=0" frameborder="0" allowfullscreen></iframe>
     </li>
     <?php endforeach; ?>
 </ul>

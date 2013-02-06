@@ -3676,9 +3676,19 @@ body {
 .galleries-container > .gallery-item .gallery-sublist .sublist-item {
   position: relative;
   margin-top: 10px;
+  min-height: 156px;
+  min-width: 156px;
+  opacity: .8;
+  background-color: #ccc;
+}
+.galleries-container > .gallery-item .gallery-sublist .sublist-item:hover {
+  opacity: 1;
 }
 .galleries-container > .gallery-item .gallery-sublist .gallery-sublist-content {
   padding-bottom: 10px;
+}
+.galleries-container > .gallery-item .gallery-sublist .gallery-sublist-content > div:nth-child(3n+1) {
+  margin-left: 0;
 }
 .galleries-container > .gallery-item .gallery-sublist h4 {
   position: absolute;
@@ -3687,9 +3697,11 @@ body {
   width: 100%;
   background-color: rgba(0,0,0,0.5);
   color: #fff;
+  line-height: 1.2em;
 }
 .galleries-container > .gallery-item .gallery-sublist h4 span {
-  padding-left: 10px;
+  padding: 10px;
+  display: inline-block;
 }
 .galleries-container > .gallery-item .gallery-sublist img {
   display: block;

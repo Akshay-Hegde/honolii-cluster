@@ -1,7 +1,16 @@
 <div class="galleries-container" id="gallery-image">
     <div class="gallery-single-image">        
         <div class="gallery-title">
-           <h2 id="page_title"><span><?php echo $gallery_image->name; ?></span></h2>
+           <h2 id="page_title">
+               <span>
+                   <?php 
+                        if( strcasecmp($gallery_image->name, $gallery_image->filename) == 0 )
+                            {echo $gallery->title;}
+                        else
+                            {echo $gallery_image->name;}
+                    ?>
+               </span>
+            </h2>
         </div>
         <div class="gallery-image" id="gallery-image-large" data-current-image="<?= $gallery_image->file_id ?>">
             <img src="<?php echo site_url('files/large/'.$gallery_image->file_id); ?>" alt="<?php echo $gallery_image->name; ?>" />
@@ -23,6 +32,7 @@
         <?php endif; ?>
     </div>
 </div>
+
 <?php /*
 <?php if ($gallery->enable_comments == 1): ?>
 	<?php echo display_comments($gallery_image->id, 'gallery-image'); ?>
