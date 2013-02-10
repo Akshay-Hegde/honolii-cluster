@@ -225,7 +225,7 @@ class Admin extends Admin_Controller {
 		$this->data->groups = $this->db
 									->select('*, groups.id as group_id')
 									->from('groups, permissions')
-									->where('groups.id', 'permissions.group_id')
+									->where('groups.id', '`'.SITE_REF.'_permissions`.`group_id`', false)
 									->where('permissions.module', 'streams')
 									->where('groups.name !=', 'admin')->get()->result();
 
