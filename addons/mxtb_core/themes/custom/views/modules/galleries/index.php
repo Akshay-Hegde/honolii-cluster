@@ -7,7 +7,7 @@
         			<?php if ( ! empty($gallery->filename)): ?>
         				<div class="gallery-title">
         				    <h3><span><?= $gallery->title ?></span></h3>
-        				    <div class="btn">view more</div>
+        				    <div class="cta">view photos</div>
         				</div>
         				<?= img(array('src' => site_url('files/thumb/'.$gallery->file_id.'/508/220/fit'), 'alt' => $gallery->description)); ?>
         				<a href="<?= site_url('galleries/'.$gallery->slug); ?>"></a>

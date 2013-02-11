@@ -19,7 +19,7 @@
     			<?php echo $post->intro; ?>
     		</div>
     		<div class="post-full">
-    		    <a href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="btn">View More</a>
+    		    <a href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="cta">View More</a>
     		</div>
     		<hr />
     	</div>

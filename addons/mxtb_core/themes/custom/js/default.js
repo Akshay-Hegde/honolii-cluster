@@ -5,18 +5,18 @@ $(document).ready(function() {
 	$('#myCarousel').carousel();
 	
 	// Gallery Index - SubGallery Slider
-	$('.gallery-item','#gallery-index').hover(
+	$('.gallery-heading','#gallery-index').click(
 	    function(event){
 	        var $this = $(this);
-	        var $sublistGallery = $this.find('.gallery-sublist-content');
+	        var $sublistGallery = $this.siblings('.gallery-sublist');
 	        
-	        $this.find('.gallery-sublist').height($sublistGallery.outerHeight());
-	        $this.addClass('hover');
-	    },
-	    function(event){
-	        var $this = $(this);
-	        $this.find('.gallery-sublist').height(0);
-	        $this.removeClass('hover');
+	        if($this.hasClass('active')){
+	            $this.siblings('.gallery-sublist').height(0);
+	            $this.removeClass('active');
+	        }else{
+	            $sublistGallery.height($sublistGallery.find('.gallery-sublist-content').outerHeight());
+                $this.addClass('active');
+	        }
 	    }
 	)
 	// Size gallery slider
@@ -83,9 +83,8 @@ $(document).ready(function() {
 	    var $image = $this.find('.post-content .intro img').detach();
 	    var imgSrc = $image.attr('src');
 	    $image.attr({
-	        src: imgSrc + '212/250/fit',
-	        class: ''
-	    });
+	        src: imgSrc + '212/250/fit'
+	    }).removeClass();
 	    $this.find('.post-image a').empty().prepend($image);
 	})
 	
@@ -96,9 +95,8 @@ $(document).ready(function() {
         var $image = $this.find('.post-content .intro img').detach();
         var imgSrc = $image.attr('src');
         $image.attr({
-            src: imgSrc + '114/134/fit',
-            class: ''
-        });
+            src: imgSrc + '114/134/fit'
+        }).removeClass();
         $this.find('.post-image a').empty().prepend($image);
     })
     
@@ -109,16 +107,100 @@ $(document).ready(function() {
         var $image = $this.find('.post-body img').detach();
         var imgSrc = $image.attr('src');
         $image.attr({
-            src: imgSrc + '480/300/fit',
-            class: 'active'
-        });
+            src: imgSrc + '480/300/fit'
+        }).removeClass().addClass('active');
         $this.find('.post-body').prepend($image);
     })
 	
 	// Style Form
 	$('.crud_form').addClass('form-horizontal');
-	$('#populate-address').change(function(event) {
+	$('input:radio[name="same_address"]').click(function(event) {
 		var $this = $(this);
-		console.log($this.val(),event)
+		var $trackAddress = $('.track-address');
+		if($this.val() == true){
+		    // copy contact address
+		    $trackAddress.css({
+                'height':0,
+                'opacity':0
+            });
+            $('#track_address').val($('#address').val());
+            $('#track_address_city').val($('#address_city').val());
+            $('#track_address_state').val($('#address_state').val());
+            $('#track_address_zip').val($('#address_zip').val());
+		}else{
+		    // clear track address and open fields
+		    $trackAddress.css({
+		        'height':'auto',
+		        'opacity':1
+		    });
+		    $('#track_address').val(null);
+            $('#track_address_city').val(null);
+            $('#track_address_state').val(null);
+            $('#track_address_zip').val(null);
+		}
 	});
+	$('#track_type').change(function(event){
+	    var $this = $(this);
+	    var $trackPermits = $('.track-permits');
+	    if($this.val() === 'Public'){
+	       $trackPermits.css({
+                'height':'auto',
+                'opacity':1
+            });
+	    }
+	})
+	$('#track_style').change(function(event){
+	   var $this = $(this);
+       var $trackSupercross = $('.track-supercross');
+       var $trackLength = $('.track-length');
+       
+       switch($this.val()){
+           case 'Supercross':
+               $trackSupercross.css({
+                    'height':'auto',
+                    'opacity':1
+               });
+               $trackLength.css({
+                    'height':0,
+                    'opacity':0
+               });
+           break;
+           case 'Motocross':
+           case 'ATV':
+           case 'Other':
+               $trackLength.css({
+                    'height':'auto',
+                    'opacity':1
+               });
+               $trackSupercross.css({
+                    'height':0,
+                    'opacity':0
+               });
+           break;
+           default:
+               $trackLength.css({
+                    'height':0,
+                    'opacity':0
+               });
+               $trackSupercross.css({
+                    'height':0,
+                    'opacity':0
+               });
+       }
+	})
+	//bootstrap lightbox
+	var $instagramImage = $('.instagram-feed-list li');
+	$instagramImage.click(function(event){
+	    var $this = $(this);
+	    var $img = $this.find('img');
+	    var $modal = $('#media-lightbox');
+	    var $media = $modal.find('.lightbox-content');
+	    
+	    $media.children('img').remove()
+	    $media.append('<img width="612" height="612" src="'+ $img.attr('data-src') +'"/>');
+	    
+	    $media.find('.lightbox-caption').empty().append($img.attr('alt'));
+	    
+	    $modal.lightbox();
+	})
 });

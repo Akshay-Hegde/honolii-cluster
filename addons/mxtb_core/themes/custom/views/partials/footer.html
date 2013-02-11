@@ -13,9 +13,9 @@
 			</ul>
 			<div class="span6">
 				<div class="social">
-					<a class="icon-youtube" href="">YouTube</a>
-					<a class="icon-vimeo" href="">Vimeo</a>
-					<a class="icon-facebook" href="">Facebook</a>
+					<a class="icon-youtube" href="{{ variables:youtube }}">YouTube</a>
+					<a class="icon-vimeo" href="{{ variables:vimeo }}">Vimeo</a>
+					<a class="icon-facebook" href="{{ variables:facebook }}">Facebook</a>
 				</div>
 				<h4>MX Track Builders, LLC.</h4>
 				<p>We specializes in the design and development of private, public, and indoor Motocross tracks worldwide. The team is credited for their creative design concepts matched by reliable &amp; efficient service unparalleled in the industry.</p>
@@ -26,3 +26,13 @@
 		MX Track Builders, LLC. &copy; 2006 - {{helper:date format="Y"}}
 	</div>
 </footer>
+<!-- Modal Window -->
+<div id="media-lightbox" class="lightbox hide fade"  tabindex="-1" role="dialog" aria-hidden="true">
+    <div class='lightbox-header'>
+        <button type="button" class="close" data-dismiss="lightbox" aria-hidden="true">&times;</button>
+    </div>
+    <div class='lightbox-content'>
+        
+        <div class="lightbox-caption"></div>
+    </div>
+</div>
