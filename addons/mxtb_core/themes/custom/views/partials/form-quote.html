@@ -1,0 +1,272 @@
+{{ 
+    streams:form
+    stream="quote_request"
+    mode="new"
+    
+}}
+
+{{ form_open }}
+<div class="tab-content">
+    <div class="tab-pane active" id="contact">
+        <fieldset>
+            <legend>Contact Information</legend>
+            <div class="control-group">
+                <label class="control-label">Full Name</label>
+                <div class="controls">
+                    {{full_name:input }}
+                    <span class="help-inline">{{ full_name:error }}<span class="help-inline">Required</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">E-Mail Address</label>
+                <div class="controls">{{email:input }}
+                    <span class="help-inline">{{ email:error }}<span class="help-inline">Required</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Phone Number</label>
+                <div class="controls">
+                    {{phone:input}}
+                    <span class="help-inline">{{ phone:error }}<span class="help-inline">Required</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Address</label>
+                <div class="controls">
+                    {{address:input}}
+                    <span class="help-inline">{{ address:error }}</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">City</label>
+                <div class="controls">
+                    {{address_city:input}}
+                    <span class="help-inline">{{ address_city:error }}<span class="help-inline">Required</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">State</label>
+                <div class="controls">
+                    {{address_state:input}}
+                    <span class="help-inline">{{ address_state:error }}<span class="help-inline">Required</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Zip Code</label>
+                <div class="controls">
+                    {{address_zip:input}}
+                    <span class="help-inline">{{ address_zip:error }}</span>
+                </div>
+            </div>
+        </fieldset>
+        <hr />
+        <a class='btn btn-primary pull-right' data-target="#track" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
+    </div>
+    <div class="tab-pane" id="track">
+        <fieldset>
+            <legend>Track Information</legend>
+            <p class="small">The cost to construct your track will be determined by the scope of the project and site particulars. We will need to know the following information in order to estimate your project.</p>
+            <hr />
+            <div class="control-group">
+                <label class="control-label">Track address same as contact address</label>
+                <div class="controls">
+                    <label class="radio"><input type="radio" value="0" name="same_address">No</label>
+                    <label class="radio"><input type="radio" value="1" name="same_address">Yes</label>
+                </div>
+            </div>
+            <div class="track-address">
+                <div class="control-group">
+                    <label class="control-label">Address</label>
+                    <div class="controls">
+                        {{track_address:input}}
+                        <span class="help-inline">{{ track_address:error }}</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">City</label>
+                    <div class="controls">
+                        {{track_address_city:input}}
+                        <span class="help-inline">{{ track_address_city:error }}</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">State</label>
+                    <div class="controls">
+                        {{track_address_state:input}}
+                        <span class="help-inline">{{ track_address_state:error }}</span>
+                    </div>
+                </div>
+                <div class="control-group">
+                    <label class="control-label">Zip Code</label>
+                    <div class="controls">
+                        {{track_address_zip:input}}
+                        <span class="help-inline">{{ track_address_zip:error }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Public or private?</label>
+                <div class="controls">
+                    {{track_type:input}}
+                    <span class="help-inline">{{ track_type:error }}</span>
+                </div>
+            </div>
+            <div class="track-permits">
+                <div class="control-group">
+                    <label class="control-label">Proper permits acquired</label>
+                    <div class="controls">
+                        {{track_permits:input}}
+                        <span class="help-inline">{{ track_permits:error }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Style</label>
+                <div class="controls">
+                    {{track_style:input}}
+                    <span class="help-inline">{{ track_style:error }}</span>
+                </div>
+            </div>
+            <div class="track-supercross">
+                <div class="control-group">
+                    <label class="control-label">Supercross lanes</label>
+                    <div class="controls">
+                        {{track_size:input}}
+                        <span class="help-inline">{{ track_size:error }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="track-length">
+                <div class="control-group">
+                    <label class="control-label">Length of track</label>
+                    <div class="controls">
+                        {{track_length:input}}
+                        <span class="help-inline">{{ track_length:error }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Size of lot area</label>
+                <div class="controls">
+                    {{track_lot_size:input}}
+                    <span class="help-inline">{{ track_lot_size:error }}<span class="help-inline">Sq Feet or Acre</span></span>
+                </div>
+            </div>
+        </fieldset>
+        <hr />
+        <a class='btn pull-left btn-inverse' data-target="#contact" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <a class='btn pull-right btn-primary' data-target="#expenses" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
+    </div>
+    <div class="tab-pane" id="expenses">
+        <fieldset>
+            <legend>Expenses</legend>
+            <p class="small">If you are able to provide any of the following expenses, please let us know so we do not factor in the cost of such expenses when estimating your project.</p>
+            <p class="small">The following equipment may be utilized: track-type dozer, wheel loader, multi terrain loader, excavator, articulated truck, dump truck, water truck. If you plan to supply any of the following equipment, we request that all machines be in good working condition in order to insure project efficiency.</p>
+            <hr />
+            <div class="control-group">
+                <label class="control-label">Equipment</label>
+                <div class="controls">
+                    {{expenses_equipment:input}}
+                    <span class="help-inline">{{ expenses_equipment:error }}<span class="help-inline">Add equipment detail</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Fuel</label>
+                <div class="controls">
+                    {{expenses_fuel:input}}
+                    <span class="help-inline">{{ expenses_fuel:error }}</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Material/Soil</label>
+                <div class="controls">
+                    {{expenses_material:input}}
+                    <span class="help-inline">{{ expenses_material:error }}<span class="help-inline">Select all that apply</span></span>
+                </div>
+            </div>
+        </fieldset>
+        <hr />
+        <a class='btn pull-left btn-inverse' data-target="#track" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <a class='btn pull-right btn-primary' data-target="#conditions" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
+    </div>
+    <div class="tab-pane" id="conditions">
+        <fieldset>
+            <legend>Site Conditions &amp; Details</legend>
+            <div class="control-group">
+                <label class="control-label">Soil composition</label>
+                <div class="controls">
+                    {{lot_soil_conditions:input}}
+                    <span class="help-inline">{{ lot_soil_conditions:error }}<span class="help-inline">Select all that apply</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Site particulars</label>
+                <div class="controls">
+                    {{lot_conditions:input}}
+                    <span class="help-inline">{{ lot_conditions:error }}<span class="help-inline">Select all that apply</span></span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Upload Lot Image</label>
+                <div class="controls">
+                    {{lot_photograph:input}}
+                    <span class="help-inline">{{ lot_photograph:error }}<span class="help-inline">JPG, PNG, TIFF, GIF file formats</span></span>
+                </div>
+            </div>
+        </fieldset>
+        <hr />
+        <a class='btn pull-left btn-inverse' data-target="#expenses" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <a class='btn pull-right btn-primary' data-target="#additional" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
+    </div>
+    <div class="tab-pane" id="additional">
+        <fieldset>
+            <legend>Additional Information</legend>
+            <div class="control-group">
+                <label class="control-label">Start date</label>
+                <div class="controls">
+                    {{project_start_date:input}}
+                    <span class="help-inline">{{ project_start_date:error }}</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">Budget</label>
+                <div class="controls">
+                    <div class="input-prepend">
+                        <span class="add-on">$</span>{{project_budget:input}}
+                    </div>
+                    <span class="help-inline">{{ project_budget:error }}</span>
+                </div>
+            </div>
+            <div class="control-group">
+                <label class="control-label">How did you hear about us</label>
+                <div class="controls">
+                    {{marketing:input}}
+                    <span class="help-inline">{{ marketing:error }}</span>
+                </div>
+            </div>
+            <hr />
+            <div class="row-fluid">
+            	<div class="span6">
+            	    <div class="control-group">
+                        <label class="control-label">Added information</label>
+                        <div class="controls">
+                            {{more_information:input}}
+                        </div>
+                    </div>
+            	</div>
+            	<div class="span4">
+            	    <p class="small">Any additional information not requested here that you can provide may be mutually beneficial. There are many variables that can change the cost of your project so please be specific.</p>
+            	</div>
+            </div>
+            
+        </fieldset>
+        <hr />
+        <a class='btn pull-left btn-inverse' data-target="#conditions" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <button class='btn btn-large btn-primary pull-right' type="submit">Send Form <icon class="icon-ok-sign icon-white"></icon></button>
+    </div>
+</div>
+
+      
+{{ form_close }}
+
+{{ /streams:form }}

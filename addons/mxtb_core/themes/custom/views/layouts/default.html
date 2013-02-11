@@ -17,14 +17,45 @@
 		{{ theme:partial name="header" }}
 		<!-- Content -->
 		<div id="content" class="container site-content">
-			<div class="row">
-				{{session:messages success="success" notice="notice" error="error"}}
-				{{ template:body }}
-			</div>
-		</div>
-		<!-- Footer -->
-		{{ theme:partial name="footer" }}
-	</div>
+            <div class="row">
+                <div class="span12">
+                    <div class="box-line">
+                        {{ if page:id == '1' }}
+                        <div id="myCarousel" class="splash-block carousel slide">
+                          <div class="carousel-inner">
+                            <div class="item active"><img src="http://placehold.it/928x400&text=Slide+One" alt="" /></div>
+                            <div class="item"><img src="http://placehold.it/928x400&text=Slide+Two" alt="" /></div>
+                            <div class="item"><img src="http://placehold.it/928x400&text=Slide+Three" alt="" /></div>
+                          </div>
+                          <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                          <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                        </div>
+                        {{ else }}
+                            {{ theme:partial name="breadcrumbs" }}
+                        {{ endif }}
+                        <div class="template-wrapper">
+                        {{session:messages success="success" notice="notice" error="error"}}
+                        <!-- view > default -->
+                        {{ template:body }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row services-block">
+            	<div class="span6">
+            	    <a href="{{ pages:url id="5" }}" class="track-construction"><span class="cta">View More</span></a>
+            	</div>
+            	<div class="span6">
+            	    <a href="{{ pages:url id="6" }}" class="track-design"><span class="cta">View More</span></a>
+            	</div>
+            </div>
+            {{ if page:id == '1' }}
+                {{ theme:partial name="latest-news" }}
+            {{ endif }}
+        </div>
+    </div>
+	<!-- Footer -->
+	{{ theme:partial name="footer" }}
 {{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}

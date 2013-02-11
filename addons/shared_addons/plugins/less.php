@@ -48,8 +48,9 @@ class Plugin_Less extends Plugin
 			$viewsPath = rtrim($this->load->get_var('template_views'), '/');
 			$themePath = preg_replace('#(\/views(\/web|\/mobile)?)$#', '', $viewsPath).'/';
 			
+			$less = new lessc;
 			
-			lessc::ccompile(Asset::get_filepath_css($file, false),Asset::get_filepath_css($output, false));
+			$less->compileFile(Asset::get_filepath_css($file, false),Asset::get_filepath_css($output, false));
 			
 			return link_tag(Asset::get_filepath_css($output, true), 'stylesheet');
 			

@@ -16,8 +16,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <base href="{{ url:base }}" />
 <title>{{ settings:site_name }} &bull; {{ template:title }}</title>
+<!-- typekit fonts -->
+<script type="text/javascript" src="//use.typekit.net/cpn6qbw.js"></script>
+<script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 <!-- CSS Stylesheets -->
-<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Michroma|Orbitron"/>
 {{ if global:environment == 'development' }}
 <!-- DEVELOPMENT FILES -->
 {{ less:compile file="build.less" output="style.css" }}
