@@ -109,7 +109,7 @@ $(document).ready(function() {
         $image.attr({
             src: imgSrc + '480/300/fit'
         }).removeClass().addClass('active');
-        $this.find('.post-body').prepend($image);
+        $this.find('.img-link').prepend($image);
     })
 	
 	// Style Form
@@ -188,6 +188,16 @@ $(document).ready(function() {
                });
        }
 	})
+	$('#country').change(function(event){
+	   var $this = $(this);
+       var $state = $('#address_state');
+       if($this.val() !== 'United States'){
+           $state.attr("disabled", "disabled").val('Canada - State');
+       }else{
+           $state.removeAttr("disabled");
+       } 
+	})
+	$('#more_information').attr('placeholder','Additional information...')
 	//bootstrap lightbox
 	var $instagramImage = $('.instagram-feed-list li');
 	$instagramImage.click(function(event){

@@ -4495,7 +4495,6 @@ footer {
   min-height: 150px;
   margin-bottom: 40px;
   margin-top: -25px;
-  background-image: url('http://placehold.it/884x300&text=hero+header');
   height: 300px;
 }
 .hero-header h2 {
@@ -4676,6 +4675,7 @@ hr {
 }
 .galleries-container > .gallery-item .gallery-heading {
   min-height: 220px;
+  cursor: pointer;
   background: url(../img/ajax-loader.gif) center center no-repeat #eee;
 }
 .galleries-container > .gallery-item .gallery-heading a {
@@ -4701,7 +4701,7 @@ hr {
   min-width: 156px;
   background-color: #545454;
 }
-.galleries-container > .gallery-item .gallery-sublist .sublist-item:hover h4 {
+.galleries-container > .gallery-item .gallery-sublist .sublist-item:hover .item-headline {
   background-color: rgba(0,0,0,0.9);
 }
 .galleries-container > .gallery-item .gallery-sublist .gallery-sublist-content {
@@ -4710,7 +4710,7 @@ hr {
 .galleries-container > .gallery-item .gallery-sublist .gallery-sublist-content > div:nth-child(3n+1) {
   margin-left: 0;
 }
-.galleries-container > .gallery-item .gallery-sublist h4 {
+.galleries-container > .gallery-item .gallery-sublist .item-headline {
   position: absolute;
   font-size: 13px;
   margin: 0;
@@ -4723,7 +4723,7 @@ hr {
   color: #fff;
   line-height: 1.2em;
 }
-.galleries-container > .gallery-item .gallery-sublist h4 span {
+.galleries-container > .gallery-item .gallery-sublist .item-headline span {
   padding: 10px;
   display: inline-block;
 }
@@ -4735,7 +4735,46 @@ hr {
   width: 100%;
   height: 100%;
   top: 0;
-  text-indent: -9999px;
+  overflow: hidden;
+}
+.gallery-sublist-items .sublist-item {
+  position: relative;
+  margin-bottom: 18px;
+  min-height: 207px;
+  min-width: 207px;
+  background-color: #545454;
+}
+.gallery-sublist-items .sublist-item:hover .item-headline {
+  background-color: rgba(0,0,0,0.9);
+}
+.gallery-sublist-items .gallery-sublist-content > div:nth-child(4n+1) {
+  margin-left: 0;
+}
+.gallery-sublist-items .item-headline {
+  position: absolute;
+  font-size: 13px;
+  margin: 0;
+  width: 100%;
+  background-color: rgba(0,0,0,0.4);
+  -webkit-transition: background-color .7s;
+  -moz-transition: background-color .7s;
+  -o-transition: background-color .7s;
+  transition: background-color .7s;
+  color: #fff;
+  line-height: 1.2em;
+}
+.gallery-sublist-items .item-headline span {
+  padding: 10px;
+  display: inline-block;
+}
+.gallery-sublist-items img {
+  display: block;
+}
+.gallery-sublist-items a {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
   overflow: hidden;
 }
 .category-title {
@@ -4847,6 +4886,10 @@ form .help-inline .error {
 form .help-inline .error + .help-inline {
   display: none;
 }
+form textarea {
+  max-width: 90%;
+  width: 90%;
+}
 .track-address,
 .track-permits,
 .track-supercross,
@@ -4876,6 +4919,20 @@ aside > .widget:last-child {
   padding: 10px 0;
   border-bottom: solid 1px #000;
   margin-bottom: 10px;
+}
+.widget .siderail_posts .blog-post .post-image a {
+  display: block;
+  -webkit-box-shadow: 0 0 0 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 0 0 3px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.3);
+}
+.widget .siderail_posts .blog-post .post-image a img {
+  display: block;
+}
+.widget .siderail_posts .blog-post .post-image a:hover {
+  -webkit-box-shadow: 0 0 0 3px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0 0 0 3px rgba(0,0,0,0.6);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.6);
 }
 .widget .siderail_posts .blog-post .post-content {
   font-size: 13.986px;
@@ -4939,6 +4996,14 @@ aside > .widget:last-child {
 }
 .latest-news-block .blog-post .post-image a {
   display: block;
+  -webkit-box-shadow: 0 0 0 3px rgba(0,0,0,0.3);
+  -moz-box-shadow: 0 0 0 3px rgba(0,0,0,0.3);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.3);
+}
+.latest-news-block .blog-post .post-image a:hover {
+  -webkit-box-shadow: 0 0 0 3px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0 0 0 3px rgba(0,0,0,0.6);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.6);
 }
 .latest-news-block .blog-post .post-image a img {
   display: block;
@@ -5126,6 +5191,11 @@ blockquote:after {
 }
 .small {
   font-size: 13.986px;
+}
+.btn {
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
 .btn [class^="icon-"],
 .btn [class*=" icon-"] {

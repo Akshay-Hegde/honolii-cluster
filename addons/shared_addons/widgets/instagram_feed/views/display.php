@@ -1,6 +1,6 @@
-<?php if($username != NULL): ?>
+<?php /* if($username != NULL): ?>
      <a class="instagram" href="http://instagram.com/<?= $username ?>" title="<?= $username ?>">Instagram</a>
-<?php endif; ?>
+<?php endif; */ ?>
 
 <ul class="instagram-feed-list">
     <?php foreach($instagramFeed->entry as $image):
