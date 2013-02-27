@@ -18,10 +18,11 @@
         		        <?php foreach($galleries as $subgallery) :  if($gallery->id === $subgallery->parent): ?>
         		            <div class="span4">
         		                <div class="sublist-item">
-            		                <h4><span><?= $subgallery->title ?></span></h4>
             		                <?php if ( ! empty($subgallery->filename)): ?>
-            		                  <?= img(array('src' => site_url('files/thumb/'.$subgallery->file_id.'/162/162/fit'), 'alt' => $subgallery->description)); ?>
-            		                  <a href="<?= site_url('galleries/'.$subgallery->slug); ?>">View <?= $subgallery->title ?> photos</a>
+            		                  <a title="View - <?= $subgallery->title ?>" href="<?= site_url('galleries/'.$subgallery->slug); ?>">
+            		                      <span class="item-headline"><span><?= $subgallery->title ?></span></span>
+            		                      <?= img(array('src' => site_url('files/thumb/'.$subgallery->file_id.'/162/162/fit'), 'alt' => $subgallery->description)); ?>
+            		                  </a>
             		                <?php endif; ?>
         		                </div>
         		            </div>

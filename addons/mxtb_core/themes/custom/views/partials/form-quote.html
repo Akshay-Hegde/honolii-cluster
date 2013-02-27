@@ -3,6 +3,10 @@
     stream="quote_request"
     mode="new"
     
+    notify_a="john@mxtrackbuilders.com"
+    notify_template_a="request_notice"
+    
+    return="/contact/thank-you?tg=form-quote"
 }}
 
 {{ form_open }}
@@ -31,6 +35,13 @@
                 </div>
             </div>
             <div class="control-group">
+                <label class="control-label">Country</label>
+                <div class="controls">
+                    {{country:input}}
+                    <span class="help-inline">{{ country:error }}<span class="help-inline">Required</span></span>
+                </div>
+            </div>
+            <div class="control-group">
                 <label class="control-label">Address</label>
                 <div class="controls">
                     {{address:input}}
@@ -48,7 +59,7 @@
                 <label class="control-label">State</label>
                 <div class="controls">
                     {{address_state:input}}
-                    <span class="help-inline">{{ address_state:error }}<span class="help-inline">Required</span></span>
+                    <span class="help-inline">{{ address_state:error }}</span>
                 </div>
             </div>
             <div class="control-group">
@@ -65,7 +76,7 @@
     <div class="tab-pane" id="track">
         <fieldset>
             <legend>Track Information</legend>
-            <p class="small">The cost to construct your track will be determined by the scope of the project and site particulars. We will need to know the following information in order to estimate your project.</p>
+            <p class="small">The cost to construct your track will be determined by the scope of the project, time invested and site particulars. We will need to know the following information in order to estimate your project.</p>
             <hr />
             <div class="control-group">
                 <label class="control-label">Track address same as contact address</label>
@@ -121,7 +132,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Style</label>
+                <label class="control-label">Style of track</label>
                 <div class="controls">
                     {{track_style:input}}
                     <span class="help-inline">{{ track_style:error }}</span>
@@ -146,10 +157,10 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Size of lot area</label>
+                <label class="control-label">Size of lot</label>
                 <div class="controls">
                     {{track_lot_size:input}}
-                    <span class="help-inline">{{ track_lot_size:error }}<span class="help-inline">Sq Feet or Acre</span></span>
+                    <span class="help-inline">{{ track_lot_size:error }}<span class="help-inline">Sq feet or acreage</span></span>
                 </div>
             </div>
         </fieldset>
@@ -161,7 +172,7 @@
         <fieldset>
             <legend>Expenses</legend>
             <p class="small">If you are able to provide any of the following expenses, please let us know so we do not factor in the cost of such expenses when estimating your project.</p>
-            <p class="small">The following equipment may be utilized: track-type dozer, wheel loader, multi terrain loader, excavator, articulated truck, dump truck, water truck. If you plan to supply any of the following equipment, we request that all machines be in good working condition in order to insure project efficiency.</p>
+            <p class="small">The following equipment may be utilized: track-type dozer, wheel loader, multi terrain loader, excavator, articulated truck, dump truck, water truck. If you plan to supply any of the following equipment, we request that all machines be in good working condition in order to ensure project efficiency.</p>
             <hr />
             <div class="control-group">
                 <label class="control-label">Equipment</label>
@@ -207,7 +218,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">Upload Lot Image</label>
+                <label class="control-label">Upload Site Image</label>
                 <div class="controls">
                     {{lot_photograph:input}}
                     <span class="help-inline">{{ lot_photograph:error }}<span class="help-inline">JPG, PNG, TIFF, GIF file formats</span></span>
@@ -247,15 +258,10 @@
             <hr />
             <div class="row-fluid">
             	<div class="span6">
-            	    <div class="control-group">
-                        <label class="control-label">Added information</label>
-                        <div class="controls">
-                            {{more_information:input}}
-                        </div>
-                    </div>
+                    {{more_information:input}}
             	</div>
             	<div class="span4">
-            	    <p class="small">Any additional information not requested here that you can provide may be mutually beneficial. There are many variables that can change the cost of your project so please be specific.</p>
+            	    <p class="small">Any additional information not requested in this form that you can provide may be mutually beneficial. There are many variables that can change the cost of your project so please be specific.</p>
             	</div>
             </div>
             
