@@ -5125,21 +5125,30 @@ aside > .widget:last-child {
 .widget.videos li:last-child {
   margin-bottom: 0;
 }
-.widget.instagram_feed .instagram-feed-list li {
+.widget.instagram_feed .instagram-feed-list li,
+.widget.instagram_feed .photo-list li,
+.widget.html .instagram-feed-list li,
+.widget.html .photo-list li {
   float: left;
   width: 48%;
   margin-bottom: 4%;
   cursor: pointer;
   background-color: #007FFF;
 }
-.widget.instagram_feed .instagram-feed-list li:nth-child(2n+1) {
+.widget.instagram_feed .instagram-feed-list li:nth-child(2n+1),
+.widget.instagram_feed .photo-list li:nth-child(2n+1),
+.widget.html .instagram-feed-list li:nth-child(2n+1),
+.widget.html .photo-list li:nth-child(2n+1) {
   margin-right: 4%;
 }
-.widget.instagram_feed .instagram-feed-list li img {
+.widget.instagram_feed .instagram-feed-list li img,
+.widget.instagram_feed .photo-list li img,
+.widget.html .instagram-feed-list li img,
+.widget.html .photo-list li img {
   width: 100%;
 }
 blockquote {
-  font-size: 28px;
+  font-size: 26px;
   line-height: 1.5em;
   margin: 1em 0;
   padding: 0;
@@ -5200,4 +5209,19 @@ blockquote:after {
 .btn [class^="icon-"],
 .btn [class*=" icon-"] {
   margin-top: 6px;
+}
+aside.nested {
+  width: 358px;
+  margin-left: 20px;
+  float: right;
+}
+.page-chunk .photo-list {
+  margin: 0;
+  list-style: none;
+}
+.page-chunk .photo-list li {
+  cursor: pointer;
+  float: left;
+  margin-right: 14px;
+  margin-bottom: 14px;
 }

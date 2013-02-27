@@ -827,8 +827,8 @@ aside > .widget{
       }
     }
   }
-  &.instagram_feed{
-    .instagram-feed-list{
+  &.instagram_feed, &.html{
+    .instagram-feed-list, .photo-list{
       li{
         float:left;
         width:48%;
@@ -848,7 +848,7 @@ aside > .widget{
 
 /* Other */
 blockquote {
-  font-size:28px;
+  font-size:26px;
   line-height:1.5em;
   margin: 1em 0;
   padding: 0;
@@ -908,4 +908,16 @@ blockquote {
     margin-top:6px;
   }
   .border-radius(0);
+}
+aside.nested {width:358px; margin-left:20px; float:right}
+.page-chunk .photo-list{
+  margin:0;
+  list-style:none;
+  li{
+    cursor:pointer;
+    float:left;
+    margin-right:14px;
+    margin-bottom:14px;
+  }
+  
 }

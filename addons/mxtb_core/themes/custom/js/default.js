@@ -199,7 +199,7 @@ $(document).ready(function() {
 	})
 	$('#more_information').attr('placeholder','Additional information...')
 	//bootstrap lightbox
-	var $instagramImage = $('.instagram-feed-list li');
+	var $instagramImage = $('.instagram-feed-list li, .photo-list li');
 	$instagramImage.click(function(event){
 	    var $this = $(this);
 	    var $img = $this.find('img');
