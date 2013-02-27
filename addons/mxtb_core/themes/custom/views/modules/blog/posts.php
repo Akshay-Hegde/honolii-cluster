@@ -10,16 +10,17 @@
     	<div class="mod block-post <?= $category_class ?>-post">
     		<!-- Post heading -->		
     		<div class="hd post-heading">
-    			<h4><?php echo anchor('blog/' .date('Y/m', $post->created_on) .'/'. $post->slug, $post->title); ?></h4>
+    			<h4><a title="Read - <?= $post->title ?>" href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>"><?= $post->title ?></a></h4>
     			<div class="post-date">
     				<?= format_date($post->created_on,'M jS, Y') ?>
     			</div>
     		</div>
     		<div class="bd post-body">
+    			<a title="Read - <?= $post->title ?>" href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="img-link"></a>
     			<?php echo $post->intro; ?>
     		</div>
     		<div class="post-full">
-    		    <a href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="cta">View More</a>
+    		    <a title="Read - <?= $post->title ?>" href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="cta">View More</a>
     		</div>
     		<hr />
     	</div>

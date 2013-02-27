@@ -5,11 +5,14 @@
     	</div>
     	<div class="gallery-image" id="gallery-image-large" data-current-image="<?= $gallery->thumbnail_id ?>">
     	    <img src="<?php echo site_url('files/large/'.$gallery->thumbnail_id); ?>" alt="<?php echo $gallery->title; ?>" />
+    	    <?php if ( empty($sub_galleries) ): ?>
     	    <div class="image-control">
                 <a href="" class="carousel-control left">‹</a>
                 <a href="" class="carousel-control right">›</a>
             </div>
+            <?php endif; ?>
     	</div>
+    	<?php if ( empty($sub_galleries) ): ?>
     	<div class="gallery-images" data-current-image="<?= $gallery->thumbnail_id ?>">	
     		<!-- The list containing the gallery images -->
     		<ul class="gallery-image-list">
@@ -24,6 +27,7 @@
     			<?php endif; ?>
     		</ul>
     	</div>
+    	<?php endif; ?>
     	<div class="gallery-description">
             <p><?php echo $gallery->description; ?></p>
         </div>
@@ -31,28 +35,20 @@
 </div>
 
 <?php if ( ! empty($sub_galleries) ): ?>
-<h2><?php echo lang('galleries.sub-galleries_label'); ?></h2>
-<!-- Show all sub-galleries -->
-<div class="sub_galleries_container">
-    <?php foreach ($sub_galleries as $sub_gallery): ?>
-    <div class="gallery clearfix">
-        <!-- Heading -->
-        <div class="gallery_heading">
-            <?php if ( ! empty($sub_gallery->filename)) : ?>
-            <a href="<?php echo site_url('galleries/'.$sub_gallery->slug); ?>">
-                <?php echo img(array('src' => site_url('files/thumb/'.$sub_gallery->file_id), 'alt' => $sub_gallery->title)); ?>
-            </a>
-            <?php endif; ?>
-            <h3><?php echo anchor('galleries/' . $sub_gallery->slug, $sub_gallery->title); ?></h3>
+<div class="gallery-sublist-items">
+    <div class="gallery-sublist-content row-fluid">
+        <?php foreach ($sub_galleries as $sub_gallery): ?>
+        <div class="span3">
+            <!-- Heading -->
+            <div class="sublist-item">
+                <a title="View - <?= $sub_gallery->title ?>" href="<?php echo site_url('galleries/'.$sub_gallery->slug); ?>">
+                    <span class="item-headline"><span><?= $sub_gallery->title ?></span></span>
+                    <?php echo img(array('src' => site_url('files/thumb/'.$sub_gallery->file_id.'/207/207/fit'), 'alt' => $sub_gallery->title)); ?>
+                </a>
+            </div>
         </div>
-        <!-- And the body -->
-        <div class="gallery_body">
-            <p>
-                <?php echo ( ! empty($sub_gallery->description)) ? $sub_gallery->description : lang('galleries.no_gallery_description'); ?>
-            </p>
-        </div>
+        <?php endforeach; ?>
     </div>
-    <?php endforeach; ?>
 </div>
 <?php endif; ?>
 

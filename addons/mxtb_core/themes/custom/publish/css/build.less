@@ -205,7 +205,7 @@ footer {background: url('../img/footer-texture.jpg') no-repeat bottom center}
   margin-bottom: 40px;
   margin-top: -25px;
   
-  background-image: url('http://placehold.it/884x300&text=hero+header');
+  //background-image: url('http://placehold.it/884x300&text=hero+header');
   height:300px;
   
   h2{
@@ -385,6 +385,7 @@ hr{
     margin-bottom:50px;
     .gallery-heading{
       min-height:220px;
+      cursor:pointer;
       background:url(../img/ajax-loader.gif) center center no-repeat #eee;
       a {
         display:block;
@@ -404,7 +405,7 @@ hr{
         min-width:156px;
         //opacity:.8;
         background-color:@mxgray;
-        &:hover h4{
+        &:hover .item-headline{
           background-color:rgba(0,0,0,.9);
         }
       }
@@ -414,7 +415,7 @@ hr{
           margin-left:0;
         }
       }
-      h4 {
+      .item-headline {
         position:absolute;
         font-size:13px;
         margin:0;
@@ -436,10 +437,52 @@ hr{
         width:100%;
         height:100%;
         top:0;
-        text-indent:-9999px;
+        //text-indent:-9999px;
         overflow:hidden;
       }
     }
+  }
+}
+.gallery-sublist-items{
+  .sublist-item{
+    position:relative;
+    margin-bottom:18px;
+    min-height:207px;
+    min-width:207px;
+    //opacity:.8;
+    background-color:@mxgray;
+    &:hover .item-headline{
+      background-color:rgba(0,0,0,.9);
+    }
+  }
+  .gallery-sublist-content{
+    > div:nth-child(4n+1){
+      margin-left:0;
+    }
+  }
+  .item-headline {
+    position:absolute;
+    font-size:13px;
+    margin:0;
+    width:100%;
+    background-color:rgba(0,0,0,.4);
+    .transition(background-color .7s);
+    color:@white;
+    line-height:1.2em;
+    span{
+      padding:10px;
+      display:inline-block;
+    }
+  }
+  img {
+    display:block;
+  }
+  a {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top:0;
+    overflow:hidden;
   }
 }
 /* Blog */
@@ -551,6 +594,10 @@ form{
       
     }
   }
+  textarea{
+    max-width:90%;
+    width:90%;
+  }
 }
 /* RAQ Form */
 
@@ -586,6 +633,18 @@ aside > .widget{
       padding:10px 0;
       border-bottom: solid 1px @black;
       margin-bottom: 10px;
+      .post-image{
+        a{
+          display:block;
+          .box-shadow(0 0 0 3px rgba(0,0,0,.3));
+          img{
+            display:block;
+          }
+          &:hover{
+            .box-shadow(0 0 0 3px rgba(0,0,0,.6));
+          }
+        }
+      }
       .post-content{
         font-size:@fontSizeSmall;
         
@@ -660,6 +719,10 @@ aside > .widget{
     }
     .post-image a{
       display:block;
+      .box-shadow(0 0 0 3px rgba(0,0,0,.3));
+      &:hover{
+        .box-shadow(0 0 0 3px rgba(0,0,0,.6));
+      }
       img{
         display:block;
         min-height:250px;
@@ -764,8 +827,8 @@ aside > .widget{
       }
     }
   }
-  &.instagram_feed{
-    .instagram-feed-list{
+  &.instagram_feed, &.html{
+    .instagram-feed-list, .photo-list{
       li{
         float:left;
         width:48%;
@@ -785,7 +848,7 @@ aside > .widget{
 
 /* Other */
 blockquote {
-  font-size:28px;
+  font-size:26px;
   line-height:1.5em;
   margin: 1em 0;
   padding: 0;
@@ -844,4 +907,17 @@ blockquote {
   [class*=" icon-"] {
     margin-top:6px;
   }
+  .border-radius(0);
+}
+aside.nested {width:358px; margin-left:20px; float:right}
+.page-chunk .photo-list{
+  margin:0;
+  list-style:none;
+  li{
+    cursor:pointer;
+    float:left;
+    margin-right:14px;
+    margin-bottom:14px;
+  }
+  
 }
