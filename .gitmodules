@@ -4,3 +4,9 @@
 [submodule "addons/shared_addons/modules/snippets"]
 	path = addons/shared_addons/modules/snippets
 	url = git@github.com:edmeehan/PyroSnippets.git
+[submodule "library/jquery"]
+	path = library/jquery
+	url = git://github.com/jquery/jquery.git
+[submodule "library/bootstrap"]
+	path = library/bootstrap
+	url = git://github.com/twitter/bootstrap.git
