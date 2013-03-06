@@ -80,6 +80,16 @@ class Widget_Videos extends Widgets
             'label' => 'Height',
             'rules' => 'required'
         ),
+        array(
+            'field' => 'suggested',
+            'label' => 'Ending',
+            //'rules' => 'required'
+        ),
+        array(
+            'field' => 'html5',
+            'label' => 'HTML5',
+            //'rules' => 'required'
+        ),
 	);
 
 	/**
@@ -132,15 +142,24 @@ class Widget_Videos extends Widgets
                 'author'        => (string) $xmlFeed->author->name,
                 'totalResults'  => (string) $xmlFeed->children('openSearch',true)->totalResults,
                 'entry'         => $entries
-            );	
+            );
+            
+            if(!array_key_exists('suggested', $options)){
+                $options['suggested'] = 0;
+            };
+            
+            if(!array_key_exists('html5', $options)){
+                $options['html5'] = 0;
+            }
     	}
 
-		
 		// Store the feed items
 		return array(
 			'username' => $options['username'],
 			'width' => $options['width'],
 			'height' => $options['height'],
+			'suggested' => $options['suggested'],
+			'html5' => $options['html5'],
 			'videoFeed' => $videoFeed ? $videoFeed : array(),
 		);
 	}

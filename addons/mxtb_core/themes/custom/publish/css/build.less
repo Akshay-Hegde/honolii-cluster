@@ -344,6 +344,9 @@ hr{
       margin-top:18px;
       margin-bottom:10px;
       overflow:auto;
+      .lt-ie10 &{
+        overflow:scroll;
+      }
       .gallery-image-list{
         margin:0;
         list-style:none;
@@ -834,12 +837,13 @@ aside > .widget{
         width:48%;
         margin-bottom:4%;
         cursor:pointer;
-        background-color: @mxblue;
+        background:url(../img/ajax-loader.gif) center center no-repeat #eee;
         &:nth-child(2n+1){
           margin-right:4%;
         }
         img{
           width:100%;
+          background:#fff;
         }
       }
     }
@@ -918,6 +922,10 @@ aside.nested {width:358px; margin-left:20px; float:right}
     float:left;
     margin-right:14px;
     margin-bottom:14px;
+    background:url(../img/ajax-loader.gif) center center no-repeat #eee;
+    img{
+      background:#fff;
+    }
   }
   
 }

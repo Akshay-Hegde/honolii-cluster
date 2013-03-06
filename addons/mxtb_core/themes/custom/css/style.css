@@ -4805,6 +4805,10 @@ hr {
   margin-bottom: 10px;
   overflow: auto;
 }
+.lt-ie10 .galleries-container > .gallery-single .gallery-images,
+.lt-ie10 .galleries-container > .gallery-single-image .gallery-images {
+  overflow: scroll;
+}
 .galleries-container > .gallery-single .gallery-images .gallery-image-list,
 .galleries-container > .gallery-single-image .gallery-images .gallery-image-list {
   margin: 0;
@@ -5318,7 +5322,7 @@ aside > .widget:last-child {
   width: 48%;
   margin-bottom: 4%;
   cursor: pointer;
-  background-color: #007FFF;
+  background: url(../img/ajax-loader.gif) center center no-repeat #eee;
 }
 .widget.instagram_feed .instagram-feed-list li:nth-child(2n+1),
 .widget.instagram_feed .photo-list li:nth-child(2n+1),
@@ -5331,6 +5335,7 @@ aside > .widget:last-child {
 .widget.html .instagram-feed-list li img,
 .widget.html .photo-list li img {
   width: 100%;
+  background: #fff;
 }
 blockquote {
   font-size: 26px;
@@ -5409,4 +5414,8 @@ aside.nested {
   float: left;
   margin-right: 14px;
   margin-bottom: 14px;
+  background: url(../img/ajax-loader.gif) center center no-repeat #eee;
+}
+.page-chunk .photo-list li img {
+  background: #fff;
 }

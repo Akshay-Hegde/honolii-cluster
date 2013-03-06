@@ -19,4 +19,12 @@
         <label>Height</label>
         <?php echo form_input('height', $options['height']); ?>
     </li>
+    <li class="odd">
+        <label>Show suggested videos at ending:</label>
+        <?php echo form_checkbox('suggested',TRUE, $options['suggested']); ?>
+    </li>
+    <li class="even">
+        <label>Force HTML5 video player:</label>
+        <?php echo form_checkbox('html5',TRUE, $options['html5']); ?>
+    </li>
 </ol>

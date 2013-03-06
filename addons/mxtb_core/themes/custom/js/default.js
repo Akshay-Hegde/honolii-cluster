@@ -206,11 +206,15 @@ $(document).ready(function() {
 	    var $modal = $('#media-lightbox');
 	    var $media = $modal.find('.lightbox-content');
 	    
+	    $img.fadeTo(300, 0.2);
+	    
 	    $media.children('img').remove()
 	    $media.append('<img width="612" height="612" src="'+ $img.attr('data-src') +'"/>');
 	    
 	    $media.find('.lightbox-caption').empty().append($img.attr('alt'));
-	    
-	    $modal.lightbox();
+	    $modal.imagesLoaded(function(){
+	        $modal.lightbox();
+	        $img.fadeTo(300, 1);
+	    });
 	})
 });
