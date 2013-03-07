@@ -13,13 +13,15 @@
 $lang['global:control-panel'] 			= 'แผงควบคุม';
 $lang['global:profile']					= 'ข้อมูลส่วนตัว';
 
-$lang['title_label'] 					= 'หัวข้อ';
+$lang['global:title'] 					= 'หัวข้อ';
 $lang['name_label'] 					= 'ชื่อ';
 $lang['desc_label'] 					= 'รายละเอียด';
 $lang['version_label'] 					= 'รุ่น';
 $lang['global:author'] 					= 'ผู้เขียน';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+
 $lang['global:user'] 					= 'ผู้ใช้';
 
 $lang['global:dialog:delete_message'] 	= 'คุณแน่ใจหรือว่าต้องการลบรายการนี้? หากลบไปแล้วมันไม่สามารถยกเลิกได้';
@@ -89,7 +91,7 @@ $lang['top_page']						= 'ด้านบน';
 $lang['back_to_top']					= 'กลับด้านบน';
 
 $lang['global:filters'] 				= 'กรองข้อมูล';
-$lang['global:shortcuts'] 				= 'ทางลัด';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'คำอธิบาย';
 $lang['global:actions']					= 'การกระทำ';
 $lang['global:view']					= 'ดู';

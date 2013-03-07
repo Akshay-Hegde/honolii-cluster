@@ -3,13 +3,14 @@
 $lang['global:control-panel']						= 'Painel de Controle';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= 'Título';
+$lang['global:title'] 					= 'Título';
 $lang['name_label'] 					= 'Nome';
 $lang['desc_label'] 					= 'Descrição';
 $lang['version_label'] 					= 'Versão';
 $lang['global:author'] 					= 'Autor';
 $lang['global:action'] 					= 'Ação';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= 'Tem certeza de que deseja remover? Isto não pode ser desfeito.';
 $lang['dialog.confirm'] 				= 'Confirmar';
 $lang['dialog.yes'] 					= 'Sim';
@@ -72,7 +73,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts'] 				= 'Atalhos';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		    = 'Descrição';
 $lang['global:actions']					= 'Ações';
 $lang['global:view']					= 'View'; #translate

@@ -46,7 +46,7 @@
 
 			$('#page-chunks').append('<li class="page-chunk">' +
 				'<input class="label" type="text" name="chunk_slug[' + key + ']" value="' + key + '"/>' +
-				'<div class="input">'+
+				'<input class="label" type="text" name="chunk_class[' + key + ']" />' +
 				'<select name="chunk_type[' + key + ']">' +
 				'<option value="html">html</option>' +
 				'<option value="markdown">markdown</option>' +
@@ -56,7 +56,7 @@
 				'<div class="alignright">' +
 				'<a href="javascript:void(0)" class="remove-chunk btn red">' + pyro.lang.remove + '</a>' +
 				'<span class="sort-handle"></span>' +
-				'</div></div><br style="clear:both" />' +
+				'</div><br style="clear:both" />' +
 				'<span class="chunky"><textarea id="' + key + '" class="pages wysiwyg-advanced" rows="20" style="width:100%" name="chunk_body[' + key + ']"></textarea>' +
 				'</span></li>');
 

@@ -6,12 +6,14 @@ $lang['global:profile']					= 'Perfil';
 $lang['global:yes'] = 'Si';
 $lang['global:no'] = 'No';
 
-$lang['title_label']		= 'Título';
+$lang['global:title']		= 'Título';
 $lang['name_label']		= 'Nombre';
 $lang['desc_label']		= 'Descripción';
 $lang['version_label']		= 'Versión';
 $lang['global:author']		= 'Autor';
 $lang['global:action']		= 'Acción';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['dialog.confirm']		= 'Confirmar';
 $lang['dialog.yes']		= 'Si';

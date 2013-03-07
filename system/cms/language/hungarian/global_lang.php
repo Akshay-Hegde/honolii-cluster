@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 			= 'Vezérlőpult';
 $lang['global:profile']				= 'Profil';
 
-$lang['title_label'] 				= 'Cím';
+$lang['global:title'] 				= 'Cím';
 $lang['name_label'] 				= 'Név';
 $lang['desc_label'] 				= 'Leírás';
 $lang['version_label'] 				= 'Verzió';
 $lang['global:author'] 				= 'Szerző';
 $lang['global:action'] 				= 'Művelet';
 $lang['global:slug'] 				= 'Keresőbarát név (slug)';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message']           = 'Valóban törölni szeretnéd? Ez a művelet nem visszavonható!';
 $lang['global:dialog:confirm'] 			= 'Megerősít';
@@ -78,7 +79,7 @@ $lang['top_page']				= 'Oldal teteje';
 $lang['back_to_top']				= 'Ugrás az oldal tetejére';
 
 $lang['global:filters'] 			= 'Szűrők';
-$lang['global:shortcuts'] 			= 'Parancsikonok';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']			= 'Leírás';
 $lang['global:actions']				= 'Műveletek';
 $lang['global:view']				= 'Nézet';

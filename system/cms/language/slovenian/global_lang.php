@@ -3,12 +3,14 @@
 $lang['global:control-panel'] 						= 'Nadzorna plošča';
 $lang['global:profile']					= 'Profil';
 
-$lang['title_label'] 					= 'Naslov';
+$lang['global:title'] 					= 'Naslov';
 $lang['name_label'] 					= 'Ime';
 $lang['desc_label'] 					= 'Opis';
 $lang['version_label'] 					= 'Različica';
 $lang['global:author'] 					= 'Avtor';
 $lang['global:action'] 					= 'Dejanje';
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Ali ste prepričani da želite izbrisati to? Obnovitev ni mogoča';
 $lang['global:dialog:confirm'] 			= 'Potrdi';

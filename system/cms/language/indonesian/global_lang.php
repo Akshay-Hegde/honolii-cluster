@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 			= 'Control Panel';
 $lang['global:profile']					= 'Profil'; #translate
 
-$lang['title_label'] 					= 'Judul';
+$lang['global:title'] 					= 'Judul';
 $lang['name_label'] 					= 'Nama';
 $lang['desc_label'] 					= 'Deskripsi';
 $lang['version_label'] 					= 'Versi';
 $lang['global:author'] 					= 'Penulis';
 $lang['global:action'] 					= 'Aksi';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Anda yakin akan menghapus ini? Yang telah dihapus tidak dapat dikembalikan.';
 $lang['global:dialog:confirm'] 			= 'Konfirmasi';
@@ -78,7 +79,7 @@ $lang['top_page']						= 'Atas';
 $lang['back_to_top']					= 'Kembali ke Atas';
 
 $lang['global:filters'] 				= 'Saring';
-$lang['global:shortcuts'] 				= 'Pintas';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'Deskripsi';
 $lang['global:actions']					= 'Aksi';
 $lang['global:view']					= 'Tinjau';

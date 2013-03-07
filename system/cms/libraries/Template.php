@@ -224,7 +224,7 @@ class Template
 		// Output template variables to the template
 		$template['title']			= $this->_title;
 		$template['breadcrumbs']	= $this->_breadcrumbs;
-		$template['metadata']		= $this->get_metadata() . Asset::render('extra');
+		$template['metadata']		= $this->get_metadata() . Asset::render('extra') . $this->get_metadata('late_header');
 		$template['partials']		= array();
 
 		// Assign by reference, as all loaded views will need access to partials
@@ -351,6 +351,12 @@ class Template
 	 */
 	public function prepend_metadata($line, $place = 'header')
 	{
+		//we need to declare all new key's in _metadata as an array for the unshift function to work
+		if ( ! isset($this->_metadata[$place]))
+		{
+			$this->_metadata[$place] = array();
+		}
+
 		array_unshift($this->_metadata[$place], $line);
 
 		return $this;

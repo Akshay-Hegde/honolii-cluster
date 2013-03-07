@@ -9,7 +9,8 @@ $lang['desc_label']				= 'Opis';
 $lang['version_label']				= 'Wersja';
 $lang['global:author']				= 'Autor';
 $lang['global:action']				= 'Akcja';
-$lang['global:slug'] 				= 'Slug';
+$lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 		= 'Czy na pewno usunąć? Ta operacja nie może być cofnięta.';
 $lang['global:dialog:confirm']			= 'Potwierdź';
@@ -76,7 +77,7 @@ $lang['top_page'] 					= 'Góra';
 $lang['back_to_top'] 				= 'Do góry';
 
 $lang['global:filters'] 			= 'Filtry';
-$lang['global:shortcuts']	 		= 'Skróty klawiszowe';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']			= 'Opis';
 $lang['global:actions']				= 'Akcje';
 $lang['global:view']				= 'Zobacz';

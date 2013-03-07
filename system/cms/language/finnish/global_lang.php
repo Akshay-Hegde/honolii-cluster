@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 						= 'Hallintapaneeli';
 $lang['global:profile']					= 'Profiili';
 
-$lang['title_label'] 					= 'Otsikko';
+$lang['global:title'] 					= 'Otsikko';
 $lang['name_label'] 					= 'Nimi';
 $lang['desc_label'] 					= 'Kuvaus';
 $lang['version_label'] 					= 'Versio';
 $lang['global:author'] 					= 'Tekijä';
 $lang['global:action'] 					= 'Toiminto';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= 'Oletko varma, että haluat poista tämän? Tätä toimintoa ei voi peruuttaa.';
 $lang['dialog.confirm'] 				= 'Vahvista';
 $lang['dialog.yes'] 					= 'Kyllä';
@@ -73,7 +74,7 @@ $lang['powered_by_pyrocms']				= 'Pyörii PyroCMS:llä';
 $lang['top_page']						= 'Ylös';
 $lang['back_to_top']					= 'Takaisin ylös';
 
-$lang['global:shortcuts']	 			= 'Pikavalinnat';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']             = 'Kuvaus';
 $lang['global:actions']                 = 'Toiminnot';
 $lang['global:view']					= 'Katso';
