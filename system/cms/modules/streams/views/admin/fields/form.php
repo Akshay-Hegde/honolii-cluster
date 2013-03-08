@@ -60,7 +60,7 @@
 			{
 				// Sometimes these values may not be set. Let's set
 				// them to null if they are not.
-				(isset($current_field->field_data[$param])) ? $value = $current_field->field_data[$param] : $value = null;
+				$value = (isset($current_field->field_data[$param])) ? $current_field->field_data[$param] : null;
 						
 				if (method_exists($current_type, 'param_'.$param))
 				{

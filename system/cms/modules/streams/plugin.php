@@ -79,7 +79,7 @@ class Plugin_Streams extends Plugin
 	public function streams_attribute($param, $default = NULL)
 	{
 		$value = $this->attribute($param, $default);
-		
+	
 		// See if we have any vars in there
 		if(strpos($value, '[') !== FALSE):
 		
@@ -751,6 +751,7 @@ class Plugin_Streams extends Plugin
 			$vars[$field['input_slug']]['is_required'] 		= ($field['required']) ? true : false;
 			$vars[$field['input_slug']]['required'] 		= $field['required'];
 			$vars[$field['input_slug']]['odd_even'] 		= $field['odd_even'];
+			$vars[$field['input_slug']]['instructions']		= $field['instructions'];
 		}
 		
 		// -------------------------------------
