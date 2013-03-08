@@ -26,14 +26,22 @@ class Plugin_Blog extends Plugin
 	public function posts()
 	{
 		$limit		= $this->attribute('limit', 10);
+		$offset		= $this->attribute('offset',0);
 		$category	= $this->attribute('category');
 		$order_by 	= $this->attribute('order-by', 'created_on');
-													//deprecated
-		$order_dir	= $this->attribute('order-dir', $this->attribute('order', 'ASC'));
+		$order_dir	= $this->attribute('order-dir', 'ASC');
 
 		if ($category)
 		{
+			$categories = explode('|', $category);
+			$category = array_shift($categories);
+
 			$this->db->where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+
+			foreach($categories as $category)
+			{
+				$this->db->or_where('blog_categories.' . (is_numeric($category) ? 'id' : 'slug'), $category);
+			}
 		}
 
 		$posts = $this->db
@@ -45,16 +53,51 @@ class Plugin_Blog extends Plugin
 			->join('blog_categories', 'blog.category_id = blog_categories.id', 'left')
 			->join('profiles p', 'blog.author_id = p.user_id', 'left')
 			->order_by('blog.' . $order_by, $order_dir)
-			->limit($limit)
+			->limit($limit,$offset)
 			->get('blog')
 			->result();
-
+		$i = 1;
 		foreach ($posts as &$post)
 		{
 			$post->url = site_url('blog/'.date('Y', $post->created_on).'/'.date('m', $post->created_on).'/'.$post->slug);
+			$post->count = $i++;
 		}
 		
 		return $posts;
+	}
+
+	/**
+	 * Categories
+	 *
+	 * Creates a list of blog categories
+	 *
+	 * Usage:
+	 * {{ blog:categories order-by="title" limit="5" }}
+	 *		<a href="{{ url }}" class="{{ slug }}">{{ title }}</a>
+	 * {{ /blog:categories }}
+	 *
+	 * @param	array
+	 * @return	array
+	 */
+	public function categories()
+	{
+		$limit		= $this->attribute('limit', 10);
+		$order_by 	= $this->attribute('order-by', 'title');
+		$order_dir	= $this->attribute('order-dir', 'ASC');
+
+		$categories = $this->db
+			->select('title, slug')
+			->order_by($order_by, $order_dir)
+			->limit($limit)
+			->get('blog_categories')
+			->result();
+
+		foreach ($categories as &$category)
+		{
+			$category->url = site_url('blog/category/'.$category->slug);
+		}
+		
+		return $categories;
 	}
 
 	/**

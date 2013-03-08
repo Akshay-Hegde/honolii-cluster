@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 				= 'لوحة التحكم';
 $lang['global:profile']					= 'الملف الشخصي';
 
-$lang['title_label'] 					= 'العنوان';
+$lang['global:title'] 					= 'العنوان';
 $lang['name_label'] 					= 'الإسم';
 $lang['desc_label'] 					= 'الوصف';
 $lang['version_label'] 					= 'النسخة';
 $lang['global:author'] 					= 'الناشر';
 $lang['global:action'] 					= 'الإجراء';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'متأكد أنك تريد حذف هذا؟ لا يمكن التراجع عن هذا الأمر.';
 $lang['global:dialog:confirm'] 			= 'التأكيد';
 
@@ -75,7 +76,7 @@ $lang['top_page']						= 'اعلى الصفحة';
 $lang['back_to_top']					= 'رجوع الى اعلى الصفحة';
 
 $lang['global:filters'] 				= 'تصفية';
-$lang['global:shortcuts'] 				= 'الاختصارات';
+$lang['global:image'] 					= 'صورة';
 $lang['global:description']				= 'الوصف';
 $lang['global:actions']					= 'الإجراءات';
 $lang['global:view']					= 'عرض';

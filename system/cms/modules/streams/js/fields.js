@@ -5,7 +5,7 @@ function add_field_parameters()
 	jQuery.ajax({
 		dataType: "text",
 		type: "POST",
-		data: 'data='+data+'&csrf_hash_name='+$.cookie(pyro.csrf_cookie_name),
+		data: 'data='+data+'&csrf_hash_name='+$.cookie('csrf_cookie_name'),
 		url: SITE_URL+'streams_core/ajax/build_parameters',
 		success: function(returned_html) {
 			jQuery('.streams_param_input').remove();

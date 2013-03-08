@@ -27,6 +27,7 @@ class Api_key_m extends MY_Model
 			'level' => 1,
 			'active' => true,
 			'key' => $key = $this->_generate_key(),
+			'ordering_count' => 0,
 			'created' => date('Y-m-d h:i:s'),
 		));
 		

@@ -8,14 +8,14 @@
 
 <section class="item">
 	
-<?php echo form_open(uri_string(), 'class="crud"'); ?>
+<?php echo form_open(); ?>
 
 	<div class="tabs">
 	
 		<ul class="tab-menu">
 			<li><a href="#page-layout-html"><span><?php echo lang('page_layouts.html_label');?></span></a></li>
 			<li><a href="#page-layout-css"><span><?php echo lang('page_layouts.css_label');?></span></a></li>
-			<li><a href="#page-layout-script"><span><?php echo lang('pages.js_label');?></span></a></li>
+			<li><a href="#page-layout-script"><span><?php echo lang('pages:js_label');?></span></a></li>
 		</ul>
 		
 		<div class="form_inputs" id="page-layout-html">
@@ -24,12 +24,12 @@
 				
 				<ul>
 					<li class="even">
-						<label for="title"><?php echo lang('page_layouts.title_label');?> <span>*</span></label>
+						<label for="title"><?php echo lang('global:title');?> <span>*</span></label>
 						<div class="input"><?php echo form_input('title', $page_layout->title, 'maxlength="60"'); ?></div>
 					</li>
 					
 					<li>
-						<label for="theme_layout"><?php echo lang('page_layouts.theme_layout_label');?></label>
+						<label for="theme_layout"><?php echo lang('page_layouts:theme_layout_label');?></label>
 						<div class="input"><?php echo form_dropdown('theme_layout', $theme_layouts, $page_layout->theme_layout ? $page_layout->theme_layout : 'default'); ?></div>
 					</li>
 			
@@ -76,9 +76,9 @@
 		</div>
 		
 	</div>
-	
+
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'save_exit', 'cancel') )); ?>
 	</div>
 
 <?php echo form_close(); ?>

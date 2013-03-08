@@ -30,7 +30,10 @@ class Newsletters_m extends MY_Model
 	
 	public function get_cron_newsletters()
 	{
+		$where = "sent_on IS NULL";
+		
 		return $this->db->where('send_cron', 1)
+					->where($where)
 					->get('newsletters')
 					->result();
 	}

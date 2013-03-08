@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 		= 'Πίνακας Ελέγχου';
 $lang['global:profile'] 		= 'Προφίλ';
 
-$lang['title_label'] 			= 'Τίτλος';
+$lang['global:title'] 			= 'Τίτλος';
 $lang['name_label'] 			= 'Όνομα';
 $lang['desc_label'] 			= 'Περιγραφή';
 $lang['version_label'] 			= 'Έκδοση';
 $lang['global:author'] 			= 'Συγγραφέας';
 $lang['global:action'] 			= 'Ενέργεια';
 $lang['global:slug'] 			= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 
 $lang['global:dialog:delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['global:dialog:confirm'] 		= 'Επιβεβαίωση';
@@ -78,7 +79,7 @@ $lang['top_page']			= 'Κορυφή';
 $lang['back_to_top']			= 'Πίσω στην Κορυφή';
 
 $lang['global:filters'] 		= 'Φίλτρα';
-$lang['global:shortcuts'] 		= 'Συντομέυσεις';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description'] 		= 'Περιγραφή';
 $lang['global:actions']			= 'Ενέργειες';
 $lang['global:view']			= 'Προβολή';

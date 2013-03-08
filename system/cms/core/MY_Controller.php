@@ -49,7 +49,7 @@ class MY_Controller extends MX_Controller
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
+			show_error('The domain "'.SITE_DOMAIN.'" does not match a site. Please go to '.anchor('sites') .' and log in to add this domain.');
 		}
 		
 		// TODO: Work out what the hell this is...? Phil
