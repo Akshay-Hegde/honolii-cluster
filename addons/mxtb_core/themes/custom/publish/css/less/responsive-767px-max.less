@@ -1,14 +1,141 @@
 //
 // Responsive: Landscape phone to desktop/tablet
 // --------------------------------------------------
-
+// Core variables and mixins
 
 @media (max-width: 767px) {
 
   // Padding to set content in a bit
   body {
-    padding-left: 20px;
-    padding-right: 20px;
+    //padding-left: 20px;
+    //padding-right: 20px;
+  }
+  .box-line,.box{
+    border:none;
+    margin-bottom:0;
+    .box-shadow(none);
+    .template-wrapper{
+      margin-bottom:0;
+    }
+  }
+  .logo-headline{
+    padding-left:0;
+    &:before{
+      display:none;
+    }
+  }
+  .services-block{
+    .track-construction,.track-design{
+      max-width:460px;
+      margin:0 auto;
+    }
+  }
+  .media{
+    &.right,&.left{
+      float:none;
+      margin:0;
+    }
+    iframe{
+      min-width:100%;
+    }
+  }
+  nav.navbar{
+    display:none;
+  }
+  .btn.btn-nav{
+    position:absolute;
+    top:10px;
+    right:10px;
+  }
+  .latest-news-block,.siderail_posts{
+    .post-image{
+      display:none!important;
+    }
+  }
+  .breadcrumbs{
+    padding-top:10px;
+    margin-top:0;
+  }
+  .page-chunk .service-list li{
+    width:50%;
+  }
+  h2.headline{
+    font-size:1.5em;
+  }
+  aside.nested{
+    float:none;
+    margin:0;
+    width:auto;
+  }
+  .navbar{
+    margin-bottom:0;
+    .navbar-inner{
+      .border-radius(0);
+      padding:20px;
+    }
+    .nav > li{
+      float:none;
+    }
+    ul{
+      list-style:none;
+      margin:0;
+      a{
+        padding:0!important;
+      }
+    }
+  }
+  .hero-header{
+    background:none;
+    background-image:none!important;
+    height:auto;
+    min-height:auto;
+    margin:0;
+    h2{
+      background:none;
+      position:static;
+      color:@textColor;
+      span{
+        background:none;
+        display:inline;
+        padding:0;
+      }
+    }
+  }
+  .services-block{
+    margin-bottom:0;
+  }
+  #myCarousel .carousel-control{
+    display:none;
+  }
+  .gallery-image{
+    .left{
+      left:-20px!important;
+    }
+    .right{
+      right:-20px!important;
+    }
+  }
+  .galleries-container .gallery-title{
+    position:static;
+    h3{
+      font-size:1.5em;
+      span{
+        padding-left:8px;
+      }
+    }
+  }
+  .galleries-container > .gallery-item {
+    margin-bottom:10px;
+    .gallery-heading{
+      background:none!important;
+      min-height:auto;
+    }
+  }
+  .gallery-sublist-content{
+    .sublist-item{
+      background-color:transparent!important;
+      display:inline-block;
+    }
   }
   // Negative indent the now static "fixed" navbar
   .navbar-fixed-top,
@@ -21,7 +148,22 @@
   .container-fluid {
     padding: 0;
   }
-
+  #logo{
+    background-image: url('../img/header-slice.png');
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-position: center center;
+    margin:0 80px 0 10px;
+    
+    a{
+        overflow:hidden;
+        text-indent:-9999px;
+        display: block;
+        height: 100%;
+        width: 340px;
+        padding:15px;
+      }
+  }
   // TYPOGRAPHY
   // ----------
   // Reset horizontal dl

@@ -217,4 +217,10 @@ $(document).ready(function() {
 	        $img.fadeTo(300, 1);
 	    });
 	})
+	var $mainnav = $('#top-nav');
+	$('button.btn-nav','#header').click(
+	    function(){
+	        $mainnav.toggle('fast');
+	    }
+	)
 });
