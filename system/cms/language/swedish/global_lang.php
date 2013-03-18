@@ -21,6 +21,8 @@ $lang['version_label']		= 'Version';
 $lang['global:author']		= 'Författare';
 $lang['global:action']		= 'Aktivitet';
 $lang['global:slug']		= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+
 $lang['global:user']		= 'Användare';
 $lang['global:dialog:delete_message']		= 'Vill du verkligen radera? Denna åtgärd kan inte ångras.';
 $lang['global:dialog:confirm']		= 'Bekräfta';
@@ -77,7 +79,7 @@ $lang['powered_by_pyrocms']		= 'Powered by PyroCMS';
 $lang['top_page']		= 'Topp';
 $lang['back_to_top']		= 'Åter topp';
 $lang['global:filters']		= 'Filter';
-$lang['global:shortcuts']		= 'Genvägar';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']		= 'Beskrivning';
 $lang['global:actions']		= 'Aktivitet';
 $lang['global:view']		= 'Visa';

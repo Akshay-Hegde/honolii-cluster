@@ -14,7 +14,7 @@ class Admin extends Admin_Controller {
     /**
      * Constructor method
      *
-     * @access public
+     * 
      * @return void
      */
     function __construct()
@@ -91,7 +91,7 @@ class Admin extends Admin_Controller {
     /**
      * index method
      *
-     * @access public
+     * 
      * @return void
      */
     public function index()
@@ -107,13 +107,15 @@ class Admin extends Admin_Controller {
      * Used to create an entirely new template from scratch.  Usually will be
      * used for future expansion or third party modules
      *
-     * @access public
+     * 
      * @return void
      */
     public function create()
     {
         $this->load->library('form_validation');
         $this->form_validation->set_rules($this->_validation_rules);
+
+        $email_template = new stdClass();
 
         $email_template->is_default = 0;
 

@@ -34,6 +34,7 @@ class Admin_Entries extends Admin_Controller {
 	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
        
+		$this->data = new stdClass();
  		$this->data->types = $this->type->types;
  		
 		// -------------------------------------
@@ -76,8 +77,14 @@ class Admin_Entries extends Admin_Controller {
 		// Get fields for headers and add specials
 		// -------------------------------------
 		
+		$this->data->stream_fields = new stdClass();
  		$this->data->stream_fields = $this->streams_m->get_stream_fields($this->data->stream_id);
- 		
+
+ 		$this->data->stream_fields->id = new stdClass();
+ 		$this->data->stream_fields->created = new stdClass();
+ 		$this->data->stream_fields->updated = new stdClass();
+ 		$this->data->stream_fields->created_by = new stdClass();
+
   		$this->data->stream_fields->id->field_name 				= lang('streams.id');
 		$this->data->stream_fields->created->field_name 		= lang('streams.created_date');
  		$this->data->stream_fields->updated->field_name 		= lang('streams.updated_date');
@@ -100,12 +107,12 @@ class Admin_Entries extends Admin_Controller {
 		// Get data
 		// -------------------------------------
 
-		$this->db->limit($this->settings->item('records_per_page'), $offset);		
+		$this->db->limit(Settings::get('records_per_page'), $offset);		
 	
 		$this->data->data = $this->streams_m->get_stream_data(
 														$this->data->stream,
 														$this->data->stream_fields, 
-														$this->settings->item('records_per_page'),
+														Settings::get('records_per_page'),
 														$this->uri->segment($offset_uri));
 	
 		// -------------------------------------
@@ -115,7 +122,7 @@ class Admin_Entries extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 									$pagination_uri,
 									$this->db->count_all($this->data->stream->stream_prefix.$this->data->stream->stream_slug ),
-									$this->settings->item('records_per_page'),
+									Settings::get('records_per_page'),
 									6);
 
 		// -------------------------------------

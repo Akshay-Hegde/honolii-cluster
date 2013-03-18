@@ -109,6 +109,7 @@ class Module_Api extends Module
 			array(
 				'name'			=> 'lang:api:key_is_active',
 				'slug'			=> 'active',
+				'assign'		=> 'keys',
 				'namespace'		=> 'api',
 				'type'			=> 'choice',
 				'extra'			=> array(
@@ -154,6 +155,14 @@ class Module_Api extends Module
 		$this->load->driver('Streams');
 
 		$this->streams->streams->delete_stream('keys', 'api');
+		
+		//Delete fields assoicated with keys stream
+		$this->streams->fields->delete_field('key', 'api');
+		$this->streams->fields->delete_field('user_id', 'api');
+		$this->streams->fields->delete_field('level', 'api');
+		$this->streams->fields->delete_field('ignore_limits', 'api');
+		$this->streams->fields->delete_field('active', 'api');
+		
 		$this->streams->utilities->remove_namespace('api');
 
 		$this->dbforge->drop_table('api_logs');

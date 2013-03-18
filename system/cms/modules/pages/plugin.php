@@ -23,7 +23,7 @@ class Plugin_Pages extends Plugin
 		$id		= $this->attribute('id');
 		$page	= $this->pyrocache->model('page_m', 'get', array($id));
 
-		return site_url($page ? $page['uri'] : '');
+		return site_url($page ? $page->uri : '');
 	}
 
 	/**
@@ -59,7 +59,7 @@ class Plugin_Pages extends Plugin
 		}
 
 		// we'll unset the chunks array as Lex is grouchy about mixed data at the moment
-		unset($page['chunks']);
+		unset($page->chunks);
 
 		return $this->content() ? array($page) : $page['body'];
 	}
@@ -69,14 +69,17 @@ class Plugin_Pages extends Plugin
 	 *
 	 * Attributes:
 	 * - (int) id : The id of the page.
-	 * - (string) slug : The name of the chunk.
+	 * - (string) name : The name of the chunk.
+	 * - (string) parse_tags : yes/no - whether or not to parse
+	 *					tags within the 
 	 *
 	 * @return string|bool
 	 */
-	function chunk()
+	public function chunk()
 	{
+		$parse_tags = $this->attribute('parse_tags', 'yes');
+
 		$chunk = $this->db
-			->select('*')
 			->where('page_id', $this->attribute('id'))
 			->where('slug', $this->attribute('name'))
 			->get('page_chunks')
@@ -86,13 +89,41 @@ class Plugin_Pages extends Plugin
 		{
 			if ($this->content())
 			{
+				$chunk['parsed'] 	= $this->parse_chunk($chunk['parsed'], $parse_tags);
+				$chunk['body']		= $this->parse_chunk($chunk['body'], $parse_tags);
+
 				return $chunk;
 			}
 			else
 			{
-				return ($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'];
+				return $this->parse_chunk(($chunk['type'] == 'markdown') ? $chunk['parsed'] : $chunk['body'], $parse_tags);
 			}
 		}
+	}
+
+	/**
+	 * Parse chunk content
+	 *
+	 * @access 	private
+	 * @param 	string - the chunk content
+	 * @param 	string - parse Lex tags? - yes/no
+	 * @return 	string
+	 */
+	private function parse_chunk($content, $parse_tags)
+	{
+		// Lex tags are parsed by default. If you want to
+		// turn off parsing Lex tags, just set parse_tags to 'no'
+		if ($parse_tags == 'yes')
+		{
+			$parser = new Lex_Parser();
+			$parser->scope_glue(':');
+
+			return $parser->parse($content, array(), array($this->parser, 'parser_callback'));
+		}
+		else
+		{
+			return $content;
+		}	
 	}
 
 	/**
@@ -130,7 +161,7 @@ class Plugin_Pages extends Plugin
 
 		if ($pages)
 		{
-			foreach ($pages AS &$page)
+			foreach ($pages as &$page)
 			{
 				// Grab all the chunks that make up the body for this page
 				$page['chunks'] = $this->db

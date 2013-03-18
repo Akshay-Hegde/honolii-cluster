@@ -3,8 +3,6 @@
  *
  * The Pyro object is the foundation of all PyroUI enhancements
  */
-var pyro = {};
-
 jQuery(function($) {
 
 	/**
@@ -208,50 +206,50 @@ jQuery(function($) {
 	});
 	
 	// toggle a site's upload settings
-	$('.addons-upload input:checkbox').live('click', function(e) {
+	$('.addons-upload').on('click', 'input:checkbox', function(e) {
 		e.preventDefault();
 		var checkbox = $(this);
-		// disable to keep them from double clicking
-		$(checkbox).attr('disabled', true);
+		var site_ref = checkbox.attr('id');
+		var state = checkbox.is(':checked') ? 1 : 0;
 
-		var site_ref = $(checkbox).attr('id');
-		var state = $(checkbox).is(':checked') ? 1 : 0;
+		// disable to keep them from double clicking
+		checkbox.attr('disabled', true);
 
 		$.post(SITE_URL + 'sites/settings/toggle_upload', { 'site_ref': site_ref, 'state': state }, function(data) {
 			var result = $.parseJSON(data);
 				
 			if (result.status == 'success') {
 				// Success!  Swap colors and words
-				$(checkbox).parent().find('span').toggle();
+				checkbox.parent().find('span').toggle();
 				
 				// Allow the checkbox to check (or uncheck)
-				$(checkbox).attr('checked', state);
+				checkbox.prop('checked', state);
 			}
-			$(checkbox).removeAttr('disabled');
+			checkbox.removeAttr('disabled');
 		});
 	})
 	
 	// toggle a site's upload settings
-	$('.active input:checkbox').live('click', function(e) {
+	$('.active').on('click', 'input:checkbox', function(e) {
 		e.preventDefault();
 		var checkbox = $(this);
-		// disable to keep them from double clicking
-		$(checkbox).attr('disabled', true);
+		var site_ref = checkbox.attr('id');
+		var state = checkbox.is(':checked') ? 1 : 0;
 
-		var site_ref = $(checkbox).attr('id');
-		var state = $(checkbox).is(':checked') ? 1 : 0;
+		// disable to keep them from double clicking
+		checkbox.attr('disabled', true);
 
 		$.post(SITE_URL + 'sites/status', { 'site_ref': site_ref, 'state': state }, function(data) {
 			var result = $.parseJSON(data);
 				
 			if (result.status == 'success') {
 				// Success!  Swap colors and words
-				$(checkbox).parent().find('span').toggle();
+				checkbox.parent().find('span').toggle();
 				
 				// Allow the checkbox to check (or uncheck)
-				$(checkbox).attr('checked', state);
+				checkbox.prop('checked', state);
 			}
-			$(checkbox).removeAttr('disabled');
+			checkbox.removeAttr('disabled');
 		});
 	})
 });

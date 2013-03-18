@@ -10,7 +10,7 @@ class Comments_m extends MY_Model
 {
     /**
      * Get a comment based on the ID
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment
 	 * @return array
      */
@@ -33,15 +33,18 @@ class Comments_m extends MY_Model
 	/**
 	 * Get recent comments
 	 *
-	 * @access public
+	 * 
 	 * @param int $limit The amount of comments to get
+	 * @param int $is_active set default to only return active comments
 	 * @return array
 	 */
-  	public function get_recent($limit = 10)
+  	public function get_recent($limit = 10, $is_active = 1)
   	{
 		$this->_get_all_setup();
 		
-    	$this->db->order_by('c.created_on', 'desc');
+    	$this->db
+    		->where('c.is_active', $is_active)
+    		->order_by('c.created_on', 'desc');
     	
     	if ($limit > 0)
     	{
@@ -54,7 +57,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Get something based on a module item
 	 *
-	 * @access public
+	 * 
 	 * @param string $module The name of the module
 	 * @param int $ref_id The ID of the module
 	 * @param int $is_active Is the module active?
@@ -76,7 +79,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Get all comments
 	 *
-	 * @access public
+	 * 
 	 * @return array
 	 */
   	public function get_all()
@@ -87,7 +90,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Insert a new comment
 	 *
-	 * @access public
+	 * 
 	 * @param array $input The data to insert
 	 * @return void
 	 */
@@ -113,7 +116,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Update an existing comment
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment to update
 	 * @param array $input The array containing the data to update
 	 * @return void
@@ -134,7 +137,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Approve a comment
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment to approve
 	 * @return mixed
 	 */
@@ -146,7 +149,7 @@ class Comments_m extends MY_Model
 	/**
 	 * Unapprove a comment
 	 *
-	 * @access public
+	 * 
 	 * @param int $id The ID of the comment to unapprove
 	 * @return mixed
 	 */
