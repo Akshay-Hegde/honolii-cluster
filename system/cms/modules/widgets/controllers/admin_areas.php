@@ -77,7 +77,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Add a new widget area
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function create()
@@ -148,6 +148,8 @@ class Admin_areas extends Admin_Controller {
 			}
 		}
 
+		$area = new stdClass();
+
 		foreach ($this->_validation_rules as $rule)
 		{
 			$area->{$rule['field']} = set_value($rule['field']);
@@ -160,7 +162,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Edit widget area
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function edit($id = 0)
@@ -250,7 +252,7 @@ class Admin_areas extends Admin_Controller {
 
 	/**
 	 * Delete an existing widget area
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function delete($id = 0)

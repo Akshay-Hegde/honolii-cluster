@@ -24,7 +24,7 @@ class Admin_layouts extends Admin_Controller
 	private $validation_rules = array(
 		array(
 			'field' => 'title',
-			'label' => 'lang:page_layouts.title_label',
+			'label' => 'lang:global:title',
 			'rules' => 'trim|required|max_length[60]'
 		),
 		array(
@@ -79,7 +79,7 @@ class Admin_layouts extends Admin_Controller
 
 		// Render the view
 		$this->template
-			->title($this->module_details['name'], lang('pages.layout_id_label'))
+			->title($this->module_details['name'], lang('pages:layout_id_label'))
 			->build('admin/layouts/index');
 	}
 
@@ -89,6 +89,7 @@ class Admin_layouts extends Admin_Controller
 	public function create()
 	{
 		$data = new stdClass();
+		$page_layout = new stdClass();
 
 		// Got validation?
 		if ($this->form_validation->run())
@@ -117,6 +118,7 @@ class Admin_layouts extends Admin_Controller
 		}
 
 		$theme_layouts = $this->template->get_theme_layouts($this->settings->default_theme);
+		$data->theme_layouts = array();
 		foreach ($theme_layouts as $theme_layout)
 		{
 			$data->theme_layouts[$theme_layout] = basename($theme_layout, '.html');
@@ -129,7 +131,7 @@ class Admin_layouts extends Admin_Controller
 
 		// Load WYSIWYG editor
 		$this->template
-			->title($this->module_details['name'], lang('pages.layout_id_label'), lang('page_layouts.create_title'))
+			->title($this->module_details['name'], lang('pages:layout_id_label'), lang('page_layouts.create_title'))
 			->build('admin/layouts/form', $data);
 	}
 
@@ -169,7 +171,9 @@ class Admin_layouts extends Admin_Controller
 
 			$this->session->set_flashdata('success', sprintf(lang('page_layouts.edit_success'), $this->input->post('title')));
 
-			redirect('admin/pages/layouts');
+			$this->input->post('btnAction') == 'save_exit'
+				? redirect('admin/pages/layouts')
+				: redirect('admin/pages/layouts/edit/'.$id);
 		}
 
 		// Loop through each validation rule
@@ -189,7 +193,7 @@ class Admin_layouts extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('pages.layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
+			->title($this->module_details['name'], lang('pages:layout_id_label'), sprintf(lang('page_layouts.edit_title'), $page_layout->title))
 			->set('theme_layouts', $theme_layouts_options)
 			->set('page_layout', $page_layout)
 			->build('admin/layouts/form');

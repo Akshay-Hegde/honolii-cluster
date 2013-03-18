@@ -48,7 +48,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Create a new keyword
 	 *
-	 * @access public
+	 * 
 	 * @return void
 	 */
 	public function add()
@@ -77,6 +77,8 @@ class Admin extends Admin_Controller
 			}
 		}
 
+		$keyword = new stdClass();
+
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
@@ -93,7 +95,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Edit a keyword
 	 *
-	 * @access public
+	 * 
 	 *
 	 * @param int $id The ID of the keyword to edit
 	 *
@@ -138,7 +140,7 @@ class Admin extends Admin_Controller
 	/**
 	 * Delete keyword role(s)
 	 *
-	 * @access public
+	 * 
 	 *
 	 * @param int $id The ID of the keyword to delete
 	 *

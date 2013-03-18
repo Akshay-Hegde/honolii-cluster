@@ -38,6 +38,8 @@ class Admin_Fields extends Admin_Controller {
 		$this->load->library('streams_core/Type');	
 	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
 		$this->load->library('form_validation');
+
+		$this->data = new stdClass();
        
  		$this->data->types = $this->type->types;
 	}
@@ -55,7 +57,7 @@ class Admin_Fields extends Admin_Controller {
 		
 		$this->data->fields = $this->fields_m->get_fields(
 										$this->config->item('streams:core_namespace'),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										$this->uri->segment(5)
 									);
 
@@ -66,7 +68,7 @@ class Admin_Fields extends Admin_Controller {
 		$this->data->pagination = create_pagination(
 										'admin/streams/fields/index',
 										$this->fields_m->count_fields($this->config->item('streams:core_namespace')),
-										$this->settings->item('records_per_page'),
+										Settings::get('records_per_page'),
 										5
 									);
 
@@ -108,7 +110,9 @@ class Admin_Fields extends Admin_Controller {
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug[new]';
 		
 		$this->form_validation->set_rules($this->fields_m->fields_validation);
-				
+		
+		$this->data->field = new stdClass();
+
 		foreach ($this->fields_m->fields_validation as $field)
 		{
 			$this->data->field->{$field['field']} = $this->input->post($field['field']);
@@ -171,6 +175,12 @@ class Admin_Fields extends Admin_Controller {
 			endif;
 			
 		endif;
+
+		// -------------------------------------
+		// Run field setup events
+		// -------------------------------------
+
+		$this->fields->run_field_setup_events(null, null, null);
 
 		// -------------------------------------
 		

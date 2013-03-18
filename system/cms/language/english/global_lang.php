@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 			= 'Control Panel';
 $lang['global:profile']					= 'Profile';
 
-$lang['title_label'] 					= 'Title';
+$lang['global:title'] 					= 'Title';
 $lang['name_label'] 					= 'Name';
 $lang['desc_label'] 					= 'Description';
 $lang['version_label'] 					= 'Version';
 $lang['global:author'] 					= 'Author';
 $lang['global:action'] 					= 'Action';
 $lang['global:slug'] 					= 'Slug';
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.';
 $lang['global:user'] 					= 'User';
 
 $lang['global:dialog:delete_message'] 	= 'Are you sure you want to delete this? It cannot be undone.';
@@ -79,7 +80,7 @@ $lang['top_page']						= 'Top';
 $lang['back_to_top']					= 'Back to Top';
 
 $lang['global:filters'] 				= 'Filters';
-$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:image'] 					= 'Image';
 $lang['global:description']				= 'Description';
 $lang['global:actions']					= 'Actions';
 $lang['global:view']					= 'View';
@@ -91,5 +92,9 @@ $lang['global:delete']					= 'Delete';
 $lang['global:remove']					= 'Remove';
 
 $lang['global:keywords']				= 'Keywords';
+
+$lang['global:or']						= 'or';
+$lang['global:and']						= 'and';
+$lang['global:at']						= 'at';
 
 /* End of file main_lang.php */

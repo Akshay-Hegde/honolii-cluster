@@ -25,7 +25,7 @@ class Widget_Videos extends Widgets
 	 * @var array
 	 */
 	public $description = array(
-		'en' => 'Display videos from YouTube Channel'
+		'en' => 'Display videos from YouTube and Vimeo Channel'
 	);
 
 	/**
@@ -81,23 +81,31 @@ class Widget_Videos extends Widgets
             'rules' => 'required'
         ),
         array(
-            'field' => 'suggested',
+            'field' => 'utsuggested',
             'label' => 'Ending',
-            //'rules' => 'required'
         ),
         array(
-            'field' => 'html5',
+            'field' => 'uthtml5',
             'label' => 'HTML5',
-            //'rules' => 'required'
+        ),
+        array(
+            'field' => 'vtitle',
+            'label' => 'Title',
+        ),
+        array(
+            'field' => 'vbyline',
+            'label' => 'Byline',
+        ),
+        array(
+            'field' => 'vportrait',
+            'label' => 'Portrait',
+        ),
+        array(
+            'field' => 'hosting',
+            'label' => 'Hosting',
+            'rules' => 'required'
         ),
 	);
-
-	/**
-	 * The URL used to get user feed from the YouTube API
-	 * https://gdata.youtube.com/feeds/api/users/userId/uploads
-	 * @var string
-	 */
-	private $feed_url = 'https://gdata.youtube.com/feeds/api/users/';
 
 	/**
 	 * The main function of the widget.
@@ -107,59 +115,130 @@ class Widget_Videos extends Widgets
 	 */
 	public function run($options)
 	{
-		if (!$videoFeed = $this->pyrocache->get('widgetvideo-youtube-'.$options['username'].$options['number'].$options['cache']))
-		{
-			
-			$videoFeed = @file_get_contents($this->feed_url.$options['username'].'/uploads');
-			
-            $this->pyrocache->write($videoFeed, 'widgetvideo-youtube-'.$options['username'].$options['number'].$options['cache'], $options['cache']);
-			
-        }
-            
-        
-        if($videoFeed)
+		if($options['hosting'] === 'youtube')
         {
-                
-            $xmlFeed = new SimpleXMLElement($videoFeed);
             
-            $entries = array();
-            
-            if($options['number'] > count($xmlFeed->entry))
-            {
-                $options['number'] = count($xmlFeed->entry);
-            }
-            
-    		// Get videos in the feed
-    		for ($i=0; $i < $options['number']; $i++)
+    		if (!$videoFeed = $this->pyrocache->get('widgetvideo-youtube-'.$options['username'].$options['number'].$options['cache']))
     		{
-    			    
-                $videoID = substr( strrchr( $xmlFeed->entry[$i]->id, '/' ), 1 );
-    				
-    			array_push($entries,$videoID);
-    		}
-    		
-            $videoFeed = (object) array(
-                'author'        => (string) $xmlFeed->author->name,
-                'totalResults'  => (string) $xmlFeed->children('openSearch',true)->totalResults,
-                'entry'         => $entries
-            );
-            
-            if(!array_key_exists('suggested', $options)){
-                $options['suggested'] = 0;
-            };
-            
-            if(!array_key_exists('html5', $options)){
-                $options['html5'] = 0;
+    			
+    			$videoFeed = @file_get_contents('https://gdata.youtube.com/feeds/api/users/'.$options['username'].'/uploads');
+    			
+                $this->pyrocache->write($videoFeed, 'widgetvideo-youtube-'.$options['username'].$options['number'].$options['cache'], $options['cache']);
+    			
             }
+                
+            
+            if($videoFeed)
+            {
+                    
+                $xmlFeed = new SimpleXMLElement($videoFeed);
+                
+                $entries = array();
+                
+                if($options['number'] > count($xmlFeed->entry))
+                {
+                    $options['number'] = count($xmlFeed->entry);
+                }
+                
+        		// Get videos in the feed
+        		for ($i=0; $i < $options['number']; $i++)
+        		{
+        			    
+                    $videoID = substr( strrchr( $xmlFeed->entry[$i]->id, '/' ), 1 );
+        				
+        			array_push($entries,$videoID);
+        		}
+        		
+                $videoFeed = (object) array(
+                    'author'        => (string) $xmlFeed->author->name,
+                    'totalResults'  => (string) $xmlFeed->children('openSearch',true)->totalResults,
+                    'entry'         => $entries
+                );
+                
+                if(!array_key_exists('suggested', $options)){
+                    $options['suggested'] = 0;
+                };
+                
+                if(!array_key_exists('html5', $options)){
+                    $options['html5'] = 0;
+                }
+        	}
     	}
-
+    	elseif($options['hosting'] === 'vimeo')
+        {
+            
+            if (!$videoFeed = $this->pyrocache->get('widgetvideo-vimeo-'.$options['username'].$options['number'].$options['cache']))
+            {
+                
+                $videoFeed = @file_get_contents('http://vimeo.com/api/v2/'.$options['username'].'/videos.xml');
+                
+                $this->pyrocache->write($videoFeed, 'widgetvideo-vimeo-'.$options['username'].$options['number'].$options['cache'], $options['cache']);
+                
+            }
+                
+            
+            if($videoFeed)
+            {
+                    
+                $xmlFeed = new SimpleXMLElement($videoFeed);
+                
+                $entries = array();
+                
+                if($options['number'] > count($xmlFeed->video))
+                {
+                    $options['number'] = count($xmlFeed->video);
+                }
+                
+                // Get videos in the feed
+                for ($i=0; $i < $options['number']; $i++)
+                {
+                        
+                    $videoID = $xmlFeed->video[$i]->id;
+                        
+                    array_push($entries,$videoID);
+                }
+                
+                $videoFeed = (object) array(
+                    'totalResults'  => (string) count($xmlFeed->video),
+                    'entry'         => $entries
+                );
+                
+                
+            }
+        };
+        
+        if(!array_key_exists('utsuggested', $options)){
+            $options['utsuggested'] = 0;
+        };
+                
+        if(!array_key_exists('uthtml5', $options)){
+            $options['uthtml5'] = 0;
+        };
+        
+        if(!array_key_exists('vbyline', $options)){
+            $options['vbyline'] = 0;
+        };
+        
+        if(!array_key_exists('vportrait', $options)){
+            $options['vportrait'] = 0;
+        };
+        
+        if(!array_key_exists('vtitle', $options)){
+            $options['vtitle'] = 0;
+        };
+        
+        
 		// Store the feed items
 		return array(
 			'username' => $options['username'],
 			'width' => $options['width'],
 			'height' => $options['height'],
-			'suggested' => $options['suggested'],
-			'html5' => $options['html5'],
+			'utsuggested' => $options['utsuggested'],
+			'uthtml5' => $options['uthtml5'],
+			'vtitle' => $options['vtitle'],
+			'vportrait' => $options['vportrait'],
+			'vbyline' => $options['vbyline'],
+			'videohost' => $options['hosting'], 
 			'videoFeed' => $videoFeed ? $videoFeed : array(),
 		);
 	}

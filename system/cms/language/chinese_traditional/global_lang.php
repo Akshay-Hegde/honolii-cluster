@@ -3,13 +3,14 @@
 $lang['global:control-panel'] 						= '控制台'; 		//'Control Panel';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= '標題'; 		//'Title';
+$lang['global:title'] 					= '標題'; 		//'Title';
 $lang['name_label'] 					= '名稱'; 		//'Name';
 $lang['desc_label'] 					= '說明'; 		//'Description';
 $lang['version_label'] 					= '版本'; 		//'Version';
 $lang['global:author'] 					= '作者'; 		//'Author';
 $lang['global:action'] 					= '操作'; 		//'Action';
-
+$lang['global:slug'] 					= 'Slug'; #translate
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['dialog.delete_message'] 			= '確定要刪除嗎？這將無法復原。'; //'Are you sure you want to delete this? It can not be undone.';
 $lang['dialog.confirm'] 				= '確認'; 		//'Confirm';
 $lang['dialog.yes'] 					= '是'; 			//'Yes';
@@ -72,7 +73,7 @@ $lang['powered_by_pyrocms']				= 'Powered by PyroCMS';  #translate
 $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
-$lang['global:shortcuts'] 				= '捷徑';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= '說明';
 $lang['global:actions']					= '操作';
 $lang['global:view']					= '檢視';

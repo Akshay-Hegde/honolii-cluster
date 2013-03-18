@@ -3,13 +3,13 @@
 $lang['global:control-panel'] 			= 'Quản trị hệ thống';
 $lang['global:profile']					= 'Profile'; #translate
 
-$lang['title_label'] 					= 'Tiêu đề';
+$lang['global:title'] 					= 'Tiêu đề';
 $lang['name_label'] 					= 'Tên';
 $lang['desc_label'] 					= 'Mô tả';
 $lang['version_label'] 					= 'Phiên bản';
 $lang['global:author'] 					= 'Tác giả';
 $lang['global:action'] 					= 'Thao tác';
-
+$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
 $lang['global:dialog:delete_message'] 	= 'Bạn có chắc chắn muốn xóa, bạn sẽ không thể phục hồi lại?.';
 $lang['global:dialog:confirm'] 			= 'Xác nhận';
 
@@ -74,7 +74,7 @@ $lang['top_page']						= 'Top';  #translate
 $lang['back_to_top']					= 'Back to Top';  #translate
 
 $lang['global:filters'] 				= 'Lọc';
-$lang['global:shortcuts'] 				= 'Shortcuts';
+$lang['global:image'] 					= 'Image'; #translate
 $lang['global:description']				= 'Mô tả';
 $lang['global:actions']					= 'Thao tác';
 $lang['global:view']					= 'Xem';
