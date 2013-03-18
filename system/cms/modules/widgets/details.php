@@ -1,5 +1,4 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-
 /**
  * Widgets Module
  *
@@ -8,21 +7,21 @@
  */
 class Module_Widgets extends Module {
 
-	public $version = '1.1';
+	public $version = '1.2.0';
 
 	public function info()
 	{
 		return array(
 			'name' => array(
 				'en' => 'Widgets',
-				'ar' => 'الودجت',
 				'br' => 'Widgets',
 				'pt' => 'Widgets',
 				'cs' => 'Widgety',
+				'da' => 'Widgets',
 				'de' => 'Widgets',
 				'el' => 'Widgets',
 				'es' => 'Widgets',
-				'fi' => 'Widgetit',
+				'fi' => 'Vimpaimet',
 				'fr' => 'Widgets',
 				'id' => 'Widget',
 				'it' => 'Widgets',
@@ -30,14 +29,16 @@ class Module_Widgets extends Module {
 				'nl' => 'Widgets',
 				'ru' => 'Виджеты',
 				'sl' => 'Vtičniki',
-				'zh' => '小組件',
+				'tw' => '小組件',
+				'cn' => '小组件',
 				'hu' => 'Widget-ek',
 				'th' => 'วิดเจ็ต',
-                                'se' => 'Widgetar'
+				'se' => 'Widgetar',
+				'ar' => 'الودجتس',
 			),
 			'description' => array(
 				'en' => 'Manage small sections of self-contained logic in blocks or "Widgets".',
-				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"وِدْجِتْ".',
+				'ar' => 'إدارة أقسام صغيرة من البرمجيات في مساحات الموقع أو ما يُسمّى بالـ"ودجتس".',
 				'br' => 'Gerenciar pequenas seções de conteúdos em bloco conhecidos como "Widgets".',
 				'pt' => 'Gerir pequenas secções de conteúdos em bloco conhecidos como "Widgets".',
 				'cs' => 'Spravujte malé funkční části webu neboli "Widgety".',
@@ -45,7 +46,7 @@ class Module_Widgets extends Module {
 				'de' => 'Verwaltet kleine, eigentständige Bereiche, genannt "Widgets".',
 				'el' => 'Διαχείριση μικρών τμημάτων αυτόνομης προγραμματιστικής λογικής σε πεδία ή "Widgets".',
 				'es' => 'Manejar pequeñas secciones de lógica autocontenida en bloques o "Widgets"',
-				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Widgettejä".',
+				'fi' => 'Hallitse pieniä osioita, jotka sisältävät erillisiä lohkoja tai "Vimpaimia".',
 				'fr' => 'Gérer des mini application ou "Widgets".',
 				'id' => 'Mengatur bagian-bagian kecil dari blok-blok yang memuat sesuatu atau dikenal dengan istilah "Widget".',
 				'it' => 'Gestisci piccole sezioni di logica a se stante in blocchi o "Widgets".',
@@ -53,10 +54,11 @@ class Module_Widgets extends Module {
 				'nl' => 'Beheer kleine onderdelen die zelfstandige logica bevatten, ofwel "Widgets".',
 				'ru' => 'Управление небольшими, самостоятельными блоками.',
 				'sl' => 'Urejanje manjših delov blokov strani ti. Vtičniki (Widgets)',
-				'zh' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
+				'tw' => '可將小段的程式碼透過小組件來管理。即所謂 "Widgets"，或稱為小工具、部件。',
+				'cn' => '可将小段的程式码透过小组件来管理。即所谓 "Widgets"，或称为小工具、部件。',
 				'hu' => 'Önálló kis logikai tömbök vagy widget-ek kezelése.',
 				'th' => 'จัดการส่วนเล็ก ๆ ในรูปแบบของตัวเองในบล็อกหรือวิดเจ็ต',
-                                'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.'
+				'se' => 'Hantera små sektioner med egen logik och innehåll på olika delar av webbplatsen.',
 			),
 			'frontend' 	=> false,
 			'backend'  	=> true,
@@ -65,15 +67,15 @@ class Module_Widgets extends Module {
 
 			'sections' => array(
 			    'instances' => array(
-				    'name' => 'widgets.instances',
+				    'name' => 'widgets:instances',
 				    'uri' => 'admin/widgets',
 				),
 				'areas' => array(
-				    'name' => 'widgets.areas',
+				    'name' => 'widgets:areas',
 				    'uri' => 'admin/widgets/areas',
 				    'shortcuts' => array(
 						array(
-						    'name' => 'widgets.add_area',
+						    'name' => 'widgets:add_area',
 						    'uri' => 'admin/widgets/areas/create',
 						),
 				    ),

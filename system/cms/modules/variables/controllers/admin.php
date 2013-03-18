@@ -52,7 +52,7 @@ class Admin extends Admin_Controller
 		// Set template layout to false if request is of ajax type
 		if ($this->input->is_ajax_request())
 		{
-			$this->template->set_layout(FALSE);
+			$this->template->set_layout(false);
 		}
 	}
 
@@ -67,6 +67,7 @@ class Admin extends Admin_Controller
 
 		// Using this data, get the relevant results
 		$this->template->variables = $this->variables_m
+			->order_by('name')
 			->limit($this->template->pagination['limit'])
 			->get_all();
 
@@ -81,6 +82,8 @@ class Admin extends Admin_Controller
 	 */
 	public function create()
 	{
+		$variable = new stdClass();
+
 		// Got validation?
 		if ($this->form_validation->run())
 		{
@@ -88,12 +91,12 @@ class Admin extends Admin_Controller
 
 			if ($this->variables_m->insert($this->input->post()))
 			{
-				$message = sprintf(lang('variables.add_success'), $name);
+				$message = sprintf(lang('variables:add_success'), $name);
 				$status = 'success';
 			}
 			else
 			{
-				$message = sprintf(lang('variables.add_error'), $name);
+				$message = sprintf(lang('variables:add_error'), $name);
 				$status = 'error';
 			}
 
@@ -102,7 +105,7 @@ class Admin extends Admin_Controller
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return print (json_encode((object)array(
 					'status' => $status,
@@ -118,7 +121,7 @@ class Admin extends Admin_Controller
 			// if request is ajax return json data, otherwise do normal stuff
 			if ($this->input->is_ajax_request())
 			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+				$message = $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
 					'status' => 'error',
@@ -136,7 +139,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], lang('variables.create_title'))
+			->title($this->module_details['name'], lang('variables:create_title'))
 			->set('variable', $variable)
 			->build('admin/form');
 	}
@@ -148,6 +151,8 @@ class Admin extends Admin_Controller
 	 */
 	public function edit($id = 0)
 	{
+		$variable = new stdClass();
+
 		// Got ID?
 		$id OR redirect('admin/variables');
 
@@ -161,12 +166,12 @@ class Admin extends Admin_Controller
 
 			if ($this->variables_m->update($id, $this->input->post()))
 			{
-				$message = sprintf(lang('variables.edit_success'), $name);
+				$message = sprintf(lang('variables:edit_success'), $name);
 				$status = 'success';
 			}
 			else
 			{
-				$message = sprintf(lang('variables.edit_error'), $name);
+				$message = sprintf(lang('variables:edit_error'), $name);
 				$status = 'error';
 			}
 
@@ -175,12 +180,12 @@ class Admin extends Admin_Controller
 			{
 				$data = array();
 				$data['messages'][$status] = $message;
-				$message = $this->load->view('admin/partials/notices', $data, TRUE);
+				$message = $this->load->view('admin/partials/notices', $data, true);
 
 				return $this->template->build_json(array(
 					'status' => $status,
 					'message' => $message,
-					'title' => sprintf(lang('variables.edit_title'), $name)
+					'title' => sprintf(lang('variables:edit_title'), $name)
 				));
 			}
 
@@ -191,7 +196,7 @@ class Admin extends Admin_Controller
 		{
 			if ($this->input->is_ajax_request())
 			{
-				$message = $this->load->view('admin/partials/notices', array(), TRUE);
+				$message = $this->load->view('admin/partials/notices', array(), true);
 
 				return $this->template->build_json(array(
 					'status' => 'error',
@@ -203,7 +208,7 @@ class Admin extends Admin_Controller
 		// Loop through each validation rule
 		foreach ($this->_validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== false)
 			{
 				$variable->{$rule['field']} = set_value($rule['field']);
 			}
@@ -215,7 +220,7 @@ class Admin extends Admin_Controller
 		}
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('variables.edit_title'), $this->template->variable->name))
+			->title($this->module_details['name'], sprintf(lang('variables:edit_title'), $this->template->variable->name))
 			->build('admin/form');
 	}
 
@@ -251,21 +256,21 @@ class Admin extends Admin_Controller
 				$first_values = implode(', ', $values);
 
 				// Success / Error message
-				$this->session->set_flashdata($status, sprintf(lang('variables.mass_delete_'.$status), $status_total, $total, $first_values, $last_value));
+				$this->session->set_flashdata($status, sprintf(lang('variables:mass_delete_'.$status), $status_total, $total, $first_values, $last_value));
 			}
 
 			// Single deletion
 			else
 			{
 				// Success / Error messages
-				$this->session->set_flashdata($status, sprintf(lang('variables.delete_'.$status), $values[0]));
+				$this->session->set_flashdata($status, sprintf(lang('variables:delete_'.$status), $values[0]));
 			}
 		}
 
 		// He arrived here but it was not done nothing, certainly valid ids not were selected
 		if ( ! $deleted)
 		{
-			$this->session->set_flashdata('error', lang('variables.no_select_error'));
+			$this->session->set_flashdata('error', lang('variables:no_select_error'));
 		}
 
 		redirect('admin/variables');
@@ -280,7 +285,7 @@ class Admin extends Admin_Controller
 	 */
 	public function _check_name($name = '')
 	{
-		$this->form_validation->set_message('_check_name', sprintf(lang('variables.already_exist_error'), $name));
+		$this->form_validation->set_message('_check_name', sprintf(lang('variables:already_exist_error'), $name));
 
 		return ! $this->variables_m->check_name($name, (int)$this->input->post('variable_id'));
 	}

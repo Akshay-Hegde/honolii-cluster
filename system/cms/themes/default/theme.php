@@ -7,30 +7,30 @@ class Theme_Default extends Theme {
     public $author_website	= 'http://ikreativ.com/';
     public $website			= 'http://pyrocms.com/';
     public $description		= 'Default PyroCMS v1.0 Theme - 2 Column, Fixed width, Horizontal navigation, CSS3 styling.';
-    public $version			= '1.0';
+    public $version			= '1.0.0';
 	public $options 		= array('show_breadcrumbs' => 	array('title' 		=> 'Show Breadcrumbs',
 																'description'   => 'Would you like to display breadcrumbs?',
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 									'layout' => 			array('title' => 'Layout',
 																'description'   => 'Which type of layout shall we use?',
 																'default'       => '2 column',
 																'type'          => 'select',
 																'options'       => '2 column=Two Column|full-width=Full Width|full-width-home=Full Width Home Page',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 									'cufon_enabled' => 		array('title'		=> 'Use Cufon',
 																'description' 	=> 'Would you like to use Cufon for titles?',
 																'default'       => 'yes',
 																'type'          => 'radio',
 																'options'       => 'yes=Yes|no=No',
-																'is_required'   => TRUE),
+																'is_required'   => true),
 								   );
 
 	public function __construct()
 	{
-		$supported_lang	= Settings::get('supported_languages');
+		$supported_lang	= config_item('supported_languages');
 
 		$cufon_enabled	= $supported_lang[CURRENT_LANGUAGE]['direction'] !== 'rtl';
 		$cufon_font		= 'qk.font.js';
@@ -42,19 +42,19 @@ class Theme_Default extends Theme {
 		switch (CURRENT_LANGUAGE)
 		{
 			case 'zh':
-				$cufon_enabled	= FALSE;
+				$cufon_enabled	= false;
 				break;
 			case 'ar':
-				$cufon_enabled = FALSE;
+				$cufon_enabled = false;
 				break;
 			case 'he':
-				$cufon_enabled	= TRUE;
+				$cufon_enabled	= true;
 			case 'ru':
 				$cufon_font		= 'times.font.js';
 				break;
 		}
 
-		Settings::set('theme_default', compact('cufon_enabled', 'cufon_font'));
+		Settings::temp('theme_default', compact('cufon_enabled', 'cufon_font'));
 	}
 }
 

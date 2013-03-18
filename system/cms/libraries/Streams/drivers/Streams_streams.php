@@ -16,7 +16,7 @@ class Streams_streams extends CI_Driver {
 	 * @access	public
 	 * @return	void
 	 */
-	function __construct()
+	public function __construct()
 	{
 		$this->CI =& get_instance();
 	}
@@ -32,9 +32,10 @@ class Streams_streams extends CI_Driver {
 	 * @param	string - stream namespace
 	 * @param	[string - stream prefix]
 	 * @param	[string - about notes for stream]
+	 * @param 	[array - extra data]
 	 * @return	bool
 	 */
-	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = null, $about = null)
+	public function add_stream($stream_name, $stream_slug, $namespace, $prefix = null, $about = null, $extra = array())
 	{
 		// -------------------------------------
 		// Validate Data
@@ -77,7 +78,8 @@ class Streams_streams extends CI_Driver {
 												$stream_slug,
 												$prefix,
 												$namespace,
-												$about
+												$about, 
+												$extra
 											);
 	}
 
@@ -87,11 +89,11 @@ class Streams_streams extends CI_Driver {
 	 * Get Stream
 	 *
 	 * @access	public
-	 * @param	stream - obj, id, or string
-	 * @param	[string - namespace]
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function get_stream($stream, $namespace)
+	public function get_stream($stream, $namespace = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -106,11 +108,11 @@ class Streams_streams extends CI_Driver {
 	 * Delete a stream
 	 *
 	 * @access	public
-	 * @param	stream - obj, id, or string
-	 * @param	[string - namespace]
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function delete_stream($stream, $namespace)
+	public function delete_stream($stream, $namespace = null)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
@@ -125,12 +127,12 @@ class Streams_streams extends CI_Driver {
 	 * Update a stream
 	 *
 	 * @access	public
-	 * @param	stream - obj, id, or string
-	 * @param	string - namespace
-	 * @param 	array - associative array of new data
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
+	 * @param 	array $data associative array of new data
 	 * @return	object
 	 */
-	function update_stream($stream, $namespace, $data)
+	public function update_stream($stream, $namespace = null, $data = array())
 	{	
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -147,11 +149,11 @@ class Streams_streams extends CI_Driver {
 	 * Get stream field assignments
 	 *
 	 * @access	public
-	 * @param	stream - obj, id, or string
-	 * @param	string - namespace
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
 	 * @return	object
 	 */
-	public function get_assignments($stream, $namespace)
+	public function get_assignments($stream, $namespace = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		
@@ -166,15 +168,93 @@ class Streams_streams extends CI_Driver {
 	 * Get streams in a namespace
 	 *
 	 * @access	public
-	 * @param	stream - obj, id, or string
-	 * @param	[string - namespace]
+	 * @param	string $namespace namespace
+	 * @param 	int [$limit] limit, defaults to null
+	 * @param 	int [$offset] offset, defaults to 0
 	 * @return	object
 	 */
-	public function get_streams($namespace)
+	public function get_streams($namespace, $limit = null, $offset = 0)
 	{
-		return $this->CI->streams_m->get_streams($namespace);
+		return $this->CI->streams_m->get_streams($namespace, $limit, $offset);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Get Stream Metadata
+	 *
+	 * Returns an array of the following data:
+	 *
+	 * name 			The stream name
+	 * slug 			The streams slug
+	 * namespace 		The stream namespace
+	 * db_table 		The name of the stream database table
+	 * raw_size 		Raw size of the stream database table
+	 * size 			Formatted size of the stream database table
+	 * entries_count	Number of the entries in the stream
+	 * fields_count 	Number of fields assigned to the stream
+	 * last_updated		Unix timestamp of when the stream was last updated
+	 *
+	 * @access	public
+	 * @param	mixed $stream object, int or string stream
+	 * @param	string $namespace namespace if first param is string
+	 * @return	object
+	 */
+	public function get_stream_metadata($stream, $namespace = null)
+	{
+		$stream = $this->get_stream($stream, $namespace);
+
+		$data = array();
+
+		$data['name']		= $stream->stream_name;
+		$data['slug']		= $stream->stream_slug;
+		$data['namespace']	= $stream->stream_namespace;
+
+		// Get DB table name
+		$data['db_table'] 	= $stream->stream_prefix.$stream->stream_slug;
+
+		// Get the table data
+		$info = $this->CI->db->query("SHOW TABLE STATUS LIKE '".$this->CI->db->dbprefix($data['db_table'])."'")->row();
+		
+		// Get the size of the table
+		$data['raw_size']	= $info->Data_length;
+
+		$this->CI->load->helper('number');
+		$data['size'] 		= byte_format($info->Data_length);
+		
+		// Last updated time
+		$data['last_updated'] = ( ! $info->Update_time) ? $info->Create_time : $info->Update_time;
+
+		$this->CI->load->helper('date');
+		$data['last_updated'] = mysql_to_unix($data['last_updated']);
+		
+		// Get the number of rows (the table status data on this can't be trusted)
+		$data['entries_count'] = $this->CI->db->count_all($data['db_table']);
+		
+		// Get the number of fields
+		$data['fields_count'] = $this->CI->db->select('id')->where('stream_id', $stream->id)->get(ASSIGN_TABLE)->num_rows();
+
+		return $data;
 	}
 	
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Chekc is table exists
+	 * 
+	 * Check to see if the table name needed for a stream is
+	 * actually available.
+	 *
+	 * @access 	public
+	 * @param 	string
+	 * @param 	string
+	 * @param 	string
+	 */
+	public function check_table_exists($stream_slug, $prefix)
+	{
+		return $this->CI->streams_m->check_table_exists($stream_slug, $prefix);
+	}
+
 	// --------------------------------------------------------------------------
 
 	/**
@@ -188,7 +268,7 @@ class Streams_streams extends CI_Driver {
 	 * 'label' => 'Email',
 	 * 'rules' => 'required|valid_email'
 	 */
-	public function validation_array($stream, $namespace, $method = 'new', $skips = array(), $row_id = null)
+	public function validation_array($stream, $namespace = null, $method = 'new', $skips = array(), $row_id = null)
 	{
 		$str_id = $this->stream_id($stream, $namespace);
 		

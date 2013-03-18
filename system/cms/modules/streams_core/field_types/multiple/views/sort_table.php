@@ -4,7 +4,7 @@
 
 		echo '<script type="text/javascript" src="'.site_url('streams_core/field_asset/js/multiple/multiple_drag.js').'"></script>';
 		
-		define('PYROSTREAMS_MULT_JS_LOADED', TRUE);
+		define('PYROSTREAMS_MULT_JS_LOADED', true);
 
 	endif;
 	

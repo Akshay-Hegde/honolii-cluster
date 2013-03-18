@@ -2,8 +2,9 @@
 /**
  * Code here is run before frontend controllers
  *
- * @author PyroCMS Dev Team
- * @package PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
+ * @package 	PyroCMS\Core\Controllers
  */
 class Public_Controller extends MY_Controller
 {
@@ -18,12 +19,12 @@ class Public_Controller extends MY_Controller
 		$this->benchmark->mark('public_controller_start');
 
 		// Check redirects if GET and Not AJAX
-		if ( ! $this->input->is_ajax_request() AND $_SERVER['REQUEST_METHOD'] == 'GET')
+		if ( ! $this->input->is_ajax_request() and $_SERVER['REQUEST_METHOD'] == 'GET')
 		{
 			$this->load->model('redirects/redirect_m');
 			$uri = trim(uri_string(), '/');
 
-			if ($redirect = $this->redirect_m->get_from($uri))
+			if ($uri and $redirect = $this->redirect_m->get_from($uri))
 			{
 				// Check if it was direct match
 				if ($redirect->from == $uri)
@@ -32,7 +33,7 @@ class Public_Controller extends MY_Controller
 				}
 
 				// If it has back reference
-				if (strpos($redirect->to, '$') !== FALSE)
+				if (strpos($redirect->to, '$') !== false)
 				{
 					$from = str_replace('%', '(.*?)', $redirect->from);
 					$redirect->to = preg_replace('#^'.$from.'$#', $redirect->to, $uri);
@@ -45,11 +46,11 @@ class Public_Controller extends MY_Controller
 		Events::trigger('public_controller');
 
 		// Check the frontend hasnt been disabled by an admin
-		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) OR $this->current_user->group != 'admin'))
+		if ( ! $this->settings->frontend_enabled && (empty($this->current_user) or $this->current_user->group != 'admin'))
 		{
 			header('Retry-After: 600');
 
-			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms_fatal_error');
+			$error = $this->settings->unavailable_message ? $this->settings->unavailable_message : lang('cms:fatal_error');
 			show_error($error, 503);
 		}
 
@@ -78,13 +79,7 @@ class Public_Controller extends MY_Controller
 		}
 
 		// Set the theme view folder
-		$this->template
-			->set_theme($this->theme->slug)
-			->append_metadata('
-				<script type="text/javascript">
-					var APPPATH_URI = "'.APPPATH_URI.'";
-					var BASE_URI = "'.BASE_URI.'";
-				</script>');
+		$this->template->set_theme($this->theme->slug);
 
 		// Is there a layout file for this module?
 		if ($this->template->layout_exists($this->module.'.html'))
@@ -102,9 +97,9 @@ class Public_Controller extends MY_Controller
 		$this->template->set_metadata('canonical', site_url($this->uri->uri_string()), 'link');
 
 		// If there is a blog module, link to its RSS feed in the head
-		if (module_exists('blog'))
+		if (module_enabled('blog'))
 		{
-			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$this->settings->site_name.'" href="'.site_url('blog/rss/all.rss').'" />');
+			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.Settings::get('site_name').'" href="'.site_url('blog/rss/all.rss').'" />');
 		}
 
 		// Frontend data
@@ -114,8 +109,6 @@ class Public_Controller extends MY_Controller
 		$this->theme->options = $this->pyrocache->model('theme_m', 'get_values_by', array(array('theme' => $this->theme->slug)));
 
 		// Assign segments to the template the new way
-		$this->template->variables = $this->variables->get_all();
-		$this->template->settings = $this->settings->get_all();
 		$this->template->server = $_SERVER;
 		$this->template->theme = $this->theme;
 

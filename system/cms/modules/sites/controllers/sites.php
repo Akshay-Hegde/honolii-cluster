@@ -84,6 +84,7 @@ class Sites extends Sites_Controller
 	public function index($offset = 0)
 	{
 		$limit = 20;
+		$data = new stdClass();
 		
 		$data->sites = $this->sites_m
 			->limit($limit, $offset)
@@ -94,8 +95,8 @@ class Sites extends Sites_Controller
 
 		// Load the view
 		$this->template
-			->title(lang('site.sites'))
-			->set('description', lang('site.edit_site_desc'))
+			->title(lang('site:sites'))
+			->set('description', lang('site:edit_site_desc'))
 			->build('sites', $data);
 	}
 	
@@ -104,6 +105,8 @@ class Sites extends Sites_Controller
 	 */
 	public function create()
 	{
+		$data = new stdClass();
+
 		// Set the validation rules
 		$this->form_validation->set_rules($this->site_validation_rules);
 
@@ -120,7 +123,7 @@ class Sites extends Sites_Controller
 				
 				if (is_dir($folder_check.'/'.$ref))
 				{
-					$data->messages['error'] = sprintf(lang('site.folder_exists'), $folder_check.'/'.$ref);
+					$data->messages['error'] = sprintf(lang('site:folder_exists'), $folder_check.'/'.$ref);
 					
 					foreach ($this->site_validation_rules AS $rule)
 					{
@@ -129,8 +132,8 @@ class Sites extends Sites_Controller
 		
 					// Load the view
 					$this->template
-						->title(lang('site.sites'), lang('site.create_site'))
-						->set('description', lang('site.create_site_desc'))
+						->title(lang('site:sites'), lang('site:create_site'))
+						->set('description', lang('site:create_site_desc'))
 						->build('form', $data);
 						
 					return;
@@ -140,17 +143,17 @@ class Sites extends Sites_Controller
 			// make sure it doesn't already exist
 			if ($this->sites_m->get_by('domain', $this->input->post('domain')))
 			{
-				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('domain'));
+				$data->messages['notice'] = sprintf(lang('site:exists'), $this->input->post('domain'));
 			}
 			else
 			{			
 				// Try to create the site
 				$message = $this->sites_m->create_site($this->input->post());
 				
-				if ($message === TRUE)
+				if ($message === true)
 				{
 					// All good...
-					$this->session->set_flashdata('success', lang('site.create_success'));
+					$this->session->set_flashdata('success', lang('site:create_success'));
 					redirect('sites');
 				}
 				// There must be folders that aren't writeable
@@ -165,11 +168,11 @@ class Sites extends Sites_Controller
 	
 					$html .= '</ul>';
 					
-					$data->messages['notice'] = sprintf(lang('site.create_manually'), $line);
+					$data->messages['notice'] = sprintf(lang('site:create_manually'), $line);
 				}
 				else
 				{
-					$data->messages['error'] = lang('site.db_error');
+					$data->messages['error'] = lang('site:db_error');
 				}
 			}
 		}
@@ -186,8 +189,8 @@ class Sites extends Sites_Controller
 
 		// Load the view
 		$this->template
-			->title(lang('site.sites'), lang('site.create_site'))
-			->set('description', lang('site.create_site_desc'))
+			->title(lang('site:sites'), lang('site:create_site'))
+			->set('description', lang('site:create_site_desc'))
 			->build('form', $data);
 	}
 
@@ -209,12 +212,12 @@ class Sites extends Sites_Controller
 			if ($other = $this->sites_m->get_by('domain', $this->input->post('domain')) AND
 				$data->id !== $other->id)
 			{
-				$data->messages['notice'] = sprintf(lang('site.exists'), $this->input->post('domain'));
+				$data->messages['notice'] = sprintf(lang('site:exists'), $this->input->post('domain'));
 			}
-			elseif ( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === TRUE)
+			elseif ( ($message = $this->sites_m->edit_site($this->input->post(), $data)) === true)
 			{
 				// All good...
-				$this->session->set_flashdata('success', sprintf(lang('site.edit_success'), $data->name));
+				$this->session->set_flashdata('success', sprintf(lang('site:edit_success'), $data->name));
 				redirect('sites');
 			}
 			elseif (is_array($message))
@@ -223,22 +226,22 @@ class Sites extends Sites_Controller
 
 				foreach ($message AS $old => $new)
 				{
-					$html .= '<li>' . sprintf(lang('site.rename_manually'), $old, $new) . '</li>';
+					$html .= '<li>' . sprintf(lang('site:rename_manually'), $old, $new) . '</li>';
 				}
 
 				$html .= '</ul>';
 				
-				$data->messages['notice'] = sprintf(lang('site.rename_notice'), $html);
+				$data->messages['notice'] = sprintf(lang('site:rename_notice'), $html);
 			}
 			else
 			{
 				// couldn't save the record
-				$data->messages['error'] = lang('site.db_error');
+				$data->messages['error'] = lang('site:db_error');
 			}
 		}
 
 		// Load the view
-		$this->template->title(lang('site.sites'), sprintf(lang('site.edit_site'), $data->name))
+		$this->template->title(lang('site:sites'), sprintf(lang('site:edit_site'), $data->name))
 						->build('form', $data);
 	}
 	
@@ -259,15 +262,16 @@ class Sites extends Sites_Controller
 	 */
 	public function confirm($id = '')
 	{
+		$data = new stdClass();
 		$site = $this->sites_m->get($id);
 		
-		if ($this->input->post('id') AND $this->input->post('btnAction'))
+		if ($this->input->post('id') and $this->input->post('btnAction'))
 		{
 			$message = $this->sites_m->delete_site($id, $site);
 			
-			if ($message === TRUE)
+			if ($message === true)
 			{
-				$this->session->set_flashdata('success', lang('site.site_deleted'));
+				$this->session->set_flashdata('success', lang('site:site_deleted'));
 				redirect('sites');
 			}
 			elseif (is_array($message))
@@ -281,12 +285,12 @@ class Sites extends Sites_Controller
 
 				$html .= '</ul>';
 				
-				$data->messages['notice'] = sprintf(lang('site.delete_manually'), $html);
+				$data->messages['notice'] = sprintf(lang('site:delete_manually'), $html);
 			}
 			else
 			{
 				// couldn't delete the record
-				$data->messages['error'] = lang('site.delete_error');
+				$data->messages['error'] = lang('site:delete_error');
 			}
 		}
 		$this->template->set_layout('modal')
@@ -300,6 +304,7 @@ class Sites extends Sites_Controller
 	 */
 	public function stats($id = 0)
 	{
+		$data = new stdClass();
 		$data->stats = $this->sites_m->get_stats($id);
 
 		$this->template->set_layout('modal')

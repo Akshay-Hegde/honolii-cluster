@@ -17,7 +17,7 @@ class Field_email
 	
 	public $extra_validation			= 'valid_email';
 
-	public $version						= '1.0';
+	public $version						= '1.0.0';
 	
 	public $author						= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
@@ -37,6 +37,21 @@ class Field_email
 		$options['value']	= $data['value'];
 		
 		return form_input($options);
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Pre Output
+	 *
+	 * No PyroCMS tags in email fields.
+	 *
+	 * @return string
+	 */
+	public function pre_output($input)
+	{
+		$this->CI->load->helper('text');
+		return escape_tags($input);
 	}
 
 	// --------------------------------------------------------------------------

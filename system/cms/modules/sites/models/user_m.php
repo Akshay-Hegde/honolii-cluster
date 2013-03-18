@@ -97,7 +97,7 @@ class User_m extends MY_Model {
 		";
 
 		$user_data = sprintf("INSERT INTO " . $this->db->dbprefix('users') . " (`id`, `email`, `password`, `salt`, `group_id`, `ip_address`, `active`, `activation_code`, `created_on`, `last_login`, `username`, `forgotten_password_code`, `remember_code`) VALUES
-			(1,'%s', '%s', '%s', 1, '', 1, '', %s, %s, '%s', NULL, NULL); ",
+			(1,'%s', '%s', '%s', 1, '', 1, '', %s, %s, '%s', null, null); ",
 			$user['email'],
 			$user['password'],
 			$user['salt'],
@@ -138,7 +138,7 @@ class User_m extends MY_Model {
 		";
 
 		$profile_data = sprintf("INSERT INTO " . $this->db->dbprefix('profiles') . " (`id`, `user_id`, `first_name`, `last_name`, `display_name`, `company`, `lang`, `bio`, `dob`, `gender`, `phone`, `mobile`, `address_line1`, `address_line2`, `address_line3`, `postcode`, `msn_handle`, `yim_handle`, `aim_handle`, `gtalk_handle`, `gravatar`, `updated_on`) VALUES
-			(1, 1, '%s', '%s', '%s', '', 'en', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL); ",
+			(1, 1, '%s', '%s', '%s', '', 'en', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null); ",
 			$user['first_name'],
 			$user['last_name'],
 			$user['first_name'].' '.$user['last_name']
@@ -149,9 +149,9 @@ class User_m extends MY_Model {
 		   $this->db->query($profiles) AND
 		   $this->db->query($profile_data))
 		{
-			return TRUE;
+			return true;
 		}
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -165,7 +165,7 @@ class User_m extends MY_Model {
 		// fetch the first admin user from this site
 		return $this->db->query(sprintf("SELECT u.id, email, username, first_name, last_name
 										FROM %s_users AS u JOIN %s_profiles AS p
-										ON u.id = (u.id = p.user_id AND u.id > 0)
+										ON u.id = (u.id = p.user_id and u.id > 0)
 										WHERE u.group_id = 1 LIMIT 1",
 										$ref,
 										$ref
@@ -219,9 +219,9 @@ class User_m extends MY_Model {
 	 * @param	string	$password
 	 * @return	bool
 	 */
-	public function login($email, $password, $remember = FALSE)
+	public function login($email, $password, $remember = false)
 	{
-		if (empty($email) OR empty($password)) return FALSE;
+		if (empty($email) OR empty($password)) return false;
 		
 		$user = $this->select('id, email, username, password, salt')
 			->where('active', 1)
@@ -229,7 +229,7 @@ class User_m extends MY_Model {
 			->get_by('email', $email);
 		
 		// if there's no user with that email then bail
-		if ( ! isset($user->email)) return FALSE;
+		if ( ! isset($user->email)) return false;
 			
 		$hashed = $this->_hash_password($password, $user->salt);
 
@@ -246,15 +246,15 @@ class User_m extends MY_Model {
 			//update the last_login timestamp
 			$this->update($user->id, array('last_login' => now()));
 			
-			if ($remember === TRUE)
+			if ($remember === true)
 			{
 				$this->remember_user($user->id, $user->email, $user->password);
 			}
 			
-			return TRUE;
+			return true;
 		}
 		
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -264,7 +264,7 @@ class User_m extends MY_Model {
 	 */
 	public function login_remembered()
 	{
-		if ( ! get_cookie('super_identity') OR ! get_cookie('super_remember_code')) return FALSE;
+		if ( ! get_cookie('super_identity') OR ! get_cookie('super_remember_code')) return false;
 		
 		$user = $this->select('id, email, username, password, salt, remember_code')
 			->where('active', 1)
@@ -272,7 +272,7 @@ class User_m extends MY_Model {
 			->get_by('email', get_cookie('super_identity'));
 		
 		// if there's no user with that email then bail
-		if ( ! isset($user->email)) return FALSE;
+		if ( ! isset($user->email)) return false;
 
 		if (get_cookie('super_remember_code') === $user->remember_code)
 		{
@@ -292,10 +292,10 @@ class User_m extends MY_Model {
 				$this->remember_user($user->id, $user->email, $user->password);
 			}
 			
-			return TRUE;
+			return true;
 		}
 		
-		return FALSE;
+		return false;
 	}
 	
 	/**
@@ -333,7 +333,7 @@ class User_m extends MY_Model {
 	    }
 		
 		$this->session->sess_destroy();
-		return TRUE;
+		return true;
 	}
 	
 	/**
@@ -344,12 +344,12 @@ class User_m extends MY_Model {
 	 * @param	string	$salt
 	 * @param
 	 */
-	public function _hash_password($pass, $salt = FALSE)
+	public function _hash_password($pass, $salt = false)
 	{
 		$hash->user_salt	= substr(md5(uniqid(rand(), true)), 0, config_item('salt_length'));
 		
 		//this lets us pass the salt from the database for logins
-		$chosen_salt		= ($salt === FALSE) ? $hash->user_salt : $salt;
+		$chosen_salt		= ($salt === false) ? $hash->user_salt : $salt;
 		
 		$hash->password		= sha1($pass . $chosen_salt);
 		
@@ -381,7 +381,7 @@ class User_m extends MY_Model {
 				'expire' => config_item('user_expire'),
 			));
 
-			return TRUE;
+			return true;
 		}
 	}
 }

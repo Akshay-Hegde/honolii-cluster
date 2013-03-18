@@ -49,6 +49,6 @@ class Settings_m extends MY_Model {
 				->set('value', $value)
 				->update($this->_table);
 		}
-		return TRUE;
+		return true;
 	}
 }
