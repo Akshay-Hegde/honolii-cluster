@@ -1,11 +1,3 @@
-# Wetumka Team
-
-This project has been modified slightly to work with out custom installation.
-
-## Submodules
- * Galleries
- * Snippets
-
 # PyroCMS Professional Edition
 
 [![Build Status](https://secure.travis-ci.org/pyrocms/pyrocms.png?branch=2.2/develop)](https://travis-ci.org/pyrocms/pyrocms)

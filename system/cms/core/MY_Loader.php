@@ -25,7 +25,6 @@ class MY_Loader extends MX_Loader
 		parent::__construct();
 		
 		$this->add_package_path(SHARED_ADDONPATH);
-		
 	}
 
 	/**
