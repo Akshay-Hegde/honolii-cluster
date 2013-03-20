@@ -13,7 +13,20 @@
 <?php
 
 	Asset::css(array(
-		'workless/minified.css.php',
+		'workless/plugins.css',
+		'workless/workless.css',
+		'workless/typography.css',
+		'workless/forms.css',
+		'workless/tables.css',
+		'workless/buttons.css',
+		'workless/alerts.css',
+		'workless/pagination.css',
+		'workless/breadcrumbs.css',
+		'workless/icons.css',
+		'workless/helpers.css',
+		'workless/print.css',
+		'workless/scaffolding.css',
+		'workless/application.css',
 		'jquery/colorbox.css',
 		'jquery/jquery-ui.css',
 	));
