@@ -1,0 +1,505 @@
+@import "../../../../../libraries/bootstrap/less/reset.less";
+@import "less/variables.less";
+@import "less/mixins.less";
+// Grid system and page structure
+@import "../../../../../libraries/bootstrap/less/scaffolding.less";
+@import "../../../../../libraries/bootstrap/less/grid.less";
+@import "../../../../../libraries/bootstrap/less/layouts.less";
+// Base CSS
+@import "../../../../../libraries/bootstrap/less/type.less";
+//@import "../../../../../libraries/bootstrap/less/code.less";
+//@import "../../../../../libraries/bootstrap/less/forms.less";
+//@import "../../../../../libraries/bootstrap/less/tables.less";
+// Components: common
+@import "less/sprites.less";
+//@import "../../../../../libraries/bootstrap/less/dropdowns.less";
+//@import "../../../../../libraries/bootstrap/less/wells.less";
+@import "../../../../../libraries/bootstrap/less/component-animations.less";
+//@import "../../../../../libraries/bootstrap/less/close.less";
+// Components: Buttons & Alerts
+@import "less/buttons.less";
+@import "../../../../../libraries/bootstrap/less/button-groups.less";
+@import "../../../../../libraries/bootstrap/less/alerts.less";
+// Components: Nav
+//@import "../../../../../libraries/bootstrap/less/navs.less";
+//@import "../../../../../libraries/bootstrap/less/navbar.less";
+@import "../../../../../libraries/bootstrap/less/breadcrumbs.less";
+@import "../../../../../libraries/bootstrap/less/pagination.less";
+@import "../../../../../libraries/bootstrap/less/pager.less";
+// Components: Popovers
+//@import "../../../../../libraries/bootstrap/less/modals.less";
+//@import "../../../../../libraries/bootstrap/less/tooltip.less";
+//@import "../../../../../libraries/bootstrap/less/popovers.less";
+// Components: Misc
+//@import "../../../../../libraries/bootstrap/less/thumbnails.less";
+//@import "../../../../../libraries/bootstrap/less/media.less";
+//@import "../../../../../libraries/bootstrap/less/labels-badges.less";
+//@import "../../../../../libraries/bootstrap/less/progress-bars.less";
+//@import "../../../../../libraries/bootstrap/less/accordion.less";
+@import "../../../../../libraries/bootstrap/less/carousel.less";
+//@import "../../../../../libraries/bootstrap/less/hero-unit.less";
+// Utility classes
+@import "less/utilities.less"; // Has to be last to override when necessary
+// Responsive
+@import "../../../../../libraries/bootstrap/less/responsive-utilities.less";
+// MEDIA QUERIES
+// ------------------
+// Large desktops
+//@import "responsive-1200px-min.less";
+// Tablets to regular desktops
+@import "less/responsive-768px-979px.less";
+// Phones to portrait tablets and narrow desktops
+@import "less/responsive-767px-max.less";
+// From 979px and below, show a button to toggle navbar contents
+//@import "responsive-navbar.less";
+@media (min-width: 1400px) {
+  #wrapper{
+    background-size:100% 500px;
+  }
+}
+// Top Level Global Styles
+html,body {
+  background-image:url(../img/body-bkg.png);
+  background-repeat:repeat;
+  height:100%;
+  &.active{
+    overflow:hidden;
+  }
+}
+ul {
+  list-style-image:url('../img/list-arrow.png');
+  margin-left:15px;
+}
+#wrapper {
+  min-height:100%;
+  height: auto !important;
+  height: 100%;
+  margin-bottom:@footerHeight * -1;
+  > .push{
+    height:@footerHeight;
+  }
+  //background-image:url(../img/swamis-background.png);
+  background-repeat:no-repeat;
+  background-position:top center;
+  &:before{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:10px;
+    top:490px;
+    background:url(../img/body-hr.png) repeat-x top center;
+  }
+  .site-content{
+    position:relative;
+  }
+}
+#footer {
+  height:@footerHeight;
+  background:url(../img/footer-bkg.png) repeat;
+  .transition(opacity .7s);
+  > hr{
+    background:url(../img/footer-hr.png) repeat-x;
+    height:10px;
+    border:none;
+    position:relative;
+    top:-10px;
+    margin:0;
+  }
+  .contact-info{
+    font-size:@fontSizeSmall;
+    line-height:1.5em;
+    address,.phone{
+      margin-bottom:1em;
+      line-height:1.5em;
+    }
+  }
+  .copyright{
+    font-size:@fontSizeMini;
+    margin:10px 0 0;
+    text-align:center;
+    line-height:1em;
+    font-family:@sansFontFamily;
+    color:@white;
+  }
+  .branding{
+    text-indent:-9999px;
+    overflow:hidden;
+    background:url(../img/footer-logo.png) no-repeat;
+    height:100px;
+    margin-top:28px;
+  }
+  &.active{
+    opacity:0;
+  }
+}
+// Header
+#header{
+  width:100%;
+  top:@headerHeight * -1;
+  position:absolute;
+  margin-top:@headerHeight;
+  background-color: transparent;
+  z-index:@zindexFixedNavbar;
+  .transition(background-color .5s);
+  
+  .nav-links{
+    .clearfix;
+    margin:0 auto;
+    width:68%;
+    list-style:none;
+    > li{
+      float:left;
+      width:14%;
+      padding:15px 0 8px;
+      position:relative;
+      &.logo{
+        width:16%;
+        a{
+          text-indent:-9999px;
+          overflow:hidden;
+          background: url(../img/header-logo.png) no-repeat center center;
+        }
+      }
+      &.current{
+        &:before{
+          @arrow: 5px;
+          content:'';
+          position:absolute;
+          border-color: @wiBlue transparent transparent;
+          border-style: solid;
+          border-width: @arrow;
+          position:absolute;
+          top:0;
+          left:50%;
+          margin-left: @arrow * -1;
+        }
+        a{
+          color:@wiDark;
+          text-decoration:none;
+          cursor:default;
+        }
+      }
+    }
+    a{
+      font-family:@webFont2;
+      color:@wiLight;
+      display:block;
+      padding:1em 0;
+      text-align:center;
+      &:hover{
+        
+      }
+    }
+  }
+  &.fixed{
+    position:fixed;
+    top:0;
+    margin-top:0;
+    background-color:@white;
+    .transition(top .7s);
+    &:after{
+      content:'';
+      width:100%;
+      height:10px;
+      display:block;
+      position:absolute;
+      background:url(../img/body-hr.png) repeat-x bottom center;
+    }
+  }
+}
+// Content
+#content{
+  padding-top:@headerHeight;
+}
+/* -------------------------------
+Sections
+---------------------------------- */
+.work-grid{
+  
+}
+.work-filter{
+  .clearfix;
+  ul{
+    margin-left:0;
+    .list(left);
+    li{
+      .border-radius(50px);
+      border: solid 1px @wiLight;
+      margin-left:8px;
+      cursor:pointer;
+      &:hover{
+        border-color: @wiDark;
+      }
+      &.active{
+        border-color: @wiDark;
+        .icon-desktop{
+          .icon-desktop-dark;
+        }
+        .icon-tablet{
+          .icon-tablet-dark;
+        }
+        .icon-mobile{
+          .icon-mobile-dark;
+        }
+      }
+      .icon{
+        display:block;
+        margin:-4px;
+        
+      }
+    }
+  }
+}
+.work-details{
+  background-image:url(../img/body-bkg.png);
+  background-repeat:repeat;
+  height:100%;
+  width:100%;
+  z-index:@zindexModal;
+  display:none;
+  overflow:auto;
+  position:fixed;
+  .transition(top .7s);
+  &.active{
+    display:block;
+  }
+  > .container{
+    padding-top:1em;
+    padding-bottom:1em;
+  }
+}
+
+/* -------------------------------
+Modules - aka .mod
+---------------------------------- */
+
+.mod-work-thumb{
+  background-color:@wiLight;
+  margin-bottom:20px;
+  min-height:300px;
+  position:relative;
+  cursor:pointer;
+  &:hover{
+    .fd{
+      background-color:@wiDark;
+    }
+  }
+  .bd{
+    width:100%;
+    height:100%;
+    position:absolute;
+    background-repeat:no-repeat
+  }
+  .fd{
+    position:absolute;
+    background-color:@wiLight;
+    .transition(background-color .4s);
+    bottom:0;
+    width:100%;
+    h3{
+      margin:0;
+      color:@white;
+      font-size:@fontSizeSmall;
+      text-align:center;
+      padding-left:100px;
+      padding-right:5px;
+      font-family:@webFont1;
+      font-weight:400;
+      .truncate;
+    }
+    ul{
+      .clearfix;
+      .list(left);
+      position:absolute;
+      margin:0 0 0 8px;
+      li{
+        .icon{
+          margin:-4px -10px;
+        }
+      }
+    }
+  }
+}
+.mod-work-card-controls{
+  @arrow: 18px;
+  @arrowPoint: 11px;
+  position:relative;
+  height:46px;
+  width:106px;
+  div{
+    background-color:@wiLight;
+    color:@white;
+    font-family:@webFont1;
+    font-weight:100;
+    font-size:24px;
+    position:absolute;
+    cursor:pointer;
+    .transition(background-color .4s);
+  }
+  .prev,.next{
+    height:1.5em;
+    line-height:1.5em;
+    width:1.2em;
+    z-index:@zindexModal + 1;
+    top:5px;
+  }
+  .next{
+    text-align:right;
+    left:67px;
+    &:after{
+      content:'';
+      .transition(border-color .4s);
+      display:block;
+      position:absolute;
+      border-color: transparent transparent transparent @wiLight ;
+      border-style: solid;
+      border-width: @arrow 0 @arrow @arrowPoint;
+      top:0;
+      right:@arrowPoint * -1;
+    }
+    &.disable{
+      @newColor: fade(@wiLight, 40%);
+      cursor:default;
+      background-color: @newColor;
+      &:after{
+        border-color: transparent transparent transparent @newColor;
+      }
+    }
+    &:hover{
+      background-color: @wiDark;
+      &:after{
+        border-color: transparent transparent transparent @wiDark;
+      }
+    }
+  }
+  .prev{
+    text-align:left;
+    left:11px;
+    &:before{
+      content:'';
+      .transition(border-color .4s);
+      display:block;
+      position:absolute;
+      border-color: transparent @wiLight  transparent transparent;
+      border-style: solid;
+      border-width: @arrow @arrowPoint @arrow 0;
+      top:0;
+      left:@arrowPoint * -1;
+    }
+    &.disable{
+      @newColor: fade(@wiLight, 40%);
+      cursor:default;
+      background-color: @newColor;
+      &:before{
+        border-color: transparent @newColor transparent transparent;
+      }
+    }
+    &:hover{
+      background-color: @wiDark;
+      &:before{
+        border-color: transparent @wiDark transparent transparent;
+      }
+    }
+  }
+  .close{
+    left:30px;
+    font-size:35px;
+    line-height:1em;
+    width:1.2em;
+    height:1.2em;
+    text-align:center;
+    border:2px solid @white;
+    .border-radius(50px);
+    z-index:@zindexModal + 2;
+    &:hover{
+      background-color: @wiDark;
+    }
+  }
+}
+.mod-work-card{
+  .hd{
+    .carousel{
+      margin-bottom:18px;
+      .carousel-indicators{
+        top: -95px;
+        left: 0;
+        right: auto;
+        li{
+          .border-radius(50px);
+          border: solid 1px @wiLight;
+          margin-left:0;
+          margin-right:8px;
+          cursor:pointer;
+          width:auto;
+          height:auto;
+          &:hover{
+            border-color: @wiDark;
+          }
+          &.active{
+            border-color: @wiDark;
+            .icon-desktop{
+              .icon-desktop-dark;
+            }
+            .icon-tablet{
+              .icon-tablet-dark;
+            }
+            .icon-mobile{
+              .icon-mobile-dark;
+            }
+          }
+          .icon{
+            display:block;
+            margin:-4px;
+            
+          }
+        }
+      }
+      .carousel-inner{
+        margin-top:50px;
+      }
+    }
+    &:after{
+      content:'';
+      display:block;
+      #gradient > .ellipse(fade(@black, 30%), fade(@black, 6%),60%, fade(@black, 0%), 80%);
+      height:27px;
+    }
+  }
+  .bd{
+    header h1{
+      margin:30px 0 20px;
+    }
+    section{
+      margin-bottom:50px;
+    }
+  }
+}
+/* -------------------------------
+Headline Styles - title chunk
+---------------------------------- */
+.chunk h1{
+  font-family:@webFont1;
+  font-weight:100;
+  font-size:75px;
+  text-transform:uppercase;
+  line-height:0;
+  span{
+    background-color: fade(@wiBlue, 30%);
+    display:inline-block;
+    line-height:1em;
+    padding:0 4px;
+    margin-bottom:2px;
+  }
+  .large{
+    font-size:1.2em;
+  }
+  .small{
+    font-size:.7em;
+  }
+  .push{
+    margin-left:25px;
+  }
+  .pull{
+    margin-left:-25px;
+  }
+}

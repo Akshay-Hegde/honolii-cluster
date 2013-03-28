@@ -1,55 +1,51 @@
-<!doctype html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie10 lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
 {{ if global:environment == 'development' }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="metadata"}}
+    <!-- DEVELOPMENT FILES -->              
+    {{theme:partial name="metadata"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/metadata"}}
+    <!-- PRODUCTION FILES -->
+    {{theme:partial name="publish/metadata"}}
 {{ endif }}
 </head>
 <body>
-<div id="wrapper">
-	<div id="container" class="container">
-		<!-- Header -->
-		<div id="header" class="site-header">
-			{{theme:partial name="header"}}
-			{{if page:id == 1}}
-			<div id="header-scroller" class="scrollable"></div>
-			{{endif}}
-		</div>
-		<!-- Content -->
-		<div id="content" class="site-content">
-			{{theme:partial name="breadcrumbs"}}
-			{{session:messages success="success" notice="notice" error="error"}}
-			{{template:body}}
-		</div>
-	</div>
-	<div class="footer-bkg">
-		<!-- Footer -->
-		<div class="container">
-			<div id="footer" class="site-footer">
-				{{theme:partial name="footer"}}
-			</div>
-		</div>
-	</div>
-</div>
-{{ if global:environment == 'development' }}
-	<!-- DEVELOPMENT FILES -->				
-	{{theme:partial name="footer-scripts"}}
-{{ else }}
-	<!-- PRODUCTION FILES -->
-	{{theme:partial name="publish/footer-scripts"}}
-	<script type="text/javascript">  (function() {
-    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-	</script>
-{{ endif }}
+    {{ if global:environment == 'production' }}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '{{ settings:ga_tracking }}']);
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+        
+        (function() {
+            var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    {{ endif }}
+    <div id="wrapper">  
+        {{ theme:partial name="header" }}
+        <!-- Content -->
+        <div id="content" class="container site-content">
+            {{session:messages success="success" notice="notice" error="error"}}
+            <!-- view > default -->
+            {{ template:body }}
+        </div>
+        <div class="push"></div>
+    </div>
+    <!-- Footer -->
+    {{ theme:partial name="footer" }}
+    {{ if global:environment == 'development' }}
+        <!-- DEVELOPMENT FILES -->              
+        {{theme:partial name="footer-scripts"}}
+    {{ else }}
+        <!-- PRODUCTION FILES -->
+        {{theme:partial name="publish/footer-scripts"}}
+    {{ endif }}
 </body>
 </html>
