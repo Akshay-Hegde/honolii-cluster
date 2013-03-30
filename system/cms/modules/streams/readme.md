@@ -1,4 +1,4 @@
-# PyroStreams v2.3
+# PyroStreams v2.3.1
 
 ## Installation
 
@@ -18,4 +18,4 @@ Please use the [PyroCMS forums](https://forum.pyrocms.com/) for support requests
 
 ## License
 
-A copy of the PyroStreams license was included with your download.
+A copy of the PyroStreams license was included with your download in a file named license.txt.

@@ -205,11 +205,24 @@ class Plugin_Streams extends Plugin
 				$pagination_config[$pag_key] = $this->attribute($pag_key);
 			}
 		}
+		
+		// Save the query string!
+		$pagination_config['suffix'] = '?'.http_build_query($_GET, '', "&");
+		
 
 		if ($params['paginate'] == 'yes' and ! $params['limit'])
 		{
 			$params['limit'] = Settings::get('records_per_page');
 		}
+
+		// -------------------------------------
+		// Set Namespace
+		// -------------------------------------
+		// We can manually set the namespace
+		// via a namespce="" parameter.
+		// -------------------------------------
+
+		$params['namespace'] = ($params['namespace']) ? $params['namespace'] : $this->core_namespace;
 
 		// -------------------------------------
 		// Stream Data Check
@@ -222,7 +235,8 @@ class Plugin_Streams extends Plugin
 			$this->_error_out(lang('streams:no_stream_provided'));
 		}
 
-		$stream = $this->streams_m->get_stream($params['stream'], true, $this->core_namespace);
+
+		$stream = $this->streams_m->get_stream($params['stream'], true, $params['namespace']);
 				
 		if ( ! $stream)
 		{
@@ -594,7 +608,7 @@ class Plugin_Streams extends Plugin
 		// Get Stream Data
 		// -------------------------------------
 		
-		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $namespace);
+		$data->stream			= $this->streams_m->get_stream($stream_slug, true, $namespace);
 		
 		if ( ! $data->stream) return lang('streams:invalid_stream');
 		
@@ -911,7 +925,7 @@ class Plugin_Streams extends Plugin
 		// Get Stream Data
 		// -------------------------------------
 		
-		$data->stream			= $this->streams_m->get_stream($stream_slug, TRUE, $namespace);
+		$data->stream			= $this->streams_m->get_stream($stream_slug, true, $namespace);
 		
 		if ( ! $data->stream) return lang('streams:invalid_stream');
 		
@@ -1001,7 +1015,8 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 
 		$stream_slug 			= $this->streams_attribute('stream');
-		$entry_id 				= $this->streams_attribute('entry_id', FALSE);
+		$namespace 				= $this->streams_attribute('namespace', $this->core_namespace);
+		$entry_id 				= $this->streams_attribute('entry_id', false);
 		$return 				= $this->streams_attribute('return', '');
 		$vars					= array();
 
@@ -1015,7 +1030,7 @@ class Plugin_Streams extends Plugin
 		// Get Stream Data
 		// -------------------------------------
 		
-		$stream			= $this->streams_m->get_stream($stream_slug, TRUE, $this->core_namespace);
+		$stream			= $this->streams_m->get_stream($stream_slug, true, $namespace);
 		
 		if ( ! $stream) show_error(lang('streams:invalid_stream'));
 	
@@ -1050,18 +1065,19 @@ class Plugin_Streams extends Plugin
 			
 			$params = array(
 				'stream'		=> $stream->stream_slug,
+				'namespace'		=> $namespace,
 				'id' 			=> $entry_id,
 				'limit'			=> 1,
 				'offset'		=> 0,
-				'order_by'		=> FALSE,
-				'exclude'		=> FALSE,
-				'show_upcoming'	=> NULL,
-				'show_past'		=> NULL,
-				'where'			=> NULL,
+				'order_by'		=> false,
+				'exclude'		=> false,
+				'show_upcoming'	=> null,
+				'show_past'		=> null,
+				'where'			=> null,
 				'disable'		=> array(),
-				'year'			=> NULL,
-				'month'			=> NULL,
-				'day'			=> NULL,
+				'year'			=> null,
+				'month'			=> null,
+				'day'			=> null,
 				'restrict_user'	=> 'no',
 				'single'		=> 'yes'
 			);
@@ -1336,6 +1352,7 @@ class Plugin_Streams extends Plugin
 		$this->load->helper('form');
 	
 		$stream_slug 	= $this->streams_attribute('stream');
+		$namespace 		= $this->streams_attribute('namespace', $this->core_namespace);
 		$fields 		= $this->streams_attribute('fields');
 		
 		$search_types 	= array('keywords', 'full_phrase');

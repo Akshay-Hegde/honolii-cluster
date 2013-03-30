@@ -17,7 +17,7 @@ class Module_Streams extends Module {
 	 * @access	public
 	 * @var		string
 	 */
-	public $version = '2.3';
+	public $version = '2.3.1';
 
 	// --------------------------------------------------------------------------
 

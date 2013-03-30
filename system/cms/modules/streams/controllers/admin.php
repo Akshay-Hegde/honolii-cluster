@@ -64,21 +64,26 @@ class Admin extends Admin_Controller {
     public function index()
     {
 		// -------------------------------------
+		// Offset
+		// -------------------------------------
+
+    	$page = ($this->uri->segment(4)) ?  $this->uri->segment(4) : 1;
+    	$offset = ($page-1) * Settings::get('records_per_page');
+
+		// -------------------------------------
 		// Get fields
 		// -------------------------------------
 		
+		// For our purposes, we want no hidden streams.
 		$this->db->where('is_hidden', 'no');
-    	$this->data->streams = $this->streams->streams->get_streams($this->namespace, Settings::get('records_per_page'), $this->uri->segment(4));
+    	
+    	$this->data->streams = $this->streams->streams->get_streams($this->namespace, Settings::get('records_per_page'), $offset);
 
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 
-		$this->data->pagination = create_pagination(
-										'admin/streams/index',
-										$this->streams_m->total_streams($this->namespace),
-										Settings::get('records_per_page'),
-										4);
+		$this->data->pagination = create_pagination('admin/streams/index', $this->streams_m->total_streams($this->namespace));
 
 		// -------------------------------------
 		// Build Page
