@@ -36,11 +36,33 @@
 	<base href="<?php echo base_url(); ?>" />
 	
 	<?php 
-		Asset::css('workless/minified.css.php');
-		Asset::js('workless/modernizr.js');
-		Asset::js('jquery/jquery.js');
-		Asset::js('admin/login.js');
-		echo Asset::render(); 
+	Asset::css(array(
+		'workless/plugins.css',
+		'workless/workless.css',
+		'workless/typography.css',
+		'workless/forms.css',
+		'workless/tables.css',
+		'workless/buttons.css',
+		'workless/alerts.css',
+		'workless/pagination.css',
+		'workless/breadcrumbs.css',
+		'workless/icons.css',
+		'workless/helpers.css',
+		'workless/print.css',
+		'workless/scaffolding.css',
+		'workless/application.css',
+		'jquery/colorbox.css',
+		'jquery/jquery-ui.css',
+	));
+
+	Asset::js('workless/modernizr.js');
+	Asset::js('jquery/jquery.js');
+	Asset::js('admin/login.js');
+	Asset::js('jquery/jquery.colorbox.min.js');
+	Asset::js('jquery/jquery-ui.min.js');
+	Asset::js('workless/application.js');
+
+	echo Asset::render(); 
 	?>
 </head>
 
