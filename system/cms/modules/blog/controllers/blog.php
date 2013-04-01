@@ -50,7 +50,7 @@ class Blog extends Public_Controller
 			'limit'			=> Settings::get('records_per_page'),
 			'where'			=> "`status` = 'live'",
 			'paginate'		=> 'yes',
-			'pag_base'		=> 'blog/page',
+			'pag_base'		=> site_url('blog/page'),
 			'pag_segment'   => 3
 		);
 		$posts = $this->streams->entries->get_entries($params);
@@ -352,7 +352,7 @@ class Blog extends Public_Controller
 			{
 				if (isset($post['category']))
 				{
-					$keywords[] = $post['category']['title'].', '.$post['category']['slug'];
+					$keywords[] = $post['category']['title'];
 				}
 
 				$description[] = $post['title'];
@@ -384,6 +384,8 @@ class Blog extends Public_Controller
 		}
 
 		$this->session->set_flashdata(array('referrer' => $this->uri->uri_string()));
+
+		$this->template->set_breadcrumb(lang('blog:blog_title'), 'blog');
 
 		if ($post['category_id'] > 0)
 		{
@@ -439,7 +441,6 @@ class Blog extends Public_Controller
 			->set_metadata('article:modified_time', date(DATE_ISO8601, $post['updated_on']), 'og')
 			->set_metadata('description', $post['preview'])
 			->set_metadata('keywords', implode(', ', $post['keywords_arr']))
-			->set_breadcrumb(lang('blog:blog_title'), 'blog')
 			->set_breadcrumb($post['title'])
 			->set('post', array($post))
 			->build('view');

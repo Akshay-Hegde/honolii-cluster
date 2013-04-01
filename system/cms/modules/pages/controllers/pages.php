@@ -202,7 +202,7 @@ class Pages extends Public_Controller
 		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
 		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
 		$meta_keywords = '';
-		if ($page->meta_keywords or $page->layout->meta_description)
+		if ($page->meta_keywords or $page->layout->meta_keywords)
 		{
 			$meta_keywords = $page->meta_keywords ?
 								Keywords::get_string($page->meta_keywords) :
@@ -273,17 +273,22 @@ class Pages extends Public_Controller
 		// Get our stream.
 		$stream = $this->streams_m->get_stream($page->layout->stream_id);
 
+		// We are going to pre-build this data so we have the data
+		// available to the template plugin (since we are pre-parsing our views).
+		$template = $this->template->build_template_data();
+
 		// Parse our view file. The view file is nothing
 		// more than an echo of $page->layout->body and the
 		// comments after it (if the page has comments).
-		$html = $this->load->view('pages/page', array('page' => $page), true);
+		$html = $this->template->load_view('pages/page', array('page' => $page), false);
 
 		$view = $this->parser->parse_string($html, $page, true, false, array(
 			'stream' => $stream->stream_slug,
-			'namespace' => $stream->stream_namespace
+			'namespace' => $stream->stream_namespace,
+			'id_name' => 'entry_id'
 		));
 
-		$this->template->build($view, array('page' => $page), false, false, true);
+		$this->template->build($view, array('page' => $page), false, false, true, $template);
 	}
 
     // --------------------------------------------------------------------------

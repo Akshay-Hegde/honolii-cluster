@@ -330,8 +330,10 @@ class Row_m extends MY_Model {
 			$this->sql['select'][] = '`cb_users`.`id` as `created_by||user_id`';
 			$this->sql['select'][] = '`cb_users`.`email` as `created_by||email`';
 			$this->sql['select'][] = '`cb_users`.`username` as `created_by||username`';
+            $this->sql['select'][] = '`profiles`.`display_name` as `created_by||display_name`';
 
 			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' as `cb_users` ON `cb_users`.`id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
+            $this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('profiles', true).' as `profiles` ON `profiles`.`user_id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
 		}
 
 		// -------------------------------------
@@ -367,15 +369,27 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
+			// Query string API overrides all
+			// Check if there is one now
+			if ($this->input->get('sort-'.$stream->stream_slug))
+			{
+				$sort = $this->input->get('sort-'.$stream->stream_slug);
+			}
 			// Default Sort. This should be set beforehand,
 			// but setting it here is a last resort
-			if ( ! isset($sort) or $sort == '')
+			elseif ( ! isset($sort) or $sort == '')
 			{
 				$sort = 'DESC';
 			}
 	
+			// Query string API overrides all
+			// Check if there is one now
+			if ($this->input->get('order-'.$stream->stream_slug))
+			{
+				$this->sql['order_by'][] = $this->select_prefix.$this->db->protect_identifiers($this->input->get('order-'.$stream->stream_slug)).' '.strtoupper($sort);
+			}
 			// Other sorting options
-			if ( ! isset($order_by) or $order_by == '')
+			elseif ( ! isset($order_by) or $order_by == '')
 			{
 				// Let's go with the stream setting now
 				// since there isn't an override	
@@ -1269,7 +1283,7 @@ class Row_m extends MY_Model {
 	 * @param 	bool    Should we only update those passed?
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = false)
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$this->load->helper('text');
 
