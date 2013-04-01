@@ -91,7 +91,7 @@
 				</li>
 				
 				<li id="remember_me">
-					<input id="remember" type="checkbox" name="remember" value="1" />
+					<input id="remember" type="checkbox" name="remember" value="1" checked />
 					<label for="remember"><?php echo lang('user:remember'); ?></label>
 				</li>
 				
