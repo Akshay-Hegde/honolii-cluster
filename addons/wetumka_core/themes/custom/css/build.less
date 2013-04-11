@@ -70,6 +70,11 @@ ul {
   list-style-image:url('../img/list-arrow.png');
   margin-left:15px;
 }
+.breadcrumb{
+  margin:0;
+  padding:0;
+  background:none;
+}
 #wrapper {
   min-height:100%;
   height: auto !important;
@@ -275,10 +280,15 @@ Modules - aka .mod
 
 .mod-work-thumb{
   background-color:@wiLight;
+  height:300px;
   margin-bottom:20px;
-  min-height:300px;
-  position:relative;
-  cursor:pointer;
+  a{
+    display:block;
+    width:100%;
+    height:100%;
+    position:relative;
+    cursor:pointer;
+  }
   &:hover{
     .fd{
       background-color:@wiDark;
@@ -292,7 +302,7 @@ Modules - aka .mod
   }
   .fd{
     position:absolute;
-    background-color:@wiLight;
+    background-color:fade(@wiDark,80%);
     .transition(background-color .4s);
     bottom:0;
     width:100%;
@@ -416,14 +426,17 @@ Modules - aka .mod
     }
   }
 }
-.mod-work-card{
+.mod-work-details{
+  padding-top:30px;
   .hd{
     .carousel{
-      margin-bottom:18px;
+      display:none;
       .carousel-indicators{
-        top: -95px;
+        top: -10px;
         left: 0;
         right: auto;
+        position:relative;
+        .clearfix;
         li{
           .border-radius(50px);
           border: solid 1px @wiLight;
@@ -450,19 +463,20 @@ Modules - aka .mod
           .icon{
             display:block;
             margin:-4px;
-            
           }
         }
       }
       .carousel-inner{
-        margin-top:50px;
+        .item{
+          &:after{
+            content:'';
+            display:block;
+            margin-top:18px;
+            #gradient > .ellipse(fade(@black, 30%), fade(@black, 6%),60%, fade(@black, 0%), 80%);
+            height:27px;
+          }
+        }
       }
-    }
-    &:after{
-      content:'';
-      display:block;
-      #gradient > .ellipse(fade(@black, 30%), fade(@black, 6%),60%, fade(@black, 0%), 80%);
-      height:27px;
     }
   }
   .bd{

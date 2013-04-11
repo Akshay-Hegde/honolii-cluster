@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie10 lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'development' }}
+    <!-- DEVELOPMENT FILES -->              
+    {{theme:partial name="metadata"}}
+{{ else }}
+    <!-- PRODUCTION FILES -->
+    {{theme:partial name="publish/metadata"}}
+{{ endif }}
+</head>
+<body>
+    {{ if global:environment == 'production' }}
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', '{{ settings:ga_tracking }}']);
+            _gaq.push(['_trackPageview']);
+            _gaq.push(['_trackPageLoadTime']);
+        
+        (function() {
+            var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+    {{ endif }}
+    <div id="wrapper">  
+        {{ theme:partial name="header" }}
+        <!-- Content -->
+        <div id="content" class="container site-content">
+            {{session:messages success="success" notice="notice" error="error"}}
+            <!-- view > work-item -->
+            {{ template:body }}
+
+
+                    <!--
+                    <div class="row">
+                        <div class="mod-work-card-controls pull-right">
+                            <div class="prev">&#60;</div>
+                            <div class="close">x</div>
+                            <div class="next">&#62;</div>
+                        </div>
+                    </div>
+                    -->
+                    <section class="row mod-work-details">
+                        {{ custom_fields }}
+                        <div class="span5 hd">
+                            <div class="carousel slide">
+                                <ol class="carousel-indicators">
+                                    {{devices}}
+                                        <li><i class="icon icon-{{key}}"></i></li>
+                                    {{/devices}}
+                                </ol>
+                                <!-- Carousel items -->
+                                <div class="carousel-inner">
+                                    {{devices}}
+                                        {{ if key === 'mobile' }}
+                                        <div class="item" data-url="{{project_mobile:image}}"></div>
+                                        {{ elseif key === 'tablet' }}
+                                        <div class="item" data-url="{{project_tablet:image}}"></div>
+                                        {{ elseif key === 'desktop'}}
+                                        <div class="item" data-url="{{project_desktop:image}}"></div>
+                                        {{ endif }}
+                                    {{/devices}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="span6 offset1 bd">
+                            <header class="chunk">
+                                <h1>{{ title_format }}</h1>
+                            </header>
+                            <section class="summary">
+                                {{ details }}
+                            </section>
+                            <footer>
+                                <div class="row">
+                                    {{ if case_study and site_url }}
+                                    <div class="span2 offset2"><a href="{{case_study}}" class="btn btn-block">View Case Study</a></div>
+                                    <div class="span2"><a href="{{site_url}}" class="btn btn-block">View Site</a></div>
+                                    {{ elseif case_study and !site_url }}
+                                    <div class="span2 offset4"><a href="{{case_study}}" class="btn btn-block">View Case Study</a></div>
+                                    {{ elseif !case_study and site_url }}
+                                    <div class="span2 offset4"><a href="{{site_url}}" class="btn btn-block">View Site</a></div>
+                                    {{ endif }}
+                                </div>
+                            </footer>
+                        </div>
+                        {{ /custom_fields }}
+                    </section>
+
+        </div>
+        <div class="push"></div>
+    </div>
+    <!-- Footer -->
+    {{ theme:partial name="footer" }}
+    {{ if global:environment == 'development' }}
+        <!-- DEVELOPMENT FILES -->              
+        {{theme:partial name="footer-scripts"}}
+    {{ else }}
+        <!-- PRODUCTION FILES -->
+        {{theme:partial name="publish/footer-scripts"}}
+    {{ endif }}
+</body>
+</html>
