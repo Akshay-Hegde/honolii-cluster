@@ -251,7 +251,7 @@ class Theme_m extends MY_Model
 		{
 			return $this->settings->set('default_theme', $input['theme']);
 		}
-		elseif ($input['method'] == 'admin_themes')
+		elseif ($input['method'] == 'admin')
 		{
 			return $this->settings->set('admin_theme', $input['theme']);
 		}
