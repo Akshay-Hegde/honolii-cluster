@@ -23,7 +23,7 @@ class Settings_m extends MY_Model {
 	 */
 	public function get_settings()
 	{
-		$settings = '';
+		$settings = new stdClass();
 		
 		$result = $this->get_all();
 		
