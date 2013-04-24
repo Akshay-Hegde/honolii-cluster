@@ -225,6 +225,10 @@ nav#primary select
 	margin-top: 15px;
 }
 
+nav#primary ul 
+{ 
+	display: none; 
+}
 
 
 /*
@@ -340,14 +344,11 @@ nav#primary select
   	-webkit-box-shadow: 0px 0px 1px #aaaaaa;
 }
 
-#content td .button
+#content td .btn
 {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	background: none;
-	box-shadow: none;
-	text-shadow: none;
+	margin: 2px;
+	min-width: 50px;
+	text-align: center;
 }
 
 #content td a
@@ -385,241 +386,6 @@ footer
 	float: right;
 	margin-top: -10px;
 	margin-right: -35px;
-}
-
-
-
-/** Responsive @media queries for responsive design.
- * Ensure this is included after all your other CSS.
- */
-
-
-
-/** 
- * Mobile
- */
-nav#primary select
-{
-	display: inherit;
-}
-
-nav#primary ul 
-{ 
-	display: none; 
-}
-
-.one_full 
-{ 
-	width: 280px; 
-}
-
-.one_half 
-{ 
-	width: 280px; 
-}
-
-.one_third 
-{ 
-	width: 280px; 
-}
-
-.two_third 
-{ 
-	width: 280px; 
-}
-
-.one_quarter 
-{ 
-	width: 280px; 
-}
-	
-.wrapper 
-{
-	width: 280px;
-}
-
-/** 
- * iPhone landscape 
- */
-@media only screen and (min-width: 480px) {
-	
-	nav#primary select
-	{
-		display: inherit;
-	}
-
-	nav#primary ul 
-	{ 
-		display: none; 
-	}
-	
-	.one_full 
-	{ 
-		width: 420px; 
-	}
-
-	.one_half 
-	{ 
-		width: 190px; 
-	}
-
-	.one_third 
-	{ 
-		width: 110px; 
-	}
-
-	.two_third 
-	{ 
-		width: 250px; 
-	}
-
-	.one_quarter 
-	{ 
-		width: 185px; 
-	}
-	
-	.wrapper 
-	{
-		width: 400px;
-	}
-}
-
-/** 
- * Small tablet portrait 
- */
-@media only screen and (min-width: 640px) {
-	
-	nav#primary select
-	{
-		display: inherit;
-	}
-
-	nav#primary ul 
-	{ 
-		display: none; 
-	}
-	
-	.one_full 
-	{ 
-		width: 650px; 
-	}
-
-	.one_half 
-	{ 
-		width: 310px; 
-	}
-
-	.one_third 
-	{ 
-		width: 200px; 
-	}
-
-	.two_third 
-	{ 
-		width: 425px; 
-	}
-
-	.one_quarter 
-	{ 
-		width: 140px; 
-	}
-	
-	.wrapper 
-	{
-		width: 500px;
-	}
-}
-
-/** 
- * iPad portrait 
- */
-@media only screen and (min-width: 768px) {
-	
-	nav#primary select
-	{
-		display: inherit;
-	}
-
-	nav#primary ul 
-	{ 
-		display: none; 
-	}
-	
-	.one_full 
-	{ 
-		width: 700px; 
-	}
-
-	.one_half 
-	{ 
-		width: 360px; 
-	}
-
-	.one_third 
-	{ 
-		width: 230px; 
-	}
-
-	.two_third 
-	{ 
-		width: 490px; 
-	}
-
-	.one_quarter 
-	{ 
-		width: 160px; 
-	}
-	
-	.wrapper 
-	{
-		width: 600px;
-	}
-}
-
-/**
- * Small browser / iPad landscape 
- */
-@media only screen and (min-width: 1024px) {
-	
-	nav#primary select
-	{
-		display: none;
-	}
-	
-	nav#primary ul 
-	{ 
-		display: inherit; 
-	}
-	
-	.one_full 
-	{ 
-		width: 700px; 
-	}
-
-	.one_half 
-	{ 
-		width: 385px; 
-	}
-
-	.one_third 
-	{ 
-		width: 250px; 
-	}
-
-	.two_third 
-	{ 
-		width: 525px; 
-	}
-
-	.one_quarter 
-	{ 
-		width: 180px; 
-	}
-	
-	.wrapper 
-	{
-		width: 800px;
-	}
 }
 
 /** 
@@ -664,7 +430,7 @@ nav#primary ul
 	
 	.wrapper 
 	{
-		width: 1000px;
+		width: 1150px;
 	}
 }
 
