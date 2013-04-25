@@ -1,4 +1,4 @@
-# PyroStreams v2.3.1
+# PyroStreams v2.3.2
 
 ## Installation
 

@@ -4,10 +4,8 @@
  * PyroStreams Module
  *
  * @package		PyroStreams
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @author		Adam Fairholm
+ * @copyright	Copyright (c) 2011 - 2013, Adam Fairholm
  */
 class Module_Streams extends Module {
 
@@ -17,7 +15,7 @@ class Module_Streams extends Module {
 	 * @access	public
 	 * @var		string
 	 */
-	public $version = '2.3.1';
+	public $version = '2.3.2';
 
 	// --------------------------------------------------------------------------
 

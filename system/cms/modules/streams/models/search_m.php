@@ -17,7 +17,7 @@ class Search_m extends CI_Model {
 
 	function __construct()
 	{
-		$this->CI =& get_instance();
+		$this->CI = get_instance();
 	}
 
 	// --------------------------------------------------------------------------   
@@ -47,74 +47,16 @@ class Search_m extends CI_Model {
 		
 		$stream			= $this->CI->streams_m->get_stream($stream_slug, true, $namespace);
 		
-		if(!$stream) show_error($stream_slug.' '.lang('streams:not_valid_stream'));
+		if ( ! $stream) {
+			show_error($stream_slug.' '.lang('streams:not_valid_stream'));
+		}
 	
 		// -------------------------------------
-		// Hose off the Keywords
+		// Query
 		// -------------------------------------
 		
-		$keywords 		= $this->CI->security->xss_clean($search_term);
+		$query_string = $this->build_query($fields, $search_term, $stream, $search_type);
 		
-		$keywords		= explode(" ", $keywords);
-		
-		// Break into keywords
-		foreach($keywords as $key => $keyword):
-		
-			if(trim($keyword) == ''):
-			
-				unset($keywords[$key]);
-			
-			endif;
-		
-		endforeach;
-		
-		// -------------------------------------
-		// Query Build
-		// -------------------------------------
-				
-		$likes = array();
-		
-		if($search_type == 'keywords'):
-		
-			$keyword_build = '';
-		
-			// Go through each keyword/field individually
-			foreach($keywords as $keyword):
-			
-				$keyword_build .= $keyword.' ';
-			
-				foreach($fields as $field):
-				
-					$likes[] = "$field LIKE '%$keyword%'";
-					//$this->CI->db->or_like($field, $keyword);
-					
-					// We also search cumulative keywords
-					$likes[] = "$field LIKE '%$keyword_build%'";
-					//$this->CI->db->or_like($field, $keyword_build);
-				
-				endforeach;
-				
-			endforeach;
-		
-		endif;
-		
-		if($search_type == 'full_phrase'):
-		
-			$search_for = implode(' ', $keywords);
-		
-			foreach($fields as $field):
-				
-				// We also search cumulative keywords
-				//$this->CI->db->or_like($field, $search_for);
-				$likes[] = "$field LIKE '%$search_for%'";
-			
-			endforeach;
-		
-		endif;
-
-		// Build query sans limit/offset
-		$query_string = 'SELECT * FROM '.$this->CI->db->dbprefix($stream->stream_prefix.$stream_slug).' WHERE ('.implode(' OR ', $likes).')';
-
 		// Get total of all the results
 		$total = $this->CI->db->query($query_string);
 
@@ -132,10 +74,62 @@ class Search_m extends CI_Model {
 			'stream_namespace'	=> $namespace
 		);
 		
-		$this->CI->db->insert(SEARCH_TABLE, $insert_data);
+		$this->CI->db->insert('data_stream_searches', $insert_data);
 		
 		// Return our hash for the URL
 		return $insert_data['search_id'];
+	}
+
+	public function build_query($fields, $search_term, $stream, $search_type = 'keywords')
+	{				
+		$keywords 		= $this->CI->security->xss_clean($search_term);
+		
+		$keywords		= explode(" ", $keywords);
+		
+		// Break into keywords
+		foreach ($keywords as $key => $keyword) {
+		
+			if (trim($keyword) == '') {
+			
+				unset($keywords[$key]);
+			}
+		}
+
+		$likes = array();
+		
+		if ($search_type == 'keywords') {
+
+			$keyword_build = '';
+		
+			// Go through each keyword/field individually
+			foreach ($keywords as $keyword) {
+			
+				$keyword_build .= $keyword.' ';
+			
+				foreach ($fields as $field) {
+				
+					$likes[] = "$field LIKE '%".mysql_real_escape_string($keyword)."%'";
+					
+					// We also search cumulative keywords
+					$likes[] = "$field LIKE '%".mysql_real_escape_string($keyword_build)."%'";
+				}
+			}
+		}
+		
+		if ($search_type == 'full_phrase') {
+		
+			$search_for = implode(' ', $keywords);
+
+			foreach ($fields as $field) 
+			{
+				$likes[] = "$field LIKE '%".mysql_real_escape_string($search_for)."%'";
+			}
+		}
+
+		// Build query sans limit/offset
+		$query_string = 'SELECT * FROM '.$this->CI->db->dbprefix($stream->stream_prefix.$stream->stream_slug).' WHERE ('.implode(' OR ', $likes).')';
+
+		return $query_string;
 	}
 
 	// --------------------------------------------------------------------------   
@@ -143,22 +137,18 @@ class Search_m extends CI_Model {
 	public function get_cache($cache_id)
 	{
 		$this->CI->db->limit(1)->where('search_id', $cache_id);
-		$query = $this->CI->db->get(SEARCH_TABLE);
+		$query = $this->CI->db->get('data_stream_searches');
 		
-		if($query->num_rows() == 0):
-		
-			return FALSE;
-		
-		else:
-		
+		if ($query->num_rows() == 0) {
+			return false;
+		} else {
 			$cache = $query->row();
 		
 			// Decode
 			$cache->query_string = base64_decode($cache->query_string);
 			
 			return $cache;
-		
-		endif;
+		}
 	}
 
 }
