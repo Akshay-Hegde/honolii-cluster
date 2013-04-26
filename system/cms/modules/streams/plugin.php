@@ -4,10 +4,8 @@
  * PyroStreams Plugin
  *
  * @package		PyroStreams
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @author		Adam Fairholm
+ * @copyright	Copyright (c) 2011 - 2013, Adam Fairholm
  */
 class Plugin_Streams extends Plugin
 {
@@ -206,10 +204,6 @@ class Plugin_Streams extends Plugin
 			}
 		}
 		
-		// Save the query string!
-		$pagination_config['suffix'] = '?'.http_build_query($_GET, '', "&");
-		
-
 		if ($params['paginate'] == 'yes' and ! $params['limit'])
 		{
 			$params['limit'] = Settings::get('records_per_page');
@@ -303,20 +297,53 @@ class Plugin_Streams extends Plugin
 		$return['entries'] = $rows['rows'];
 				
 		// -------------------------------------
+		// Keep Vars
+		// -------------------------------------
+		// Allow vars to pass through by doing
+		// keep:{var_name}={var_value}
+		// -------------------------------------
+
+		$keepers = array();
+
+		foreach ($this->attributes() as $key => $val)
+		{
+			if (substr($key, 0, 5) == 'keep:' and strlen($key) > 5)
+			{
+				$pieces = explode(':', $key);
+			
+				$keepers[trim($pieces[1])] = $val;
+			}
+		}
+
+		if ($keepers)
+		{
+			foreach ($return['entries'] as &$entry)
+			{
+				$entry = array_merge($entry, $keepers);
+			}
+		}
+
+		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 		
 		if ($params['paginate'] == 'yes')
 		{
 			$return['total'] 	= $rows['pag_count'];
-			
-			$pag_segment = (isset($params['pag_segment'])) ? $params['pag_segment'] : null;
-			
-			$return['pagination'] = $this->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config);
+
+			$pag_config = array(
+				'pag_segment' 		=> $params['pag_segment'],
+				'pag_method'		=> $params['pag_method'],
+				'pag_query_var'		=> $params['pag_query_var'],
+				'pag_uri_method'	=> $params['pag_uri_method'],
+				'pag_base'			=> $params['pag_base']
+			);
+
+			$return['pagination'] = $this->row_m->build_pagination($pag_config, $params['limit'], $return['total'], $pagination_config);
 		}	
 		else
 		{	
-			$return['pagination'] 	= NULL;
+			$return['pagination'] 	= null;
 			$return['total'] 		= count($return['entries']);
 		}
 				
@@ -350,7 +377,7 @@ class Plugin_Streams extends Plugin
 		// -------------------------------------
 		// Parse Ouput Content
 		// -------------------------------------
-		
+
 		$return_content = $this->streams->parse->parse_tag_content(
 								$this->content(), $return, $params['stream'],
 								$this->core_namespace, $loop, $this->fields);
@@ -1362,11 +1389,38 @@ class Plugin_Streams extends Plugin
 		$variables		= array();
 
 		// -------------------------------------
+		// Get the Stream
+		// -------------------------------------
+
+		if ( ! $stream = $this->streams_m->get_stream($stream_slug, true, $namespace)) {
+			$this->_error_out(lang('streams:invalid_stream'));
+		}
+
+		// -------------------------------------
+		// Set Fields
+		// If no fields, get all the fields.
+		// -------------------------------------
+
+		if ( ! $fields) {
+			
+			$dbFields = $this->db->list_fields($stream->stream_prefix.$stream->stream_slug);
+		
+			$skip = array('id', 'created', 'updated', 'created_by', 'ordering_count');
+
+			foreach ($dbFields as $f) {
+				if ( ! in_array($f, $skip)) {
+					$fields[] = $f;
+				}
+			}
+
+			$fields = implode('|', $fields);
+		}
+
+		// -------------------------------------
 		// Check our search type
 		// -------------------------------------
 		
-		if ( ! in_array($search_type, $search_types))
-		{
+		if ( ! in_array($search_type, $search_types)) {
 			show_error($search_type.' '.lang('streams:invalid_search_type'));
 		}
 
@@ -1420,11 +1474,8 @@ class Plugin_Streams extends Plugin
 	{
 		$paginate		= $this->streams_attribute('paginate', 'yes');
 		$cache_segment	= $this->streams_attribute('cache_segment', 3);
-		$per_page		= $this->streams_attribute('per_page', 25);
+		$per_page		= $this->streams_attribute('per_page', Settings::get('records_per_page'));
 		$variables		= array();
-
-		// Pagination segment is always right after the cache hash segment
-		$pag_segment	= $cache_segment+1;
 
 		// -------------------------------------
 		// Check for Cached Search Query
@@ -1455,36 +1506,51 @@ class Plugin_Streams extends Plugin
 			);		
 		}
 		
+		$return = array('total' => $cache->total_results);
+	
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 		
-		$return = array();
-	
-		$return['total'] 	= $cache->total_results;
+		if ($paginate) {
 
-		if ($paginate == 'yes')
-		{
-			// Add in our pagination config
-			// override varaibles.
-			foreach($this->pagination_config as $key => $var)
+			$pagination_config = array();
+		
+			// Go through each config and see if we have an attribute for it.
+			foreach ($this->streams->entries->pag_config as $pag_key)
 			{
-				$this->pagination_config[$key] = $this->attribute($key, $this->pagination_config[$key]);
-				
-				// Make sure we obey the FALSE params
-				if($this->pagination_config[$key] == 'FALSE') $this->pagination_config[$key] = FALSE;
+				if ($this->attribute($pag_key))
+				{
+					$pagination_config[$pag_key] = $this->attribute($pag_key);
+				}
+			}
+			
+			// Our default per page is our records_per_page setting.
+			if ($paginate == 'yes' and ! $per_page)
+			{
+				$per_page = Settings::get('records_per_page');
 			}
 
-			$return['pagination'] = $this->row_m->build_pagination($pag_segment, $per_page, $return['total'], $this->pagination_config);
-			
-			$offset = $this->uri->segment($pag_segment, 0);
-			
+			// Pagination segment is always right after the cache hash segment
+			$pag_segment = $cache_segment+1;
+
+			// Build our actual pagination.
+			$return['pagination'] = $this->row_m->build_pagination($pag_segment, $per_page, $return['total'], $pagination_config);
+
+			// Offset 
+			$offset = $this->uri->segment($pag_segment);
+
+			if ( ! $offset or ! is_numeric($offset) or $offset < 0) {
+				$offset = 0;
+			}
+
+			// Add the query string to the cached SQL query so
 			$query_string = $cache->query_string." LIMIT $offset, $per_page";
-		}
-		else
-		{
-			$return['pagination'] 	= NULL;	
-			$query_string = $cache->query_string;
+
+		} else {
+
+			$query_string = null;
+			$return['pagination'] 	= null;
 		}
 
 		// -------------------------------------
@@ -1503,8 +1569,10 @@ class Plugin_Streams extends Plugin
 		$return['total_results'] 	= $cache->total_results;
 		$return['results_exist'] 	= true;				
 		$return['search_term'] 		= $cache->search_term;
-		
-		return $this->streams_content_parse($this->content(), $return, $cache->stream_slug);
+
+		return $this->streams->parse->parse_tag_content(
+							$this->content(), $return, $stream->stream_slug,
+							$stream->stream_namespace, false);
 	}
 
 	// --------------------------------------------------------------------------
