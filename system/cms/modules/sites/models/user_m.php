@@ -346,6 +346,8 @@ class User_m extends MY_Model {
 	 */
 	public function _hash_password($pass, $salt = false)
 	{
+		$hash = new stdClass();
+		
 		$hash->user_salt	= substr(md5(uniqid(rand(), true)), 0, config_item('salt_length'));
 		
 		//this lets us pass the salt from the database for logins
