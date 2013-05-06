@@ -64,21 +64,26 @@ class Admin extends Admin_Controller {
     public function index()
     {
 		// -------------------------------------
+		// Offset
+		// -------------------------------------
+
+    	$page = ($this->uri->segment(4)) ?  $this->uri->segment(4) : 1;
+    	$offset = ($page-1) * Settings::get('records_per_page');
+
+		// -------------------------------------
 		// Get fields
 		// -------------------------------------
 		
+		// For our purposes, we want no hidden streams.
 		$this->db->where('is_hidden', 'no');
-    	$this->data->streams = $this->streams->streams->get_streams($this->namespace, Settings::get('records_per_page'), $this->uri->segment(4));
+    	
+    	$this->data->streams = $this->streams->streams->get_streams($this->namespace, Settings::get('records_per_page'), $offset);
 
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
 
-		$this->data->pagination = create_pagination(
-										'admin/streams/index',
-										$this->streams_m->total_streams($this->namespace),
-										Settings::get('records_per_page'),
-										4);
+		$this->data->pagination = create_pagination('admin/streams/index', $this->streams_m->total_streams($this->namespace));
 
 		// -------------------------------------
 		// Build Page
@@ -584,19 +589,24 @@ class Admin extends Admin_Controller {
         
         $this->data->title_column_status = FALSE;
         
-		$this->_manage_fields();
+		if ($this->_manage_fields() == 'no_fields') {
+			return;
+		}
 		
 		// Get fields that are available
 		$this->data->available_fields = array(null => null);
 		
-		foreach ($this->data->fields as $field)
+		if ($this->data->fields)
 		{
-			if ( ! in_array($field->id, $this->data->in_use))
+			foreach ($this->data->fields as $field)
 			{
-				$this->data->available_fields[$field->id] = $field->field_name;
+				if ( ! in_array($field->id, $this->data->in_use))
+				{
+					$this->data->available_fields[$field->id] = $field->field_name;
+				}
 			}
 		}
-		
+
 		// Dummy row id
 		$this->data->row = new stdClass();
 		$this->data->row->field_id = null;
@@ -793,13 +803,11 @@ class Admin extends Admin_Controller {
         $this->data->fields = $this->fields_m->get_fields($this->config->item('streams:core_namespace'));
         
         // No fields? Show a message.       
-        if( count($this->data->fields) == 0 ):
-   
-   			$this->template->build('admin/streams/no_fields_to_add', $this->data);
-   			
-   			return null;
-     
-        endif;
+        if (count($this->data->fields) == 0)
+   		{
+   			$this->template->build('admin/streams/no_fields_to_add', $this->data);   			
+   			return 'no_fields';
+     	}
         
         // Get an array of field IDs that are already in use
         // So we can disable them in the drop down
@@ -807,11 +815,10 @@ class Admin extends Admin_Controller {
         
         $this->data->in_use = array();
         
-        foreach( $obj->result() as $item):
-        
+        foreach ($obj->result() as $item)
+        {
         	$this->data->in_use[] = $item->field_id;
-        
-        endforeach;
+        }
         
 		// -------------------------------------
 		// Validation & Setup

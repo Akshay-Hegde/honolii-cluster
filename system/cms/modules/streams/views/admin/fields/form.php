@@ -60,7 +60,7 @@
 			{
 				// Sometimes these values may not be set. Let's set
 				// them to null if they are not.
-				(isset($current_field->field_data[$param])) ? $value = $current_field->field_data[$param] : $value = null;
+				$value = (isset($current_field->field_data[$param])) ? $current_field->field_data[$param] : null;
 						
 				if (method_exists($current_type, 'param_'.$param))
 				{
@@ -81,7 +81,7 @@
 
 					$data['input_name']			= $this->lang->line('streams:'.$this->type->types->{$current_field->field_type}->field_type_slug.'.'.$param);
 				}	
-				else
+				elseif (method_exists($parameters, $param))
 				{		
 					$data['input'] 				= $parameters->$param($value);
 					$data['input_name']			= $this->lang->line('streams:'.$param);

@@ -83,7 +83,7 @@ class User_m extends MY_Model {
 		  `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 		  `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
 		  `group_id` int(11) DEFAULT NULL,
-		  `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+		  `ip_address` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `active` int(1) DEFAULT NULL,
 		  `activation_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
 		  `created_on` int(11) NOT NULL,
@@ -346,6 +346,8 @@ class User_m extends MY_Model {
 	 */
 	public function _hash_password($pass, $salt = false)
 	{
+		$hash = new stdClass();
+		
 		$hash->user_salt	= substr(md5(uniqid(rand(), true)), 0, config_item('salt_length'));
 		
 		//this lets us pass the salt from the database for logins

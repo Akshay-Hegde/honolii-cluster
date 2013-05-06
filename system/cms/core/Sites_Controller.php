@@ -14,21 +14,20 @@ class Sites_Controller extends MX_Controller {
 		
 		// First off set the db prefix
 		$this->db->set_dbprefix('core_');
+
+		// If we're on the MSM then we turn the session table off.
+		$this->config->set_item('sess_use_database', false);
 		
 		// If using a URL not defined as a site, set this to stop the world ending
-		if ( ! defined('SITE_REF'))
-		{
-			define('SITE_REF', 'core');
-		}
+		defined('SITE_REF') or define('SITE_REF', 'core');
 		
 		// make sure they've ran the installer before trying to view our shiny panel
-		if ( ! $this->db->table_exists('sites')) 
-		{
-			redirect('installer');
-		}
+		$this->db->table_exists('sites') or redirect('installer');
 		
-		defined('ADMIN_THEME') OR define('ADMIN_THEME', 'sites');
-		
+		defined('ADMIN_THEME') or define('ADMIN_THEME', 'msm');
+
+		defined('MSMPATH') or redirect('404');
+
 		// define folders that we need to create for each new site
 		ci()->locations = $this->locations = array(
 			APPPATH.'cache'	=> array(
@@ -72,7 +71,7 @@ class Sites_Controller extends MX_Controller {
 		$this->load->config('users/ion_auth');
 
 		// Set the theme as a path for Asset library
-		Asset::add_path('theme', APPPATH.'themes/'.ADMIN_THEME.'/');
+		Asset::add_path('theme', MSMPATH.'themes/'.ADMIN_THEME.'/');
 		Asset::set_path('theme');
 		
 		// check to make sure they're logged in
@@ -80,6 +79,8 @@ class Sites_Controller extends MX_Controller {
 		{
 			redirect('sites/login');
 		}
+
+		$this->template->add_theme_location(MSMPATH.'themes/');
 		
 		// Template configuration
 		$this->template

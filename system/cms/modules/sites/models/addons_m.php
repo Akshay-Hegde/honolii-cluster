@@ -90,7 +90,7 @@ class Addons_m extends MY_Model
 	 * @access	public
 	 * @return	object
 	 */
-	public function delete()
+	public function delete($id = false)
 	{
 		return $this->db->delete($this->type.'s', array('slug' => $this->slug));
 	}

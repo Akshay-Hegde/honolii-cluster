@@ -59,7 +59,7 @@
 			</tr>
 			<tr>
 				<td><strong><?php echo lang('streams:database_table'); ?></strong></td>
-				<td><?php echo $meta['db_table']; ?></td>
+				<td><?php echo SITE_REF; ?>_<?php echo $meta['db_table']; ?></td>
 			</tr>
 			<tr>
 				<td><strong><?php echo lang('streams:size'); ?></strong></td>
