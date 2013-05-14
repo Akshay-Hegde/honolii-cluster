@@ -1,45 +1,31 @@
-<h3><?php echo sprintf(lang('comments.edit_title'), $comment->id); ?></h3>
+<h3><?php echo lang('comments:your_comment') ?></h3>
 
-<?php echo form_open($this->uri->uri_string(), 'class="crud"'); ?>
-
-	<?php echo form_hidden('user_id', $comment->user_id); ?>
-	<?php echo form_hidden('active', $comment->is_active); ?>
-
+<?php echo form_open("comments/create/{$module}", array('id'=>'create-comment','class'=>'well')) ?>
+    <noscript><?php echo form_input('d0ntf1llth1s1n', '', 'style="display:none"') ?></noscript>
+	<?php echo form_hidden('entry', $entry_hash) ?>
 	<ul class="fields">
-		<?php if ( ! $comment->user_id > 0): ?>
+		<?php if ( ! is_logged_in()): ?>
 		<li class="even">
-			<label for="name"><?php echo lang('comments.name_label'); ?>:</label>
-			<?php echo form_input('name', $comment->name, 'maxlength="100"'); ?>
-		</li>
-
-		<li>
-			<label for="email"><?php echo lang('comments.email_label'); ?>:</label>
-			<?php echo form_input('email', $comment->email, 'maxlength="100"'); ?>
-		</li>
-		<?php else: ?>
-		<li class="even">
-			<label><?php echo lang('comments.name_label'); ?>:</label>
-			<p><?php echo $comment->name; ?></p>
+			<label for="name"><?php echo lang('comments:name_label'); ?>:</label>
+			<?php echo form_input('name', $comment['name'], 'maxlength="100"'); ?>
 		</li>
 		<li>
-			<label><?php echo lang('comments.email_label'); ?>:</label>
-			<p><?php echo $comment->email; ?></p>
+			<label for="email"><?php echo lang('global:email'); ?>:</label>
+			<?php echo form_input('email', $comment['email'], 'maxlength="100"'); ?>
 		</li>
+		<li class="even">
+            <label for="website"><?php echo lang('comments:website_label'); ?>:</label>
+            <?php echo form_input('website', $comment['website']); ?>
+        </li>
 		<?php endif; ?>
-
-		<li class="even">
-			<label for="body"><?php echo lang('comments.message_label'); ?>:</label><br />
-			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment->comment, 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
-		</li>
-
 		<li>
-			<label for="website"><?php echo lang('comments.website_label'); ?>:</label>
-			<?php echo form_input('website', $comment->website); ?>
+			<label for="body"><?php echo lang('comments:message_label'); ?>:</label><br />
+			<?php echo form_textarea(array('name'=>'comment', 'value' => $comment['comment'], 'rows' => 5, 'class'=>'wysiwyg-simple')); ?>
 		</li>
 	</ul>
 
 	<div class="buttons float-right padding-top">
-		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('save', 'cancel') )); ?>
+		<?= form_submit(array('class'=>'nice radius large blue button','name'=>'submit'), lang('comments:send_label')); ?>
 	</div>
 
 <?php echo form_close(); ?>
