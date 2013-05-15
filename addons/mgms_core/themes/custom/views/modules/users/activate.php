@@ -1,8 +1,8 @@
-<h3 class="col-headline"><?= lang('user_register_header') ?></h3>
+<h3 class="col-headline"><?= lang('user:register_header') ?></h3>
 
 <div class="workflow_steps">
-	<span id="active_step"><?= lang('user_register_step1') ?></span> &gt;
-	<span><?= lang('user_register_step2') ?></span>
+	<span id="active_step"><?= lang('user:register_step1') ?></span> &gt;
+	<span><?= lang('user:register_step2') ?></span>
 </div>
 
 <?php if(!empty($error_string)): ?>
@@ -22,12 +22,12 @@
 
 <?= form_open('users/activate', 'id="activate-user"'); ?>
 	
-	<?= form_label(lang('user_email'),$form_data['email']['id']); ?>
+	<?= form_label(lang('global:email'),$form_data['email']['id']); ?>
 	<?= form_input($form_data['email']);?>
 
-	<?= form_label(lang('user_activation_code'),$form_data['activate']['id']); ?>
+	<?= form_label(lang('user:activation_code'),$form_data['activate']['id']); ?>
 	<?= form_input($form_data['activate']);?>
 	<hr class="space"/>
-	<?= form_submit('btnSubmit', lang('user_activate_btn'), 'class="button"') ?>
+	<?= form_submit('btnSubmit', lang('user:activate_btn'), 'class="button"') ?>
 
 <?= form_close(); ?>

@@ -1,4 +1,4 @@
-<h3 class="col-headline"><?= lang('user_login_header') ?></h3>
+<h3 class="col-headline"><?= lang('user:login_header') ?></h3>
 
 <?php if (validation_errors()): ?>
 <div class="error">
@@ -16,17 +16,18 @@
 
 <?= form_open('users/login', array('id'=>'login'), array('redirect_to' => $redirect_to)); ?>
 
-		<?= form_label(lang('user_email'),$form_data['email']['id']); ?>
+		<?= form_label(lang('global:email'),$form_data['email']['id']); ?>
 		<?= form_input($form_data['email']);?>
 
-		<?= form_label(lang('user_password'),$form_data['pass']['id']); ?>
+		<?= form_label(lang('global:password'),$form_data['pass']['id']); ?>
 		<?= form_password($form_data['pass']);?>
 		<label>
-			<?= form_checkbox('remember', '1', FALSE); ?> <?= lang('user_remember'); ?>
+			<?= form_checkbox('remember', '1', FALSE); ?> <?= lang('user:remember'); ?>
 		</label>
-		<div class="reset-pass"><?= anchor('users/reset_pass', lang('user_reset_password_link'));?></div>
+		<div class="reset-pass"><?= anchor('users/reset_pass', lang('user:reset_password_link'));?></div>
 		<hr class="space"/>
-		<?= form_submit('btnLogin', lang('user_login_btn'), 'class="button"') ?>
-		<div class="register"><?= anchor('register', lang('user_register_btn'));?></div>
+		<?= form_submit('btnLogin', lang('user:login_btn'), 'class="button"') ?>
+		<hr class="space"/>
+		<div class="register"><?= anchor('register', lang('user:register_btn'));?></div>
 		
 <?= form_close(); ?>

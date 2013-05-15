@@ -1,4 +1,4 @@
-<h3 class="col-headline"><?php echo lang('user_reset_password_title');?></h3>
+<h3 class="col-headline"><?php echo lang('user:reset_password_title');?></h3>
 
 <?php if(!empty($error_string)):?>
 	<div class="error"><?= $error_string;?></div>
@@ -19,14 +19,14 @@
 
 	<?= form_open('users/reset_pass', array('id'=>'reset-pass')); ?>
 	
-	<h4><?= lang('user_reset_instructions'); ?></h4>
-	<?= form_label(lang('user_email'),$form_data['email']['id']); ?>
+	<h4><?= lang('user:reset_instructions'); ?></h4>
+	<?= form_label(lang('global:email'),$form_data['email']['id']); ?>
 	<?= form_input($form_data['email']);?>
 
-	<?= form_label(lang('user_username'),$form_data['user']['id']); ?>
+	<?= form_label(lang('user:username'),$form_data['user']['id']); ?>
 	<?= form_input($form_data['user']);?>
 	<hr class="space"/>
-	<?= form_submit('btnSubmit', lang('user_reset_pass_btn'), 'class="button"') ?>
+	<?= form_submit('btnSubmit', lang('user:reset_pass_btn'), 'class="button"') ?>
 	
 
 	<?= form_close(); ?>

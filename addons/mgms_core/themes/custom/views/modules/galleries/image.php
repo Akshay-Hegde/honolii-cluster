@@ -13,5 +13,14 @@
 	</div>
 </div>
 <?php if ($gallery->enable_comments == 1): ?>
-	<?= display_comments($gallery_image->id, 'gallery-image'); ?>
+    <div id="comments" class="mod comments">
+        <div id="existing-comments" class="hd comments">
+            <h3 class="col-headline"><?= lang('comments:title'); ?></h3>
+            <?php echo $this->comments->display() ?>
+        </div>
+        <div id="comments-form" class="bd comments-form">
+            <?php echo $this->comments->form() ?>
+        </div>
+        <div class="fd"></div>
+    </div>
 <?php endif; ?>
