@@ -16,6 +16,7 @@
 	{{ theme:partial name="header" }}
 	<!-- container start -->
 	<div class="container" id="container">
+		{{session:messages success="success" notice="notice" error="error"}}
 		{{ template:body }}
 		{{ theme:partial name="footer" }}
 	</div>

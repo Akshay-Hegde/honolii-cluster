@@ -19,7 +19,7 @@ class Field_integer
 	
 	public $extra_validation		= 'integer';
 
-	public $version					= '1.0';
+	public $version					= '1.0.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 		
@@ -38,6 +38,9 @@ class Field_integer
 		$options['id']		= $data['form_slug'];
 		$options['value']	= $data['value'];
 		
+		// Max length
+		$max_length = (isset($data['max_length']) and $data['max_length']) ? $options['maxlength'] = $data['max_length'] : null;
+
 		return form_input($options);
 	}
 	

@@ -8,7 +8,7 @@
  */
 class Module_Variables extends Module {
 
-	public $version = '0.4';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -23,6 +23,7 @@ class Module_Variables extends Module {
 				'de' => 'Variablen',
 				'el' => 'Μεταβλητές',
 				'es' => 'Variables',
+                            'fa' => 'متغییرها',
 				'fi' => 'Muuttujat',
 				'fr' => 'Variables',
 				'he' => 'משתנים',
@@ -33,10 +34,11 @@ class Module_Variables extends Module {
 				'pl' => 'Zmienne',
 				'ru' => 'Переменные',
 				'sl' => 'Spremenljivke',
-				'zh' => '系統變數',
-				'hu' => 'Változók',
+				'tw' => '系統變數',
+				'cn' => '系统变数',
 				'th' => 'ตัวแปร',
-                                'se' => 'Variabler'
+				'se' => 'Variabler',
+				'hu' => 'Változók',
 			),
 			'description' => array(
 				'en' => 'Manage global variables that can be accessed from anywhere.',
@@ -48,8 +50,9 @@ class Module_Variables extends Module {
 				'de' => 'Verwaltet globale Variablen, auf die von überall zugegriffen werden kann.',
 				'el' => 'Διαχείριση μεταβλητών που είναι προσβάσιμες από παντού στον ιστότοπο.',
 				'es' => 'Manage global variables to access from everywhere.',
+                            'fa' => 'مدیریت متغییر های جامع که می توانند در هر جای سایت مورد استفاده قرار بگیرند',
 				'fi' => 'Hallitse globaali muuttujia, joihin pääsee käsiksi mistä vain.',
-				'fr' => 'Manage global variables to access from everywhere.',
+				'fr' => 'Gérer des variables globales pour pouvoir y accéder depuis n\'importe quel endroit du site.',
 				'he' => 'ניהול משתנים גלובליים אשר ניתנים להמרה בכל חלקי האתר',
 				'id' => 'Mengatur variabel global yang dapat diakses dari mana saja.',
 				'it' => 'Gestisci le variabili globali per accedervi da ogni parte.',
@@ -59,17 +62,18 @@ class Module_Variables extends Module {
 				'ru' => 'Управление глобальными переменными, которые доступны в любом месте сайта.',
 				'sl' =>	'Urejanje globalnih spremenljivk za dostop od kjerkoli',
 				'th' => 'จัดการตัวแปรทั่วไปโดยที่สามารถเข้าถึงได้จากทุกที่.',
-				'zh' => '管理此網站內可存取的全局變數。',
-                                'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
-                                'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.'
+				'tw' => '管理此網站內可存取的全局變數。',
+				'cn' => '管理此网站内可存取的全局变数。',
+				'hu' => 'Globális változók kezelése a hozzáféréshez, bárhonnan.',
+				'se' => 'Hantera globala variabler som kan avändas över hela webbplatsen.',
 
 			),
 			'frontend'	=> false,
 			'backend'	=> true,
-			'menu'		=> 'content',
+			'menu'		=> 'data',
 			'shortcuts' => array(
 				array(
-				    'name' => 'variables.create_title',
+				    'name' => 'variables:create_title',
 				    'uri' => 'admin/variables/create',
 					'class' => 'add',
 				),

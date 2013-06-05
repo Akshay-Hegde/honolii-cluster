@@ -51,7 +51,7 @@ class MX_Router extends CI_Router
 		if ($located = $this->locate($segments)) return $located;
 		
 		/* use a default 404_override controller */
-		if (isset($this->routes['404_override']) AND $this->routes['404_override']) {
+		if (isset($this->routes['404_override']) and $this->routes['404_override']) {
 			$segments = explode('/', $this->routes['404_override']);
 			if ($located = $this->locate($segments)) return $located;
 		}
@@ -61,12 +61,13 @@ class MX_Router extends CI_Router
 	}
 	
 	/** Locate the controller **/
-	public function locate($segments) {
+	public function locate($segments) {		
 		
 		/**
-		 * Load the site ref for multi-site support
+		 * Load the site ref for multi-site support if the "sites" module exists
+		 * and the multi-site constants haven't been defined already (hmvc request)
 		 */
-		if ( ! defined('SITE_REF'))
+		if ($path = self::is_multisite() and ! defined('SITE_REF'))
 		{
 			require_once BASEPATH.'database/DB'.EXT;
 			
@@ -87,7 +88,7 @@ class MX_Router extends CI_Router
 			}
 
 			$site = DB()
-				->select('site.name, site.ref, site.domain, alias.domain as alias_domain, alias.type as alias_type')
+				->select('site.name, site.ref, site.domain, site.active, alias.domain as alias_domain, alias.type as alias_type')
 				->where('site.domain', SITE_DOMAIN)
 				->or_where('alias.domain', SITE_DOMAIN)
 				->join('core_domains alias', 'alias.site_id = site.id', 'left')
@@ -95,7 +96,7 @@ class MX_Router extends CI_Router
 				->row();
 			
 			// If the site is disabled we set the message in a constant for MY_Controller to display
-			if (isset($site->active) AND ! $site->active)
+			if (isset($site->active) and ! $site->active)
 			{
 				$status = DB()->where('slug', 'status_message')
 					->get('core_settings')
@@ -105,7 +106,7 @@ class MX_Router extends CI_Router
 			}
 
 			// If this domain is an alias and it is a redirect
-			if (isset($site->alias_domain) AND $site->alias_domain !== NULL and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
+			if ($site and $site->alias_domain !== null and $site->alias_type === 'redirect' and str_replace(array('http://', 'https://'), '', trim(strtolower(BASE_URL), '/')) !== $site->domain)
 			{
 				$protocol = ( ! empty($_SERVER['HTTPS']) && strtolower($_SERVER['HTTPS']) !== 'off')
 					? 'https' : 'http';
@@ -114,18 +115,11 @@ class MX_Router extends CI_Router
 				header("Location: {$protocol}://{$site->domain}{$_SERVER['REQUEST_URI']}");
 				exit;
 			}
-
-			$locations = array();
 			
 			// Check to see if the site retrieval was successful. If not then
 			// we will let MY_Controller handle the errors.
 			if (isset($site->ref))
 			{
-				foreach (config_item('modules_locations') AS $location => $offset)
-				{
-					$locations[str_replace('__SITE_REF__', $site->ref, $location)] = str_replace('__SITE_REF__', $site->ref, $offset);
-				}
-				
 				// Set the session config to the correct table using the config name (but removing 'default_')
 				$this->config->set_item('sess_table_name', $site->ref.'_'.str_replace('default_', '', config_item('sess_table_name')));
 
@@ -137,30 +131,40 @@ class MX_Router extends CI_Router
 				
 				// Path to the addon folder for this site
 				define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
-				
-				Modules::$locations = $locations;
-				
-			}
-			
-			// If we're on the MSM then we turn the session table off.
-			if ($this->uri->segment(0) == 'sites')
-			{
-				$this->config->set_item('sess_use_database', FALSE);
+
+				// the path to the MSM module
+				define('MSMPATH', str_replace('__SITE_REF__', SITE_REF, $path));
 			}
 		}
 
+		// we aren't running the Multi-Site Manager so define the defaults
+		if ( ! defined('SITE_REF'))
+		{
+			// The site ref. Used for building site specific paths
+			define('SITE_REF', 'default');
+							
+			// Path to uploaded files for this site
+			define('UPLOAD_PATH', 'uploads/'.SITE_REF.'/');
+							
+			// Path to the addon folder for this site
+			define('ADDONPATH', ADDON_FOLDER.SITE_REF.'/');
+		}
+
+		// update the config paths with the site specific paths
+		self::update_module_locations(SITE_REF);
+		
 		$this->module = '';
 		$this->directory = '';
 		$ext = $this->config->item('controller_suffix').EXT;
 		
 		/* use module route if available */
-		if (isset($segments[0]) AND $routes = Modules::parse_routes($segments[0], implode('/', $segments))) 	
+		if (isset($segments[0]) and $routes = Modules::parse_routes($segments[0], implode('/', $segments))) 	
 		{
 			$segments = $routes;
 		}
 	
 		/* get the segments array elements */
-		list($module, $directory, $controller) = array_pad($segments, 3, NULL);
+		list($module, $directory, $controller) = array_pad($segments, 3, null);
 
 		/* check modules */
 		foreach (Modules::$locations as $location => $offset) {
@@ -172,12 +176,12 @@ class MX_Router extends CI_Router
 				$this->directory = $offset.$module.'/controllers/';
 				
 				/* module sub-controller exists? */
-				if($directory AND is_file($source.$directory.$ext)) {
+				if ($directory and is_file($source.$directory.$ext)) {
 					return array_slice($segments, 1);
 				}
 					
 				/* module sub-directory exists? */
-				if($directory AND is_dir($source.$directory.'/')) {
+				if ($directory and is_dir($source.$directory.'/')) {
 
 					$source = $source.$directory.'/';
 					$this->directory .= $directory.'/';
@@ -188,7 +192,7 @@ class MX_Router extends CI_Router
 					}
 				
 					/* module sub-directory sub-controller exists? */
-					if($controller AND is_file($source.$controller.$ext))	{
+					if ($controller and is_file($source.$controller.$ext))	{
 						return array_slice($segments, 2);
 					}
 				}
@@ -206,7 +210,7 @@ class MX_Router extends CI_Router
 		}
 		
 		/* application sub-directory controller exists? */
-		if($directory AND is_file(APPPATH.'controllers/'.$module.'/'.$directory.$ext)) {
+		if ($directory and is_file(APPPATH.'controllers/'.$module.'/'.$directory.$ext)) {
 			$this->directory = $module.'/';
 			return array_slice($segments, 1);
 		}
@@ -220,5 +224,36 @@ class MX_Router extends CI_Router
 
 	public function set_class($class) {
 		$this->class = $class.$this->config->item('controller_suffix');
+	}
+
+	private function is_multisite()
+	{
+		foreach (Modules::$locations as $location => $offset)
+		{
+			if (is_dir($location.'sites'))
+			{
+				return $location.'sites/';
+			}
+		}
+
+		// one last check, the default site's folder
+		if (is_dir(ADDON_FOLDER.'default/modules/sites'))
+		{
+			return ADDON_FOLDER.'default/modules/sites/';
+		}
+
+		return false;
+	}
+
+	private function update_module_locations($site_ref)
+	{
+		$locations = array();
+
+		foreach (config_item('modules_locations') AS $location => $offset)
+		{
+			$locations[str_replace('__SITE_REF__', $site_ref, $location)] = str_replace('__SITE_REF__', $site_ref, $offset);
+		}
+
+		Modules::$locations = $locations;
 	}
 }

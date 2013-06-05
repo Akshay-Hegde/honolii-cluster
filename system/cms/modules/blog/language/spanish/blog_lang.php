@@ -1,16 +1,16 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-$lang['blog:post']                 = 'Post'; #translate
-$lang['blog:posts']                   = 'Posts'; #translate
+$lang['blog:post']                          = 'Entrada';
+$lang['blog:posts']                         = 'Entradas';
 
 // labels
 $lang['blog:posted_label']					= 'Escrito';
-$lang['blog:keywords_label']				= 'Keywords'; #translate
+$lang['blog:keywords_label']				= 'Palabras clave';
 $lang['blog:tagged_label']					= 'Tagged'; #translate
 $lang['blog:category_label'] 				= 'Categoría';
-$lang['blog:written_by_label']				= 'Written by'; #translate
-$lang['blog:author_unknown']				= 'Unknown'; #translate
-$lang['blog:post_label'] 					= 'Post';
+$lang['blog:written_by_label']				= 'Escrito por';
+$lang['blog:author_unknown']				= 'Desconocido';
+$lang['blog:post_label'] 					= 'Entrada';
 $lang['blog:date_label'] 					= 'Fecha';
 $lang['blog:time_label'] 					= 'Hora';
 $lang['blog:status_label'] 					= 'Estado';
@@ -43,6 +43,7 @@ $lang['blog:blog_title'] 					= 'Noticias';
 $lang['blog:list_title'] 					= 'Lista de artículos';
 
 // messages
+$lang['blog:disabled_after'] 				= 'Posting comments after %s has been disabled.'; #translate
 $lang['blog:no_posts'] 						= 'No hay artículos.';
 $lang['blog:subscripe_to_rss_desc'] 		= 'Recibe nuestros artículos inmediatamente suscribiendote a nuestros feeds RSS. Puedes hacer esto utilizando los más clientes de correo electrónico mas populares o utilizando <a href="http://reader.google.com/">Google Reader</a>.';
 $lang['blog:currently_no_posts'] 			= 'No hay artículos hasta el momento.';
@@ -64,4 +65,4 @@ $lang['blog:twitter_error'] 				= 'Error de Twitter';
 // date
 $lang['blog:archive_date_format']			= "%B %Y";
 
-/* End of file blog_lang.php */
+/* End of file blog:lang.php */

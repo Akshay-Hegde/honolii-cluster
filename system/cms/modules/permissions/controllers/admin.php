@@ -2,8 +2,6 @@
 /**
  * Permissions controller
  *
- * @author 		Phil Sturgeon
- * @author 		Yorick Peterse
  * @author		PyroCMS Dev Team
  * @package 	PyroCMS\Core\Modules\Permissions\Controllers
  */
@@ -34,8 +32,6 @@ class Admin extends Admin_Controller
 	 */
 	public function index()
 	{
-		//$this->template->groups = $this->group_m->get_all();
-	
 		$this->template
 			->set('admin_group', $this->config->item('admin_group', 'ion_auth'))
 			->set('groups', $this->group_m->get_all())
@@ -71,12 +67,14 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', lang('permissions:message_group_saved_error'));
 			}
 
-			$this->input->post('btnAction') == 'save_exit' ? redirect('admin/permissions') : redirect('admin/permissions/group/' . $group_id);
+			$this->input->post('btnAction') === 'save_exit' 
+				? redirect('admin/permissions')
+				: redirect('admin/permissions/group/'.$group_id);
 		}
 		// Get the group data
 		$group = $this->group_m->get($group_id);
 		// If the group data could not be retrieved
-		if ( ! $group ) {
+		if ( ! $group) {
 			// Set a message to notify the user.
 			$this->session->set_flashdata('error', lang('permissions:message_no_group_id_provided'));
 			// Send him to the main index to select a proper group.

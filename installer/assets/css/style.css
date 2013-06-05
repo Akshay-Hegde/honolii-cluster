@@ -174,7 +174,7 @@ ul, ol { margin: 15px 0; padding: 0 0 0 25px; }
 dd { margin: 0 0 0 25px; }
 
 /* We probably don't want list-styles showing if it's in a navigation. */
-nav ul, nav ol, #nav ul, #nav ol, #navigation ul, #navigation ol { list-style: none; list-style-image: none; margin: 0; padding: 0; }
+nav ul, nav ol, #nav ul, #nav ol, #navigation ul, #navigation ol { list-style: none none; margin: 0; padding: 0; }
 
 /*
 -------------------------------------------------------------------------------------------------------
@@ -224,7 +224,7 @@ label { cursor: pointer; font-size: 12px; font-weight: bold; }
 legend { border: 0; padding: 0; margin-left: 5px; font-size: 18px; font-weight: bold; }
 label.inline {margin-right: 4px; font-weight: normal!important;}
 
-button, input, select, textarea { font-size: 100%; margin: 0; vertical-align: baseline; *vertical-align: middle; margin: 5px 0 5px 0; }
+button, input, select, textarea { font-size: 100%; margin: 5px 0; vertical-align: middle; }
 
 select { min-width: 260px; }
 
@@ -250,7 +250,6 @@ input[type="button"] {
   background-image: -o-linear-gradient(#ffffff, #dddddd);
   background-image: linear-gradient(#ffffff, #dddddd);
   border: 1px solid;
-  font-size: 13px;
   line-height: 14px;
   border-color: #dddddd #bbbbbb #999999;
   cursor: pointer;
@@ -281,7 +280,7 @@ a.button {
 	padding-top: 2px;
 	margin-top: 15px;
 	margin-bottom: 25px;
-	float: left;
+	display: inline;
 }
 
 .cancel { padding: 4px 10px 5px 10px; }
@@ -341,7 +340,7 @@ input:valid, textarea:valid {  }
 input:invalid, textarea:invalid { background-color: #f0dddd; }
 
 form .required-icon {
-	background: url(../img/required.png) no-repeat;
+	background: url(../images/required.png) no-repeat;
 	width: 94px;
 	height: 28px;
 	text-indent: -9999px !important;
@@ -430,9 +429,9 @@ table th {
   border-right: 4px solid transparent;
   border-top: 4px solid #000;
   visibility: visible;
-  -webkit-grid-shadow: none;
-  -moz-grid-shadow: none;
-  grid-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
   filter: alpha(opacity=60);
   -khtml-opacity: 0.6;
   -moz-opacity: 0.6;
@@ -529,9 +528,9 @@ Helpers.
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
   border-radius: 4px;
-  -webkit-grid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-grid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-  grid-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
   -webkit-transition: 250ms linear all;
   -moz-transition: 250ms linear all;
   transition: 250ms linear all;
@@ -706,9 +705,9 @@ Helpers.
 }
 
 .btn:active {
-  -webkit-grid-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-grid-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
-  grid-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
@@ -1003,9 +1002,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
-  -webkit-grid-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  -moz-grid-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-  grid-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .pagination ul li {
@@ -1013,12 +1012,11 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .pagination ul li a {
-  float: left;
-  padding: 0 14px;
-  line-height: 34px;
-  border-right: 1px solid;
-  border-right-color: #dddddd;
-  text-decoration: none;
+	float: left;
+	padding: 0 14px;
+	line-height: 34px;
+	border-right: 1px solid #dddddd;
+	text-decoration: none;
 }
 
 .pagination ul li a:hover, .pagination ul li.active a {
@@ -1027,7 +1025,7 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
 }
 
 .pagination ul li.disabled a, .pagination ul li.disabled a:hover {
-  background-color: none;
+  background-color: inherit;
   color: #bfbfbf;
 }
 
@@ -1052,9 +1050,9 @@ button.btn::-moz-focus-inner, input[type=submit].btn::-moz-focus-inner {
   background-image: -webkit-linear-gradient(top, #333333, #222222);
   background-image: -o-linear-gradient(top, #333333, #222222);
   background-image: linear-gradient(top, #333333, #222222);
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .topbar nav {
@@ -1791,19 +1789,56 @@ ul.block-message { width: 100%; float: left; }
 .textright { text-align: right; }
 .textcenter { text-align: center; }
 
-/* Tooltip */
-.tipsy { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #ffffff; padding: 5px; position: absolute; z-index: 100000; }
-.tipsy a { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: #ffffff; }
-.tipsy-inner { padding: 5px 8px 6px 8px; background-color: black; color: white; max-width: 200px; text-align: left; border-radius: 3px; -moz-border-radius:3px; -webkit-border-radius:3px; font-size: 12px; }
-.tipsy-arrow { position: absolute; background: url('../images/tipsy.gif') no-repeat top left; width: 9px; height: 5px; }
-.tipsy-n .tipsy-arrow { top: 0; left: 50%; margin-left: -4px; }
-.tipsy-nw .tipsy-arrow { top: 0; left: 10px; }
-.tipsy-ne .tipsy-arrow { top: 0; right: 10px; }
-.tipsy-s .tipsy-arrow { bottom: 0; left: 50%; margin-left: -4px; background-position: bottom left; }
-.tipsy-sw .tipsy-arrow { bottom: 0; left: 10px; background-position: bottom left; }
-.tipsy-se .tipsy-arrow { bottom: 0; right: 10px; background-position: bottom left; }
-.tipsy-e .tipsy-arrow { top: 50%; margin-top: -4px; right: 0; width: 5px; height: 9px; background-position: top right; }
-.tipsy-w .tipsy-arrow { top: 50%; margin-top: -4px; left: 0; width: 5px; height: 9px; }
+/* Password Strength */
+input#user_password { float: left; }
+
+#progressbar {
+  background: #f1f1f1;
+  width: 388px;
+  height: 30px;
+  display: block;
+  border: 1px solid #d9d9d9;
+  border-radius: 5px;
+  overflow:hidden;
+  float: left;
+  margin: 10px 0 0 5px;
+}
+#progress {
+  display: block;
+  height: 30px;
+  width: 0%;
+}
+#complexity {
+  position: relative;
+  margin-left: 15px;
+  margin-top: -24px;
+  float: left;
+  color: #333333;
+  font-weight: 600;
+}
+
+.password-wrapper {
+  float: left;
+}
+
+.password-strong{ 
+  background-color:green;
+  background-image:-o-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:-moz-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:-webkit-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:-ms-linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+  background-image:linear-gradient(-90deg,#8AD702 0%,#389100 100%);
+}
+
+.password-weak{
+  background-color:red;
+  background-image:-o-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:-moz-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:-webkit-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:-ms-linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+  background-image:linear-gradient(-90deg,#F94046 0%,#92080B 100%);
+}
+
 
 /*
 -------------------------------------------------------------------------------------------------------

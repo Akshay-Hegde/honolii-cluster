@@ -23,7 +23,7 @@ class Settings_m extends MY_Model {
 	 */
 	public function get_settings()
 	{
-		$settings = '';
+		$settings = new stdClass();
 		
 		$result = $this->get_all();
 		
@@ -49,6 +49,6 @@ class Settings_m extends MY_Model {
 				->set('value', $value)
 				->update($this->_table);
 		}
-		return TRUE;
+		return true;
 	}
 }

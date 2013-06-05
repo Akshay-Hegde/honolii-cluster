@@ -8,7 +8,7 @@
  */
 class Module_Keywords extends Module {
 
-	public $version = '1.0';
+	public $version = '1.1.0';
 
 	public $_tables = array('keywords', 'keywords_applied');
 
@@ -22,10 +22,12 @@ class Module_Keywords extends Module {
 				'pt' => 'Palavras-chave',
 				'da' => 'Nøgleord',
 				'el' => 'Λέξεις Κλειδιά',
+                            'fa' => 'کلمات کلیدی',
 				'fr' => 'Mots-Clés',
 				'id' => 'Kata Kunci',
 				'nl' => 'Sleutelwoorden',
-				'zh' => '鍵詞',
+				'tw' => '鍵詞',
+				'cn' => '键词',
 				'hu' => 'Kulcsszavak',
 				'fi' => 'Avainsanat',
 				'sl' => 'Ključne besede',
@@ -39,10 +41,12 @@ class Module_Keywords extends Module {
 				'pt' => 'Mantém uma lista central de palavras-chave para rotular e organizar o seu conteúdo.',
 				'da' => 'Vedligehold en central liste af nøgleord for at organisere dit indhold.',
 				'el' => 'Συντηρεί μια κεντρική λίστα από λέξεις κλειδιά για να οργανώνετε μέσω ετικετών το περιεχόμενό σας.',
+                            'fa' => 'حفظ و نگهداری لیست مرکزی از کلمات کلیدی برای سازماندهی محتوا',
 				'fr' => 'Maintenir une liste centralisée de Mots-Clés pour libeller et organiser vos contenus.',
 				'id' => 'Memantau daftar kata kunci untuk melabeli dan mengorganisasikan konten.',
 				'nl' => 'Beheer een centrale lijst van sleutelwoorden om uw content te categoriseren en organiseren.',
-				'zh' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
+				'tw' => '集中管理可用於標題與內容的鍵詞(keywords)列表。',
+				'cn' => '集中管理可用于标题与内容的键词(keywords)列表。',
 				'hu' => 'Ez egy központi kulcsszó lista a cimkékhez és a tartalmakhoz.',
 				'fi' => 'Hallinnoi keskitettyä listaa avainsanoista merkitäksesi ja järjestelläksesi sisältöä.',
 				'sl' => 'Vzdržuj centralni seznam ključnih besed za označevanje in ogranizacijo vsebine.',
@@ -51,7 +55,7 @@ class Module_Keywords extends Module {
 			),
 			'frontend' => false,
 			'backend'  => true,
-			'menu'     => 'content',
+			'menu'     => 'data',
 			'shortcuts' => array(
 				array(
 			 	   'name' => 'keywords:add_title',

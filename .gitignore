@@ -3,13 +3,15 @@
 .project
 .settings
 assets/cache/*
+assets/page_types/*
 system/cms/cache/*
 system/cms/config/database.php
 system/cms/logs/log-*.php
 nbproject/
+uploads/*
 
 !wetumka custom below
-addons/sandbox/
-uploads/
 Capfile
 config/
+*.bak
+*.orig

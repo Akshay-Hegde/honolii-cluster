@@ -1,37 +1,38 @@
 <div class="row-fluid">    
     <div id="col-main" class="span7">
-    <?php if (isset($category->title)): ?>
-    <h2 id="page_title" class="category-title <?= $category->slug; ?>-title"><?= $category->title; ?></h2>
-    <?php endif; ?>
+        {{ if category }}
+        <h2 id="page_title" class="category-title {{ category:slug }}-title">{{ category:title }}</h2>
+        {{ endif }}
+        {{ if posts }}
+            {{ posts }}
+                {{ if category }}
+                <div class="mod block-post {{ category:slug }}-post">
+                {{ else }}
+                <div class="mod block-post nocat-post">
+                {{ endif }}
     
-    <?php if (!empty($blog)): ?>
-    <?php foreach ($blog as $post): ?>
-    	<?php $category_class = $post->category_slug ? $post->category_slug : 'nocat'; ?>
-    	<div class="mod block-post <?= $category_class ?>-post">
-    		<!-- Post heading -->		
-    		<div class="hd post-heading">
-    			<h4><a title="Read - <?= $post->title ?>" href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>"><?= $post->title ?></a></h4>
-    			<div class="post-date">
-    				<?= format_date($post->created_on,'M jS, Y') ?>
-    			</div>
-    		</div>
-    		<div class="bd post-body">
-    			<a title="Read - <?= $post->title ?>" href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="img-link"></a>
-    			<?php echo $post->intro; ?>
-    		</div>
-    		<div class="post-full">
-    		    <a title="Read - <?= $post->title ?>" href="<?= 'blog/' .date('Y/m', $post->created_on) .'/'. $post->slug ?>" class="cta">View More</a>
-    		</div>
-    		<hr />
-    	</div>
-    <?php endforeach; ?>
-    
-    <?php echo $pagination['links']; ?>
-    
-    <?php else: ?>
-    	<p><?php echo lang('blog_currently_no_posts');?></p>
-    <?php endif; ?>
-    
+            		<!-- Post heading -->		
+            		<div class="hd post-heading">
+            			<h4><a title="Read - {{ title }}" href="{{ url }}">{{ title }}</a></h4>
+            			<div class="post-date">
+            			    {{ helper:date timestamp=created_on format="M jS, Y" }}
+            			</div>
+            		</div>
+            		<div class="bd post-body">
+            			<a title="Read - {{ title }}" href="{{ url }}" class="img-link"></a>
+            			{{ preview }}
+            		</div>
+            		<div class="post-full">
+            		    <a title="Read - {{ title }}" href="{{ url }}" class="cta">View More</a>
+            		</div>
+            		<hr />
+            	</div>
+ 
+            {{ /posts }}
+            {{ pagination }}
+        {{ else }}
+            {{ helper:lang line="blog:currently_no_posts" }}
+        {{ endif }}
     </div>
     <aside id="col-rail" class="span5">
     	{{ widgets:area slug="blog-cat" }}

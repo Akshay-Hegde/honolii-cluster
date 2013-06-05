@@ -103,7 +103,7 @@ class Admin extends Admin_Controller {
 		//only allow modules that user has permissions for
 		foreach($all_modules as $module)
 		{
-			if(in_array($module['slug'], $this->permissions) OR $this->current_user->group == 'admin') $modules[] = $module;
+			if (in_array($module['slug'], $this->permissions) or $this->current_user->group == 'admin') $modules[] = $module;
 		}
 
 		$this->template->modules_select = array_for_select($modules, 'slug', 'name');
@@ -185,14 +185,15 @@ class Admin extends Admin_Controller {
 	{
 		$link = $this->navigation_m->get_url($link_id);
 
-		$ids = explode(',', $link[0]->restricted_to);
+		$ids = explode(',', $link->restricted_to);
 
 		$this->load->model('groups/group_m');
-		$groups = $this->group_m->where_in('id', $ids)->dropdown('id', 'name');
+		$this->db->where_in('id', $ids);
+		$groups = $this->group_m->dropdown('id', 'name');
 
-		$link[0]->{'restricted_to'} = implode(', ', $groups);
+		$link->restricted_to = implode(', ', $groups);
 
-		$this->load->view('admin/ajax/link_details', array('link' => $link['0']));
+		$this->load->view('admin/ajax/link_details', array('link' => $link));
 	}
 
 	/**
@@ -228,7 +229,7 @@ class Admin extends Admin_Controller {
 
 				Events::trigger('post_navigation_create', $input);
 
-				$this->session->set_flashdata('success', lang('nav_link_add_success'));
+				$this->session->set_flashdata('success', lang('nav:link_add_success'));
 
 				// echo success to let the js refresh the page
 				echo 'success';
@@ -236,7 +237,7 @@ class Admin extends Admin_Controller {
 			}
 			else
 			{
-				$this->template->messages['error'] = lang('nav_link_add_error');
+				$this->template->messages['error'] = lang('nav:link_add_error');
 
 				echo $this->load->view('admin/partials/notices', $this->template);
 				return;
@@ -250,21 +251,21 @@ class Admin extends Admin_Controller {
 			return;
 		}
 
-		$navigation_link = (object)array();
+		$link = (object)array();
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			$navigation_link->{$rule['field']} = set_value($rule['field']);
+			$link->{$rule['field']} = set_value($rule['field']);
 		}
 
-		$navigation_link->navigation_group_id = $group_id;
+		$link->navigation_group_id = $group_id;
 
 		$this->template
-			->set('navigation_link',$navigation_link);
+			->set('link',$link);
 
 		// Get Pages and create pages tree
-		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->link->page_id));
 
 		$this->template
 			->set_layout(false)
@@ -285,7 +286,7 @@ class Admin extends Admin_Controller {
 		}
 
 		// Get the navigation item based on the ID
-		$this->template->navigation_link = $this->navigation_m->get_link($id);
+		$link = $this->navigation_m->get_link($id);
 
 		// Set the options for restricted to
 		$this->load->model('groups/group_m');
@@ -294,14 +295,12 @@ class Admin extends Admin_Controller {
 		{
 			$group_options[$group->id] = $group->name;
 		}
-		$this->template->group_options = $group_options;
 
-		if ( ! $this->template->navigation_link)
+		if ( ! $link)
 		{
-			$this->template->messages['error'] = lang('nav_link_not_exist_error');
+			$this->template->messages['error'] = lang('nav:link_not_exist_error');
 
-			echo $this->load->view('admin/partials/notices', $this->template);
-			return;
+			exit($this->load->view('admin/partials/notices', compact('link', 'group_options')));
 		}
 
 		// Valid data?
@@ -316,36 +315,34 @@ class Admin extends Admin_Controller {
 
 			Events::trigger('post_navigation_edit', $input);
 
-			$this->session->set_flashdata('success', lang('nav_link_edit_success'));
+			$this->session->set_flashdata('success', lang('nav:link_edit_success'));
 
 			// echo success to let the js refresh the page
-			echo 'success';
-			return;
+			exit('success');
 		}
 
 		// check for errors
 		if (validation_errors())
 		{
-			echo $this->load->view('admin/partials/notices', $this->template);
-			return;
+			exit($this->load->view('admin/partials/notices', $this->template));
 		}
 
 		// Loop through each rule
-		foreach($this->validation_rules as $rule)
+		foreach ($this->validation_rules as $rule)
 		{
-			if($this->input->post($rule['field']) !== FALSE)
+			if ($this->input->post($rule['field']) !== null)
 			{
-				$this->template->navigation_link->{$rule['field']} = $this->input->post($rule['field']);
+				$link->{$rule['field']} = $this->input->post($rule['field']);
 			}
 		}
 
 		// Get Pages and create pages tree
-		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $this->template->navigation_link->page_id));
+		$this->template->tree_select = $this->_build_tree_select(array('current_parent' => $link->page_id));
 
 		// Render the view
 		$this->template
 			->set_layout(false)
-			->build('admin/ajax/form');
+			->build('admin/ajax/form', compact('link', 'group_options'));
 	}
 
 	/**
@@ -369,7 +366,7 @@ class Admin extends Admin_Controller {
 		}
 		// Flush the cache and redirect
 		$this->pyrocache->delete_all('navigation_m');
-		$this->session->set_flashdata('success', $this->lang->line('nav_link_delete_success'));
+		$this->session->set_flashdata('success', $this->lang->line('nav:link_delete_success'));
 		redirect('admin/navigation');
 	}
 
@@ -382,7 +379,7 @@ class Admin extends Admin_Controller {
 	 *
 	 * @return string
 	 */
-	function _build_tree_select($params)
+	public function _build_tree_select($params)
 	{
 		$params = array_merge(array(
 			'tree'			=> array(),
@@ -452,15 +449,16 @@ class Admin extends Admin_Controller {
 	 * Only the URI field may be submitted blank.
 	 *
 	 * @param string $link The link value
+	 * @return bool
 	 */
 	public function _link_check($link)
 	{
-		$status = TRUE;
+		$status = true;
 
 		switch ($link) {
 
 			case 'url':
-				$status = ($this->input->post('url') > '' AND $this->input->post('url') !== 'http://');
+				$status = ($this->input->post('url') > '' and $this->input->post('url') !== 'http://');
 			break;
 
 			case 'module':
@@ -474,7 +472,7 @@ class Admin extends Admin_Controller {
 
 		if ( ! $status)
 		{
-			$this->form_validation->set_message('_link_check', sprintf(lang('nav_choose_value'), lang('nav_'.$link.'_label')));
+			$this->form_validation->set_message('_link_check', sprintf(lang('nav:choose_value'), lang('nav:'.$link.'_label')));
 			return false;
 		}
 		return true;

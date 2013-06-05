@@ -30,6 +30,8 @@ class Addons extends Sites_Controller
 	 */
 	public function index()
 	{
+		$data = new stdClass();
+		
 		// set it so we can access the core_sites table
 		$this->db->set_dbprefix('core_');
 		$data->site = $this->sites_m->get_by('ref', $this->ref);
@@ -45,8 +47,8 @@ class Addons extends Sites_Controller
 			$data->plugins 	= $this->addons_m->index_plugins($data->site->ref);
 		}
 
-		$this->template->title(lang('site.sites'), lang('site.addons'))
-						->set('description', lang('site.manage_addons_desc'))
+		$this->template->title(lang('site:sites'), lang('site:addons'))
+						->set('description', lang('site:manage_addons_desc'))
 						->build('addons', $data);
 	}
 	
@@ -80,7 +82,7 @@ class Addons extends Sites_Controller
 			$config['upload_path'] 		= FCPATH.'uploads/'.$this->ref;
 			$config['allowed_types'] 	= 'zip';
 			$config['max_size']			= '2048';
-			$config['overwrite'] 		= TRUE;
+			$config['overwrite'] 		= true;
 
 			$this->load->library('upload', $config);
 
@@ -91,7 +93,7 @@ class Addons extends Sites_Controller
 				// Check if we already have an addon with same name
 				if ($this->addons_m->exists($upload_data['raw_name']))
 				{
-					$this->session->set_flashdata('error', sprintf(lang('site.addon_exists'), $upload_data['raw_name']));
+					$this->session->set_flashdata('error', sprintf(lang('site:addon_exists'), $upload_data['raw_name']));
 				}
 
 				else
@@ -101,13 +103,13 @@ class Addons extends Sites_Controller
 					$this->unzip->allow(array('xml', 'html', 'css', 'js', 'png', 'gif', 'jpeg', 'jpg', 'swf', 'ico', 'php', 'txt', 'eot', 'svg', 'ttf', 'woff'));
 
 					// Try and extract
-					if ( ! is_string($this->slug = $this->unzip->extract($upload_data['full_path'], $path.$this->type.'s', TRUE, TRUE)) )
+					if ( ! is_string($this->slug = $this->unzip->extract($upload_data['full_path'], $path.$this->type.'s', true, true)) )
 					{
 						$this->session->set_flashdata('error', $this->unzip->error_string());
 					}
 					else
 					{
-						$this->session->set_flashdata('success', sprintf(lang('site.upload_success'), $this->type));
+						$this->session->set_flashdata('success', sprintf(lang('site:upload_success'), $this->type));
 					}
 				}
 
@@ -137,12 +139,12 @@ class Addons extends Sites_Controller
 	{
 		if ($this->addons_m->uninstall())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('site.uninstall_success'), $this->slug));
+			$this->session->set_flashdata('success', sprintf(lang('site:uninstall_success'), $this->slug));
 
 			redirect('sites/addons/index/'.$this->ref);
 		}
 
-		$this->session->set_flashdata('error', sprintf(lang('site.uninstall_error'), $this->slug));
+		$this->session->set_flashdata('error', sprintf(lang('site:uninstall_error'), $this->slug));
 		redirect('sites/addons/index/'.$this->ref);
 	}
 
@@ -160,9 +162,9 @@ class Addons extends Sites_Controller
 		$slug	= $this->slug;
 		
 		// Don't allow user to delete the entire module folder
-		if ($this->slug == '/' OR $this->slug == '*' OR empty($this->slug))
+		if ($this->slug == '/' or $this->slug == '*' OR empty($this->slug))
 		{
-			show_error(lang('site.addon_not_specified'));
+			show_error(lang('site:addon_not_specified'));
 		}
 		
 		// only modules and widgets need attention at the database level
@@ -180,9 +182,9 @@ class Addons extends Sites_Controller
 		}
 
 		// delete the files
-		if ( ! in_array(FALSE, $status))
+		if ( ! in_array(false, $status))
 		{
-			$this->session->set_flashdata('success', sprintf(lang('site.delete_success'), $slug));
+			$this->session->set_flashdata('success', sprintf(lang('site:delete_success'), $slug));
 
 			if ($this->shared == '1')
 			{
@@ -196,13 +198,13 @@ class Addons extends Sites_Controller
 			// and... delete
 			if (!$this->_delete_recursive($path))
 			{
-				$this->session->set_flashdata('notice', sprintf(lang('site.manually_remove'), $path));
+				$this->session->set_flashdata('notice', sprintf(lang('site:manually_remove'), $path));
 			}
 
 			redirect('sites/addons/index/'.$this->ref);
 		}
 
-		$this->session->set_flashdata('error', sprintf(lang('site.delete_addon_error'), $slug));
+		$this->session->set_flashdata('error', sprintf(lang('site:delete_addon_error'), $slug));
 		redirect('sites/addons/index/'.$this->ref);
 	}
 
@@ -218,11 +220,11 @@ class Addons extends Sites_Controller
 	{
 		if ($this->addons_m->install())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('site.install_success'), $this->slug));
+			$this->session->set_flashdata('success', sprintf(lang('site:install_success'), $this->slug));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('site.install_error'), $this->slug));
+			$this->session->set_flashdata('error', sprintf(lang('site:install_error'), $this->slug));
 		}
 
 		redirect('sites/addons/index/'.$this->ref);
@@ -240,11 +242,11 @@ class Addons extends Sites_Controller
 	{
 		if ($this->addons_m->enable())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('site.enable_success'), $this->slug));
+			$this->session->set_flashdata('success', sprintf(lang('site:enable_success'), $this->slug));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('site.enable_error'), $this->slug));
+			$this->session->set_flashdata('error', sprintf(lang('site:enable_error'), $this->slug));
 		}
 
 		redirect('sites/addons/index/'.$this->ref);
@@ -262,11 +264,11 @@ class Addons extends Sites_Controller
 	{
 		if ($this->addons_m->disable())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('site.disable_success'), $this->slug));
+			$this->session->set_flashdata('success', sprintf(lang('site:disable_success'), $this->slug));
 		}
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('site.disable_error'), $this->slug));
+			$this->session->set_flashdata('error', sprintf(lang('site:disable_error'), $this->slug));
 		}
 
 		redirect('sites/addons/index/'.$this->ref);
@@ -285,12 +287,12 @@ class Addons extends Sites_Controller
 		// If upgrade succeeded
 		if ($this->addons_m->upgrade())
 		{
-			$this->session->set_flashdata('success', sprintf(lang('site.upgrade_success'), $this->slug));
+			$this->session->set_flashdata('success', sprintf(lang('site:upgrade_success'), $this->slug));
 		}
 		// If upgrade failed
 		else
 		{
-			$this->session->set_flashdata('error', sprintf(lang('site.upgrade_error'), $this->slug));
+			$this->session->set_flashdata('error', sprintf(lang('site:upgrade_error'), $this->slug));
 		}
 		
 		redirect('sites/addons/index/'.$this->ref);
@@ -331,6 +333,6 @@ class Addons extends Sites_Controller
 			}
 			@rmdir($str);
 		}
-		return (is_dir($str) OR is_file($str)) ? FALSE : TRUE;
+		return (is_dir($str) OR is_file($str)) ? false : true;
     }
 }

@@ -33,6 +33,7 @@ class Widget_Html extends Widgets
 		'id' => 'Membuat blok HTML apapun',
 		'fi' => 'Luo lohkoja omasta HTML koodista',
 		'fr' => 'Créez des blocs HTML personnalisés',
+            'fa' => 'ایجاد قسمت ها به صورت اچ تی ام ال',
 	);
 	
 	/**
@@ -54,7 +55,7 @@ class Widget_Html extends Widgets
 	 *
 	 * @var string
 	 */
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	/**
 	 * The fields for customizing the options of the widget.
@@ -83,7 +84,7 @@ class Widget_Html extends Widgets
 		}
 
 		// Store the feed items
-		return array('output' => $this->parser->parse_string($options['html'], NULL, TRUE));
+		return array('output' => $this->parser->parse_string($options['html'], null, true));
 	}
 
 }

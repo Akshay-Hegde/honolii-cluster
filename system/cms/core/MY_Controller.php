@@ -5,16 +5,12 @@ require APPPATH."libraries/MX/Controller.php";
 /**
  * Code here is run before ALL controllers
  * 
- * @package PyroCMS\Core\Controllers 
+ * @package 	PyroCMS\Core\Controllers
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  */
 class MY_Controller extends MX_Controller
 {
-	/**
-	 * No longer used globally
-	 * 
-	 * @deprecated remove in 2.2
-	 */
-	protected $data;
 
 	/**
 	 * The name of the module that this controller instance actually belongs to.
@@ -49,7 +45,7 @@ class MY_Controller extends MX_Controller
 		// No record? Probably DNS'ed but not added to multisite
 		if ( ! defined('SITE_REF'))
 		{
-			show_error('The domain "'.SITE_DOMAIN.'" does not match a site. Please go to '.anchor('sites') .' and log in to add this domain.');
+			show_error('This domain is not set up correctly. Please go to '.anchor('sites') .' and log in to add this site.');
 		}
 		
 		// TODO: Work out what the hell this is...? Phil
@@ -76,7 +72,7 @@ class MY_Controller extends MX_Controller
 		}
 
 		// Result of schema version migration
-		else if (is_numeric($schema_version))
+		elseif (is_numeric($schema_version))
 		{
 			log_message('debug', 'PyroCMS was migrated to version: ' . $schema_version);
 		}
@@ -85,7 +81,7 @@ class MY_Controller extends MX_Controller
 		$this->load->library(array('session', 'settings/settings'));
 
 		// Lock front-end language
-		if ( ! (is_a($this, 'Admin_Controller') && ($site_lang = AUTO_LANGUAGE)))
+		if ( ! (is_a($this, 'Admin_Controller') and ($site_lang = AUTO_LANGUAGE)))
 		{
 			$site_public_lang = explode(',', Settings::get('site_public_lang'));
 
@@ -99,6 +95,12 @@ class MY_Controller extends MX_Controller
 			}
 		}
 
+		// We can't have a blank language. If there happens
+		// to be a blank language, let's default to English.
+		if ( ! $site_lang) {
+			$site_lang = 'en';
+		}
+
 		// What language us being used
 		defined('CURRENT_LANGUAGE') or define('CURRENT_LANGUAGE', $site_lang);
 
@@ -110,7 +112,7 @@ class MY_Controller extends MX_Controller
 		$this->load->vars($pyro);
 
 		// Set php locale time
-		if (isset($langs[CURRENT_LANGUAGE]['codes']) && sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
+		if (isset($langs[CURRENT_LANGUAGE]['codes']) and sizeof($locale = (array) $langs[CURRENT_LANGUAGE]['codes']) > 1)
 		{
 			array_unshift($locale, LC_TIME);
 			call_user_func_array('setlocale', $locale);
@@ -129,13 +131,10 @@ class MY_Controller extends MX_Controller
 			$this->lang->load(array('global', 'users/user', 'files/files'));
 		}
 
-		$this->load->library(array('events', 'users/ion_auth'));
+		$this->load->library('users/ion_auth');
 
 		// Use this to define hooks with a nicer syntax
 		ci()->hooks =& $GLOBALS['EXT'];
-
-		// Create a hook point with access to instance but before custom code
-		$this->hooks->_call_hook('post_core_controller_constructor');
 
 		// Get user data
 		$this->template->current_user = ci()->current_user = $this->current_user = $this->ion_auth->get_user();
@@ -148,16 +147,56 @@ class MY_Controller extends MX_Controller
 		// Loaded after $this->current_user is set so that data can be used everywhere
 		$this->load->model(array(
 			'permissions/permission_m',
-			'modules/module_m',
+			'addons/module_m',
+			'addons/theme_m',
 			'pages/page_m',
-			'themes/theme_m',
 		));
 
 		// List available module permissions for this user
 		ci()->permissions = $this->permissions = $this->current_user ? $this->permission_m->get_group($this->current_user->group_id) : array();
 
-		// Get meta data for the module
-		$this->template->module_details = ci()->module_details = $this->module_details = $this->module_m->get($this->module);
+		// load all modules (the Events library uses them all) and make their details widely available
+		ci()->enabled_modules = $this->module_m->get_all();
+
+		// now that we have a list of enabled modules
+		$this->load->library('events');
+
+		// set defaults
+		$this->template->module_details = ci()->module_details = $this->module_details = false;
+
+		// now pick our current module out of the enabled modules array
+		foreach (ci()->enabled_modules as $module)
+		{
+			if ($module['slug'] === $this->module)
+			{
+				// Set meta data for the module to be accessible system wide
+				$this->template->module_details = ci()->module_details = $this->module_details = $module;
+
+				continue;
+			}
+		}
+
+		// certain places (such as the Dashboard) we aren't running a module, provide defaults
+		if ( ! $this->module)
+		{
+			$this->module_details = array(
+				'name' => null,
+				'slug' => null,
+				'version' => null,
+				'description' => null,
+				'skip_xss' => null,
+				'is_frontend' => null,
+				'is_backend' => null,
+				'menu' => false,
+				'enabled' => 1,
+				'sections' => array(),
+				'shortcuts' => array(),
+				'is_core' => null,
+				'is_current' => null,
+				'current_version' => null,
+				'updated_on' => null
+			);
+		}
 
 		// If the module is disabled, then show a 404.
 		empty($this->module_details['enabled']) AND show_404();
@@ -177,10 +216,10 @@ class MY_Controller extends MX_Controller
 		$this->benchmark->mark('my_controller_end');
 		
 		// Enable profiler on local box
-	    if ((isset($this->current_user->group) AND $this->current_user->group == 'admin') AND is_array($_GET) AND array_key_exists('_debug', $_GET) )
+	    if ((isset($this->current_user->group) and $this->current_user->group === 'admin') and is_array($_GET) and array_key_exists('_debug', $_GET))
 	    {
 			unset($_GET['_debug']);
-	    	$this->output->enable_profiler(TRUE);
+	    	$this->output->enable_profiler(true);
 	    }
 	}
 }
