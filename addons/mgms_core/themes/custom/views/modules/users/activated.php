@@ -1,7 +1,7 @@
 <h3 class="col-headline"><?= lang('user_login_header') ?></h3>
 
 <div class="success">
-	<?= $this->lang->line('user_activated_message'); ?>
+	<?= $this->lang->line('user:activated_message'); ?>
 </div>
 
 <?php
@@ -14,12 +14,12 @@
 
 <?= form_open('users/login', array('id'=>'login')); ?>
 
-	<?= form_label(lang('user_email'),$form_data['email']['id']); ?>
+	<?= form_label(lang('global:email'),$form_data['email']['id']); ?>
 	<?= form_input($form_data['email']);?>
 
-	<?= form_label(lang('user_password'),$form_data['password']['id']); ?>
+	<?= form_label(lang('global:password'),$form_data['password']['id']); ?>
 	<?= form_password($form_data['password']);?>
 	<hr class="space"/>
-	<?= form_submit('btnLogin', lang('user_login_btn'), 'class="button"') ?>
+	<?= form_submit('btnLogin', lang('user:login_btn'), 'class="button"') ?>
 
 <?= form_close(); ?>

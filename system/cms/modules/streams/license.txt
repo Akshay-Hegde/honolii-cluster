@@ -1,4 +1,4 @@
-This license is a legal agreement between you ("the buyer") and Parse19 ("P19") for the use of PyroStreams ("the Software"). By downloading the Software you agree to be bound by the terms and conditions of this license. Parse19 reserves the right to alter this agreement at any time, for any reason, without notice.
+This license is a legal agreement between you ("the buyer") and Adam Fairholm ("AF") for the use of PyroStreams ("the Software"). By downloading the Software you agree to be bound by the terms and conditions of this license. Parse19 reserves the right to alter this agreement at any time, for any reason, without notice.
 
 Permitted Use
 =============
@@ -8,7 +8,7 @@ One license grants the buyer the right to perform one installation of the Softwa
 Restrictions
 ============
 
-Unless the buyer has been granted prior, written consent from P19, the buyer may not:
+Unless the buyer has been granted prior, written consent from AF, the buyer may not:
 
     * Reproduce, distribute, or transfer the Software, or portions thereof, to any third party.
     * Sell, rent, lease, assign, or sublet the Software or portions thereof.
@@ -29,32 +29,32 @@ The buyer may make copies of the Software for back-up purposes, provided that th
 Software Modification
 =====================
 
-The buyer may alter, modify, or extend the Software for the buyer's own use, or commission a third-party to perform modifications for the buyer, but the buyer may not resell, redistribute or transfer the modified or derivative version without prior written consent from P19. Components from the Software may not be extracted for use in other programs or for any other purpose without prior written consent from P19.
+The buyer may alter, modify, or extend the Software for the buyer's own use, or commission a third-party to perform modifications for the buyer, but the buyer may not resell, redistribute or transfer the modified or derivative version without prior written consent from AF. Components from the Software may not be extracted for use in other programs or for any other purpose without prior written consent from AF.
 
 Technical Support
 =================
 
-Technical support is available primarily through the Green Egg Media website located at http://www.greeneggmedia.com/mojoblocks/support. No representations or guarantees are made regarding the response time for support requests. P19 reserves to right to terminate official technical support at any time and for any reason with or without notice.
+Technical support is available primarily through the PyroCMS four,s website located at https://forum.pyrocms.com. No representations or guarantees are made regarding the response time for support requests. AF reserves to right to terminate official technical support at any time and for any reason with or without notice.
 
 Refunds
 =======
 
-P19 offers refunds on software within 30 days of purchase. Send a refund request for assistance.
+AF offers refunds on software within 30 days of purchase. Send a refund request for assistance.
 
 Indemnity
 =========
 
-The buyer agrees to indemnify, hold harmless, protect, and defend P19 and its subcontractors against any claims, actions or suits, as well as any related expenses, liabilities, damages, settlements or fees arising from the buyer's use or misuse of the Software, or a violation of any terms of this license.
+The buyer agrees to indemnify, hold harmless, protect, and defend AF and its subcontractors against any claims, actions or suits, as well as any related expenses, liabilities, damages, settlements or fees arising from the buyer's use or misuse of the Software, or a violation of any terms of this license.
 
 Disclaimer Of Warranty
 ======================
 
-THE SOFTWARE IS PROVIDED "AS IS." P19 provides no warranty of any kind, express or implied, including warranties of quality, performance, non-infringement, merchantability, or fitness for a particular purpose. P19 does not guarantee that the functions of the Software will meet the buyer's ongoing requirements or that the operation of the Software will be uninterrupted or error-free. The entire risk as to the quality and performance of the Software is with the buyer. P19 does not warrant the the Software or support for the Software will always be available.
+THE SOFTWARE IS PROVIDED "AS IS." AF provides no warranty of any kind, express or implied, including warranties of quality, performance, non-infringement, merchantability, or fitness for a particular purpose. AF does not guarantee that the functions of the Software will meet the buyer's ongoing requirements or that the operation of the Software will be uninterrupted or error-free. The entire risk as to the quality and performance of the Software is with the buyer. AF does not warrant the the Software or support for the Software will always be available.
 
 Limitations Of Liability
 ========================
 
-The buyer assumes all risk associated with the installation and operation of the Software. In no event will P19 or its assigns be liable to the buyer or any third party for any damages, including any lost profits, lost savings or other incidental, consequential or special damages arising out of the operation of or inability to operate software or its components, even if P19 has been advised of the possibility of such damages. The buyer is solely responsible for determining the appropriateness of use and assumes all risks associated with its use, including, but not limited to, the risks of program errors, damage to equipment, loss of data, or unavailability or interruption of operations.
+The buyer assumes all risk associated with the installation and operation of the Software. In no event will AF or its assigns be liable to the buyer or any third party for any damages, including any lost profits, lost savings or other incidental, consequential or special damages arising out of the operation of or inability to operate software or its components, even if AF has been advised of the possibility of such damages. The buyer is solely responsible for determining the appropriateness of use and assumes all risks associated with its use, including, but not limited to, the risks of program errors, damage to equipment, loss of data, or unavailability or interruption of operations.
 
 Choice of Law
 =============

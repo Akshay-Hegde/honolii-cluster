@@ -15,9 +15,9 @@ class Field_relationship
 	
 	public $db_col_type				= 'int';
 
-	public $custom_parameters		= array( 'choose_stream' );
+	public $custom_parameters		= array( 'choose_stream', 'link_uri' );
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 
@@ -44,7 +44,7 @@ class Field_relationship
 		
 		if ( ! $stream)
 		{
-			return '<em>'.$this->CI->lang->line('streams.relationship.doesnt_exist').'</em>';
+			return '<em>'.$this->CI->lang->line('streams:relationship.doesnt_exist').'</em>';
 		}
 
 		$title_column = $stream->title_column;
@@ -74,7 +74,7 @@ class Field_relationship
 		}
 		
 		// Output the form input
-		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.$data['form_slug'].'"');
+		return form_dropdown($data['form_slug'], $choices, $data['value'], 'id="'.rand_string(10).'"');
 	}
 
 	// --------------------------------------------------------------------------
@@ -107,24 +107,21 @@ class Field_relationship
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Process before outputting on the CP
+	 * Pre Ouput
+	 *
+	 * Process before outputting on the CP. Since
+	 * there is less need for performance on the back end,
+	 * this is accomplished via just grabbing the title column
+	 * and the id and displaying a link (ie, no joins here).
 	 *
 	 * @access	public
-	 * @param	array
-	 * @return	mixed - null or string
+	 * @param	array 	$input 	
+	 * @return	mixed 	null or string
 	 */
 	public function pre_output($input, $data)
 	{
 		if ( ! $input) return null;
 
-		// We only need this in the admin.
-		// Relationships are taken care of by a join
-		// on the front end
-		if ($this->CI->uri->segment(1) != 'admin')
-		{
-			return null;
-		}
-	
 		$stream = $this->CI->streams_m->get_stream($data['choose_stream']);
 
 		$title_column = $stream->title_column;
@@ -140,7 +137,7 @@ class Field_relationship
 			return null;
 		}
 		
-		// We need to make sure the select is NOT null.
+		// We need to make sure the select is NOT NULL.
 		// So, if we have no title column, let's use the id
 		if (trim($title_column) == '')
 		{
@@ -152,32 +149,94 @@ class Field_relationship
 		// -------------------------------------
 		
 		$row = $this->CI->db
-						->select('id, '.$title_column)
+						->select()
 						->where('id', $input)
 						->get($stream->stream_prefix.$stream->stream_slug)
-						->row();
+						->row_array();
 		
-		if (isset($row->$title_column))
+		if ($this->CI->uri->segment(1) == 'admin')
 		{
-			return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row->id).'">'.$row->$title_column.'</a>';
+			if (isset($data['link_uri']) and ! empty($data['link_uri']))
+			{
+				return '<a href="'.site_url(str_replace(array('-id-', '-stream-'), array($row['id'], $stream->stream_slug), $data['link_uri'])).'">'.$row[$title_column].'</a>';
+			}
+			else
+			{
+				return '<a href="'.site_url('admin/streams/entries/view/'.$stream->id.'/'.$row['id']).'">'.$row[$title_column].'</a>';
+			}
 		}
-		
-		return null;
+		else
+		{
+			return $row;
+		}
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * User Field Type Query Build Hook
+	 *
+	 * This joins our related fields so they don't have to
+	 * be queried separately in pre_output_plugin. Pre_output_plugin
+	 * now just formats the rows.
+	 *
+	 * @access 	public
+	 * @param 	array 	&$sql 	The sql array to add to.
+	 * @param 	obj 	$field 	The field obj
+	 * @param 	obj 	$stream The stream object
+	 * @return 	void
+	 */
+	public function query_build_hook(&$sql, $field, $stream)
+	{
+		// Create a special alias for the users table.
+		$alias = 'rel_'.$field->field_slug;
+
+		// Make sure we have a related stream.
+		if ( ! isset($field->field_data['choose_stream']) or ! $field->field_data['choose_stream'])
+		{
+			return null;
+		}
+
+		// Get our related stream.
+		$rel_stream = $this->CI->streams_m->get_stream($field->field_data['choose_stream']);
+
+		if ( ! $rel_stream)
+		{
+			return null;
+		}
+
+		// Basic fields
+		$sql['select'][] = '`'.$alias.'`.`id` as `'.$field->field_slug.'||id`';
+		$sql['select'][] = '`'.$alias.'`.`created` as `'.$field->field_slug.'||created`';
+		$sql['select'][] = '`'.$alias.'`.`updated` as `'.$field->field_slug.'||updated`';
+		$sql['select'][] = '`'.$alias.'`.`created_by` as `'.$field->field_slug.'||created_by`';
+		$sql['select'][] = '`'.$alias.'`.`ordering_count` as `'.$field->field_slug.'||ordering_count`';
+
+		// Get stream fields.
+		$stream_fields = $this->CI->streams_m->get_stream_fields($rel_stream->id);
+
+		foreach ($stream_fields as $field_slug => $stream_field)
+		{
+			if (! $this->CI->db->field_exists($field_slug, $rel_stream->stream_prefix.$rel_stream->stream_slug)) continue;
+			
+			$sql['select'][] = '`'.$alias.'`.`'.$field_slug.'` as `'.$field->field_slug.'||'.$field_slug.'`';
+		}
+
+		$sql['join'][] = 'LEFT JOIN '.$this->CI->db->protect_identifiers($rel_stream->stream_prefix.$rel_stream->stream_slug, true).' as `'.$alias.'` ON `'.$alias.'`.`id`='.$this->CI->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$field->field_slug, true);
 	}
 
 	// --------------------------------------------------------------------------
 	
 	/**
-	 * Format a relationship row
+	 * Pre Ouput Plugin
 	 * 
-	 * Note - this will only be processed in the event
-	 * of a relationship inside of a relationship. Top-level
-	 * relationships are handled by a join.
+	 * This takes the data from the join array
+	 * and formats it using the row parser.
 	 *
 	 * @access	public
-	 * @param	string
-	 * @param	string
-	 * @param	mixed - null or array
+	 * @param	array 	$row 		the row data from the join
+	 * @param	array  	$custom 	custom field data
+	 * @param	mixed 	null or formatted array
 	 */
 	public function pre_output_plugin($row, $custom)
 	{
@@ -192,33 +251,18 @@ class Field_relationship
 		// Okay good to go
 		$stream = $this->CI->streams_m->get_stream($custom['choose_stream']);
 
-		// Do it gracefully
+		// Do this gracefully
 		if ( ! $stream)
 		{
 			return null;
 		}
 
-		$obj = $this->CI->db->where('id', $row)->get($stream->stream_prefix.$stream->stream_slug);
-		
-		if ($obj->num_rows() == 0)
-		{
-			return null;
-		}
-		
-		$returned_row = $obj->row();
-		
-		foreach ($returned_row as $key => $val)
-		{
-			$return[$key] = $val;
-		}
-		
 		$stream_fields = $this->CI->streams_m->get_stream_fields($stream->id);
 
-		$return_row = $this->CI->row_m->format_row($return, $stream_fields, $stream, false, true);
+		// We should do something with this in the future.
+		$disable = array();
 
-		$this->cache[$custom['choose_stream']][$row] = $return_row;
-		
-		return $return_row;
+		return $this->CI->row_m->format_row($row, $stream_fields, $stream, false, true, $disable);
 	}
 
 }

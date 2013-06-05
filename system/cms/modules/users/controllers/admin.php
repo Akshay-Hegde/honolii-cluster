@@ -21,12 +21,12 @@ class Admin extends Admin_Controller
 	private $validation_rules = array(
 		'email' => array(
 			'field' => 'email',
-			'label' => 'lang:user_email_label',
+			'label' => 'lang:global:email',
 			'rules' => 'required|max_length[60]|valid_email'
 		),
 		'password' => array(
 			'field' => 'password',
-			'label' => 'lang:user_password_label',
+			'label' => 'lang:global:password',
 			'rules' => 'min_length[6]|max_length[20]'
 		),
 		'username' => array(
@@ -65,7 +65,7 @@ class Admin extends Admin_Controller
 		$this->load->library('form_validation');
 		$this->lang->load('user');
 
-		if($this->current_user->group != 'admin') 
+		if ($this->current_user->group != 'admin') 
 		{
 			$this->template->groups = $this->group_m->where_not_in('name', 'admin')->get_all();
 		} 
@@ -99,22 +99,22 @@ class Admin extends Admin_Controller
 
 		// Create pagination links
 		$pagination = create_pagination('admin/users/index', $this->user_m->count_by($base_where));
-		
+
 		//Skip admin
 		$skip_admin = ( $this->current_user->group != 'admin' ) ? 'admin' : '';
 
 		// Using this data, get the relevant results
-		$users = $this->user_m
-			->order_by('active', 'desc')
+		$this->db->order_by('active', 'desc')
 			->join('groups', 'groups.id = users.group_id')
 			->where_not_in('groups.name', $skip_admin)
-			->limit($pagination['limit'])
-			->get_many_by($base_where);
+			->limit($pagination['limit'], $pagination['offset']);
+
+		$users = $this->user_m->get_many_by($base_where);
 
 		// Unset the layout if we have an ajax request
 		if ($this->input->is_ajax_request())
 		{
-			$this->template->set_layout(FALSE);
+			$this->template->set_layout(false);
 		}
 
 		// Render the view
@@ -172,11 +172,14 @@ class Admin extends Admin_Controller
 		// Set the validation rules
 		$this->form_validation->set_rules(array_merge($this->validation_rules, $profile_validation));
 
-		$email = $this->input->post('email');
+		$email = strtolower($this->input->post('email'));
 		$password = $this->input->post('password');
 		$username = $this->input->post('username');
 		$group_id = $this->input->post('group_id');
 		$activate = $this->input->post('active');
+
+		// keep non-admins from creating admin accounts. If they aren't an admin then force new one as a "user" account
+		$group_id = ($this->current_user->group !== 'admin' and $group_id == 1) ? 2 : $group_id;
 
 		// Get user profile data. This will be passed to our
 		// streams insert_entry data in the model.
@@ -187,6 +190,9 @@ class Admin extends Admin_Controller
 		{
 			$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 		}
+
+		// Some stream fields need $_POST as well.
+		$profile_data = array_merge($profile_data, $_POST);
 
 		$profile_data['display_name'] = $this->input->post('display_name');
 
@@ -219,7 +225,9 @@ class Admin extends Admin_Controller
 
 				// Set the flashdata message and redirect
 				$this->session->set_flashdata('success', $this->ion_auth->messages());
-				redirect('admin/users');
+
+				// Redirect back to the form or main page
+				$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$user_id);
 			}
 			// Error
 			else
@@ -233,8 +241,9 @@ class Admin extends Admin_Controller
 			// re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
+
 		}
 
 		if ( ! isset($member))
@@ -248,14 +257,19 @@ class Admin extends Admin_Controller
 			$member->{$rule['field']} = set_value($rule['field']);
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, null, 'new');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
-			->title($this->module_details['name'], lang('user_add_title'))
+			->title($this->module_details['name'], lang('user:add_title'))
 			->set('member', $member)
 			->set('display_name', set_value('display_name', $this->input->post('display_name')))
-			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values))
 			->build('admin/form');
 	}
 
@@ -269,10 +283,10 @@ class Admin extends Admin_Controller
 		// Get the user's data
 		if ( ! ($member = $this->ion_auth->get_user($id)))
 		{
-			$this->session->set_flashdata('error', lang('user_edit_user_not_found_error'));
+			$this->session->set_flashdata('error', lang('user:edit_user_not_found_error'));
 			redirect('admin/users');
 		}
-
+		
 		// Check to see if we are changing usernames
 		if ($member->username != $this->input->post('username'))
 		{
@@ -321,7 +335,8 @@ class Admin extends Admin_Controller
 			$update_data['email'] = $this->input->post('email');
 			$update_data['active'] = $this->input->post('active');
 			$update_data['username'] = $this->input->post('username');
-			$update_data['group_id'] = $this->input->post('group_id');
+			// allow them to update their one group but keep users with user editing privileges from escalating their accounts to admin
+			$update_data['group_id'] = ($this->current_user->group !== 'admin' and $this->input->post('group_id') == 1) ? $member->group_id : $this->input->post('group_id');
 
 			if ($update_data['active'] === '2')
 			{
@@ -340,6 +355,9 @@ class Admin extends Admin_Controller
 			{
 				$profile_data[$assign->field_slug] = $this->input->post($assign->field_slug);
 			}
+
+			// Some stream fields need $_POST as well.
+			$profile_data = array_merge($profile_data, $_POST);
 
 			// We need to manually do display_name
 			$profile_data['display_name'] = $this->input->post('display_name');
@@ -362,21 +380,22 @@ class Admin extends Admin_Controller
 				$this->session->set_flashdata('error', $this->ion_auth->errors());
 			}
 
-			redirect('admin/users');
+			// Redirect back to the form or main page
+			$this->input->post('btnAction') === 'save_exit' ? redirect('admin/users') : redirect('admin/users/edit/'.$id);
 		}
 		else
 		{
 			// Dirty hack that fixes the issue of having to re-add all data upon an error
 			if ($_POST)
 			{
-				$member = (object)$_POST;
+				$member = (object) $_POST;
 			}
 		}
 
 		// Loop through each validation rule
 		foreach ($this->validation_rules as $rule)
 		{
-			if ($this->input->post($rule['field']) !== false)
+			if ($this->input->post($rule['field']) !== null)
 			{
 				$member->{$rule['field']} = set_value($rule['field']);
 			}
@@ -393,13 +412,20 @@ class Admin extends Admin_Controller
 			$profile_id = null;
 		}
 
+		$stream_fields = $this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users'));
+
+		$profile = $this->db->limit(1)->where('user_id', $id)->get('profiles')->row();
+
+		// Set Values
+		$values = $this->fields->set_values($stream_fields, $profile, 'edit');
+
 		// Run stream field events
-		$this->fields->run_field_events($this->streams_m->get_stream_fields($this->streams_m->get_stream_id_from_slug('profiles', 'users')));
+		$this->fields->run_field_events($stream_fields, array(), $values);
 
 		$this->template
-			->title($this->module_details['name'], sprintf(lang('user_edit_title'), $member->username))
+			->title($this->module_details['name'], sprintf(lang('user:edit_title'), $member->username))
 			->set('display_name', $member->display_name)
-			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $profile_data, $profile_id))
+			->set('profile_fields', $this->streams->fields->get_stream_fields('profiles', 'users', $values, $profile_id))
 			->set('member', $member)
 			->build('admin/form');
 	}
@@ -429,7 +455,7 @@ class Admin extends Admin_Controller
 		// Activate multiple
 		if ( ! ($ids = $this->input->post('action_to')))
 		{
-			$this->session->set_flashdata('error', lang('user_activate_error'));
+			$this->session->set_flashdata('error', lang('user:activate_error'));
 			redirect('admin/users');
 		}
 
@@ -443,7 +469,7 @@ class Admin extends Admin_Controller
 			}
 			$to_activate++;
 		}
-		$this->session->set_flashdata('success', sprintf(lang('user_activate_success'), $activated, $to_activate));
+		$this->session->set_flashdata('success', sprintf(lang('user:activate_success'), $activated, $to_activate));
 
 		redirect('admin/users');
 	}
@@ -473,7 +499,7 @@ class Admin extends Admin_Controller
 				// Make sure the admin is not trying to delete themself
 				if ($this->ion_auth->get_user()->id == $id)
 				{
-					$this->session->set_flashdata('notice', lang('user_delete_self_error'));
+					$this->session->set_flashdata('notice', lang('user:delete_self_error'));
 					continue;
 				}
 
@@ -490,13 +516,13 @@ class Admin extends Admin_Controller
 				// Fire an event. One or more users have been deleted. 
 				Events::trigger('user_deleted', $deleted_ids);
 
-				$this->session->set_flashdata('success', sprintf(lang('user_mass_delete_success'), $deleted, $to_delete));
+				$this->session->set_flashdata('success', sprintf(lang('user:mass_delete_success'), $deleted, $to_delete));
 			}
 		}
 		// The array of id's to delete is empty
 		else
 		{
-			$this->session->set_flashdata('error', lang('user_mass_delete_error'));
+			$this->session->set_flashdata('error', lang('user:mass_delete_error'));
 		}
 
 		redirect('admin/users');
@@ -515,7 +541,7 @@ class Admin extends Admin_Controller
 	{
 		if ($this->ion_auth->username_check($this->input->post('username')))
 		{
-			$this->form_validation->set_message('_username_check', lang('user_error_username'));
+			$this->form_validation->set_message('_username_check', lang('user:error_username'));
 			return false;
 		}
 		return true;
@@ -534,7 +560,7 @@ class Admin extends Admin_Controller
 	{
 		if ($this->ion_auth->email_check($this->input->post('email')))
 		{
-			$this->form_validation->set_message('_email_check', lang('user_error_email'));
+			$this->form_validation->set_message('_email_check', lang('user:error_email'));
 			return false;
 		}
 

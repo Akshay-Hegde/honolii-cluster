@@ -19,7 +19,6 @@ class Row_m extends MY_Model {
 	 * that we don't need to include in
 	 * some processes.
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $ignore = array('id', 'created', 'updated', 'created_by');
@@ -29,7 +28,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Cycle Select String
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $data;
@@ -41,7 +39,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Convenience Var
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $base_prefix;
@@ -54,13 +51,13 @@ class Row_m extends MY_Model {
 	 * Each of the arrays can also be a string,
 	 * in which case they will not be imploded.
 	 *
-	 * @access 	public
 	 * @var 	string
 	 */
 	public $sql = array(
 		'select'	=> array(), 	// will be joined by ','
 		'where'		=> array(),		// will be joined by 'AND'
 		'from'		=> array(),		// array of tables
+		'join'		=> array(),		// array of joins
 		'order_by'	=> array(),		// will be joined by ','
 		'misc'		=> array()		// will be joined by line breaks
 	);
@@ -72,7 +69,6 @@ class Row_m extends MY_Model {
 	 * to keep grabbing them from
 	 * the database.
 	 *
-	 * @access 	public
 	 * @var 	obj
 	 */
 	public $all_fields = array();
@@ -82,7 +78,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Streams structure
 	 *
-	 * @access 	public
 	 * @var 	array
 	 */
 	public $structure;
@@ -111,7 +106,6 @@ class Row_m extends MY_Model {
 	/**
 	 * Data to send to the function
 	 *
-	 * @access	public
 	 * @var		obj
 	 */
 	public $get_rows_hook_data;
@@ -123,7 +117,6 @@ class Row_m extends MY_Model {
 	 *
 	 * Grab the fields for a stream
 	 *
-	 * @access 	private
 	 * @param 	stream object
 	 * @return 	void
 	 */
@@ -139,11 +132,13 @@ class Row_m extends MY_Model {
 	// --------------------------------------------------------------------------
 
 	/**
+	 * Get Rows
+	 *
 	 * Get rows from a stream
 	 *
 	 * @return 	array 
 	 * @param	array
-	 * @param	obj - @todo - not used, so needs to be removed
+	 * @param	obj
 	 * @param	obj
 	 * @return	array
 	 */
@@ -166,6 +161,12 @@ class Row_m extends MY_Model {
 		{
 			unset($params['stream']);
 		}
+
+		// -------------------------------------
+		// Get Our Stream Fields
+		// -------------------------------------
+
+		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
 		// -------------------------------------
 		// Extract Our Params
@@ -215,6 +216,87 @@ class Row_m extends MY_Model {
 		{
 			$this->sql['select'][] = 'DAY('.$this->format_mysql_date($date_by, $stream->stream_namespace).') as pyrostreams_cal_day';
 		}
+		
+		// -------------------------------------
+		// Filter API
+		// -------------------------------------
+
+		$filter_api = array();
+
+		if ($this->input->get('filter-'.$stream->stream_slug))
+		{
+			// Get all URL variables
+			$url_variables = $this->input->get();
+
+			$processed = array();
+
+			// Loop and process
+			foreach ($url_variables as $filter => $value)
+			{
+				// -------------------------------------
+				// Filter API Params
+				// -------------------------------------
+				// They all start with f-
+				// No value? No soup for you!
+				// -------------------------------------
+
+				if (substr($filter, 0, 2) != 'f-') continue;	// Not a filter API parameter
+
+				if (strlen($value) == 0) continue;				// No value.. boo
+
+				$filter = substr($filter, 2);					// Remove identifier
+
+
+				// -------------------------------------
+				// Not
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$not = substr($filter, 0, 4) == 'not-';
+
+				if ($not) $filter = substr($filter, 4);			// Remove identifier
+
+
+				// -------------------------------------
+				// Exact
+				// -------------------------------------
+				// Default: false
+				// -------------------------------------
+
+				$exact = substr($filter, 0, 6) == 'exact-';
+
+				if ($exact) $filter = substr($filter, 6);		// Remove identifier
+
+
+				// -------------------------------------
+				// Construct the where segment
+				// -------------------------------------
+
+				if ($exact)
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' != "'.urldecode($value).'"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' = "'.urldecode($value).'"';
+					}
+				}
+				else
+				{
+					if ($not)
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' NOT LIKE "%'.urldecode($value).'%"';
+					}
+					else
+					{
+						$filter_api[] = $this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.'.$filter).' LIKE "%'.urldecode($value).'%"';
+					}
+				}
+			}
+		}
 	
 		// -------------------------------------
 		// Disable
@@ -237,6 +319,45 @@ class Row_m extends MY_Model {
 		}
 
 		// -------------------------------------
+		// Created By
+		// -------------------------------------
+		// We are grabbing several user variables
+		// as part of the main query.
+		// -------------------------------------
+
+		if ( ! in_array('created_by', $disable))
+		{
+			$this->sql['select'][] = '`cb_users`.`id` as `created_by||user_id`';
+			$this->sql['select'][] = '`cb_users`.`email` as `created_by||email`';
+			$this->sql['select'][] = '`cb_users`.`username` as `created_by||username`';
+            $this->sql['select'][] = '`profiles`.`display_name` as `created_by||display_name`';
+
+			$this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('users', true).' as `cb_users` ON `cb_users`.`id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
+            $this->sql['join'][] = 'LEFT JOIN '.$this->db->protect_identifiers('profiles', true).' as `profiles` ON `profiles`.`user_id`='.$this->db->protect_identifiers($stream->stream_prefix.$stream->stream_slug.'.created_by', true);
+		}
+
+		// -------------------------------------
+		// Field Type Hooks
+		// -------------------------------------
+		// By adding a query_build_hook() function, 
+		// field types can affect the sql array
+		// at this time.
+		// -------------------------------------
+
+		if ($stream_fields)
+		{
+			foreach ($stream_fields as $field_slug => $stream_field)
+			{
+				if ( ! in_array($field_slug, $disable)
+						and isset($this->type->types->{$stream_field->field_type})
+						and method_exists($this->type->types->{$stream_field->field_type}, 'query_build_hook'))
+				{
+					$this->type->types->{$stream_field->field_type}->query_build_hook($this->sql, $stream_field, $stream);
+				}
+			}
+		}
+
+		// -------------------------------------
 		// Ordering and Sorting
 		// -------------------------------------
 
@@ -248,15 +369,27 @@ class Row_m extends MY_Model {
 		}
 		else
 		{
+			// Query string API overrides all
+			// Check if there is one now
+			if ($this->input->get('sort-'.$stream->stream_slug))
+			{
+				$sort = $this->input->get('sort-'.$stream->stream_slug);
+			}
 			// Default Sort. This should be set beforehand,
 			// but setting it here is a last resort
-			if ( ! isset($sort) or $sort == '')
+			elseif ( ! isset($sort) or $sort == '')
 			{
 				$sort = 'DESC';
 			}
 	
+			// Query string API overrides all
+			// Check if there is one now
+			if ($this->input->get('order-'.$stream->stream_slug))
+			{
+				$this->sql['order_by'][] = $this->select_prefix.$this->db->protect_identifiers($this->input->get('order-'.$stream->stream_slug)).' '.strtoupper($sort);
+			}
 			// Other sorting options
-			if ( ! isset($order_by) or $order_by == '')
+			elseif ( ! isset($order_by) or $order_by == '')
 			{
 				// Let's go with the stream setting now
 				// since there isn't an override	
@@ -302,12 +435,15 @@ class Row_m extends MY_Model {
 		
 		if (isset($include) and $include)
 		{
-			$inclusions = explode('|', $include);
+			$inclusions 	= explode('|', $include);
+			$includes 		= array();
 			
 			foreach ($inclusions as $include_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
+				$includes[] = $this->select_prefix.$this->db->protect_identifiers($include_by).'='.$this->db->escape($include_id);
 			}
+
+			$this->sql['where'][] = '('.implode(' OR ', $includes).')';
 		}
 
 		// -------------------------------------
@@ -350,6 +486,8 @@ class Row_m extends MY_Model {
 			}
 		}
 		
+		$this->sql['where'] = array_merge($this->sql['where'], $filter_api);
+		
 		// -------------------------------------
 		// Show Upcoming
 		// -------------------------------------
@@ -361,9 +499,6 @@ class Row_m extends MY_Model {
 
 		// -------------------------------------
 		// Show Past
-		// -------------------------------------
-		// @todo - check to see if this is a
-		// mysql date or a UNIX one.
 		// -------------------------------------
 
 		if (isset($show_past) and $show_past == 'no')
@@ -393,9 +528,18 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Restrict User
 		// -------------------------------------
-		
+		// This allows us to restrict returned
+		// entries by created_by. $restrict_user
+		// Could have the following values:
+		// - 'current'
+		// - a user id
+		// - a username
+		// -------------------------------------
+	
 		if (isset($restrict_user) and $restrict_user)
 		{
+			$restrict_user_id = null;
+
 			if ($restrict_user != 'no')
 			{
 				// Should we restrict to the current user?
@@ -405,12 +549,14 @@ class Row_m extends MY_Model {
 					// and then set the param
 					if (isset($this->current_user->id) and is_numeric($this->current_user->id))
 					{
-						$restrict_user = $this->current_user->id;
+						$restrict_user_id = $this->current_user->id;
 					}
 				}
 				elseif (is_numeric($restrict_user))
 				{
-					// It's numeric, meaning we don't have to do anything. Durrr...
+					// It's numeric, meaning we can just
+					// use it below easy!
+					$restrict_user_id = $restrict_user;
 				}
 				else
 				{
@@ -418,16 +564,21 @@ class Row_m extends MY_Model {
 					$user = $this->db
 							->select('id')
 							->limit(1)
-							->where('username', $user)
-							->get('users');
-					
-					$restrict_user = ($user) ? $user->id : 'no';
+							->where('username', $restrict_user)
+							->get('users')->row();
+
+					if ($user)
+					{
+						$restrict_user_id = $user->id;
+					}
 				}
 			}
 		
-			if ($restrict_user != 'no' and is_numeric($restrict_user))
+			// Did we get a restrict user value from the
+			// options above? If so, let's filter by it!
+			if ($restrict_user_id)
 			{
-				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers('created_by').'='.$restrict_user;
+				$this->sql['where'][] = $this->select_prefix.$this->db->protect_identifiers('created_by').'='.$restrict_user_id;
 			}
 		}
 
@@ -475,7 +626,7 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 
 		$sql = $this->build_query($this->sql);
-		
+
 		// -------------------------------------
 		// Pagination
 		// -------------------------------------
@@ -485,21 +636,58 @@ class Row_m extends MY_Model {
 			// Run the query as is. It does not
 			// have limit/offset, so we can get the
 			// total num rows with the current
-			// parameters we have applie.
+			// parameters we have applied.
 			$return['pag_count'] = $this->db->query($sql)->num_rows();
+
+			// Get the number.
+			if (isset($pag_uri_method) and $pag_uri_method == 'query_string') 
+			{
+				// Get the query string var
+				if ( ! isset($pag_query_var) or $pag_query_var) {
+					$pag_query_var = 'page';
+				}
+
+				$pag_id = $this->input->get($pag_query_var);
+
+				// We, at the very least, need to be on page 1.
+				if ( ! $pag_id or ! is_numeric($pag_id) or $pag_id < 1)
+				{
+					$pag_id = 1;
+				}
+			}
+			else
+			{
+				$pag_id = $this->uri->segment($pag_segment, 0);
+			}
 			
-			// Set the offset. Blank segment
-			// is a 0 offset.
-			$offset = $this->uri->segment($pag_segment, 0);
+			if (isset($pag_method))
+			{
+				if ($pag_method == 'page') 
+				{	
+					$offset = $limit*($pag_id-1);
+				}
+				else
+				{
+					// Default is 'offset',
+					// our segment holds the offset
+					$offset = $pag_id;
+				}
+			}
+			else
+			{
+				// If there is no pag_method set, we will
+				// just use $pag_id as the offset.
+				$offset = $pag_id;
+			}
 		}
 
 		// -------------------------------------
 		// Offset 
 		// -------------------------------------
-		// Just in case.
+		// Normalize offset to 0 just in case.
 		// -------------------------------------
 
-		if ( ! isset($offset))
+		if ( ! isset($offset) or ! is_numeric($offset) or ! $offset or $offset < 0)
 		{
 			$offset = 0;
 		}
@@ -525,6 +713,16 @@ class Row_m extends MY_Model {
 		$rows = $this->db->query($sql)->result_array();
 
 		// -------------------------------------
+		// Reset SQL
+		// We no longer need any of the SQL data.
+		// If anything goes wrong with the items
+		// below, we want to make sure we cleared
+		// the SQL.
+		// -------------------------------------
+
+		$this->reset_sql();
+
+		// -------------------------------------
 		// Partials
 		// -------------------------------------
 		// Paritals are done after the data grab
@@ -546,16 +744,15 @@ class Row_m extends MY_Model {
 				}
 			}
 		}
-		
+
 		// -------------------------------------
 		// Run formatting
 		// -------------------------------------
 				
-		$return['rows'] = $this->format_rows($rows, $stream, $disable);
-		
+		$return['rows'] = $this->format_rows($rows, $stream, $disable, $stream_fields);
+	
 		// Reset
 		$this->get_rows_hook = array();
-		$this->sql = array();
 		$this->db->set_dbprefix(SITE_REF.'_');
 				
 		return $return;
@@ -564,13 +761,15 @@ class Row_m extends MY_Model {
 	// --------------------------------------------------------------------------
 
 	/**
-	 * Dates can either be in UNIX or MYSQL format.
-	 * This makes it so we can do our date functions on
+	 * Format MySQL Date
+	 *
+	 * Dates in streams can either be in UNIX or MYSQL format.
+	 * This formats any MySQL dates so we can do our date functions as
 	 * UNIX time stamps.
 	 *
 	 * @access 	public
-	 * @param 	string - date by
-	 * @param 	stream namespace
+	 * @param 	string 	$data_by
+	 * @param 	string  $stream_namespace
 	 * @return 	string
 	 */
 	public function format_mysql_date($date_by, $stream_namespace)
@@ -597,59 +796,64 @@ class Row_m extends MY_Model {
 	 * Does not do LIMIT/OFFSET since that will
 	 * be taken care of after pagination is 
 	 * calculated.
+	 *
+	 * @access 	public
+	 * @param 	array 	[$sql] 	an array of sql elements to parse
+	 * 							into a sql string.
+	 * @return 	string 	the compiled query
 	 */
-	public function build_query($sql)
+	public function build_query($sql = array())
 	{
 		// -------------------------------------
 		// Select
 		// -------------------------------------
 
-		if (is_string($this->sql['select']))
+		if (is_string($sql['select']))
 		{
-			$select = $this->sql['select'];
+			$select = $sql['select'];
 		}
 		else
 		{
-			$select = implode(', ', $this->sql['select']);
+			$select = implode(', ', $sql['select']);
 		}
 		
 		// -------------------------------------
 		// From
 		// -------------------------------------
 
-		if (isset($this->sql['from']) && is_string($this->sql['from']))
+		if (isset($this->sql['from']) and is_string($sql['from']))
 		{
 			$from = $this->sql['from'];
 		}
 		else
 		{
-			$from = implode(', ', $this->sql['from']);
+			$from = implode(', ', $sql['from']);
 		}
 
 		// -------------------------------------
 		// Join
 		// -------------------------------------
 
-		if (isset($this->sql['join']) && is_string($this->sql['join']))
+		if (isset($sql['join']) and is_string($sql['join']))
 		{
-			$join = $this->sql['join'];
+			$join = $sql['join'];
 		}
 		else
 		{
-			(isset($this->sql['join'])) ? $join = implode(' ', $this->sql['join']) : $join = NULL;
+			(isset($sql['join'])) ? $join = implode(' ', $sql['join']) : $join = null;
 		}
 
 		// -------------------------------------
 		// Where
 		// -------------------------------------
 
-		if (isset($this->sql['where']) && is_string($this->sql['where']))
+		if (isset($sql['where']) and is_string($sql['where']))
 		{
-			$where = $this->sql['where'];
+			$where = $sql['where'];
 		}
 		else
 		{
-			(isset($this->sql['where'])) ? $where = implode(' AND ', $this->sql['where']) : $where = NULL;
+			(isset($sql['where'])) ? $where = implode(' AND ', $sql['where']) : $where = null;
 		}
 
 		if ($where != '')
@@ -664,13 +868,13 @@ class Row_m extends MY_Model {
 		// is the only order by segment
 		// -------------------------------------
 
-		if (isset($this->sql['order_by']) && is_string($this->sql['order_by']))
+		if (isset($sql['order_by']) and is_string($sql['order_by']))
 		{
-			$order_by = $this->sql['order_by'];
+			$order_by = $sql['order_by'];
 		}
 		else
 		{
-			(isset($this->sql['order_by'])) ? $order_by = implode(', ', $this->sql['order_by']) : $order_by = NULL;
+			(isset($sql['order_by'])) ? $order_by = implode(', ', $sql['order_by']) : $order_by = null;
 		}
 
 		if ($order_by)
@@ -682,17 +886,17 @@ class Row_m extends MY_Model {
 		// Misc
 		// -------------------------------------
 
-		if (isset($this->sql['misc']) && is_string($this->sql['misc']))
+		if (isset($sql['misc']) && is_string($sql['misc']))
 		{
-			$misc = $this->sql['misc'];
+			$misc = $sql['misc'];
 		}
 		else
 		{
-			(isset($this->sql['misc'])) ? $misc = implode(' ', $this->sql['misc']) : $misc = NULL;
+			(isset($sql['misc'])) ? $misc = implode(' ', $sql['misc']) : $misc = null;
 		}
 
 		// -------------------------------------
-		// Build Query
+		// Return Built Query
 		// -------------------------------------
 
 		return "SELECT {$select}
@@ -701,6 +905,25 @@ class Row_m extends MY_Model {
 		{$where}
 		{$misc}
 		{$order_by} ";
+	}
+
+	// --------------------------------------------------------------------------
+
+	/**
+	 * Reset SQL query
+	 *
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function reset_sql()
+	{
+		$this->sql = array(
+			'select'	=> array(),
+			'where'		=> array(),
+			'from'		=> array(),
+			'order_by'	=> array(),
+			'misc'		=> array()
+		);
 	}
 
 	// --------------------------------------------------------------------------
@@ -716,8 +939,21 @@ class Row_m extends MY_Model {
 	 */
 	private function process_where($where)
 	{
-		// Remove ()
-		$where = trim($where, '()');
+		// Get rid of where ()
+		if ($where[0] == '(' and $where[strlen($where)-1] == ')')
+		{
+			$where = ltrim('(');
+			$where = rtrim(')');
+		}
+
+		// Does this already have a specific table
+		// that we are calling out for this where statement?
+		// If so, then let's just forget about and return
+		// the statement as is.
+		if (strpos($where, '`.`') !== false)
+		{
+			return '('.$where.')';
+		}
 
 		// Find the fields between the backticks
 		preg_match_all('/`[a-zA-Z0-9_]+`/', $where, $matches);
@@ -750,19 +986,28 @@ class Row_m extends MY_Model {
 	 * @param	[array - disables]
 	 * @return	array
 	 */
-	public function format_rows($data, $stream, $disable = array())
+	public function format_rows($data, $stream, $disable = array(), $stream_fields = null)
 	{
 		$count = 1;
 
-		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
+		// We are keepig the option to get stream fields in the function
+		// purely for legacy. We should be passing this in the format rows
+		// so we can check for functions in the field types that need
+		// to change the main query.
+		if ( ! $stream_fields)
+		{
+			$stream_fields = $this->streams_m->get_stream_fields($stream->id);
+		}
 
 		$total = count($data);
-		
+
 		foreach ($data as $id => $item)
 		{
 			// Log the ID called
 			$this->called[$stream->stream_slug][] = $item['id'];
-		
+
+			$this->extract_arrays($item);
+
 			$data[$id] = $this->format_row($item, $stream_fields, $stream, false, true, $disable);
 			
 			// Give some info on if it is the last element
@@ -781,6 +1026,40 @@ class Row_m extends MY_Model {
 	}
 
 	// --------------------------------------------------------------------------
+
+	/**
+	 * Extract Arrays
+	 *
+	 * Takes a row array, and takes any ||'s as an
+	 * array split. This means that we can do joins and then
+	 * have them formatted in a way that the Lex parser
+	 * will be able to work with.
+	 *
+	 * @access 	public
+	 * @param 	array 	&$item
+	 * @return 	void
+	 */
+	public function extract_arrays(&$item)
+	{
+		foreach ($item as $row_slug => $data)
+		{
+			if (strpos($row_slug, '||') !== false)
+			{
+				$pieces = explode('||', $row_slug, 2);
+
+				unset($item[$row_slug]);
+
+				if (isset($item[$pieces[0]]) and ! is_array($item[$pieces[0]]))
+				{
+					unset($item[$pieces[0]]);
+				}
+
+				$item[$pieces[0]][$pieces[1]] = $data;
+			}
+		}
+	}
+
+	// --------------------------------------------------------------------------
 	
 	/**
 	 * Get a row. Also has the option
@@ -792,7 +1071,7 @@ class Row_m extends MY_Model {
 	 * @param	[bool]
 	 * @return	mixed
 	 */
-	public function get_row($id, $stream, $format_output = true)
+	public function get_row($id, $stream, $format_output = true, $plugin_call = false)
 	{
 		// Now the structure. We will need this as well.
 		if ( ! $this->structure)
@@ -802,7 +1081,14 @@ class Row_m extends MY_Model {
 
 		$stream_fields = $this->streams_m->get_stream_fields($stream->id);
 
-		$obj = $this->db->limit(1)->where('id', $id)->get($stream->stream_prefix.$stream->stream_slug);
+		// Created By
+		$this->db->select($stream->stream_prefix.$stream->stream_slug.'.*, '.$this->db->dbprefix('users').'.username as created_by_username, '.$this->db->dbprefix('users').'.id as created_by_user_id, '.$this->db->dbprefix('users').'.email as created_by_email');
+		$this->db->join('users', 'users.id = '.$stream->stream_prefix.$stream->stream_slug.'.created_by', 'left');
+
+		$obj = $this->db
+						->limit(1)
+						->where($stream->stream_prefix.$stream->stream_slug.'.id', $id)
+						->get($stream->stream_prefix.$stream->stream_slug);
 		
 		if ($obj->num_rows() == 0)
 		{
@@ -814,7 +1100,7 @@ class Row_m extends MY_Model {
 			
 			if ($format_output)
 			{
-				return $this->format_row($row , $stream_fields, $stream);
+				return $this->format_row($row , $stream_fields, $stream, true, $plugin_call);
 			}
 			else
 			{	
@@ -860,70 +1146,54 @@ class Row_m extends MY_Model {
 		// format it
 		// -------------------------------------
 
-		foreach ($row as $row_slug => $data)
+		if ($row and (is_array($row) or  is_object($row)))
 		{
-			// Easy out for our non-formattables and
-			// fields we are disabling.
-			if (in_array($row_slug, array('id')) or in_array($row_slug, $disable))
+			foreach ($row as $row_slug => $data)
 			{
-				continue;
-			}
-			
-			// -------------------------------------
-			// Format Created By
-			// -------------------------------------
-			
-			if(
-				$row_slug == 'created_by' and 
-				isset($this->type->types->user) and 
-				method_exists($this->type->types->user, 'pre_output_plugin')
-			)
-			{
-				if ($return_object)
+				// Easy out for our non-formattables and
+				// fields we are disabling.
+				if (in_array($row_slug, array('id', 'created_by')) or in_array($row_slug, $disable) or in_array('*', $disable))
 				{
-					$row->created_by	= $this->type->types->user->pre_output_plugin($row->created_by, null);
+					continue;
 				}
-				else
-				{	
-					$row['created_by']	= $this->type->types->user->pre_output_plugin($row['created_by'], null);
-				}
-			}
-			
-			// -------------------------------------
-			// Format Dates
-			// -------------------------------------
-			
-			if ($row_slug == 'created' or $row_slug == 'updated')
-			{
-				if ($return_object)
+							
+				// -------------------------------------
+				// Format Dates
+				// -------------------------------------
+				// We simply want these to be UNIX stamps
+				// -------------------------------------
+				
+				if ($row_slug == 'created' or $row_slug == 'updated')
 				{
-					$row->$row_slug = strtotime($row->$row_slug);
-				}
-				else
-				{
-					$row[$row_slug] = strtotime($row[$row_slug]);
-				}
-			}	
+					if ($return_object)
+					{
+						$row->$row_slug = strtotime($row->$row_slug);
+					}
+					else
+					{
+						$row[$row_slug] = strtotime($row[$row_slug]);
+					}
+				}	
 
-			// -------------------------------------
-			// Format Columns
-			// -------------------------------------
+				// -------------------------------------
+				// Format Columns
+				// -------------------------------------
 
-			if (array_key_exists($row_slug, $all_fields))
-			{
-
-				if ($return_object)
+				if (array_key_exists($row_slug, $all_fields))
 				{
-					$row->$row_slug = $this->format_column($row_slug,
-						$row->$row_slug, $row->id, $all_fields[$row_slug]['field_type'], $all_fields[$row_slug]['field_data'], $stream, $plugin_call);
-				}
-				else
-				{
-					$row[$row_slug] = $this->format_column($row_slug,
-						$row[$row_slug], $row['id'], $all_fields[$row_slug]['field_type'], $all_fields[$row_slug]['field_data'], $stream, $plugin_call);
+					if ($return_object)
+					{
+						$row->$row_slug = $this->format_column($row_slug,
+							$row->$row_slug, $row->id, $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
+					}
+					else
+					{
+						$row[$row_slug] = $this->format_column($row_slug,
+							$row[$row_slug], $row['id'], $stream_fields->$row_slug->field_type, array_merge((array) $stream_fields->$row_slug->field_data, (array) $stream_fields->$row_slug), $stream, $plugin_call);
+					}
 				}
 			}
-		}		
+		}
 
 		// -------------------------------------
 		// Run through alt processes
@@ -980,7 +1250,7 @@ class Row_m extends MY_Model {
 		{
 			if ( ! $plugin_call and method_exists($this->type->types->{$type_slug}, 'alt_pre_output'))
 			{
-				$this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
+				return $this->type->types->{$type_slug}->alt_pre_output($row_id, $field_data, $this->type->types->{$type_slug}, $stream);
 			}
 			
 			return $column_data;
@@ -1028,6 +1298,8 @@ class Row_m extends MY_Model {
 		
 		foreach ($this->streams_m->streams_cache as $stream_id => $stream)
 		{
+			if ($stream_id == 'ns') continue;
+
 			$struct[$stream_id]['stream'] = $stream;
 			
 			foreach ($fields as $field)
@@ -1047,56 +1319,108 @@ class Row_m extends MY_Model {
 	/**
 	 * Update a row in a stream
 	 *
-	 * @access	public
 	 * @param	obj
 	 * @param 	string
 	 * @param	int
-	 * @param	array - update data
-	 * @param	skips - optional array of skips
+	 * @param	array   update data
+	 * @param	array   skips - optional array of skips
+	 * @param 	array   extra - optional assoc array of data to exclude from processing, but to
+	 * 						include in saving to the database.
+	 * @param 	bool    Should we only update those passed?
 	 * @return	bool
 	 */
-	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array())
+	public function update_entry($fields, $stream, $row_id, $form_data, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$this->load->helper('text');
+
+		// -------------------------------------
+		// Include Only Passed
+		// -------------------------------------
+		// If we include only the passed vars,
+		// then we skip everyhing else.
+		// -------------------------------------
+
+		if ($include_only_passed && $fields)
+		{
+			foreach ($fields as $field)
+			{
+				// If we haven't passed it, then we
+				// want to skip it.
+				if ( ! isset($form_data[$field->field_slug]))
+				{
+					$skips[] = $field->field_slug;
+				}
+			}
+
+			// If we are including only the passed,
+			// then we are simply going to process the fields that
+			// we have passed without creating null
+			// values for missing fields. This variable allows
+			// run_field_pre_processes to do that.
+			$set_missing_to_null = false;
+		}
+		else
+		{
+			$set_missing_to_null = true;
+		}
 
 		// -------------------------------------
 		// Run through fields
 		// -------------------------------------
 
-		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips);
+		$update_data = $this->run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips, $set_missing_to_null);
 
 		// -------------------------------------
-		// Set standard fields
+		// Set Updated Date
 		// -------------------------------------
 
-		$update_data['updated'] = date('Y-m-d H:i:s');
-
-		// -------------------------------------
-		// Insert data
-		// -------------------------------------
-		
-		$this->db->where('id', $row_id);
-		
-		if ( ! $this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data))
+		if ( ! in_array('updated', $skips) and ! isset($extra['updated']))
 		{
-			return false;
+			$update_data['updated'] 	= date('Y-m-d H:i:s');
 		}
-		else
+
+		// -------------------------------------
+		// Add Extra Data
+		// -------------------------------------
+
+		if ($extra)
 		{
-			// -------------------------------------
-			// Event: Post Update Entry
-			// -------------------------------------
+			$update_data = array_merge($update_data, $extra);
+		}
 
-			$trigger_data = array(
-				'entry_id'		=> $row_id,
-				'stream'		=> $stream
-			);
+		// -------------------------------------
+		// Update data
+		// -------------------------------------
+		
+		// Is there any logic to complete before updating?
+		if ( Events::trigger('streams_pre_update_entry', array('stream' => $stream, 'entry_id' => $row_id, 'update_data' => $update_data)) === false ) return false;
 
-			Events::trigger('streams_post_update_entry', $trigger_data);
+		if ($update_data)
+		{
+			$this->db->where('id', $row_id);
 
-			// -------------------------------------
+			if ( ! $this->db->update($stream->stream_prefix.$stream->stream_slug, $update_data) )
+			{
+				return false;
+			}
+			else
+			{
+				// -------------------------------------
+				// Event: Post Update Entry
+				// -------------------------------------
 
-			return $row_id;
+				$trigger_data = array(
+					'entry_id'		=> $row_id,
+					'stream'		=> $stream,
+					'update_data'		=> $update_data,
+				);
+
+				Events::trigger('streams_post_update_entry', $trigger_data);
+
+				// -------------------------------------
+
+				return $row_id;
+			}
 		}
 	}
 
@@ -1113,79 +1437,84 @@ class Row_m extends MY_Model {
 	 * @param	int
 	 * @param	array - update data
 	 * @param	skips - optional array of skips
+	 * @param 	bool - set_missing_to_null. Should we set missing pieces of data to null
+	 * 					for the database?
 	 * @return	bool
 	 */
-	public function run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips = array())
+	public function run_field_pre_processes($fields, $stream, $row_id, $form_data, $skips = array(), $set_missing_to_null = true)
 	{
 		$return_data = array();
 		
-		foreach ($fields as $field)
+		if ($fields)
 		{
-			// If we don't have a post item for this field, 
-			// then simply set the value to null. This is necessary
-			// for fields that want to run a pre_save but may have
-			// a situation where no post data is sent (like a single checkbox)
-			if ( ! isset($form_data[$field->field_slug]))
+			foreach ($fields as $field)
 			{
-				$form_data[$field->field_slug] = null;
-			}
-
-			// If this is not in our skips list, process it.
-			if ( ! in_array($field->field_slug, $skips))
-			{
-				$type = $this->type->types->{$field->field_type};
-	
-				if ( ! isset($type->alt_process) or ! $type->alt_process)
+				// If we don't have a post item for this field, 
+				// then simply set the value to null. This is necessary
+				// for fields that want to run a pre_save but may have
+				// a situation where no post data is sent (like a single checkbox)
+				if ( ! isset($form_data[$field->field_slug]) and $set_missing_to_null)
 				{
-					// If a pre_save function exists, go ahead and run it
-					if (method_exists($type, 'pre_save'))
-					{
-						$return_data[$field->field_slug] = $type->pre_save(
-									$form_data[$field->field_slug],
-									$field,
-									$stream,
-									$row_id,
-									$form_data);
+					$form_data[$field->field_slug] = null;
+				}
 
-						// We are unsetting the null values to as to
-						// not upset db can be null rules.
-						if (is_null($return_data[$field->field_slug]))
+				// If this is not in our skips list, process it.
+				if ( ! in_array($field->field_slug, $skips))
+				{
+					$type = $this->type->types->{$field->field_type};
+		
+					if ( ! isset($type->alt_process) or ! $type->alt_process)
+					{
+						// If a pre_save function exists, go ahead and run it
+						if (method_exists($type, 'pre_save'))
 						{
-							unset($return_data[$field->field_slug]);
+							$return_data[$field->field_slug] = $type->pre_save(
+										$form_data[$field->field_slug],
+										$field,
+										$stream,
+										$row_id,
+										$form_data);
+
+							// We are unsetting the null values to as to
+							// not upset db can be null rules.
+							if (is_null($return_data[$field->field_slug]))
+							{
+								unset($return_data[$field->field_slug]);
+							}
+							else
+							{
+								$return_data[$field->field_slug] = $return_data[$field->field_slug];
+							}
 						}
 						else
 						{
-							$return_data[$field->field_slug] = escape_tags($return_data[$field->field_slug]);
+							$return_data[$field->field_slug] = $form_data[$field->field_slug];
+		
+							// Make null - some fields don't like just blank values
+							if ($return_data[$field->field_slug] == '')
+							{
+								$return_data[$field->field_slug] = null;
+							}
 						}
 					}
 					else
 					{
-						$return_data[$field->field_slug] = escape_tags($form_data[$field->field_slug]);
-	
-						// Make null - some fields don't like just blank values
-						if ($return_data[$field->field_slug] == '')
+						// If this is an alt_process, there can still be a pre_save,
+						// it just won't return anything so we don't have to
+						// save the value
+						if (method_exists($type, 'pre_save'))
 						{
-							$return_data[$field->field_slug] = null;
+							$type->pre_save(
+										$form_data[$field->field_slug],
+										$field,
+										$stream,
+										$row_id,
+										$form_data
+							);
 						}
 					}
 				}
-				else
-				{
-					// If this is an alt_process, there can still be a pre_save,
-					// it just won't return anything so we don't have to
-					// save the value
-					if (method_exists($type, 'pre_save'))
-					{
-						$type->pre_save(
-									$form_data[$field->field_slug],
-									$field,
-									$stream,
-									$row_id,
-									$form_data
-						);
-					}
-				}
-			}
+			}	
 		}
 
 		return $return_data;
@@ -1216,45 +1545,73 @@ class Row_m extends MY_Model {
 		$insert_data = array();
 		
 		$alt_process = array();
-			
-		foreach ($fields as $field)
+		
+		if ($fields)
 		{
-			if ( ! in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])))
+			foreach ($fields as $field)
 			{
-				$type = $this->type->types->{$field->field_type};
-				
-				if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
+				if ( ! in_array($field->field_slug, $skips) or (in_array($field->field_slug, $skips) and isset($_POST[$field->field_slug])))
 				{
-					// We don't process the alt process stuff.
-					// This is for field types that store data outside of the
-					// actual table
-					if (isset($type->alt_process) and $type->alt_process === true)
+					$type = $this->type->types->{$field->field_type};
+					
+					if (isset($data[$field->field_slug]) and $data[$field->field_slug] != '')
 					{
-						$alt_process[] = $field->field_slug;
-					}
-					else
-					{
-						if (method_exists($type, 'pre_save'))
+						// We don't process the alt process stuff.
+						// This is for field types that store data outside of the
+						// actual table
+						if (isset($type->alt_process) and $type->alt_process === true)
 						{
-							$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+							$alt_process[] = $field->field_slug;
 						}
 						else
 						{
-							$insert_data[$field->field_slug] = $data[$field->field_slug];
-						}
+							if (method_exists($type, 'pre_save'))
+							{
+								$insert_data[$field->field_slug] = $type->pre_save($data[$field->field_slug], $field, $stream, null, $data);
+							}
+							else
+							{
+								$insert_data[$field->field_slug] = $data[$field->field_slug];
+							}
 
-						if (is_null($insert_data[$field->field_slug]))
-						{
-							unset($insert_data[$field->field_slug]);
-						}
-						elseif(is_string($insert_data[$field->field_slug]))
-						{
-							$insert_data[$field->field_slug] = escape_tags(trim($insert_data[$field->field_slug]));
+							if (is_null($insert_data[$field->field_slug]))
+							{
+								unset($insert_data[$field->field_slug]);
+							}
+							elseif(is_string($insert_data[$field->field_slug]))
+							{
+								$insert_data[$field->field_slug] = trim($insert_data[$field->field_slug]);
+							}
 						}
 					}
+					
+					unset($type);
 				}
-				
-				unset($type);
+			}
+		}
+
+		// -------------------------------------
+		// Set Created Date
+		// -------------------------------------
+
+		if ( ! in_array('created', $skips) and ! isset($extra['created']))
+		{
+			$insert_data['created'] 	= date('Y-m-d H:i:s');
+		}
+
+		// -------------------------------------
+		// Set Created By
+		// -------------------------------------
+
+		if ( ! in_array('created_by', $skips) and ! isset($extra['created_by']))
+		{
+			if (isset($this->current_user->id))
+			{
+				$insert_data['created_by'] 	= $this->current_user->id;
+			}
+			else
+			{
+				$insert_data['created_by'] 	= null;
 			}
 		}
 
@@ -1265,21 +1622,6 @@ class Row_m extends MY_Model {
 		if ( ! empty($extra))
 		{
 			$insert_data = array_merge($insert_data, $extra);
-		}
-
-		// -------------------------------------
-		// Set standard fields
-		// -------------------------------------
-
-		$insert_data['created'] 	= date('Y-m-d H:i:s');
-
-		if (isset($this->current_user->id))
-		{
-			$insert_data['created_by'] 	= $this->current_user->id;
-		}
-		else
-		{
-			$insert_data['created_by'] 	= null;
 		}
 
 		// -------------------------------------
@@ -1311,7 +1653,10 @@ class Row_m extends MY_Model {
 		// -------------------------------------
 		// Insert data
 		// -------------------------------------
-		
+
+		// Is there any logic to complete before inserting?
+		if ( Events::trigger('streams_pre_insert_entry', array('stream' => $stream, 'insert_data' => $insert_data)) === false ) return false;
+
 		if ( ! $this->db->insert($stream->stream_prefix.$stream->stream_slug, $insert_data))
 		{
 			return false;
@@ -1350,44 +1695,124 @@ class Row_m extends MY_Model {
 	 * Build Row Pagination
 	 *
 	 * @access	public
-	 * @param	int - pagination uri segment
-	 * @param	int - limit
-	 * @param	int - total rows
-	 * @Param	array - pagination configs
+	 * @param	int $pag_segment pagination uri segment where the page num is
+	 * @param	int $limit
+	 * @param	int $total_rows count of all the rows
+	 * @param	array $pagination_var array of pagination configs
+	 * @param 	string [$pag_base] optional manual pagination base
 	 * @return	string
 	 */
-	public function build_pagination($pag_segment, $limit, $total_rows, $pagination_vars)
+	public function build_pagination($config, $limit, $total_rows, $pagination_vars, $pag_base = null)
 	{
 		$this->load->library('pagination');
+		$pagination_config = array();
 
 		// -------------------------------------
-		// Validate pag_segment
+		// Page Config.
 		// -------------------------------------
-		// Needs to be a number. Let's
-		// default to 2.
+		// For backwards compatability, you can
+		// pass the first variable as the $pag_segment,
+		// but you can also pass an array of
+		// config values.
 		// -------------------------------------
-	
+
+		if ( ! is_array($config))
+		{
+			$pag_segment = $config;
+		}
+		else
+		{
+			$pag_segment = (isset($config['pag_segment'])) ? $config['pag_segment'] : 2;
+			$pag_method = (isset($config['pag_method'])) ? $config['pag_method'] : 'offset';
+			$pag_uri_method = (isset($config['pag_uri_method'])) ? $config['pag_uri_method'] : 'segment;';
+			$pag_query_var = (isset($config['pag_query_var'])) ? $config['pag_query_var'] : 'page';
+		}
+
+		// Validate pag_segment	
 		if ( ! is_numeric($pag_segment))
 		{
 			$pag_segment = 2;
 		}
 
 		// -------------------------------------
-		// Find Pagination base_url
+		// Config Set
 		// -------------------------------------
 
-		$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
+		// Set use_page_numbers
+		if (isset($pag_method) and $pag_method == 'page')
+		{
+			$pagination_config['use_page_numbers'] = true;
+		} else {
+			$pagination_config['uri_segment'] 		= $pag_segment;
+		}
+
+		// We want to preserve the query string
+		// if we are using the query_string method.
+		if (isset($pag_uri_method) and $pag_uri_method == 'query_string')
+		{
+			$pagination_config['page_query_string'] = true;
+		}
+
+		// Override $pag_base with config if we need to.
+		if (isset($config['pag_base_url']) and $config['pag_base_url'])
+		{
+			$pag_base = $config['pag_base_url'];
+		}
+
+		if (isset($pag_query_var) and $pag_query_var)
+		{
+			$pagination_config['query_string_segment'] = $pag_query_var;
+		}
+
+		// -------------------------------------
+		// Find Pagination base_url
+		// -------------------------------------
+		// We either are handed this or we
+		// do it based on the pag_segment and 
+		// the current URL.
+		// -------------------------------------
+
+		if ( ! $pag_base)
+		{
+			// Are we using a query string? If so, we just need to take
+			// The entire current URL. Otherwise, we take the URL up to the
+			// pagination segment.
+			if (isset($pag_uri_method) and $pag_uri_method == 'query_string')
+			{
+				$pagination_config['base_url'] = current_url().'?';
+			}
+			else
+			{ 
+				$segments = array_slice($this->uri->segment_array(), 0, $pag_segment-1);
+				$pagination_config['base_url'] = site_url(implode('/', $segments).'/');
+			}
+		}
+		else
+		{
+			// We always set a manual base if it is provided.
+			$pagination_config['base_url'] = $pag_base;
+		}
+
+		// -------------------------------------
+		// Determine Limit
+		// -------------------------------------
 		
-		$pagination_config['base_url'] 			= site_url(implode('/', $segments).'/');
+		if ( ! is_numeric($limit)) {
+			$limit = 0;
+		}
 		
+		// We cannot have a negative limit
+		if ($limit < 0) {
+			$limit = 0;
+		}
+
 		// -------------------------------------
 		// Set basic pagination data
 		// -------------------------------------
 
 		$pagination_config['total_rows'] 		= $total_rows;
 		$pagination_config['per_page'] 			= $limit;
-		$pagination_config['uri_segment'] 		= $pag_segment;
-		
+
 		// Add in our pagination vars
 		$pagination_config = array_merge($pagination_config, $pagination_vars);
 
@@ -1424,6 +1849,12 @@ class Row_m extends MY_Model {
 		// Get the ordering count
 		$row = $db_obj->row();
 		$ordering_count = $row->ordering_count;
+
+		// We need ordering count to be a number.
+		if ( ! is_numeric($ordering_count) or $ordering_count < 0)
+		{
+			$ordering_count = 1;
+		}
 		
 		// Delete the actual row
 		$this->db->where('id', $row_id);
@@ -1445,13 +1876,16 @@ class Row_m extends MY_Model {
 			$assignments = $this->fields_m->get_assignments_for_stream($stream->id);
 			
 			// Do they have a destruct function?
-			foreach ($assignments as $assign)
+			if ($assignments)
 			{
-				if (method_exists($this->type->types->{$assign->field_type}, 'entry_destruct'))
+				foreach ($assignments as $assign)
 				{
-					// Get the field
-					$field = $this->fields_m->get_field($assign->field_id);
-					$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+					if (method_exists($this->type->types->{$assign->field_type}, 'entry_destruct'))
+					{
+						// Get the field
+						$field = $this->fields_m->get_field($assign->field_id);
+						$this->type->types->{$assign->field_type}->entry_destruct($row, $field, $stream);
+					}
 				}
 			}
 		
@@ -1462,7 +1896,7 @@ class Row_m extends MY_Model {
 			// everthing higher than the row's
 			// order count
 			// -------------------------------------
-			
+
 			$this->db->where('ordering_count >', $ordering_count)->select('id, ordering_count');
 			$ord_obj = $this->db->get($stream->stream_prefix.$stream->stream_slug);
 			

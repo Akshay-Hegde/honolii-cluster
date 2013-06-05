@@ -6,23 +6,14 @@
  * @package		PyroCMS\Core\Modules\Keywords\Libraries
  */
 
-class Keywords {
-
-	protected $ci;
-
+class Keywords
+{
 	/**
 	 * The Keywords Construct
 	 */
 	public function __construct()
 	{
 		ci()->load->model('keywords/keyword_m');
-		
-		/*
-		$this->ci =& get_instance();
-		$this->ci->lang->load('keywords/keywords');
-
-		$this->get_all();
-		*/
 	}
 
 	/**
@@ -33,7 +24,7 @@ class Keywords {
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get_string($hash)
+	public static function get_string($hash)
 	{
 		$keywords = array();
 		
@@ -53,7 +44,7 @@ class Keywords {
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get_array($hash)
+	public static function get_array($hash)
 	{
 		$keywords = array();
 		
@@ -73,7 +64,7 @@ class Keywords {
 	 * @param	string	$hash	The unique hash stored for a entry
 	 * @return	array
 	 */
-	public function get($hash)
+	public static function get($hash)
 	{
 		return ci()->keyword_m->get_applied($hash);
 	}
@@ -86,7 +77,7 @@ class Keywords {
 	 * @param	array	$keyword
 	 * @return	int
 	 */
-	public function add($keyword)
+	public static function add($keyword)
 	{
 		return ci()->keyword_m->insert(array('name' => self::prep($keyword)));
 	}
@@ -99,7 +90,7 @@ class Keywords {
 	 * @param	string	$keyword
 	 * @return	bool
 	 */
-	public function prep($keyword)
+	public static function prep($keyword)
 	{
 		if (function_exists('mb_strtolower'))
 		{
@@ -121,7 +112,7 @@ class Keywords {
 	 * @param	string	$old_hash	If running an update, provide the old hash so we can remove it
 	 * @return	string
 	 */
-	public function process($keywords, $old_hash = null)
+	public static function process($keywords, $old_hash = null)
 	{
 		// Remove the old keyword assignments if we're updating
 		if ($old_hash !== null)
@@ -142,13 +133,7 @@ class Keywords {
 		foreach ($keywords as &$keyword)
 		{
 			$keyword = self::prep($keyword);
-		/*
-		// Find out which keywords are already being used	
-		$matched = array_map(function($row) {
-			if ($row) return ($row->name;
-		}, ci()->db->where_in('name', $keywords)->get('keywords')->result());
-		
-		*/
+
 			// Keyword already exists
 			if (($row = ci()->db->where('name', $keyword)->get('keywords')->row()))
 			{

@@ -20,69 +20,67 @@ class Admin_Fields extends Admin_Controller {
 
 	// --------------------------------------------------------------------------   
 
-    function __construct()
-    {
-        parent::__construct();
-        
-        // If you are going to admin fields you gotta 
-        // pass the test!
+	/**
+	 * Construct
+	 *
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function __construct()
+	{
+		parent::__construct();
+
+		// If you are going to admin fields you need to
+		// be authorized for admin_fields.
 		role_or_die('streams', 'admin_fields');
 
- 		// -------------------------------------
-		// Resources Load
-		// -------------------------------------
-
 		$this->load->config('streams/streams');
-  		$this->load->config('streams_core/streams');
-  		$this->lang->load('streams_core/pyrostreams');    
-		$this->load->library('streams_core/Type');	
-	    $this->load->model(array('streams_core/fields_m', 'streams_core/streams_m', 'streams_core/row_m'));
-		$this->load->library('form_validation');
+		$this->load->driver('Streams');
 
 		$this->data = new stdClass();
-       
  		$this->data->types = $this->type->types;
 	}
 
 	// --------------------------------------------------------------------------   
 
-    /**
-     * List fields
-     */
-    function index()
-    {     	
-		// -------------------------------------
-		// Get fields
-		// -------------------------------------
-		
-		$this->data->fields = $this->fields_m->get_fields(
-										$this->config->item('streams:core_namespace'),
-										Settings::get('records_per_page'),
-										$this->uri->segment(5)
-									);
+	/**
+	 * Index
+	 *
+	 * List fields (using the Streams API fields_table
+	 * functionality).
+	 *
+	 * @access 	public
+	 * @return 	void
+	 */
+	public function index()
+	{
+		$extra = array();
 
-		// -------------------------------------
-		// Pagination
-		// -------------------------------------
+		$extra['title'] = lang('streams:fields');
+		$extra['buttons'] = array(
+			array(
+				'label'		=> lang('global:edit'),
+				'url'		=> 'admin/streams/fields/edit/-field_id-'
+			),
+			array(
+				'label'		=> lang('global:delete'),
+				'url'		=> 'admin/streams/fields/delete/-field_id-',
+				'confirm'	=> true,
+			)
+		);
 
-		$this->data->pagination = create_pagination(
-										'admin/streams/fields/index',
-										$this->fields_m->count_fields($this->config->item('streams:core_namespace')),
-										Settings::get('records_per_page'),
-										5
-									);
+		$this->streams->cp->fields_table(
+				$this->config->item('streams:core_namespace'),
+				Settings::get('records_per_page'),
+				'admin/streams/fields/index', true, $extra);
+	}
 
-		// -------------------------------------
-
-        $this->template->build('admin/fields/index', $this->data);
-    }
-  
 	// --------------------------------------------------------------------------   
 
-    /**
+	/**
      * Create a new field
      */
-	function add()
+	public function add()
 	{
 		role_or_die('streams', 'admin_fields');
 	
@@ -92,15 +90,15 @@ class Admin_Fields extends Admin_Controller {
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
-   		
-   		$this->type->load_field_crud_assets();
-   		
-   		// -------------------------------------
-        
-        $this->data->method = 'new';
-        
-        //Prep the fields
-		$this->data->field_types = $this->type->field_types_array(TRUE);
+
+		$this->type->load_field_crud_assets();
+
+		// -------------------------------------
+
+		$this->data->method = 'new';
+
+		//Prep the fields
+		$this->data->field_types = $this->type->field_types_array();
 
 		// -------------------------------------
 		// Validation & Setup
@@ -132,11 +130,11 @@ class Admin_Fields extends Admin_Controller {
 								$this->input->post()
 				) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.save_field_error'));	
+				$this->session->set_flashdata('notice', lang('streams:save_field_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.field_add_success'));	
+				$this->session->set_flashdata('success', lang('streams:field_add_success'));	
 			endif;
 	
 			redirect('admin/streams/fields');
@@ -185,9 +183,9 @@ class Admin_Fields extends Admin_Controller {
 		// -------------------------------------
 		
 		$this->template
-        		->append_js('module::slug.js')
-        		->append_js('module::fields.js')
-				->build('admin/fields/form', $this->data);
+			->append_js('module::slug.js')
+			->append_js('module::fields.js')
+			->build('admin/fields/form', $this->data);
 	}
 
 	// --------------------------------------------------------------------------
@@ -195,7 +193,7 @@ class Admin_Fields extends Admin_Controller {
 	/**
 	 * Edit a field
 	 */
-	function edit()
+	public function edit()
 	{
 		role_or_die('streams', 'admin_fields');
 	
@@ -213,15 +211,15 @@ class Admin_Fields extends Admin_Controller {
 		// These are assets field types may
 		// need when adding/editing fields
 		// -------------------------------------
-   		
-   		$this->type->load_field_crud_assets();
+		
+		$this->type->load_field_crud_assets();
 
 		// -------------------------------------
 		
 		$this->template->append_js('module::fields.js');
-        
-        $this->data->method = 'edit';
- 
+
+		$this->data->method = 'edit';
+
  		// -------------------------------------
 		// Parameters
 		// -------------------------------------
@@ -255,8 +253,8 @@ class Admin_Fields extends Admin_Controller {
  		// Load Paramaters in case we need 'em
 		require_once(PYROSTEAMS_DIR.'libraries/Parameter_fields.php');		
 		$this->data->parameters = new Parameter_fields();
-       
-        // Prep the fields
+
+		// Prep the fields
 		$this->data->field_types = $this->type->field_types_array($this->type->types);
 
 		// -------------------------------------
@@ -266,7 +264,9 @@ class Admin_Fields extends Admin_Controller {
 		// Add in the unique callback
 		$this->fields_m->fields_validation[1]['rules'] .= '|unique_field_slug['.$this->data->current_field->field_slug.']';
 		
-		$this->form_validation->set_rules( $this->fields_m->fields_validation  );
+		$this->form_validation->set_rules($this->fields_m->fields_validation);
+
+		$this->data->field = new stdClass();
 				
 		foreach($this->fields_m->fields_validation as $field):
 		
@@ -297,17 +297,23 @@ class Admin_Fields extends Admin_Controller {
 										$this->input->post()
 									) ):
 			
-				$this->session->set_flashdata('notice', lang('streams.field_update_error'));	
+				$this->session->set_flashdata('notice', lang('streams:field_update_error'));	
 			
 			else:
 			
-				$this->session->set_flashdata('success', lang('streams.field_update_success'));	
+				$this->session->set_flashdata('success', lang('streams:field_update_success'));	
 			
 			endif;
 	
 			redirect('admin/streams/fields');
 		
 		endif;
+
+		// -------------------------------------
+		// Run field setup events
+		// -------------------------------------
+
+		$this->fields->run_field_setup_events();
 
 		// -------------------------------------
 		
@@ -330,11 +336,11 @@ class Admin_Fields extends Admin_Controller {
 		
 		if( ! $this->fields_m->delete_field($field_id) ):
 		
-			$this->session->set_flashdata('notice', lang('streams.field_delete_error'));	
+			$this->session->set_flashdata('notice', lang('streams:field_delete_error'));	
 		
 		else:
 		
-			$this->session->set_flashdata('success', lang('streams.field_delete_success'));	
+			$this->session->set_flashdata('success', lang('streams:field_delete_success'));	
 		
 		endif;
 	

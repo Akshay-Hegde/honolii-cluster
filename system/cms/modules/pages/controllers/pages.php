@@ -7,7 +7,7 @@
  */
 class Pages extends Public_Controller
 {
-
+	
 	/**
 	 * Constructor method
 	 */
@@ -16,7 +16,7 @@ class Pages extends Public_Controller
 		parent::__construct();
 
 		$this->load->model('page_m');
-		$this->load->model('page_layouts_m');
+		$this->load->model('page_type_m');
 
 		// This basically keeps links to /home always pointing to
 		// the actual homepage even when the default_controller is
@@ -24,11 +24,13 @@ class Pages extends Public_Controller
 
 		// No page is mentioned and we are not using pages as default
 		//  (eg blog on homepage)
-		if ( ! $this->uri->segment(1) AND $this->router->default_controller != 'pages')
+		if ( ! $this->uri->segment(1) and $this->router->default_controller != 'pages')
 		{
 			redirect('');
 		}
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * Catch all requests to this page in one mega-function.
@@ -72,6 +74,8 @@ class Pages extends Public_Controller
 			: $this->_page($url_segments);
 	}
 
+    // --------------------------------------------------------------------------
+
 	/**
 	 * Page method
 	 *
@@ -79,15 +83,30 @@ class Pages extends Public_Controller
 	 */
 	public function _page($url_segments)
 	{
-		$page = ($url_segments !== NULL)
+		// Get our chunks field type if this is an
+		// upgraded site.
+		if ($this->db->table_exists('page_chunks'))
+		{
+			$this->type->load_types_from_folder(APPPATH.'modules/pages/field_types/', 'pages_module');
+		}
 
-			// Fetch this page from the database via cache
-			? $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE))
+		// If we are on the development environment,
+		// we should get rid of the cache. That ways we can just
+		// make updates to the page type files and see the
+		// results immediately.
+		if (ENVIRONMENT == PYRO_DEVELOPMENT)
+		{
+			$this->pyrocache->delete_all('page_m');
+		}
 
-			: $this->pyrocache->model('page_m', 'get_home');
+		// GET THE PAGE ALREADY. In the event of this being the home page $url_segments will be null
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
-		// If page is missing or not live (and not an admin) show 404
-		if ( ! $page OR ($page->status == 'draft' AND ( ! isset($this->current_user->group) OR $this->current_user->group != 'admin')))
+		// Setting this so others may use it.
+		$this->template->set('page', $page);
+
+		// If page is missing or not live (and the user does not have permission) show 404
+		if ( ! $page or ($page->status == 'draft' and ! $this->permission_m->has_role(array('put_live', 'edit_live'))))
 		{
 			// Load the '404' page. If the actual 404 page is missing (oh the irony) bitch and quit to prevent an infinite loop.
 			if ( ! ($page = $this->pyrocache->model('page_m', 'get_by_uri', array('404'))) )
@@ -97,7 +116,7 @@ class Pages extends Public_Controller
 		}
 
 		// the home page won't have a base uri
-		isset($page->base_uri) OR $page->base_uri = $url_segments;
+		isset($page->base_uri) or $page->base_uri = $url_segments;
 
 		// If this is a homepage, do not show the slug in the URL
 		if ($page->is_home and $url_segments)
@@ -117,16 +136,16 @@ class Pages extends Public_Controller
 			$page->restricted_to = (array)explode(',', $page->restricted_to);
 
 			// Are they logged in and an admin or a member of the correct group?
-			if ( ! $this->current_user OR (isset($this->current_user->group) AND $this->current_user->group != 'admin' AND ! in_array($this->current_user->group_id, $page->restricted_to)))
+			if ( ! $this->current_user or (isset($this->current_user->group) and $this->current_user->group != 'admin' and ! in_array($this->current_user->group_id, $page->restricted_to)))
 			{
 				// send them to login but bring them back when they're done
 				redirect('users/login/'.(empty($url_segments) ? '' : implode('/', $url_segments)));
 			}
 		}
 
-		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or 
+		// We want to use the valid uri from here on. Don't worry about segments passed by Streams or
 		// similar. Also we don't worry about breadcrumbs for 404
-		if ($url_segments = explode('/', $page->base_uri) AND count($url_segments) > 1)
+		if ($url_segments = explode('/', $page->base_uri) and count($url_segments) > 1)
 		{
 			// we dont care about the last one
 			array_pop($url_segments);
@@ -140,7 +159,7 @@ class Pages extends Public_Controller
 				{
 					$breadcrumb_segments[] = $segment;
 
-					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, TRUE));
+					$parents[] = $this->pyrocache->model('page_m', 'get_by_uri', array($breadcrumb_segments, true));
 				}
 
 				// Cache for next time
@@ -153,23 +172,10 @@ class Pages extends Public_Controller
 			}
 		}
 
-		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
-		if ($page->meta_title == '')
-		{
-			$page->meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
-		}
-
 		// If this page has an RSS feed, show it
 		if ($page->rss_enabled)
 		{
 			$this->template->append_metadata('<link rel="alternate" type="application/rss+xml" title="'.$page->meta_title.'" href="'.site_url(uri_string().'.rss').'" />');
-		}
-
-		// Wrap the page with a page layout, otherwise use the default 'Home' layout
-		if ( ! $page->layout = $this->page_layouts_m->get($page->layout_id))
-		{
-			// Some pillock deleted the page layout, use the default and pray to god they didnt delete that too
-			$page->layout = $this->page_layouts_m->get(1);
 		}
 
 		// Set pages layout files in your theme folder
@@ -178,66 +184,117 @@ class Pages extends Public_Controller
 			$this->template->set_layout($page->uri.'.html');
 		}
 
-		// If a Page Layout has a Theme Layout that exists, use it
-		if ( ! empty($page->layout->theme_layout) AND $this->template->layout_exists($page->layout->theme_layout)
+		// If a Page Type has a Theme Layout that exists, use it
+		if ( ! empty($page->layout->theme_layout) and $this->template->layout_exists($page->layout->theme_layout)
 			// But Allow that you use layout files of you theme folder without override the defined by you in your control panel
-			AND ($this->template->layout_is('default.html') OR $page->layout->theme_layout !== 'default.html')
+			AND ($this->template->layout_is('default.html') or $page->layout->theme_layout !== 'default.html')
 		)
 		{
 			$this->template->set_layout($page->layout->theme_layout);
 		}
 
-		// Grab all the chunks that make up the body
-		$page->chunks = $this->page_m->get_chunks($page->id);
+		// ---------------------------------
+		// Metadata
+		// ---------------------------------
 
-		$chunk_html = '';
-		foreach ($page->chunks as $chunk)
+		// First we need to figure out our metadata. If we have meta for our page,
+		// that overrides the meta from the page layout.
+		$meta_title = ($page->meta_title ? $page->meta_title : $page->layout->meta_title);
+		$meta_description = ($page->meta_description ? $page->meta_description : $page->layout->meta_description);
+		$meta_keywords = '';
+		if ($page->meta_keywords or $page->layout->meta_keywords)
 		{
-			$chunk_html .= '<section id="'.$chunk->slug.'" class="page-chunk '.$chunk->class.'">'.
-				'<div class="page-chunk-pad">'.
-				(($chunk->type == 'markdown') ? $chunk->parsed : $chunk->body).
-				'</div>'.
-				'</section>'.PHP_EOL;
+			$meta_keywords = $page->meta_keywords ?
+								Keywords::get_string($page->meta_keywords) :
+								Keywords::get_string($page->layout->meta_keywords);
 		}
 
-		// Create page output. We do this before parsing the page contents so that 
-		// title, meta, & breadcrumbs can be overridden with tags in the page content
-		$this->template->title($page->meta_title)
-			->set_metadata('keywords', Keywords::get_string($page->meta_keywords))
-			->set_metadata('description', $page->meta_description)
+		$meta_robots = $page->meta_robots_no_index ? 'noindex' : 'index';
+		$meta_robots .= $page->meta_robots_no_follow ? ',nofollow' : ',follow';
+		// They will be parsed later, when they are set for the template library.
+
+		// Not got a meta title? Use slogan for homepage or the normal page title for other pages
+		if ( ! $meta_title)
+		{
+			$meta_title = $page->is_home ? $this->settings->site_slogan : $page->title;
+		}
+
+		// Set the title, keywords, description, and breadcrumbs.
+		$this->template->title($this->parser->parse_string($meta_title, $page, true))
+			->set_metadata('keywords', $this->parser->parse_string($meta_keywords, $page, true))
+			->set_metadata('robots', $meta_robots)
+			->set_metadata('description', $this->parser->parse_string($meta_description, $page, true))
 			->set_breadcrumb($page->title);
 
-		// Parse it so the embedded tags are parsed. We pass along $page so that {{ page:id }} and friends work in page content.
-		$page->body = $this->parser->parse_string(str_replace(array('&#39;', '&quot;'), array("'", '"'), $chunk_html), array('theme' => $this->theme, 'page' => $page), TRUE);
+		// Parse the CSS so we can use tags like {{ asset:inline_css }}
+		// #foo {color: red} {{ /asset:inline_css }}
+		// to output css via the {{ asset:render_inline_css }} tag. This is most useful for JS
+		$css = $this->parser->parse_string($page->layout->css.$page->css, $this, true);
 
-		if ($page->layout->css OR $page->css)
+		// there may not be any css (for sure after parsing Lex tags)
+		if ($css)
 		{
 			$this->template->append_metadata('
 				<style type="text/css">
-					'.$page->layout->css.'
-					'.$page->css.'
+					'.$css.'
 				</style>', 'late_header');
 		}
 
-		if ($page->layout->js OR $page->js)
+		$js = $this->parser->parse_string($page->layout->js.$page->js, $this, true);
+		
+		// Add our page and page layout JS
+		if ($js)
 		{
 			$this->template->append_metadata('
 				<script type="text/javascript">
-					'.$page->layout->js.'
-					'.$page->js.'
+					'.$js.'
 				</script>');
 		}
+
+		// If comments are enabled, go fetch them all
+		if (Settings::get('enable_comments'))
+		{
+			// Load Comments so we can work out what to do with them
+			$this->load->library('comments/comments', array(
+				'entry_id' 		=> $page->id,
+				'entry_title' 	=> $page->title,
+				'module' 		=> 'pages',
+				'singular' 		=> 'pages:page',
+				'plural' 		=> 'pages:pages',
+			));
+		}
+
+		// Get our stream.
+		$stream = $this->streams_m->get_stream($page->layout->stream_id);
+
+		// We are going to pre-build this data so we have the data
+		// available to the template plugin (since we are pre-parsing our views).
+		$template = $this->template->build_template_data();
+
+		// Parse our view file. The view file is nothing
+		// more than an echo of $page->layout->body and the
+		// comments after it (if the page has comments).
+		$html = $this->template->load_view('pages/page', array('page' => $page), false);
+
+		$view = $this->parser->parse_string($html, $page, true, false, array(
+			'stream' => $stream->stream_slug,
+			'namespace' => $stream->stream_namespace,
+			'id_name' => 'entry_id'
+		));
 
 		if ($page->slug == '404')
 		{
 			log_message('error', 'Page Missing: '.$this->uri->uri_string());
 
 			// things behave a little differently when called by MX from MY_Exceptions' show_404()
-			exit($this->template->build('pages/page', array('page' => $page), FALSE, FALSE));
+			exit($this->template->build($view, array('page' => $page), false, false, true, $template));
 		}
 
-		$this->template->build('page', array('page' => $page), FALSE, FALSE);
+		$this->template
+					->build($view, array('page' => $page), false, false, true, $template);
 	}
+
+    // --------------------------------------------------------------------------
 
 	/**
 	 * RSS method
@@ -253,13 +310,13 @@ class Pages extends Public_Controller
 
 
 		// Fetch this page from the database via cache
-		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, TRUE));
+		$page = $this->pyrocache->model('page_m', 'get_by_uri', array($url_segments, true));
 
 		// We will need to know if we should include draft pages in the feed later on too, so save it.
-		$include_draft = ! empty($this->current_user) AND $this->current_user->group !== 'admin';
+		$include_draft = ! empty($this->current_user) and $this->current_user->group !== 'admin';
 
 		// If page is missing or not live (and not an admin) show 404
-		if (empty($page) OR ($page->status == 'draft' AND $include_draft) OR ! $page->rss_enabled)
+		if (empty($page) or ($page->status == 'draft' and $include_draft) or ! $page->rss_enabled)
 		{
 			// Will try the page then try 404 eventually
 			$this->_page('404');
@@ -281,7 +338,7 @@ class Pages extends Public_Controller
 		$children = $this->pyrocache->model('page_m', 'get_many_by', array($query_options));
 
 		//var_dump($children);
-		
+
 		$data = array(
 			'rss' => array(
 				'title' => ($page->meta_title ? $page->meta_title : $page->title).' | '.$this->settings->site_name,
@@ -294,8 +351,7 @@ class Pages extends Public_Controller
 
 		if ( ! empty($children))
 		{
-			$this->load->helper(array('date', 'xml'));
-
+			$this->load->helper('xml');
 
 			foreach ($children as &$row)
 			{

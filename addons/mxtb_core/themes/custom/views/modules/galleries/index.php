@@ -30,9 +30,7 @@
         		    </div>
         		</div>
         	</div>
-        	<?php endif; endforeach; ?>
-        		<?= $this->pagination->create_links(); ?>
-        	<?php else: ?>
+        	<?php endif; endforeach; else: ?>
         	   <p><?= lang('galleries.no_galleries_error'); ?></p>
         	<?php endif; ?>
         </div>

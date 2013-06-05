@@ -93,6 +93,7 @@ class Lex_Parser
 		
 		if ($callback)
 		{
+			//$text = $this->parse_variables($text, $data, $callback);
 			$text = $this->parse_callback_tags($text, $data, $callback);
 		}
 		
@@ -146,10 +147,18 @@ class Lex_Parser
 				if ($loop_data = $this->get_variable($match[1][0], $data))
 				{
 					$looped_text = '';
+
 					foreach ($loop_data as $item_data)
 					{
-						$str = $this->parse_conditionals($match[2][0], $item_data, $callback);
+						$str = $this->extract_looped_tags($match[2][0], $item_data, $callback);
+						$str = $this->parse_conditionals($str, $item_data, $callback);
+						$str = $this->inject_extractions($str, 'looped_tags');
+
 						$str = $this->parse_variables($str, $item_data, $callback);
+
+						// extract any noparse tags that may have been the value of another tag
+						$str = $this->extract_noparse($str);
+						
 						if ($callback !== null)
 						{
 							$str = $this->parse_callback_tags($str, $item_data, $callback);
@@ -205,7 +214,7 @@ class Lex_Parser
 		}
 		else
 		{
-			$regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*\}\}/ms';
+			$regex = '/\{\{\s*('.$this->variable_regex.')(\s+.*?)?\s*(\/)?\}\}/ms';
 		}
 		/**
 		 * $match[0][0] is the raw tag
@@ -214,9 +223,12 @@ class Lex_Parser
 		 * $match[1][1] is the offset of callback name
 		 * $match[2][0] is the parameters
 		 * $match[2][1] is the offset of parameters
+		 * $match[3][0] is the self closure
+		 * $match[3][1] is the offset of closure
 		 */
 		while (preg_match($regex, $text, $match, PREG_OFFSET_CAPTURE))
 		{
+			$selfClosed = false;
 			$parameters = array();
 			$tag = $match[0][0];
 			$start = $match[0][1];
@@ -232,10 +244,15 @@ class Lex_Parser
 				$parameters = $this->parse_parameters($raw_params, $cb_data, $callback);
 			}
 
+			if (isset($match[3]))
+			{
+				$selfClosed = true;
+			}
+
 			$content = '';
 
 			$temp_text = substr($text, $start + strlen($tag));
-			if (preg_match('/\{\{\s*\/'.preg_quote($name, '/').'\s*\}\}/m', $temp_text, $match, PREG_OFFSET_CAPTURE))
+			if (preg_match('/\{\{\s*\/'.preg_quote($name, '/').'\s*\}\}/m', $temp_text, $match, PREG_OFFSET_CAPTURE) && ! $selfClosed)
 			{
 				$content = substr($temp_text, 0, $match[0][1]);
 				$tag .= $content.$match[0][0];
@@ -318,7 +335,7 @@ class Lex_Parser
 				$condition = preg_replace('/\b(?!\{\s*)('.$this->callback_name_regex.')(?!\s+.*?\s*\})\b/', '{$1}', $condition);
 				$condition = $this->parse_callback_tags($condition, $data, $callback);
 
-				// Incase the callback returned a string, we need to extract it
+				// Re-extract the strings that have now been possibly added.
 				if (preg_match_all('/(["\']).*?(?<!\\\\)\1/', $condition, $str_matches))
 				{
 					foreach ($str_matches[0] as $m)
@@ -326,6 +343,7 @@ class Lex_Parser
 						$condition = $this->create_extraction('__cond_str', $m, $m, $condition);
 					}
 				}
+
 			}
 			
 			// Re-process for variables, we trick processConditionVar so that it will return null
@@ -452,13 +470,13 @@ class Lex_Parser
 	 * @param	string	$text	Text to inject into
 	 * @return	string
 	 */
-	public function inject_noparse($text)
+	public static function inject_noparse($text)
 	{
 		if (isset(Lex_Parser::$extractions['noparse']))
 		{
 			foreach (Lex_Parser::$extractions['noparse'] AS $hash => $replacement)
 			{
-				if (strpos($text, "noparse_{$hash}") !== FALSE)
+				if (strpos($text, "noparse_{$hash}") !== false)
 				{
 					$text = str_replace("noparse_{$hash}", $replacement, $text);
 				}
@@ -581,6 +599,10 @@ class Lex_Parser
 		$this->conditional_not_regex = '/(\s+|^)not(\s+|$)/ms';
 
 		$this->regex_setup = true;
+		
+		// This is important, it's pretty unclear by the documentation
+		// what the default value is on <= 5.3.6
+		ini_set('pcre.backtrack_limit', 1000000);
 	}
 
 	/**
@@ -717,7 +739,6 @@ class Lex_Parser
 		{
 			$parts = explode($this->scope_glue, $key);
 		}
-
 		foreach ($parts as $key_part)
 		{
 			if (is_array($data))
@@ -757,17 +778,11 @@ class Lex_Parser
 	{
 		ob_start();
 		$result = eval('?>'.$text.'<?php ');
-		
-		if (($result === false) and (ENVIRONMENT === PYRO_DEVELOPMENT))
+
+		if ($result === false)
 		{
 			echo '<br />You have a syntax error in your Lex tags. The snippet of text that contains the error has been output below:<br />';
 			exit(str_replace(array('?>', '<?php '), '', $text));
-			
-		}
-		elseif ($result === false)
-		{
-			log_message('error', str_replace(array('?>', '<?php '), '', $text));
-			echo '<br />You have a syntax error in your Lex tags: The snippet of text that contains the error has been output to your application\'s log file.<br />';
 		}
 
 		return ob_get_clean();

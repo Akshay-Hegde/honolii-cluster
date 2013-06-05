@@ -5,12 +5,13 @@
  * 
  * This overrides Codeigniter's helpers/array_helper.php file.
  *
- * @author		Philip Sturgeon
+ * @author      PyroCMS Dev Team
+ * @copyright   Copyright (c) 2012, PyroCMS LLC
  * @package		PyroCMS\Core\Helpers
  */
 
 
-if (!function_exists('array_object_merge'))
+if ( ! function_exists('array_object_merge'))
 {
 	/**
 	 * Merge an array or an object into another object
@@ -40,7 +41,7 @@ if (!function_exists('array_for_select'))
 	 */
 	function array_for_select()
 	{
-		$args = & func_get_args();
+		$args = func_get_args();
 
 		$return = array();
 
@@ -69,7 +70,7 @@ if (!function_exists('array_for_select'))
 				break;
 
 			default:
-				return FALSE;
+				return false;
 		}
 
 		return $return;
@@ -127,7 +128,7 @@ if (!function_exists('assoc_array_prop'))
 	 * @param string $prop Should be a common property with value scalar, as id, slug, order.
 	 * @return array 
 	 */
-	function assoc_array_prop(array &$arr = NULL, $prop = 'id')
+	function assoc_array_prop(array &$arr = null, $prop = 'id')
 	{
 		$newarr = array();
 
@@ -152,4 +153,27 @@ if (!function_exists('assoc_array_prop'))
 		return $arr = $newarr;
 	}
 
+}
+
+
+if(!function_exists('in_array_r'))
+{
+	/**
+	 * Recursively search an array
+	 * This method was copied and pasted from this URL (http://stackoverflow.com/questions/4128323/in-array-and-multidimensional-array)
+	 * Real credit goes to (http://stackoverflow.com/users/427328/elusive)
+	 *
+	 * @author Elusive / Brennon Loveless
+	 * @param string $needle the term being recursively searched for
+	 * @param array $haystack multidimensional array to search
+	 * @param boolean $strict use strict comparison or not
+	 */
+	function in_array_r($needle, $haystack, $strict = false) {
+		foreach ($haystack as $item) {
+			if (($strict ? $item === $needle : $item == $needle) || (is_array($item) && in_array_r($needle, $item, $strict))) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

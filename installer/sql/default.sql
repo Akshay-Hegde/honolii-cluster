@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}schema_version`;
+DROP TABLE IF EXISTS `core_users`, `core_settings`, `core_sites`, `{PREFIX}migrations`;
 	
 -- command split --
 
@@ -21,17 +21,17 @@ INSERT INTO `core_settings` (`slug`, `value`, `default`) VALUES
 -- command split --
 
 CREATE TABLE `core_sites` (
-    `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-	`name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
-    `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
+  `id` INT( 5 ) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
+  `name` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `ref` VARCHAR(20) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `domain` VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci,
 	`active` TINYINT(1) NOT NULL default '1',
-    `created_on` INT(11) NOT NULL default '0',
-    `updated_on` INT(11) NOT NULL default '0',
-    UNIQUE KEY `Unique ref` (`ref`),
-    UNIQUE KEY `Unique domain` (`domain`),
-    KEY `ref` (`ref`),
-    KEY `domain` (`domain`)
+  `created_on` INT(11) NOT NULL default '0',
+  `updated_on` INT(11) NOT NULL default '0',
+  UNIQUE KEY `Unique ref` (`ref`),
+  UNIQUE KEY `Unique domain` (`domain`),
+  KEY `ref` (`ref`),
+  KEY `domain` (`domain`)
 ) ENGINE=InnoDB CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- command split --
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `{PREFIX}users` (
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
-  `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
   `activation_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_on` int(11) NOT NULL,
@@ -67,11 +67,11 @@ INSERT INTO `{PREFIX}users` (`id`, `email`, `password`, `salt`, `group_id`, `ip_
 
 CREATE TABLE IF NOT EXISTS `core_users` (
   `id` smallint(5) unsigned NOT NULL AUTO_INCREMENT,
-  `email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `email` varchar(60) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `password` varchar(100) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `salt` varchar(6) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `group_id` int(11) DEFAULT NULL,
-  `ip_address` varchar(16) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `active` int(1) DEFAULT NULL,
   `activation_code` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_on` int(11) NOT NULL,

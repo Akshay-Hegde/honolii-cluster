@@ -25,6 +25,7 @@ class Widget_Rss_feed extends Widgets
 		'id' => 'RSS Feed',
 		'fi' => 'RSS Syöte',
 		'fr' => 'Flux RSS',
+            'fa' => 'خبر خوان RSS',
 	);
 
 	/**
@@ -42,6 +43,7 @@ class Widget_Rss_feed extends Widgets
 		'id' => 'Menampilkan kutipan RSS feed di situs Anda',
 		'fi' => 'Näytä purettu RSS syöte sivustollasi',
 		'fr' => 'Affichez un flux RSS sur votre site web',
+            'fa' => 'نمایش خوراک های RSS در سایت',
 	);
 
 	/**
@@ -63,7 +65,7 @@ class Widget_Rss_feed extends Widgets
 	 *
 	 * @var string
 	 */
-	public $version = '1.2';
+	public $version = '1.2.0';
 
 	/**
 	 * The fields for customizing the options of the widget.

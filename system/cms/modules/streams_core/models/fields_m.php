@@ -21,17 +21,17 @@ class Fields_m extends CI_Model {
 	public $fields_validation = array(
 		array(
 			'field'	=> 'field_name',
-			'label' => 'lang:streams.label.field_name',
+			'label' => 'lang:streams:label.field_name',
 			'rules'	=> 'trim|required|max_length[60]'
 		),
 		array(
 			'field'	=> 'field_slug',
-			'label' => 'lang:streams.label.field_slug',
+			'label' => 'lang:streams:label.field_slug',
 			'rules'	=> 'trim|required|max_length[60]|streams_slug_safe'
 		),
 		array(
 			'field'	=> 'field_type',
-			'label' => 'lang:streams.label.field_type',
+			'label' => 'lang:streams:label.field_type',
 			'rules'	=> 'trim|required|max_length[50]|streams_type_valid'
 		)
 	);
@@ -42,12 +42,25 @@ class Fields_m extends CI_Model {
 
 	// --------------------------------------------------------------------------
 
-	function __construct()
+	public function __construct()
 	{
 		$this->table = FIELDS_TABLE;
 	}
-    
+ 
     // --------------------------------------------------------------------------
+
+	public function populate_field_cache()
+	{
+		$fields = $this->db->get($this->table)->result();
+
+		foreach ($fields as $field)
+		{
+			$this->fields_cache['by_id'][$field->id] 			= $field;
+			$this->fields_cache['by_slug'][$field->field_slug]	= $field;
+		}
+	}
+
+	// --------------------------------------------------------------------------
     
     /**
      * Get some fields
@@ -58,9 +71,9 @@ class Fields_m extends CI_Model {
      * @param	[int offset]
      * @return	obj
      */
-    public function get_fields($namespace = NULL, $limit = FALSE, $offset = 0, $skips = array())
+    public function get_fields($namespace = null, $limit = false, $offset = 0, $skips = array())
 	{
-		if (!empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
+		if ( ! empty($skips)) $this->db->or_where_not_in('field_slug', $skips);
 		
 		if ($namespace) $this->db->where('field_namespace', $namespace);
 	
@@ -81,7 +94,7 @@ class Fields_m extends CI_Model {
      * @access	public
      * @param	int limit
      * @param	int offset
-     * @return	obj
+     * @return	array
      */
     public function get_all_fields($namespace = false)
 	{
@@ -158,21 +171,28 @@ class Fields_m extends CI_Model {
 		
 		if (isset($field_type->custom_parameters))
 		{
-			$extra_data = array();
-		
+			foreach ($field_type->custom_parameters as $param)
+			{
+				if(isset($extra[$param]))
+				{
+					$insert_data['custom'][$param] = $extra[$param];
+				}
+				else
+				{
+					$insert_data['custom'][$param] = null;
+				}
+			}
+			
 			foreach ($field_type->custom_parameters as $param)
 			{
 				if (method_exists($field_type, 'param_'.$param.'_pre_save'))
 				{
-					$extra_data[$param] = $field_type->{'param_'.$param.'_pre_save'}($insert_data);
-				}
-				elseif(isset($extra[$param]))
-				{
-					$extra_data[$param] = $extra[$param];
+					$insert_data['custom'][$param] = $field_type->{'param_'.$param.'_pre_save'}( $insert_data );
 				}
 			}
-		
-			$insert_data['field_data'] = serialize($extra_data);
+			
+			$insert_data['field_data'] = serialize($insert_data['custom']);
+			unset($insert_data['custom']);
 		}
 		
 		return $this->db->insert($this->table, $insert_data);
@@ -417,24 +437,31 @@ class Fields_m extends CI_Model {
 		}
 		else
 		{
-			$custom_params = array();
-
+			foreach ($type->custom_parameters as $param)
+			{
+				if(isset($data[$param]))
+				{
+					$update_data['custom'][$param] = $data[$param];
+				}
+				else
+				{
+					$update_data['custom'][$param] = null;
+				}
+			}
+			
 			foreach ($type->custom_parameters as $param)
 			{
 				if (method_exists($type, 'param_'.$param.'_pre_save'))
 				{
-					$custom_params[$param] = $type->{'param_'.$param.'_pre_save'}($update_data);
-				}
-				elseif(isset($data[$param]))
-				{
-					$custom_params[$param] = $data[$param];
+					$update_data['custom'][$param] = $type->{'param_'.$param.'_pre_save'}( $update_data );
 				}
 			}
-
-			if ( ! empty($custom_params))
+			
+			if ( ! empty($update_data['custom']))
 			{
-				$update_data['field_data'] = serialize($custom_params);
+				$update_data['field_data'] = serialize($update_data['custom']);
 			}
+			unset($update_data['custom']);
 		}
 		
 		$this->db->where('id', $field->id);
@@ -472,6 +499,22 @@ class Fields_m extends CI_Model {
 				->count_all_results();
 	}
 
+    /**
+     * Count assignments for a stream
+     *
+     * @access	public
+     * @return	int
+     */
+	public function count_assignments_for_stream($stream_id)
+	{
+		if ( ! $stream_id) return 0;
+
+		return $this->db
+				->where('stream_id', $stream_id)
+				->from($this->db->dbprefix(ASSIGN_TABLE))
+				->count_all_results();
+	}
+
 	// --------------------------------------------------------------------------
 	
 	/**
@@ -485,9 +528,9 @@ class Fields_m extends CI_Model {
 	{
 		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
-		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
-		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.field_id', $field_id, FALSE);
+		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
+		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
+		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.field_id', $field_id, false);
 		
 		$obj = $this->db->get();
 		
@@ -512,9 +555,9 @@ class Fields_m extends CI_Model {
 	{
 		$this->db->select(STREAMS_TABLE.'.*, '.STREAMS_TABLE.'.view_options as stream_view_options, '.ASSIGN_TABLE.'.id as assign_id, '.STREAMS_TABLE.'.id as stream_id, '.FIELDS_TABLE.'.id as field_id, '.FIELDS_TABLE.'.*, '.FIELDS_TABLE.'.view_options as field_view_options, '.ASSIGN_TABLE.'.instructions, '.ASSIGN_TABLE.'.is_required, '.ASSIGN_TABLE.'.is_unique');
 		$this->db->from(STREAMS_TABLE.', '.ASSIGN_TABLE.', '.FIELDS_TABLE);
-		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', FALSE);
-		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', FALSE);
-		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, FALSE);
+		$this->db->where($this->db->dbprefix(STREAMS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.stream_id', false);
+		$this->db->where($this->db->dbprefix(FIELDS_TABLE).'.id', $this->db->dbprefix(ASSIGN_TABLE).'.field_id', false);
+		$this->db->where($this->db->dbprefix(ASSIGN_TABLE).'.stream_id', $stream_id, false);
 		$this->db->order_by('sort_order', 'ASC');
 		
 		$obj = $this->db->get();
@@ -543,6 +586,19 @@ class Fields_m extends CI_Model {
 		{
 			return false;
 		}
+		
+		// Remove from cache
+		if (isset($this->fields_cache['by_id'][$field_id]))
+		{
+			unset($this->fields_cache['by_id'][$field_id]);
+		}
+
+		$namespace_key = $field->field_namespace.':'.$field->field_slug;
+		
+		if (isset($this->fields_cache['by_slug'][$namespace_key]))
+		{
+			unset($this->fields_cache['by_slug'][$namespace_key]);
+		}
 	
 		// Find assignments, and delete rows from table
 		$assignments = $this->get_assignments($field_id);
@@ -560,6 +616,16 @@ class Fields_m extends CI_Model {
 			}
 			
 			if ( ! $outcome) return $outcome;
+		}
+		else
+		{
+			// If we have no assignments, let's call a special
+			// function (if it exists). This is for deleting
+			// fields that have no assignments.
+			if (method_exists($this->type->types->{$field->field_type}, 'field_no_assign_destruct'))
+			{
+				$this->type->types->{$field->field_type}->field_no_assign_destruct($field);
+			}
 		}
 		
 		// Delete field assignments		
@@ -596,7 +662,7 @@ class Fields_m extends CI_Model {
 	 * @param	obj - the assignment
 	 * @return	void
 	 */
-	function cleanup_assignment($assignment)
+	public function cleanup_assignment($assignment)
 	{
 		// Drop the column if it exists
 		if ($this->db->field_exists($assignment->field_slug, $assignment->stream_prefix.$assignment->stream_slug))
@@ -688,9 +754,9 @@ class Fields_m extends CI_Model {
 	public function get_field_by_slug($field_slug, $field_namespace)
 	{
 		// Check for already cached value
-		if (isset($this->fields_cache['by_slug'][$field_slug]))
+		if (isset($this->fields_cache['by_slug'][$field_namespace.':'.$field_slug]))
 		{
-			return $this->fields_cache['by_slug'][$field_slug];
+			return $this->fields_cache['by_slug'][$field_namespace.':'.$field_slug];
 		}
 
 		$obj = $this->db
@@ -709,7 +775,7 @@ class Fields_m extends CI_Model {
 		$field->field_data = unserialize($field->field_data);
 
 		// Save for later use
-		$this->fields_cache['by_slug'][$field_slug] = $field;
+		$this->fields_cache['by_slug'][$field_namespace.':'.$field_slug] = $field;
 		
 		return $field;
 	}

@@ -10,7 +10,8 @@ $lang['version_label'] 			= 'Έκδοση';
 $lang['global:author'] 			= 'Συγγραφέας';
 $lang['global:action'] 			= 'Ενέργεια';
 $lang['global:slug'] 			= 'Slug';
-$lang['global:slug_instructions']		= 'Lowercase characters and underscores only.'; #translate
+$lang['global:slug_instructions']		= 'Μόνο πεζά γράμματα λατινικού αλφάβητου και κάτω παύλες.';
+$lang['global:user'] 					= 'Χρήστης';
 
 $lang['global:dialog:delete_message'] 	= 'Είσαστε σίγουροι ότι θέλετε να το διαγράψετε; Δεν μπορεί να αναιρεθεί.';
 $lang['global:dialog:confirm'] 		= 'Επιβεβαίωση';
@@ -31,6 +32,13 @@ $lang['global:operators:not-equal'] 	= 'Όχι ίσο με';
 $lang['global:operators:less-than'] 	= 'Μικρότερο από';
 $lang['global:operators:greater-than'] 	= 'Μεγαλύτερο από';
 
+$lang['global:duration:1-day']			= 'Μία μέρα';
+$lang['global:duration:1-week']			= 'Μία εβδομάδα';
+$lang['global:duration:2-weeks']		= 'Δύο εβδομάδες';
+$lang['global:duration:1-month']		= 'Ένα μήνα';
+$lang['global:duration:3-months']		= 'Τρείς Μήνες';
+$lang['global:duration:always']			= 'Πάντοτε';
+
 $lang['navigation_headline'] 		= 'Πλοήγηση';
 $lang['breadcrumb_base_label'] 		= 'Αρχική';
 
@@ -44,6 +52,8 @@ $lang['general_error_label'] 		= 'Σφάλμα';
 $lang['required_error_label'] 		= 'Λείπει η τιμή σε απαιτουμενο πεδίο';
 $lang['note_label'] 			= 'Σημείωση';
 $lang['success_label'] 			= 'Επιτυχία';
+$lang['global:fields']					= 'Πεδία';
+$lang['global:custom_fields']			= 'Custom Fields'; #translate
 
 $lang['login_title'] 			= 'Σύνδεση';
 $lang['global:fatal_error'] 		= 'Σφάλμα, το CMS είναι εγκατεστημένο;';
@@ -51,8 +61,8 @@ $lang['global:demo_restrictions'] 	= 'Μερικές λειτουργίες σε
 
 $lang['login_error_label'] 		= 'Σφάλμα σύνδεσης';
 $lang['forgot_password_label'] 		= 'Ξεχάσατε το συνθηματικό σας;';
-$lang['email_label'] 			= 'E-mail';
-$lang['password_label'] 		= 'Συνθηματικό';
+$lang['global:email'] 			= 'E-mail';
+$lang['global:password'] 		= 'Συνθηματικό';
 $lang['login_label'] 			= 'Σύνδεση';
 
 $lang['help_label'] 			= 'Βοήθεια';
@@ -61,10 +71,10 @@ $lang['cancel_label'] 			= 'Άκυρο';
 $lang['update_label'] 			= 'Ενημέρωση Λεζάντας';
 $lang['global:delete'] 			= 'Διαγραφή';
 $lang['activate_label'] 		= 'Ενεργοποίηση';
-$lang['approve_label']			= 'Έγκριση';
-$lang['unapprove_label']		= 'Απόρριψη';
+$lang['global:approve']			= 'Έγκριση';
+$lang['global:unapprove']		= 'Απόρριψη';
 $lang['publish_label'] 			= 'Δημοσίευση';
-$lang['upload_label'] 			= 'Ανέβασμα';
+$lang['global:upload'] 			= 'Ανέβασμα';
 $lang['global:uninstall'] 		= 'Απεγκατάσταση';
 $lang['global:install'] 		= 'Εγκατάσταση';
 $lang['global:upgrade'] 		= 'Ενημέρωση';
@@ -79,7 +89,7 @@ $lang['top_page']			= 'Κορυφή';
 $lang['back_to_top']			= 'Πίσω στην Κορυφή';
 
 $lang['global:filters'] 		= 'Φίλτρα';
-$lang['global:image'] 					= 'Image'; #translate
+$lang['global:image'] 					= 'Εικόνα';
 $lang['global:description'] 		= 'Περιγραφή';
 $lang['global:actions']			= 'Ενέργειες';
 $lang['global:view']			= 'Προβολή';
@@ -92,4 +102,17 @@ $lang['global:remove']			= 'Διαγραφή';
 
 $lang['global:keywords']		= 'Λέξεις Κλειδιά';
 
-/* End of file main_lang.php */
+$lang['global:or']						= 'ή';
+$lang['global:and']						= 'και';
+$lang['global:at']						= 'στο';
+
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Θέματα Προβολής';
+$lang['global:field_types']				= 'Τύποι Πεδίων';
+$lang['global:plugins']					= 'Πρόσθετα';
+$lang['global:plugin']					= 'Πρόσθετο';
+
+$lang['global:options']					= 'Επιλογές';
+$lang['global:plain-text']				= 'Plain Text'; #translate
+
+/* End of file global_lang.php */

@@ -22,17 +22,19 @@ jQuery(function($) {
 		url_titles	: {}
 	}
 
+	// Is Mobile?
+	pyro.is_mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
+
 	/**
 	 * Overload the json converter to avoid error when json is null or empty.
 	 */
 	$.ajaxSetup({
-		//allowEmpty: true,
 		converters: {
 			'text json': function(text) {
-				var json = jQuery.parseJSON(text);
-				if (!jQuery.ajaxSettings.allowEmpty == true && (json == null || jQuery.isEmptyObject(json)))
+				var json = $.parseJSON(text);
+				if (!$.ajaxSettings.allowEmpty && (json == null || $.isEmptyObject(json)))
 				{
-					jQuery.error('The server is not responding correctly, please try again later.');
+					$.error('The server is not responding correctly, please try again later.');
 				}
 				return json;
 			}
@@ -41,6 +43,72 @@ jQuery(function($) {
 			csrf_hash_name: $.cookie(pyro.csrf_cookie_name)
 		}
 	});
+
+	/**
+	 * Hides admin header to avoid overlapping when CKEDITOR is maximized
+	 */
+	pyro.init_ckeditor_maximize = function() {
+		if (typeof CKEDITOR != 'undefined')
+		{
+			$.each(CKEDITOR.instances, function(instance) {
+				CKEDITOR.instances[instance].on('maximize', function(e) {
+					if(e.data == 1) //maximize
+					{
+						$('.hide-on-ckeditor-maximize').addClass('hidden');
+						$('.cke_button__maximize').addClass('ckeditor-pyro-logo');
+					}
+					else if(e.data == 2) //snap back
+					{
+						$('.hide-on-ckeditor-maximize').removeClass('hidden');
+						$('.cke_button__maximize').removeClass('ckeditor-pyro-logo');
+					}
+				});
+			});
+		}
+	};
+	
+	/**
+	 * Autocomplete Search
+	 */
+	pyro.init_autocomplete_search = function(){
+		var cache = {}, lastXhr;
+		$(".search-query").autocomplete({
+			minLength: 2,
+			delay: 250,
+			source: function( request, response ) {
+				var term = request.term;
+				if ( term in cache ) {
+					response( cache[ term ] );
+					return;
+				}
+				lastXhr = $.getJSON(SITE_URL + 'admin/search/ajax_autocomplete', request, function( data, status, xhr ) {
+					cache[ term ] = data.results;
+					if ( xhr === lastXhr ) {
+						response( data.results );
+					}
+				});
+			},
+			
+			open: function (event, ui) {
+				$(this).data("autocomplete").menu.element.addClass("search-results animated-zing dropDown");
+			},
+			
+			focus: function(event, ui) {
+				// $("#searchform").val( ui.item.label);
+				return false;
+			},
+			select: function(event, ui) {
+				window.location.href = ui.item.url;
+				return false;
+			}
+		})
+		.data("autocomplete")._renderItem = function(ul, item){
+			return $("<li></li>")
+			.data("item.autocomplete", item)
+			.append('<a href="' + item.url + '">' + '<span>' + item.title + '</span>' + '<div class="keywords">' + item.keywords + '</div><div class="singular">' + item.singular + '</div>' + '</a>')
+			.appendTo(ul);
+		};
+	};
 
 	/**
 	 * This initializes all JS goodness
@@ -58,7 +126,7 @@ jQuery(function($) {
 		}).appendTo("nav#primary select");
 
 		// Populate dropdown with menu items
-		$("nav#primary a").each(function() {
+		$("nav#primary a:not(.top-link)").each(function() {
 		 	var el = $(this);
  			$("<option />", {
      			"value"   : el.attr("href"),
@@ -73,9 +141,9 @@ jQuery(function($) {
 		$('.topbar ul li:not(#dashboard-link)').hoverIntent({
 			sensitivity: 7,
 			interval: 75,
-			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(400) },
+			over: function(){ $(this).find('ul:first:hidden').css({visibility: "visible", display: "none"}).slideDown(200) },
 			timeout: 0,
-			out: function(){ $(this).parent().find('ul').slideUp(400) }
+			out: function(){ $(this).parent().find('ul').slideUp(200) }
 		});
 
 		// Add class to dropdowns for styling
@@ -83,7 +151,7 @@ jQuery(function($) {
 
 		// Add the close link to all alert boxes
 		$('.alert').livequery(function(){
-			$(this).prepend('<a href="#" class="close">x</a>');
+			$(this).prepend('<a href="#" class="close"></a>');
 		});
 
 		// Close the notifications when the close link is clicked
@@ -97,7 +165,7 @@ jQuery(function($) {
 			});
 		});
 
-		$("#datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+		$("#datepicker, .datepicker").datepicker({dateFormat: 'yy-mm-dd'});
 
 		// Fade in the notifications
 		$('.alert').livequery(function(){
@@ -210,11 +278,23 @@ jQuery(function($) {
 		});
 
 		var current_module = $('#page-header h1 a').text();
-		// Fancybox modal window
+		// Colorbox modal window
 		$('a[rel=modal], a.modal').livequery(function() {
 			$(this).colorbox({
 				width: "60%",
 				maxHeight: "90%",
+				current: current_module + " {current} / {total}",
+				onComplete: function(){ pyro.chosen() }
+			});
+		});
+
+		$('a[data-inline-modal]').livequery(function() {
+			var element_id = $(this).attr('data-inline-modal');
+			$(this).colorbox({
+				width: "60%",
+				maxHeight: "90%",
+				inline: true,
+				href: element_id,
 				current: current_module + " {current} / {total}",
 				onComplete: function(){ pyro.chosen() }
 			});
@@ -356,85 +436,48 @@ jQuery(function($) {
 
 	pyro.chosen = function()
 	{
-		// Chosen
-		$('select:not(.skip)').livequery(function(){
-			$(this).addClass('chzn').trigger("liszt:updated");
-			$(".chzn").chosen();
+		// Non-mobile only
+		if( ! pyro.is_mobile ){
 
-			// This is a workaround for Chosen's visibility bug. In short if a select
-			// is inside a hidden element Chosen sets the width to 0. This iterates through
-			// the 0 width selects and sets a fixed width.
-			$('.chzn-container').each(function(i, ele){
-				if ($(ele).width() == 0) {
-					$(ele).css('width', '236px');
-					$(ele).find('.chzn-drop').css('width', '234px');
-					$(ele).find('.chzn-search input').css('width', '200px');
-					$(ele).find('.search-field input').css('width', '225px');
-				}
+			// Chosen
+			$('select:not(.skip)').livequery(function(){
+				$(this).addClass('chzn').addClass('hidden').trigger("liszt:updated");
+				$(".chzn").chosen();
+
+				// This is a workaround for Chosen's visibility bug. In short if a select
+				// is inside a hidden element Chosen sets the width to 0. This iterates through
+				// the 0 width selects and sets a fixed width.
+				$('.chzn-container').each(function(i, ele){
+					if ($(ele).width() == 0) {
+						$(ele).css('width', '236px');
+						$(ele).find('.chzn-drop').css('width', '234px');
+						$(ele).find('.chzn-search input').css('width', '200px');
+						$(ele).find('.search-field input').css('width', '225px');
+					}
+				});
 			});
-		});
+		}
 	}
 
 	// Create a clean slug from whatever garbage is in the title field
 	pyro.generate_slug = function(input_form, output_form, space_character, disallow_dashes)
 	{
-		var slug, value;
+		space_character = space_character || '-';
 
-		$(input_form).live('keyup', function(){
-			value = $(input_form).val();
-
-			if ( ! value.length ) return;
-			space_character = space_character || '-';
-			disallow_dashes = disallow_dashes || false;
-			var rx = /[a-z]|[A-Z]|[0-9]|[áàâąбćčцдđďéèêëęěфгѓíîïийкłлмñńňóôóпúùûůřšśťтвýыžżźзäæœчöøüшщßåяюжαβγδεέζηήθιίϊκλμνξοόπρστυύϋφχψωώ]/,
-				value = value.toLowerCase(),
-				chars = pyro.foreign_characters,
-				space_regex = new RegExp('[' + space_character + ']+','g'),
-				space_regex_trim = new RegExp('^[' + space_character + ']+|[' + space_character + ']+$','g'),
-				search, replace;
-			
-
-			// If already a slug then no need to process any further
-		    if (!rx.test(value)) {
-		        slug = value;
-		    } else {
-		        value = $.trim(value);
-
-		        for (var i = chars.length - 1; i >= 0; i--) {
-		        	// Remove backslash from string
-		        	search = chars[i].search.replace(new RegExp('/', 'g'), '');
-		        	replace = chars[i].replace;
-
-		        	// create regex from string and replace with normal string
-		        	value = value.replace(new RegExp(search, 'g'), replace);
-		        };
-
-
-
-		        slug = value.replace(/[^-a-z0-9~\s\.:;+=_]/g, '')
-		        			.replace(/[\s\.:;=+]+/g, space_character)
-		        			.replace(space_regex, space_character)
-		        			.replace(space_regex_trim, '');
-
-		        // Remove the dashes if they are
-		        // not allowed.
-		       	if (disallow_dashes)
-		        {
-					slug = slug.replace(/-+/g, '_');
-		        }
-		    }
-
-			$(output_form).val(slug);
-		});
+		$(input_form).slugify({ slug: output_form, type: space_character });
 	}
 
 	$(document).ajaxError(function(e, jqxhr, settings, exception) {
-		pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
+		if (exception != 'abort' && exception.length > 0) {
+			pyro.add_notification($('<div class="alert error">'+exception+'</div>'));
+		}
 	});
 
 	$(document).ready(function() {
 		pyro.init();
 		pyro.chosen();
+		pyro.init_ckeditor_maximize();
+		pyro.init_autocomplete_search();
 	});
 
 	//close colorbox only when cancel button is clicked
