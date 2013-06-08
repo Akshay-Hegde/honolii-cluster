@@ -33,8 +33,55 @@
 	</div>
 </div>
 <div class="overlay" id="map_directions">
-	{{snippet:map_directions}}
+	<h5>Get directions</h5>
+    <p>Enter your address to get turn by turn directions to our office.</p>
+    <form action="http://maps.google.com/maps" method="get" target="_blank">
+        <input type="text" name="saddr" class="span-13 title" />
+        <input type="submit" class="button" value="Get directions now" />
+        <div class="span-13 small">Example: 123 Johnson Ave, Encinitas CA 92024</div>
+        <input type="hidden" name="daddr" value="320 Santa Fe Drive Encinitas, CA 92024" />
+    </form>
 </div>
 <div class="overlay" id="office_hours">
-{{snippet:office_hours}}
+    <h5>Office Hours</h5>
+    <table>
+        <tr>
+            <td>&nbsp;</td>
+            <td>8:30AM&ndash;12:30PM</td>
+            <td>1:30PM&ndash;5:00PM</td>
+        </tr>
+        <tr>
+            <td class="day">Monday</td>
+            <td class="open">Open</td>
+            <td class="open">Open</td>
+        </tr>
+        <tr>
+            <td class="day">Tuesday</td>
+            <td class="open">Open</td>
+            <td class="open">Open</td>
+        </tr>
+        <tr>
+            <td class="day">Wednesday</td>
+            <td class="open">Open</td>
+            <td class="closed">Closed</td>
+        </tr>
+        <tr>
+            <td class="day">Thursday</td>
+            <td class="open">Open</td>
+            <td class="open">Open</td>
+        </tr>
+        <tr>
+            <td class="day">Friday</td>
+            <td class="open">Open</td>
+            <td class="open">Open</td>
+        </tr>
+        <tr>
+            <td class="day">Saturday</td>
+            <td colspan="2" class="closed">Closed</td>
+        </tr>
+        <tr>
+            <td class="day">Sunday</td>
+            <td colspan="2" class="closed">Closed</td>
+        </tr>
+    </table>
 </div>

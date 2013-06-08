@@ -8,7 +8,7 @@
  */
 class Module_Navigation extends Module {
 
-	public $version = '1.1';
+	public $version = '1.1.0';
 
 	public function info()
 	{
@@ -23,6 +23,7 @@ class Module_Navigation extends Module {
 				'de' => 'Navigation',
 				'el' => 'Πλοήγηση',
 				'es' => 'Navegación',
+                            'fa' => 'منو ها',
 				'fi' => 'Navigointi',
 				'fr' => 'Navigation',
 				'he' => 'ניווט',
@@ -33,10 +34,11 @@ class Module_Navigation extends Module {
 				'pl' => 'Nawigacja',
 				'ru' => 'Навигация',
 				'sl' => 'Navigacija',
-				'zh' => '導航選單',
+				'tw' => '導航選單',
+				'cn' => '导航选单',
 				'th' => 'ตัวช่วยนำทาง',
-                                'hu' => 'Navigáció',
-                                'se' => 'Navigation'
+				'hu' => 'Navigáció',
+				'se' => 'Navigation',
 			),
 			'description' => array(
 				'en' => 'Manage links on navigation menus and all the navigation groups they belong to.',
@@ -48,6 +50,7 @@ class Module_Navigation extends Module {
 				'de' => 'Verwalte Links in Navigationsmenüs und alle zugehörigen Navigationsgruppen',
 				'el' => 'Διαχειριστείτε τους συνδέσμους στα μενού πλοήγησης και όλες τις ομάδες συνδέσμων πλοήγησης στις οποίες ανήκουν.',
 				'es' => 'Administra links en los menús de navegación y en todos los grupos de navegación al cual pertenecen.',
+                            'fa' => 'مدیریت منو ها و گروه های مربوط به آنها',
 				'fi' => 'Hallitse linkkejä navigointi valikoissa ja kaikkia navigointi ryhmiä, joihin ne kuuluvat.',
 				'fr' => 'Gérer les liens du menu Navigation et tous les groupes de navigation auxquels ils appartiennent.',
 				'he' => 'ניהול שלוחות תפריטי ניווט וקבוצות ניווט',
@@ -58,18 +61,19 @@ class Module_Navigation extends Module {
 				'pl' => 'Zarządzaj linkami w menu nawigacji oraz wszystkimi grupami nawigacji do których one należą.',
 				'ru' => 'Управление ссылками в меню навигации и группах, к которым они принадлежат.',
 				'sl' => 'Uredi povezave v meniju in vse skupine povezav ki jim pripadajo.',
-				'zh' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'tw' => '管理導航選單中的連結，以及它們所隸屬的導航群組。',
+				'cn' => '管理导航选单中的连结，以及它们所隶属的导航群组。',
 				'th' => 'จัดการการเชื่อมโยงนำทางและกลุ่มนำทาง',
+				'se' => 'Hantera länkar och länkgrupper.',
 				'hu' => 'Linkek kezelése a navigációs menükben és a navigációs csoportok kezelése, amikhez tartoznak.',
-                                'se' => 'Hantera länkar och länkgrupper.'
 			),
 			'frontend' => false,
 			'backend'  => true,
-			'menu'	  => 'design',
+			'menu'	  => 'structure',
 
 		    'shortcuts' => array(
 				array(
-				    'name' => 'nav_group_create_title',
+				    'name' => 'nav:group_create_title',
 				    'uri' => 'admin/navigation/groups/create',
 				    'class' => 'add',
 				),
@@ -125,7 +129,7 @@ class Module_Navigation extends Module {
 		$links = array(
 			array('title' => 'Home', 'link_type' => 'page', 'page_id' => 1, 'navigation_group_id' => 1, 'position' => 1,),
 			array('title' => 'Blog', 'link_type' => 'module', 'page_id' => null, 'navigation_group_id' => 1, 'position' => 2, 'module_name' => 'blog'),
-			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 3, 'navigation_group_id' => 1, 'position' => 3,),
+			array('title' => 'Contact', 'link_type' => 'page', 'page_id' => 2, 'navigation_group_id' => 1, 'position' => 3,),
 		);
 		foreach ($links as $link)
 		{

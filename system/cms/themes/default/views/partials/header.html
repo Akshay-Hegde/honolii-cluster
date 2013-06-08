@@ -36,16 +36,16 @@
 			<input type="hidden" name="redirect_to" value="{{ url:current }}" />
 			<ul>
 				<li class="email">
-					<input type="text" id="email" name="email" maxlength="120" placeholder="{{ helper:lang line="user_email" }}" />
+					<input type="text" id="email" name="email" maxlength="120" placeholder="{{ helper:lang line="global:email" }}" />
 				</li>
 
 				<li class="pword">
-					<input type="password" id="password" name="password" maxlength="20" placeholder="{{ helper:lang line="user_password" }}" />
+					<input type="password" id="password" name="password" maxlength="20" placeholder="{{ helper:lang line="global:password" }}" />
 				</li>
 
 				<li class="form-buttons">
-					<input type="submit" value="{{ helper:lang line='user_login_btn' }}" name="btnLogin" /> | &nbsp;<a href="{{ url:site }}register">{{ helper:lang line="user_register_btn" }}</a>
-					<label><input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /> {{ helper:lang line="user_remember" }}</label>
+					<input type="submit" value="{{ helper:lang line='user:login_btn' }}" name="btnLogin" /> | &nbsp;<a href="{{ url:site }}register">{{ helper:lang line="user_register_btn" }}</a>
+					<label><input type="checkbox" id="remember-checksidebar" name="remember" value="1"  /> {{ helper:lang line="user:remember" }}</label>
 				</li>
 			</ul>
 		</form>

@@ -1,52 +1,48 @@
-<?php if ($blog) : ?>
-	<table border="0" class="table-list">
+	<table cellspacing="0">
 		<thead>
 			<tr>
-				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')); ?></th>
-				<th><?php echo lang('blog:post_label'); ?></th>
-				<th class="collapse"><?php echo lang('blog:category_label'); ?></th>
-				<th class="collapse"><?php echo lang('blog:date_label'); ?></th>
-				<th class="collapse"><?php echo lang('blog:written_by_label'); ?></th>
-				<th><?php echo lang('blog:status_label'); ?></th>
-				<th width="180"></th>
+				<th width="20"><?php echo form_checkbox(array('name' => 'action_to_all', 'class' => 'check-all')) ?></th>
+				<th><?php echo lang('blog:post_label') ?></th>
+				<th class="collapse"><?php echo lang('blog:category_label') ?></th>
+				<th class="collapse"><?php echo lang('blog:date_label') ?></th>
+				<th class="collapse"><?php echo lang('blog:written_by_label') ?></th>
+				<th><?php echo lang('blog:status_label') ?></th>
+				<th width="180"><?php echo lang('global:actions') ?></th>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="7">
-					<div class="inner"><?php $this->load->view('admin/partials/pagination'); ?></div>
-				</td>
-			</tr>
-		</tfoot>
 		<tbody>
 			<?php foreach ($blog as $post) : ?>
 				<tr>
-					<td><?php echo form_checkbox('action_to[]', $post->id); ?></td>
-					<td><?php echo $post->title; ?></td>
-					<td class="collapse"><?php echo $post->category_title; ?></td>
-					<td class="collapse"><?php echo format_date($post->created_on); ?></td>
+					<td><?php echo form_checkbox('action_to[]', $post->id) ?></td>
+					<td><?php echo $post->title ?></td>
+					<td class="collapse"><?php echo $post->category_title ?></td>
+					<td class="collapse"><?php echo format_date($post->created_on) ?></td>
 					<td class="collapse">
 					<?php if (isset($post->display_name)): ?>
-						<?php echo anchor('user/' . $post->author_id, $post->display_name, 'target="_blank"'); ?>
+						<?php echo anchor('user/'.$post->username, $post->display_name, 'target="_blank"') ?>
 					<?php else: ?>
-						<?php echo lang('blog:author_unknown'); ?>
-					<?php endif; ?>
+						<?php echo lang('blog:author_unknown') ?>
+					<?php endif ?>
 					</td>
-					<td><?php echo lang('blog:'.$post->status.'_label'); ?></td>
-					<td>
-
+					<td><?php echo lang('blog:'.$post->status.'_label') ?></td>
+					<td style="padding-top:10px;">
                         <?php if($post->status=='live') : ?>
-                            <?php echo anchor('blog/' . date('Y/m',$post->created_on). '/'. $post->slug, lang('global:view'), 'class="btn green" target="_blank"');?>
+							<a href="<?php echo site_url('blog/'.date('Y/m', $post->created_on).'/'.$post->slug) ?>" title="<?php echo lang('global:view')?>" class="button" target="_blank"><?php echo lang('global:view')?></a>
                         <?php else: ?>
-                            <?php echo anchor('blog/preview/' . $post->preview_hash, lang('global:preview'), 'class="btn green" target="_blank"');?>
-                        <?php endif; ?>
-						<?php echo anchor('admin/blog/edit/' . $post->id, lang('global:edit'), 'class="btn orange edit"'); ?>
-						<?php echo anchor('admin/blog/delete/' . $post->id, lang('global:delete'), array('class'=>'confirm btn red delete')); ?>
+							<a href="<?php echo site_url('blog/preview/' . $post->preview_hash) ?>" title="<?php echo lang('global:preview')?>" class="button" target="_blank"><?php echo lang('global:preview')?></a>
+                        <?php endif ?>
+						<a href="<?php echo site_url('admin/blog/edit/' . $post->id) ?>" title="<?php echo lang('global:edit')?>" class="button"><?php echo lang('global:edit')?></a>
+						<a href="<?php echo site_url('admin/blog/delete/' . $post->id) ?>" title="<?php echo lang('global:delete')?>" class="button confirm"><?php echo lang('global:delete')?></a>
 					</td>
 				</tr>
-			<?php endforeach; ?>
+			<?php endforeach ?>
 		</tbody>
 	</table>
-<?php else: ?>
-	<div class="no_data"><?php echo lang('blog:currently_no_posts'); ?></div>
-<?php endif; ?>
+
+	<?php $this->load->view('admin/partials/pagination') ?>
+
+	<br>
+
+	<div class="table_action_buttons">
+		<?php $this->load->view('admin/partials/buttons', array('buttons' => array('delete', 'publish'))) ?>
+	</div>

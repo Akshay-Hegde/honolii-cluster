@@ -1,5 +1,5 @@
 <section class="title">
-	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams.field_assignments');?></h4>
+	<h4><span><a href="<?php echo site_url('admin/streams/manage/'.$stream->id); ?>"><?php echo $stream->stream_name;?></a></span> &rarr; <?php echo lang('streams:field_assignments');?></h4>
 </section>
 
 <section class="item">
@@ -9,8 +9,8 @@
 		<thead>
 			<tr>	
 				<th></th>
-			    <th><?php echo lang('streams.label.field_name');?></th>
-			    <th><?php echo lang('streams.label.field_slug');?></th>
+			    <th><?php echo lang('streams:label.field_name');?></th>
+			    <th><?php echo lang('streams:label.field_slug');?></th>
 			    <th></th>
 			</tr>
 		</thead>
@@ -23,8 +23,8 @@
 					<?php echo $stream_field->field_name; ?></td>
 				<td><?php echo $stream_field->field_slug; ?></td>
 				<td class="actions">
-					<?php echo anchor('admin/streams/edit_assignment/'.$stream_field->stream_id . '/'.$stream_field->assign_id, lang('streams.edit_assign'), 'class="button"'); ?>
-					<?php echo anchor('admin/streams/remove_assignment/'.$stream_field->stream_id . '/'.$stream_field->assign_id, lang('streams.remove'), 'class="button confirm"'); ?>
+					<?php echo anchor('admin/streams/edit_assignment/'.$stream_field->stream_id . '/'.$stream_field->assign_id, lang('streams:edit_assign'), 'class="button"'); ?>
+					<?php echo anchor('admin/streams/remove_assignment/'.$stream_field->stream_id . '/'.$stream_field->assign_id, lang('streams:remove'), 'class="button confirm"'); ?>
 				</td>
 			</tr>
 		<?php endforeach;?>
@@ -42,7 +42,7 @@
     
     <?php else: ?>
     
-	<?php echo lang('streams.start.before_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams.start.create_field_here'))?>.
+	<?php echo lang('streams:start.before_assign');?> <?php echo anchor('admin/streams/fields/add', lang('streams:start.create_field_here'))?>.
     
     <?php endif; ?>
 	</div>

@@ -40,7 +40,11 @@ class Streams_entries extends CI_Driver {
 			'sort'				=> 'desc',
 			'exclude_called'	=> 'no',
 			'paginate'			=> 'no',
+			'pag_method'		=> 'offset', 	// 'offset' or 'page'
+			'pag_uri_method'	=> 'segment',	// 'segment' or 'query_string'
 			'pag_segment'		=> 2,
+			'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
+			'pag_base'			=> null, 		// If null, this is automatically set
 			'partial'			=> null,
 			'site_ref'			=> SITE_REF
 	);
@@ -50,34 +54,13 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Pagination Config
 	 *
-	 * These are the CI defaults that can be
-	 * overridden by PyroStreams.
+	 * These are the available pagination config variables
+	 * that are available to override.
 	 *
-	 * @access	public
-	 * @var		array
+	 * @access 	public
+	 * @var 	array
 	 */
-	public $pagination_config = array(
-			'num_links'		=> 3,
-			'full_tag_open'		=> '<p>',
-			'full_tag_close'	=> '</p>',
-			'first_link'		=> 'First',
-			'first_tag_open'	=> '<div>',
-			'first_tag_close'	=> '</div>',
-			'last_link'		=> 'Last',
-			'last_tag_open'		=> '<div>',
-			'last_tag_close'	=> '</div>',
-			'next_link'		=> '&gt;',
-			'next_tag_open'		=> '<div>',
-			'next_tag_close'	=> '</div>',
-			'prev_link'		=> '&lt;',
-			'prev_tag_open'		=> '<div>',
-			'prev_tag_close'	=> '</div>',
-			'cur_tag_open'		=> '<span>',
-			'cur_tag_close'		=> '</span>',
-			'num_tag_open'		=> '<div>',
-			'num_tag_close'		=> '</div>',
-			'display_pages'		=> true
-	);
+	public $pag_config = array('num_links', 'full_tag_open', 'full_tag_close', 'first_link', 'first_tag_open', 'first_tag_close', 'prev_link', 'prev_tag_open', 'prev_tag_close', 'cur_tag_open', 'cur_tag_close', 'num_tag_open', 'num_tag_close', 'next_link', 'next_tag_open', 'next_tag_close', 'last_link', 'last_tag_open', 'last_tag_close', 'suffix', 'first_url',  'reuse_query_string');
 
 	// --------------------------------------------------------------------------
 
@@ -104,7 +87,7 @@ class Streams_entries extends CI_Driver {
 		{
 			foreach ($this->entries_params as $param => $default)
 			{
-				if ( ! isset($params[$param]) and !is_null($this->entries_params[$param])) $params[$param] = $default;
+				if ( ! isset($params[$param]) and ! is_null($this->entries_params[$param])) $params[$param] = $default;
 			}
 		}
 	
@@ -116,16 +99,46 @@ class Streams_entries extends CI_Driver {
 				
 		if ( ! isset($params['namespace'])) $this->log_error('no_namespace_provided', 'get_entries');
 	
-		$stream = $CI->streams_m->get_stream($params['stream'], TRUE, $params['namespace']);
+		$stream = $CI->streams_m->get_stream($params['stream'], true, $params['namespace']);
 				
 		if ( ! $stream) $this->log_error('invalid_stream', 'get_entries');
+
+		// -------------------------------------
+		// Allow 'yes'/'no' fields to be bool
+		// -------------------------------------
+		// Inputs are yes/no because that's what
+		// the row parser expects them to be. This
+		// is because early on the row parser JUST took
+		// inputs from the streams plugin and param
+		// values could not be bool. So this should
+		// definitely be changed in the future. This is
+		// a workaround so devs can use true/false
+		// instead of having to use 'yes'/'no' like
+		// common savages.
+		// -------------------------------------
+
+		$bool_inputs = array('show_upcoming', 'show_past', 'exclude_called', 'restrict_user', 'paginate');
+
+		foreach ($bool_inputs as $input)
+		{
+			if (isset($params[$input]))
+			{
+				if ($params[$input] === true)
+				{
+					$params[$input] = 'yes';
+				}
+				elseif ($params[$input] === false)
+				{
+					$params[$input] = 'no';
+				}
+			}
+		}
 
 		// -------------------------------------
 		// Pagination Limit
 		// -------------------------------------
 
 		if ($params['paginate'] == 'yes' and ( ! isset($params['limit']) or ! is_numeric($params['limit']))) $params['limit'] = 25;
-				
 
 		// -------------------------------------
 		// Get Rows
@@ -143,23 +156,9 @@ class Streams_entries extends CI_Driver {
 		{
 			$return['total'] 	= $rows['pag_count'];
 			
-			// Add in our pagination config
-			// override varaibles.
-			foreach ($this->pagination_config as $key => $var)
-			{
-				if (isset($pagination_config[$key]))
-				{
-					$this->pagination_config[$key] = $pagination_config[$key];
-				}
+			$params['pag_base'] = (isset($params['pag_base'])) ? $params['pag_base'] : null;
 
-				// Make sure we set the FALSE params to boolean
-				if ($this->pagination_config[$key] == 'FALSE')
-				{
-					$this->pagination_config[$key] = FALSE;
-				}
-			}
-			
-			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $this->pagination_config);
+			$return['pagination'] = $CI->row_m->build_pagination($params['pag_segment'], $params['limit'], $return['total'], $pagination_config, $params['pag_base']);
 		}		
 		else
 		{
@@ -183,9 +182,9 @@ class Streams_entries extends CI_Driver {
 	 * @param	bool - format results?
 	 * @return	object
 	 */
-	function get_entry($entry_id, $stream, $namespace, $format = true)
+	public function get_entry($entry_id, $stream, $namespace, $format = true, $plugin_call = true)
 	{
-		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format);
+		return get_instance()->row_m->get_row($entry_id, $this->stream_obj($stream, $namespace), $format, $plugin_call);
 	}
 
 	// --------------------------------------------------------------------------
@@ -198,7 +197,7 @@ class Streams_entries extends CI_Driver {
 	 * @param	stream - int, slug, or obj
 	 * @return	object
 	 */
-	function delete_entry($entry_id, $stream, $namespace)
+	public function delete_entry($entry_id, $stream, $namespace)
 	{
 		return get_instance()->row_m->delete_row($entry_id, $this->stream_obj($stream, $namespace));
 	}
@@ -219,11 +218,11 @@ class Streams_entries extends CI_Driver {
 	 * @param 	array - extra data to add in
 	 * @return	object
 	 */
-	function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
+	public function insert_entry($entry_data, $stream, $namespace, $skips = array(), $extra = array())
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
-		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
+		if ( ! $str_obj) $this->log_error('invalid_stream', 'insert_entry');
 
 		$CI = get_instance();
 
@@ -237,25 +236,26 @@ class Streams_entries extends CI_Driver {
 	/**
 	 * Update an entry
 	 *
-	 * @access	public
 	 * @param	int - entry id
 	 * @param	array - entry data
 	 * @param	stream - int, slug, or obj
 	 * @param 	string - namespace
 	 * @param 	array - field slugs to skip
+	 * @param 	array - assoc array of extra data to add
+	 * @param 	bool - update only the passed values?
 	 * @return	object
 	 */
-	function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array())
+	public function update_entry($entry_id, $entry_data, $stream, $namespace, $skips = array(), $extra = array(), $include_only_passed = true)
 	{
 		$str_obj = $this->stream_obj($stream, $namespace);
 		
-		if ( ! $str_obj) $this->log_error('invalid_stream', 'delete_stream');
+		if ( ! $str_obj) $this->log_error('invalid_stream', 'update_entry');
 
 		$CI = get_instance();
 
 		$stream_fields = $CI->streams_m->get_stream_fields($str_obj->id);
 
-		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips = array());
+		return $CI->row_m->update_entry($stream_fields, $str_obj, $entry_id, $entry_data, $skips, $extra, $include_only_passed);
 	}
 	
 }

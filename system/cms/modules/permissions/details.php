@@ -8,7 +8,7 @@
  */
 class Module_Permissions extends Module {
 
-	public $version = '0.6';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -23,6 +23,7 @@ class Module_Permissions extends Module {
 				'de' => 'Zugriffsrechte',
 				'el' => 'Δικαιώματα',
 				'es' => 'Permisos',
+                            'fa' => 'اجازه ها',
 				'fi' => 'Käyttöoikeudet',
 				'fr' => 'Permissions',
 				'he' => 'הרשאות',
@@ -33,10 +34,11 @@ class Module_Permissions extends Module {
 				'pl' => 'Uprawnienia',
 				'ru' => 'Права доступа',
 				'sl' => 'Dovoljenja',
-				'zh' => '權限',
+				'tw' => '權限',
+				'cn' => '权限',
 				'hu' => 'Jogosultságok',
 				'th' => 'สิทธิ์',
-                                'se' => 'Behörigheter'
+				'se' => 'Behörigheter',
 			),
 			'description' => array(
 				'en' => 'Control what type of users can see certain sections within the site.',
@@ -48,6 +50,7 @@ class Module_Permissions extends Module {
 				'de' => 'Regelt welche Art von Benutzer welche Sektion in der Seite sehen kann.',
 				'el' => 'Ελέγξτε τα δικαιώματα χρηστών και ομάδων χρηστών όσο αφορά σε διάφορες λειτουργίες του ιστοτόπου.',
 				'es' => 'Controla que tipo de usuarios pueden ver secciones específicas dentro del sitio.',
+                            'fa' => 'مدیریت اجازه های گروه های کاربری',
 				'fi' => 'Hallitse minkä tyyppisiin osioihin käyttäjät pääsevät sivustolla.',
 				'fr' => 'Permet de définir les autorisations des groupes d\'utilisateurs pour afficher les différentes sections.',
 				'he' => 'ניהול הרשאות כניסה לאיזורים מסוימים באתר',
@@ -58,10 +61,11 @@ class Module_Permissions extends Module {
 				'pl' => 'Ustaw, którzy użytkownicy mogą mieć dostęp do odpowiednich sekcji witryny.',
 				'ru' => 'Управление правами доступа, ограничение доступа определённых групп пользователей к произвольным разделам сайта.',
 				'sl' => 'Uredite dovoljenja kateri tip uporabnika lahko vidi določena področja vaše strani.',
-				'zh' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
+				'tw' => '用來控制不同類別的用戶，設定其瀏覽特定網站內容的權限。',
+				'cn' => '用来控制不同类别的用户，设定其浏览特定网站内容的权限。',
 				'hu' => 'A felhasználók felügyelet alatt tartására, hogy milyen típusú felhasználók, mit láthatnak, mely szakaszain az oldalnak.',
 				'th' => 'ควบคุมว่าผู้ใช้งานจะเห็นหมวดหมู่ไหนบ้าง',
-                                'se' => 'Hantera gruppbehörigheter.'
+				'se' => 'Hantera gruppbehörigheter.',
 			),
 			'frontend' => false,
 			'backend'  => true,

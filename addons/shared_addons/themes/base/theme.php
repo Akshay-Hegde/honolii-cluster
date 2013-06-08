@@ -7,7 +7,7 @@ class Theme_Base extends Theme
     public $author_website	= 'http://ikreativ.com/';
     public $website			= 'http://ikreativ.com/';
     public $description		= 'An HTML5 base template filled with goodies to get you up and running quickly.';
-    public $version			= '1.0';
+    public $version			= '1.0.0';
 	public $options 		= array(
 		'background' => array(
 			'title'         => 'Background',
@@ -15,7 +15,7 @@ class Theme_Base extends Theme
 			'default'       => 'fabric',
 			'type'          => 'select',
 			'options'       => 'black=Black|fabric=Fabric|graph=Graph|leather=Leather|noise=Noise|texture=Texture',
-			'is_required'   => TRUE
+			'is_required'   => true
 		),
 		'slider' => array(
 			'title'         => 'Slider',
@@ -23,7 +23,7 @@ class Theme_Base extends Theme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'is_required'   => TRUE
+			'is_required'   => true
 		),
 		'color' => array(
 			'title'         => 'Default Theme Color',
@@ -31,7 +31,7 @@ class Theme_Base extends Theme
 			'default'       => 'pink',
 			'type'          => 'select',
 			'options'       => 'red=Red|orange=Orange|yellow=Yellow|green=Green|blue=Blue|pink=Pink',
-			'is_required'   => TRUE
+			'is_required'   => true
 		),
 		'show_breadcrumbs' 	=> array(
 			'title'         => 'Do you want to show breadcrumbs?',
@@ -39,7 +39,7 @@ class Theme_Base extends Theme
 			'default'       => 'yes',
 			'type'          => 'radio',
 			'options'       => 'yes=Yes|no=No',
-			'is_required'   => TRUE
+			'is_required'   => true
 		),
 	);
 }

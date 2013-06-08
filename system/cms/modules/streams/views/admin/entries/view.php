@@ -1,32 +1,33 @@
 <section class="title">
-	<h4><span><?php echo $stream->stream_name;?></span> &rarr; <?php echo lang('streams.entry');?> <?php echo $row->id;?></h4>
+	<h4><span><?php echo $stream->stream_name;?></span> &rarr; <?php echo lang('streams:entry');?> <?php echo $row->id;?></h4>
 </section>
 
 <section class="item">
+<div class="content">
 
-    <table class="table-list">
+    <table class="table-list" cellpadding="0" cellspacing="0">
 		<thead>
 			<tr>
-				<th><?php echo lang('streams.label.field');?></th>
-			    <th><?php echo lang('streams.value');?></th>
+				<th><?php echo lang('streams:label.field');?></th>
+			    <th><?php echo lang('streams:value');?></th>
 			</tr>
 		</thead>
 		<tbody>
 		<tr>
-			<td width="25%"><strong><?php echo lang('streams.id');?></strong></td>
+			<td width="25%"><strong><?php echo lang('streams:id');?></strong></td>
 			<td><?php echo $row->id;?></td>
 		</tr>
 		<tr>
-			<td><strong><?php echo lang('streams.created_date');?></strong></td>
+			<td><strong><?php echo lang('streams:created_date');?></strong></td>
 			<td><?php echo date('M j Y g:i a', $row->created);?></td>
 		</tr>
 		<tr>
-			<td><strong><?php echo lang('streams.updated_date');?></strong></td>
+			<td><strong><?php echo lang('streams:updated_date');?></strong></td>
 			<td><?php if( $row->updated ): echo date('M j Y g:i a', $row->updated); endif; ?></td>
 		</tr>
 		<tr>
-			<td><strong><?php echo lang('streams.created_by');?></strong></td>
-			<td><a href="<?php echo site_url('admin/users/edit/'. $row->created_by['user_id']); ?>"><?php echo $row->created_by['display_name']; ?></a></td>
+			<td><strong><?php echo lang('streams:created_by');?></strong></td>
+			<td><a href="<?php echo site_url('admin/users/edit/'. $row->created_by_user_id); ?>"><?php echo $row->created_by_username; ?></a></td>
 		</tr>
 		
 		<?php foreach ($stream_fields as $stream_field):?>
@@ -45,4 +46,5 @@
 	    <?php echo anchor('admin/streams/entries/delete/'.$this->uri->segment(5).'/'.$row->id, lang('global:delete'), 'class="btn red confirm"')?>
 	</div>
    
+</div><!--.content-->
 </section>

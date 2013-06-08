@@ -32,6 +32,13 @@ $lang['global:operators:not-equal'] 	= 'Not equal to';
 $lang['global:operators:less-than'] 	= 'Less than';
 $lang['global:operators:greater-than'] 	= 'Greater than';
 
+$lang['global:duration:1-day']			= 'One day';
+$lang['global:duration:1-week']			= 'One week';
+$lang['global:duration:2-weeks']		= 'Two weeks';
+$lang['global:duration:1-month']		= 'One month';
+$lang['global:duration:3-months']		= 'Three Months';
+$lang['global:duration:always']			= 'Always';
+
 $lang['navigation_headline'] 			= 'Navigation';
 $lang['breadcrumb_base_label'] 			= 'Home';
 
@@ -45,6 +52,8 @@ $lang['general_error_label'] 			= 'Error';
 $lang['required_error_label'] 			= 'Required field missing';
 $lang['note_label'] 					= 'Note';
 $lang['success_label'] 					= 'Success';
+$lang['global:fields']					= 'Fields';
+$lang['global:custom_fields']			= 'Custom Fields';
 
 $lang['login_title'] 					= 'Log In';
 $lang['global:fatal_error'] 			= 'Fatal error, is CMS installed?';
@@ -52,8 +61,8 @@ $lang['global:demo_restrictions'] 		= 'Some features on this page have been disa
 
 $lang['login_error_label'] 				= 'Login Error';
 $lang['forgot_password_label'] 			= 'Forgot your password ?';
-$lang['email_label'] 					= 'E-mail';
-$lang['password_label'] 				= 'Password';
+$lang['global:email'] 					= 'E-mail';
+$lang['global:password'] 				= 'Password';
 $lang['login_label'] 					= 'Log In';
 
 $lang['help_label'] 					= 'Help';
@@ -62,10 +71,10 @@ $lang['cancel_label'] 					= 'Cancel';
 $lang['update_label'] 					= 'Update Caption';
 $lang['global:delete'] 					= 'Delete';
 $lang['activate_label'] 				= 'Activate';
-$lang['approve_label']					= 'Approve';
-$lang['unapprove_label']				= 'Unapprove';
+$lang['global:approve']					= 'Approve';
+$lang['global:unapprove']				= 'Unapprove';
 $lang['publish_label'] 					= 'Publish';
-$lang['upload_label'] 					= 'Upload';
+$lang['global:upload'] 					= 'Upload';
 $lang['global:uninstall'] 				= 'Uninstall';
 $lang['global:install'] 				= 'Install';
 $lang['global:upgrade'] 				= 'Upgrade';
@@ -97,4 +106,13 @@ $lang['global:or']						= 'or';
 $lang['global:and']						= 'and';
 $lang['global:at']						= 'at';
 
-/* End of file main_lang.php */
+$lang['global:widgets']					= 'Widgets';
+$lang['global:themes']					= 'Themes'; #translate
+$lang['global:field_types']				= 'Field Types';
+$lang['global:plugins']					= 'Plugins';
+$lang['global:plugin']					= 'Plugin';
+
+$lang['global:options']					= 'Options';
+$lang['global:plain-text']				= 'Plain Text';
+
+/* End of file global_lang.php */

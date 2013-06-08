@@ -14,25 +14,9 @@
 	</div>
 	
 <?php if ($_user): ?>
-	
-	<?php if ($_user->bio): ?>
-	<!-- User's biography -->
-	<div id="user_bio">
-		<h3><?php echo lang('profile_bio'); ?></h3>
-		<p><?php echo $_user->bio ?></p>
-	</div>
-	<?php endif; ?>
-	
-	<?php if($_user->gender or $_user->dob): ?>
-	<!-- Personal user details -->
-	<div id="user_personal">
-		<h3><?php echo lang('profile_personal_section') ?></h3>	
-		<?php if($_user->gender): ?><p><strong><?php echo lang('profile_gender'); ?>:</strong> <?php echo $_user->gender == 'm' ? lang('profile_male_label') : lang('profile_female_label') ?></p><?php endif; ?>
-		<?php if($_user->dob): ?><p><strong><?php echo lang('profile_dob'); ?>:</strong> <?php echo format_date($_user->dob) ?></p><?php endif; ?>
-	</div>
-	
-	<?php endif; ?>
-
+	<p><strong><?php echo lang('user:first_name');?>:</strong> <?php echo $_user->first_name; ?></p>
+	<p><strong><?php echo lang('user:last_name');?>:</strong> <?php echo $_user->last_name; ?></p>
+    <p><strong>Phone:</strong> <?php echo $_user->phone; ?></p>
 <?php else: ?>
 	<!-- The user hasn't created a profile yet... -->
 	<div id="user_no_profile">

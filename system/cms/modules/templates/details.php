@@ -21,6 +21,7 @@ class Module_Templates extends Module {
 				'da' => 'Email skabeloner',
 				'el' => 'Δυναμικά email',
 				'es' => 'Plantillas de email',
+                            'fa' => 'قالب های ایمیل',
 				'fr' => 'Modèles d\'emails',
 				'he' => 'תבניות',
 				'id' => 'Template Email',
@@ -28,11 +29,12 @@ class Module_Templates extends Module {
 				'nl' => 'Email sjablonen',
 				'ru' => 'Шаблоны почты',
 				'sl' => 'Email predloge',
-				'zh' => '郵件範本',
+				'tw' => '郵件範本',
+				'cn' => '邮件范本',
 				'hu' => 'E-mail sablonok',
 				'fi' => 'Sähköposti viestipohjat',
 				'th' => 'แม่แบบอีเมล',
-                                'se' => 'E-postmallar'
+				'se' => 'E-postmallar',
 			),
 			'description' => array(
 				'en' => 'Create, edit, and save dynamic email templates',
@@ -42,6 +44,7 @@ class Module_Templates extends Module {
 				'da' => 'Opret, redigér og gem dynamiske emailskabeloner.',
 				'el' => 'Δημιουργήστε, επεξεργαστείτε και αποθηκεύστε δυναμικά email.',
 				'es' => 'Crear, editar y guardar plantillas de email dinámicas',
+                            'fa' => 'ایحاد، ویرایش و ذخیره ی قالب های ایمیل به صورت پویا',
 				'fr' => 'Créer, éditer et sauver dynamiquement des modèles d\'emails',
 				'he' => 'ניהול של תבניות דואר אלקטרוני',
 				'id' => 'Membuat, mengedit, dan menyimpan template email dinamis',
@@ -49,22 +52,22 @@ class Module_Templates extends Module {
 				'nl' => 'Maak, bewerk, en beheer dynamische emailsjablonen',
 				'ru' => 'Создавайте, редактируйте и сохраняйте динамические почтовые шаблоны',
 				'sl' => 'Ustvari, uredi in shrani spremenljive email predloge',
-				'zh' => '新增、編輯與儲存可顯示動態資料的 email 範本',
+				'tw' => '新增、編輯與儲存可顯示動態資料的 email 範本',
+				'cn' => '新增、编辑与储存可显示动态资料的 email 范本',
                 'hu' => 'Csináld, szerkeszd és mentsd el a dinamikus e-mail sablonokat',
 				'fi' => 'Lisää, muokkaa ja tallenna dynaamisia sähköposti viestipohjia.',
 				'th' => 'การสร้างแก้ไขและบันทึกแม่แบบอีเมลแบบไดนามิก',
-                                'se' => 'Skapa, redigera och spara dynamiska E-postmallar.'
+				'se' => 'Skapa, redigera och spara dynamiska E-postmallar.',
 			),
 			'frontend' => false,
 			'backend' => true,
-			'menu' => 'design',
-			'author' => 'Stephen Cozart',
+			'menu' => 'structure',
 			'skip_xss' => true,
 			'shortcuts' => array(
 				array(
-				    'name' => 'templates.create_title',
+				    'name' => 'templates:create_title',
 				    'uri' => 'admin/templates/create',
-				    'class' => 'add'
+				    'class' => 'add',
 				),
 		    ),
 		);
@@ -198,18 +201,18 @@ class Module_Templates extends Module {
 			'module' => 'users'
 		));
 
-		return TRUE;
+		return true;
 	}
 
 	public function uninstall()
 	{
 		// This is a core module, lets keep it around.
-		return FALSE;
+		return false;
 	}
 
 	public function upgrade($old_version)
 	{
-		return TRUE;
+		return true;
 	}
 
 }

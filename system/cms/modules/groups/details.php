@@ -9,7 +9,7 @@
  class Module_Groups extends Module
 {
 
-	public $version = '1.0';
+	public $version = '1.0.0';
 
 	public function info()
 	{
@@ -24,6 +24,7 @@
 				'de' => 'Gruppen',
 				'el' => 'Ομάδες',
 				'es' => 'Grupos',
+                            'fa' => 'گروه ها',
 				'fi' => 'Ryhmät',
 				'fr' => 'Groupes',
 				'he' => 'קבוצות',
@@ -33,7 +34,8 @@
 				'nl' => 'Groepen',
 				'ru' => 'Группы',
 				'sl' => 'Skupine',
-				'zh' => '群組',
+				'tw' => '群組',
+				'cn' => '群组',
 				'hu' => 'Csoportok',
 				'th' => 'กลุ่ม',
 				'se' => 'Grupper',
@@ -48,6 +50,7 @@
 				'de' => 'Benutzer können zu Gruppen zusammengefasst werden um diesen Zugriffsrechte zu geben.',
 				'el' => 'Οι χρήστες μπορούν να τοποθετηθούν σε ομάδες και έτσι να διαχειριστείτε τα δικαιώματά τους.',
 				'es' => 'Los usuarios podrán ser colocados en grupos para administrar sus permisos.',
+                            'fa' => 'کاربرها می توانند در گروه های ساماندهی شوند تا بتوان اجازه های مختلفی را ایجاد کرد',
 				'fi' => 'Käyttäjät voidaan liittää ryhmiin, jotta käyttöoikeuksia voidaan hallinnoida.',
 				'fr' => 'Les utilisateurs peuvent appartenir à des groupes afin de gérer les permissions.',
 				'he' => 'נותן אפשרות לאסוף משתמשים לקבוצות',
@@ -57,7 +60,8 @@
 				'nl' => 'Gebruikers kunnen in groepen geplaatst worden om rechten te kunnen geven.',
 				'ru' => 'Пользователей можно объединять в группы, для управления правами доступа.',
 				'sl' => 'Uporabniki so lahko razvrščeni v skupine za urejanje dovoljenj',
-				'zh' => '用戶可以依群組分類並管理其權限',
+				'tw' => '用戶可以依群組分類並管理其權限',
+				'cn' => '用户可以依群组分类并管理其权限',
 				'hu' => 'A felhasználók csoportokba rendezhetőek a jogosultságok kezelésére.',
 				'th' => 'สามารถวางผู้ใช้ลงในกลุ่มเพื่',
 				'se' => 'Användare kan delas in i grupper för att hantera roller och behörigheter.',
@@ -67,7 +71,7 @@
 			'menu' => 'users',
 			'shortcuts' => array(
 				array(
-					'name' => 'groups.add_title',
+					'name' => 'groups:add_title',
 					'uri' => 'admin/groups/add',
 					'class' => 'add'
 				),

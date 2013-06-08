@@ -10,7 +10,6 @@
  */
 class Settings {
 
-	protected $ci;
 	/**
 	 * Settings cache
 	 *
@@ -22,7 +21,7 @@ class Settings {
 	 *
 	 * @var	array
 	 */
-	private $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
+	private static $columns = array('slug', 'title', 'description', 'type', 'default', 'value', 'options', 'is_required', 'is_gui', 'module', 'order');
 
 	/**
 	 * The Settings Construct
@@ -31,10 +30,9 @@ class Settings {
 	{
 		ci()->load->model('settings/settings_m');
 
-		$this->ci =& get_instance();
-		$this->ci->lang->load('settings/settings');
+		ci()->lang->load('settings/settings');
 
-		$this->get_all();
+		self::get_all();
 	}
 
 	/**
@@ -109,10 +107,10 @@ class Settings {
 
 			self::$cache[$name] = $value;
 
-			return TRUE;
+			return true;
 		}
 
-		return FALSE;
+		return false;
 	}
 
 	/**
@@ -138,7 +136,7 @@ class Settings {
 	 *
 	 * @return	array
 	 */
-	public function get_all()
+	public static function get_all()
 	{
 		if (self::$cache)
 		{
@@ -163,11 +161,11 @@ class Settings {
 	 * @param	array	$setting
 	 * @return	int
 	 */
-	public function add($setting)
+	public static function add($setting)
 	{
-		if ( ! $this->_check_format($setting))
+		if ( ! self::_check_format($setting))
 		{
-			return FALSE;
+			return false;
 		}
 		return ci()->settings_m->insert($setting);
 	}
@@ -180,7 +178,7 @@ class Settings {
 	 * @param	string	$name
 	 * @return	bool
 	 */
-	public function delete($name)
+	public static function delete($name)
 	{
 		return ci()->settings_m->delete_by(array('slug' => $name));
 	}
@@ -195,7 +193,7 @@ class Settings {
 	 * @param	object	$setting
 	 * @return	string
 	 */
-	public function form_control(&$setting)
+	public static function form_control(&$setting)
 	{
 		if ($setting->options)
 		{
@@ -206,14 +204,14 @@ class Settings {
 			{
 				$func = substr($setting->options, 5);
 
-				if (($pos = strrpos($func, '/')) !== FALSE)
+				if (($pos = strrpos($func, '/')) !== false)
 				{
 					$helper	= substr($func, 0, $pos);
 					$func	= substr($func, $pos + 1);
 
 					if ($helper)
 					{
-						$this->ci->load->helper($helper);
+						ci()->load->helper($helper);
 					}
 				}
 
@@ -228,6 +226,7 @@ class Settings {
 				}
 			}
 
+			// If its an array un-CSV it
 			if (is_string($setting->options))
 			{
 				$setting->options = explode('|', $setting->options);
@@ -259,18 +258,18 @@ class Settings {
 				$form_control = form_password(array(
 					'id'	=> $setting->slug,
 					'name'	=> $setting->slug,
-					'value'	=> $setting->value,
+					'value'	=> 'XXXXXXXXXXXX',
 					'class'	=> 'text width-20',
 					'autocomplete' => 'off',
 				));
 				break;
 
 			case 'select':
-				$form_control = form_dropdown($setting->slug, $this->_format_options($setting->options), $setting->value, 'class="width-20"');
+				$form_control = form_dropdown($setting->slug, self::_format_options($setting->options), $setting->value, 'class="width-20"');
 				break;
 
 			case 'select-multiple':
-				$options = $this->_format_options($setting->options);
+				$options = self::_format_options($setting->options);
 				$size = sizeof($options) > 10 ? ' size="10"' : '';
 				$form_control = form_multiselect($setting->slug . '[]', $options, explode(',', $setting->value), 'class="width-20"' . $size);
 				break;
@@ -280,7 +279,7 @@ class Settings {
 				$form_control = '';
 				$stored_values = is_string($setting->value) ? explode(',', $setting->value) : $setting->value;
 
-				foreach ($this->_format_options($setting->options) as $value => $label)
+				foreach (self::_format_options($setting->options) as $value => $label)
 				{
 					if (is_array($stored_values))
 					{
@@ -288,7 +287,7 @@ class Settings {
 					}
 					else
 					{
-						$checked = FALSE;
+						$checked = false;
 					}
 
 					$form_control .= '<label>';
@@ -305,7 +304,7 @@ class Settings {
 			case 'radio':
 
 				$form_control = '';
-				foreach ($this->_format_options($setting->options) as $value => $label)
+				foreach (self::_format_options($setting->options) as $value => $label)
 				{
 					$form_control .= '<label class="inline">' . form_radio(array(
 						'id'		=> $setting->slug,
@@ -328,7 +327,7 @@ class Settings {
 	 * @param	array	$options
 	 * @return	array
 	 */
-	private function _format_options($options = array())
+	private static function _format_options($options = array())
 	{
 		$select_array = array();
 
@@ -336,9 +335,9 @@ class Settings {
 		{
 			list($value, $name) = explode('=', $option);
 
-			if ($this->ci->lang->line('settings_form_option_' . $name) !== FALSE)
+			if (ci()->lang->line('settings:form_option_' . $name) !== false)
 			{
-				$name = $this->ci->lang->line('settings_form_option_' . $name);
+				$name = ci()->lang->line('settings:form_option_' . $name);
 			}
 
 			$select_array[$value] = $name;
@@ -356,21 +355,21 @@ class Settings {
 	 * @param	string	$setting
 	 * @return	bool	If the setting is the correct format
 	 */
-	private function _check_format($setting)
+	private static function _check_format($setting)
 	{
 		if ( ! isset($setting))
 		{
-			return FALSE;
+			return false;
 		}
 		foreach ($setting as $key => $value)
 		{
-			if ( ! in_array($key, $this->columns))
+			if ( ! in_array($key, self::$columns))
 			{
-				return FALSE;
+				return false;
 			}
 		}
 
-		return TRUE;
+		return true;
 	}
 
 }

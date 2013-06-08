@@ -5,7 +5,7 @@
 	<div class="row">
 	
 		<?php foreach ($galleries as $gallery):?>
-	<?= alternator('','','','</div><div class="row">'); /* row grouping */ ?>
+	   <?= alternator('','','','</div><div class="row">'); /* row grouping */ ?>
 		<div class="span8">
 			<div class="mod block-gallery">
 		
@@ -26,7 +26,7 @@
 		</div>
 		<?php endforeach; ?>
 	</div>
-	<?= $this->pagination->create_links(); ?>
+	{{ pagination }}
 	
 	<?php else: ?>
 		

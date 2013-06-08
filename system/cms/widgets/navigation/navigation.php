@@ -25,6 +25,7 @@ class Widget_Navigation extends Widgets
 		'id' => 'Navigasi',
 		'fi' => 'Navigaatio',
 		'fr' => 'Navigation',
+            'fa' => 'منوها',
 	);
 
 	/**
@@ -42,6 +43,7 @@ class Widget_Navigation extends Widgets
 		'id' => 'Menampilkan grup navigasi menggunakan widget',
 		'fi' => 'Näytä widgetillä navigaatio ryhmä',
 		'fr' => 'Affichez un groupe de navigation dans un widget',
+            'fa' => 'نمایش گروهی از منوها با استفاده از ویجت',
 	);
 
 	/**
@@ -63,7 +65,7 @@ class Widget_Navigation extends Widgets
 	 *
 	 * @var string
 	 */
-	public $version = '1.2';
+	public $version = '1.2.0';
 
 	/**
 	 * The fields for customizing the options of the widget.
@@ -129,7 +131,7 @@ class Widget_Navigation extends Widgets
 		// Load the navigation model from the navigation module.
 		$this->load->model('navigation/navigation_m');
 		
-		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, Settings::get('navigation_cache'));
+		$links = $this->pyrocache->model('navigation_m', 'get_link_tree', $params, config_item('navigation_cache'));
 
 		// Shorter alias
 		$widget = & $options['widget'];

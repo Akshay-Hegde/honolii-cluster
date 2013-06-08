@@ -17,7 +17,7 @@ class Field_encrypt
 
 	public $custom_parameters		= array('hide_typing');
 
-	public $version					= '1.1';
+	public $version					= '1.1.0';
 
 	public $author					= array('name'=>'Parse19', 'url'=>'http://parse19.com');
 	
@@ -50,7 +50,11 @@ class Field_encrypt
 	{
 		$this->CI->load->library('encrypt');
 		
-		return $this->CI->encrypt->decode($input);
+		$out = $this->CI->encrypt->decode($input);
+	
+		// No PyroCMS tags in your ouput!
+		$this->CI->load->helper('text');
+		return escape_tags($out);
 	}
 
 	// --------------------------------------------------------------------------
@@ -93,7 +97,7 @@ class Field_encrypt
 	 * @param	[array - param]
 	 * @return	string
 	 */	
-	public function param_hide_typing($params = FALSE)
+	public function param_hide_typing($params = false)
 	{
 		$selected 		= ($params == 'no') ? 'no' : 'yes';
 

@@ -14,7 +14,7 @@ class MY_Parser extends CI_Parser {
 
 	private $_ci;
 
-	function __construct($config = array())
+	public function __construct($config = array())
 	{
 		$this->_ci = & get_instance();
 		
@@ -38,11 +38,11 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse($template, $data = array(), $return = FALSE, $is_include = FALSE)
+	public function parse($template, $data = array(), $return = false, $is_include = false, $streams_parse = array())
 	{
-		$string = $this->_ci->load->view($template, $data, TRUE);
+		$string = $this->_ci->load->view($template, $data, true);
 
-		return $this->_parse($string, $data, $return, $is_include);
+		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
 
 	// --------------------------------------------------------------------
@@ -59,9 +59,9 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	public function parse_string($string, $data = array(), $return = FALSE, $is_include = FALSE)
+	public function parse_string($string, $data = array(), $return = false, $is_include = false, $streams_parse = array())
 	{
-		return $this->_parse($string, $data, $return, $is_include);
+		return $this->_parse($string, $data, $return, $is_include, $streams_parse);
 	}
 
 	// --------------------------------------------------------------------
@@ -78,7 +78,7 @@ class MY_Parser extends CI_Parser {
 	 * @param	bool
 	 * @return	string
 	 */
-	function _parse($string, $data, $return = FALSE, $is_include = FALSE)
+	protected function _parse($string, $data, $return = false, $is_include = false, $streams_parse = array())
 	{
 		// Start benchmark
 		$this->_ci->benchmark->mark('parse_start');
@@ -90,10 +90,23 @@ class MY_Parser extends CI_Parser {
 
 		Lex_Autoloader::register();
 
-		$parser = new Lex_Parser();
-		$parser->scope_glue(':');
-		$parser->cumulative_noparse(TRUE);
-		$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
+		if ($streams_parse and isset($streams_parse['stream']) and isset($streams_parse['namespace']))
+		{
+			// In some very rare cases (mainly in the pages module), we need to
+			// change the field that is being passed to plugin_override() as row_id.
+			// This is where that happens.
+			$id_name = (isset($streams_parse['id_name']) and $streams_parse['id_name']) ? $streams_parse['id_name'] : 'id';
+
+			$this->_ci->load->driver('Streams');
+			$parsed = $this->_ci->streams->parse->parse_tag_content($string, $data, $streams_parse['stream'], $streams_parse['namespace'], false, null, $id_name);
+		}
+		else
+		{
+			$parser = new Lex_Parser();
+			$parser->scope_glue(':');
+			$parser->cumulative_noparse(true);
+			$parsed = $parser->parse($string, $data, array($this, 'parser_callback'));
+		}
 		
 		// Finish benchmark
 		$this->_ci->benchmark->mark('parse_end');
@@ -150,7 +163,7 @@ class MY_Parser extends CI_Parser {
 			$return_data = $parsed_return;
 		}
 
-		return $return_data ? $return_data : NULL;
+		return $return_data ? $return_data : null;
 	}
 
 	// ------------------------------------------------------------------------
