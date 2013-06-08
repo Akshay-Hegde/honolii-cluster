@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Theme_Custom extends Theme {
+class Theme_Custom1 extends Theme {
 
     public $name = 'JASC - Custom - V1';
     public $author = 'Wetumka Interactive, LLC.';
