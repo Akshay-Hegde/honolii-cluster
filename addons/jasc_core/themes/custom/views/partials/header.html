@@ -1,8 +1,12 @@
-<div id="logo" class="span-12">
-	<h1 class="logo"><a href="{{url:site}}">{{settings:site_name}} {{settings:site_slogan}}</a></h1>
-</div>
-<div id="main-nav" class="span-12 last">
-	<ul class="nav">
-	{{navigation:links group="header"}}
-	</ul>
-</div>
+<!-- Begin header -->
+<header id="header" class="site-header">
+    <div id="logo">
+    	<h1 class="logo"><a href="{{url:site}}">{{settings:site_name}}</a></h1>
+    </div>
+    <nav id="main-nav">
+    	<ul class="nav">
+    	{{navigation:links group="header"}}
+    	</ul>
+    </nav>
+</header>
+<!-- End header -->

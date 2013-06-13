@@ -15,15 +15,43 @@
 <body>
 	<div class="wrapper">
 		<div id="container" class="container">
-			<div id="header">
-				{{theme:partial name="header"}}
+	        {{theme:partial name="header"}}
+			<div id="content" class="site-content">
+				<section id="home">
+				    <h1>John Allen Sign Co.</h1>
+				    <h2>Sign Design &amp; Fabrication</h2>
+				</section>
+				<section id="aboutus">
+				    <h1>About Us</h1>
+				    <h2>Sub headline</h2>
+				    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+				    <a href="#produts" class="button">Continue Tour</a>
+				</section>
+				<section id="products">
+				    <h1>Products</h1>
+                    <h2>Sub headline</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <a href="#services" class="button">Continue Tour</a>
+				</section>
+				<section id="services">
+				    <h1>Services</h1>
+                    <h2>Sub headline</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <a href="#gallery" class="button">Continue Tour</a>
+				</section>
+				<section id="gallery">
+				    <h1>Gallery</h1>
+                    <h2>Sub headline</h2>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                    <a href="#contact" class="button">Continue Tour</a>
+				</section>
+				<section id="contact">
+                    <h1>Contact</h1>
+                    <h2>Sub headline</h2>
+                    
+                </section>
 			</div>
-			<div id="content">
-				
-			</div>
-			<div id="footer">
-				{{theme:partial name="footer"}}
-			</div>
+			{{theme:partial name="footer"}}
 		</div>
 	</div>
 {{ if global:environment == 'development' }}
