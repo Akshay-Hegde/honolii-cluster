@@ -14,45 +14,65 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div id="container" class="container">
-	        {{theme:partial name="header"}}
-			<div id="content" class="site-content">
-				<section id="home">
+        {{theme:partial name="header"}}
+		<div id="content" class="site-content">
+			<!-- <section id="home" class="home">
+			    <div class="container">
 				    <h1>John Allen Sign Co.</h1>
 				    <h2>Sign Design &amp; Fabrication</h2>
-				</section>
-				<section id="aboutus">
-				    <h1>About Us</h1>
-				    <h2>Sub headline</h2>
 				    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-				    <a href="#produts" class="button">Continue Tour</a>
-				</section>
-				<section id="products">
-				    <h1>Products</h1>
+			        
+			    </div>
+			</section> -->
+			<section id="aboutus" class="aboutus">
+			    <div class="container">
+			        <div class="row">
+    			        <div class="span6">
+        			    	<h1>About Us</h1>
+        			    	<h2 class="shadow">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</h2>
+        			    	<p class="shadow">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        			    	<div class="row">
+        			    	    <a href="#produts" class="btn span3">Continue Tour</a>
+        			    	</div>
+    			    	</div>
+    			    	<div class="span6">
+    			    	    <div class="instagram" id="instagram"></div>
+    			    	</div>
+			    	</div>
+			    </div>
+			</section>
+			<section id="products" class="products">
+			    <div class="container">
+                	<h1>Products</h1>
                     <h2>Sub headline</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <a href="#services" class="button">Continue Tour</a>
-				</section>
-				<section id="services">
-				    <h1>Services</h1>
+                </div>
+			</section>
+			<section id="services" class="services">
+			    <div class="container">
+                	<h1>Services</h1>
                     <h2>Sub headline</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <a href="#gallery" class="button">Continue Tour</a>
-				</section>
-				<section id="gallery">
-				    <h1>Gallery</h1>
+                </div>
+			</section>
+			<section id="gallery" class="gallery">
+			    <div class="container">
+                	<h1>Gallery</h1>
                     <h2>Sub headline</h2>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <a href="#contact" class="button">Continue Tour</a>
-				</section>
-				<section id="contact">
-                    <h1>Contact</h1>
-                    <h2>Sub headline</h2>
-                    
-                </section>
-			</div>
-			{{theme:partial name="footer"}}
+                </div>
+			</section>
+			<section id="contact" class="contact">
+                <div class="container">
+                	<h1>Contact</h1>
+                	<h2>Sub headline</h2>
+                </div>
+            </section>
 		</div>
+		{{theme:partial name="footer"}}
 	</div>
 {{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
