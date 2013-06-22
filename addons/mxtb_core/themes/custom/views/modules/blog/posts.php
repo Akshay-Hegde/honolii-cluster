@@ -19,7 +19,7 @@
             			</div>
             		</div>
             		<div class="bd post-body">
-            			<a title="Read - {{ title }}" href="{{ url }}" class="img-link"></a>
+            			<a title="Read - {{ title }}" href="{{ url }}" class="img-link">{{ post_image:img }}</a>
             			{{ preview }}
             		</div>
             		<div class="post-full">
