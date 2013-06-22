@@ -14,6 +14,7 @@
                 </div>
     		</div>
     		<div class="bd post-body">
+    			{{ post_image:img }}
     			{{ body }}
     		</div>
     	</div>

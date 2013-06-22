@@ -5250,9 +5250,6 @@ hr {
   margin-bottom: 13.5px;
 }
 .block-post .post-body img {
-  display: none;
-}
-.block-post .post-body img.active {
   display: block;
   margin-bottom: 10px;
 }
@@ -5449,9 +5446,6 @@ aside > .widget:last-child {
 .latest-news-block .blog-post .post-image a img {
   display: block;
   min-height: 250px;
-}
-.latest-news-block .blog-post .post-content .intro img {
-  display: none;
 }
 .latest-news-block .blog-post h4 {
   margin-top: 0;
