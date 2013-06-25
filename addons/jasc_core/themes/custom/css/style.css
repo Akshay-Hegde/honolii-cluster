@@ -637,8 +637,9 @@ h1 {
 h2,
 h3 {
   font-size: 2em;
-  line-height: 1.5em;
+  line-height: 1.2em;
   font-weight: 100;
+  margin-bottom: .5em;
 }
 .rgba.textshadow h2,
 .rgba.textshadow h3 {
@@ -1639,6 +1640,34 @@ legend + .control-group {
 .form-horizontal .form-actions {
   padding-left: 180px;
 }
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  *margin-right: .3em;
+  line-height: 27px;
+  vertical-align: bottom;
+  background-image: url("../img/jasc-site-sprites.png");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+.icon-arrow-down {
+  background-position: -97px -222px;
+}
+.icon-arrow {
+  background-position: -126px -222px;
+}
+.icon-instagram {
+  background-position: -63px -222px;
+  margin-left: 5px;
+}
+.icon-bullet-box {
+  background-position: -313px -222px;
+}
+.icon-bullet {
+  background-position: -287px -252px;
+}
 .dropup,
 .dropdown {
   position: relative;
@@ -1889,7 +1918,7 @@ button.close {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  padding: 10px 18px;
+  padding: 10px 0;
   margin-bottom: 7px;
   font-size: 18px;
   line-height: 1.5em;
@@ -1901,6 +1930,7 @@ button.close {
   font-weight: 100;
   color: #fff;
   background-color: rgba(210,74,38,0.8);
+  border: none;
   *margin-left: .3em;
 }
 .btn:first-child {
@@ -1908,13 +1938,13 @@ button.close {
 }
 .btn:hover,
 .btn:focus {
-  color: #333;
+  color: #fff;
   text-decoration: none;
-  background-position: 0 -15px;
-  -webkit-transition: background-position .1s linear;
-  -moz-transition: background-position .1s linear;
-  -o-transition: background-position .1s linear;
-  transition: background-position .1s linear;
+  background-color: #d24a26;
+  -webkit-transition: background-color .3s linear;
+  -moz-transition: background-color .3s linear;
+  -o-transition: background-color .3s linear;
+  transition: background-color .3s linear;
 }
 .btn:focus {
   outline: thin dotted #333;
@@ -1923,11 +1953,7 @@ button.close {
 }
 .btn.active,
 .btn:active {
-  background-image: none;
   outline: 0;
-  -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
-  -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
-  box-shadow: inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05);
 }
 .btn.disabled,
 .btn[disabled] {
@@ -1998,34 +2024,11 @@ input[type="button"].btn-block {
   color: rgba(255,255,255,0.75);
 }
 .btn-primary {
-  color: #fff;
-  text-shadow: 0 -1px 0 rgba(0,0,0,0.25);
-  background-color: #006dcc;
-  background-image: -moz-linear-gradient(top,#08c,#0044cc);
-  background-image: -webkit-gradient(linear,0 0,0 100%,from(#08c),to(#0044cc));
-  background-image: -webkit-linear-gradient(top,#08c,#0044cc);
-  background-image: -o-linear-gradient(top,#08c,#0044cc);
-  background-image: linear-gradient(to bottom,#08c,#0044cc);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0043cc', GradientType=0);
-  border-color: #0044cc #0044cc #002a80;
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
-  *background-color: #0044cc;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+  background-color: rgba(10,120,171,0.8);
 }
 .btn-primary:hover,
-.btn-primary:focus,
-.btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
-  color: #fff;
-  background-color: #0044cc;
-  *background-color: #003bb3;
-}
-.btn-primary:active,
-.btn-primary.active {
-  background-color: #003399 \9;
+.btn-primary:focus {
+  background-color: #0a78ab;
 }
 .btn-warning {
   color: #fff;
@@ -3916,11 +3919,213 @@ body {
 .wrapper {
   height: inherit;
 }
+ol,
+ul {
+  margin-bottom: 1.5em;
+  list-style: none;
+}
+ol.bullet,
+ul.bullet {
+  margin-left: 0;
+}
+ol.bullet li,
+ul.bullet li {
+  padding-left: 25px;
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: no-repeat;
+  background-position: -292px -252px;
+}
+ol.bullet-box,
+ul.bullet-box {
+  margin-left: 0;
+}
+ol.bullet-box li,
+ul.bullet-box li {
+  padding-left: 25px;
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: no-repeat;
+  background-position: -317px -222px;
+}
+ol.bullet-box-link,
+ul.bullet-box-link {
+  margin-left: 0;
+}
+ol.bullet-box-link a,
+ul.bullet-box-link a {
+  padding-left: 25px;
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: no-repeat;
+  background-position: -317px -222px;
+  display: inline-block;
+}
+.gc-cs-link {
+  color: #fff !important;
+}
 header.site-header {
-  display: none;
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  left: -200px;
+  font-family: "proxima-nova-alt", sans-serif;
+  text-transform: uppercase;
+  font-weight: 100;
+  z-index: 100;
+  -webkit-transition: left .8s ease-out, width .8s ease-out;
+  -moz-transition: left .8s ease-out, width .8s ease-out;
+  -o-transition: left .8s ease-out, width .8s ease-out;
+  transition: left .8s ease-out, width .8s ease-out;
+}
+header.site-header.active1 {
+  left: 0;
+}
+header.site-header.active2 {
+  width: 400px;
+}
+header.site-header nav {
+  height: 100%;
+}
+header.site-header .site-nav-control {
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: none;
+  background-position: 0px -220px;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: -40px;
+  top: 10px;
+  cursor: pointer;
+  -webkit-transition: right .2s ease-in;
+  -moz-transition: right .2s ease-in;
+  -o-transition: right .2s ease-in;
+  transition: right .2s ease-in;
+}
+header.site-header .site-nav-control.active {
+  background-position: -30px -220px;
+  right: -30px;
+}
+header.site-header .site-nav {
+  height: 100%;
+  width: 200px;
+  position: absolute;
+  background-image: url(../img/jasc-nav-bk.jpg);
+  background-repeat: repeat-y;
+}
+header.site-header .site-nav .phone {
+  margin: 25px;
+  position: absolute;
+  bottom: 0;
+}
+header.site-header .site-nav.site-nav-1 {
+  background-position: 0 0;
+  background-color: #75655A;
+  z-index: 100;
+}
+header.site-header .site-nav.site-nav-2 {
+  background-position: -200px 0;
+  background-color: black;
+  z-index: 50;
+  right: 0;
+}
+header.site-header .site-nav.site-nav-2 ul.nav {
+  margin: 141px 0 0 18px;
+}
+header.site-header .site-nav ul.nav {
+  margin: 25px;
+}
+header.site-header .site-nav ul.nav a {
+  color: #fff;
+  display: block;
+  outline: none;
+}
+.rgba.textshadow header.site-header .site-nav ul.nav a {
+  text-shadow: 0px 2px 1px rgba(0,0,0,0.8);
+}
+.no-rgba.textshadow header.site-header .site-nav ul.nav a {
+  text-shadow: 0px 2px 1px #666;
+}
+header.site-header .site-nav ul.nav li {
+  margin-bottom: 14px;
+}
+header.site-header .site-nav ul.nav li.active a {
+  text-decoration: underline;
+  cursor: default;
+}
+header.site-header .site-nav ul.nav li.last {
+  margin-bottom: 0;
+}
+header.site-header .site-nav ul.nav li.cta {
+  margin-top: 60px;
+  text-align: center;
+}
+header.site-header .site-nav ul.nav li.cta a {
+  border: solid 1px #0A78AB;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 5px;
+}
+header.site-header .site-nav ul.nav li.submenu a {
+  display: inline-block;
+}
+header.site-header .site-nav ul.nav li.submenu i.icon-bullet-box {
+  margin-left: 20px;
+  cursor: pointer;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: background-color .4s ease-in;
+  -moz-transition: background-color .4s ease-in;
+  -o-transition: background-color .4s ease-in;
+  transition: background-color .4s ease-in;
+}
+header.site-header .site-nav ul.nav li.submenu i.icon-bullet-box:hover {
+  background-color: rgba(0,0,0,0.5);
+}
+header.site-header .logo {
+  padding-left: 20px;
+}
+header.site-header .logo a {
+  display: block;
+  height: 75px;
+  width: 160px;
+  overflow: hidden;
+  text-indent: -9999px;
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: none;
+  background-position: 0 -140px;
+  background-color: rgba(0,0,0,0);
+  -webkit-transition: background-color .4s ease-in;
+  -moz-transition: background-color .4s ease-in;
+  -o-transition: background-color .4s ease-in;
+  transition: background-color .4s ease-in;
+}
+header.site-header .logo a:hover {
+  background-color: rgba(0,0,0,0.5);
 }
 footer.site-footer {
-  display: none;
+  font-family: "proxima-nova-alt", sans-serif;
+  font-weight: 100;
+  text-align: center;
+  font-size: .8em;
+  height: 65px;
+  margin-top: -65px;
+  background-color: rgba(0,0,0,0.7);
+  line-height: 1.2em;
+  clear: both;
+}
+footer.site-footer a {
+  display: inline-block;
+  padding: 2px 4px;
+}
+footer.site-footer ul {
+  margin: 0;
+}
+footer.site-footer ul li {
+  display: inline-block;
+  margin-right: 2px;
+}
+footer.site-footer ul li.last {
+  margin-right: 0;
 }
 div.site-content {
   height: inherit;
@@ -3937,7 +4142,33 @@ div.site-content > section > .container {
   padding-top: 70px;
   padding-bottom: 50px;
 }
-div.site-content #home,
+div.site-content > section.home {
+  background-color: #fff;
+  padding-top: 200px;
+}
+div.site-content > section.home button.btn {
+  width: 200px;
+  margin: 2em auto 0;
+  display: block;
+}
+div.site-content > section.home .block {
+  background-image: url(../img/lava-background.jpg);
+  background-repeat: repeat;
+  height: 400px;
+  width: 100%;
+  position: relative;
+}
+div.site-content > section.home .block h1 {
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: none;
+  background-position: 0 0;
+  text-indent: -9999px;
+  overflow: hidden;
+  width: 335px;
+  height: 130px;
+  right: 20px;
+  position: absolute;
+}
 div.site-content #products,
 div.site-content #gallery {
   background-image: url(../img/Test-Background.jpg);
@@ -3955,4 +4186,43 @@ div.site-content .shadow {
   -webkit-box-shadow: 0 0 32px 10px rgba(0,0,0,0.55);
   -moz-box-shadow: 0 0 32px 10px rgba(0,0,0,0.55);
   box-shadow: 0 0 32px 10px rgba(0,0,0,0.55);
+}
+.social-links {
+  text-align: right;
+}
+.social-links a {
+  width: 70px;
+  height: 70px;
+  display: inline-block;
+  background-color: rgba(0,0,0,0.5);
+  margin-right: 24px;
+  text-align: left;
+}
+.social-links a:hover {
+  background-color: #000000;
+  -webkit-transition: background-color .4s ease-in;
+  -moz-transition: background-color .4s ease-in;
+  -o-transition: background-color .4s ease-in;
+  transition: background-color .4s ease-in;
+}
+.social-links a.big-facebook span {
+  background-position: -231px -145px;
+  width: 37px;
+  margin-left: 25px;
+}
+.social-links a.big-instagram span {
+  background-position: -160px -145px;
+  width: inherit;
+}
+.social-links a.big-google span {
+  background-position: -268px -145px;
+  width: inherit;
+}
+.social-links a span {
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: none;
+  overflow: hidden;
+  text-indent: -9999px;
+  display: inline-block;
+  height: inherit;
 }

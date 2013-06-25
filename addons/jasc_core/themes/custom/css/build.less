@@ -21,7 +21,7 @@
 //@import "../../../../../libraries/bootstrap/less/tables.less";
 
 // Components: common
-//@import "../../../../../libraries/bootstrap/less/sprites.less";
+@import "less/sprites.less";
 @import "../../../../../libraries/bootstrap/less/dropdowns.less";
 //@import "../../../../../libraries/bootstrap/less/wells.less";
 @import "../../../../../libraries/bootstrap/less/component-animations.less";
@@ -80,16 +80,201 @@ html, body {
   height:inherit;
 }
 /* --------------------------------
+  Basic Styles
+--------------------------------- */
+ol,ul{
+  margin-bottom:1.5em;
+  list-style:none;
+  &.bullet{
+    margin-left:0;
+    li{
+      padding-left:25px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:no-repeat;
+      background-position:-292px -252px;
+    }
+  }
+  &.bullet-box{
+    margin-left:0;
+    li{
+      padding-left:25px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:no-repeat;
+      background-position:-317px -222px;
+    }
+  }
+  &.bullet-box-link{
+    margin-left:0;
+    a{
+      padding-left:25px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:no-repeat;
+      background-position:-317px -222px;
+      display:inline-block;
+    }
+  }
+}
+// Google Voice Links
+.gc-cs-link{
+  color:@white!important;
+}
+/* --------------------------------
   Header
 --------------------------------- */
 header.site-header{
-  display:none;
+  position:fixed;
+  height:100%;
+  width:200px;
+  left:-200px;
+  font-family:@sansFontFamily;
+  text-transform:uppercase;
+  font-weight:100;
+  z-index:100;
+  .transition(~"left .8s ease-out, width .8s ease-out");
+  &.active1{
+    left:0;
+  }
+  &.active2{
+    width:400px;
+  }
+  nav{
+    height:100%;
+  }
+  .site-nav-control{
+    background-image:url(../img/jasc-site-sprites.png);
+    background-repeat:none;
+    background-position:0px -220px;
+    width:30px;
+    height:30px;
+    position:absolute;
+    right:-40px;
+    top:10px;
+    cursor:pointer;
+    .transition(right .2s ease-in);
+    &.active{
+      background-position:-30px -220px;
+      right:-30px;
+    }
+  }
+  .site-nav{
+    height:100%;
+    width:200px;
+    position:absolute;
+    background-image:url(../img/jasc-nav-bk.jpg);
+    background-repeat:repeat-y;
+    .phone{
+      margin:25px;
+      position:absolute;
+      bottom:0;
+    }
+    &.site-nav-1{
+      background-position:0 0;
+      background-color:@NavSetOne;
+      z-index:100;
+    }
+    &.site-nav-2{
+      background-position:-200px 0;
+      background-color:black;
+      z-index:50;
+      right:0;
+      ul.nav{
+        margin:141px 0 0 18px;
+      }
+    }
+    ul.nav{
+      margin:25px;
+      a{
+        color:@white;
+        .text-shadow;
+        display:block;
+        outline:none;
+      }
+      li{
+        margin-bottom:14px;
+        &.active{
+          a{
+            text-decoration:underline;
+            cursor:default;
+          }
+        }
+        &.first{
+          
+        }
+        &.last{
+          margin-bottom:0;
+        }
+        &.cta{
+          margin-top:60px;
+          text-align:center;
+          a{
+            border:solid 1px #0A78AB;
+            .border-radius(4px);
+            padding:5px;
+          }
+        }
+        &.submenu{
+          a{
+            display:inline-block;
+          }
+          i.icon-bullet-box{
+            margin-left:20px;
+            cursor:pointer;
+            .border-radius(5px);
+            .transition(background-color .4s ease-in);
+            &:hover{
+              background-color:rgba(0,0,0,.5);
+            }
+          }
+        }
+      }
+    }
+  }
+  .logo{
+    padding-left:20px;
+    a{
+      display:block;
+      height:75px;
+      width:160px;
+      overflow:hidden;
+      text-indent:-9999px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:none;
+      background-position:0 -140px;
+      background-color:rgba(0,0,0,0);
+      .transition(background-color .4s ease-in);
+      &:hover{
+        background-color:rgba(0,0,0,.5);
+      }
+    }
+  }
 }
 /* --------------------------------
   Footer
 --------------------------------- */
 footer.site-footer{
-  display:none;
+  font-family:@sansFontFamily;
+  font-weight:100;
+  text-align:center;
+  font-size:.8em;
+  height:65px;
+  margin-top:-65px;
+  background-color:rgba(0,0,0,.7);
+  line-height:1.2em;
+  clear:both;
+  a{
+    display:inline-block;
+    padding:2px 4px;
+  }
+  ul{
+    margin:0;
+    li{
+      display:inline-block;
+      margin-right:2px;
+      &.last{
+        margin-right:0;
+      }
+    }
+  }
 }
 /* --------------------------------
   Site Content
@@ -107,8 +292,35 @@ div.site-content{
       padding-top:70px;
       padding-bottom:50px;
     }
+    &.home{
+      background-color:@white;
+      padding-top:200px;
+      button.btn{
+        width:200px;
+        margin:2em auto 0;
+        display:block;
+      }
+      .block{
+        background-image:url(../img/lava-background.jpg);
+        background-repeat:repeat;
+        height:400px;
+        width:100%;
+        position:relative;
+        h1{
+          background-image:url(../img/jasc-site-sprites.png);
+          background-repeat:none;
+          background-position:0 0;
+          text-indent:-9999px;
+          overflow:hidden;
+          width:335px;
+          height:130px;
+          right:20px;
+          position:absolute;
+        }
+      }
+    }
   }
-  #home,#products,#gallery{
+  #products,#gallery{
     background-image:url(../img/Test-Background.jpg);
   }
   #aboutus,#services,#contact{
@@ -118,5 +330,41 @@ div.site-content{
     background-color:rgba(0,0,0,.38);
     .border-radius(45px);
     .box-shadow(0 0 32px 10px rgba(0,0,0,.55));
+  }
+}
+.social-links{
+  text-align:right;
+  a{
+    width:70px;
+    height:70px;
+    display:inline-block;
+    background-color:rgba(0,0,0,.5);
+    margin-right:24px;
+    text-align:left;
+    &:hover{
+      background-color:rgba(0,0,0,1);
+      .transition(background-color .4s ease-in);
+    }
+    &.big-facebook span{
+      background-position:-231px -145px;
+      width:37px;
+      margin-left:25px;
+    }
+    &.big-instagram span{
+      background-position:-160px -145px;
+      width:inherit;
+    }
+    &.big-google span{
+      background-position:-268px -145px;
+      width:inherit;
+    }
+    span{
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:none;
+      overflow:hidden;
+      text-indent:-9999px;
+      display:inline-block;
+      height:inherit;
+    }
   }
 }

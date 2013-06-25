@@ -1,3 +1,20 @@
+/*
+ ---------------------------------------------------------------
+  Window Manager - ERM - Wetumka Interactive LLC - wetumka.net
+ ---------------------------------------------------------------
+ Adds an object with listeners for different window changes.
+ 
+ Events: windowResize, windowScrollTop
+ 
+ Requires - jQuery
+ 
+ */ 
+
+var windowManager;
+
+$(function() {
+    windowManager = new WindowManager();
+});
 // define WindowManager Class
 function WindowManager(){
     this.$window = $(window);
@@ -10,11 +27,17 @@ function WindowManager(){
     this.$window.scroll(this, this.scroll);
 }
 WindowManager.prototype.resize = function(event){// attached to window resize event
-    var $window = event.data.$window;
-    event.data.width = $window.width();
-    event.data.height = $window.height();
+    var $window,width,height;
+    $window = event.data.$window;
+    width = $window.width();
+    height = $window.height();
+    event.data.width = width;
+    event.data.height = height;
+    event.data.$window.trigger('windowResize',{width:width,height:height});
 }
 WindowManager.prototype.scroll = function(event){// attached to window scroll event
-    var $window = event.data.$window;
-    event.data.scrollTop = $window.scrollTop();
+    var scrollTop;
+    scrollTop = event.data.$window.scrollTop();
+    event.data.scrollTop = scrollTop;
+    event.data.$window.trigger('windowScrollTop',{scrollTop:scrollTop});
 }
