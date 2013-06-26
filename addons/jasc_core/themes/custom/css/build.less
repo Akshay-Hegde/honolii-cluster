@@ -255,20 +255,25 @@ footer.site-footer{
   font-family:@sansFontFamily;
   font-weight:100;
   text-align:center;
-  font-size:.8em;
+  font-size:.75em;
   height:65px;
   margin-top:-65px;
   background-color:rgba(0,0,0,.7);
   line-height:1.2em;
   clear:both;
+  .container{
+    padding-top:5px;
+  }
   a{
     display:inline-block;
     padding:2px 4px;
+    line-height:1em;
   }
   ul{
     margin:0;
     li{
       display:inline-block;
+      line-height:1em;
       margin-right:2px;
       &.last{
         margin-right:0;
@@ -288,10 +293,11 @@ div.site-content{
     background-size: cover;
     width: 100%;
     min-height:100%;
-    > .container{
-      padding-top:70px;
-      padding-bottom:50px;
+    > .container > .row{
+      padding-top:75px;
+      padding-bottom:100px;
     }
+    // Home Start Panel
     &.home{
       background-color:@white;
       padding-top:200px;
@@ -319,17 +325,41 @@ div.site-content{
         }
       }
     }
+    // About Us Panel
+    &.aboutus{
+      background-image:url(../img/About-Panel.jpg);
+    }
+    &.products{
+      background-image:url(../img/Product-Panel.jpg);
+    }
+    &.services{
+      background-image:url(../img/Services-Panel.jpg);
+    }
+    &.gallery{
+      
+    }
+    &.contact,&.raq{
+      background-image:url(../img/Contact-Panel.jpg);
+    }
+    &.product-banners{
+      background-image:url(../img/Product-Banner-Panel.jpg);
+    }
+    &.product-vehicle{
+      background-image:url(../img/Product-Vehicle-Panel.jpg);
+    }
   }
-  #products,#gallery{
-    background-image:url(../img/Test-Background.jpg);
+  form{
+    font-family:@sansFontFamily;
+    input,select,textarea{
+      font-family:@sansFontFamily;
+    }
+    legend{
+      color:@textColor;
+    }
   }
-  #aboutus,#services,#contact{
-    background-image:url(../img/Test-Background-2.jpg);
-  }
-  .shadow{
-    background-color:rgba(0,0,0,.38);
-    .border-radius(45px);
-    .box-shadow(0 0 32px 10px rgba(0,0,0,.55));
+  .box{
+    background-color:rgba(0,0,0,.49);
+    .box-shadow(0 0 38px 53px rgba(0,0,0,.5));
   }
 }
 .social-links{

@@ -1,110 +1,122 @@
-{{ contact:form
-	name="text|required"
-	email="text|required|valid_email"
-	company="text"
-	phone="text"
-	url="text"
-	project="dropdown" 
-	project_loc="dropdown" 
-	project_time="dropdown"
-	attachment = "file|jpg|gif|png|pdf" 
-    max-size = "3500"	
-	promo="text"
-	message="textarea"
-	template="contact-quote"
-	success-redirect="/contact/thank-you?tg=form-quote"
-	button="Send Message"
+{{ 
+    streams:form
+    stream="quote_request"
+    mode="new"
+    
+    error_start='<span class="help-inline error">'
+    error_end="</span>"
+    
+    success_message=""
+    failure_message="We are testing"
+    
+    notify_a="email"
+    notify_template_a="quote-request-reply"
+    
+    notify_b="salesleadsgroup@johnallensigncompany.com"
+    notify_template_b="quote-request-notice"
+    
+    return="/contact/thank-you?tg=form-quote"
 }}
-<?php
-	// Form values and attributes
-	$form_data = array();
-	// Contact Information
-	$form_data['name'] = array('name'=>'name','id'=>'form_name','value'=>NULL,'class'=>'text required','maxlength'=>'80');
-	$form_data['email'] = array('name'=>'email','id'=>'form_email','value'=>NULL,'class'=>'text required email','maxlength'=>'80');
-	$form_data['company'] = array('name'=>'company','id'=>'form_company','value'=>NULL,'class'=>'text','maxlength'=>'80');
-	$form_data['title'] = array('name'=>'title','id'=>'form_title','value'=>NULL,'class'=>'text','maxlength'=>'80');
-	$form_data['phone'] = array('name'=>'phone','id'=>'form_phone','value'=>NULL,'class'=>'text','maxlength'=>'12', 'placeholder'=>'xxx-xxx-xxxx');
-	$form_data['url'] = array('name'=>'url','id'=>'form_url','value'=>NULL,'class'=>'text','maxlength'=>'120','placeholder'=>'http://www.mysite.com');
-	// Project Information
-	$form_data['project'] = array('name'=>'project','id'=>'form_project','extra'=>'class="span-9 required"','options'=>array(""=>"",'personal'=>'Personal','small biz'=>'Small Business','large biz'=>'Large Business','hotel/resturant'=>'Hotel/Resturant','real estate'=>'Real Estate','other'=>'Other'));
-	$form_data['project_loc'] = array('name'=>'project_loc','id'=>'form_project_loc','extra'=>'class="span-9 required"',
-		'options'=>array(
-			""=>"",
-			'Kawaihae'=>'Kawaihae',
-			'Kohala'=>'Kohala',
-			'Waikoloa'=>'Waikoloa',
-			'Waimea'=>'Waimea',
-			'Honokaa'=>'Honokaa',
-			'Hilo'=>'Hilo',
-			'Kona'=>'Kona',
-			'Puna/Kau'=>'Puna/Kau',
-			'Outer Island'=>'Outer Island',
-			'Other'=>'Other')
-		);
-	$form_data['project_time'] = array('name'=>'project_time','id'=>'form_project_time','extra'=>'class="span-9 required"','options'=>array(""=>"",'week'=>'1 week','30 days'=>'30 days','90 days'=>'3 months','180 days'=>'6 months','270 days'=>'9 months','year'=>'1 year','other'=>'Other'));
-	// Other Information
-	$form_data['promo'] = array('name'=>'promo','id'=>'form_promo','value'=>NULL,'class'=>'text','maxlength'=>'25');
-	$form_data['message'] = array('name'=>'message','id'=>'form_message','class'=>'span-10');
-	$form_data['attachment'] = array('name'=>'attachment','id'=>'form_attachment','class'=>'file');
-?>
+
+{{ form_open }}
 
 <?= form_fieldset('Contact Information') ?>
-	<div class="clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Full Name:',$form_data['name']['id']); ?></div></div>         
-		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['name']); ?></div></div>
-		<div class="prepend-4 span-9 input-help required">Required</div>
-	</div>
-	<div class="clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('E-mail:',$form_data['email']['id']); ?></div></div>
-		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['email']);?></div></div>
-		<div class="prepend-4 span-9 input-help required">Required</div>
-	</div>
-	<div class="clearfix append-bottom">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Company:', $form_data['company']['id']); ?></div></div>
-		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['company']);?></div></div>
-	</div>
-	<div class="clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Phone:',$form_data['phone']['id']); ?></div></div>
-		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['phone']);?></div></div>
-	<div class="prepend-4 span-9 input-help">XXX-XXX-XXXX</div>
-	</div>
-	<div class="append-bottom clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Website:',$form_data['url']['id']); ?></div></div>
-		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['url']);?></div></div>
-		<div class="prepend-4 span-9 input-help">http://www.mysite.com</div>
-	</div>
-	<?= form_fieldset_close() ?>
-	<?= form_fieldset('Sign Information') ?>
-	<div class="clearfix append-bottom">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Type:',$form_data['project']['id']); ?></div></div>
-		<div class="span-10 last"><div class="select-wrapper"><?= form_dropdown($form_data['project']['name'],$form_data['project']['options'],NULL,$form_data['project']['extra'].' id="'.$form_data['project']['id'].'"'); ?></div></div>
-	</div>
-	<div class="clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Location:',$form_data['project_loc']['id']); ?></div></div>
-		<div class="span-10 last"><div class="select-wrapper"><?= form_dropdown($form_data['project_loc']['name'],$form_data['project_loc']['options'],NULL,$form_data['project_loc']['extra'].' id="'.$form_data['project_loc']['id'].'"'); ?></div></div>
-	<div class="prepend-4 span-9 input-help">Installation location</div>
-	</div>
-	<div class="clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Timeline:',$form_data['project_time']['id']); ?></div></div>
-		<div class="span-10 last"><div class="select-wrapper"><?= form_dropdown($form_data['project_time']['name'],$form_data['project_time']['options'],NULL,$form_data['project_time']['extra'].' id="'.$form_data['project_time']['id'].'"'); ?></div></div>
-	<div class="prepend-4 span-9 input-help">When do you need your sign?</div>
-	</div>
-	<div class="clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Attach File:',$form_data['attachment']['id']); ?></div></div>
-		<div class="span-9 last"><div class="input-wrapper"><input type="file" id="<?= $form_data['attachment']['id'] ?>" class="file" name="attachment"/></div></div>
-	<div class="prepend-4 span-9 input-help">JPG, GIF, PNG, PDF files only, 3.5MB max file size.</div>
-	</div>
-	<?= form_fieldset_close() ?>
-	<?= form_fieldset('Other Information') ?>
-	<div class="append-bottom clearfix">
-		<div class="span-4"><div class="label-wrapper"><?= form_label('Promo Code:',$form_data['promo']['id']); ?></div></div>
-		<div class="span-9 last"><div class="input-wrapper"><?= form_input($form_data['promo']);?></div></div>
-	</div>
-	<div class="append-bottom clearfix">
-		<div class="span-4"><?= form_label('Details:',$form_data['message']['id']); ?></div>
-		<div class="span-10 last">
-			<?= form_textarea($form_data['message']); ?>
-		</div>
-	</div>
-	<?= form_fieldset_close() ?>
-{{ /contact:form }}
+    <div class="control-group">
+        <label class="control-label" for="{{full_name:slug}}">{{ if full_name:required }}<span class="required">*</span>{{ endif }}{{ full_name:label }}</label>
+        <div class="controls">
+            <input type="text" placeholder="{{ full_name:instructions }}" name="{{full_name:slug}}" value="" id="{{full_name:slug}}"/>
+            {{ full_name:error }}
+        </div>
+    </div>
+	
+	<div class="control-group">
+        <label class="control-label" for="{{email:slug}}">{{ if email:required }}<span class="required">*</span>{{ endif }}{{ email:label }}</label>
+        <div class="controls">
+            <input type="text" placeholder="{{ email:instructions }}" name="{{email:slug}}" value="" id="{{email:slug}}"/>
+            {{ email:error }}
+        </div>
+    </div>
+	
+	<div class="control-group">
+        <label class="control-label" for="{{company_name:slug}}">{{ if company_name:required }}<span class="required">*</span>{{ endif }}{{ company_name:label }}</label>
+        <div class="controls">
+            <input type="text" placeholder="{{ company_name:instructions }}" name="{{company_name:slug}}" value="" id="{{company_name:slug}}"/>
+            {{ company_name:error }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for="{{phone:slug}}">{{ if phone:required }}<span class="required">*</span>{{ endif }}{{ phone:label }}</label>
+        <div class="controls">
+            <input type="text" placeholder="{{ phone:instructions }}" name="{{phone:slug}}" value="" id="{{phone:slug}}"/>
+            {{ phone:error }}
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for="{{website:slug}}">{{ if website:required }}<span class="required">*</span>{{ endif }}{{ website:label }}</label>
+        <div class="controls">
+            <input type="text" placeholder="{{ website:instructions }}" name="{{website:slug}}" value="" id="{{website:slug}}"/>
+            {{ website:error }}
+        </div>
+    </div>
+<?= form_fieldset_close() ?>
+<?= form_fieldset('Sign Information') ?>
+	<div class="control-group">
+        <label class="control-label" for="{{sign_type:slug}}">{{ if sign_type:required }}<span class="required">*</span>{{ endif }}{{ sign_type:label }}</label>
+        <div class="controls">
+            {{ sign_type:input }}
+            {{ if sign_type:instructions }}<span class="help-inline">{{ sign_type:instructions }}</span>{{ endif }}
+            {{ sign_type:error }}
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="{{location:slug}}">{{ if location:required }}<span class="required">*</span>{{ endif }}{{ location:label }}</label>
+        <div class="controls">
+            {{ location:input }}
+            {{ if location:instructions }}<span class="help-inline">{{ location:instructions }}</span>{{ endif }}
+            {{ location:error }}
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="{{timeline:slug}}">{{ if timeline:required }}<span class="required">*</span>{{ endif }}{{ timeline:label }}</label>
+        <div class="controls">
+            {{ timeline:input }}
+            {{ if timeline:instructions }}<span class="help-inline">{{ timeline:instructions }}</span>{{ endif }}
+            {{ timeline:error }}
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="{{raq_file:slug}}">{{ if raq_file:required }}<span class="required">*</span>{{ endif }}{{ raq_file:label }}</label>
+        <div class="controls">
+            {{ raq_file:input }}
+            {{ if raq_file:instructions }}<span class="help-inline">{{ raq_file:instructions }}</span>{{ endif }}
+            {{ raq_file:error }}
+        </div>
+    </div>
+<?= form_fieldset_close() ?>
+<?= form_fieldset('Other Information') ?>
+	<div class="control-group">
+        <label class="control-label" for="{{promo:slug}}">{{ if promo:required }}<span class="required">*</span>{{ endif }}{{ promo:label }}</label>
+        <div class="controls">
+            <input type="text" placeholder="{{ promo:instructions }}" name="{{promo:slug}}" value="" id="{{promo:slug}}"/>
+            {{ promo:error }}
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="{{details:slug}}">{{ if details:required }}<span class="required">*</span>{{ endif }}{{ details:label }}</label>
+        <div class="controls">
+            <textarea name="{{details:slug}}" id="{{details:slug}}" ></textarea>
+            {{ if details:instructions }}<span class="help-inline">{{ details:instructions }}</span>{{ endif }}
+            {{ details:error }}
+        </div>
+    </div>
+<?= form_fieldset_close() ?>
+    <div class="row-fluid">
+    <div class="span6 offset6">
+        <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+    </div>
+    </div>
+{{ form_close }}
+
+{{ /streams:form }}

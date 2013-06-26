@@ -34,13 +34,9 @@ $(function() {
       sectionManager.navClick(null,5);
       return false;
   });
+  // FORM - RAQ
+  $('#raq form').addClass('form-horizontal').find('input,select,textarea').addClass('input-block-level');
   
-  /*
-  $("#instagram").instagram({
-      hash: 'love'
-    //, clientId: 'YOUR-CLIENT-ID-HERE'
-  });
-  */
   // HEADER NAV FUNCTIONS
   $header = $('#header');
   $headerToggle = $('#headerToggle');
