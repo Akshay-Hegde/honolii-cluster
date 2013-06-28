@@ -36,6 +36,10 @@ $(function() {
   });
   // FORM - RAQ
   $('#raq form').addClass('form-horizontal').find('input,select,textarea').addClass('input-block-level');
+  // Gallery
+  instagramGrid = new InstagramGrid(instagramOBJ.data,'#gallery');
+  instagramGrid.resize();
+  
   
   // HEADER NAV FUNCTIONS
   $header = $('#header');
