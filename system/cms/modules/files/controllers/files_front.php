@@ -2,7 +2,6 @@
 /**
  * Frontend controller for files and stuffs
  * 
- * @author		Phil Sturgeon
  * @author		PyroCMS Dev Team
  * @package		PyroCMS\Core\Modules\Files\Controllers
  */
