@@ -32,10 +32,3 @@
         <?php endif; ?>
     </div>
 </div>
-
-<?php /*
-<?php if ($gallery->enable_comments == 1): ?>
-	<?php echo display_comments($gallery_image->id, 'gallery-image'); ?>
-<?php endif; ?>
- * 
- */ ?>
