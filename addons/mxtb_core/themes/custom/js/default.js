@@ -75,7 +75,7 @@ $(document).ready(function() {
 	    $largeImage.find('.image-control > .left').attr('href','/galleries/'+gallery_json.slug+'/'+gallery_images_json[prevID].id);
 	    $largeImage.find('.image-control > .right').attr('href','/galleries/'+gallery_json.slug+'/'+gallery_images_json[nextID].id);
 	}
-	
+	/*
 	// Set image in latest news blog
 	var $blogPreview = $('.blog-post','#home-blog-posts');
 	$blogPreview.each(function(index,element){
@@ -111,7 +111,7 @@ $(document).ready(function() {
         }).removeClass().addClass('active');
         $this.find('.img-link').prepend($image);
     })
-	
+	*/
 	// Style Form
 	$('.crud_form').addClass('form-horizontal');
 	$('input:radio[name="same_address"]').click(function(event) {

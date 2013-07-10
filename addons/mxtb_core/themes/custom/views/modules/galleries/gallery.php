@@ -19,7 +19,7 @@
     			<?php if ($gallery_images): ?>
     			<?php foreach ( $gallery_images as $image): ?>
     			<li class="gallery-image-item">
-    				<a href="<?php echo site_url('galleries/'.$gallery->slug.'/'.$image->id); ?>" class="gallery-image" rel="gallery-image" data-src="<?php echo site_url('files/large/'.$image->file_id); ?>" title="<?php echo $image->name; ?>">
+    				<a href="<?php echo site_url('galleries/'.$gallery->slug.'/'.$image->id); ?>" class="gallery-image" data-src="<?php echo site_url('files/large/'.$image->file_id); ?>" title="<?php echo $image->name; ?>">
     					<?php echo img(array('src' => site_url('files/thumb/'.$image->file_id.'/110/110/fit'), 'alt' => $image->name)); ?>
     				</a>
     			</li>
@@ -50,8 +50,4 @@
         <?php endforeach; ?>
     </div>
 </div>
-<?php endif; ?>
-
-<?php if ($gallery->enable_comments == 1): ?>
-	<?php echo display_comments($gallery->id);?>
 <?php endif; ?>

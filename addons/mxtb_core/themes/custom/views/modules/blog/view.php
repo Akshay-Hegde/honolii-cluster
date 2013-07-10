@@ -14,7 +14,11 @@
                 </div>
     		</div>
     		<div class="bd post-body">
+    			{{ post_image:img }}
     			{{ body }}
+    			{{ if gallery }}
+    			<p><a class="btn" href="{{gallery}}">View gallery</a></p>
+    			{{ endif }}
     		</div>
     	</div>
     {{ /post }}
