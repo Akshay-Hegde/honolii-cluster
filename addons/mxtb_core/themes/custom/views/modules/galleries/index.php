@@ -9,7 +9,7 @@
         				    <h3><span><?= $gallery->title ?></span></h3>
         				    <div class="cta">view photos</div>
         				</div>
-        				<?= img(array('src' => site_url('files/thumb/'.$gallery->file_id.'/508/220/fit'), 'alt' => $gallery->description)); ?>
+        				<?= img(array('src' => site_url('files/thumb/'.$gallery->file_id.'/508/220/fit'), 'alt' => $gallery->title)); ?>
         				<a href="<?= site_url('galleries/'.$gallery->slug); ?>"></a>
         			<?php endif; ?>
         		</div>
@@ -21,7 +21,7 @@
             		                <?php if ( ! empty($subgallery->filename)): ?>
             		                  <a title="View - <?= $subgallery->title ?>" href="<?= site_url('galleries/'.$subgallery->slug); ?>">
             		                      <span class="item-headline"><span><?= $subgallery->title ?></span></span>
-            		                      <?= img(array('src' => site_url('files/thumb/'.$subgallery->file_id.'/162/162/fit'), 'alt' => $subgallery->description)); ?>
+            		                      <?= img(array('src' => site_url('files/thumb/'.$subgallery->file_id.'/162/162/fit'), 'alt' => $subgallery->title)); ?>
             		                  </a>
             		                <?php endif; ?>
         		                </div>
