@@ -7028,9 +7028,6 @@ a.thumbnail:hover {
     height: auto !important;
   }
 }
-body {
-  padding-top: 100px;
-}
 .site-header h1 {
   position: absolute;
 }
@@ -7058,11 +7055,6 @@ body {
 .mod.block-gallery .bd {
   position: absolute;
 }
-@media (max-width: 767px) {
-  .block-gallery img {
-    width: 100%;
-  }
-}
 .site-footer .social-icon {
   list-style: none;
   margin: 0;
@@ -7077,6 +7069,33 @@ body {
 }
 label {
   display: none;
+}
+@media (min-width: 980px) {
+  html,
+  body,
+  .site-wrapper {
+    height: 100%;
+  }
+  .site-content {
+    min-height: 100%;
+    margin-bottom: -400px;
+  }
+  .site-content:after {
+    content: "";
+    display: block;
+    height: 400px;
+  }
+  .site-content >.row {
+    padding-top: 90px;
+  }
+  .site-footer {
+    min-height: 400px;
+  }
+}
+@media (max-width: 767px) {
+  .block-gallery img {
+    width: 100%;
+  }
 }
 body {
   background-image: url(../img/content-bkg.png);
@@ -7387,6 +7406,26 @@ body {
   text-transform: uppercase;
   padding-left: 1%;
 }
+.mod.block-post >.hd.post-heading .post-meta .post-keywords > a:after,
+.mod.block-post >.hd.gallery-heading .post-meta .post-keywords > a:after,
+.mod.page-post >.hd.post-heading .post-meta .post-keywords > a:after,
+.mod.page-post >.hd.gallery-heading .post-meta .post-keywords > a:after,
+.mod.block-gallery >.hd.post-heading .post-meta .post-keywords > a:after,
+.mod.block-gallery >.hd.gallery-heading .post-meta .post-keywords > a:after,
+.mod.page-gallery >.hd.post-heading .post-meta .post-keywords > a:after,
+.mod.page-gallery >.hd.gallery-heading .post-meta .post-keywords > a:after {
+  content: ',';
+}
+.mod.block-post >.hd.post-heading .post-meta .post-keywords > a:last-child:after,
+.mod.block-post >.hd.gallery-heading .post-meta .post-keywords > a:last-child:after,
+.mod.page-post >.hd.post-heading .post-meta .post-keywords > a:last-child:after,
+.mod.page-post >.hd.gallery-heading .post-meta .post-keywords > a:last-child:after,
+.mod.block-gallery >.hd.post-heading .post-meta .post-keywords > a:last-child:after,
+.mod.block-gallery >.hd.gallery-heading .post-meta .post-keywords > a:last-child:after,
+.mod.page-gallery >.hd.post-heading .post-meta .post-keywords > a:last-child:after,
+.mod.page-gallery >.hd.gallery-heading .post-meta .post-keywords > a:last-child:after {
+  content: '';
+}
 .mod.block-post >.hd.gallery-heading h4,
 .mod.page-post >.hd.gallery-heading h4,
 .mod.block-gallery >.hd.gallery-heading h4,
@@ -7425,6 +7464,32 @@ body {
 .mod.block-gallery >.bd.gallery-body p,
 .mod.page-gallery >.bd.gallery-body p {
   margin-bottom: 0;
+}
+.mod.block-post >.bd img.pyro-image,
+.mod.page-post >.bd img.pyro-image,
+.mod.block-gallery >.bd img.pyro-image,
+.mod.page-gallery >.bd img.pyro-image {
+  display: block;
+  background: rgba(0,0,0,0.2);
+  padding: 3px;
+  width: 98%;
+  margin: .5em 0;
+}
+.mod.block-post >.bd img.pyro-image.right,
+.mod.page-post >.bd img.pyro-image.right,
+.mod.block-gallery >.bd img.pyro-image.right,
+.mod.page-gallery >.bd img.pyro-image.right {
+  float: right;
+  width: auto;
+  margin-left: 1.5em;
+}
+.mod.block-post >.bd img.pyro-image.left,
+.mod.page-post >.bd img.pyro-image.left,
+.mod.block-gallery >.bd img.pyro-image.left,
+.mod.page-gallery >.bd img.pyro-image.left {
+  float: left;
+  width: auto;
+  margin-right: 1.5em;
 }
 .mod.block-post.journal-post .post-heading,
 .mod.page-post.journal-post .post-heading,
@@ -7514,6 +7579,15 @@ body {
   color: #01bfef;
   text-decoration: none;
 }
+.mod.block-gallery {
+  margin-bottom: 1em;
+}
+.mod.block-gallery a.gallery-image {
+  display: block;
+}
+.mod.block-gallery a.gallery-image img {
+  display: block;
+}
 .mod.comments h4 {
   font-family: 'Orbitron', Arial, sans-serif;
   font-size: 24px;
@@ -7530,42 +7604,6 @@ body {
 }
 .mod.comments >.bd h4 {
   margin-bottom: 3px;
-}
-@media (min-width: 980px) {
-  .mod.block-gallery {
-    top: 0;
-    box-shadow: 0 0 0 #000;
-    -webkit-transition: top .5s, box-shadow .5s;
-    -moz-transition: top .5s, box-shadow .5s;
-    -ms-transition: top .5s, box-shadow .5s;
-    -o-transition: top .5s, box-shadow .5s;
-    transition: top .5s, box-shadow .5s;
-    -webkit-transition: top .5s, box-shadow .5s;
-    -moz-transition: top .5s, box-shadow .5s;
-    -ms-transition: top .5s, box-shadow .5s;
-    -o-transition: top .5s, box-shadow .5s;
-    transition: top .5s, box-shadow .5s;
-  }
-  .mod.block-gallery .hd.gallery-heading h4 {
-    background-color: rgba(255,0,118,0.5);
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
-    -ms-transition: background-color 1s;
-    -o-transition: background-color 1s;
-    transition: background-color 1s;
-    -webkit-transition: background-color 1s;
-    -moz-transition: background-color 1s;
-    -ms-transition: background-color 1s;
-    -o-transition: background-color 1s;
-    transition: background-color 1s;
-  }
-  .mod:hover.block-gallery {
-    top: -5px;
-    box-shadow: 0 6px 8px #000;
-  }
-  .mod:hover >.hd.gallery-heading h4 {
-    background-color: #ff0076;
-  }
 }
 .widget > h3 {
   font-family: 'Orbitron', Arial, sans-serif;
@@ -7655,4 +7693,58 @@ form textarea {
   font-size: 12px;
   color: #fff;
   border-radius: 2px;
+}
+form textarea {
+  max-width: 100%;
+}
+@media (max-width: 480px) {
+  img.pyro-image,
+  img.pyro-image.left,
+  img.pyro-image.right {
+    float: none !important;
+    width: 98% !important;
+    margin: 0 !important;
+  }
+}
+@media (max-width: 979px) {
+  .site-header h1 {
+    top: 4px;
+    left: 4px;
+  }
+}
+@media (min-width: 980px) {
+  .mod.block-gallery {
+    top: 0;
+    box-shadow: 0 0 0 #000;
+    -webkit-transition: top .5s, box-shadow .5s;
+    -moz-transition: top .5s, box-shadow .5s;
+    -ms-transition: top .5s, box-shadow .5s;
+    -o-transition: top .5s, box-shadow .5s;
+    transition: top .5s, box-shadow .5s;
+    -webkit-transition: top .5s, box-shadow .5s;
+    -moz-transition: top .5s, box-shadow .5s;
+    -ms-transition: top .5s, box-shadow .5s;
+    -o-transition: top .5s, box-shadow .5s;
+    transition: top .5s, box-shadow .5s;
+  }
+  .mod.block-gallery .hd.gallery-heading h4 {
+    background-color: rgba(255,0,118,0.5);
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
+    -ms-transition: background-color 1s;
+    -o-transition: background-color 1s;
+    transition: background-color 1s;
+    -webkit-transition: background-color 1s;
+    -moz-transition: background-color 1s;
+    -ms-transition: background-color 1s;
+    -o-transition: background-color 1s;
+    transition: background-color 1s;
+  }
+  .mod:hover.block-gallery {
+    top: -5px;
+    box-shadow: 0 6px 8px #000;
+  }
+  .mod:hover >.hd.gallery-heading h4 {
+    background-color: #ff0076;
+  }
 }
