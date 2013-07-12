@@ -109,6 +109,14 @@ body{background-image:url(../img/content-bkg.png)}
 				}
 				.post-meta{
 					background: rgba(0,0,0,.2); position:absolute; bottom:0; height: @baseLineHeight; overflow:hidden; width:99%; text-transform:uppercase; padding-left:1%;
+				  .post-keywords > a{
+				    &:after{
+				      content:',';
+				    }
+				    &:last-child:after{
+              content:''
+            }
+				  }
 				}
 				
 			}
@@ -124,6 +132,26 @@ body{background-image:url(../img/content-bkg.png)}
 		  &.gallery-body{
         bottom:0; background: rgba(0,0,0,.4); width:94%; padding:1em 3%;
         p {margin-bottom:0;}
+      }
+      img.pyro-image{
+        display:block;
+        background:rgba(0,0,0,.2);
+        padding:3px;
+        width:98%;
+        margin:.5em 0;
+        &.right{
+          float:right;
+          width:auto;
+          margin-left:1.5em;
+        }
+        &.left{
+          float:left;
+          width:auto;
+          margin-right:1.5em;
+        }
+      }
+      ul{
+        
       }
 		}
 		
@@ -150,8 +178,19 @@ body{background-image:url(../img/content-bkg.png)}
 			}
 			>.bd{}
 		}
+		
+		
 	}
-
+  &.block-gallery{
+    margin-bottom:1em;
+    a.gallery-image{
+      display:block;
+      img{
+        display:block;
+      }
+    }
+  }
+  
 	&.comments{
 		h4{font-family:@webFontOne;font-size:@baseFontSize + 10;}
 		>.hd{
@@ -163,36 +202,6 @@ body{background-image:url(../img/content-bkg.png)}
 		}
 		>.fd{}
 	}
-}
-
-@media (min-width: 980px) {
-  .mod{
-    &.block-gallery{
-      top:0; box-shadow: 0 0 0 #000;
-      @block-gallery:top .5s, box-shadow .5s;
-      .transition(@block-gallery);
-      .hd{
-        &.gallery-heading{
-          h4{background-color: fade(@galleryColor, 50%);
-            @gallery-heading:background-color 1s;
-            .transition(@gallery-heading);
-          }
-        }
-      }
-    }
-    
-    &:hover{
-      &.block-gallery{
-       top:-5px;
-       box-shadow:0 6px 8px #000;
-      }
-      >.hd{
-        &.gallery-heading{
-          h4 {background-color: fade(@galleryColor, 100%);}
-        }
-      }
-    }
-  }
 }
 
 .widget{
@@ -242,10 +251,59 @@ body{background-image:url(../img/content-bkg.png)}
 form{
 	&.well{background-color:lighten(@bkgColor, 8%)}
 	input, textarea {background:@bkgColor; font-family:@webFontTwo; border-color:@bkgColor; font-size:@baseFontSize - 2; color:@white; border-radius:2px;  }
+	textarea{
+	  max-width:100%;
+	}
 }
 /*
 .btn {
 	border-radius:0; font-size:@baseFontSize - 4; text-transform:uppercase; padding:6px 16px;border-color:#7AB83C; border-color-top:#B2E283; text-shadow:none;
 }
 */
+@media (max-width: 480px) {
+  img.pyro-image{
+    &,&.left,&.right{
+      float:none!important;
+      width:98%!important;
+      margin:0!important;
+    }
+  }
+}
 
+@media (max-width: 979px) {
+  
+  .site-header h1 {
+    top:4px;
+    left:4px;
+  }
+}
+
+@media (min-width: 980px) {
+  .mod{
+    &.block-gallery{
+      top:0; box-shadow: 0 0 0 #000;
+      @block-gallery:top .5s, box-shadow .5s;
+      .transition(@block-gallery);
+      .hd{
+        &.gallery-heading{
+          h4{background-color: fade(@galleryColor, 50%);
+            @gallery-heading:background-color 1s;
+            .transition(@gallery-heading);
+          }
+        }
+      }
+    }
+    
+    &:hover{
+      &.block-gallery{
+       top:-5px;
+       box-shadow:0 6px 8px #000;
+      }
+      >.hd{
+        &.gallery-heading{
+          h4 {background-color: fade(@galleryColor, 100%);}
+        }
+      }
+    }
+  }
+}
