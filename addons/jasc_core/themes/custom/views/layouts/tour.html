@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
+{{ endif }}
+</head>
+<body>
+	<div class="wrapper">
+        {{theme:partial name="header"}}
+		<div id="content" class="site-content">
+			{{session:messages success="success" notice="notice" error="error"}}
+			<section id="home" class="home section-block">
+                <div class="block">
+                    <h1 class="animated">{{page:title}} - Sign Design &amp; Fabrication</h1>
+                </div>
+                {{ template:body }}
+                <button id="tour1" class="btn btn-primary">
+                    Take a tour<i class="icon-arrow-down"></i>
+                </button>
+            </section>
+            <!-- About Us Section -->
+            {{ streams:cycle stream="tour-content" where="`id`='1'"  }}
+            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+                <div class="container">
+                    <div class="row">
+                        <div class="{{section_class}}">
+                            <h1>{{section_title}}</h1>
+                            <div class="box">
+                                {{ if section_sub_title }}
+                                <h2>{{section_sub_title}}</h2>
+                                {{ endif }}
+                                {{section_content}}
+                            </div>
+                            <div class="row">
+                                {{ section_buttons }}
+                            </div>
+                        </div>
+                        {{ if aside_content }}
+                        <aside class="{{aside_class}}">
+                            {{ aside_content }}
+                        </aside>
+                        {{ endif }}
+                    </div>
+                </div>
+            </section>
+            {{ /streams:cycle }}
+            <!-- Products Section -->
+            <div id="productsgroups" class="section-slides">
+                <ul class="slide-nav">
+                    {{ streams:cycle stream="tour-content" where="`product_group`='1'" sort="asc" }}
+                    <li>{{section_title}}</li>
+                    {{ /streams:cycle }}
+                </ul>
+                <div class="slide-wrapper">
+                    {{ streams:cycle stream="tour-content" where="`product_group`='1'" sort="asc" }}
+                    <section id="{{section_id}}" class="{{section_id}} slide section-block" style="background-image:url({{ content_background:image }})">
+                        <div class="container">
+                            <div class="row">
+                                <div class="{{section_class}}">
+                                    <h1>{{section_title}}</h1>
+                                    <div class="box">
+                                        {{ if section_sub_title }}
+                                        <h2>{{section_sub_title}}</h2>
+                                        {{ endif }}
+                                        {{section_content}}
+                                    </div>
+                                    <div class="row">
+                                        {{ section_buttons }}
+                                    </div>
+                                </div>
+                                {{ if aside_content }}
+                                <aside class="{{aside_class}}">
+                                    {{ aside_content }}
+                                </aside>
+                                {{ endif }}
+                            </div>
+                        </div>
+                    </section>
+                    {{ /streams:cycle }}
+                </div>
+            </div>
+            <!-- Services Section -->
+            {{ streams:cycle stream="tour-content" where="`id`='8'" }}
+            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+                <div class="container">
+                    <div class="row">
+                        <div class="{{section_class}}">
+                            <h1>{{section_title}}</h1>
+                            <div class="box">
+                                {{ if section_sub_title }}
+                                <h2>{{section_sub_title}}</h2>
+                                {{ endif }}
+                                {{section_content}}
+                            </div>
+                            <div class="row">
+                                {{ section_buttons }}
+                            </div>
+                        </div>
+                        {{ if aside_content }}
+                        <aside class="{{aside_class}}">
+                            {{ aside_content }}
+                        </aside>
+                        {{ endif }}
+                    </div>
+                </div>
+            </section>
+            {{ /streams:cycle }}
+            <!-- Gallery Section -->
+            {{ streams:cycle stream="tour-content" where="`id`='9'" }}
+            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+                <div class="container">
+                    <div class="row">
+                        <div class="{{section_class}}">
+                            <h1>{{section_title}}</h1>
+                            <div class="box">
+                                {{ if section_sub_title }}
+                                <h2>{{section_sub_title}}</h2>
+                                {{ endif }}
+                                {{section_content}}
+                            </div>
+                            <div class="row">
+                                {{ section_buttons }}
+                            </div>
+                        </div>
+                        {{ if aside_content }}
+                        <aside class="{{aside_class}}">
+                            {{ aside_content }}
+                        </aside>
+                        {{ endif }}
+                    </div>
+                </div>
+            </section>
+            {{ /streams:cycle }}
+            <!-- Contact Us Section -->
+            {{ streams:cycle stream="tour-content" where="`id`='10'" }}
+            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+                <div class="container">
+                    <div class="row">
+                        <div class="{{section_class}}">
+                            <h1>{{section_title}}</h1>
+                            <div class="box">
+                                {{ if section_sub_title }}
+                                <h2>{{section_sub_title}}</h2>
+                                {{ endif }}
+                                {{section_content}}
+                            </div>
+                            <div class="row">
+                                {{ section_buttons }}
+                            </div>
+                        </div>
+                        {{ if aside_content }}
+                        <aside class="{{aside_class}}">
+                            {{ aside_content }}
+                        </aside>
+                        {{ endif }}
+                    </div>
+                </div>
+            </section>
+            {{ /streams:cycle }}
+			{{theme:partial name="footer"}}
+		</div>
+	</div>
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/footer-scripts"}}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>
+{{ endif }}
+</body>
+</html>

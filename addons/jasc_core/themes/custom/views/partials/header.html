@@ -1,8 +1,24 @@
-<div id="logo" class="span-12">
-	<h1 class="logo"><a href="{{url:site}}">{{settings:site_name}} {{settings:site_slogan}}</a></h1>
-</div>
-<div id="main-nav" class="span-12 last">
-	<ul class="nav">
-	{{navigation:links group="header"}}
-	</ul>
-</div>
+<!-- Begin header -->
+<header id="header" class="site-header">
+    <nav id="main-nav">
+        <div class="site-nav site-nav-1">
+    		<div id="logo">
+    		    <h1 class="logo"><a href="{{url:site}}">{{settings:site_name}}</a></h1>
+    		</div>
+	    	<ul class="nav">
+	    	{{navigation:links group="header"}}
+	    	</ul>
+	    	<div class="phone">
+	    	    <span>Call Us</span>
+	    	    {{ variables:phone }}
+	    	</div>
+    	</div>
+    	<div class="site-nav site-nav-2">
+    	    <ul class="nav">
+    	    {{navigation:links group="header-subnav"}}
+    	    </ul>
+    	</div>
+    	<div class="site-nav-control" id="headerToggle"></div>
+    </nav>
+</header>
+<!-- End header -->
