@@ -22,15 +22,15 @@
 
 // Components: common
 @import "less/sprites.less";
-@import "../../../../../libraries/bootstrap/less/dropdowns.less";
+//@import "../../../../../libraries/bootstrap/less/dropdowns.less";
 //@import "../../../../../libraries/bootstrap/less/wells.less";
-@import "../../../../../libraries/bootstrap/less/component-animations.less";
-@import "../../../../../libraries/bootstrap/less/close.less";
+//@import "../../../../../libraries/bootstrap/less/component-animations.less";
+//@import "../../../../../libraries/bootstrap/less/close.less";
 
 // Components: Buttons & Alerts
 @import "less/buttons.less";
-@import "../../../../../libraries/bootstrap/less/button-groups.less";
-@import "../../../../../libraries/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+//@import "../../../../../libraries/bootstrap/less/button-groups.less";
+//@import "../../../../../libraries/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
 
 // Components: Nav
 //@import "../../../../../libraries/bootstrap/less/navs.less";
@@ -48,9 +48,9 @@
 //@import "../../../../../libraries/bootstrap/less/thumbnails.less";
 //@import "../../../../../libraries/bootstrap/less/media.less";
 //@import "../../../../../libraries/bootstrap/less/labels-badges.less";
-@import "../../../../../libraries/bootstrap/less/progress-bars.less";
-@import "../../../../../libraries/bootstrap/less/accordion.less";
-@import "../../../../../libraries/bootstrap/less/carousel.less";
+//@import "../../../../../libraries/bootstrap/less/progress-bars.less";
+//@import "../../../../../libraries/bootstrap/less/accordion.less";
+//@import "../../../../../libraries/bootstrap/less/carousel.less";
 //@import "../../../../../libraries/bootstrap/less/hero-unit.less";
 
 // Utility classes
@@ -63,13 +63,13 @@
 @import "../../../../../libraries/bootstrap/less/responsive-1200px-min.less";
 
 // Tablets to regular desktops
-@import "../../../../../libraries/bootstrap/less/responsive-768px-979px.less";
+//@import "../../../../../libraries/bootstrap/less/responsive-768px-979px.less";
 
 // Phones to portrait tablets and narrow desktops
-@import "less/responsive-767px-max.less";
+
 
 // From 979px and below, show a button to toggle navbar contents
-@import "../../../../../libraries/bootstrap/less/responsive-navbar.less";
+//@import "../../../../../libraries/bootstrap/less/responsive-navbar.less";
 /* --------------------------------
   Layout Foundation
 --------------------------------- */
@@ -151,6 +151,7 @@ header.site-header{
     top:10px;
     cursor:pointer;
     .transition(right .2s ease-in);
+    z-index:1000;
     &.active{
       background-position:-30px -220px;
       right:-30px;
@@ -162,10 +163,37 @@ header.site-header{
     position:absolute;
     background-image:url(../img/jasc-nav-bk.jpg);
     background-repeat:repeat-y;
+    &:after{
+      content:'';
+      height:100%;
+      position:absolute;
+      top:0;
+      right:-16px;
+      display:block;
+      width:16px;
+      
+      
+      background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.6)), color-stop(70%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+      background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* Opera 12+ */
+      background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* IE10+ */
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+      
+      background-repeat: no-repeat;
+      background-position:-8px 0;
+      background-size:100% 100%;
+      
+      z-index:100;
+    }
     .phone{
       margin:25px;
       position:absolute;
       bottom:0;
+      span{
+        display:block;
+      }
     }
     &.site-nav-1{
       background-position:0 0;
@@ -258,13 +286,14 @@ footer.site-footer{
   font-size:.75em;
   height:65px;
   margin-top:-65px;
-  background-color:rgba(0,0,0,.7);
+  
   line-height:1.2em;
   clear:both;
   position:relative;
   z-index:20;
   .container{
     padding-top:5px;
+    background-color:rgba(0,0,0,.7);
   }
   a{
     display:inline-block;
@@ -288,14 +317,24 @@ footer.site-footer{
 --------------------------------- */
 div.site-content{
   height:inherit;
-  > section{
-    background-attachment: fixed; // need mobile solution
+  section.section-block{
+    //background-attachment: fixed; // need mobile solution
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
     width: 100%;
-    min-height:100%;
+    min-height:110%;
     position:relative;
+    a{
+      color:#fff;
+      text-decoration:underline;
+      &.btn{
+        text-decoration:none;
+      }
+    }
+    ul{
+      ul.bullet;
+    }
     > .container {
       //position:relative;
       //z-index:20;
@@ -308,6 +347,7 @@ div.site-content{
     &.home{
       background-color:@white;
       padding-top:200px;
+      padding-bottom:10px;
       button.btn{
         width:200px;
         margin:2em auto 0;
@@ -321,27 +361,17 @@ div.site-content{
         position:relative;
         h1{
           background-image:url(../img/jasc-site-sprites.png);
-          background-repeat:none;
+          background-repeat:no-repeat;
           background-position:0 0;
           text-indent:-9999px;
           overflow:hidden;
-          width:335px;
+          width:366px;
           height:130px;
           right:20px;
+          top:-3px;
           position:absolute;
         }
       }
-    }
-    // About Us Panel
-    &.aboutus{
-      background-image:url(../img/About-Panel.jpg);
-    }
-    &.products{
-      background-image:url(../img/Product-Panel.jpg);
-      background-attachment:scroll;
-    }
-    &.services{
-      background-image:url(../img/Services-Panel.jpg);
     }
     &.gallery{
       > .container{
@@ -370,14 +400,49 @@ div.site-content{
         }
       }
     }
-    &.contact,&.raq{
-      background-image:url(../img/Contact-Panel.jpg);
+    &.contact{
+      min-height:100%;
     }
-    &.product-banners{
-      background-image:url(../img/Product-Banner-Panel.jpg);
+  }
+  div.section-slides{
+    height:inherit;
+    position:relative;
+    .slide-wrapper{
+      height:inherit;
+      position:relative;
+      overflow:hidden;
+      section.section-block{
+        position:absolute;
+        margin-left:100%;
+        .transition(~'margin-left .7s');
+        &:first-child{
+          margin-left:0;
+        }
+      }
     }
-    &.product-vehicle{
-      background-image:url(../img/Product-Vehicle-Panel.jpg);
+    .slide-nav{
+      position:absolute;
+      right:10px;
+      top:10px;
+      z-index:1000;
+      li{
+        width:20px;
+        height:20px;
+        background-color:rgba(0,0,0,.5);
+        border: solid 8px rgba(0,0,0,.1);
+        overflow:hidden;
+        text-indent:100%;
+        margin-bottom:10px;
+        .transition(~'background-color .7s,border-color .7s');
+        &.active,&.active:hover{
+          background-color:@JASCblue;
+          cursor:default;
+        }
+        &:hover{
+          cursor:pointer;
+          border-color:@JASCblue;
+        }
+      }
     }
   }
   form{
@@ -392,6 +457,16 @@ div.site-content{
   .box{
     background-color:rgba(0,0,0,.49);
     .box-shadow(0 0 38px 53px rgba(0,0,0,.5));
+    h2,h3,h4,h5{
+      clear:both;
+    }
+  }
+  .pyro-image{
+    .box-shadow(0 7px 7px 7px rgba(0, 0, 0, 0.7));
+    &.alignment-left{
+      margin-right:2em;
+      margin-bottom:1em;
+    }
   }
 }
 .social-links{
@@ -430,3 +505,57 @@ div.site-content{
     }
   }
 }
+
+.animated{-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:1s;-moz-animation-duration:1s;-ms-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;}.animated.hinge{-webkit-animation-duration:2s;-moz-animation-duration:2s;-ms-animation-duration:2s;-o-animation-duration:2s;animation-duration:2s;}@-webkit-keyframes swing {
+  20%, 40%, 60%, 80%, 100% { -webkit-transform-origin: top center; }
+  20% { -webkit-transform: rotate(15deg); } 
+  40% { -webkit-transform: rotate(-10deg); }
+  60% { -webkit-transform: rotate(5deg); }  
+  80% { -webkit-transform: rotate(-5deg); }
+  90% { -webkit-transform: rotate(2deg); }
+  //95% { -webkit-transform: rotate(-1deg); }
+  100% { -webkit-transform: rotate(0deg); }
+}
+
+@-moz-keyframes swing {
+  20% { -moz-transform: rotate(15deg); }  
+  40% { -moz-transform: rotate(-10deg); }
+  60% { -moz-transform: rotate(5deg); } 
+  80% { -moz-transform: rotate(-5deg); }
+  90% { -moz-transform: rotate(2deg); }
+  //95% { -moz-transform: rotate(-1deg); }   
+  100% { -moz-transform: rotate(0deg); }
+}
+
+@-o-keyframes swing {
+  20% { -o-transform: rotate(15deg); }  
+  40% { -o-transform: rotate(-10deg); }
+  60% { -o-transform: rotate(5deg); } 
+  80% { -o-transform: rotate(-5deg); }
+  90% { -o-transform: rotate(2deg); }
+  //95% { -o-transform: rotate(-1deg); }   
+  100% { -o-transform: rotate(0deg); }
+}
+
+@keyframes swing {
+  20% { transform: rotate(15deg); } 
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }  
+  80% { transform: rotate(-5deg); }
+  90% { transform: rotate(2deg); }
+  //95% { transform: rotate(-1deg); } 
+  100% { transform: rotate(0deg); }
+}
+
+.swing {
+  -webkit-transform-origin: top center;
+  -moz-transform-origin: top center;
+  -o-transform-origin: top center;
+  transform-origin: top center;
+  -webkit-animation-name: swing;
+  -moz-animation-name: swing;
+  -o-animation-name: swing;
+  animation-name: swing;
+}
+
+@import "less/responsive-767px-max.less";

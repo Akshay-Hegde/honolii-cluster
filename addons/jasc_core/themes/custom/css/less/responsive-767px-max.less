@@ -3,7 +3,7 @@
 // --------------------------------------------------
 
 
-@media (max-width: 767px) {
+@media (max-width: 979px) {
 
   // Padding to set content in a bit
   body {
@@ -113,8 +113,15 @@
   
   // JASC Styles
   section > .container{
-    padding-left:20px;
-    padding-right:20px;
+    padding-left:50px;
+    padding-right:50px;
+  }
+  
+  div.site-content section.section-block.home{
+   padding-top:150px;
+   .block{
+      height:250px;
+    }
   }
 }
 
@@ -195,4 +202,128 @@
     position: static;
   }
 
+// JASC Styles
+  h1{
+    font-size:1.5em;
+    line-height:1.1em;
+    letter-spacing:normal;
+  }
+  h2,h3{
+    font-size:1.2em;
+    line-height:1.5em;
+  }
+  .social-links{
+    text-align:left;
+    a{
+      margin-right:0;
+      margin-bottom:5px;
+    }
+  }
+  header.site-header{
+    left:-100%;
+    width:100%;
+    height:auto;
+    background-color:rgba(0,0,0,.9);
+    .transition(~"left .8s ease-out");
+    &.active1,&.active2{
+      .site-nav.site-nav-2{
+        //right:-150px;
+      }
+    }
+    .site-nav-control{
+      z-index:1000;
+      transition:none;
+      right:auto;
+      left:10px;
+      position:fixed;
+    }
+    .site-nav{
+      background-image:none;
+      width:100%;
+      height:auto;
+      position:static;
+      &.site-nav-1{
+        background:none;
+      }
+      &.site-nav-2{
+        background:none;
+        position:absolute;
+        top:75px;
+        right:-150px;
+        //.transition(~"right .8s ease-out");
+        ul.nav{
+          margin:0;
+        }
+      }
+      .phone{
+        position:static;
+        margin:0 25px;
+        padding:15px 0;
+        span{
+          display:inline;
+        }
+      }
+      ul.nav{
+        margin:0 25px;
+        padding-top:15px;
+        font-size:.85em;
+        li{
+          margin-bottom:2px;
+          a{
+            display:inline;
+          }
+          &.submenu i{
+            display:none;
+          }
+          &.cta{
+            margin-top:0;
+            text-align:left;
+            a{
+              border:none;
+              padding:0;
+            }
+          }
+        }
+      }
+    }
+    .logo{
+      padding-left:55px;
+    }
+  }
+  div.site-content {
+    section.section-block{
+      background-position:top center;
+      background-size:contain;
+      min-height:none;
+      &.home{
+        padding-top:70px;
+        min-height:110%;
+        .block{
+          height:150px;
+          h1{
+            position:static;
+            width:100%;
+            height:95px;
+            background-size:230px auto;
+            background-position:top center;
+          }
+        }
+      }
+    }
+    div.section-slides{
+      height:auto;
+      .slide-nav{
+        display:none;
+      }
+      .slide-wrapper{
+        section.section-block{
+          margin:0!important;
+          position:static;
+          .btn{
+            display:none;
+          }
+        }
+      }
+    }
+  }
 }
