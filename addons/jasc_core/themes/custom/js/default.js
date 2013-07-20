@@ -1,119 +1,118 @@
-$(function(){
-	
-	// Product page tabs
-	$("#tabs").tabs("#tab_panels > div");
-	// Hover over gallery images
-	$('.mod.gallery-image, #main-nav .drop-down').hover(
-	  function(){$(this).addClass('hover');},
-	  function(){$(this).removeClass('hover');}
-	);
-	// Pretty Photo Lightbox
-	$("a.prettyPhoto").prettyPhoto({theme: 'facebook',overlay_gallery: false});
-	// Add class names to sidebar headers to add icons
-	var sidebar_header = $('.sidebar .widget > h3:first-child');
-	if(sidebar_header.length > 0){
-		for(var j = sidebar_header.length; j--;){
-			var x = $(sidebar_header[j])
-			switch (x.html()){
-				case "Products":
-				case "Services":
-				  x.addClass('icon services')
-				  break;
-				case "Portfolio":
-				  x.addClass('icon portfolio')
-				  break;
-				case "About Us":
-				  x.addClass('icon about_us')
-				  break;
-				case "Contact Us":
-				  x.addClass('icon contact_us')
-				  break;
-				default:
-				  //console.log('no value')
-			}
-		}
-	}
-	// Add class names to headers to add icons
-	var main_header = $('#breadcrumbs')
-	if(main_header.length > 0){
-		for(var j = main_header.length; j--;){
-			var x = $(main_header[j])
-			switch (x.children('*:first-child').html()){
-				case "Products":
-				case "Services":
-				  x.addClass('icon services')
-				  break;
-				case "Gallery":
-				  x.addClass('icon portfolio')
-				  break;
-				case "About Us":
-				  x.addClass('icon about_us')
-				  break;
-				case "Contact Us":
-				  x.addClass('icon contact_us')
-				  break;
-				case "Request A Quote":
-				  x.addClass('icon quote')
-				  break;
-				default:
-				  //console.log('no value')
-			}
-		}
-	}
-	// replace text value with placeholder 
-	var textfields = $("input[type='text']")
-	if(textfields.length > 0){
-		for(var x = textfields.length; x--;){
-			var y = $(textfields[x]);
-			if(y.val() == "" && y.attr('placeholder')){
-				y.val(y.attr('placeholder'))
-			}
-			else if(y.val() !== "" && y.attr('placeholder') && y.val() != y.attr('placeholder')){
-				if(y.parent('.input-wrapper').length > 0){	
-					y.parent().addClass('active')
-				}else{
-					y.addClass('active')
-				}
-			}
-			else if(y.val() !== "" && !y.attr('placeholder')){
-				if(y.parent('.input-wrapper').length > 0){	
-					y.parent().addClass('active')
-				}else{
-					y.addClass('active')
-				}
-			}
-		}
-	}
-	textfields.focus(function () {
-		var input = $(this);
-		if(input.parent('.input-wrapper').length > 0){	
-			input.parent().addClass('active')
-		}else{
-			input.addClass('active')
-		}
-		if(input.attr('placeholder') == input.val()){
-			input.val('')
-		}
-    });
-	textfields.blur(function () {
-		var input = $(this);
-		if(input.val() == '' && input.attr('placeholder')){
-			input.val(input.attr('placeholder'))
-			if(input.parent('.input-wrapper').length > 0){	
-				input.parent().removeClass('active')
-			}else{
-				input.removeClass('active')
-			}
-		}else if(input.val() == '' && !input.attr('placeholder')){
-			if(input.parent('.input-wrapper').length > 0){	
-				input.parent().removeClass('active')
-			}else{
-				input.removeClass('active')
-			}
-		}
-    });
-	// Form validation
-	$('form').validate()
-	// needed for functions in document head
-	try{window.$ready()}catch(err){/*do nothing*/}
+$(function() {
+  var $header,$headerToggle,$headerSubmenu, sectionManagerObj;
+ 
+  // SECTION MANAGER - Home Page Only
+  sectionManagerObj = {
+      section:$('#content > section, div.section-slides'),
+      nav:$('#main-nav > .site-nav-1 > .nav li').not('.cta').children('a'),
+      resize:false,
+      offsetpx:50,
+      offsetindex:1
+  }
+  sectionManager = new SectionManager(sectionManagerObj);
+  // SECTION SLIDE
+  sectionSliderObj = {
+      nav:$('.slide-nav > li','#productsgroups'),
+      slides:$('.slide-wrapper > section','#productsgroups')
+  }
+  sectionSlider = new SectionSlider(sectionSliderObj);
+  // TOUR Click Events
+  if($('#home').length != 0){
+      $('#logo a').click(function(){
+          sectionManager.navClick(null,0);
+          return false;
+      })
+      
+      setTimeout(function(){
+          $('#home h1').addClass('swing');
+      },800)
+  }
+  
+  $('#tour1').click(function(){
+      sectionManager.navClick(null,1);
+      return false;
+  });
+  $('#tour2').click(function(){
+      sectionManager.navClick(null,2);
+      return false;
+  });
+  $('#tour3').click(function(){
+      sectionManager.navClick(null,3);
+      return false;
+  });
+  $('#tour4').click(function(){
+      sectionManager.navClick(null,4);
+      return false;
+  });
+  $('#tour5').click(function(){
+      sectionManager.navClick(null,5);
+      return false;
+  });
+  $('#tour5').click(function(){
+      sectionManager.navClick(null,5);
+      return false;
+  });
+  $('#product1').click(function(){
+      sectionSlider.slide(1);
+      return false;
+  });
+  $('#product2').click(function(){
+      sectionSlider.slide(2);
+      return false;
+  });
+  $('#product3').click(function(){
+      sectionSlider.slide(3);
+      return false;
+  });
+  $('#product4').click(function(){
+      sectionSlider.slide(4);
+      return false;
+  });
+  $('#product5').click(function(){
+      //sectionSlider.slide(5);
+      sectionManager.navClick(null,3);
+      return false;
+  });
+  $('#product6').click(function(){
+      sectionManager.navClick(null,3);
+      return false;
+  });
+  // FORM - RAQ
+  $('#raq form').addClass('form-horizontal').find('input,select,textarea').addClass('input-block-level');
+  // GALLERY
+  if($('#gallery').length != 0){
+    instagramGrid = new InstagramGrid(instagramOBJ.data,'#gallery');
+    instagramGrid.resize();
+  }
+  
+  
+  // HEADER NAV FUNCTIONS
+  $header = $('#header');
+  $headerToggle = $('#headerToggle');
+  $header.find('li.submenu').append('<i class="icon-bullet-box"></i>');
+  $headerSubmenu = $('i.icon-bullet-box','#header');
+  $headerToggle.click(function(event){
+      console.log('okay')
+      var $this;
+      $this = $(this);
+      if(!$this.hasClass('active')){
+          $this.addClass('active');
+          $header.addClass('active1');
+      }else{
+          $this.removeClass('active');
+          $header.removeClass('active1').removeClass('active2');
+      }
+  })
+  $headerSubmenu.click(function(event){
+      if(!$header.hasClass('active2')){
+          $header.addClass('active2');
+      }else{
+          $header.removeClass('active2');
+      }
+  })
+  // auto deploy nav if over a certain width
+  if(windowManager.width >= 1700){
+      $headerToggle.trigger('click');
+  }
 });
+

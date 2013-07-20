@@ -14,109 +14,12 @@
 </head>
 <body>
 	<div class="wrapper">
-		<div id="container" class="container">
-			<div id="header">
-				{{theme:partial name="header"}}
-			</div>
-			<div id="content" class="clearfix">
-				<div id="scroller" class="mod site-banner scrollable">
-					<ul class="items">
-					{{ if page:id == '1' }}
-						<li>
-                            <div class="best-banner-price">
-                                <div class="title">
-                                    <span class="line1">Lowest Priced Banners on the</span>
-                                    <span class="line2">Big Island!</span>
-                                </div>
-                                <img class="image" src="/files/large/136" alt="lowest priced banners" />
-                                <div class="sub-text">
-                                    If you find a lower price on the island we will beat it by 10%. Proof of estimate and materials listing required.
-                                </div>
-                            </div>
-                        </li>
-						<li>
-                            <div class="product-lineup">
-                                <div class="title">
-                                    Built In Hawaii!
-                                </div>
-                                <a href="/products" class="cta">View Our Products</a>
-                            </div>
-                        </li>
-						<li>
-                            <div class="best-sign-shop">
-                                <div class="title">
-                                    <span class="line1">2011 North Hawaii News</span>
-                                    <span class="line2">Voted Best Sign Shop</span>
-                                </div>
-                                <div class="sub-text">
-                                    We would like to thank the readers of North Hawaii News for voting us the <strong>"Best Sign Shop"</strong> in North Hawaii again. Check out some of our work and see for your self why we were <strong>voted #1 in 2009 and 2011</strong>.
-                                </div>
-                                <a href="/galleries" class="cta">View Gallery</a>
-                            </div>
-                        </li>
-					{{ elseif {url:segments segment="1"} == 'products' }}
-						<li>
-                            <div class="best-banner-price">
-                                <div class="title">
-                                    <span class="line1">Lowest Priced Banners on the</span>
-                                    <span class="line2">Big Island!</span>
-                                </div>
-                                <img class="image" src="/files/large/136" alt="lowest priced banners" />
-                                <div class="sub-text">
-                                    If you find a lower price on the island we will beat it by 10%. Proof of estimate and materials listing required.
-                                </div>
-                            </div>
-                        </li>
-					{{ else }}
-						<li>
-                            <div class="best-sign-shop">
-                                <div class="title">
-                                    <span class="line1">2011 North Hawaii News</span>
-                                    <span class="line2">Voted Best Sign Shop</span>
-                                </div>
-                                <div class="sub-text">
-                                    We would like to thank the readers of North Hawaii News for voting us the <strong>"Best Sign Shop"</strong> in North Hawaii again. Check out some of our work and see for your self why we were <strong>voted #1 in 2009 and 2011</strong>.
-                                </div>
-                                <a href="/galleries" class="cta">View Gallery</a>
-                            </div>
-                        </li>
-					{{ endif }}
-					</ul>
-					<div class="banner-nav"></div>
-				</div>
-				<div class="span-8">
-					<div class="mod sidebar">
-						{{ if page:id == '1' }}
-							{{ widgets:area slug="default-sidebar" }}
-							<div class="widget html">
-								<div class="facebookframe">
-									<div class="fb-like-box" data-href="http://www.facebook.com/pages/John-Allen-Sign-Company/180376958693320" data-width="270" data-colorscheme="dark" data-show-faces="true" data-border-color="#080808" data-stream="false" data-header="false"></div>
-								</div>
-							</div>			
-							<hr class="space"/>
-						{{ elseif {url:segments segment="1"} == 'products' }}
-							{{ widgets:area slug="products-sidebar" }}
-						{{ elseif {url:segments segment="1"} == 'services'}}
-							{{ widgets:area slug="services-sidebar" }}
-						{{ else }}
-							{{ widgets:area slug="default-sidebar" }}
-						{{ endif }}
-					</div>
-				</div>
-				<div class="span-16 last">
-					<div class="mod maincontent">
-						<div class="box page-header">
-							{{ session:messages success="success" notice="notice" error="error" }}
-							{{ theme:partial name="breadcrumbs" }}
-							<hr/>
-						</div>
-						{{template:body}}
-					</div>
-				</div>
-			</div>
-			<div id="footer">
-				{{theme:partial name="footer"}}
-			</div>
+        {{theme:partial name="header"}}
+		<div id="content" class="site-content">
+			<a class="page-logo" href="/">{{ settings:site_name }}</a>
+			{{session:messages success="success" notice="notice" error="error"}}
+			{{ template:body }}
+			{{theme:partial name="footer"}}
 		</div>
 	</div>
 {{ if global:environment == 'development' }}
@@ -132,6 +35,5 @@
     })();
 	</script>
 {{ endif }}
-<div id="fb-root"></div>
 </body>
 </html>

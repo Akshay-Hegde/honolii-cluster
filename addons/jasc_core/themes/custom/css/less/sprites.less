@@ -1,0 +1,35 @@
+//
+// Sprites
+// --------------------------------------------------
+
+
+// ICONS
+// -----
+
+// All icons receive the styles of the <i> tag with a base class
+// of .i and are then given a unique class to add width, height,
+// and background-position. Your resulting HTML will look like
+// <i class="icon-inbox"></i>.
+
+// For the white version of the icons, just add the .icon-white class:
+// <i class="icon-inbox icon-white"></i>
+
+[class^="icon-"],
+[class*=" icon-"] {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  .ie7-restore-right-whitespace();
+  line-height: 27px;
+  vertical-align: bottom;
+  background-image: url("@{iconSpritePath}");
+  background-position: 14px 14px;
+  background-repeat: no-repeat;
+}
+
+
+.icon-arrow-down              { background-position: -97px -222px }
+.icon-arrow                   { background-position: -126px -222px }
+.icon-instagram               { background-position: -63px -222px; margin-left:5px; }
+.icon-bullet-box              { background-position: -313px -222px }
+.icon-bullet                  { background-position: -287px -252px }

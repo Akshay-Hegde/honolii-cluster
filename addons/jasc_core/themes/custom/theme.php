@@ -2,12 +2,12 @@
 
 class Theme_Custom extends Theme {
 
-    public $name = 'JASC - Custom';
+    public $name = 'JASC - Custom - V2';
     public $author = 'Wetumka Interactive, LLC.';
     public $author_website = 'http://www.wetumka.net';
-    public $website = 'http://www.wetumka.net/services';
-    public $description = '2-column, fixed; custom design';
-    public $version = '1.0';
+    public $website = 'http://www.wetumka.net';
+    public $description = 'Responsive, long page scroller, custom design';
+    public $version = '2.0';
 
 }
 

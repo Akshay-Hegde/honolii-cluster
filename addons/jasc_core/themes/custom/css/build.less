@@ -1,0 +1,584 @@
+/*
+ * Bootstrap v2.3.1
+ */
+
+// Core variables and mixins
+@import "less/variables.less"; // Modify this for custom colors, font-sizes, etc
+@import "../../../../../libraries/bootstrap/less/mixins.less";
+
+// CSS Reset
+@import "../../../../../libraries/bootstrap/less/reset.less";
+
+// Grid system and page structure
+@import "../../../../../libraries/bootstrap/less/scaffolding.less";
+@import "../../../../../libraries/bootstrap/less/grid.less";
+@import "../../../../../libraries/bootstrap/less/layouts.less";
+
+// Base CSS
+@import "less/type.less";
+//@import "../../../../../libraries/bootstrap/less/code.less";
+@import "../../../../../libraries/bootstrap/less/forms.less";
+//@import "../../../../../libraries/bootstrap/less/tables.less";
+
+// Components: common
+@import "less/sprites.less";
+//@import "../../../../../libraries/bootstrap/less/dropdowns.less";
+//@import "../../../../../libraries/bootstrap/less/wells.less";
+//@import "../../../../../libraries/bootstrap/less/component-animations.less";
+//@import "../../../../../libraries/bootstrap/less/close.less";
+
+// Components: Buttons & Alerts
+@import "less/buttons.less";
+//@import "../../../../../libraries/bootstrap/less/button-groups.less";
+//@import "../../../../../libraries/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
+
+// Components: Nav
+//@import "../../../../../libraries/bootstrap/less/navs.less";
+//@import "../../../../../libraries/bootstrap/less/navbar.less";
+//@import "../../../../../libraries/bootstrap/less/breadcrumbs.less";
+//@import "../../../../../libraries/bootstrap/less/pagination.less";
+//@import "../../../../../libraries/bootstrap/less/pager.less";
+
+// Components: Popovers
+//@import "../../../../../libraries/bootstrap/less/modals.less";
+//@import "../../../../../libraries/bootstrap/less/tooltip.less";
+//@import "../../../../../libraries/bootstrap/less/popovers.less";
+
+// Components: Misc
+//@import "../../../../../libraries/bootstrap/less/thumbnails.less";
+//@import "../../../../../libraries/bootstrap/less/media.less";
+//@import "../../../../../libraries/bootstrap/less/labels-badges.less";
+//@import "../../../../../libraries/bootstrap/less/progress-bars.less";
+//@import "../../../../../libraries/bootstrap/less/accordion.less";
+//@import "../../../../../libraries/bootstrap/less/carousel.less";
+//@import "../../../../../libraries/bootstrap/less/hero-unit.less";
+
+// Utility classes
+@import "../../../../../libraries/bootstrap/less/utilities.less"; // Has to be last to override when necessary
+
+// Responsize
+@import "../../../../../libraries/bootstrap/less/responsive-utilities.less";
+
+// Large desktops
+@import "../../../../../libraries/bootstrap/less/responsive-1200px-min.less";
+
+// Tablets to regular desktops
+//@import "../../../../../libraries/bootstrap/less/responsive-768px-979px.less";
+
+// Phones to portrait tablets and narrow desktops
+
+
+// From 979px and below, show a button to toggle navbar contents
+//@import "../../../../../libraries/bootstrap/less/responsive-navbar.less";
+/* --------------------------------
+  Layout Foundation
+--------------------------------- */
+html, body {
+  height: 100%;
+}
+.wrapper {
+  height:inherit;
+}
+/* --------------------------------
+  Basic Styles
+--------------------------------- */
+ul{
+  margin-bottom:1.5em;
+  list-style:none;
+  &.bullet{
+    margin-left:0;
+    li{
+      padding-left:25px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:no-repeat;
+      background-position:-292px -252px;
+    }
+  }
+  &.bullet-box{
+    margin-left:0;
+    li{
+      padding-left:25px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:no-repeat;
+      background-position:-317px -222px;
+    }
+  }
+  &.bullet-box-link{
+    margin-left:0;
+    a{
+      padding-left:25px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:no-repeat;
+      background-position:-317px -222px;
+      display:inline-block;
+    }
+  }
+}
+// Google Voice Links
+.gc-cs-link{
+  color:@white!important;
+}
+/* --------------------------------
+  Header
+--------------------------------- */
+header.site-header{
+  position:fixed;
+  height:100%;
+  width:200px;
+  left:-200px;
+  font-family:@sansFontFamily;
+  text-transform:uppercase;
+  font-weight:100;
+  z-index:100;
+  .transition(~"left .8s ease-out, width .8s ease-out");
+  &.active1{
+    left:0;
+  }
+  &.active2{
+    width:400px;
+  }
+  nav{
+    height:100%;
+  }
+  .site-nav-control{
+    background-image:url(../img/jasc-site-sprites.png);
+    background-repeat:none;
+    background-position:0px -220px;
+    width:30px;
+    height:30px;
+    position:absolute;
+    right:-40px;
+    top:10px;
+    cursor:pointer;
+    .transition(right .2s ease-in);
+    z-index:1000;
+    &.active{
+      background-position:-30px -220px;
+      right:-30px;
+    }
+  }
+  .site-nav{
+    height:100%;
+    width:200px;
+    position:absolute;
+    background-image:url(../img/jasc-nav-bk.jpg);
+    background-repeat:repeat-y;
+    &:after{
+      content:'';
+      height:100%;
+      position:absolute;
+      top:0;
+      right:-16px;
+      display:block;
+      width:16px;
+      
+      
+      background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+      background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.6)), color-stop(70%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+      background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+      background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* Opera 12+ */
+      background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* IE10+ */
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* W3C */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+      
+      background-repeat: no-repeat;
+      background-position:-8px 0;
+      background-size:100% 100%;
+      
+      z-index:100;
+    }
+    .phone{
+      margin:25px;
+      position:absolute;
+      bottom:0;
+      span{
+        display:block;
+      }
+    }
+    &.site-nav-1{
+      background-position:0 0;
+      background-color:@NavSetOne;
+      z-index:100;
+    }
+    &.site-nav-2{
+      background-position:-200px 0;
+      background-color:black;
+      z-index:50;
+      right:0;
+      ul.nav{
+        margin:141px 0 0 18px;
+      }
+    }
+    ul.nav{
+      margin:25px;
+      a{
+        color:@white;
+        .text-shadow;
+        display:block;
+        outline:none;
+      }
+      li{
+        margin-bottom:14px;
+        &.active{
+          a{
+            text-decoration:underline;
+            cursor:default;
+          }
+        }
+        &.first{
+          
+        }
+        &.last{
+          margin-bottom:0;
+        }
+        &.cta{
+          margin-top:60px;
+          text-align:center;
+          a{
+            border:solid 1px #0A78AB;
+            .border-radius(4px);
+            padding:5px;
+          }
+        }
+        &.submenu{
+          a{
+            display:inline-block;
+          }
+          i.icon-bullet-box{
+            margin-left:20px;
+            cursor:pointer;
+            .border-radius(5px);
+            .transition(background-color .4s ease-in);
+            &:hover{
+              background-color:rgba(0,0,0,.5);
+            }
+          }
+        }
+      }
+    }
+  }
+  .logo{
+    padding-left:20px;
+    a{
+      display:block;
+      height:75px;
+      width:160px;
+      overflow:hidden;
+      text-indent:-9999px;
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:none;
+      background-position:0 -140px;
+      background-color:rgba(0,0,0,0);
+      .transition(background-color .4s ease-in);
+      &:hover{
+        background-color:rgba(0,0,0,.5);
+      }
+    }
+  }
+}
+/* --------------------------------
+  Footer
+--------------------------------- */
+footer.site-footer{
+  font-family:@sansFontFamily;
+  font-weight:100;
+  text-align:center;
+  font-size:.75em;
+  height:65px;
+  margin-top:-65px;
+  background-color:rgba(0,0,0,.7);
+  line-height:1.2em;
+  clear:both;
+  position:relative;
+  z-index:20;
+  .container{
+    padding-top:5px;
+  }
+  a{
+    display:inline-block;
+    padding:2px 4px;
+    line-height:1em;
+  }
+  ul{
+    margin:0;
+    li{
+      display:inline-block;
+      line-height:1em;
+      margin-right:2px;
+      &.last{
+        margin-right:0;
+      }
+    }
+  }
+}
+/* --------------------------------
+  Site Content
+--------------------------------- */
+.page-logo{
+    position:absolute;
+    top:0;
+    right:0;
+
+    display:block;
+    height:75px;
+    width:160px;
+    overflow:hidden;
+    text-indent:-9999px;
+    background-image:url(../img/jasc-site-sprites.png);
+    background-repeat:none;
+    background-position:0 -140px;
+    background-color:rgba(0,0,0,0);
+    .transition(background-color .4s ease-in);
+    &:hover{
+      background-color:rgba(0,0,0,.5);
+    }
+    z-index:1;
+    opacity:.4;
+  }
+
+
+div.site-content{
+  height:inherit;
+  section.section-block{
+    //background-attachment: fixed; // need mobile solution
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image:url(../img/Contact-Panel.jpg);
+    width: 100%;
+    min-height:110%;
+    position:relative;
+    a{
+      color:#fff;
+      text-decoration:underline;
+      &.btn{
+        text-decoration:none;
+      }
+    }
+    ul{
+      ul.bullet;
+    }
+    > .container {
+      //position:relative;
+      //z-index:20;
+      > .row{
+        padding-top:75px;
+        padding-bottom:100px;
+      }
+    }
+    // Home Start Panel
+    &.home{
+      background-color:@white;
+      padding-top:200px;
+      padding-bottom:10px;
+      button.btn{
+        width:200px;
+        margin:2em auto 0;
+        display:block;
+      }
+      .block{
+        background-image:url(../img/lava-background.jpg);
+        background-repeat:repeat;
+        height:400px;
+        width:100%;
+        position:relative;
+        h1{
+          background-image:url(../img/jasc-site-sprites.png);
+          background-repeat:no-repeat;
+          background-position:0 0;
+          text-indent:-9999px;
+          overflow:hidden;
+          width:366px;
+          height:130px;
+          right:20px;
+          top:-3px;
+          position:absolute;
+        }
+      }
+    }
+    &.gallery{
+      > .container{
+        position:relative;
+        z-index:20;
+      }
+      .grid-mask{
+        position:absolute;
+        overflow:hidden;
+        width:100%;
+        height:100%;
+        .opacity(30);
+        .grid{
+          z-index:10;
+          width:150%;
+          .grid-item{
+            width:306px;
+            height:306px;
+            background-repeat:none;
+            background-position:0 0;
+            float:left;
+            &.clear{
+              clear:left;
+            }
+          }
+        }
+      }
+    }
+    &.contact{
+      min-height:100%;
+    }
+  }
+  div.section-slides{
+    height:inherit;
+    position:relative;
+    .slide-wrapper{
+      height:inherit;
+      position:relative;
+      overflow:hidden;
+      section.section-block{
+        position:absolute;
+        margin-left:100%;
+        .transition(~'margin-left .7s');
+        &:first-child{
+          margin-left:0;
+        }
+      }
+    }
+    .slide-nav{
+      position:absolute;
+      right:10px;
+      top:10px;
+      z-index:1000;
+      li{
+        width:20px;
+        height:20px;
+        background-color:rgba(0,0,0,.5);
+        border: solid 8px rgba(0,0,0,.1);
+        overflow:hidden;
+        text-indent:100%;
+        margin-bottom:10px;
+        .transition(~'background-color .7s,border-color .7s');
+        &.active,&.active:hover{
+          background-color:@JASCblue;
+          cursor:default;
+        }
+        &:hover{
+          cursor:pointer;
+          border-color:@JASCblue;
+        }
+      }
+    }
+  }
+  form{
+    font-family:@sansFontFamily;
+    input,select,textarea{
+      font-family:@sansFontFamily;
+    }
+    legend{
+      color:@textColor;
+    }
+  }
+  .box{
+    background-color:rgba(0,0,0,.49);
+    .box-shadow(0 0 38px 53px rgba(0,0,0,.5));
+    h2,h3,h4,h5{
+      clear:both;
+    }
+  }
+  .pyro-image{
+    .box-shadow(0 7px 7px 7px rgba(0, 0, 0, 0.7));
+    &.alignment-left{
+      margin-right:2em;
+      margin-bottom:1em;
+    }
+  }
+}
+.social-links{
+  text-align:right;
+  a{
+    width:70px;
+    height:70px;
+    display:inline-block;
+    background-color:rgba(0,0,0,.5);
+    margin-right:24px;
+    text-align:left;
+    &:hover{
+      background-color:rgba(0,0,0,1);
+      .transition(background-color .4s ease-in);
+    }
+    &.big-facebook span{
+      background-position:-231px -145px;
+      width:37px;
+      margin-left:25px;
+    }
+    &.big-instagram span{
+      background-position:-160px -145px;
+      width:inherit;
+    }
+    &.big-google span{
+      background-position:-268px -145px;
+      width:inherit;
+    }
+    span{
+      background-image:url(../img/jasc-site-sprites.png);
+      background-repeat:none;
+      overflow:hidden;
+      text-indent:-9999px;
+      display:inline-block;
+      height:inherit;
+    }
+  }
+}
+
+.animated{-webkit-animation-fill-mode:both;-moz-animation-fill-mode:both;-ms-animation-fill-mode:both;-o-animation-fill-mode:both;animation-fill-mode:both;-webkit-animation-duration:1s;-moz-animation-duration:1s;-ms-animation-duration:1s;-o-animation-duration:1s;animation-duration:1s;}.animated.hinge{-webkit-animation-duration:2s;-moz-animation-duration:2s;-ms-animation-duration:2s;-o-animation-duration:2s;animation-duration:2s;}@-webkit-keyframes swing {
+  20%, 40%, 60%, 80%, 100% { -webkit-transform-origin: top center; }
+  20% { -webkit-transform: rotate(15deg); } 
+  40% { -webkit-transform: rotate(-10deg); }
+  60% { -webkit-transform: rotate(5deg); }  
+  80% { -webkit-transform: rotate(-5deg); }
+  90% { -webkit-transform: rotate(2deg); }
+  //95% { -webkit-transform: rotate(-1deg); }
+  100% { -webkit-transform: rotate(0deg); }
+}
+
+@-moz-keyframes swing {
+  20% { -moz-transform: rotate(15deg); }  
+  40% { -moz-transform: rotate(-10deg); }
+  60% { -moz-transform: rotate(5deg); } 
+  80% { -moz-transform: rotate(-5deg); }
+  90% { -moz-transform: rotate(2deg); }
+  //95% { -moz-transform: rotate(-1deg); }   
+  100% { -moz-transform: rotate(0deg); }
+}
+
+@-o-keyframes swing {
+  20% { -o-transform: rotate(15deg); }  
+  40% { -o-transform: rotate(-10deg); }
+  60% { -o-transform: rotate(5deg); } 
+  80% { -o-transform: rotate(-5deg); }
+  90% { -o-transform: rotate(2deg); }
+  //95% { -o-transform: rotate(-1deg); }   
+  100% { -o-transform: rotate(0deg); }
+}
+
+@keyframes swing {
+  20% { transform: rotate(15deg); } 
+  40% { transform: rotate(-10deg); }
+  60% { transform: rotate(5deg); }  
+  80% { transform: rotate(-5deg); }
+  90% { transform: rotate(2deg); }
+  //95% { transform: rotate(-1deg); } 
+  100% { transform: rotate(0deg); }
+}
+
+.swing {
+  -webkit-transform-origin: top center;
+  -moz-transform-origin: top center;
+  -o-transform-origin: top center;
+  transform-origin: top center;
+  -webkit-animation-name: swing;
+  -moz-animation-name: swing;
+  -o-animation-name: swing;
+  animation-name: swing;
+}
+
+@import "less/responsive-767px-max.less";
