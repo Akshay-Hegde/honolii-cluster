@@ -16,6 +16,7 @@
 	<div class="wrapper">
         {{theme:partial name="header"}}
 		<div id="content" class="site-content">
+			<a class="page-logo" href="/">{{ settings:site_name }}</a>
 			{{session:messages success="success" notice="notice" error="error"}}
 			{{ template:body }}
 			{{theme:partial name="footer"}}

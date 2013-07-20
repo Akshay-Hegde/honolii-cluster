@@ -2416,38 +2416,31 @@ body {
 .wrapper {
   height: inherit;
 }
-ol,
 ul {
   margin-bottom: 1.5em;
   list-style: none;
 }
-ol.bullet,
 ul.bullet {
   margin-left: 0;
 }
-ol.bullet li,
 ul.bullet li {
   padding-left: 25px;
   background-image: url(../img/jasc-site-sprites.png);
   background-repeat: no-repeat;
   background-position: -292px -252px;
 }
-ol.bullet-box,
 ul.bullet-box {
   margin-left: 0;
 }
-ol.bullet-box li,
 ul.bullet-box li {
   padding-left: 25px;
   background-image: url(../img/jasc-site-sprites.png);
   background-repeat: no-repeat;
   background-position: -317px -222px;
 }
-ol.bullet-box-link,
 ul.bullet-box-link {
   margin-left: 0;
 }
-ol.bullet-box-link a,
 ul.bullet-box-link a {
   padding-left: 25px;
   background-image: url(../img/jasc-site-sprites.png);
@@ -2630,6 +2623,7 @@ footer.site-footer {
   font-size: .75em;
   height: 65px;
   margin-top: -65px;
+  background-color: rgba(0,0,0,0.7);
   line-height: 1.2em;
   clear: both;
   position: relative;
@@ -2637,7 +2631,6 @@ footer.site-footer {
 }
 footer.site-footer .container {
   padding-top: 5px;
-  background-color: rgba(0,0,0,0.7);
 }
 footer.site-footer a {
   display: inline-block;
@@ -2655,6 +2648,29 @@ footer.site-footer ul li {
 footer.site-footer ul li.last {
   margin-right: 0;
 }
+.page-logo {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  height: 75px;
+  width: 160px;
+  overflow: hidden;
+  text-indent: -9999px;
+  background-image: url(../img/jasc-site-sprites.png);
+  background-repeat: none;
+  background-position: 0 -140px;
+  background-color: rgba(0,0,0,0);
+  -webkit-transition: background-color .4s ease-in;
+  -moz-transition: background-color .4s ease-in;
+  -o-transition: background-color .4s ease-in;
+  transition: background-color .4s ease-in;
+  z-index: 1;
+  opacity: .4;
+}
+.page-logo:hover {
+  background-color: rgba(0,0,0,0.5);
+}
 div.site-content {
   height: inherit;
 }
@@ -2662,6 +2678,7 @@ div.site-content section.section-block {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: cover;
+  background-image: url(../img/Contact-Panel.jpg);
   width: 100%;
   min-height: 110%;
   position: relative;
@@ -3140,6 +3157,12 @@ div.site-content .pyro-image.alignment-left {
     margin-right: 0;
     margin-bottom: 5px;
   }
+  footer.site-footer {
+    background-color: transparent;
+  }
+  footer.site-footer .container {
+    background-color: rgba(0,0,0,0.7);
+  }
   header.site-header {
     left: -100%;
     width: 100%;
@@ -3162,6 +3185,9 @@ div.site-content .pyro-image.alignment-left {
     width: 100%;
     height: auto;
     position: static;
+  }
+  header.site-header .site-nav:after {
+    display: none;
   }
   header.site-header .site-nav.site-nav-1 {
     background: none;
