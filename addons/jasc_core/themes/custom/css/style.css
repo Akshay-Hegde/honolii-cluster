@@ -2696,6 +2696,7 @@ div.site-content section.section-block > .container > .row {
 }
 div.site-content section.section-block.home {
   background-color: #fff;
+  background-image: none;
   padding-top: 200px;
   padding-bottom: 10px;
 }
