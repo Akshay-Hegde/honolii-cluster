@@ -24,8 +24,9 @@ $(function() {
       })
       
       setTimeout(function(){
-          $('#home h1').addClass('swing');
-      },800)
+          $('#home h1').addClass('bounceInDown');
+      },500)
+      
   }
   
   $('#tour1').click(function(){
