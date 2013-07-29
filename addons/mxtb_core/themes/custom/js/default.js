@@ -75,43 +75,6 @@ $(document).ready(function() {
 	    $largeImage.find('.image-control > .left').attr('href','/galleries/'+gallery_json.slug+'/'+gallery_images_json[prevID].id);
 	    $largeImage.find('.image-control > .right').attr('href','/galleries/'+gallery_json.slug+'/'+gallery_images_json[nextID].id);
 	}
-	/*
-	// Set image in latest news blog
-	var $blogPreview = $('.blog-post','#home-blog-posts');
-	$blogPreview.each(function(index,element){
-	    var $this = $blogPreview.eq(index);
-	    var $image = $this.find('.post-content .intro img').detach();
-	    var imgSrc = $image.attr('src');
-	    $image.attr({
-	        src: imgSrc + '212/250/fit'
-	    }).removeClass();
-	    $this.find('.post-image a').empty().prepend($image);
-	})
-	
-	// Set image in side rail related news blog
-    var $blogPreviewSide = $('.siderail_posts .blog-post','#col-rail');
-    $blogPreviewSide.each(function(index,element){
-        var $this = $blogPreviewSide.eq(index);
-        var $image = $this.find('.post-content .intro img').detach();
-        var imgSrc = $image.attr('src');
-        $image.attr({
-            src: imgSrc + '114/134/fit'
-        }).removeClass();
-        $this.find('.post-image a').empty().prepend($image);
-    })
-    
-    // Set image category view of blog
-    var $blogCat = $('.mod.block-post','#col-main');
-    $blogCat.each(function(index,element){
-        var $this = $blogCat.eq(index);
-        var $image = $this.find('.post-body img').detach();
-        var imgSrc = $image.attr('src');
-        $image.attr({
-            src: imgSrc + '480/300/fit'
-        }).removeClass().addClass('active');
-        $this.find('.img-link').prepend($image);
-    })
-	*/
 	// Style Form
 	$('.crud_form').addClass('form-horizontal');
 	$('input:radio[name="same_address"]').click(function(event) {
@@ -188,6 +151,7 @@ $(document).ready(function() {
                });
        }
 	})
+	/*
 	$('#country').change(function(event){
 	   var $this = $(this);
        var $state = $('#address_state');
@@ -197,6 +161,7 @@ $(document).ready(function() {
            $state.removeAttr("disabled");
        } 
 	})
+	*/
 	$('#more_information').attr('placeholder','Additional information...')
 	//bootstrap lightbox
 	var $instagramImage = $('.instagram-feed-list li, .photo-list li');
