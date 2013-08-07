@@ -4,10 +4,8 @@
  * PyroStreams Admin
  *
  * @package		PyroStreams
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @author		PyroCMS
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Admin_Entries extends Admin_Controller {
 
