@@ -15,7 +15,6 @@ if ( ! file_exists('system/cms/config/database.php'))
 	exit;
 }
 
-
 /*
  *---------------------------------------------------------------
  * APPLICATION ENVIRONMENT
