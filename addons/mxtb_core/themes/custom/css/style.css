@@ -4586,11 +4586,11 @@ a.badge:focus {
   .site-header .logo {
     background-size: 93% auto;
   }
+  .site-header nav {
+    font-size: 15px !important;
+  }
   .latest-news-block .blog-post {
     line-height: 1.6em;
-  }
-  .site-header h2 {
-    background-size: contain;
   }
   .widget .siderail_posts .blog-post .post-content h4 {
     font-size: 19.998px;
