@@ -45,7 +45,7 @@ class Field_chunks
 		// make an empty page chunks array with 1 entry.
 		if (isset(ci()->page_id))
 		{
-			$data['chunks'] = $this->CI->page_chunk_m->get_many_by('page_id', ci()->page_id);
+			$data['chunks'] = $this->CI->page_chunk_m->order_by('sort', 'ASC')->get_many_by('page_id', ci()->page_id);
 		}
 		else
 		{
