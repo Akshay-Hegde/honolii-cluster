@@ -12,6 +12,6 @@ uploads/*
 
 !wetumka custom below
 Capfile
-config/
+config/deploy.rb
 *.bak
 *.orig
