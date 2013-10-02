@@ -377,6 +377,27 @@ div.site-content{
         margin:2em auto 0;
         display:block;
       }
+      &:after{
+        content:'';
+        height:30px;
+        position:absolute;
+        top:600px;
+        display:block;
+        width:100%;
+       
+        background: -moz-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 70%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+        background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(0,0,0,0.6)), color-stop(70%,rgba(0,0,0,0)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+        background: -webkit-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+        background: -o-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* Opera 12+ */
+        background: -ms-radial-gradient(center, ellipse cover, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* IE10+ */
+        background: radial-gradient(ellipse at center, rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%); /* W3C */
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#99000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+        
+        background-repeat: no-repeat;
+        background-position:0 -15px;
+        background-size:100% 100%;
+
+      }
       .block{
         background-image:url(../img/lava-background.jpg);
         background-repeat:repeat;
@@ -384,6 +405,7 @@ div.site-content{
         width:100%;
         position:relative;
         overflow:hidden;
+       
         h1{
           background-image:url(../img/jasc-site-sprites.png);
           background-repeat:no-repeat;

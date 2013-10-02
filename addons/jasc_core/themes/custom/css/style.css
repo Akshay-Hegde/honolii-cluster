@@ -2705,6 +2705,24 @@ div.site-content section.section-block.home button.btn {
   margin: 2em auto 0;
   display: block;
 }
+div.site-content section.section-block.home:after {
+  content: '';
+  height: 30px;
+  position: absolute;
+  top: 600px;
+  display: block;
+  width: 100%;
+  background: -moz-radial-gradient(center,ellipse cover,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+  background: -webkit-gradient(radial,center center,0px,center center,100%,color-stop(0%,rgba(0,0,0,0.6)),color-stop(70%,rgba(0,0,0,0)),color-stop(100%,rgba(0,0,0,0)));
+  background: -webkit-radial-gradient(center,ellipse cover,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+  background: -o-radial-gradient(center,ellipse cover,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+  background: -ms-radial-gradient(center,ellipse cover,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+  background: radial-gradient(ellipse at center,rgba(0,0,0,0.6) 0%,rgba(0,0,0,0) 70%,rgba(0,0,0,0) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#99000000',endColorstr='#00000000',GradientType=1);
+  background-repeat: no-repeat;
+  background-position: 0 -15px;
+  background-size: 100% 100%;
+}
 div.site-content section.section-block.home .block {
   background-image: url(../img/lava-background.jpg);
   background-repeat: repeat;
@@ -3066,6 +3084,9 @@ div.site-content .pyro-image.alignment-left {
   div.site-content section.section-block.home {
     padding-top: 150px;
   }
+  div.site-content section.section-block.home:after {
+    top: 400px;
+  }
   div.site-content section.section-block.home .block {
     height: 250px;
   }
@@ -3222,6 +3243,9 @@ div.site-content .pyro-image.alignment-left {
   div.site-content section.section-block.home {
     padding-top: 70px;
     min-height: 110%;
+  }
+  div.site-content section.section-block.home:after {
+    top: 220px;
   }
   div.site-content section.section-block.home .block {
     height: 150px;
