@@ -25,5 +25,6 @@
 
 // Rewrite the URLs
 $route['payment/index']			= 'payment';
-$route['payment/customer']         = 'payment/customer';
+$route['payment/cc']            = 'payment/creditcard';
+$route['payment/success']       = 'payment/success';
 ?>

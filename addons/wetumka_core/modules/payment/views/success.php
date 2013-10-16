@@ -1,0 +1,1 @@
+<h1>Payment Complete</h1><table class="table">    <tr>        <td>Payment:</td>        <td>${{ session:data name="payment" }}</td>    </tr>    <tr>        <td>Invoice:</td>        <td>{{ session:data name="invoice" }}</td>    </tr>    <tr>        <td>Transaction ID:</td>        <td>{{ session:data name="transID" }}</td>    </tr></table>
