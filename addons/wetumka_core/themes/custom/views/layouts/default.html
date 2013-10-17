@@ -32,7 +32,7 @@
         {{ theme:partial name="header" }}
         <!-- Content -->
         <div id="content" class="container site-content">
-            {{session:messages success="success" notice="notice" error="error"}}
+            {{session:messages success="alert alert-success" notice="alert alert-info" error="alert"}}
             <!-- view > default -->
             {{ template:body }}
         </div>
