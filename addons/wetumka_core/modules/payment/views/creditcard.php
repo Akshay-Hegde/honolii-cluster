@@ -1,4 +1,5 @@
 {{ asset:js file="module::payment.js" }}
+{{ asset:css file="module::style.css" }}
 
 <script src="https://js.braintreegateway.com/v1/braintree.js" type="text/javascript" charset="utf-8"></script>
 <script type="text/javascript">
@@ -36,7 +37,7 @@
             <!-- Credit Card CVV Number -->
             <label>CVV</label>
             <input type="text" class="span3" autocomplete="off" data-encrypted-name="cc_cvv" />
-            
+            <i class="cvv"></i>
             <!-- Credit Card Exp Date -->
             <label>Expiration Date</label>
             <p class="form-inline">
@@ -63,7 +64,7 @@
     </div>
     <div id="payment_credit" class="form-actions">
         <?php echo form_submit('submit','Submit Payment','class="btn btn-large btn-primary"'); ?>
-        <button type="button" class="btn btn-large">Cancel</button>
+        <a href="/payment/cancel" class="btn btn-large">Cancel</a>
     </div>
 </fieldset>
 <?php echo form_close(); ?>    

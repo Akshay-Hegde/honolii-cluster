@@ -4,6 +4,7 @@ var paymentObj, braintree;
 paymentObj = {
 	$paymentBTN : $('button','#payment_choice'),
 	$paymentForm : $('#form_value_method'),
+	$printBTN : $('#print_screen'),
 	
 	methodClick : function(event){
 		// set value of hidden field
@@ -14,7 +15,11 @@ paymentObj = {
 };
 // click payment option buttons
 paymentObj.$paymentBTN.click(paymentObj,paymentObj.methodClick);
-
+// click print payment button
+paymentObj.$printBTN.click(function(){
+	window.print();
+});
+// Braintree Encrypt
 if(typeof braintreeClientKey != 'undefined' && braintreeClientKey){
 	braintree = Braintree.create(braintreeClientKey);
 	braintree.onSubmitEncryptForm("form_cc");

@@ -24,7 +24,9 @@
 //$route['galleries/admin(:any)?'] 	= 'admin$1';
 
 // Rewrite the URLs
-$route['payment/index']			= 'payment';
-$route['payment/cc']            = 'payment/creditcard';
-$route['payment/success']       = 'payment/success';
+$route['payment/index']                     = 'payment';
+$route['payment/cc']                        = 'payment/creditcard';
+$route['payment/success']                   = 'payment/success';
+$route['payment/cancel']                    = 'payment/cancel';
+$route['payment/redirect/dwolla']           = 'payment/dwollaRedirect';
 ?>

@@ -35,24 +35,31 @@ class Module_Payment extends Module {
 
     public function install()
     {
-        $this->dbforge->drop_table('payment');
+        $this->dbforge->drop_table('payments');
         $this->db->delete('settings', array('module' => 'payment'));
 
         $tables = array(
-            'payment' => array(
+            'payments' => array(
                 'id' => array(
                     'type' => 'INT',
                     'constraint' => '11',
                     'auto_increment' => true,
                     'primary' => true
                 ),
-                'name' => array(
+                'value' => array(
+                    'type' => 'DECIMAL',
+                    'constraint' => array(12,2)
+                ),
+                'invoice' => array(
                     'type' => 'VARCHAR',
                     'constraint' => '100'
                 ),
-                'slug' => array(
+                'confirm' => array(
                     'type' => 'VARCHAR',
                     'constraint' => '100'
+                ),
+                'date' => array(
+                    'type' => 'DATE'
                 )
             )
         );
@@ -85,7 +92,7 @@ class Module_Payment extends Module {
                 'value' => '/404',
                 'type' => 'text',
                 'options' => '',
-                'is_required' => 0,
+                'is_required' => 1,
                 'is_gui' => 1,
                 'module' => 'payment',
                 'order' => 82
@@ -93,11 +100,11 @@ class Module_Payment extends Module {
             array(
                 'slug' => 'braintree_environment',
                 'title' => 'Braintree Environment',
-                'description' => 'Set the environment value. ex: sandbox',
-                'default' => '',
-                'value' => '',
-                'type' => 'text',
-                'options' => '',
+                'description' => 'Set the environment value.',
+                'default' => 'production',
+                'value' => 'production',
+                'type' => 'radio',
+                'options' => 'production=Production|sandbox=Sandbox',
                 'is_required' => 0,
                 'is_gui' => 1,
                 'module' => 'payment',
@@ -169,6 +176,19 @@ class Module_Payment extends Module {
                 'order' => 40
             ),
             array(
+                'slug' => 'dwolla_test',
+                'title' => 'Dwolla Testing',
+                'description' => 'Flag if purchase order is for testing purposes only. Does not affect account balances and no emails are sent.',
+                'default' => '0',
+                'value' => '0',
+                'type' => 'radio',
+                'options' => '0=No|1=Yes',
+                'is_required' => 0,
+                'is_gui' => 1,
+                'module' => 'payment',
+                'order' => 39
+            ),
+            array(
                 'slug' => 'dwolla_key',
                 'title' => 'Dwolla Key',
                 'description' => 'Set the key value.',
@@ -211,7 +231,7 @@ class Module_Payment extends Module {
 
     public function uninstall()
     {
-        $this->dbforge->drop_table('payment');
+        $this->dbforge->drop_table('payments');
 
         $this->db->delete('settings', array('module' => 'payment'));
 
@@ -229,11 +249,14 @@ class Module_Payment extends Module {
     public function help()
     {
         // Return a string containing help info
-        return "Here you can enter HTML with paragrpah tags or whatever you like";
+        $helpString = '';
+        $helpString .= '<p>The payment module is set to use the Braintree and Dwolla for online payments. Set payment options in the admin setting tab.</p><hr/>';
+        $helpString .= '<p><strong>Disable Dwolla:</strong> Dwolla ID (leave blank to disable Dwolla payments)</p>';
+        $helpString .= '<p><strong>Disable Braintree:</strong> Braintree Merchant ID  (leave blank to disable Braintree payments)</p>';
+        $helpString .= '<p><strong>Testing Dwolla:</strong> Dwolla Testing (radio options)</p>';
+        $helpString .= '<p><strong>Testing Braintree:</strong> Braintree Environment (radio options)</p>';
+        
+        return $helpString;
 
-        // or
-
-        // You could include a file and return it here.
-        return $this->load->view('help', null, true); // loads modules/sample/views/help.php
     }
 }

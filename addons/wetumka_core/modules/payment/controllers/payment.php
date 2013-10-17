@@ -78,13 +78,31 @@ class Payment extends Public_Controller {
     public function __construct() {
             
         parent::__construct();
-
+        
+        if(Settings::get('disable_payments')){
+            redirect(Settings::get('disable_url'));
+        }
+        
         // Load the required classes
         $this->load->helper('form');
-
+        $this->load->model('payment_m');
+        
     }
 
     public function index() {
+            
+        $data = array();
+        
+        // Check if Braintree Merchant ID or Dwolla ID are present
+        if(Settings::get('braintree_merchantId'))
+        {
+            $data['braintree'] = TRUE;
+        }
+        
+        if(Settings::get('dwolla_id'))
+        {
+            $data['dwolla'] = TRUE;
+        }
         
         // Set the validation rules
         $this->form_validation->set_rules($this->method_rules);
@@ -104,10 +122,7 @@ class Payment extends Public_Controller {
                 if($result->Result === 'Success'){
                     redirect('https://www.dwolla.com/payment/checkout/' . $result->CheckoutId);
                 }
-                else
-                {
-                    
-                }
+ 
             }
             
             // Braintree Payment Form
@@ -120,7 +135,9 @@ class Payment extends Public_Controller {
         else
         {
             
-            $this->template->build('index');
+            $this->template
+                ->set('data',  $data)
+                ->build('index');
                 
         }
     }
@@ -138,7 +155,10 @@ class Payment extends Public_Controller {
             
             if ($result->success)
             {
-                $this->session->set_userdata('transID', $result->transaction->id);
+                $this->session->set_userdata('transID', 'Braintree: ' . $result->transaction->id);
+                
+                $this->payment_m->create();
+                
                 redirect('/payment/success');
             }
             else
@@ -178,13 +198,67 @@ class Payment extends Public_Controller {
     }
 
     public function success() {
+            
+        $data['transID'] = $this->session->userdata('transID');
+        $data['payment'] = $this->session->userdata('payment');
+        $data['invoice'] = $this->session->userdata('invoice');
+        $data['finishURL'] = $_SERVER['HTTP_HOST'];
+        $data['title'] = 'Payment Complete';
+        $data['success'] = TRUE;
+        
+        $this->session->unset_userdata('transID');
+        $this->session->unset_userdata('payment');
+        $this->session->unset_userdata('invoice');
         
         $this->template
-            //->set('data',  $data)
-            ->build('success');
+            ->set('data', $data)
+            ->build('callback');
                 
     }
 
+    public function cancel()
+    {
+        $this->session->unset_userdata('payment');
+        $this->session->unset_userdata('invoice');
+        
+        $this->session->set_flashdata('notice', '<button type="button" class="close" data-dismiss="alert">&times;</button>Your payment session was canceled');
+        
+        redirect('/');
+    }
+
+    public function dwollaRedirect()
+    {
+        if(isset($_GET['status']))
+        {
+            if ($_GET['status'] === "Completed")
+            {
+                $this->session->set_userdata('transID', 'Dwolla: ' . $_GET['transaction']);
+                
+                $this->payment_m->create();
+                
+                redirect('/payment/success');
+            }
+        }
+        elseif (isset($_GET['error']))
+        {
+                
+            $data['payment'] = $this->session->userdata('payment');
+            $data['invoice'] = $this->session->userdata('invoice');
+            $data['finishURL'] = $_SERVER['HTTP_HOST'];
+            $data['title'] = 'Payment Incomplete';
+            $data['success'] = FALSE;
+            $data['transERROR'] = $_GET['error_description'];
+            
+            $this->session->unset_userdata('payment');
+            $this->session->unset_userdata('invoice');  
+           
+            $this->template
+                ->set('data', $data)
+                ->build('callback');
+           
+        }
+    }
+    
     private function braintreeAPI() {
         
         // load the braintree library
@@ -223,8 +297,7 @@ class Payment extends Public_Controller {
             "Key" =>                        Settings::get('dwolla_key'),
             "Secret" =>                     Settings::get('dwolla_secret'),
             "AllowFundingSources" =>        TRUE,
-            "Redirect" =>                   "http://wetumka.local/payment/success",
-            "Callback" =>                   "http://wetumka.local/payment/success",
+            "Test" =>                       Settings::get('dwolla_test'),
             "PurchaseOrder" => array(
                 "DestinationId" =>          Settings::get('dwolla_id'),
                 "Shipping" =>               0.00,
