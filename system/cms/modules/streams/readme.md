@@ -1,4 +1,4 @@
-# PyroStreams v2.3.2
+# PyroStreams v2.3.3
 
 ## Installation
 
@@ -14,7 +14,7 @@ PyroStreams comes with PyroCMS Pro, so the PyroStreams docs are built in to the 
 
 ## Support
 
-Please use the [PyroCMS forums](https://forum.pyrocms.com/) for support requests. If you have a streams emergency, feel free to contact me at adam@pyrocms.com.
+Please use this [Zendesk site](https://parse19.zendesk.com/) for support requests. If you have a streams emergency, feel free to contact me at adam@pyrocms.com.
 
 ## License
 

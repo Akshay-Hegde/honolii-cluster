@@ -3,11 +3,9 @@
 /**
  * Streams Search Model
  *
- * @package		Streams
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Search_m extends CI_Model {
 
@@ -81,7 +79,10 @@ class Search_m extends CI_Model {
 	}
 
 	public function build_query($fields, $search_term, $stream, $search_type = 'keywords')
-	{				
+	{		
+		$db = $this->db;
+		$link = mysql_connect($db->hostname, $db->username, $db->password);
+
 		$keywords 		= $this->CI->security->xss_clean($search_term);
 		
 		$keywords		= explode(" ", $keywords);
@@ -108,10 +109,10 @@ class Search_m extends CI_Model {
 			
 				foreach ($fields as $field) {
 				
-					$likes[] = "$field LIKE '%".mysql_real_escape_string($keyword)."%'";
+					$likes[] = "$field LIKE '%".mysql_real_escape_string($keyword, $link)."%'";
 					
 					// We also search cumulative keywords
-					$likes[] = "$field LIKE '%".mysql_real_escape_string($keyword_build)."%'";
+					$likes[] = "$field LIKE '%".mysql_real_escape_string($keyword_build, $link)."%'";
 				}
 			}
 		}

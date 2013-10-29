@@ -11,7 +11,6 @@
  * if this is not the case. This is like the streams
  * version of role_or_die.
  *
- * @access 	private
  * @return 	mixed
  */
 function check_stream_permission($stream, $redirect = true)

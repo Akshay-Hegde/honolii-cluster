@@ -9,16 +9,12 @@
  */
 class Plugin_Streams extends Plugin
 {
-	
 	/**
 	 * Field Types
 	 *
-	 * @access	public
 	 * @var		obj
 	 */
 	public $types;
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Cache Vars
@@ -31,15 +27,12 @@ class Plugin_Streams extends Plugin
 	public $cache					= null;			// num of seconds or minutes
 	public $cache_hash				= null;
 	public $write_tag_cache			= false;		// Whether or not we need
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * PyroStreams Plugin Construct
 	 *
 	 * Just a bunch of loads and prep
 	 *
-	 * @access	public
 	 * @return	void
 	 */
 	public function __construct()
@@ -56,8 +49,6 @@ class Plugin_Streams extends Plugin
 		$this->entries_params = $this->streams->entries->entries_params;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * PyroStreams attribute function
 	 *
@@ -69,18 +60,17 @@ class Plugin_Streams extends Plugin
 	 * However, since the syntax is slightly different,
 	 * we will keep this around for backwards compat.
 	 *
-	 * @access	public
-	 * @param	string
-	 * @param	[string]
+	 * @param	string 	$param
+	 * @param	string 	$default
 	 * @return	string
 	 */	
-	public function streams_attribute($param, $default = NULL)
+	public function streams_attribute($param, $default = null)
 	{
 		$value = $this->attribute($param, $default);
 	
 		// See if we have any vars in there
-		if(strpos($value, '[') !== FALSE):
-		
+		if (strpos($value, '[') !== false)
+		{
 			$segs = array(
 				'segment_1' => $this->uri->segment(1),
 				'segment_2' => $this->uri->segment(2),
@@ -93,25 +83,20 @@ class Plugin_Streams extends Plugin
 			);
 						
 			// We can only get the user data if it is available
-			if($this->current_user):
-			
+			if ($this->current_user)
+			{
 				$segs['user_id']	= $this->current_user->id;
 				$segs['username']	= $this->current_user->username;
-			
-			endif;
+			}
 
-			foreach($segs as $seg_marker => $segment_value):
-			
+			foreach ($segs as $seg_marker => $segment_value)
+			{
 				$value = str_replace("[$seg_marker]", $segment_value, $value);
-			
-			endforeach;
-		
-		endif;
-		
+			}
+		}
+				
 		return $value;
 	}
-
-	// --------------------------------------------------------------------------
 
 	/**
 	 * _call
@@ -121,7 +106,6 @@ class Plugin_Streams extends Plugin
 	 *
 	 * {{ streams:stream_slug }}
 	 *
-	 * @access 	public
 	 * @param	string
 	 * @param	string
 	 * @return	void
@@ -130,16 +114,13 @@ class Plugin_Streams extends Plugin
 	{
 		return $this->cycle($name);
 	}
-	
-	// --------------------------------------------------------------------------
-	
+		
 	/**
 	 * Cycle
 	 *
 	 * List entries in a stream.
 	 *
-	 * @access	public
-	 * @param 	string 	[$stream_slug]	Option stream slug to pass.
+	 * @param 	string 	$stream_slug Option stream slug to pass.
 	 * @return 	string
 	 */
 	public function cycle($stream_slug = null)
@@ -244,17 +225,18 @@ class Plugin_Streams extends Plugin
 		$this->fields = $this->streams_m->get_stream_fields($stream->id);
 
 		// -------------------------------------
-		// Get Rows
+		// Get Rows (Cache if Necessary)
 		// -------------------------------------
 
+		// If we are caching, set the correct variables.
 		if ($this->cache_type == 'query' and is_numeric($this->cache))
 		{
-			$rows = $this->pyrocache->model('row_m', 'get_rows', array($params, $this->fields, $stream), $this->cache);
+			$params['cache_query'] = true;
+			$params['cache_expires'] = $this->cache;
+			$params['cache_folder'] = 'streams'.DIRECTORY_SEPARATOR.$stream->stream_namespace;
 		}
-		else
-		{
-			$rows = $this->row_m->get_rows($params, $this->fields, $stream);
-		}
+
+		$rows = $this->row_m->get_rows($params, $this->fields, $stream);
 		
 		// -------------------------------------
 		// Rename
@@ -394,14 +376,11 @@ class Plugin_Streams extends Plugin
 		return $return_content;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Setup the Cache Vars
 	 *
 	 * Set cache type, time format, and hash
 	 *
-	 * @access 	private
 	 * @return 	void
 	 */
 	private function setup_cache()
@@ -422,7 +401,7 @@ class Plugin_Streams extends Plugin
 			if ($this->cache_time_format == 'minutes')
 			{
 				// If they specified minutes we just need to
-				// convert it to second
+				// convert it to seconds
 				$this->cache = $this->cache*60;
 			}
 		}
@@ -430,15 +409,12 @@ class Plugin_Streams extends Plugin
 		$this->set_cache_hash();
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Set the cache hash
 	 *
 	 * This creates a unique cache hash based on the
 	 * unique set of tag parameters.
 	 *
-	 * @access 	private
 	 * @return 	void
 	 */
 	private function set_cache_hash()
@@ -446,13 +422,10 @@ class Plugin_Streams extends Plugin
 		$this->cache_hash = md5(implode('-', $this->attributes()).$this->content());
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Write tag cache if we need to
 	 *
-	 * @access 	private
-	 * @param 	string - the content to write
+	 * @param 	string $content the content to write
 	 * @return 	void
 	 */
 	private function tag_cache_write($content)
@@ -463,13 +436,10 @@ class Plugin_Streams extends Plugin
 		}		
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Full tag cache
 	 *
-	 * @access 	private
-	 * @return 	mixed - null or string
+	 * @return 	mixed null or string
 	 */
 	private function full_tag_cache()
 	{
@@ -496,12 +466,9 @@ class Plugin_Streams extends Plugin
 		return null;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Reset the cache vars to their defaults
 	 *
-	 * @access 	private
 	 * @return 	void
 	 */
 	private function clear_cache_vars()
@@ -513,14 +480,11 @@ class Plugin_Streams extends Plugin
 		$this->write_tag_cache		= false;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Total
 	 *
 	 * Get the total number of rows for a stream.
 	 *
-	 * @access	public
 	 * @return	int
 	 */
 	public function total()
@@ -553,15 +517,13 @@ class Plugin_Streams extends Plugin
 			return $this->db->count_all(STR_PRE.$this->streams_attribute('stream'));
 		}
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Single
 	 *
-	 * Show a single stream entry.
+	 * Show a single stream entry. This just
+	 * maps to $this->cycle();
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function single()
@@ -570,13 +532,10 @@ class Plugin_Streams extends Plugin
 
 		return $this->cycle();
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Output an input form for a stream
 	 *
-	 * @access	public
 	 * @return	array
 	 */
 	public function form()
@@ -801,6 +760,8 @@ class Plugin_Streams extends Plugin
 		
 		if ($recaptcha)
 		{
+			$this->load->library('streams_core/recaptcha');
+
 			$this->recaptcha->_rConfig['theme'] = $this->streams_attribute('recaptcha_theme', 'red');
 
 			$vars['recaptcha'] = $this->recaptcha->get_html();
@@ -847,11 +808,14 @@ class Plugin_Streams extends Plugin
 		return array($vars);				
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Determine the fields to skip
 	 * based on include/exclude
+	 *
+	 * @param 	string 	$include
+	 * @param 	string 	$exclude
+	 * @param 	int 	$stream_id
+	 * @param 	obj 	$stream_fields
 	 */
 	private function determine_skips($include, $exclude, $stream_id, $stream_fields = null)
 	{
@@ -885,13 +849,10 @@ class Plugin_Streams extends Plugin
 
 		return $skips;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Form assets
 	 *
-	 * @access	public
 	 * @return	string
 	 */	
 	public function form_assets()
@@ -911,15 +872,12 @@ class Plugin_Streams extends Plugin
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Form CSRF input
 	 *
 	 * You might need this if you are not using the {{ form_open }} variable.
 	 *
-	 * @access 	public
-	 * @return 	mixed - null or string
+	 * @return 	mixed
 	 */
 	public function form_csrf()
 	{
@@ -929,8 +887,6 @@ class Plugin_Streams extends Plugin
 		}		
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Form Fields
 	 *
@@ -1020,13 +976,10 @@ class Plugin_Streams extends Plugin
 
 		return array($vars);				
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Delete a row field
 	 *
-	 * @access	public
 	 * @return	mixed
 	 */
 	public function delete_entry()
@@ -1129,12 +1082,9 @@ class Plugin_Streams extends Plugin
 		}
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Default Calendar Template
 	 *
-	 * @access	public
 	 * @var		string
 	 */
 	public $calendar_template = '
@@ -1170,12 +1120,9 @@ class Plugin_Streams extends Plugin
 	   {table_close}</table>{/table_close}
 	';
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Calendar
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	public function calendar()
@@ -1366,12 +1313,9 @@ class Plugin_Streams extends Plugin
 		return $return_content;
 	}
 
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Seach Form
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	function search_form()
@@ -1381,6 +1325,9 @@ class Plugin_Streams extends Plugin
 		$stream_slug 	= $this->streams_attribute('stream');
 		$namespace 		= $this->streams_attribute('namespace', $this->core_namespace);
 		$fields 		= $this->streams_attribute('fields');
+
+		$string = 		implode('.', $this->attributes());
+		$form_id 		= md5($string);
 		
 		$search_types 	= array('keywords', 'full_phrase');
 		
@@ -1428,7 +1375,8 @@ class Plugin_Streams extends Plugin
 		// Check for our search term
 		// -------------------------------------
 		
-		if (isset($_POST['search_term']))
+		if (isset($_POST['search_term']) 
+				and $this->input->post('form_identifier') == $form_id)
 		{
 			$this->load->model('streams/search_m');
 			
@@ -1449,7 +1397,10 @@ class Plugin_Streams extends Plugin
 		// Build Form
 		// -------------------------------------
 
-		$vars['form_open']			= form_open($this->uri->uri_string());
+		// Add a hidden form identifier
+		$hidden = array('form_identifier' => $form_id);
+
+		$vars['form_open']			= form_open($this->uri->uri_string(), '', $hidden);
 
 		$search_input = array(
 		              'name'        => 'search_term',
@@ -1462,12 +1413,9 @@ class Plugin_Streams extends Plugin
 		return array($vars);
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Search Results
 	 *
-	 * @access	public
 	 * @return	string
 	 */
 	function search_results()
@@ -1574,34 +1522,26 @@ class Plugin_Streams extends Plugin
 							$this->content(), $return, $stream->stream_slug,
 							$stream->stream_namespace, false);
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Output debug message or just
 	 * return FALSE.
 	 *
-	 * @access	private
 	 * @param	string
 	 * @return 	mixed
 	 */	
 	private function _error_out($msg)
 	{
-		return ($this->debug_status == 'on') ? show_error($msg) : FALSE;
+		return ($this->debug_status == 'on') ? show_error($msg) : false;
 	}
 
-	// --------------------------------------------------------------------------
-	// Legacy Functions
-	// --------------------------------------------------------------------------
-	
 	/**
 	 * Format date variables
 	 *
 	 * Legacy. This is now done by the date helper
 	 * or in the datetime field type.
 	 *
-	 * @access	public
-	 * @return	string - formatted date
+	 * @return	string formatted date
 	 */
 	public function date()
 	{

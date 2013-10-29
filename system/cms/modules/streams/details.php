@@ -12,12 +12,9 @@ class Module_Streams extends Module {
 	/**
 	 * PyroStreams Version Number
 	 *
-	 * @access	public
 	 * @var		string
 	 */
-	public $version = '2.3.2';
-
-	// --------------------------------------------------------------------------
+	public $version = '2.3.3';
 
 	public function info()
 	{
@@ -150,8 +147,6 @@ class Module_Streams extends Module {
 		return $info;
 	}
 
-	// --------------------------------------------------------------------------
-
 	public function admin_menu(&$menu)
 	{
 		$this->load->helper('streams/streams');
@@ -187,15 +182,12 @@ class Module_Streams extends Module {
 		}
 	}
 	
-	// --------------------------------------------------------------------------
-
 	/**
 	 * Install
 	 *
 	 * All core streams tables are taken care of by Streams
 	 * Core now. We only need to add the searches table.
 	 *
-	 * @access	public
 	 * @return	bool
 	 */	
 	public function install()
@@ -278,8 +270,6 @@ class Module_Streams extends Module {
 				
 		return true;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	/**
 	 * Uninstall Streams
@@ -290,7 +280,6 @@ class Module_Streams extends Module {
 	 * We do not break down the core stream tables
 	 * anymore since they are now part of streams_core.
 	 * 
-	 * @access	public
 	 * @return 	bool
 	 */
 	public function uninstall()
@@ -301,8 +290,6 @@ class Module_Streams extends Module {
 		
 		return TRUE;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	public function upgrade($old_version)
 	{
@@ -322,18 +309,16 @@ class Module_Streams extends Module {
 
 		return TRUE;
 	}
-
-	// --------------------------------------------------------------------------
 	
 	public function help()
 	{
 		$out = '<p>Documentation for PyroStreams can be found here:</p>
 		
-		<p><a href="http://parse19.com/pyrostreams/docs" target="_blank">http://parse19.com/pyrostreams/docs</a></p>
+		<p><a href="http://docs.pyrocms.com/2.2/manual/guides/streamsdocs" target="_blank">http://docs.pyrocms.com/2.2/manual/guides/streams</a></p>
 		
-		<p>Support for PyroStreams can be found here::</p>
+		<p>Support for PyroStreams can be found here:</p>
 		
-		<p><a href="http://parse19.com/support" target="_blank">http://parse19.com/support</a></p>';
+		<p><a href="https://parse19.zendesk.com" target="_blank">https://parse19.zendesk.com</a></p>';
 		
 		return $out;
 	}
