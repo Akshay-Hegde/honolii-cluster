@@ -3,8 +3,9 @@
 /**
  * Entries Driver
  *
- * @author  	Parse19
- * @package  	PyroCMS\Core\Libraries\Streams\Drivers
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */ 
  
 class Streams_entries extends CI_Driver {
@@ -46,7 +47,10 @@ class Streams_entries extends CI_Driver {
 			'pag_query_var'		=> 'page',		// Only used if 'pag_uri_method' is query_string
 			'pag_base'			=> null, 		// If null, this is automatically set
 			'partial'			=> null,
-			'site_ref'			=> SITE_REF
+			'site_ref'			=> SITE_REF,
+			'cache_query'		=> false, 		// Should we cache the query?
+			'cache_folder'		=> 'streams_query',	// The folder to place the cache
+			'cache_expires'		=> null,		// Expiration in seconds for cache
 	);
 
 	// --------------------------------------------------------------------------

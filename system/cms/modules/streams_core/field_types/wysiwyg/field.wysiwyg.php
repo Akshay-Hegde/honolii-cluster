@@ -3,11 +3,9 @@
 /**
  * PyroStreams WYSIWYG Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_wysiwyg
 {
@@ -99,7 +97,7 @@ class Field_wysiwyg
 	
 		$options['name'] 	= $data['form_slug'];
 		$options['id']		= $data['form_slug'];
-		$options['value']	= $data['value'];
+		$options['value']	= html_entity_decode($data['value'], null, 'UTF-8');
 		
 		return form_textarea($options);
 	}

@@ -3,11 +3,9 @@
 /**
  * PyroStreams Keywords Field Type
  *
- * @package		PyroCMS\Core\Modules\Streams Core\Field Types
- * @author		Parse19
- * @copyright	Copyright (c) 2011 - 2012, Parse19
- * @license		http://parse19.com/pyrostreams/docs/license
- * @link		http://parse19.com/pyrostreams
+ * @package		PyroStreams
+ * @author		PyroCMS Dev Team
+ * @copyright	Copyright (c) 2011 - 2013, PyroCMS
  */
 class Field_keywords
 {
@@ -52,8 +50,18 @@ class Field_keywords
 	}
 
 
-	public function pre_save($input)
+	public function pre_save($input, $field=null, $stream=null, $row_id=null)
 	{
+		// Remove any existing applied keywords
+		if (!empty($row_id) and !empty($stream))
+		{
+			$this->CI->load->model(array('keywords/keyword_m', 'streams_core/row_m'));
+
+			$row = $this->CI->row_m->get_row($row_id, $stream, false);
+			$keyword_hash = $row->keywords;
+			$this->CI->keyword_m->delete_applied($keyword_hash);
+		}
+
 		return Keywords::process($input);
 	}
 
