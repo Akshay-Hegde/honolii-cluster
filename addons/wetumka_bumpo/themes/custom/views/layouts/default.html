@@ -18,45 +18,12 @@
 		{{ theme:partial name="header" }}
 		<!-- Content -->
 		<div id="content" class="container site-content">
-            <div class="row">
-                <div class="span12">
-                    <div class="box-line">
-                        {{ if page:id == '1' }}
-                        <div id="myCarousel" class="splash-block carousel slide">
-                          <div class="carousel-inner">
-                            {{ streams:cycle stream="sliders" }}
-                                <div class="item {{ if count == 1 }}active{{ endif }}">
-                                    {{ if landing_page }}<a href="{{landing_page}}">{{ endif }}
-                                    {{ slide_image:img }}
-                                    {{ if landing_page }}</a>{{ endif }}
-                                </div>
-                            {{ /streams:cycle }}
-                          </div>
-                          <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
-                          <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
-                        </div>
-                        {{ else }}
-                            {{ theme:partial name="breadcrumbs" }}
-                        {{ endif }}
-                        <div class="template-wrapper">
+            
+                        {{ theme:partial name="breadcrumbs" }}
                         {{session:messages success="success" notice="notice" error="error"}}
                         <!-- view > default -->
                         {{ template:body }}
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row services-block">
-            	<div class="span6">
-            	    <a href="{{ pages:url id="5" }}" class="track-construction"><span class="cta">View More</span></a>
-            	</div>
-            	<div class="span6">
-            	    <a href="{{ pages:url id="6" }}" class="track-design"><span class="cta">View More</span></a>
-            	</div>
-            </div>
-            {{ if page:id == '1' }}
-                {{ theme:partial name="latest-news" }}
-            {{ endif }}
+                        
         </div>
     </div>
 	<!-- Footer -->

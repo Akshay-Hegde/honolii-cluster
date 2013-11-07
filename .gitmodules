@@ -3,6 +3,8 @@
 	url = git@github.com:edmeehan/galleries.git
 
 [submodule "libraries/bootstrap"]
-
 	path = libraries/bootstrap
+	url = git@github.com:twbs/bootstrap.git
+[submodule "libraries/bootstrap-302"]
+	path = libraries/bootstrap-302
 	url = git@github.com:twbs/bootstrap.git

@@ -1,15 +1,6 @@
 <!-- Begin header -->
 <header id="header" class="site-header">
-	<div class="container">
-		<h2 id="logo" class="logo">{{ settings:site_name }}</h2>
-		<button class="btn visible-phone btn-nav btn-primary"><i class="icon-plus-sign icon-white"></i></button>
-		<nav id="top-nav" class="navbar">
-			<div class="navbar-inner">
-				<ul class="nav">
-					{{ navigation:links group="header" }}
-				</ul>
-			</div>
-		</nav>
-	</div>
+	{{ settings:site_name }}
+	{{ navigation:links group="header" }}
 </header>
 <!-- End header -->
