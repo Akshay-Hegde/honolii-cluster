@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie10 lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
+{{ endif }}
+</head>
+<body>
+	<div id="wrapper">	
+		{{ theme:partial name="header" }}
+		<!-- Content -->
+		<div id="content" class="container site-content">
+            <div class="row">
+                <div class="span12">
+                    <div class="box-line">
+                        {{ if page:id == '1' }}
+                        <div id="myCarousel" class="splash-block carousel slide">
+                          <div class="carousel-inner">
+                            {{ streams:cycle stream="sliders" }}
+                                <div class="item {{ if count == 1 }}active{{ endif }}">
+                                    {{ if landing_page }}<a href="{{landing_page}}">{{ endif }}
+                                    {{ slide_image:img }}
+                                    {{ if landing_page }}</a>{{ endif }}
+                                </div>
+                            {{ /streams:cycle }}
+                          </div>
+                          <a class="carousel-control left" href="#myCarousel" data-slide="prev">&lsaquo;</a>
+                          <a class="carousel-control right" href="#myCarousel" data-slide="next">&rsaquo;</a>
+                        </div>
+                        {{ else }}
+                            {{ theme:partial name="breadcrumbs" }}
+                        {{ endif }}
+                        <div class="template-wrapper">
+                        {{session:messages success="success" notice="notice" error="error"}}
+                        <!-- view > default -->
+                        {{ template:body }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row services-block">
+            	<div class="span6">
+            	    <a href="{{ pages:url id="5" }}" class="track-construction"><span class="cta">View More</span></a>
+            	</div>
+            	<div class="span6">
+            	    <a href="{{ pages:url id="6" }}" class="track-design"><span class="cta">View More</span></a>
+            	</div>
+            </div>
+            {{ if page:id == '1' }}
+                {{ theme:partial name="latest-news" }}
+            {{ endif }}
+        </div>
+    </div>
+	<!-- Footer -->
+	{{ theme:partial name="footer" }}
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/footer-scripts"}}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>
+{{ endif }}
+</body>
+</html>
