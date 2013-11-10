@@ -14,20 +14,92 @@
 {{ endif }}
 </head>
 <body>
-	<div id="wrapper">	
-		{{ theme:partial name="header" }}
-		<!-- Content -->
-		<div id="content" class="container site-content">
-            
-                        {{ theme:partial name="breadcrumbs" }}
-                        {{session:messages success="success" notice="notice" error="error"}}
-                        <!-- view > default -->
-                        {{ template:body }}
-                        
-        </div>
-    </div>
-	<!-- Footer -->
-	{{ theme:partial name="footer" }}
+	<?php /*
+			{{ theme:partial name="breadcrumbs" }}
+            {{session:messages success="success" notice="notice" error="error"}}
+            <!-- view > default -->
+            {{ template:body }}
+    */ ?>
+    
+    {{ theme:partial name="header" }}
+    <div class="container">
+	{{ template:body }}
+	</div>
+	
+	{{ if page:id == 1 }}
+    {{ theme:partial name="carousel" }}
+    <div class="container marketing">
+		<!-- <section class="row">
+			<div class="col-lg-6">
+				<img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+				<h2>Heading</h2>
+				<p>
+					Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Praesent commodo cursus magna.
+				</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">View details &raquo;</a>
+				</p>
+			</div>
+			<div class="col-lg-6">
+				<img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
+				<h2>Heading</h2>
+				<p>
+					Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.
+				</p>
+				<p>
+					<a class="btn btn-default" href="#" role="button">View details &raquo;</a>
+				</p>
+			</div>
+		</section>
+
+
+		<hr class="featurette-divider"> -->
+
+		<section class="row featurette">
+			<div class="col-md-7">
+				<h2 class="featurette-heading">First featurette heading. <span class="text-muted">It'll blow your mind.</span></h2>
+				<p class="lead">
+					Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+				</p>
+			</div>
+			<div class="col-md-5">
+				<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+			</div>
+		</section>
+
+		<hr class="featurette-divider">
+
+		<section class="row featurette">
+			<div class="col-md-5">
+				<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+			</div>
+			<div class="col-md-7">
+				<h2 class="featurette-heading">Oh yeah, it's that good. <span class="text-muted">See for yourself.</span></h2>
+				<p class="lead">
+					Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+				</p>
+			</div>
+		</section>
+
+		<hr class="featurette-divider">
+
+		<section class="row featurette">
+			<div class="col-md-7">
+				<h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Checkmate.</span></h2>
+				<p class="lead">
+					Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.
+				</p>
+			</div>
+			<div class="col-md-5">
+				<img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+			</div>
+		</section>
+
+		<hr class="featurette-divider">
+		{{ endif }}
+		
+		{{ theme:partial name="footer" }}
+	</div>
 {{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}

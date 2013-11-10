@@ -1,6 +1,23 @@
 <!-- Begin header -->
-<header id="header" class="site-header">
-	{{ settings:site_name }}
-	{{ navigation:links group="header" }}
+<header class="navbar-wrapper">
+	<div class="container">
+		<div class="navbar navbar-inverse navbar-static-top" role="navigation">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">{{ settings:site_name }}</a>
+			</div>
+			<nav class="navbar-collapse collapse">
+				<ul class="nav navbar-nav">
+					{{ navigation:links group="header" }}
+				</ul>
+				<button class="navbar-btn btn navbar-right">Sign in</button>
+			</nav>
+		</div>
+	</div>
 </header>
 <!-- End header -->
