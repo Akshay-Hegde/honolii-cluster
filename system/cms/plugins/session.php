@@ -210,5 +210,70 @@ class Plugin_Session extends Plugin
 
 		return $output;
 	}
+    
+    /**
+     * Notices
+     *
+     * Include the session notices
+     *
+     * Usage:
+     *
+     *     {{ session:data name="foo" }}
+     *
+     * @return string The HTML of the notices.
+     */
+    public function tbs_messages()
+    {
+        $success_class = $this->attribute('success', 'success');
+        $notice_class  = $this->attribute('notice', 'info');
+        $error_class   = $this->attribute('error', 'warning');
+        
+        $dismissable   = $this->attribute('dismissable', TRUE);
+        $dismissable_class = ' alert-dismissable';
+        $dismissable_button = '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
+
+        $output = '';
+        
+        if(!$dismissable)
+        {
+           $dismissable_class = NULL;
+           $dismissable_button = NULL;
+        }
+
+        if ($this->session->flashdata('success'))
+        {
+            foreach ((array) $this->session->flashdata('success') as $message)
+            {
+                $output .= '<div class="alert alert-' . $success_class . $dismissable_class .'">';
+                $output .= $dismissable_button;
+                $output .= $message;
+                $output .= '</div>';
+            }
+        }
+
+        if ($this->session->flashdata('notice'))
+        {
+            foreach ((array) $this->session->flashdata('notice') as $message)
+            {
+                $output .= '<div class="alert alert-' . $notice_class . $dismissable_class .'">';
+                $output .= $dismissable_button;
+                $output .= $message;
+                $output .= '</div>';
+            }
+        }
+
+        if ($this->session->flashdata('error'))
+        {
+            foreach ((array) $this->session->flashdata('error') as $message)
+            {
+                $output .= '<div class="alert alert-' . $error_class . $dismissable_class .'">';
+                $output .= $dismissable_button;
+                $output .= $message;
+                $output .= '</div>';
+            }
+        }
+
+        return $output;
+    }
 
 }
