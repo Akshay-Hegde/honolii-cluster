@@ -19,7 +19,6 @@
 <!-- CSS Stylesheets -->
 {{ if global:environment == 'development' }}
 <!-- DEVELOPMENT FILES -->
-<link rel="stylesheet" href="/{{theme:path}}/css/bootstrap.css" />
 {{ less:compile file="build.less" output="style.css" }}
 {{ else }}
 <!-- PRODUCTION FILES -->

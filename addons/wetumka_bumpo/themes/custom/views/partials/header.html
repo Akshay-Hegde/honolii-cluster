@@ -13,9 +13,21 @@
 			</div>
 			<nav class="navbar-collapse collapse">
 				<ul class="nav navbar-nav">
-					{{ navigation:links group="header" }}
+			    	{{ navigation:links group="header-public" }}
+			    	
+			    	{{ if user:logged_in }}
+			    		<li><a href="{{ pages:url id="10" }}">Somthing Else</a></li>
+			    	{{ else }}
+			    		<li><a href="{{ pages:url id="10" }}">Join Now</a></li>
+			    	{{ endif }}
 				</ul>
-				<button class="navbar-btn btn navbar-right">Sign in</button>
+
+				{{ if user:logged_in }}
+					<p class="navbar-text navbar-right">Hello <a class="navbar-link" href="/my-profile">{{ user:display_name }}</a> | <a class="navbar-link" href="/users/logout">Logout</a></p>
+				{{ else }}
+					<a class="navbar-link navbar-text navbar-right" href="/users/login">Sign in</a>
+				{{ endif }}
+
 			</nav>
 		</div>
 	</div>

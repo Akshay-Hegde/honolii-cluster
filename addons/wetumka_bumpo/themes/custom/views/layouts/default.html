@@ -14,21 +14,13 @@
 {{ endif }}
 </head>
 <body>
-	<?php /*
-			{{ theme:partial name="breadcrumbs" }}
-            {{session:messages success="success" notice="notice" error="error"}}
-            <!-- view > default -->
-            {{ template:body }}
-    */ ?>
     
     {{ theme:partial name="header" }}
-    <div class="container">
-	{{ template:body }}
-	</div>
-	
+
 	{{ if page:id == 1 }}
     {{ theme:partial name="carousel" }}
-    <div class="container marketing">
+    <div class="container">
+    	{{session:messages success="success" notice="notice" error="error"}}
 		<!-- <section class="row">
 			<div class="col-lg-6">
 				<img class="img-circle" data-src="holder.js/140x140" alt="Generic placeholder image">
@@ -96,10 +88,119 @@
 		</section>
 
 		<hr class="featurette-divider">
-		{{ endif }}
-		
-		{{ theme:partial name="footer" }}
 	</div>
+	{{ elseif page:id == 10 }}
+	<div class="container" style="margin-top:75px;">
+		{{session:messages success="success" notice="notice" error="error"}}
+		
+		<form method="get" id="membership" class="form-membership" >
+			<h1>{{ page:page_title }}</h1>
+			<hr />
+			
+			<h3>What water temp wax do you want?</h3>
+			<section class="row">
+				<div class="col-md-4 col-md-offset-4">
+					<label class="sr-only" for="water-temp">Select water tempature</label>
+					<select class="form-control" name="water-temp" id="water-temp" required>
+						<option value="">Select your temp</option>
+						<option value="tropical">Tropical</option>
+						<option value="warm">Warm</option>
+						<option value="cool">Cool</option>
+						<option value="cold">Cold</option>
+					</select>
+				</div>
+			</section>
+			
+			
+			<hr />
+			<h3>How many bars of wax do you want shipped to you?</h3>
+			
+			<section class="row">
+				<div class="col-md-4 col-md-offset-2">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							2 Bars of wax
+						</div>
+						<div class="panel-body">
+							For short boarders
+							<h1>$5</h1>
+							<p>Shipping &amp; handling included.</p>
+							<button formaction="{{ pages:url id="11" }}" class="btn btn-primary btn-block">Select 2 bars</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							3 Bars of wax
+						</div>
+						<div class="panel-body">
+							For long boarders
+							<h1>$7</h1>
+							<p>Shipping &amp; handling included.</p>
+							<button formaction="{{ pages:url id="12" }}" class="btn btn-primary btn-block">Select 3 bars</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<p>Memebership renews automatically, you can cancel at any time.</p>
+		</form>
+	</div>
+	{{ elseif page:id == 11 || page:id == 12 }}
+	<?php if(!@$_GET["water-temp"]) : // check for water temp param ?>
+		{{ url:redirect to="membership" }}
+	<?php endif; ?>
+	
+	<div class="container" style="margin-top:75px;">
+		{{session:messages success="success" notice="notice" error="error"}}
+		
+		<form method="get" id="frequency" class="form-frequency" >
+			<input type="hidden" name="water-temp" value="<?php echo $_GET["water-temp"];?>" id="water-temp"/>
+			<input type="hidden" name="product" value="{{ url:segments segment="2" }}" id="product"/>
+			
+			<h1 id="">{{ page:page_title }}</h1>
+			<hr />
+			<h3>How often do you want your items shipped to you?</h3>
+			
+			<section class="row">
+				<div class="col-md-4 col-md-offset-2">
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							Every other month
+						</div>
+						<div class="panel-body">
+							<p>For the weekend warrior</p>
+							<button formaction="/register" name="frequency" value="bi-monthly" class="btn btn-primary btn-block">Select bi-monthly</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							Every month
+						</div>
+						<div class="panel-body">
+							<p>For the hardcore daily surfer</p>
+							<button formaction="/register" name="frequency" value="monthly" class="btn btn-primary btn-block">Select monthly</button>
+						</div>
+					</div>
+				</div>
+			</section>
+			
+			<p>Memebership renews automatically, you can cancel at any time.</p>
+		</form>
+	</div>
+	{{ else }}
+	<div class="container" style="margin-top:75px;">
+		{{session:messages success="success" notice="notice" error="error"}}
+		{{ theme:partial name="breadcrumbs" }}
+		{{ template:body }}
+	</div>
+	{{ endif }}
+	
+	{{ theme:partial name="footer" }}
+	
 {{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}

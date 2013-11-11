@@ -3,10 +3,9 @@
 
 <!-- Container for the user's profile -->
 <div id="user_profile_container">
-	<?php echo gravatar($_user->email, 50);?>
+	<?php echo gravatar($_user->email, 200);?>
 	<!-- Details about the user, such as role and when the user was registered -->
 	<div id="user_details">
-
 		<table>
 	
 			{{# we use _user:id as that is the id passed to this view. Different than the logged in user's user:id #}}

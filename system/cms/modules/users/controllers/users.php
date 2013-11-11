@@ -32,7 +32,7 @@ class Users extends Public_Controller
 	{
 		if (isset($this->current_user->id))
 		{
-			$this->view($this->current_user->id);
+			$this->view($this->current_user->username);
 		}
 		else
 		{
