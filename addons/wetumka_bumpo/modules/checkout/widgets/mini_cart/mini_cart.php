@@ -1,12 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 /**
- * Side Cart Checkout - total price.
+ * Checkout widget - mini cart.
  * 
  * @author      Edward Meehan
  * @author      Wetumka Interactive, LLC
  */
-class Widget_Side_cart_checkout extends Widgets
+class Widget_Mini_cart extends Widgets
 {
     /**
      * The translations for the widget title
@@ -14,7 +14,7 @@ class Widget_Side_cart_checkout extends Widgets
      * @var array
      */
     public $title = array(
-        'en' => 'Side Cart Checkout'
+        'en' => 'Mini Cart'
     );
 
     /**
