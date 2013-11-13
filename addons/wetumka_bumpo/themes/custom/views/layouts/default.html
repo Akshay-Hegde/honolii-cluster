@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie10 lt-ie9" lang="en"> <![endif]-->
+<!--[if IE 9]>    <html class="no-js lt-ie10" lang="en"> <![endif]-->
+<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="metadata"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/metadata"}}
+{{ endif }}
+</head>
+<body>
+    
+    {{ theme:partial name="header" }}
+
+	{{ if page:id == 1 }}
+	    {{ theme:partial name="carousel" }}
+	    <div class="container">
+	    	{{session:tbs_messages success="success" notice="info" error="warning"}}
+	    	{{ template:body }}
+		</div>
+	{{ else }}
+		<div class="container" style="margin-top:75px;">
+			{{session:tbs_messages success="success" notice="info" error="warning"}}
+			{{ template:body }}
+		</div>
+	{{ endif }}
+	
+	{{ theme:partial name="footer" }}
+	
+{{ if global:environment == 'development' }}
+	<!-- DEVELOPMENT FILES -->				
+	{{theme:partial name="footer-scripts"}}
+{{ else }}
+	<!-- PRODUCTION FILES -->
+	{{theme:partial name="publish/footer-scripts"}}
+	<script type="text/javascript">  (function() {
+    var ga = document.createElement('script');     ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:'   == document.location.protocol ? 'https://ssl'   : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+	</script>
+{{ endif }}
+</body>
+</html>

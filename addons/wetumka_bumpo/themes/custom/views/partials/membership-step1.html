@@ -1,0 +1,62 @@
+<form method="get" id="membership" class="form-membership" >
+	<h1>{{ page:page_title }}</h1>
+	<hr />
+
+	<h3>What water temp wax do you want?</h3>
+	<section class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<label class="sr-only" for="temp">Select water tempature</label>
+			<select class="form-control" name="temp" id="temp" required>
+				<option value="">Select your temp</option>
+				<option value="tropical">Tropical</option>
+				<option value="warm">Warm</option>
+				<option value="cool">Cool</option>
+				<option value="cold">Cold</option>
+			</select>
+		</div>
+	</section>
+
+	<hr />
+	<h3>How many bars of wax do you want shipped to you?</h3>
+
+	<section class="row">
+		<div class="col-md-4 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title">2 Bars of wax</h2>
+				</div>
+				<div class="panel-body">
+					For short boarders
+					<h1>$5</h1>
+					<p>
+						Shipping &amp; handling included.
+					</p>
+					<button formaction="{{ pages:url id="11" }}" class="btn btn-primary btn-block">
+						Select 2 bars
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title">3 Bars of wax</h2>
+				</div>
+				<div class="panel-body">
+					For long boarders
+					<h1>$7</h1>
+					<p>
+						Shipping &amp; handling included.
+					</p>
+					<button formaction="{{ pages:url id="12" }}" class="btn btn-primary btn-block">
+						Select 3 bars
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<p>
+		Memebership renews automatically, you can cancel at any time.
+	</p>
+</form>
