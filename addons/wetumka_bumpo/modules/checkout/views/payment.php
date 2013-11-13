@@ -55,7 +55,7 @@
         	    </div>
             </div>
             
-            <button type="submit" class="btn btn-primary btn-large">Continue</button>
+            <button type="submit" class="btn btn-primary btn-large" >Continue</button>
 
         <?php echo form_close() ?>
     </div>

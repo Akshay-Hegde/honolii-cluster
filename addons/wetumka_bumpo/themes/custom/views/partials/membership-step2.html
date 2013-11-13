@@ -1,0 +1,61 @@
+<form method="get" id="frequency" class="form-frequency" >
+	<input type="hidden" name="temp" value="<?php echo $_GET["temp"];?>" id="water-temp"/>
+	<input type="hidden" name="product" value="{{ url:segments segment="2" }}" id="product"/>
+
+	<h1 id="">{{ page:page_title }}</h1>
+	<hr />
+	<h3>How often do you want your items shipped to you?</h3>
+
+	<section class="row">
+		<div class="col-md-4 col-md-offset-2">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title">Every other month</h2>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<td class="send">Jan</td>
+							<td>Feb</td>
+							<td class="send">Mar</td>
+							<td>Apr</td>
+						</tr>
+					</table>
+					<p>
+						For the weekend warrior
+					</p>
+					<button formaction="/checkout" name="frequency" value="bi-monthly" class="btn btn-primary btn-block">
+						Select Bi-Monthly
+					</button>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h2 class="panel-title">Every month</h2>
+				</div>
+				<div class="panel-body">
+					<table class="table table-bordered">
+						<tr>
+							<td class="send">Jan</td>
+							<td class="send">Feb</td>
+							<td class="send">Mar</td>
+							<td class="send">Apr</td>
+						</tr>
+					</table>
+					<p>
+						For the hardcore daily surfer
+					</p>
+					<button formaction="/checkout" name="frequency" value="monthly" class="btn btn-primary btn-block">
+						Select Monthly
+					</button>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<p>
+		Memebership renews automatically, you can cancel at any time.
+	</p>
+</form>

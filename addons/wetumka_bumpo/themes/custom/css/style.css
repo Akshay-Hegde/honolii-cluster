@@ -5932,6 +5932,9 @@ body {
   padding-bottom: 40px;
   color: #5a5a5a;
 }
+footer {
+  margin-top: 50px;
+}
 .navbar-wrapper {
   position: absolute;
   top: 0;
@@ -6008,6 +6011,22 @@ body {
   font-weight: 300;
   line-height: 1;
   letter-spacing: -1px;
+}
+.form-membership,
+.form-frequency {
+  text-align: center;
+}
+.form-membership hr,
+.form-frequency hr {
+  margin: 50px 0;
+}
+.form-membership .panel-body h1,
+.form-frequency .panel-body h1 {
+  font-size: 50px;
+  line-height: 1em;
+}
+td.send {
+  background-color: #eeeeee;
 }
 @media (min-width: 768px) {
   .marketing {

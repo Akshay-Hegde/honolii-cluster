@@ -21,7 +21,7 @@
 			    		<li><a href="{{ pages:url id="10" }}">Join Now</a></li>
 			    	{{ endif }}
 				</ul>
-
+				
 				{{ if user:logged_in }}
 					<p class="navbar-text navbar-right">Hello <a class="navbar-link" href="/my-profile">{{ user:display_name }}</a> | <a class="navbar-link" href="/users/logout">Logout</a></p>
 				{{ else }}

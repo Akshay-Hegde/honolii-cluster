@@ -65,6 +65,11 @@ class Plugin_Feature extends Plugin
         $id = $this->attribute('id', NULL); // id of feature - null by default
         $side = $this->attribute('side', 'left'); // side to display main content
         
+        if($id == NULL)
+        {
+           return; 
+        }
+        
         if($side != 'left')
         {
             $sideA = 'col-md-push-5';
@@ -72,7 +77,7 @@ class Plugin_Feature extends Plugin
         }
         
         $html = '';
-        $html .= '{{ streams:single stream="features" id="' . $id . '" }}';
+        $html .= '{{ streams:single stream="features" id="'.$id.'" }}';
         $html .= '<section class="row featurette">';
         $html .=    '<div class="col-md-7 ' . @$sideA . '">';
         $html .=        '<h2 class="featurette-heading">{{ headline }}{{ if headline_muted }}<span class="text-muted"> {{ headline_muted }}</span>{{ endif }}</h2>';

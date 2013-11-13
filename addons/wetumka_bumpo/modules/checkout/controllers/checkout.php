@@ -134,6 +134,9 @@ class Checkout extends Public_Controller {
             // check if email has been registered before
             if(!$this->ion_auth->email_check($data['email']))
             {
+                redirect('/how-it-works');
+                   
+                /*  TEMP DISABLED WHILE TESTING
                 $response = $this->ion_auth->register(
                     NULL, // auto username
                     $data['password'],
@@ -152,6 +155,7 @@ class Checkout extends Public_Controller {
                     $this->session->set_flashdata('error', 'Sorry, we are having problems and can not complete your order at this time.');
                     redirect('/home');
                 }
+                */
             }
             else
             {
@@ -233,7 +237,7 @@ class Checkout extends Public_Controller {
             'id'      => $productID,
             'qty'     => 1,
             'price'   => $price,
-            'name'    => 'BumpoBox',
+            'name'    => ucfirst($_GET['temp']) . ' ' . ucfirst($_GET['product']) . ' ' . $_GET['frequency'],
             'options' => array() //options array
         );
     }
