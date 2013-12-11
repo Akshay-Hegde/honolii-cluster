@@ -1,9 +1,18 @@
-<header id="header">
-    <div class="container">
-        <nav>
-        	<ul class="nav-links">
-        	{{navigation:links group="header"}}
-        	</ul>
-        </nav>
-    </div>
+<header id="header" class="site-header">
+	<nav class="navbar navbar-default">
+		<div class="navbar-header">
+			<h1><a class="logo" href="/">Wetumka Interactive</a></h1>
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-nav">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+		</div>
+		<div class="collapse navbar-collapse" id="main-nav">
+			<ul class="nav navbar-nav nav-links">
+				{{navigation:links group="header"}}
+			</ul>
+		</div>
+	</nav>
 </header>

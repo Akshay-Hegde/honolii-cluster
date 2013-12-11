@@ -1,0 +1,41 @@
+
+#footer {
+  display:none;
+  height:@footerHeight;
+  background:url(../img/footer-bkg.png) repeat;
+  .transition(opacity .7s);
+  > hr{
+    background:url(../img/footer-hr.png) repeat-x;
+    height:10px;
+    border:none;
+    position:relative;
+    top:-10px;
+    margin:0;
+  }
+  .contact-info{
+    font-size:@fontSizeSmall;
+    line-height:1.5em;
+    address,.phone{
+      margin-bottom:1em;
+      line-height:1.5em;
+    }
+  }
+  .copyright{
+    font-size:@fontSizeMini;
+    margin:10px 0 0;
+    text-align:center;
+    line-height:1em;
+    font-family:@sansFontFamily;
+    color:@white;
+  }
+  .branding{
+    text-indent:-9999px;
+    overflow:hidden;
+    background:url(../img/footer-logo.png) no-repeat;
+    height:100px;
+    margin-top:28px;
+  }
+  &.active{
+    opacity:0;
+  }
+}

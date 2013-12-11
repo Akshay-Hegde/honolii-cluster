@@ -1,14 +1,18 @@
-<footer id="footer">
-    <hr />
+<footer id="footer"  class="site-footer">
     <section class="container">
+        <hr />
         <div class="row">
-            <div class="span2">
-                <div class="branding">
-                    {{settings:site_name}}
-                </div>
+            <div class="col-sm-2 col-sm-offset-1 hidden-xs">
+                <ul>{{navigation:links group="footer"}}</ul>
             </div>
-            <div class="span4 contact-info">
-                <address>
+            <div class="col-sm-2 hidden-xs">
+                <ul>{{navigation:links group="footer-blog"}}</ul>
+            </div>
+            <div class="col-sm-2 col-xs-12 text-center">
+            	<a class="btn btn-default" href="">Client Login }</a>
+            </div>
+            <div class="col-sm-3 col-xs-8">
+            	<address>
                     {{ variables:Address1 }}<br/>
                     {{ variables:Address2 }}<br/>
                     {{ variables:AddressCity }}, {{ variables:AddressState }} {{ variables:AddressZip }}
@@ -16,8 +20,14 @@
                 <div class="phone">{{ variables:Phone }}</div>
                 <div class="email">{{ variables:Email }}</div>
             </div>
-            <div class="span6"></div>
+            <div class="col-sm-2 col-xs-4">
+            	<img class="logo" alt="{{settings:site_name}}" src="{{ asset:image_url file="theme::logo.png" }}" />
+            </div>
+        </div>
+        <div class="row">
+        	<div class="col-xs-12">
+        		<p class="small text-center">Copyright &copy; {{helper:date format="Y"}} {{settings:site_name}} all rights reserved</p>
+        	</div>
         </div>
     </section>
-    <p class="copyright">Copyright &copy; {{helper:date format="Y"}} {{settings:site_name}} all rights reserved</p>
 </footer>
