@@ -1514,9 +1514,9 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 36px;
-  font-size: 42px;
-  line-height: inherit;
+  margin-bottom: 35px;
+  font-size: 1.5714em;
+  line-height: 1.6363em;
   color: #333333;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
@@ -1836,6 +1836,29 @@ textarea.input-lg {
     text-align: right;
   }
 }
+.form-actions {
+  padding: 1.2857em 0.64285em;
+  margin-top: 1.2857em;
+  margin-bottom: 1.2857em;
+  background-color: #eeeeee;
+  border-top: 1px solid #CBCBCB;
+}
+.form-actions:before,
+.form-actions:after {
+  content: " ";
+  display: table;
+}
+.form-actions:after {
+  clear: both;
+}
+.form-actions:before,
+.form-actions:after {
+  content: " ";
+  display: table;
+}
+.form-actions:after {
+  clear: both;
+}
 .btn {
   font-family: "bebas-neue", "Courier New", monospace;
   letter-spacing: 1px;
@@ -1846,6 +1869,7 @@ textarea.input-lg {
   vertical-align: middle;
   cursor: pointer;
   background-image: none;
+  border: none;
   white-space: nowrap;
   padding: .333em .666em;
   font-size: 1em;
@@ -4709,6 +4733,9 @@ section > .block {
   }
   section > .block {
     padding-top: 36px;
+  }
+  .default-section {
+    padding-top: 100px;
   }
   .about-section .splash {
     padding-top: 100px;
