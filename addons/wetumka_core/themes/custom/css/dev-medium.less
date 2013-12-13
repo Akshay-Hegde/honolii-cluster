@@ -1,41 +1,70 @@
-
-#footer {
-  display:none;
-  height:@footerHeight;
-  background:url(../img/footer-bkg.png) repeat;
-  .transition(opacity .7s);
-  > hr{
-    background:url(../img/footer-hr.png) repeat-x;
-    height:10px;
-    border:none;
-    position:relative;
-    top:-10px;
-    margin:0;
+/* -------------------------------
+Splash Angles
+---------------------------------- */
+.splash{
+  &.top-up:before,&.bottom-up:after{
+    .rotate(-3deg);
+    
   }
-  .contact-info{
-    font-size:@fontSizeSmall;
-    line-height:1.5em;
-    address,.phone{
-      margin-bottom:1em;
-      line-height:1.5em;
+  &.top-dn:before,&.bottom-dn:after{
+    .rotate(3deg);
+  }
+}
+/* -------------------------------
+Sections
+---------------------------------- */
+section{
+  .splash{
+    p.lead{
+
     }
   }
-  .copyright{
-    font-size:@fontSizeMini;
-    margin:10px 0 0;
-    text-align:center;
-    line-height:1em;
-    font-family:@sansFontFamily;
-    color:@white;
+}
+
+.about-section{
+  .splash{
+    padding-top:100px;
   }
-  .branding{
-    text-indent:-9999px;
-    overflow:hidden;
-    background:url(../img/footer-logo.png) no-repeat;
-    height:100px;
-    margin-top:28px;
+  .big-image{
+    max-width:none;
+    right:400px;
+    bottom:-80px;
+    margin-bottom:0;
   }
-  &.active{
-    opacity:0;
+  > .block{
+    padding-top:@font-baseline * 3;
+  }
+}
+
+.service-section{
+  .block{
+    .service-icon{
+      &:before{
+        height: @font-baseline * 5;
+        background-size:auto;
+      }
+      &.marketing-dev:before{
+        background-position:center -30px;
+      }
+      &.application-dev:before{
+        background-position:center -250px;
+      }
+      &.ecom-dev:before{
+        background-position:center -425px;
+      }
+    }
+  }
+}
+
+.technology-section{
+  .block{
+    .tech-icon{
+      margin-top: @font-baseline * -6;
+      &:before{
+        height: @font-baseline * 8;
+        background-size:auto;
+        background-position:center -610px;
+      }
+    }
   }
 }
