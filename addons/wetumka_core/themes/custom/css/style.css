@@ -5309,7 +5309,7 @@ section > .block {
   margin: 0;
 }
 .comments-section .media-list .media-heading .nobreak {
-  color: black;
+  white-space: nowrap;
 }
 .mod {
   margin-bottom: 36px;

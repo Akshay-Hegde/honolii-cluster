@@ -10,8 +10,8 @@
                     <legend>Pay Invoice</legend>
                     <?php if(validation_errors()): ?>
                 
-                    <div class="alert">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <div class="alert alert-warning alert-dismissable">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                         <strong>Oops!</strong>
                         <?php echo validation_errors('<span>','</span>'); ?>
                     </div>
