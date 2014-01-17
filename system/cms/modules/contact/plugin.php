@@ -240,6 +240,7 @@ class Plugin_Contact extends Plugin
 		$validation         = array();
 		$output             = array();
 		$dropdown           = array();
+		$multi   			= $this->attribute('multi',FALSE);
 		
 		// unset all attributes that are not field names
 		unset($field_list['button'],
@@ -361,7 +362,23 @@ class Plugin_Contact extends Plugin
 				}
 	
 				$data = $this->input->post();
-	
+				
+				// Setup up multi
+				if ($multi) {
+					$multi_array = explode('|', $multi);
+					switch($form_meta[$multi_array[0]]['type']) {
+						case 'input' :
+							$to = $data[$multi_array[0]];
+							break;
+						case 'dropdown' :
+							$to_value = $data[$multi_array[0]];
+							$to_array = $form_meta[$multi_array[0]]['dropdown'];
+							$multi_key = array_search($to_value, array_keys($to_array));
+							$to = $multi_array[$multi_key + 1];
+							break;
+					}
+				}
+				
 				// Add in some extra details about the visitor
 				$data['sender_agent'] = $this->agent->browser() . ' ' . $this->agent->version();
 				$data['sender_ip']    = $this->input->ip_address();
