@@ -11,7 +11,5 @@ nbproject/
 uploads/*
 
 !wetumka custom below
-Capfile
-config/
 *.bak
 *.orig
