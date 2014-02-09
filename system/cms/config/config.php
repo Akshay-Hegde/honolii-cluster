@@ -350,7 +350,7 @@ $config['minify_output'] = (ENVIRONMENT !== PYRO_DEVELOPMENT); // only do this o
 | regarding date handling.
 |
 */
-$config['time_reference'] = 'gmt';
+$config['time_reference'] = 'local';
 
 
 /*
