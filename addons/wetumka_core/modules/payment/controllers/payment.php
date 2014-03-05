@@ -205,6 +205,10 @@ class Payment extends Public_Controller {
         $data['finishURL'] = $_SERVER['HTTP_HOST'];
         $data['title'] = 'Payment Complete';
         $data['success'] = TRUE;
+		// email
+		$data['slug'] = 'payment-notification';
+		
+		Events::trigger('email', $data , 'array');
         
         $this->session->unset_userdata('transID');
         $this->session->unset_userdata('payment');
