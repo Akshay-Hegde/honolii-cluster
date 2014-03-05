@@ -207,7 +207,7 @@ class Payment extends Public_Controller {
         $data['success'] = TRUE;
 		// email
 		$data['slug'] = 'payment-notification';
-		$data['from_name'] = 'Wetumka Payment';
+		$data['name'] = 'Wetumka Payment';
 		
 		$emailreturn = Events::trigger('email', $data , 'array');
         
