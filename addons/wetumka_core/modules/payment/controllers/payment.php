@@ -209,7 +209,7 @@ class Payment extends Public_Controller {
 		$data['slug'] = 'payment-notification';
 		$data['name'] = 'Wetumka Payment';
 		
-		$emailreturn = Events::trigger('email', $data , 'array');
+		Events::trigger('email', $data , 'array');
         
         $this->session->unset_userdata('transID');
         $this->session->unset_userdata('payment');
