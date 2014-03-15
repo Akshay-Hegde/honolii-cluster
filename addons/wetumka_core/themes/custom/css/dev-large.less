@@ -1,0 +1,14 @@
+/* -------------------------------
+Splash Angles
+---------------------------------- */
+.splash{
+  @height: 150px;  
+  &.top-up:before,
+  &.top-dn:before,
+  &.bottom-up:after,
+  &.bottom-dn:after
+  {
+    height:@height;
+    margin-top:@height * -0.5;
+  }
+}

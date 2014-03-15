@@ -139,6 +139,7 @@ Splash Angles
     background-repeat:repeat;
     height:@height;
     margin-top:@height * -0.5;
+    -webkit-backface-visibility: hidden;
   }
   &.top-up:before,&.bottom-up:after{
     .rotate(-5deg);
@@ -387,15 +388,4 @@ Responsive Media Query
 // Large devices (large desktops, 1200px and up)
 @media (min-width: @screen-lg-min) {
   @import "dev-large";
-}
-// Extra Large devices (large desktops, 1400px and up)
-@media (min-width: 1401px) {
-  .wrapper {
-    width:1400px;
-    margin:0 auto;
-    .box-shadow(0 0 2px rgba(0,0,0,.5));
-    .site-header{
-      width:inherit;
-    }
-  }
 }

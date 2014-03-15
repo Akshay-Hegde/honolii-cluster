@@ -5155,6 +5155,7 @@ td.visible-print {
   background-repeat: repeat;
   height: 80px;
   margin-top: -40px;
+  -webkit-backface-visibility: hidden;
 }
 .splash.top-up:before,
 .splash.bottom-up:after {
@@ -5551,14 +5552,12 @@ section > .block {
     background-position: center -610px;
   }
 }
-@media (min-width: 1401px) {
-  .wrapper {
-    width: 1400px;
-    margin: 0 auto;
-    -webkit-box-shadow: 0 0 2px rgba(0,0,0,0.5);
-    box-shadow: 0 0 2px rgba(0,0,0,0.5);
-  }
-  .wrapper .site-header {
-    width: inherit;
+@media (min-width: 1200px) {
+  .splash.top-up:before,
+  .splash.top-dn:before,
+  .splash.bottom-up:after,
+  .splash.bottom-dn:after {
+    height: 150px;
+    margin-top: -75px;
   }
 }
