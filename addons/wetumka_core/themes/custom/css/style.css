@@ -5186,8 +5186,9 @@ section > .block {
 }
 .about-section .splash h1.impact {
   margin: 0;
-  padding-top: 36px;
-  padding-bottom: 18px;
+  padding-top: 108px;
+  padding-bottom: 180px;
+  text-align: center;
 }
 .about-section .big-image {
   position: relative;
@@ -5450,9 +5451,6 @@ section > .block {
   .about-section .splash {
     padding-top: 100px;
   }
-  .about-section .splash h1.impact {
-    padding-top: 18px;
-  }
   .about-section .big-image {
     max-width: 90%;
     right: -30%;
@@ -5527,9 +5525,6 @@ section > .block {
     bottom: -80px;
     margin-bottom: 0;
   }
-  .about-section > .block {
-    padding-top: 108px;
-  }
   .service-section .block .service-icon:before {
     height: 180px;
     background-size: auto;
@@ -5559,5 +5554,9 @@ section > .block {
   .splash.bottom-dn:after {
     height: 150px;
     margin-top: -75px;
+  }
+  .about-section .splash h1.impact {
+    padding-top: 144px;
+    padding-bottom: 252px;
   }
 }
