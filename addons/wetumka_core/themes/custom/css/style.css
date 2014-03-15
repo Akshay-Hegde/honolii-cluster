@@ -5204,36 +5204,36 @@ section > .block {
   background-position: center center;
 }
 .about-section .splash .seq-8 {
-  -webkit-transition: opacity .4s linear .0s;
-  transition: opacity .4s linear .0s;
+  -webkit-transition: opacity .6s linear .0s;
+  transition: opacity .6s linear .0s;
 }
 .about-section .splash .seq-7 {
-  -webkit-transition: opacity .4s linear .4s;
-  transition: opacity .4s linear .4s;
+  -webkit-transition: opacity .6s linear .5s;
+  transition: opacity .6s linear .5s;
 }
 .about-section .splash .seq-6 {
-  -webkit-transition: opacity .4s linear .8s;
-  transition: opacity .4s linear .8s;
+  -webkit-transition: opacity .6s linear 1s;
+  transition: opacity .6s linear 1s;
 }
 .about-section .splash .seq-5 {
-  -webkit-transition: opacity .4s linear 1.2s;
-  transition: opacity .4s linear 1.2s;
+  -webkit-transition: opacity .6s linear 1.5s;
+  transition: opacity .6s linear 1.5s;
 }
 .about-section .splash .seq-4 {
-  -webkit-transition: opacity .4s linear 1.6s;
-  transition: opacity .4s linear 1.6s;
+  -webkit-transition: opacity .6s linear 2s;
+  transition: opacity .6s linear 2s;
 }
 .about-section .splash .seq-3 {
-  -webkit-transition: opacity .4s linear 2s;
-  transition: opacity .4s linear 2s;
+  -webkit-transition: opacity .6s linear 2.5s;
+  transition: opacity .6s linear 2.5s;
 }
 .about-section .splash .seq-2 {
-  -webkit-transition: opacity .4s linear 2.4s;
-  transition: opacity .4s linear 2.4s;
+  -webkit-transition: opacity .6s linear 3s;
+  transition: opacity .6s linear 3s;
 }
 .about-section .splash .seq-1 {
-  -webkit-transition: opacity .4s linear 2.8s;
-  transition: opacity .4s linear 2.8s;
+  -webkit-transition: opacity .6s linear 3.5s;
+  transition: opacity .6s linear 3.5s;
 }
 .about-section .splash.animate .seq-1,
 .about-section .splash.animate .seq-2,

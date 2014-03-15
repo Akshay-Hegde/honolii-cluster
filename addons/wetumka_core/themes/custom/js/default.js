@@ -11,11 +11,11 @@ about = function(setHeight){
 	var $aboutSection, x, html, tempImg, images;
 	if(setHeight){
 		$splash = $('#about > .splash');
-		$splash.height($splash.find('h1.impact').outerHeight());
+		$splash.height($splash.children('.container').height());
 	}else{
 		
 		$splash = $('#about > .splash');
-		$splash.height($splash.find('h1.impact').outerHeight());
+		$splash.height($splash.children('.container').height());
 		
 		images = [];
 		html = [];
