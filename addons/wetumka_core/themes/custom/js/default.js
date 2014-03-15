@@ -9,14 +9,13 @@ mywindow.$window.on('scroll',myheader, myheader.motion);
 // About Section
 about = function(setHeight){
 	var $aboutSection, x, html, tempImg, images;
+	
+	$splash = $('#about > .splash');
+	
 	if(setHeight){
-		$splash = $('#about > .splash');
 		$splash.height($splash.children('.container').height());
 	}else{
-		
-		$splash = $('#about > .splash');
-		$splash.height($splash.children('.container').height());
-		
+
 		images = [];
 		html = [];
 		
@@ -26,7 +25,7 @@ about = function(setHeight){
 			img.onload = function(){
 				images.push(img.src);
 				if(images.length == 8){
-					$splash.addClass('animate');
+					$splash.height($splash.children('.container').height()).addClass('animate');
 				}
 			};
 			html.push('<div class="seq-set-1 seq-' + x + '" style="background-image:url(' + img.src + ')"></div>');
