@@ -5181,14 +5181,69 @@ section > .block {
   padding-top: 18px;
   padding-bottom: 36px;
 }
-.about-section .splash {
-  background-image: url('../img/HP-swami-background.jpg');
-}
 .about-section .splash h1.impact {
   margin: 0;
-  padding-top: 108px;
-  padding-bottom: 180px;
+  padding-top: 36px;
+  padding-bottom: 216px;
   text-align: center;
+}
+.about-section .splash .seq-1,
+.about-section .splash .seq-2,
+.about-section .splash .seq-3,
+.about-section .splash .seq-4,
+.about-section .splash .seq-5,
+.about-section .splash .seq-6,
+.about-section .splash .seq-7,
+.about-section .splash .seq-8 {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: inherit;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+}
+.about-section .splash .seq-8 {
+  -webkit-transition: opacity .4s linear .0s;
+  transition: opacity .4s linear .0s;
+}
+.about-section .splash .seq-7 {
+  -webkit-transition: opacity .4s linear .4s;
+  transition: opacity .4s linear .4s;
+}
+.about-section .splash .seq-6 {
+  -webkit-transition: opacity .4s linear .8s;
+  transition: opacity .4s linear .8s;
+}
+.about-section .splash .seq-5 {
+  -webkit-transition: opacity .4s linear 1.2s;
+  transition: opacity .4s linear 1.2s;
+}
+.about-section .splash .seq-4 {
+  -webkit-transition: opacity .4s linear 1.6s;
+  transition: opacity .4s linear 1.6s;
+}
+.about-section .splash .seq-3 {
+  -webkit-transition: opacity .4s linear 2s;
+  transition: opacity .4s linear 2s;
+}
+.about-section .splash .seq-2 {
+  -webkit-transition: opacity .4s linear 2.4s;
+  transition: opacity .4s linear 2.4s;
+}
+.about-section .splash .seq-1 {
+  -webkit-transition: opacity .4s linear 2.8s;
+  transition: opacity .4s linear 2.8s;
+}
+.about-section .splash.animate .seq-1,
+.about-section .splash.animate .seq-2,
+.about-section .splash.animate .seq-3,
+.about-section .splash.animate .seq-4,
+.about-section .splash.animate .seq-5,
+.about-section .splash.animate .seq-6,
+.about-section .splash.animate .seq-7,
+.about-section .splash.animate .seq-8 {
+  opacity: 1;
 }
 .about-section .big-image {
   position: relative;
@@ -5448,8 +5503,10 @@ section > .block {
   .payment-section {
     padding-top: 100px;
   }
-  .about-section .splash {
-    padding-top: 100px;
+  .about-section .splash h1.impact {
+    font-size: 2.3em;
+    padding-top: 108px;
+    padding-bottom: 396px;
   }
   .about-section .big-image {
     max-width: 90%;
@@ -5516,8 +5573,10 @@ section > .block {
     -ms-transform: rotate(3deg);
     transform: rotate(3deg);
   }
-  .about-section .splash {
-    padding-top: 100px;
+  .about-section .splash h1.impact {
+    font-size: 2.5em;
+    padding-top: 108px;
+    padding-bottom: 396px;
   }
   .about-section .big-image {
     max-width: none;
@@ -5556,7 +5615,7 @@ section > .block {
     margin-top: -75px;
   }
   .about-section .splash h1.impact {
-    padding-top: 144px;
-    padding-bottom: 252px;
+    padding-top: 108px;
+    padding-bottom: 468px;
   }
 }

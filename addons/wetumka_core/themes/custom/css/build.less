@@ -174,12 +174,50 @@ section{
 
 .about-section{
   .splash{
-    background-image:url(@img-path + '/HP-swami-background.jpg');
+    //background-image:url(@img-path + '/seq/seq-hp-8.png');
     h1.impact{
       margin:0;
-      padding-top:@font-baseline * 3;
-      padding-bottom:@font-baseline * 5;
+      padding-top:@font-baseline * 1;
+      padding-bottom:@font-baseline * 6;
       text-align:center;
+    }
+    .seq-1,.seq-2,.seq-3,.seq-4,.seq-5,.seq-6,.seq-7,.seq-8{
+      opacity:0;
+      position: absolute;
+      width:100%;
+      height:inherit;
+      background-repeat:no-repeat;
+      background-size:cover;
+      background-position:center center;
+    }
+    .seq-8{
+      .transition(opacity .4s linear .0s);
+    }
+    .seq-7{
+      .transition(opacity .4s linear .4s);
+    }
+    .seq-6{
+      .transition(opacity .4s linear .8s);
+    }
+    .seq-5{
+      .transition(opacity .4s linear 1.2s);
+    }
+    .seq-4{
+      .transition(opacity .4s linear 1.6s);
+    }
+    .seq-3{
+      .transition(opacity .4s linear 2s);
+    }
+    .seq-2{
+      .transition(opacity .4s linear 2.4s);
+    }
+    .seq-1{
+      .transition(opacity .4s linear 2.8s);
+    }
+    &.animate{
+      .seq-1,.seq-2,.seq-3,.seq-4,.seq-5,.seq-6,.seq-7,.seq-8{
+        opacity:1; 
+      }
     }
   }
   .big-image{
