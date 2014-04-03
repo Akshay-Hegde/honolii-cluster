@@ -19,19 +19,19 @@ about = function(setHeight){
 		images = [];
 		html = [];
 		
-		for(x = 1; x < 9; x++){
+		for(x = 1; x < 18; x++){
 			var img = new Image();
-			img.src = '../addons/wetumka_core/themes/custom/img/seq/seq-hp-' + x + '.png';
+			img.src = '../addons/wetumka_core/themes/custom/img/seq/seq-hp-top-' + x + '.jpg';
 			img.onload = function(){
 				images.push(img.src);
-				if(images.length == 8){
+				if(images.length == 17){
 					$splash.height($splash.children('.container').height()).addClass('animate');
 				}
 			};
 			html.push('<div class="seq-set-1 seq-' + x + '" style="background-image:url(' + img.src + ')"></div>');
 		}
 		
-		html.reverse();
+		//html.reverse();
 		$splash.prepend(html.join(''));
 		
 	}

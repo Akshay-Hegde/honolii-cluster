@@ -47,7 +47,18 @@
 // Utility classes
 @import "../../../../../libraries/bootstrap-3.0.2/less/utilities.less";
 @import "../../../../../libraries/bootstrap-3.0.2/less/responsive-utilities.less";
-
+// My Mixins
+#mixin {
+  .flipbook(@frames,@time,@offset){
+    .seqX (@index) when (@index > 0) {
+      .seq-@{index} { .transition(opacity @time linear @index * @offset); }
+      .seqX(@index - 1);
+    }
+    .seqX (0) {}
+    
+    .seqX (@frames);
+  }
+}
 // Utility Classes Custom
 .impact{
   text-transform:uppercase;
@@ -72,7 +83,7 @@
       font-size:@font-size-h4;
       a.logo{
         float:left;
-        background: url(@img-path + '/header-logo.png') no-repeat left center;
+        background: url(@img-path + '/header-logo-2.png') no-repeat left center;
         background-size: 35px 30px;
         margin-top:14px;
         margin-bottom:12px;
@@ -80,7 +91,7 @@
         padding-left:42px;
         font-family:@webFont2;
         color:@wiDark;
-        text-shadow: 0 1px 0 @wiPink;
+        text-shadow: 0 1px 0 @wiGreen;
         text-decoration:none;
       }
     }
@@ -180,8 +191,10 @@ section{
       padding-top:@font-baseline * 1;
       padding-bottom:@font-baseline * 6;
       text-align:center;
+      opacity:0;
+      .transition(opacity 2s linear 6s);
     }
-    .seq-1,.seq-2,.seq-3,.seq-4,.seq-5,.seq-6,.seq-7,.seq-8{
+    .seq-set-1{
       opacity:0;
       position: absolute;
       width:100%;
@@ -190,33 +203,13 @@ section{
       background-size:cover;
       background-position:center center;
     }
-    .seq-8{
-      .transition(opacity .6s linear .0s);
-    }
-    .seq-7{
-      .transition(opacity .6s linear .5s);
-    }
-    .seq-6{
-      .transition(opacity .6s linear 1s);
-    }
-    .seq-5{
-      .transition(opacity .6s linear 1.5s);
-    }
-    .seq-4{
-      .transition(opacity .6s linear 2s);
-    }
-    .seq-3{
-      .transition(opacity .6s linear 2.5s);
-    }
-    .seq-2{
-      .transition(opacity .6s linear 3s);
-    }
-    .seq-1{
-      .transition(opacity .6s linear 3.5s);
-    }
+    #mixin > .flipbook(17,.5s,.3s);
     &.animate{
-      .seq-1,.seq-2,.seq-3,.seq-4,.seq-5,.seq-6,.seq-7,.seq-8{
+      .seq-set-1{
         opacity:1; 
+      }
+      h1.impact{
+        opacity:1;
       }
     }
   }
@@ -231,7 +224,7 @@ section{
 
 .service-section{
   .splash{
-    background-image:url(@img-path + '/HP-service-background.jpg');
+    //background-image:url(@img-path + '/HP-service-background.jpg');
     p.lead{
       padding-top:@font-baseline * 4;
       text-shadow:0 0 3px white;
@@ -271,7 +264,7 @@ section{
 
 .technology-section{
   .splash{
-    background-image:url(@img-path + '/HP-tech-background.jpg');
+    //background-image:url(@img-path + '/HP-tech-background.jpg');
     p.lead{
       color:#fff; 
     }

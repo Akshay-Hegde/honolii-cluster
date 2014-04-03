@@ -5099,7 +5099,7 @@ td.visible-print {
 }
 .wrapper .site-header h1 a.logo {
   float: left;
-  background: url('../img/header-logo.png') no-repeat left center;
+  background: url('../img/header-logo-2.png') no-repeat left center;
   background-size: 35px 30px;
   margin-top: 14px;
   margin-bottom: 12px;
@@ -5107,7 +5107,7 @@ td.visible-print {
   padding-left: 42px;
   font-family: "bebas-neue", "Courier New", monospace;
   color: #3F3F3F;
-  text-shadow: 0 1px 0 #D71B53;
+  text-shadow: 0 1px 0 #7EC241;
   text-decoration: none;
 }
 .wrapper .site-content {
@@ -5186,15 +5186,11 @@ section > .block {
   padding-top: 36px;
   padding-bottom: 216px;
   text-align: center;
+  opacity: 0;
+  -webkit-transition: opacity 2s linear 6s;
+  transition: opacity 2s linear 6s;
 }
-.about-section .splash .seq-1,
-.about-section .splash .seq-2,
-.about-section .splash .seq-3,
-.about-section .splash .seq-4,
-.about-section .splash .seq-5,
-.about-section .splash .seq-6,
-.about-section .splash .seq-7,
-.about-section .splash .seq-8 {
+.about-section .splash .seq-set-1 {
   opacity: 0;
   position: absolute;
   width: 100%;
@@ -5203,46 +5199,78 @@ section > .block {
   background-size: cover;
   background-position: center center;
 }
+.about-section .splash .seq-17 {
+  -webkit-transition: opacity .5s linear 5.1s;
+  transition: opacity .5s linear 5.1s;
+}
+.about-section .splash .seq-16 {
+  -webkit-transition: opacity .5s linear 4.8s;
+  transition: opacity .5s linear 4.8s;
+}
+.about-section .splash .seq-15 {
+  -webkit-transition: opacity .5s linear 4.5s;
+  transition: opacity .5s linear 4.5s;
+}
+.about-section .splash .seq-14 {
+  -webkit-transition: opacity .5s linear 4.2s;
+  transition: opacity .5s linear 4.2s;
+}
+.about-section .splash .seq-13 {
+  -webkit-transition: opacity .5s linear 3.9s;
+  transition: opacity .5s linear 3.9s;
+}
+.about-section .splash .seq-12 {
+  -webkit-transition: opacity .5s linear 3.6s;
+  transition: opacity .5s linear 3.6s;
+}
+.about-section .splash .seq-11 {
+  -webkit-transition: opacity .5s linear 3.3s;
+  transition: opacity .5s linear 3.3s;
+}
+.about-section .splash .seq-10 {
+  -webkit-transition: opacity .5s linear 3s;
+  transition: opacity .5s linear 3s;
+}
+.about-section .splash .seq-9 {
+  -webkit-transition: opacity .5s linear 2.7s;
+  transition: opacity .5s linear 2.7s;
+}
 .about-section .splash .seq-8 {
-  -webkit-transition: opacity .6s linear .0s;
-  transition: opacity .6s linear .0s;
+  -webkit-transition: opacity .5s linear 2.4s;
+  transition: opacity .5s linear 2.4s;
 }
 .about-section .splash .seq-7 {
-  -webkit-transition: opacity .6s linear .5s;
-  transition: opacity .6s linear .5s;
+  -webkit-transition: opacity .5s linear 2.1s;
+  transition: opacity .5s linear 2.1s;
 }
 .about-section .splash .seq-6 {
-  -webkit-transition: opacity .6s linear 1s;
-  transition: opacity .6s linear 1s;
+  -webkit-transition: opacity .5s linear 1.8s;
+  transition: opacity .5s linear 1.8s;
 }
 .about-section .splash .seq-5 {
-  -webkit-transition: opacity .6s linear 1.5s;
-  transition: opacity .6s linear 1.5s;
+  -webkit-transition: opacity .5s linear 1.5s;
+  transition: opacity .5s linear 1.5s;
 }
 .about-section .splash .seq-4 {
-  -webkit-transition: opacity .6s linear 2s;
-  transition: opacity .6s linear 2s;
+  -webkit-transition: opacity .5s linear 1.2s;
+  transition: opacity .5s linear 1.2s;
 }
 .about-section .splash .seq-3 {
-  -webkit-transition: opacity .6s linear 2.5s;
-  transition: opacity .6s linear 2.5s;
+  -webkit-transition: opacity .5s linear 0.9s;
+  transition: opacity .5s linear 0.9s;
 }
 .about-section .splash .seq-2 {
-  -webkit-transition: opacity .6s linear 3s;
-  transition: opacity .6s linear 3s;
+  -webkit-transition: opacity .5s linear 0.6s;
+  transition: opacity .5s linear 0.6s;
 }
 .about-section .splash .seq-1 {
-  -webkit-transition: opacity .6s linear 3.5s;
-  transition: opacity .6s linear 3.5s;
+  -webkit-transition: opacity .5s linear 0.3s;
+  transition: opacity .5s linear 0.3s;
 }
-.about-section .splash.animate .seq-1,
-.about-section .splash.animate .seq-2,
-.about-section .splash.animate .seq-3,
-.about-section .splash.animate .seq-4,
-.about-section .splash.animate .seq-5,
-.about-section .splash.animate .seq-6,
-.about-section .splash.animate .seq-7,
-.about-section .splash.animate .seq-8 {
+.about-section .splash.animate .seq-set-1 {
+  opacity: 1;
+}
+.about-section .splash.animate h1.impact {
   opacity: 1;
 }
 .about-section .big-image {
@@ -5251,9 +5279,6 @@ section > .block {
   right: -3%;
   bottom: -20px;
   z-index: 2;
-}
-.service-section .splash {
-  background-image: url('../img/HP-service-background.jpg');
 }
 .service-section .splash p.lead {
   padding-top: 144px;
@@ -5286,9 +5311,6 @@ section > .block {
 }
 .service-section .block .service-icon.ecom-dev:before {
   background-position: center -130px;
-}
-.technology-section .splash {
-  background-image: url('../img/HP-tech-background.jpg');
 }
 .technology-section .splash p.lead {
   color: #fff;
@@ -5441,7 +5463,7 @@ section > .block {
   .wrapper .site-header .navbar-nav > li.logo a {
     text-indent: -9999px;
     overflow: hidden;
-    background: url('../img/header-logo.png') no-repeat center center;
+    background: url('../img/header-logo-2.png') no-repeat center center;
   }
   .wrapper .site-header .navbar-nav > li.current a {
     color: #3F3F3F;
