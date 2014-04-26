@@ -17,6 +17,7 @@ class Plugin_User extends Plugin
 	);
 	public $description = array(
 		'en' => 'Access current user profile variables and settings.',
+		'br' => 'Acessa variáveis e configurações do perfil do usuário atual.',
 		'el' => 'Πρόσβαση σε μεταβλητές και ρυθμίσεις προφίλ του εκάστοτε χρήστη.',
             'fa' => 'دسترسی به پروفایل کاربر حاضر و تنظیمات',
 		'fr' => 'Accéder aux données de l\'utilisateur courant.',
@@ -48,7 +49,8 @@ class Plugin_User extends Plugin
 			if (in_array($key, array('password', 'salt'))) continue;
 
 			$info[$key]['description'] = array(
-				'en' => 'Displays the '.$key.' for the current user.'
+				'en' => 'Displays the '.$key.' for the current user.',
+				'br' => 'Exibe o campo "'.$key.'" do usuário atual.'
 			);
 			$info[$key]['single'] = true;
 			$info[$key]['double'] = (is_array($value) ? true : false);
@@ -294,6 +296,7 @@ class Plugin_User extends Plugin
 		// Nobody needs these as profile fields.
 		unset($user['password']);
 		unset($user['salt']);
+		unset($user['remember_code']);
 
 		// Got through each stream field and see if we need to format it
 		// for plugin return (ie if we haven't already done that).
@@ -383,7 +386,7 @@ class Plugin_User extends Plugin
 	 */
 	public function __call($name, $data)
 	{
-		if (in_array($name, array('password', 'salt')))
+		if (in_array($name, array('password', 'salt', 'remember_code')))
 		{
 			return;
 		}
