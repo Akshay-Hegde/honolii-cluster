@@ -4527,6 +4527,9 @@ a.badge:focus {
 .affix {
   position: fixed;
 }
+@-ms-viewport {
+  width: device-width;
+}
 .hidden {
   display: none;
   visibility: hidden;
@@ -5532,6 +5535,35 @@ aside > .widget:last-child {
   bottom: 20px;
   right: 20px;
 }
+.testimonial-block {
+  margin-bottom: 0;
+  margin-top: -25px;
+}
+.testimonial-block blockquote {
+  margin-top: 0;
+}
+.testimonial-block .item {
+  padding: 25px;
+  padding-top: 0;
+}
+.testimonial-block .item img {
+  float: right;
+  margin: 15px 0 25px 25px;
+  max-width: 200px;
+  max-height: 200px;
+  -webkit-transform: rotate(5deg);
+  -moz-transform: rotate(5deg);
+  -ms-transform: rotate(5deg);
+  -o-transform: rotate(5deg);
+  transform: rotate(5deg);
+  -webkit-box-shadow: 2px 3px 5px rgba(0,0,0,0.7);
+  -moz-box-shadow: 2px 3px 5px rgba(0,0,0,0.7);
+  box-shadow: 2px 3px 5px rgba(0,0,0,0.7);
+  -webkit-backface-visibility: hidden;
+}
+.testimonial-block .source {
+  clear: both;
+}
 .splash-block {
   margin-bottom: 0;
 }
@@ -5635,7 +5667,6 @@ aside > .widget:last-child {
   background: #fff;
 }
 blockquote {
-  font-size: 26px;
   line-height: 1.5em;
   margin: 1em 0;
   padding: 0;
@@ -5806,7 +5837,7 @@ iframe.vimeo {
     background: none;
     background-image: none !important;
     height: auto;
-    min-height: auto;
+    min-height: inherit;
     margin: 0;
   }
   .hero-header h2 {
@@ -5822,7 +5853,7 @@ iframe.vimeo {
   .services-block {
     margin-bottom: 0;
   }
-  #myCarousel .carousel-control {
+  .carousel-control {
     display: none;
   }
   .gallery-image .left {
