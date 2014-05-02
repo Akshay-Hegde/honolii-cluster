@@ -18,7 +18,7 @@ $(document).ready(function() {
                 $this.addClass('active');
 	        }
 	    }
-	)
+	);
 	// Size gallery slider
 	if($('#gallery-gallery').length){
 	   var $thumblist = $('.gallery-image-list','#gallery-gallery');
@@ -39,7 +39,7 @@ $(document).ready(function() {
 	               '" class="gallery-image" rel="gallery-image" data-src="/files/large/'+gallery_images_json[x].file_id+'" title="'+gallery_images_json[x].name+'">'+
 	            '<img src="/files/thumb/'+gallery_images_json[x].file_id+'/110/110/fit" alt="'+gallery_images_json[x].name+'" />'+
 	            '</a></li>'
-	       )
+	       );
 	    }
 	    
 	    $thumblist.append(galleryImages.join(''));
@@ -111,7 +111,7 @@ $(document).ready(function() {
                 'opacity':1
             });
 	    }
-	})
+	});
 	$('#track_style').change(function(event){
 	   var $this = $(this);
        var $trackSupercross = $('.track-supercross');
@@ -150,7 +150,7 @@ $(document).ready(function() {
                     'opacity':0
                });
        }
-	})
+	});
 	/*
 	$('#country').change(function(event){
 	   var $this = $(this);
@@ -162,7 +162,7 @@ $(document).ready(function() {
        } 
 	})
 	*/
-	$('#more_information').attr('placeholder','Additional information...')
+	$('#more_information').attr('placeholder','Additional information...');
 	//bootstrap lightbox
 	var $instagramImage = $('.instagram-feed-list li, .photo-list li');
 	$instagramImage.click(function(event){
@@ -181,11 +181,11 @@ $(document).ready(function() {
 	        $modal.lightbox();
 	        $img.fadeTo(300, 1);
 	    });
-	})
+	});
 	var $mainnav = $('#top-nav');
 	$('button.btn-nav','#header').click(
 	    function(){
 	        $mainnav.toggle('fast');
 	    }
-	)
+	);
 });
