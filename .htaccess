@@ -8,6 +8,17 @@ SetEnv PYRO_ENV development
 	Options +FollowSymLinks -Indexes
 	RewriteEngine on
 
+	# Automatically determine and set the PYRO_ENV variable
+	#RewriteCond %{SERVER_NAME} ^local.domain.com
+	#RewriteRule .* - [E=PYRO_ENV:development]  
+
+	#RewriteCond %{SERVER_NAME} ^stage.domain.com
+	#RewriteRule .* - [E=PYRO_ENV:staging]  
+
+	#RewriteCond %{SERVER_NAME} ^domain.com$ [OR]
+	#RewriteCond %{SERVER_NAME} ^www.domain.com$
+	#RewriteRule .* - [E=PYRO_ENV:production]  
+
 	# NOTICE: If you get a 404 play with combinations of the following commented out lines
 	#AllowOverride All
 	#RewriteBase /wherever/pyro/is
