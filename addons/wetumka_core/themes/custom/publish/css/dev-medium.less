@@ -23,8 +23,10 @@ section{
 
 .about-section{
   .splash{
-    h1.impact{
+    h1{
       font-size:2.5em;
+    }
+    .block{
       padding-top:@font-baseline * 3;
       padding-bottom:@font-baseline * 11;
     }
@@ -41,7 +43,7 @@ section{
 }
 
 .service-section{
-  .block{
+  > .block{
     .service-icon{
       &:before{
         height: @font-baseline * 5;
@@ -61,7 +63,7 @@ section{
 }
 
 .technology-section{
-  .block{
+  > .block{
     .tech-icon{
       margin-top: @font-baseline * -6;
       &:before{

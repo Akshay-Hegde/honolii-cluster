@@ -13,7 +13,7 @@ about = function(setHeight){
 	$splash = $('#about > .splash');
 	
 	if(setHeight){
-		$splash.height($splash.children('.container').height());
+		$splash.height($splash.children('.container').outerHeight());
 	}else{
 
 		images = [];
@@ -25,7 +25,7 @@ about = function(setHeight){
 			img.onload = function(){
 				images.push(img.src);
 				if(images.length == 17){
-					$splash.height($splash.children('.container').height()).addClass('animate');
+					$splash.height($splash.children('.container').outerHeight()).addClass('animate');
 				}
 			};
 			html.push('<div class="seq-set-1 seq-' + x + '" style="background-image:url(' + img.src + ')"></div>');
