@@ -18,7 +18,7 @@
 				<div class="col-sm-8 col-xs-6">
 					<div class="widget mod blog_tags">
 						<h5 class="hd">Tags</h5>
-						<div class="bd">
+						<div class="bd text-uppercase">
 							<ul class="row">
 								
 								{{ blog:tags }}

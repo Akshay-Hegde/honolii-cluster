@@ -5435,10 +5435,13 @@ section > .block {
 }
 .comments-section .media-list > .comment {
   border-bottom: solid 2px #fff;
-  margin-bottom: 35px;
+  margin-bottom: 34px;
 }
 .comments-section .media-list > .comment:last-of-type {
   border-color: transparent;
+}
+.comments-section .media-list > .comment .img-circle {
+  margin-bottom: 34px;
 }
 .comments-section .media-list .media-heading {
   margin: 0;
@@ -5570,6 +5573,16 @@ section > .block {
     -ms-transform: rotate(4deg);
     transform: rotate(4deg);
   }
+  hr.up {
+    -webkit-transform: rotate(-4deg);
+    -ms-transform: rotate(-4deg);
+    transform: rotate(-4deg);
+  }
+  hr.down {
+    -webkit-transform: rotate(4deg);
+    -ms-transform: rotate(4deg);
+    transform: rotate(4deg);
+  }
   .csstransforms hr.up,
   .csstransforms hr.down {
     margin-bottom: 108px;
@@ -5659,6 +5672,16 @@ section > .block {
   }
   .splash.top-dn:before,
   .splash.bottom-dn:after {
+    -webkit-transform: rotate(3deg);
+    -ms-transform: rotate(3deg);
+    transform: rotate(3deg);
+  }
+  hr.up {
+    -webkit-transform: rotate(-3deg);
+    -ms-transform: rotate(-3deg);
+    transform: rotate(-3deg);
+  }
+  hr.down {
     -webkit-transform: rotate(3deg);
     -ms-transform: rotate(3deg);
     transform: rotate(3deg);
