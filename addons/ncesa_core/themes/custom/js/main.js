@@ -1,24 +1,24 @@
 $(document).ready(function(){
 	// needed for functions in document head
-	try{window.$ready()}catch(err){/*do nothing*/}
+	try{window.$ready();}catch(err){/*do nothing*/}
 	
 	if($.cookie('font_size') == 'big_text'){
-		textToggle()
+		textToggle();
 	}
 	//font toggle click
 	$('#font-toggle').click(function(){
-		textToggle($.cookie('font_size'),this)
-	})
+		textToggle($.cookie('font_size'),this);
+	});
 	//custom function: change size
 	function textToggle(x,y){
 		if(x != 'big_text'){
-			$(y).addClass('font_size_big')
-			$('.font_size').addClass('font_size_big')
-			$.cookie('font_size','big_text',{path: '/'})
+			$(y).addClass('font_size_big');
+			$('.font_size').addClass('font_size_big');
+			$.cookie('font_size','big_text',{path: '/'});
 		}else{
-			$(y).removeClass('font_size_big')
-			$('.font_size').removeClass('font_size_big')
-			$.cookie('font_size','normal_text',{path: '/'})
+			$(y).removeClass('font_size_big');
+			$('.font_size').removeClass('font_size_big');
+			$.cookie('font_size','normal_text',{path: '/'});
 			
 		}
 	}
@@ -26,7 +26,7 @@ $(document).ready(function(){
 	$(".overlay-hours").overlay({target: "#office_hours"});
 	$(".overlay-directions").overlay({target: "#map_directions"});
 	// Form validation
-	$('form').validate()
+	$('form.contact-form').validate();
 });
 
 function initialize_map(){
