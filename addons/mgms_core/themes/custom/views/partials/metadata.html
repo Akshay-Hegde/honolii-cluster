@@ -18,13 +18,7 @@
 <title>{{ settings:site_name }} &bull; {{ template:title }}</title>
 <!-- CSS Stylesheets -->
 <link rel="stylesheet" href="/{{theme:path}}/css/build.css" />
-<!-- GA Tracking -->
-<script type="text/javascript">
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', '{{ settings:ga_tracking }}']);
-_gaq.push(['_trackPageview']);
-_gaq.push(['_trackPageLoadTime']);
-</script>
+
 {{ if user:logged_in }}
 <script type="text/javascript">_gaq.push(['_setCustomVar',1,'User Type','{{ user:group }}',2]);</script>
 {{ else }}
