@@ -5001,7 +5001,7 @@ hr {
   border-color: #e5e5e5;
 }
 .site-footer {
-  padding-bottom: 80px;
+  padding-bottom: 50px;
   color: #fff;
   text-shadow: 0 1px 0 #777;
   font-size: 13.986px;
@@ -5549,8 +5549,8 @@ aside > .widget:last-child {
 .testimonial-block .item img {
   float: right;
   margin: 15px 0 25px 25px;
-  max-width: 200px;
-  max-height: 200px;
+  max-width: 250px;
+  max-height: 250px;
   -webkit-transform: rotate(5deg);
   -moz-transform: rotate(5deg);
   -ms-transform: rotate(5deg);
