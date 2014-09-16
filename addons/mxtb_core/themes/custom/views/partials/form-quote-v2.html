@@ -157,7 +157,7 @@
                 <label class="control-label">Soil composition <span class="required">*</span></label>
                 <div class="controls">
                     {{soil_comp:input}}
-                    <span class="help-inline">{{ soil_comp:error }}<span class="help-inline">Select all that apply</span></span>
+                    <span class="help-inline">{{ soil_comp:error }}</span>
                 </div>
             </div>
             <div class="control-group">
@@ -220,19 +220,9 @@
                     <span class="help-inline">{{ marketing:error }}</span>
                 </div>
             </div>
-            <hr />
-            <div class="row-fluid">
-            	<div class="span6">
-                    {{more_information:input}}
-            	</div>
-            	<div class="span4">
-            	    <p class="small">Any additional information not requested in this form that you can provide may be mutually beneficial. There are many variables that can change the cost of your project so please be specific.</p>
-            	</div>
-            </div>
-            
         </fieldset>
         <hr />
-        <a class='btn pull-left btn-inverse' data-target="#conditions" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <a class='btn pull-left btn-inverse' data-target="#track" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
         <button class='btn btn-large btn-primary pull-right' type="submit">Send Form <icon class="icon-ok-sign icon-white"></icon></button>
     </div>
 </div>
