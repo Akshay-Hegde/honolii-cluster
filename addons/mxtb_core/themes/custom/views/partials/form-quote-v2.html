@@ -67,11 +67,11 @@
             </div>
         </fieldset>
         <hr />
-        <a class='btn btn-primary pull-right' data-target="#track" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
+        <a class='btn btn-primary pull-right' data-target="#track1" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
     </div>
-    <div class="tab-pane" id="track">
+    <div class="tab-pane" id="track1">
         <fieldset>
-            <legend>Track Information</legend>
+            <legend>Track Location</legend>
             <div class="control-group">
                 <label class="control-label">Track address same as contact address <span class="required">*</span></label>
                 <div class="controls">
@@ -139,6 +139,14 @@
                     <span class="help-inline">{{ expenses_fuel:error }}</span>
                 </div>
             </div>
+        </fieldset>
+        <hr />
+        <a class='btn pull-left btn-inverse' data-target="#track1" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <a class='btn pull-right btn-primary' data-target="#track2" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
+    </div>
+    <div class="tab-pane" id="track2">
+        <fieldset>
+            <legend>Track Information</legend>
             <div class="control-group">
                 <label class="control-label">Existing track <span class="required">*</span></label>
                 <div class="controls">
@@ -184,7 +192,7 @@
            
         </fieldset>
         <hr />
-        <a class='btn pull-left btn-inverse' data-target="#contact" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
+        <a class='btn pull-left btn-inverse' data-target="#track1" data-toggle="tab"><i class="icon-arrow-left icon-white"></i> Back</a>
         <a class='btn pull-right btn-primary' data-target="#additional" data-toggle="tab">Continue <i class="icon-arrow-right icon-white"></i></a>
     </div>
     <div class="tab-pane" id="additional">
