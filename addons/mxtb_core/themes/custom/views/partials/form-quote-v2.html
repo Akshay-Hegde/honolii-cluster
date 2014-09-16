@@ -16,7 +16,7 @@
 <div class="tab-content">
     <div class="tab-pane active" id="contact">
         <fieldset>
-            <legend>Contact form, let's get starated</legend>
+            <legend>Contact form, let's get started</legend>
             <div class="control-group">
                 <label class="control-label">Full Name <span class="required">*</span></label>
                 <div class="controls">
@@ -137,6 +137,7 @@
                 <div class="controls">
                     {{soil_comp:input}}
                     <span class="help-inline">{{ soil_comp:error }}</span>
+                    <span class="help-inline">Select all that apply</span>
                 </div>
             </div>
             <div class="control-group">
@@ -158,6 +159,7 @@
                 <div class="controls">
                     {{topography:input}}
                     <span class="help-inline">{{ topography:error }}</span>
+                    <span class="help-inline">Select all that apply</span>
                 </div>
             </div>
         </fieldset>
@@ -192,7 +194,7 @@
                 </div>
             </div>
             <div class="control-group">
-                <label class="control-label">How did you hear about us</label>
+                <label class="control-label">How did you hear about us <span class="required">*</span></label>
                 <div class="controls">
                     {{marketing:input}}
                     <span class="help-inline">{{ marketing:error }}</span>
