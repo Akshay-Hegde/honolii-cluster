@@ -5378,6 +5378,12 @@ form textarea {
   -o-transition: opacity .7s;
   transition: opacity .7s;
 }
+.track-address.active,
+.track-permits.active,
+.track-supercross.active,
+.track-length.active {
+  height: auto;
+}
 aside > .widget {
   margin-bottom: 30px;
 }
