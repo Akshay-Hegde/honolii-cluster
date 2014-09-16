@@ -162,7 +162,7 @@ $(document).ready(function() {
        } 
 	})
 	*/
-	$('#more_information').attr('placeholder','Additional information...');
+	$('#more_information').attr('placeholder','Comments...');
 	//bootstrap lightbox
 	var $instagramImage = $('.instagram-feed-list li, .photo-list li');
 	$instagramImage.click(function(event){
