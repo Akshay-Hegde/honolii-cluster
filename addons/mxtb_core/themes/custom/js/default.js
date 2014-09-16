@@ -106,9 +106,12 @@ $(document).ready(function() {
 	    var $this = $(this);
 	    var $trackPermits = $('.track-permits');
 	    if($this.val() === 'Public'){
-	       $trackPermits.css({
-                'height':'auto',
+	       $trackPermits.addClass('active').css({
                 'opacity':1
+            });
+	    }else{
+	    	$trackPermits.removeClass('active').css({
+                'opacity':0
             });
 	    }
 	});
@@ -151,17 +154,6 @@ $(document).ready(function() {
                });
        }
 	});
-	/*
-	$('#country').change(function(event){
-	   var $this = $(this);
-       var $state = $('#address_state');
-       if($this.val() !== 'United States'){
-           $state.attr("disabled", "disabled").val('Canada - State');
-       }else{
-           $state.removeAttr("disabled");
-       } 
-	})
-	*/
 	$('#more_information').attr('placeholder','Comments...');
 	//bootstrap lightbox
 	var $instagramImage = $('.instagram-feed-list li, .photo-list li');
