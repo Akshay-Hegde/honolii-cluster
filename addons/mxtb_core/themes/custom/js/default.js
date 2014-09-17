@@ -167,7 +167,9 @@ $(document).ready(function() {
 		}
 		
 		if(!valid.indexOf(false) > -1){
-			$(this).parents('.tab-pane').next().tab('show');
+			$(this).siblings('.target').tab('show');
+		}else{
+			$('#form button[type="submit"]').click();
 		}
 		
 	});
