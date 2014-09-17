@@ -162,7 +162,7 @@ $(document).ready(function() {
 		var $inputs = $(this).parents('.tab-pane').find('input[required],select[required]');
 		var valid = [];
 		
-		for(var x = 0; x < $input.length; x++){
+		for(var x = 0; x < $inputs.length; x++){
 			valid.push($inputs[x].checkValidity());
 		}
 		
