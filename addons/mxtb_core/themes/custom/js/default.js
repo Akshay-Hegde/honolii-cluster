@@ -165,16 +165,16 @@ $(document).ready(function() {
 			for(var x = 0; x < $inputs.length; x++){
 				valid.push($inputs[x].checkValidity());
 			}
+			if(valid.indexOf(false) > -1){
+				$('#form button[type="submit"]').click();
+			}else{
+				$(this).siblings('.target').tab('show');
+			}
 		}
 		catch(err){
-			console.log(err);
-			valid.push(true);
-		}
-		if(!valid.indexOf(false) > -1){
 			$(this).siblings('.target').tab('show');
-		}else{
-			$('#form button[type="submit"]').click();
 		}
+		
 		
 	});
 	
@@ -188,7 +188,7 @@ $(document).ready(function() {
 	    
 	    $img.fadeTo(300, 0.2);
 	    
-	    $media.children('img').remove()
+	    $media.children('img').remove();
 	    $media.append('<img width="612" height="612" src="'+ $img.attr('data-src') +'"/>');
 	    
 	    $media.find('.lightbox-caption').empty().append($img.attr('alt'));
