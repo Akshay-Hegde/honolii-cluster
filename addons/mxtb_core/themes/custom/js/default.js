@@ -163,11 +163,14 @@ $(document).ready(function() {
 		var valid = [];
 		try{
 			for(var x = 0; x < $inputs.length; x++){
-				valid.push($inputs[x].checkValidity());
+				if(!$inputs[x].checkValidity()){
+					$inputs.eq(x).addClass('not-valid');
+					valid.push(x);
+				}else{
+					$inputs.eq(x).removeClass('not-valid');
+				}
 			}
-			if(valid.indexOf(false) > -1){
-				$('#form button[type="submit"]').click();
-			}else{
+			if(valid.length === 0){
 				$(this).siblings('.target').tab('show');
 			}
 		}
