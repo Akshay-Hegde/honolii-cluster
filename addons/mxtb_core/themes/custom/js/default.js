@@ -155,6 +155,23 @@ $(document).ready(function() {
        }
 	});
 	$('#more_information').attr('placeholder','Comments...');
+	//form validation
+	$('#form input,select').not('[name="track_permits"],[name="stream_id"],[name="lot_photograph_file"],[name="lot_photograph"],[name="project_start_date"],[name="project_budget"]').attr('required','true');
+	
+	$('#form .tab-pane .next').click(function(e){
+		var $inputs = $(this).parents('.tab-pane').find('input[required],select[required]');
+		var valid = [];
+		
+		for(var x = 0; x < $input.length; x++){
+			valid.push($inputs[x].checkValidity());
+		}
+		
+		if(!valid.indexOf(false) > -1){
+			$(this).parents('.tab-pane').next().tab('show');
+		}
+		
+	});
+	
 	//bootstrap lightbox
 	var $instagramImage = $('.instagram-feed-list li, .photo-list li');
 	$instagramImage.click(function(event){
