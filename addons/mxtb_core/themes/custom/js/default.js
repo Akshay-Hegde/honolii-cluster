@@ -161,11 +161,15 @@ $(document).ready(function() {
 	$('#form .tab-pane .next').click(function(e){
 		var $inputs = $(this).parents('.tab-pane').find('input[required],select[required]');
 		var valid = [];
-		
-		for(var x = 0; x < $inputs.length; x++){
-			valid.push($inputs[x].checkValidity());
+		try{
+			for(var x = 0; x < $inputs.length; x++){
+				valid.push($inputs[x].checkValidity());
+			}
 		}
-		
+		catch(err){
+			console.log(err);
+			valid.push(true);
+		}
 		if(!valid.indexOf(false) > -1){
 			$(this).siblings('.target').tab('show');
 		}else{
