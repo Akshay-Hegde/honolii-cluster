@@ -1,7 +1,7 @@
 <ol>
 	<li class="odd">
         <label>Video Hosting</label>
-        <?php echo form_dropdown('hosting', array( 'vimeo' => 'Vimeo', 'youtube' => 'YouTube'),'vimeo'); ?>
+        <?php echo form_dropdown('hosting', array( 'vimeo' => 'Vimeo', 'vimeo_channel' => 'Vimeo Channel', 'youtube' => 'YouTube'),'vimeo'); ?>
     </li>
 	<li class="even">
 		<label>User Name/ID</label>

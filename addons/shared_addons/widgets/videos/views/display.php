@@ -8,7 +8,7 @@
     <li>
         <?php if($videohost === 'youtube'): ?>
         <iframe class="youtube" src="http://www.youtube.com/embed/<?= $video ?>?rel=<?= $utsuggested ?>&amp;html5=<?= $uthtml5 ?>"></iframe>
-        <?php elseif($videohost === 'vimeo'): ?>
+        <?php elseif($videohost === 'vimeo' || $videohost === 'vimeo_channel' ): ?>
         <iframe class="vimeo" src="http://player.vimeo.com/video/<?= $video ?>?title=<?= $vtitle ?>&amp;byline=<?= $vbyline ?>&amp;portrait=<?= $vportrait ?>"></iframe>
         <?php endif; ?>
     </li>

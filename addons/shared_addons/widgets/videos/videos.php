@@ -164,17 +164,31 @@ class Widget_Videos extends Widgets
                 }
         	}
     	}
-    	elseif($options['hosting'] === 'vimeo')
+    	elseif($options['hosting'] === 'vimeo' || $options['hosting'] === 'vimeo_channel')
         {
-            
-            if (!$videoFeed = $this->pyrocache->get('widgetvideo-vimeo-'.$options['username'].$options['number'].$options['cache']))
+            if($options['hosting'] === 'vimeo')
             {
-                
-                $videoFeed = @file_get_contents('http://vimeo.com/api/v2/'.$options['username'].'/videos.xml');
-                
-                $this->pyrocache->write($videoFeed, 'widgetvideo-vimeo-'.$options['username'].$options['number'].$options['cache'], $options['cache']);
-                
+            	if (!$videoFeed = $this->pyrocache->get('widgetvideo-vimeo-'.$options['username'].$options['number'].$options['cache']))
+	            {
+	                
+	                $videoFeed = @file_get_contents('http://vimeo.com/api/v2/'.$options['username'].'/videos.xml');
+	                
+	                $this->pyrocache->write($videoFeed, 'widgetvideo-vimeo-'.$options['username'].$options['number'].$options['cache'], $options['cache']);
+	                
+	            }
             }
+            elseif($options['hosting'] === 'vimeo_channel')
+			{
+				if (!$videoFeed = $this->pyrocache->get('widgetvideo-vimeo-channel-'.$options['username'].$options['number'].$options['cache']))
+	            {
+	                
+	                $videoFeed = @file_get_contents('http://vimeo.com/api/v2/channel/'.$options['username'].'/videos.xml');
+	                
+	                $this->pyrocache->write($videoFeed, 'widgetvideo-vimeo-channel-'.$options['username'].$options['number'].$options['cache'], $options['cache']);
+	                
+	            }
+			}
+            
                 
             
             if($videoFeed)
