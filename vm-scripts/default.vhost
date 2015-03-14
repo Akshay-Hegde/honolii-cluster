@@ -1,0 +1,44 @@
+<VirtualHost *:80>
+    DocumentRoot /vagrant/www
+    ServerAdmin admin@wetumka.net
+    ServerName wetumka.local
+    ServerAlias *.wetumka.local
+
+    RewriteEngine On
+
+    <Directory "/vagrant/www">
+    SetEnv PYRO_ENV development
+    # remove www from http requests
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+    # remove www from https requests
+    RewriteCond %{HTTPS} =on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+    # redirect sites to SSL protected login
+    # RewriteCond %{HTTPS} !=on
+    # RewriteCond %{HTTP_HOST} !^www\.wetumka\.net$ [NC]
+    # RewriteCond %{HTTP_HOST} !^wetumka\.net$ [NC]
+    # RewriteCond %{HTTP_HOST} ^(www\.)?([^.]+)\..+$
+    # RewriteRule ^(admin/?.*)$ https://%2.wetumka.net/$1 [QSA,L]
+    # redirect /sites directory to https
+    # RewriteCond %{HTTPS} !=on
+    # RewriteCond %{HTTP_HOST} ^wetumka\.net$ [NC]
+    # RewriteCond %{REQUEST_URI} /sites
+    # RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [QSA,L]
+    # redirect sensitive files to 403
+    RedirectMatch 403 ^/.*/(system/cms/cache|system/codeigniter|system/cms/config|system/cms/logs|\.git|\.hg).*$
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^(.*)$ index.php/$1 [L]
+    </Directory>
+</VirtualHost>
+
+# <VirtualHost *:443>
+# Include /etc/apache2/wetumka.conf
+# SSLEngine on
+# SSLCertificateFile //etc/ssl/wetumka.net/2b7f76fb2205f7.crt
+# SSLCertificateKeyFile //etc/ssl/wetumka.net/wetumka.net.key
+# SSLCertificateChainFile //etc/ssl/wetumka.net/gd_bundle-g2-g1.crt
+# </VirtualHost>
