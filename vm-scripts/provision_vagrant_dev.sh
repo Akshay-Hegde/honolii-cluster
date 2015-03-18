@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# Determine if this machine has already been provisioned
+# Basically, run everything after this command once, and only once
+if [ -f "/var/vagrant_provision" ]; then 
+    exit 0
+fi
+
 # config vars
 db='wetumkadb'
 
@@ -15,7 +21,7 @@ say "Getting latest packages"
     apt-get update >/dev/null 2>&1
 
 # Install packages
-say "Installing handy packages"
+say "Installing packages"
     apt-get install -y curl apache2 mysql-server git-core unzip >/dev/null 2>&1
 
 # Install Apache
@@ -28,7 +34,7 @@ say "Setting up Apache."
     a2enmod rewrite
     # Restart Apache
     printf "Restarting Apache"
-    printf 'ServerName localhost' >> /etc/apache2/apache2.conf
+    printf "ServerName localhost" >> /etc/apache2/apache2.conf
     service apache2 restart
 
 # Install mysql
@@ -41,7 +47,7 @@ say "Setting up MySQL."
     mysql -u root -e "create database $db"
     # Populate database
     printf "Populating Database"
-    mysql -u root -D $db < /vagrant/vm-database/$db.sql
+    mysql -u root -D $db < /vagrant/vm-scripts/db/$db.sql
     service mysql restart
 
 say "Installing PHP Modules"
@@ -82,5 +88,7 @@ say "Restarting Apache"
 #     gem install sass
 #     gem install compass
 
-printf "\n--------------------------------------------------------\n"
-printf "ALL DONE!"
+# Let this script know not to run again
+touch /var/vagrant_provision
+
+say "ALL DONE!"
