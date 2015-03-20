@@ -59,34 +59,35 @@ say "Restarting Apache"
     service apache2 restart
 
 # Installing NodeJS & Grunt
-# say "Installing NodeJS & NPM"
-#     apt-get install -y python-software-properties python g++ make software-properties-common >/dev/null #2>&1
-#     add-apt-repository -y ppa:chris-lea/node.js >/dev/null #2>&1
-#     apt-get update >/dev/null #2>&1
-#     apt-get install -y nodejs >/dev/null #2>&1
-
-# # Installing NodeJS & Grunt
-# say "Installing Grunt & H5BP"
-#     npm update -g npm >/dev/null #2>&1
-#     npm install -gy grunt-cli >/dev/null #2>&1
-#     npm install -gy http://github.com/h5bp/node-build-script/tarball/master >/dev/null #2>&1
+say "Installing NodeJS & NPM"
+    apt-get install -y software-properties-common >/dev/null 2>&1
+    add-apt-repository ppa:chris-lea/node.js >/dev/null 2>&1
+    apt-get update >/dev/null 2>&1
+    apt-get install -y nodejs >/dev/null 2>&1
+    npm update -g npm >/dev/null 2>&1
+    npm install -g grunt-cli >/dev/null 2>&1
 
 # Installing Ruby
-# say "Installing rvm - preparing for ruby and compass"
-#     su - vagrant -c 'gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3'
-#     su - vagrant -c 'sudo curl -sSL https://get.rvm.io | bash -s stable'
-#     su - vagrant -c './.rvm/scripts/rvm'
-#     su - vagrant -c 'echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc'
-#     su - vagrant -c 'rvm requirements'
+say "Installing Ruby Packages"
+    apt-get update >/dev/null 2>&1
+    apt-get install -y git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev python-software-properties libffi-dev >/dev/null 2>&1
 
-# say "Installing ruby now... wish me luck"
-#     su - vagrant -c 'rvm install 2.1.3'
-#     su - vagrant -c 'rvm use 2.1.3 --default'
-    #rvm rubygems current
+# Installing Ruby
+say "Installing RVM"
+    su - vagrant -c 'gpg --keyserver hkp://keys.gnupg.net --recv-keys D39DC0E3'
+    su - vagrant -c 'sudo curl -sSL https://get.rvm.io | bash -s stable >/dev/null 2>&1'
+    su - vagrant -c './.rvm/scripts/rvm'
+    su - vagrant -c 'echo "source ~/.rvm/scripts/rvm" >> ~/.bashrc'
+    su - vagrant -c 'rvm requirements'
 
-# say "Installing SASS + COMPASS"
-#     gem install sass
-#     gem install compass
+say "Installing Ruby"
+    su - vagrant -c 'rvm install 2.1.3 >/dev/null 2>&1'
+    su - vagrant -c 'rvm use 2.1.3 --default'
+    su - vagrant -c 'rvm rubygems current'
+
+say "Installing SASS + COMPASS"
+    su - vagrant -c 'gem install sass'
+    su - vagrant -c 'gem install compass'
 
 # Let this script know not to run again
 touch /var/vagrant_provision
