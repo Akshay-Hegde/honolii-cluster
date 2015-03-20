@@ -2,79 +2,112 @@ module.exports = function(grunt) {
 
     var target = grunt.option('env') || 'dev';
     var tasks;
+    var timestamp = new Date().getTime();
 
     grunt.initConfig({});
     // CONCAT
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.config('concat',{
-        build: {
+        emeehan: {
             src: [
-                'addons/emeehan/themes/custom/js/modules/*.js',
                 'addons/emeehan/themes/custom/js/mylibs/*.js',
                 'addons/emeehan/themes/custom/js/default.js'
             ],
-            dest: 'test/production.js',
+            dest: 'addons/emeehan/themes/custom/publish/js/production.js',
         }
     });
     // UGLIFY
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.config('uglify',{
-        build: {
-            src: 'test/production.js',
-            dest: 'test/production.min.js'
+        emeehan: {
+            src: 'addons/emeehan/themes/custom/publish/js/production.js',
+            dest: 'addons/emeehan/themes/custom/publish/js/production.min.js'
         }
     });
     // IMAGEMIN
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.config('imagemin',{
-        build: {
+        emeehan: {
             files: [{
                 expand: true,
-                cwd: 'addons/emeehan/themes/custom/img',
+                cwd: 'addons/emeehan/themes/custom/img/',
                 src: ['**/*.{png,jpg,gif}'],
-                dest: 'build/'
+                dest: 'addons/emeehan/themes/custom/publish/img/'
             }]
         }
     });
     // CLEAN
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.config('clean',{
-        build: {
-            src: 'test/'
+        emeehan: {
+            src: [
+                'addons/emeehan/themes/custom/publish/',
+                'addons/emeehan/themes/custom/views/partials/publish/'
+            ]
         }
     });
-    // CACHE BUST
-    grunt.loadNpmTasks('grunt-cache-bust');
-    grunt.config('cacheBust',{
-        options: {
-            encoding: 'utf8',
-            algorithm: 'md5',
-            length: 8,
-            deleteOriginals: true
-        },
-        build: {
-            files: [{
-                expand: true,
-                cwd: 'test/',
-                src: '*.html'
-            }]
+    // // CACHE BUST
+    // grunt.loadNpmTasks('grunt-cache-bust');
+    // grunt.config('cacheBust',{
+    //     options: {
+    //         encoding: 'utf8',
+    //         algorithm: 'md5',
+    //         length: 12,
+    //         deleteOriginals: true,
+    //         replaceTerms: ['{{theme:path}}'],
+    //         ignorePatterns: ['prettify.js','default.js']
+    //     },
+    //     emeehan: {
+    //         files: [{
+    //             baseDir: './',
+    //             //cwd: 'addons/emeehan/themes/custom/views/partials/',
+    //             src: ['addons/emeehan/themes/custom/views/partials/footer-scripts.html']
+    //         }]
+    //     }
+    // });
+    // REPLACE TEXT
+    grunt.loadNpmTasks('grunt-text-replace');
+    grunt.config('replace',{
+        emeehan: {
+            src: ['addons/emeehan/themes/custom/views/partials/footer-scripts.html','addons/emeehan/themes/custom/views/partials/metadata.html'],
+            overwrite: true,
+            replacements: [
+                {
+                    from: '.min.js',
+                    to: '.min.' + timestamp + '.js'
+                },
+                {
+                    from: '.min.css',
+                    to: '.min.' + timestamp + '.css'
+                }
+            ]
         }
     });
     // COPY
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.config('copy',{
-        build: {
-            expand: true,
-            cwd: 'test-pt2/',
-            src: '*.html',
-            dest: 'test/'
+        emeehan: {
+            files: [
+                {
+                    expand: true,
+                    cwd: 'addons/emeehan/themes/custom/views/partials/',
+                    src: ['metadata.html', 'footer-scripts.html'],
+                    dest: 'addons/emeehan/themes/custom/views/partials/publish/'
+                },
+                {
+                    expand: true,
+                    cwd: 'addons/emeehan/themes/custom/css/',
+                    src: ['style.css','prettify.css'],
+                    dest: 'addons/emeehan/themes/custom/publish/css/'
+                }
+            ]
         }
     });
 
     if (target === 'prod') {
-        tasks = ['clean', 'copy', 'concat', 'uglify', 'cacheBust'];
+        tasks = ['clean', 'copy', 'concat', 'uglify'];
     }else{
-        tasks = ['clean', 'copy', 'concat', 'uglify', 'cacheBust'];
+        tasks = ['clean', 'copy', 'concat', 'uglify', 'imagemin'];
     }
     
     grunt.registerTask('default', tasks);
