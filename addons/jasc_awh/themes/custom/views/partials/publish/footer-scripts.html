@@ -1,2 +1,11 @@
+<!-- JS Docs -->
 <script type="text/javascript" src="http://cdn.jquerytools.org/1.2.6/all/jquery.tools.min.js"></script>
-<script src='/{{theme:path}}/publish/js/738e881.js'></script>
+<!-- scripts concatenated and minified via build script -->
+{{ if global:environment == 'development' }}			
+	<script src="/{{theme:path}}/js/mylibs/jquery.hoverintent.js"></script>
+	<script src="/{{theme:path}}/js/mylibs/jquery.writeimage.js"></script>
+	<script src="/{{theme:path}}/js/default.js"></script>
+{{ else }}
+	<script src="/{{theme:path}}/publish/js-1427075621873/production.js"></script>
+{{ endif }}
+<!-- end scripts -->

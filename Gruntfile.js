@@ -53,7 +53,7 @@ module.exports = function(grunt) {
                     "addons/jasc_core/themes/custom/js/mylibs/*.js",
                     "addons/jasc_core/themes/custom/js/default.js"
                 ],
-                dest: 'addons/jasc_core/themes/custom/publish/css/production.js'
+                dest: 'addons/jasc_core/themes/custom/publish/js/production.js'
             },{
                 src: [
                     "addons/jasc_core/themes/custom/css/style.css"
@@ -68,7 +68,7 @@ module.exports = function(grunt) {
                     "addons/mxtb_core/themes/custom/js/jquery.imagesloaded.js",
                     "addons/mxtb_core/themes/custom/js/default.js"
                 ],
-                dest:'addons/mxtb_core/themes/custom/publish/css/production.js',
+                dest:'addons/mxtb_core/themes/custom/publish/js/production.js',
             },{
                 src: [
                     "addons/mxtb_core/themes/custom/css/style.css",

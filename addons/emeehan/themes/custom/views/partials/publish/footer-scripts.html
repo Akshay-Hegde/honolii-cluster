@@ -1,1 +1,7 @@
-<script src='/{{theme:path}}/publish/js/2691c18.js'></script>
+<!-- JS Docs -->
+{{ if global:environment == 'development' }}			
+	<script src="/{{theme:path}}/js/mylibs/prettify.js"></script>
+	<script src="/{{theme:path}}/js/default.js"></script>
+{{ else }}
+	<script src="/{{theme:path}}/publish/js-1427075621873/production.js"></script>
+{{ endif }}
