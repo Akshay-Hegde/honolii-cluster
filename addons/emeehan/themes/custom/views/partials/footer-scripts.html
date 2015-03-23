@@ -1,8 +1,7 @@
 <!-- JS Docs -->
-
-<!-- scripts concatenated and minified via build script -->
-<script src="/{{theme:path}}/js/mylibs/prettify.js"></script>
-<script src="/{{theme:path}}/js/default.js"></script>
-<!-- end scripts -->
-
-
+{{ if global:environment == 'development' }}			
+	<script src="/{{theme:path}}/js/mylibs/prettify.js"></script>
+	<script src="/{{theme:path}}/js/default.js"></script>
+{{ else }}
+	<script src="/{{theme:path}}/publish/js/production.js"></script>
+{{ endif }}

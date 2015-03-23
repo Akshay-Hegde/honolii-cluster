@@ -1,115 +1,242 @@
 module.exports = function(grunt) {
 
-    var target = grunt.option('env') || 'dev';
-    var tasks;
+    /* -------------------------------------------------
+    *
+    *  Variables and Data
+    * 
+    --------------------------------------------------*/
     var timestamp = new Date().getTime();
 
-    grunt.initConfig({});
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json')
+    });
+    grunt.config('util',{
+        site: null,
+        
+    });
+    grunt.config('build', {
+        emeehan: [
+            {
+                src: [
+                    "addons/emeehan/themes/custom/js/mylibs/*.js",
+                    "addons/emeehan/themes/custom/js/default.js"
+                ],
+                dest: 'addons/emeehan/themes/custom/publish/js/production.js'
+            },
+            {
+                src: [
+                    "addons/emeehan/themes/custom/css/style.css",
+                    "addons/emeehan/themes/custom/css/prettify.css"
+                ],
+                dest: 'addons/emeehan/themes/custom/publish/css/production.css'
+            }
+        ],
+        jasc_awh: [
+            {
+                src: [
+                    "addons/jasc_awh/themes/custom/js/mylibs/*.js",
+                    "addons/jasc_awh/themes/custom/js/default.js"
+                ],
+                dest: 'addons/jasc_awh/themes/custom/publish/js/production.js'
+            },{
+                src: [
+                    "addons/jasc_awh/themes/custom/css/foundation.css",
+                    "addons/jasc_awh/themes/custom/css/app.css"
+                ],
+                dest: 'addons/jasc_awh/themes/custom/publish/css/production.css'
+            }
+        ],
+        jasc_core: [
+            {
+                src: [
+                    "addons/jasc_core/themes/custom/js/libs/*.js",
+                    "addons/jasc_core/themes/custom/js/mylibs/*.js",
+                    "addons/jasc_core/themes/custom/js/default.js"
+                ],
+                dest: 'addons/jasc_core/themes/custom/publish/css/production.js'
+            },{
+                src: [
+                    "addons/jasc_core/themes/custom/css/style.css"
+                ],
+                dest: 'addons/jasc_core/themes/custom/publish/css/production.css'
+            }
+        ],
+        mxtb_core: [
+            {
+                src: [
+                    "addons/mxtb_core/themes/custom/js/libs/bootstrap-lightbox.js",
+                    "addons/mxtb_core/themes/custom/js/jquery.imagesloaded.js",
+                    "addons/mxtb_core/themes/custom/js/default.js"
+                ],
+                dest:'addons/mxtb_core/themes/custom/publish/css/production.js',
+            },{
+                src: [
+                    "addons/mxtb_core/themes/custom/css/style.css",
+                    //"addons/mxtb_core/themes/custom/css/datepicker.css"
+                ],
+                dest:'addons/mxtb_core/themes/custom/publish/css/production.css',
+            }
+        ],
+        ncesa_core: [
+            {
+                src: [
+                    "addons/ncesa_core/themes/custom/js/mylibs/jquery.cookie.js",
+                    "addons/ncesa_core/themes/custom/js/main.js",
+                ],
+                dest:'addons/ncesa_core/themes/custom/publish/js/production.js',
+            },{
+                src: [
+                    "addons/ncesa_core/themes/custom/css/screen.css",
+                    "addons/ncesa_core/themes/custom/css/main.css"
+                ],
+                dest:'addons/ncesa_core/themes/custom/publish/css/production.css',
+            },{
+                src: [
+                    "addons/ncesa_core/themes/custom/css/mobile.css"
+                ],
+                dest:'addons/ncesa_core/themes/custom/publish/css/mobile.production.css',
+            },{
+                src: [
+                    "addons/ncesa_core/themes/custom/css/print.css"
+                ],
+                dest:'addons/ncesa_core/themes/custom/publish/css/print.production.css',
+            }
+        ],
+        // wetumka_core: {
+        //     js: [],
+        //     css: []
+        // }
+    });
+
+    /* -------------------------------------------------
+    *
+    *  Tasks Config and Targets
+    * 
+    --------------------------------------------------*/
+
     // CONCAT
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.config('concat',{
-        emeehan: {
-            src: [
-                'addons/emeehan/themes/custom/js/mylibs/*.js',
-                'addons/emeehan/themes/custom/js/default.js'
-            ],
-            dest: 'addons/emeehan/themes/custom/publish/js/production.js',
-        }
+        build: { files:[]} // dynamic built in task functions
     });
     // UGLIFY
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.config('uglify',{
-        emeehan: {
-            src: 'addons/emeehan/themes/custom/publish/js/production.js',
-            dest: 'addons/emeehan/themes/custom/publish/js/production.min.js'
+        build: {
+            sourceMap: true,
+            expand: true,
+            cwd: 'addons/<%= util.site %>/themes/custom/publish/js/',
+            src: '*.js',
+            //overwrite: true
+            dest: 'addons/<%= util.site %>/themes/custom/publish/js-' + timestamp + '/'
+        }
+    });
+    // CSSMIN
+    grunt.loadNpmTasks('grunt-contrib-cssmin');
+    grunt.config('cssmin',{
+        build: {
+            expand: true,
+            cwd: 'addons/<%= util.site %>/themes/custom/publish/css/',
+            src: '*.css',
+            dest: 'addons/<%= util.site %>/themes/custom/publish/css-' + timestamp + '/'
         }
     });
     // IMAGEMIN
     grunt.loadNpmTasks('grunt-contrib-imagemin');
     grunt.config('imagemin',{
-        emeehan: {
-            files: [{
-                expand: true,
-                cwd: 'addons/emeehan/themes/custom/img/',
-                src: ['**/*.{png,jpg,gif}'],
-                dest: 'addons/emeehan/themes/custom/publish/img/'
-            }]
+        build: {
+            expand: true,
+            cwd: 'addons/<%= util.site %>/themes/custom/img/',
+            src: ['**/*.{png,jpg,gif,ico}'],
+            dest: 'addons/<%= util.site %>/themes/custom/publish/img/'
         }
     });
     // CLEAN
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.config('clean',{
-        emeehan: {
+        build: {
             src: [
-                'addons/emeehan/themes/custom/publish/',
-                'addons/emeehan/themes/custom/views/partials/publish/'
+                'addons/<%= util.site %>/themes/custom/publish/',
+                'addons/<%= util.site %>/themes/custom/views/partials/publish/',
+                'addons/<%= util.site %>/themes/custom/views/web/partials/publish/',
+                'addons/<%= util.site %>/themes/custom/views/mobile/partials/publish/'
             ]
         }
     });
-    // // CACHE BUST
-    // grunt.loadNpmTasks('grunt-cache-bust');
-    // grunt.config('cacheBust',{
-    //     options: {
-    //         encoding: 'utf8',
-    //         algorithm: 'md5',
-    //         length: 12,
-    //         deleteOriginals: true,
-    //         replaceTerms: ['{{theme:path}}'],
-    //         ignorePatterns: ['prettify.js','default.js']
-    //     },
-    //     emeehan: {
-    //         files: [{
-    //             baseDir: './',
-    //             //cwd: 'addons/emeehan/themes/custom/views/partials/',
-    //             src: ['addons/emeehan/themes/custom/views/partials/footer-scripts.html']
-    //         }]
-    //     }
-    // });
     // REPLACE TEXT
     grunt.loadNpmTasks('grunt-text-replace');
     grunt.config('replace',{
-        emeehan: {
-            src: ['addons/emeehan/themes/custom/views/partials/footer-scripts.html','addons/emeehan/themes/custom/views/partials/metadata.html'],
+        build: {
+            src: [
+                'addons/<%= util.site %>/themes/custom/views/partials/publish/*.html',
+                'addons/<%= util.site %>/themes/custom/views/web/partials/publish/*.html',
+                'addons/<%= util.site %>/themes/custom/views/mobile/partials/publish/*.html'
+            ],
+            expand: true,
             overwrite: true,
             replacements: [
                 {
-                    from: '.min.js',
-                    to: '.min.' + timestamp + '.js'
+                    from: '/publish/js/',
+                    to: '/publish/js-' + timestamp + '/'
                 },
                 {
-                    from: '.min.css',
-                    to: '.min.' + timestamp + '.css'
+                    from: '/publish/css/',
+                    to: '/publish/css-' + timestamp + '/'
                 }
-            ]
+            ],
         }
     });
     // COPY
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.config('copy',{
-        emeehan: {
-            files: [
+        build: {
+            files:[
                 {
                     expand: true,
-                    cwd: 'addons/emeehan/themes/custom/views/partials/',
+                    cwd: 'addons/<%= util.site %>/themes/custom/views/partials/',
                     src: ['metadata.html', 'footer-scripts.html'],
-                    dest: 'addons/emeehan/themes/custom/views/partials/publish/'
+                    dest: 'addons/<%= util.site %>/themes/custom/views/partials/publish/'
                 },
                 {
                     expand: true,
-                    cwd: 'addons/emeehan/themes/custom/css/',
-                    src: ['style.css','prettify.css'],
-                    dest: 'addons/emeehan/themes/custom/publish/css/'
+                    cwd: 'addons/<%= util.site %>/themes/custom/views/web/partials/',
+                    src: ['metadata.html', 'footer-scripts.html'],
+                    dest: 'addons/<%= util.site %>/themes/custom/views/web/partials/publish/'
+                },
+                {
+                    expand: true,
+                    cwd: 'addons/<%= util.site %>/themes/custom/views/mobile/partials/',
+                    src: ['metadata.html', 'footer-scripts.html'],
+                    dest: 'addons/<%= util.site %>/themes/custom/views/mobile/partials/publish/'
                 }
             ]
         }
     });
 
-    if (target === 'prod') {
-        tasks = ['clean', 'copy', 'concat', 'uglify'];
-    }else{
-        tasks = ['clean', 'copy', 'concat', 'uglify', 'imagemin'];
-    }
-    
-    grunt.registerTask('default', tasks);
+    /* -------------------------------------------------
+    *
+    *  Tasks
+    * 
+    --------------------------------------------------*/
+    //grunt.registerTask('default', ['clean', 'copy','concat', 'uglify','cssmin','replace']);
+    //grunt.registerTask('prod', ['clean', 'concat', 'uglify']);
+
+    grunt.registerMultiTask('build', 'Build task sites - build:site-name', function() {
+        grunt.log.ok("Building " + this.target);
+        grunt.config.set('util.site', this.target);
+        
+        // CLEAN
+        grunt.task.run('clean:build');
+        // CONCAT
+        grunt.config.set('concat.build.files', this.data);        
+        grunt.task.run([
+            'concat:build',
+            'uglify:build',
+            'cssmin:build',
+            'imagemin:build',
+            'copy:build',
+            'replace:build'
+        ]);
+    });
 
 };

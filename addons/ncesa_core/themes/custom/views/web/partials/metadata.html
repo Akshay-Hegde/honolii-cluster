@@ -18,8 +18,17 @@
 <title>{{template:title}} | {{settings:site_name}}</title>
 <!-- CSS Stylesheets -->
 <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Muli"/>
-<link rel="stylesheet" href="/{{theme:path}}/css/build.css" />
-{{theme:css file="print.css" media="print"}}
+{{ if global:environment == 'development' }}
+<!-- DEVELOPMENT FILES -->
+	{{theme:css file="build.css"}}
+	{{theme:css file="print.css" media="print"}}
+{{ else }}
+<!-- PRODUCTION FILES -->
+	<link rel="stylesheet" href="/{{theme:path}}/publish/css/production.css" />
+	<link rel="stylesheet" href="/{{theme:path}}/publish/css/print.production.css" media="print"/>
+{{ endif }}
+
+
 <!-- Global JS Vars -->
 <script type="text/javascript">
 	pyro_vars = {

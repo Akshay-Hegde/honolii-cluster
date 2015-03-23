@@ -18,7 +18,13 @@
 <base href="{{ url:base }}" />
 <title>{{ template:title }}&nbsp;|&nbsp;{{ settings:site_name }}</title>
 <!-- CSS Stylesheets -->
+{{ if global:environment == 'development' }}
+<!-- DEVELOPMENT FILES -->
 <link rel="stylesheet" href="/{{theme:path}}/css/build.css" />
+{{ else }}
+<!-- PRODUCTION FILES -->
+<link rel="stylesheet" href="/{{theme:path}}/publish/css/production.css" />
+{{ endif }}
 <!-- Modernizer script -->
 <script src="/libraries/modernizr/modernizr-2.5.3.min.js" type="text/javascript"></script>
 <!-- JS Docs -->

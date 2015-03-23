@@ -18,7 +18,14 @@
 <title>{{template:title}} | {{settings:site_name}}</title>
 <!-- CSS Stylesheets -->
 <link rel="stylesheet" href="//code.jquery.com/mobile/1.0rc1/jquery.mobile-1.0rc1.min.css"/>
-{{theme:css file="mobile.css"}}
+{{ if global:environment == 'development' }}
+<!-- DEVELOPMENT FILES -->
+	{{theme:css file="mobile.css"}}
+{{ else }}
+<!-- PRODUCTION FILES -->
+	<link rel="stylesheet" href="/{{theme:path}}/publish/css/mobile.production.css"/>
+{{ endif }}
+
 <!-- Global JS Vars -->
 <script type="text/javascript">
 	pyro_vars = {
