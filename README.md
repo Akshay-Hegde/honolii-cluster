@@ -34,3 +34,6 @@ cd /vagrant
 ```
 
 Thats it, you should be ready to rock!
+
+## Xdebug
+Need to set the host IP in order for this to work properly, can't figure a way around this. remote_connect_back won't work when using port forwarding.

@@ -16,3 +16,4 @@ uploads/*
 dbv/data/meta/revision
 node_modules
 .vagrant
+test.php
