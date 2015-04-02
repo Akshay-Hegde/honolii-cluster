@@ -1,0 +1,26 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+//@import "compass/reset";
+@import "compass/css3";
+
+@import "story/animate";
+@import "story/colors";
+
+body,html{
+	height:100%;
+	min-height:100%;
+};
+.scene{
+	height:100%;
+	width:100%;
+	overflow:hidden;
+	//text-align:center;
+	position: relative;
+	.scene-svg{
+		display: inline-block;
+	}
+}
+

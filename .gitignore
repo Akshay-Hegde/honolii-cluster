@@ -16,4 +16,5 @@ uploads/*
 dbv/data/meta/revision
 node_modules
 .vagrant
+.sass-cache
 test.php

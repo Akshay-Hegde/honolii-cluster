@@ -1,54 +1,60 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie10 lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie10 lt-ie9 lt-ie8" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js lt-ie10 lt-ie9" lang="en"> <![endif]-->
-<!--[if IE 9]>    <html class="no-js lt-ie10" lang="en"> <![endif]-->
-<!--[if gt IE 9]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<html class="" lang="en">
 <head>
-{{ if global:environment == 'development' }}
-    <!-- DEVELOPMENT FILES -->              
-    {{theme:partial name="metadata"}}
-{{ else }}
-    <!-- PRODUCTION FILES -->
-    {{theme:partial name="publish/metadata"}}
-{{ endif }}
+<link rel="stylesheet" href="/{{theme:path}}/css/screen.css" />
+
+
+<script type="text/javascript" src="/{{theme:path}}/js/svg-injector.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 </head>
 <body>
-    {{ if global:environment == 'production' }}
-    <script type="text/javascript">
-		(function(i, s, o, g, r, a, m) {
-			i['GoogleAnalyticsObject'] = r;
-			i[r] = i[r] ||
-			function() {
-				(i[r].q = i[r].q || []).push(arguments);
-			}, i[r].l = 1 * new Date();
-			a = s.createElement(o), m = s.getElementsByTagName(o)[0];
-			a.async = 1;
-			a.src = g;
-			m.parentNode.insertBefore(a, m);
-		})(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    <section class="scene scene-1">
+        <img id="scene-1" class="scene-svg" src="/{{theme:path}}/img/svg/scn-1-waves.svg" />
+    </section>
+    
 
-		ga('create', '{{ settings:ga_tracking }}', 'wetumka.net');
-		ga('send', 'pageview');
-	</script>
-    {{ endif }}
-    <div class="wrapper">  
-        {{ theme:partial name="header" }}
-        <!-- Content -->
-        <div id="content" class="site-content">
-            {{session:messages success="alert alert-success" notice="alert alert-info" error="alert"}}
-            <!-- view > default -->
-            {{ template:body }}						
-        </div>
-        <!-- Footer -->
-    	{{ theme:partial name="footer" }}
-    </div>
-    {{ if global:environment == 'development' }}
-        <!-- DEVELOPMENT FILES -->              
-        {{theme:partial name="footer-scripts"}}
-    {{ else }}
-        <!-- PRODUCTION FILES -->
-        {{theme:partial name="publish/footer-scripts"}}
-    {{ endif }}
+    <script>
+    // Elements to inject
+    var mySVGsToInject = document.querySelectorAll('img.scene-svg');
+
+    // Options
+    var injectorOptions = {
+      each: function (svg) {
+        //debugger;
+        if(svg.id === 'scene-1'){
+          var s,w1,p;
+          s = Snap('#scene-1');
+          w1 = s.select('.wave-1');
+          w1f = w1.select('.fill');
+
+          w2 = s.select('.wave-2');
+          w2f = w2.select('.fill');
+
+          w2f.attr({fill:"l(.5, 0, .5, 1)#0286BA-#006798:90"});
+          w1f.attr({fill:"l(.5, 0, .5, 1)#0286BA-#006798:40"});
+        }
+      }
+    };
+
+    function sucker (hello) {
+      lets go
+      if (what) {
+            
+      } else{};
+    }
+
+    // Do the injection
+    SVGInjector(mySVGsToInject,injectorOptions,function(totalSVGsInjected){
+      console.log('We injected ' + totalSVGsInjected + ' SVG(s)!');
+    });
+
+    // Set pixel density class
+    if (window.devicePixelRatio > 1) {
+      $('body').addClass('px-density-2x');
+    } else {
+      $('body').addClass('px-density-1x');
+    }
+    </script>
 </body>
 </html>

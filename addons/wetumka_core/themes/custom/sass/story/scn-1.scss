@@ -1,0 +1,41 @@
+.scene-1{
+	.px-density-1x &{
+		background: url(../img/scn-1-bkg-texture-SML.jpg);
+	}
+	.px-density-2x &{
+		background: url(../img/scn-1-bkg-texture-LRG.jpg);
+		background-size:900px;
+	}
+	.scene-svg{
+		bottom:0;
+		position: absolute;
+		min-width:800px;
+	}
+	.wave{
+		.stroke{fill:$blue-darkest}
+		&-6{
+			.fill{fill:$blue-lightest}
+			@include animation(waves4 6s ease infinite);
+		}
+		&-5{
+			.fill{fill:$blue-light}
+			@include animation(waves4 3s ease infinite);
+		}
+		&-4{
+			.fill{fill:$blue-mid}
+			@include animation(waves4 5s ease infinite);
+		}
+		&-3{
+			.fill{fill:$blue-dark}
+			@include animation(waves4 7s ease infinite);
+		}
+		&-2{
+			//.fill{fill:$blue-dark}
+			@include animation(waves4 2s ease infinite);
+		}
+		&-1{
+			//.fill{fill:$blue-dark}
+			@include animation(waves4 4s ease infinite);
+		}
+	}
+}

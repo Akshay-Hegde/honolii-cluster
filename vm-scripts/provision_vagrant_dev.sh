@@ -89,6 +89,9 @@ say "Installing SASS + COMPASS"
     su - vagrant -c 'gem install sass'
     su - vagrant -c 'gem install compass'
 
+# say "Installing Other Gems"
+#     su - vagrant -c 'gem install capistrano'
+
 # Let this script know not to run again
 touch /var/vagrant_provision
 
