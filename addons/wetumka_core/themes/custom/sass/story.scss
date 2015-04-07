@@ -1,12 +1,7 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
-
-//@import "compass/reset";
+@import "compass/reset";
 @import "compass/css3";
 
-@import "story/animate";
+@import "story/animations";
 @import "story/colors";
 
 body,html{
@@ -17,10 +12,33 @@ body,html{
 	height:100%;
 	width:100%;
 	overflow:hidden;
-	//text-align:center;
 	position: relative;
-	.scene-svg{
+	display:none;
+	&_svg{
 		display: inline-block;
+		//height: 100%;
+		//width: 100%;
 	}
+	&.active{
+		display:block;
+	}
+
 }
 
+@import "story/scene_splash";
+
+.scene_1{
+	background-color:black;
+}
+.scene_2{
+	background-color:pink;
+}
+.scene_3{
+	background-color:blue;
+}
+.scene_4{
+	background-color:orange;
+}
+.scene_5{
+	background-color:green;
+}
