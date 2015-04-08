@@ -38,7 +38,7 @@ define (['jquery', 'story/svg', 'story/assets', 'routie'], function ($, svg, Ass
 
   story.scenes.splash.assetsManager.queueDownload([
   	'svg/scn-1-waves.svg',
-  	//'scn-1-bkg-texture-LRG.jpg'
+  	'svg/wetumka-logo.svg'
   ]);
 
   // routes functions
@@ -47,22 +47,28 @@ define (['jquery', 'story/svg', 'story/assets', 'routie'], function ($, svg, Ass
 			var am = story.scenes.splash.assetsManager; // scene asset manager object
 			var canvas = Snap("#splash");
 			// asset vars
-			var wavesSVG, w1, w2;
+			var wave, w1, w2;
+			var logo;
 
 			// setup scene
 			canvas.attr({
 				viewBox: '0 0 1280 800'
 			});
-			// load canvas
-			wavesSVG = am.getAsset(am.downloadQueue[0]);
-			wavesSVG = Snap($(wavesSVG).find('svg')[0]);
-			w1 = wavesSVG.select('.wave_1 .stroke');
-			w2 = wavesSVG.select('.wave_2 .stroke');
+			// load waves background
+			wave = am.getAsset(am.downloadQueue[0]);
+			wave = Snap($(wave).find('svg')[0]);
+			w1 = wave.select('.wave_1 .stroke');
+			w2 = wave.select('.wave_2 .stroke');
 
       w2.attr({fill:"l(.5, 0, .5, 1)#0286BA:10-#006798:90"});
       w1.attr({fill:"l(.5, 0, .5, 1)#0286BA-#006798:60"});
 
-			canvas.append(wavesSVG);
+			canvas.append(wave);
+			// load logo
+			logo = am.getAsset(am.downloadQueue[1]);
+			logo = Snap($(logo).find('svg')[0]);
+
+			canvas.append(logo);
 		});
 	};
 
