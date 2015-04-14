@@ -77,31 +77,31 @@ module.exports = function(grunt) {
                 dest:'addons/mxtb_core/themes/custom/publish/css/production.css',
             }
         ],
-        ncesa_core: [
-            {
-                src: [
-                    "addons/ncesa_core/themes/custom/js/mylibs/jquery.cookie.js",
-                    "addons/ncesa_core/themes/custom/js/main.js",
-                ],
-                dest:'addons/ncesa_core/themes/custom/publish/js/production.js',
-            },{
-                src: [
-                    "addons/ncesa_core/themes/custom/css/screen.css",
-                    "addons/ncesa_core/themes/custom/css/main.css"
-                ],
-                dest:'addons/ncesa_core/themes/custom/publish/css/production.css',
-            },{
-                src: [
-                    "addons/ncesa_core/themes/custom/css/mobile.css"
-                ],
-                dest:'addons/ncesa_core/themes/custom/publish/css/mobile.production.css',
-            },{
-                src: [
-                    "addons/ncesa_core/themes/custom/css/print.css"
-                ],
-                dest:'addons/ncesa_core/themes/custom/publish/css/print.production.css',
-            }
-        ],
+        // ncesa_core: [
+        //     {
+        //         src: [
+        //             "addons/ncesa_core/themes/custom/js/mylibs/jquery.cookie.js",
+        //             "addons/ncesa_core/themes/custom/js/main.js",
+        //         ],
+        //         dest:'addons/ncesa_core/themes/custom/publish/js/production.js',
+        //     },{
+        //         src: [
+        //             "addons/ncesa_core/themes/custom/css/screen.css",
+        //             "addons/ncesa_core/themes/custom/css/main.css"
+        //         ],
+        //         dest:'addons/ncesa_core/themes/custom/publish/css/production.css',
+        //     },{
+        //         src: [
+        //             "addons/ncesa_core/themes/custom/css/mobile.css"
+        //         ],
+        //         dest:'addons/ncesa_core/themes/custom/publish/css/mobile.production.css',
+        //     },{
+        //         src: [
+        //             "addons/ncesa_core/themes/custom/css/print.css"
+        //         ],
+        //         dest:'addons/ncesa_core/themes/custom/publish/css/print.production.css',
+        //     }
+        // ],
         // wetumka_core: {
         //     js: [],
         //     css: []
