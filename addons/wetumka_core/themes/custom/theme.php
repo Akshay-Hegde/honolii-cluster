@@ -7,7 +7,7 @@ class Theme_Custom extends Theme {
     public $author_website = 'http://www.wetumka.net/';
     public $website = 'http://www.wetumka.net/';
     public $description = 'Wetumka Interactive, LLC site design, all rights reserved.';
-    public $version = '3.0';
+    public $version = '2.0';
 }
 
 /* End of file theme.php */

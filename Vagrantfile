@@ -11,6 +11,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.provider "vmware_fusion" do |vmware, override|
 		override.vm.network "forwarded_port", guest: 80, host: 80
+    override.vm.network "forwarded_port", guest: 3306, host: 3306
 	end
 
 	config.vm.provider "virtualbox" do |vbox, override|

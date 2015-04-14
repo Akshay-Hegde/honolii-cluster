@@ -33,14 +33,16 @@
 	</script>
     {{ endif }}
     <div class="wrapper">  
+        <!-- Header -->
         {{ theme:partial name="header" }}
-        <!-- Content -->
+        <!--  Content -->
         <div id="content" class="site-content">
             {{session:messages success="alert alert-success" notice="alert alert-info" error="alert"}}
-            <!-- view > default -->
-            {{ template:body }}						
+            <!-- view > default w/bread crumbs -->
+            {{ theme:partial name="breadcrumbs" }}
+            {{ template:body }}
         </div>
-        <!-- Footer -->
+        <!--  Footer -->
     	{{ theme:partial name="footer" }}
     </div>
     {{ if global:environment == 'development' }}
