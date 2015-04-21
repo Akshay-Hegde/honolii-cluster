@@ -34,22 +34,14 @@
             </div>
         </div>
     {{ /post }}
-    
-    <?php if (Settings::get('enable_comments')): ?>
     <div id="comments" class="mod comments">
         <div id="existing-comments" class="hd comments">
             <h4><?= lang('comments:title'); ?></h4>
-            <?= $this->comments->display() ?>
         </div>
-    
-        <?php if ($form_display): ?>
-            <?= $this->comments->form() ?>
-        <?php else: ?>
-        <?= sprintf(lang('blog:disabled_after'), strtolower(lang('global:duration:'.str_replace(' ', '-', $post[0]['comments_enabled'])))) ?>
-        <?php endif ?>
+        <div class="bd" id="disqus_thread"></div>
+        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
         <div class="fd"></div>
     </div>
-    <?php endif ?>
 </div>
 <aside id="col-rail" class="span8 offset1">
 	<div class="row">
