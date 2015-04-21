@@ -1,0 +1,20 @@
+CREATE TABLE `wetumka_core_comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `is_active` int(1) NOT NULL DEFAULT '0',
+  `user_id` int(11) NOT NULL DEFAULT '0',
+  `user_name` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `user_email` varchar(40) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
+  `user_website` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `comment` text COLLATE utf8_unicode_ci NOT NULL,
+  `parsed` text COLLATE utf8_unicode_ci NOT NULL,
+  `module` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `entry_id` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '0',
+  `entry_title` char(255) COLLATE utf8_unicode_ci NOT NULL,
+  `entry_key` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `entry_plural` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+  `uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cp_uri` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `created_on` int(11) NOT NULL DEFAULT '0',
+  `ip_address` varchar(45) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

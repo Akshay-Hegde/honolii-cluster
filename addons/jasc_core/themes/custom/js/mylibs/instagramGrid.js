@@ -19,7 +19,7 @@ function InstagramGrid(dataObj,element){
     this.$element = $(element);
     
     for (var key in dataObj){
-        var img,url
+        var img,url;
         img = new Image();
         url = dataObj[key].images[this.imgRes].url;
         img.src = url;
@@ -76,7 +76,7 @@ InstagramGrid.prototype.resize = function(event,obj){
             event.data.setGrid();
         }
     }
-}
+};
 
 InstagramGrid.prototype.setGrid = function(){
 
@@ -94,4 +94,4 @@ InstagramGrid.prototype.setGrid = function(){
         element.remove();
     }
     this.$element.prepend(HTMLstring);
-}
+};

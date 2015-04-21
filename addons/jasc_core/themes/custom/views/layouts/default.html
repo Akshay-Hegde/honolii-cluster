@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
@@ -8,7 +6,6 @@
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="metadata"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/metadata"}}
 {{ endif }}
 </head>
@@ -21,10 +18,9 @@
 	
 	  ga('create', '{{ settings:ga_tracking }}', 'auto');
 	  ga('send', 'pageview');
-	
 	</script>
 	<div class="wrapper">
-        {{theme:partial name="header"}}
+		{{theme:partial name="header"}}
 		<div id="content" class="site-content">
 			<a class="page-logo" href="/">{{ settings:site_name }}</a>
 			{{session:messages success="success" notice="notice" error="error"}}
@@ -36,7 +32,6 @@
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/footer-scripts"}}
 {{ endif }}
 </body>

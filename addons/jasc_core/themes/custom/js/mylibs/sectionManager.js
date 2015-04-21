@@ -25,7 +25,7 @@ function SectionManager(obj){
     this.sectionIndex = 0;
     this.$sections = obj.section;
     this.$nav = obj.nav;
-    this.sectionPos = new Array();
+    this.sectionPos = [];
     this.resize = (typeof(obj.resize)==='undefined')? false : obj.resize;
     this.offsetpx = (typeof(obj.offsetpx)==='undefined')? 50 : obj.offsetpx;
     this.offsetindex = (typeof(obj.offsetindex)==='undefined')? 0 : obj.offsetindex;
@@ -35,7 +35,7 @@ function SectionManager(obj){
         windowManager.$window.bind('windowResize',this,this.resize);
     }
     windowManager.$window.bind('windowScrollTop',this,this.setActive);
-    this.$nav.bind('click',this,this.navClick);
+    //this.$nav.bind('click',this,this.navClick);
     
     //find positions of sections
     sectionLength = this.$sections.length;
@@ -54,8 +54,8 @@ SectionManager.prototype.resize = function(event,obj){// attached to window resi
         }else{
             $this.css('height', obj.height);
         }
-    })
-}
+    });
+};
 SectionManager.prototype.setActive = function(event,obj){ // sets the active item in panel nav while scrolling
     var sectionIndex,sectionLength,x;
     x=0;
@@ -68,8 +68,12 @@ SectionManager.prototype.setActive = function(event,obj){ // sets the active ite
     }
     // check if panel has changed
     if(sectionIndex !== event.data.sectionIndex){
+        var hash = event.data.$sections.eq(sectionIndex).data('hash');
         event.data.$nav.parent('li').removeClass('active');
         event.data.sectionIndex = sectionIndex;
+        routie.navigate(hash,{'silent':true});
+
+        //window.location.hash = event.data.$sections.eq(sectionIndex).attr('id');
         if(event.data.offsetindex !== 0){
             if(sectionIndex >= event.data.offsetindex){
                 event.data.$nav.eq(sectionIndex-event.data.offsetindex).parent('li').addClass('active');
@@ -81,19 +85,21 @@ SectionManager.prototype.setActive = function(event,obj){ // sets the active ite
     if(!event.data.isActive){
         event.data.isActive = true;
     }
-}
+};
 SectionManager.prototype.navClick = function(event,index){ // click event for panel nav
     var clickIndex , offsetTop, offsetIndex;
+
     if(event){
+        //event.preventDefault();
         offsetIndex = event.data.offsetindex;
         clickIndex = event.data.$nav.index($(event.currentTarget)) + offsetIndex;
     }else if(typeof(index)!=="undefined"){
-        clickIndex = index
+        clickIndex = index;
     }
     offsetTop = sectionManager.$sections.eq(clickIndex).position().top;
     // animate to panel
     $('html, body').stop().animate({
         scrollTop : offsetTop
     }, sectionManager.time);
-    return false
-}
+    
+};
