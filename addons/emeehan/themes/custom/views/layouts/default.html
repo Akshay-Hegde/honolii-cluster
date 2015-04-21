@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
@@ -8,7 +6,6 @@
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="metadata"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/metadata"}}
 {{ endif }}
 </head>
@@ -25,21 +22,18 @@
 	</script>
 	<div id="wrapper" class="site-wrapper">    	
 		{{ theme:partial name="header" }}
-		<!-- Content -->
 		<div id="content" class="container site-content">
 			<div class="row">
 				{{session:messages success="success" notice="notice" error="error"}}
 				{{ template:body }}
 			</div>
 		</div>
-		<!-- Footer -->
 		{{ theme:partial name="footer" }}
 	</div>
 {{ if global:environment == 'development' }}
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/footer-scripts"}}
 {{ endif }}
 </body>

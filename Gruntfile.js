@@ -18,7 +18,7 @@ module.exports = function(grunt) {
         emeehan: [
             {
                 src: [
-                    "addons/emeehan/themes/custom/js/mylibs/*.js",
+                    "addons/emeehan/themes/custom/js/mylibs/prettify.js",
                     "addons/emeehan/themes/custom/js/default.js"
                 ],
                 dest: 'addons/emeehan/themes/custom/publish/js/production.js'

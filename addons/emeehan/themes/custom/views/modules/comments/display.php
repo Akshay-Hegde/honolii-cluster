@@ -27,7 +27,7 @@
                     <?php endif ?>
                 </div>
             </div>
-        </div><!-- close .comment -->
+        </div>
     <?php endforeach ?>
 <?php else: ?>
     <p><?php echo lang('comments:no_comments') ?></p>
