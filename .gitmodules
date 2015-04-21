@@ -2,7 +2,3 @@
 	path = addons/shared_addons/modules/galleries
 	url = git@github.com:edmeehan/galleries.git
 
-[submodule "libraries/bootstrap"]
-	path = libraries/bootstrap
-	url = git@github.com:twbs/bootstrap.git
-

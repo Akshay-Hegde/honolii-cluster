@@ -34,7 +34,8 @@ module.exports = function(grunt) {
         jasc_awh: [
             {
                 src: [
-                    "addons/jasc_awh/themes/custom/js/mylibs/*.js",
+                    "addons/jasc_awh/themes/custom/js/mylibs/jquery.hoverintent.js",
+                    "addons/jasc_awh/themes/custom/js/mylibs/jquery.writeimage.js",
                     "addons/jasc_awh/themes/custom/js/default.js"
                 ],
                 dest: 'addons/jasc_awh/themes/custom/publish/js/production.js'
