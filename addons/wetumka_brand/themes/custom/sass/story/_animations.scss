@@ -1,0 +1,29 @@
+// Animation Mixins
+@mixin waves-keyframes($keyframes, $Xstart, $Xend, $Ytop, $Ybottom, $name) {
+	// keyframes
+	$keysteps: percentage(1 / $keyframes);
+	// X axis
+	$diffX: (($Xstart - $Xend) * -1) / $keyframes;
+	// add keyframe for 100%
+	$keyframes: $keyframes + 1;
+	
+	@at-root {
+		@include keyframes($name) {
+			@for $i from 0 to $keyframes {
+				$keyframe: ($i * $keysteps);
+				$Xvalue: ($Xstart + ($i * $diffX));
+				$Yvalue: if($i % 2 == 0,$Ytop,$Ybottom);
+				#{$keyframe} {
+					@include transform(translate($Xvalue,$Yvalue))
+				}
+			}
+		}
+	}
+}
+
+// waves animations
+@include waves-keyframes(6, -20%, 13.2%, 0, 5%, 'wave_1');
+@include waves-keyframes(6, -11.5%, 22%, 8%, 5%, 'wave_2');
+@include waves-keyframes(8, -14.4%, 19%, 8%, 9%, 'wave_3');
+@include waves-keyframes(8, -18.5%, 15%, 18%, 15%, 'wave_4');
+@include waves-keyframes(12, -18.5%, 15%, 26%, 22%, 'wave_5');
