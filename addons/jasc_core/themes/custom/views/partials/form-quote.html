@@ -19,8 +19,8 @@
 }}
 
 {{ form_open }}
-
-<?= form_fieldset('Contact Information') ?>
+<fieldset class="active">
+    <legend>Contact Information</legend>
     <div class="control-group">
         <label class="control-label" for="{{full_name:slug}}">{{ if full_name:required }}<span class="required">*</span>{{ endif }}{{ full_name:label }}</label>
         <div class="controls">
@@ -60,8 +60,15 @@
             {{ website:error }}
         </div>
     </div>
-<?= form_fieldset_close() ?>
-<?= form_fieldset('Sign Information') ?>
+    <div class="row">
+        <div class="span3 offset4">
+            <a href="#tab2" class="btn btn-primary btn-block">Next</a>
+        </div>
+    </div>
+    
+</fieldset>
+<fieldset>
+    <legend>Sign Information</legend>
 	<div class="control-group">
         <label class="control-label" for="{{sign_type:slug}}">{{ if sign_type:required }}<span class="required">*</span>{{ endif }}{{ sign_type:label }}</label>
         <div class="controls">
@@ -94,8 +101,17 @@
             {{ raq_file:error }}
         </div>
     </div>
-<?= form_fieldset_close() ?>
-<?= form_fieldset('Other Information') ?>
+    <div class="row">
+        <div class="span3">
+            <a href="#tab1" class="btn btn-info btn-block">Prev</a>
+        </div>
+        <div class="span3 offset1">
+            <a href="#tab3" class="btn btn-primary btn-block">Next</a>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Other Information</legend>
 	<div class="control-group">
         <label class="control-label" for="{{promo:slug}}">{{ if promo:required }}<span class="required">*</span>{{ endif }}{{ promo:label }}</label>
         <div class="controls">
@@ -111,12 +127,16 @@
             {{ details:error }}
         </div>
     </div>
-<?= form_fieldset_close() ?>
-    <div class="row-fluid">
-    <div class="span6 offset6">
-        <input type="submit" class="btn btn-primary btn-block" value="Submit"/>
+    <div class="row">
+        <div class="span3">
+            <a href="#tab2" class="btn btn-info btn-block">Prev</a>
+        </div>
+        <div class="span3 offset1">
+            <input type="submit" class="btn btn-block" value="Submit"/>
+        </div>
     </div>
-    </div>
+</fieldset>
+    
 {{ form_close }}
 
 {{ /streams:form }}

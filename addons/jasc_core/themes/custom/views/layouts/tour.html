@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
@@ -8,7 +6,6 @@
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="metadata"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/metadata"}}
 {{ endif }}
 </head>
@@ -21,24 +18,21 @@
 	
 	  ga('create', '{{ settings:ga_tracking }}', 'auto');
 	  ga('send', 'pageview');
-	
 	</script>
 	<div class="wrapper">
         {{theme:partial name="header"}}
 		<div id="content" class="site-content">
 			{{session:messages success="success" notice="notice" error="error"}}
-			<section id="home" class="home section-block">
+			<section id="home_id" data-hash="start" class="home section-block">
                 <div class="block">
                     <h1 class="animated">{{page:title}} - Sign Design &amp; Fabrication</h1>
                 </div>
                 {{ template:body }}
-                <button id="tour1" class="btn btn-primary">
-                    Take a tour<i class="icon-arrow-down"></i>
-                </button>
+                <a href="#aboutus" class="btn btn-primary">Take a tour<i class="icon-arrow-down"></i></a>
             </section>
             <!-- About Us Section -->
             {{ streams:cycle stream="tour-content" where="`id`='1'"  }}
-            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+            <section id="{{section_id}}_id" data-hash="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
                 <div class="container">
                     <div class="row">
                         <div class="{{section_class}}">
@@ -63,7 +57,7 @@
             </section>
             {{ /streams:cycle }}
             <!-- Products Section -->
-            <div id="productsgroups" class="section-slides">
+            <div id="productgroups" class="section-slides" data-hash="products">
                 <ul class="slide-nav">
                     {{ streams:cycle stream="tour-content" where="`product_group`='1'" sort="asc" }}
                     <li>{{section_title}}</li>
@@ -71,7 +65,7 @@
                 </ul>
                 <div class="slide-wrapper">
                     {{ streams:cycle stream="tour-content" where="`product_group`='1'" sort="asc" }}
-                    <section id="{{section_id}}" class="{{section_id}} slide section-block" style="background-image:url({{ content_background:image }})">
+                    <section id="{{section_id}}_id" data-hash="slide/{{section_id}}" class="{{section_id}} slide section-block" style="background-image:url({{ content_background:image }})">
                         <div class="container">
                             <div class="row">
                                 <div class="{{section_class}}">
@@ -99,7 +93,7 @@
             </div>
             <!-- Services Section -->
             {{ streams:cycle stream="tour-content" where="`id`='8'" }}
-            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+            <section id="{{section_id}}_id" data-hash="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
                 <div class="container">
                     <div class="row">
                         <div class="{{section_class}}">
@@ -125,7 +119,7 @@
             {{ /streams:cycle }}
             <!-- Gallery Section -->
             {{ streams:cycle stream="tour-content" where="`id`='9'" }}
-            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+            <section id="{{section_id}}_id" data-hash="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
                 <div class="container">
                     <div class="row">
                         <div class="{{section_class}}">
@@ -151,7 +145,7 @@
             {{ /streams:cycle }}
             <!-- Contact Us Section -->
             {{ streams:cycle stream="tour-content" where="`id`='10'" }}
-            <section id="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
+            <section id="{{section_id}}_id" data-hash="{{section_id}}" class="{{section_id}} section-block" style="background-image:url({{ content_background:image }})">
                 <div class="container">
                     <div class="row">
                         <div class="{{section_class}}">
@@ -182,7 +176,6 @@
 	<!-- DEVELOPMENT FILES -->				
 	{{theme:partial name="footer-scripts"}}
 {{ else }}
-	<!-- PRODUCTION FILES -->
 	{{theme:partial name="publish/footer-scripts"}}
 {{ endif }}
 </body>

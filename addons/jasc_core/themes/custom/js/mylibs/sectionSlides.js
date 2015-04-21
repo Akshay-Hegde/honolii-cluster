@@ -35,7 +35,6 @@ SectionSlider.prototype.slide = function(data){
             obj.$slides.eq(index).css('marginLeft',0);
         }
         
-        
         obj.setIndex = index;
     }
-}
+};

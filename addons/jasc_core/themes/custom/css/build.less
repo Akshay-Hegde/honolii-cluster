@@ -4,72 +4,35 @@
 
 // Core variables and mixins
 @import "less/variables.less"; // Modify this for custom colors, font-sizes, etc
-@import "../../../../../libraries/bootstrap/less/mixins.less";
+@import "bootstrap/mixins.less";
 
 // CSS Reset
-@import "../../../../../libraries/bootstrap/less/reset.less";
+@import "bootstrap/reset.less";
 
 // Grid system and page structure
-@import "../../../../../libraries/bootstrap/less/scaffolding.less";
-@import "../../../../../libraries/bootstrap/less/grid.less";
-@import "../../../../../libraries/bootstrap/less/layouts.less";
+@import "bootstrap/scaffolding.less";
+@import "bootstrap/grid.less";
+@import "bootstrap/layouts.less";
 
 // Base CSS
 @import "less/type.less";
-//@import "../../../../../libraries/bootstrap/less/code.less";
-@import "../../../../../libraries/bootstrap/less/forms.less";
-//@import "../../../../../libraries/bootstrap/less/tables.less";
+@import "bootstrap/forms.less";
 
 // Components: common
 @import "less/sprites.less";
-//@import "../../../../../libraries/bootstrap/less/dropdowns.less";
-//@import "../../../../../libraries/bootstrap/less/wells.less";
-//@import "../../../../../libraries/bootstrap/less/component-animations.less";
-//@import "../../../../../libraries/bootstrap/less/close.less";
 
 // Components: Buttons & Alerts
 @import "less/buttons.less";
-//@import "../../../../../libraries/bootstrap/less/button-groups.less";
-//@import "../../../../../libraries/bootstrap/less/alerts.less"; // Note: alerts share common CSS with buttons and thus have styles in buttons.less
-
-// Components: Nav
-//@import "../../../../../libraries/bootstrap/less/navs.less";
-//@import "../../../../../libraries/bootstrap/less/navbar.less";
-//@import "../../../../../libraries/bootstrap/less/breadcrumbs.less";
-//@import "../../../../../libraries/bootstrap/less/pagination.less";
-//@import "../../../../../libraries/bootstrap/less/pager.less";
-
-// Components: Popovers
-//@import "../../../../../libraries/bootstrap/less/modals.less";
-//@import "../../../../../libraries/bootstrap/less/tooltip.less";
-//@import "../../../../../libraries/bootstrap/less/popovers.less";
-
-// Components: Misc
-//@import "../../../../../libraries/bootstrap/less/thumbnails.less";
-//@import "../../../../../libraries/bootstrap/less/media.less";
-//@import "../../../../../libraries/bootstrap/less/labels-badges.less";
-//@import "../../../../../libraries/bootstrap/less/progress-bars.less";
-//@import "../../../../../libraries/bootstrap/less/accordion.less";
-//@import "../../../../../libraries/bootstrap/less/carousel.less";
-//@import "../../../../../libraries/bootstrap/less/hero-unit.less";
 
 // Utility classes
-@import "../../../../../libraries/bootstrap/less/utilities.less"; // Has to be last to override when necessary
+@import "bootstrap/utilities.less"; // Has to be last to override when necessary
 
 // Responsize
-@import "../../../../../libraries/bootstrap/less/responsive-utilities.less";
+@import "bootstrap/responsive-utilities.less";
 
 // Large desktops
-@import "../../../../../libraries/bootstrap/less/responsive-1200px-min.less";
+@import "bootstrap/responsive-1200px-min.less";
 
-// Tablets to regular desktops
-//@import "../../../../../libraries/bootstrap/less/responsive-768px-979px.less";
-
-// Phones to portrait tablets and narrow desktops
-
-
-// From 979px and below, show a button to toggle navbar contents
-//@import "../../../../../libraries/bootstrap/less/responsive-navbar.less";
 /* --------------------------------
   Layout Foundation
 --------------------------------- */
@@ -372,7 +335,7 @@ div.site-content{
       background-image:none;
       padding-top:200px;
       padding-bottom:10px;
-      button.btn{
+      .btn{
         width:200px;
         margin:2em auto 0;
         display:block;
@@ -491,6 +454,9 @@ div.site-content{
           cursor:pointer;
           border-color:@JASCblue;
         }
+        a{
+          
+        }
       }
     }
   }
@@ -498,6 +464,12 @@ div.site-content{
     font-family:@sansFontFamily;
     input,select,textarea{
       font-family:@sansFontFamily;
+    }
+    fieldset{
+      display:none;
+      &.active{
+        display:block;
+      }
     }
     legend{
       color:@textColor;

@@ -168,7 +168,11 @@ input[type="button"] {
 }
 // Info appears as a neutral blue
 .btn-info {
-  .buttonBackground(@btnInfoBackground, @btnInfoBackgroundHighlight);
+  background-color:fade(@JASCblue,40%);
+  &:hover,
+  &:focus {
+    background-color:fade(@JASCblue,700%);
+  }
 }
 // Inverse appears as dark gray
 .btn-inverse {

@@ -34,10 +34,10 @@ WindowManager.prototype.resize = function(event){// attached to window resize ev
     event.data.width = width;
     event.data.height = height;
     event.data.$window.trigger('windowResize',{width:width,height:height});
-}
+};
 WindowManager.prototype.scroll = function(event){// attached to window scroll event
     var scrollTop;
     scrollTop = event.data.$window.scrollTop();
     event.data.scrollTop = scrollTop;
     event.data.$window.trigger('windowScrollTop',{scrollTop:scrollTop});
-}
+};
