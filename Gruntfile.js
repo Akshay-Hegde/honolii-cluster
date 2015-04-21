@@ -50,8 +50,12 @@ module.exports = function(grunt) {
         jasc_core: [
             {
                 src: [
-                    "addons/jasc_core/themes/custom/js/libs/*.js",
-                    "addons/jasc_core/themes/custom/js/mylibs/*.js",
+                    "addons/jasc_core/themes/custom/js/libs/jquery.purl.js",
+                    "addons/jasc_core/themes/custom/js/libs/routie.js",
+                    "addons/jasc_core/themes/custom/js/mylibs/instagramGrid.js",
+                    "addons/jasc_core/themes/custom/js/mylibs/windowManager.js",
+                    "addons/jasc_core/themes/custom/js/mylibs/sectionManager.js",
+                    "addons/jasc_core/themes/custom/js/mylibs/sectionSlides.js",
                     "addons/jasc_core/themes/custom/js/default.js"
                 ],
                 dest: 'addons/jasc_core/themes/custom/publish/js/production.js'
@@ -78,35 +82,35 @@ module.exports = function(grunt) {
                 dest:'addons/mxtb_core/themes/custom/publish/css/production.css',
             }
         ],
-        // ncesa_core: [
-        //     {
-        //         src: [
-        //             "addons/ncesa_core/themes/custom/js/mylibs/jquery.cookie.js",
-        //             "addons/ncesa_core/themes/custom/js/main.js",
-        //         ],
-        //         dest:'addons/ncesa_core/themes/custom/publish/js/production.js',
-        //     },{
-        //         src: [
-        //             "addons/ncesa_core/themes/custom/css/screen.css",
-        //             "addons/ncesa_core/themes/custom/css/main.css"
-        //         ],
-        //         dest:'addons/ncesa_core/themes/custom/publish/css/production.css',
-        //     },{
-        //         src: [
-        //             "addons/ncesa_core/themes/custom/css/mobile.css"
-        //         ],
-        //         dest:'addons/ncesa_core/themes/custom/publish/css/mobile.production.css',
-        //     },{
-        //         src: [
-        //             "addons/ncesa_core/themes/custom/css/print.css"
-        //         ],
-        //         dest:'addons/ncesa_core/themes/custom/publish/css/print.production.css',
-        //     }
-        // ],
-        // wetumka_core: {
-        //     js: [],
-        //     css: []
-        // }
+        wetumka_core: [
+            {
+                src: [
+                    "addons/wetumka_core/themes/custom/js/mylibs/jquery.imagesloaded.js",
+                    "addons/wetumka_core/themes/custom/js/mylibs/classes.js",
+                    "addons/wetumka_core/themes/custom/js/default.js"
+                ],
+                dest:'addons/wetumka_core/themes/custom/publish/js/production.js',
+            },{
+                src: [
+                    "addons/wetumka_core/themes/custom/css/style.css",
+                ],
+                dest:'addons/wetumka_core/themes/custom/publish/css/production.css',
+            }
+        ],
+        wetumka_brand: [
+            {
+                src: [
+                    "addons/wetumka_brand/themes/custom/js/default.js"
+                ],
+                dest:'addons/wetumka_brand/themes/custom/publish/js/production.js',
+            },{
+                src: [
+                    "addons/wetumka_brand/themes/custom/css/style.css"
+                ],
+                dest:'addons/wetumka_brand/themes/custom/publish/css/production.css',
+            }
+        ],
+
     });
 
     /* -------------------------------------------------

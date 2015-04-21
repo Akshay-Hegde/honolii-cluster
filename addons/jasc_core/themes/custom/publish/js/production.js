@@ -1,141 +1,4 @@
 /*
- * Instagram jQuery plugin
- * v0.2.1
- * http://potomak.github.com/jquery-instagram/
- * Copyright (c) 2012 Giovanni Cappellotto
- * Licensed MIT
- */
-
-(function ($){
-  $.fn.instagram = function (options) {
-    var that = this,
-        apiEndpoint = "https://api.instagram.com/v1",
-        settings = {
-            hash: null
-          , userId: null
-          , locationId: null
-          , search: null
-          , accessToken: null
-          , clientId: null
-          , show: null
-          , onLoad: null
-          , onComplete: null
-          , maxId: null
-          , minId: null
-          , next_url: null
-          , image_size: null
-          , photoLink: true
-        };
-        
-    options && $.extend(settings, options);
-    
-    function createPhotoElement(photo) {
-      var image_url = photo.images.thumbnail.url;
-      
-      if (settings.image_size == 'low_resolution') {
-        image_url = photo.images.low_resolution.url;
-      }
-      else if (settings.image_size == 'thumbnail') {
-        image_url = photo.images.thumbnail.url;
-      }
-      else if (settings.image_size == 'standard_resolution') {
-        image_url = photo.images.standard_resolution.url;
-      }
-
-      var innerHtml = $('<img>')
-        .addClass('instagram-image')
-        .attr('src', image_url);
-
-      if (settings.photoLink) {
-        innerHtml = $('<a>')
-          .attr('target', '_blank')
-          .attr('href', photo.link)
-          .append(innerHtml);
-      }
-
-      return $('<div>')
-        .addClass('instagram-placeholder')
-        .attr('id', photo.id)
-        .append(innerHtml);
-    }
-    
-    function createEmptyElement() {
-      return $('<div>')
-        .addClass('instagram-placeholder')
-        .attr('id', 'empty')
-        .append($('<p>').html('No photos for this query'));
-    }
-    
-    function composeRequestURL() {
-
-      var url = apiEndpoint,
-          params = {};
-      
-      if (settings.next_url != null) {
-        return settings.next_url;
-      }
-
-      if (settings.hash != null) {
-        url += "/tags/" + settings.hash + "/media/recent";
-      }
-      else if (settings.search != null) {
-        url += "/media/search";
-        params.lat = settings.search.lat;
-        params.lng = settings.search.lng;
-        settings.search.max_timestamp != null && (params.max_timestamp = settings.search.max_timestamp);
-        settings.search.min_timestamp != null && (params.min_timestamp = settings.search.min_timestamp);
-        settings.search.distance != null && (params.distance = settings.search.distance);
-      }
-      else if (settings.userId != null) {
-        url += "/users/" + settings.userId + "/media/recent";
-      }
-      else if (settings.locationId != null) {
-        url += "/locations/" + settings.locationId + "/media/recent";
-      }
-      else {
-        url += "/media/popular";
-      }
-      
-      settings.accessToken != null && (params.access_token = settings.accessToken);
-      settings.clientId != null && (params.client_id = settings.clientId);
-      settings.minId != null && (params.min_id = settings.minId);
-      settings.maxId != null && (params.max_id = settings.maxId);
-      settings.show != null && (params.count = settings.show);
-
-      url += "?" + $.param(params)
-      
-      return url;
-    }
-    
-    settings.onLoad != null && typeof settings.onLoad == 'function' && settings.onLoad();
-    
-    $.ajax({
-      type: "GET",
-      dataType: "jsonp",
-      cache: false,
-      url: composeRequestURL(),
-      success: function (res) {
-        var length = typeof res.data != 'undefined' ? res.data.length : 0;
-        var limit = settings.show != null && settings.show < length ? settings.show : length;
-        
-        if (limit > 0) {
-          for (var i = 0; i < limit; i++) {
-            that.append(createPhotoElement(res.data[i]));
-          }
-        }
-        else {
-          that.append(createEmptyElement());
-        }
-
-        settings.onComplete != null && typeof settings.onComplete == 'function' && settings.onComplete(res.data, res);
-      }
-    });
-    
-    return this;
-  };
-})(jQuery);
-
-/*
  * Purl (A JavaScript URL parser) v2.3.1
  * Developed and maintanined by Mark Perkins, mark@allmarkedup.com
  * Source repository: https://github.com/allmarkedup/jQuery-URL-Parser
@@ -400,6 +263,215 @@
     return purl;
 
 });
+/*!
+ * routie - a tiny hash router
+ * v0.3.2
+ * http://projects.jga.me/routie
+ * copyright Greg Allen 2013
+ * MIT License
+*/
+(function(w) {
+
+  var routes = [];
+  var map = {};
+  var reference = "routie";
+  var oldReference = w[reference];
+
+  var Route = function(path, name) {
+    this.name = name;
+    this.path = path;
+    this.keys = [];
+    this.fns = [];
+    this.params = {};
+    this.regex = pathToRegexp(this.path, this.keys, false, false);
+
+  };
+
+  Route.prototype.addHandler = function(fn) {
+    this.fns.push(fn);
+  };
+
+  Route.prototype.removeHandler = function(fn) {
+    for (var i = 0, c = this.fns.length; i < c; i++) {
+      var f = this.fns[i];
+      if (fn == f) {
+        this.fns.splice(i, 1);
+        return;
+      }
+    }
+  };
+
+  Route.prototype.run = function(params) {
+    for (var i = 0, c = this.fns.length; i < c; i++) {
+      this.fns[i].apply(this, params);
+    }
+  };
+
+  Route.prototype.match = function(path, params){
+    var m = this.regex.exec(path);
+
+    if (!m) return false;
+
+
+    for (var i = 1, len = m.length; i < len; ++i) {
+      var key = this.keys[i - 1];
+
+      var val = ('string' == typeof m[i]) ? decodeURIComponent(m[i]) : m[i];
+
+      if (key) {
+        this.params[key.name] = val;
+      }
+      params.push(val);
+    }
+
+    return true;
+  };
+
+  Route.prototype.toURL = function(params) {
+    var path = this.path;
+    for (var param in params) {
+      path = path.replace('/:'+param, '/'+params[param]);
+    }
+    path = path.replace(/\/:.*\?/g, '/').replace(/\?/g, '');
+    if (path.indexOf(':') != -1) {
+      throw new Error('missing parameters for url: '+path);
+    }
+    return path;
+  };
+
+  var pathToRegexp = function(path, keys, sensitive, strict) {
+    if (path instanceof RegExp) return path;
+    if (path instanceof Array) path = '(' + path.join('|') + ')';
+    path = path
+      .concat(strict ? '' : '/?')
+      .replace(/\/\(/g, '(?:/')
+      .replace(/\+/g, '__plus__')
+      .replace(/(\/)?(\.)?:(\w+)(?:(\(.*?\)))?(\?)?/g, function(_, slash, format, key, capture, optional){
+        keys.push({ name: key, optional: !! optional });
+        slash = slash || '';
+        return '' + (optional ? '' : slash) + '(?:' + (optional ? slash : '') + (format || '') + (capture || (format && '([^/.]+?)' || '([^/]+?)')) + ')' + (optional || '');
+      })
+      .replace(/([\/.])/g, '\\$1')
+      .replace(/__plus__/g, '(.+)')
+      .replace(/\*/g, '(.*)');
+    return new RegExp('^' + path + '$', sensitive ? '' : 'i');
+  };
+
+  var addHandler = function(path, fn) {
+    var s = path.split(' ');
+    var name = (s.length == 2) ? s[0] : null;
+    path = (s.length == 2) ? s[1] : s[0];
+
+    if (!map[path]) {
+      map[path] = new Route(path, name);
+      routes.push(map[path]);
+    }
+    map[path].addHandler(fn);
+  };
+
+  var routie = function(path, fn) {
+    if (typeof fn == 'function') {
+      addHandler(path, fn);
+      routie.reload();
+    } else if (typeof path == 'object') {
+      for (var p in path) {
+        addHandler(p, path[p]);
+      }
+      routie.reload();
+    } else if (typeof fn === 'undefined') {
+      routie.navigate(path);
+    }
+  };
+
+  routie.lookup = function(name, obj) {
+    for (var i = 0, c = routes.length; i < c; i++) {
+      var route = routes[i];
+      if (route.name == name) {
+        return route.toURL(obj);
+      }
+    }
+  };
+
+  routie.remove = function(path, fn) {
+    var route = map[path];
+    if (!route)
+      return;
+    route.removeHandler(fn);
+  };
+
+  routie.removeAll = function() {
+    map = {};
+    routes = [];
+  };
+
+  routie.navigate = function(path, options) {
+    options = options || {};
+    var silent = options.silent || false;
+
+    if (silent) {
+      removeListener();
+    }
+    setTimeout(function() {
+      window.location.hash = path;
+
+      if (silent) {
+        setTimeout(function() { 
+          addListener();
+        }, 1);
+      }
+
+    }, 1);
+  };
+
+  routie.noConflict = function() {
+    w[reference] = oldReference;
+    return routie;
+  };
+
+  var getHash = function() {
+    return window.location.hash.substring(1);
+  };
+
+  var checkRoute = function(hash, route) {
+    var params = [];
+    if (route.match(hash, params)) {
+      route.run(params);
+      return true;
+    }
+    return false;
+  };
+
+  var hashChanged = routie.reload = function() {
+    var hash = getHash();
+    for (var i = 0, c = routes.length; i < c; i++) {
+      var route = routes[i];
+      if (checkRoute(hash, route)) {
+        return;
+      }
+    }
+  };
+
+  var addListener = function() {
+    if (w.addEventListener) {
+      w.addEventListener('hashchange', hashChanged, false);
+    } else {
+      w.attachEvent('onhashchange', hashChanged);
+    }
+  };
+
+  var removeListener = function() {
+    if (w.removeEventListener) {
+      w.removeEventListener('hashchange', hashChanged);
+    } else {
+      w.detachEvent('onhashchange', hashChanged);
+    }
+  };
+  addListener();
+
+  w[reference] = routie;
+   
+})(window);
+
 /*
  ---------------------------------------------------------------
   Instagram Grid - ERM - Wetumka Interactive LLC - wetumka.net
@@ -421,7 +493,7 @@ function InstagramGrid(dataObj,element){
     this.$element = $(element);
     
     for (var key in dataObj){
-        var img,url
+        var img,url;
         img = new Image();
         url = dataObj[key].images[this.imgRes].url;
         img.src = url;
@@ -478,7 +550,7 @@ InstagramGrid.prototype.resize = function(event,obj){
             event.data.setGrid();
         }
     }
-}
+};
 
 InstagramGrid.prototype.setGrid = function(){
 
@@ -496,7 +568,50 @@ InstagramGrid.prototype.setGrid = function(){
         element.remove();
     }
     this.$element.prepend(HTMLstring);
+};
+/*
+ ---------------------------------------------------------------
+  Window Manager - ERM - Wetumka Interactive LLC - wetumka.net
+ ---------------------------------------------------------------
+ Adds an object with listeners for different window changes.
+ 
+ Events: windowResize, windowScrollTop
+ 
+ Requires - jQuery
+ 
+ */ 
+
+var windowManager;
+
+$(function() {
+    windowManager = new WindowManager();
+});
+// define WindowManager Class
+function WindowManager(){
+    this.$window = $(window);
+    this.width = this.$window.width();
+    this.height = this.$window.height();
+    this.scrollTop = this.$window.scrollTop();
+
+    // listener actions on window changes
+    this.$window.resize(this, this.resize);
+    this.$window.scroll(this, this.scroll);
 }
+WindowManager.prototype.resize = function(event){// attached to window resize event
+    var $window,width,height;
+    $window = event.data.$window;
+    width = $window.width();
+    height = $window.height();
+    event.data.width = width;
+    event.data.height = height;
+    event.data.$window.trigger('windowResize',{width:width,height:height});
+};
+WindowManager.prototype.scroll = function(event){// attached to window scroll event
+    var scrollTop;
+    scrollTop = event.data.$window.scrollTop();
+    event.data.scrollTop = scrollTop;
+    event.data.$window.trigger('windowScrollTop',{scrollTop:scrollTop});
+};
 /*
  ---------------------------------------------------------------
   Section Manager - ERM - Wetumka Interactive LLC - wetumka.net
@@ -524,7 +639,7 @@ function SectionManager(obj){
     this.sectionIndex = 0;
     this.$sections = obj.section;
     this.$nav = obj.nav;
-    this.sectionPos = new Array();
+    this.sectionPos = [];
     this.resize = (typeof(obj.resize)==='undefined')? false : obj.resize;
     this.offsetpx = (typeof(obj.offsetpx)==='undefined')? 50 : obj.offsetpx;
     this.offsetindex = (typeof(obj.offsetindex)==='undefined')? 0 : obj.offsetindex;
@@ -534,7 +649,7 @@ function SectionManager(obj){
         windowManager.$window.bind('windowResize',this,this.resize);
     }
     windowManager.$window.bind('windowScrollTop',this,this.setActive);
-    this.$nav.bind('click',this,this.navClick);
+    //this.$nav.bind('click',this,this.navClick);
     
     //find positions of sections
     sectionLength = this.$sections.length;
@@ -553,8 +668,8 @@ SectionManager.prototype.resize = function(event,obj){// attached to window resi
         }else{
             $this.css('height', obj.height);
         }
-    })
-}
+    });
+};
 SectionManager.prototype.setActive = function(event,obj){ // sets the active item in panel nav while scrolling
     var sectionIndex,sectionLength,x;
     x=0;
@@ -567,8 +682,12 @@ SectionManager.prototype.setActive = function(event,obj){ // sets the active ite
     }
     // check if panel has changed
     if(sectionIndex !== event.data.sectionIndex){
+        var hash = event.data.$sections.eq(sectionIndex).data('hash');
         event.data.$nav.parent('li').removeClass('active');
         event.data.sectionIndex = sectionIndex;
+        routie.navigate(hash,{'silent':true});
+
+        //window.location.hash = event.data.$sections.eq(sectionIndex).attr('id');
         if(event.data.offsetindex !== 0){
             if(sectionIndex >= event.data.offsetindex){
                 event.data.$nav.eq(sectionIndex-event.data.offsetindex).parent('li').addClass('active');
@@ -580,22 +699,24 @@ SectionManager.prototype.setActive = function(event,obj){ // sets the active ite
     if(!event.data.isActive){
         event.data.isActive = true;
     }
-}
+};
 SectionManager.prototype.navClick = function(event,index){ // click event for panel nav
     var clickIndex , offsetTop, offsetIndex;
+
     if(event){
+        //event.preventDefault();
         offsetIndex = event.data.offsetindex;
         clickIndex = event.data.$nav.index($(event.currentTarget)) + offsetIndex;
     }else if(typeof(index)!=="undefined"){
-        clickIndex = index
+        clickIndex = index;
     }
     offsetTop = sectionManager.$sections.eq(clickIndex).position().top;
     // animate to panel
     $('html, body').stop().animate({
         scrollTop : offsetTop
     }, sectionManager.time);
-    return false
-}
+    
+};
 
 // define SectionManager Class - requires WindowManager
 function SectionSlider(obj){
@@ -634,54 +755,10 @@ SectionSlider.prototype.slide = function(data){
             obj.$slides.eq(index).css('marginLeft',0);
         }
         
-        
         obj.setIndex = index;
     }
-}
+};
 
-/*
- ---------------------------------------------------------------
-  Window Manager - ERM - Wetumka Interactive LLC - wetumka.net
- ---------------------------------------------------------------
- Adds an object with listeners for different window changes.
- 
- Events: windowResize, windowScrollTop
- 
- Requires - jQuery
- 
- */ 
-
-var windowManager;
-
-$(function() {
-    windowManager = new WindowManager();
-});
-// define WindowManager Class
-function WindowManager(){
-    this.$window = $(window);
-    this.width = this.$window.width();
-    this.height = this.$window.height();
-    this.scrollTop = this.$window.scrollTop();
-
-    // listener actions on window changes
-    this.$window.resize(this, this.resize);
-    this.$window.scroll(this, this.scroll);
-}
-WindowManager.prototype.resize = function(event){// attached to window resize event
-    var $window,width,height;
-    $window = event.data.$window;
-    width = $window.width();
-    height = $window.height();
-    event.data.width = width;
-    event.data.height = height;
-    event.data.$window.trigger('windowResize',{width:width,height:height});
-}
-WindowManager.prototype.scroll = function(event){// attached to window scroll event
-    var scrollTop;
-    scrollTop = event.data.$window.scrollTop();
-    event.data.scrollTop = scrollTop;
-    event.data.$window.trigger('windowScrollTop',{scrollTop:scrollTop});
-}
 $(function() {
   var $header,$headerToggle,$headerSubmenu, sectionManagerObj;
  
@@ -692,92 +769,108 @@ $(function() {
       resize:false,
       offsetpx:50,
       offsetindex:1
-  }
+  };
   sectionManager = new SectionManager(sectionManagerObj);
   // SECTION SLIDE
   sectionSliderObj = {
-      nav:$('.slide-nav > li','#productsgroups'),
-      slides:$('.slide-wrapper > section','#productsgroups')
-  }
+      nav:$('.slide-nav > li','#productgroups'),
+      slides:$('.slide-wrapper > section','#productgroups')
+  };
   sectionSlider = new SectionSlider(sectionSliderObj);
   // TOUR Click Events
-  if($('#home').length != 0){
-      $('#logo a').click(function(){
-          sectionManager.navClick(null,0);
-          return false;
-      })
-      
-      setTimeout(function(){
-          $('#home h1').addClass('bounceInDown');
-      },500)
-      
+  if ($('#home_id').length !== 0) {
+    
+    setTimeout(function(){
+        $('#home_id h1').addClass('bounceInDown');
+    },500);
+
+    routie({
+      'start': function() {
+        sectionManager.navClick(null,0);
+        ga('send', 'event', 'tour-click', 'start', 1);
+      },
+      'aboutus': function() {
+        sectionManager.navClick(null,1);
+        ga('send', 'event', 'tour-click', 'about', 1);
+      },
+      'products': function() {
+        sectionManager.navClick(null,2);
+        sectionSlider.slide(0);
+        ga('send', 'event', 'tour-click', 'product', 1);
+      },
+      'slide/retailsigns': function() {
+        sectionManager.navClick(null,2);
+        sectionSlider.slide(1);
+        ga('send', 'event', 'tour-click', 'product/retail', 1);
+      },
+      'slide/restaurantbarsigns': function() {
+        sectionManager.navClick(null,2);
+        sectionSlider.slide(2);
+        ga('send', 'event', 'tour-click', 'product/restaurant', 1);
+      },
+      'slide/hotelsigns': function() {
+        sectionManager.navClick(null,2);
+        sectionSlider.slide(3);
+        ga('send', 'event', 'tour-click', 'product/hotel', 1);
+      },
+      'slide/realestatesigns': function() {
+        sectionManager.navClick(null,2);
+        sectionSlider.slide(4);
+        ga('send', 'event', 'tour-click', 'product/realestate', 1);
+      },
+      'services': function() {
+        sectionManager.navClick(null,3);
+        ga('send', 'event', 'tour-click', 'service', 1);
+      },
+      'gallery': function() {
+        sectionManager.navClick(null,4);
+        ga('send', 'event', 'tour-click', 'gallery', 1);
+      },
+      'contact': function() {
+        sectionManager.navClick(null,5);
+        ga('send', 'event', 'tour-click', 'contact', 1);
+      }
+    });
+  }
+
+  if ($('#raq form').length !== 0) {
+    var $fieldset = $('fieldset');
+
+    $fieldset.find('a.btn').click(function(event){
+      var $t = $(this);
+      var routeID = $t.attr('href').substring(1);
+      routie.navigate(routeID);
+    });
+
+    routie({
+      'tab1': function() {
+        $fieldset.removeClass('active').eq(0).addClass('active');
+        ga('send', 'event', 'raq-fieldset', 'contact-information', 1);
+      },
+      'tab2': function() {
+        $fieldset.removeClass('active').eq(1).addClass('active');
+        ga('send', 'event', 'raq-fieldset', 'sign-information', 1);
+      },
+      'tab3': function() {
+        $fieldset.removeClass('active').eq(2).addClass('active');
+        ga('send', 'event', 'raq-fieldset', 'other-information', 1);
+      }
+    });
   }
   
-  $('#tour1').click(function(){
-      sectionManager.navClick(null,1);
-      return false;
-  });
-  $('#tour2').click(function(){
-      sectionManager.navClick(null,2);
-      return false;
-  });
-  $('#tour3').click(function(){
-      sectionManager.navClick(null,3);
-      return false;
-  });
-  $('#tour4').click(function(){
-      sectionManager.navClick(null,4);
-      return false;
-  });
-  $('#tour5').click(function(){
-      sectionManager.navClick(null,5);
-      return false;
-  });
-  $('#tour5').click(function(){
-      sectionManager.navClick(null,5);
-      return false;
-  });
-  $('#product1').click(function(){
-      sectionSlider.slide(1);
-      return false;
-  });
-  $('#product2').click(function(){
-      sectionSlider.slide(2);
-      return false;
-  });
-  $('#product3').click(function(){
-      sectionSlider.slide(3);
-      return false;
-  });
-  $('#product4').click(function(){
-      sectionSlider.slide(4);
-      return false;
-  });
-  $('#product5').click(function(){
-      //sectionSlider.slide(5);
-      sectionManager.navClick(null,3);
-      return false;
-  });
-  $('#product6').click(function(){
-      sectionManager.navClick(null,3);
-      return false;
-  });
   // FORM - RAQ
   $('#raq form').addClass('form-horizontal').find('input,select,textarea').addClass('input-block-level');
   // GALLERY
-  if($('#gallery').length != 0){
-    instagramGrid = new InstagramGrid(instagramOBJ.data,'#gallery');
+  if($('#gallery_id').length !== 0){
+    instagramGrid = new InstagramGrid(instagramOBJ.data,'#gallery_id');
     instagramGrid.resize();
   }
-  
-  
   // HEADER NAV FUNCTIONS
   $header = $('#header');
   $headerToggle = $('#headerToggle');
   $header.find('li.submenu').append('<i class="icon-bullet-box"></i>');
   $headerSubmenu = $('i.icon-bullet-box','#header');
   $headerToggle.click(function(event){
-      console.log('okay')
       var $this;
       $this = $(this);
       if(!$this.hasClass('active')){
@@ -787,14 +880,14 @@ $(function() {
           $this.removeClass('active');
           $header.removeClass('active1').removeClass('active2');
       }
-  })
+  });
   $headerSubmenu.click(function(event){
       if(!$header.hasClass('active2')){
           $header.addClass('active2');
       }else{
           $header.removeClass('active2');
       }
-  })
+  });
   // auto deploy nav if over a certain width
   if(windowManager.width >= 1700){
       $headerToggle.trigger('click');

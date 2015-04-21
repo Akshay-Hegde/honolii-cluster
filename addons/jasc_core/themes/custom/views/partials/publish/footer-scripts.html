@@ -1,15 +1,12 @@
-<!-- JS Docs -->
-
-
-<!-- scripts concatenated and minified via build script -->
-{{ if global:environment == 'development' }}			
+{{ if global:environment == 'development' }}
+	<!-- scripts concatenated and minified via build script -->	
 	<script src="/{{theme:path}}/js/libs/jquery.purl.js"></script>
+	<script src="/{{theme:path}}/js/libs/routie.js"></script>
 	<script src="/{{theme:path}}/js/mylibs/instagramGrid.js"></script>
 	<script src="/{{theme:path}}/js/mylibs/windowManager.js"></script>
 	<script src="/{{theme:path}}/js/mylibs/sectionManager.js"></script>
 	<script src="/{{theme:path}}/js/mylibs/sectionSlides.js"></script>
 	<script src="/{{theme:path}}/js/default.js"></script>
 {{ else }}
-	<script src="/{{theme:path}}/publish/js-1429001047458/production.js"></script>
+	<script src="/{{theme:path}}/publish/js-1429605607519/production.js"></script>
 {{ endif }}
-<!-- end scripts -->
