@@ -137,6 +137,9 @@ module.exports = function(grunt) {
     grunt.config('cssmin',{
         build: {
             expand: true,
+            options: {
+                advanced: false
+            },
             cwd: 'addons/<%= util.site %>/themes/custom/publish/css/',
             src: '*.css',
             dest: 'addons/<%= util.site %>/themes/custom/publish/css-' + timestamp + '/'
