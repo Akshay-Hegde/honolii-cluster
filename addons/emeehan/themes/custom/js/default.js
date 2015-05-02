@@ -1,27 +1,48 @@
 /* Default JS */
 $(document).ready(function() {
-	// style form
-	var docForms = $('form'),
-		twtList = $('.twitter_feed','#col-rail')
-	;
+	var $toggleSidebar = $('#toggleSidebar');
+	var $toggleMenu = $('#toggleMenu');
+	var $toggleContact = $('#toggleContact');
+	var $siteWrapper = $('#wrapper');
+	var $sidebar = $('#sidebar');
+	var $menu = $('#menu');
+	var $contact = $('#contact');
 
-	// set class to form module buttons
-	docForms.find('.contact-button input').addClass('btn');
-		
-	// set class to twitter feed
-	$.each(twtList.find('li'),function(key,value){
-		$(value).addClass('item-'+key);
-	})
-
-	// Run Parallax if page has function
-	if($.isFunction($().parallax)){
-		//$('.pblock-1','#col-main').parallax("50%", 0, 0.1, true);
-		//$('.pblock-2','#col-main').parallax("50%", 0, 0.1, true);
-		//$('.pblock-3','#col-main').parallax("50%", 2500, 0.4, true);
-		//$('.pblock-4','#col-main').parallax("50%", 2750, 0.3, true);
-		//$('.pblock-5','#col-main').parallax("50%", 2750, 0.3, true);
-	}
-	
-	// make code pretty
-	prettyPrint()
+	// Set pixel density class
+  if (window.devicePixelRatio > 1) {
+    $('body').addClass('px_density_2x');
+  } else {
+    $('body').addClass('px_density_1x');
+  }
+  // Toggle top sidebar
+	$toggleSidebar.click(
+		function(){
+			if(!$toggleSidebar.hasClass('active')){
+				//Open Toggle
+				var height = $sidebar.children().height();
+				$toggleSidebar.addClass('active');
+				$siteWrapper.css('margin-top',height);
+				$sidebar.css('height',height);
+			}else{
+				//Close Toggle
+				$toggleSidebar.removeClass('active');
+				$siteWrapper.css('margin-top',0);
+				$sidebar.css('height',0);
+			}
+		}
+	);
+	// Toggle menu mobile
+	$toggleMenu.click(
+		function(){
+			$toggleMenu.toggleClass('active');
+			$menu.find('.mod-menu-hd').toggleClass('active');
+		}
+	);
+	// Toggle contact mobile
+	$toggleContact.click(
+		function(){
+			$toggleContact.toggleClass('active');
+			$contact.find('.mod-widget-bd').toggleClass('active');
+		}
+	);
 });

@@ -1,0 +1,18 @@
+$monoPath: "MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10";
+$monoLabel: "Mono Social Icons Font";
+
+@include font-face($monoLabel, font-files($monoPath + ".woff", $monoPath + ".ttf", $monoPath + ".svg#MonoSocialIconsFont"), $monoPath + ".eot", normal, normal);
+
+@mixin social-font() {
+    font-family: $monoLabel;
+    -webkit-text-rendering: optimizeLegibility;
+    -moz-text-rendering: optimizeLegibility;
+    -ms-text-rendering: optimizeLegibility;
+    -o-text-rendering: optimizeLegibility;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -ms-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+    font-smoothing: antialiased;
+}

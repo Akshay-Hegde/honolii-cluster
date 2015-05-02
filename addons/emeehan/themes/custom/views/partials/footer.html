@@ -1,37 +1,80 @@
-<!-- Begin footer -->
-<footer id="footer" class="site-footer">
-	<div class="container">
-		<div class="row">
-			<div class="span10">&nbsp;
-				<!--
-				<h3>Who is Edward?</h3>
-				{{ pages:chunk id="5" name="default" }}
-				-->
+<footer id="footer" class="mod-footer-wrapper">
+	<div class="mod-footer">
+		<div class="mod-footer-bd">
+			<div class="mod-widget mod-widget-me">
+				{{ widgets:area slug="footer" }}
+				<!-- <div class="mod-widget-hd">
+					<h3>Hi!</h3>
+				</div>
+				<div class="mod-widget-bd">
+
+				</div> -->
 			</div>
-			<div class="span8 offset1">
-				{{ if {url:segments segment="1"} != 'contact' }}
-					<h3>Say Hello</h3>
-					{{ theme:partial name="form-contact-short" }}
-				{{else}}
-					<h3>Woot!</h3>
-					<p>This is the contact page!</p>
-				{{ endif }}
+			<div id="contact" class="mod-widget mod-widget-helloform">
+				<div class="mod-widget-hd">
+					<h3>Say Hello!</h3>
+					<button id="toggleContact" type="button" class="toggleContact">
+						<span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+					</button>
+				</div>
+				<div class="mod-widget-bd">
+					{{ contact:form
+						name="text|required"
+						email="text|required|valid_email"
+						message="textarea"
+					}}
+					<?php
+						// Form values and attributes
+						$form_data = array();
+						// Contact Information
+						$form_data['name'] = array('name'=>'name','id'=>'form_name','value'=>NULL,'maxlength'=>'80','placeholder'=>'Name...','required'=>'');
+						$form_data['email'] = array('name'=>'email','id'=>'form_email','value'=>NULL,'maxlength'=>'80','placeholder'=>'Email...','required'=>'','type'=>'email');
+						$form_data['message'] = array('name'=>'message','id'=>'form_message','value'=>NULL,'rows'=>'5','placeholder'=>'Click me to say hello!','required'=>'');
+					?>
+					<div>
+						<?= form_label('Name:',$form_data['name']['id']); ?>
+						<div class="input-wrapper">
+							<?= form_input($form_data['name']); ?>
+						</div>
+					</div>
+					<div>
+						<?= form_label('Email:',$form_data['email']['id']); ?>
+						<div class="input-wrapper">
+							<?= form_input($form_data['email']); ?>
+						</div>
+					</div>
+					<div>
+						<?= form_label('Message:',$form_data['message']['id']); ?>
+						<div class="input-wrapper">
+							<?= form_textarea($form_data['message']); ?>
+						</div>
+					</div>
+					{{ /contact:form }}
+				</div>
 			</div>
-			<div class="span4 offset1">
-				<h3>Find Me</h3>
-				<ul class="social-icon">
-				{{ streams:cycle stream="social_network" }}
-					{{ entries }}
-					<li><a href="{{url}}" title="Visit my {{name}} profile" class="icon"><img width="32" height="32" src="/{{theme:path}}img/social/32px/{{class}}.png" alt="{{name}} logo" /></a></li>
-					{{ /entries }}
-				{{ /streams:cycle }}
-				</ul>
-			</div>
+			
 		</div>
-		<div class="row">
-			<div class="span24">
-				<p>&copy; {{ helper:date format="Y" }} {{ settings:site_name }}, all rights reserved</p>
-				<p>Website powered by <a href="http://pyrocms.com/" title="PyroCMS">PyroCMS</a></p>
+		<div class="mod-footer-ft">
+			<div class="mod-widget mod-widget-social">
+				<div class="mod-widget-bd">
+					<ul class="social-icons">
+					{{ streams:cycle stream="social_network" }}
+						{{ entries }}
+						<li>
+							<a href="{{url}}" title="Visit my {{name}} profile" class="{{class}}">{{font_character}}</a>
+						</li>
+						{{ /entries }}
+					{{ /streams:cycle }}
+					</ul>
+				</div>
+			</div>
+			<div class="mod-widget mod-widget-credits">
+				<div class="mod-widget-bd">
+					&copy; {{ helper:date format="Y" }} {{ settings:site_name }}, all rights reserved
+				</div>
+				<div class="mod-widget-ft">
+					Website powered by <a href="http://pyrocms.com/" title="PyroCMS">PyroCMS</a>
+				</div>
 			</div>
 		</div>
 	</div>

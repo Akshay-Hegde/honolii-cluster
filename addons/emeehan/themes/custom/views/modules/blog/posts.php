@@ -1,51 +1,78 @@
-<section id="col-main" class="span12">
-{{ if category }}
-    <h2 id="page_title" class="category-title {{ category:slug }}-title">{{ category:title }}</h2>
-{{ endif }}
-{{ if posts }}
+{{ asset:js_inline }}
+/* * * CONFIGURATION VARIABLES * * */
+var disqus_shortname = 'emeehan';
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function () {
+var s = document.createElement('script'); s.async = true;
+s.type = 'text/javascript';
+s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+(document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+}());
+{{ /asset:js_inline }}
+
+<section id="blog" class="mod-blog-wrapper">
+  <div class="mod-blog {{ category:slug }}">
+  {{ if category }}
+    <div class="mod-blog-hd">
+      <h1>{{ category:title }}</h1>
+    </div>
+  {{ endif }}
+  {{ if tag }}
+    <div class="mod-blog-hd">
+      <h1>Tag: {{ tag }}</h1>
+    </div>
+  {{ endif }}
+  {{ if posts }}
+    <div class="mod-blog-bd">
     {{ posts }}
-        {{ if category }}
-        <div class="mod block-post {{ category:slug }}-post">
-        {{ else }}
-        <div class="mod block-post nocat-post">
-        {{ endif }}
-            <div class="hd post-heading">
-                <h4><a href="{{ url }}">{{ title }}</a></h4>
-                <div class="post-date" title="{{ helper:date timestamp=created }}">
-                    <span class="post-month">{{ helper:date timestamp=created_on format="F" }}</span>
-                    <span class="post-day">{{ helper:date timestamp=created_on format="j" }}</span>
-                </div>
-                <div class="post-meta"> 
-                    {{ if category }}
-                    <span class="post-category">
-                        <i class="icon-bookmark icon-white"></i>
-                        <a href="blog/category/{{ category:slug }}">{{ category:title }}</a>
-                    </span>
-                    {{ endif }}
-                    {{ if keywords }}
-                    <span class="post-keywords">
-                        <i class="icon-tags icon-white"></i>
-                        {{ keywords }}
-                            <a href="blog/tagged/{{ keyword }}">{{ keyword }}</a>
-                        {{ /keywords }}
-                    </span>
-                    {{ endif }}
-                </div>
+      <div class="mod-post">
+        <div class="mod-post-hd">
+          <h3><a href="{{ url }}">{{ title }}</a></h3>
+          <div class="post-meta">
+            <div class="post-date">
+              <span class="glyphicon glyphicon-time" aria-hidden="true"></span>
+              {{ helper:date timestamp=created_on format="j F, Y" }}
             </div>
-            <div class="bd post-body">
-                {{ preview }}
-                <p><a href="{{ url }}">{{ helper:lang line="blog:read_more_label" }}</a></p>
+            <div class="post-comments">
+              <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
+              <span class="disqus-comment-count" data-disqus-identifier="{{ helper:date timestamp=created_on format="Y/m/" }}{{ slug }}">0 Comments</span>
             </div>
+            {{ if category }}
+            <div class="post-category">
+              <span class="glyphicon glyphicon-bookmark" aria-hidden="true"></span>
+              <a href="blog/category/{{ category:slug }}">{{ category:title }}</a>
+            </div>
+            {{ endif }}
+            {{ if keywords }}
+            <div class="post-keywords">
+              <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+              {{ keywords }}
+                <a href="blog/tagged/{{ keyword }}">{{ keyword }}</a>
+              {{ /keywords }}
+            </div>
+            {{ endif }}
+          </div>
         </div>
+        {{ if post_image }}
+        <img class="post-image" alt="{{ post_image:filename }}" src="{{ post_image:image }}" />
+        {{ endif }}
+        <div class="mod-post-bd">
+          {{ preview }}
+          <div class="post-read-more">
+            <a href="{{ url }}" class="btn btn-primary">Read more</a>
+          </div>
+        </div>
+      </div>
     {{ /posts }}
-    {{ pagination }}
-{{ else }}
-    {{ helper:lang line="blog:currently_no_posts" }}
-{{ endif }}
+    </div>
+    <div class="mod-blog-ft">
+      {{ pagination }}
+    </div>
+  {{ else }}
+    <div class="mod-blog-bd no-posts">
+      {{ helper:lang line="blog:currently_no_posts" }}
+    </div>
+  {{ endif }}
+  </div>
 </section>
-<aside id="col-rail" class="span11 offset1">
-	<div class="row">
-		<div class="span8">{{ widgets:area slug="category" }}{{ widgets:area slug="default" }}</div>
-		<div class="span3">&nbsp;</div>
-	</div>
-</aside>

@@ -7,7 +7,7 @@ if [ -f "/var/vagrant_provision" ]; then
 fi
 
 # config vars
-db='wetumkadb'
+db='honolii_cluster'
 
 # config functions
 function say {
@@ -88,6 +88,7 @@ say "Installing Ruby"
 say "Installing SASS + COMPASS"
     su - vagrant -c 'gem install sass'
     su - vagrant -c 'gem install compass'
+    su - vagrant -c 'gem install bootstrap-sass'
 
 # say "Installing Other Gems"
 #     su - vagrant -c 'gem install capistrano'

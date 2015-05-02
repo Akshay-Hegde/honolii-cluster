@@ -1,12 +1,38 @@
 <!-- Begin header -->
-<header id="header" class="site-header navbar navbar-fixed-top">
-	<div class="container">
-		<h1 id="logo" class="logo"><a href="/" title="">{{ settings:site_name }}</a></h1>
-		<nav id="top-nav">
-			<ul class="navigation">
-			{{ navigation:links group="header" }}
-			</ul>
-		</nav>
-	</div>
+<header id="header" class="mod-header-wrapper">
+  <div class="mod-header">
+    <div class="mod-header-inner">
+      <div class="mod-header-hd">
+        <div class="logo"><a href="/" >{{ settings:site_name }}</a></div>
+      </div>
+      <div class="mod-header-bd">
+        <nav id="menu" class="mod-menu">
+          <ul class="mod-menu-hd">
+            <li id="toggleMenu" class="toggleMenu">Menu <span class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></span></li>
+            {{ navigation:links group="header" }}
+          </ul>
+          <div class="mod-menu-bd">
+            {{ search:form class="search-form" }}
+              <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="search..." />
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-default">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                  </button>
+                </span>
+              </div>
+            {{ /search:form }}
+          </div>
+          <?php /*
+          <div class="mod-menu-ft">
+            <button id="toggleSidebar" type="button" class="toggleSidebar">
+              <span class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>
+            </button>
+          </div>
+          */ ?>
+        </nav>
+      </div>
+    </div>
+  </div>
 </header>
 <!-- End header -->
