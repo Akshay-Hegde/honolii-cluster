@@ -15,6 +15,9 @@ uploads/*
 *.orig
 dbv/data/meta/revision
 node_modules
-.vagrant
 .sass-cache
 .htaccess
+
+database_dump/stage/*.sql
+database_dump/dev/project_db_*.sql
+database_dump/dev/project_tables_db_*.sql

@@ -1,1 +1,0 @@
-mysql wetumkadb -u root -N -e 'show tables like "wetumka\_bumpo%"' | xargs mysqldump wetumkadb -u root > testdump.sql

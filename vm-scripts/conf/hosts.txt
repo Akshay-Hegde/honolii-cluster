@@ -1,7 +1,0 @@
-# Wetumka Honolii-Cluster Sites
-127.0.0.1 mxtrackbuilders.local
-127.0.0.1 emeehan.local
-127.0.0.1 johnallensigncompany.local
-127.0.0.1 wetumka.local
-127.0.0.1 northcountyeyesurgery.local
-127.0.0.1 autowrapshawaii.local
