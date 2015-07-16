@@ -55,6 +55,8 @@ class Field_file
 		if ($current_file)
 		{
 			$out .= '<div class="file_info"><span href="#" class="file_remove">X</span><a href="'.base_url('files/download/'.$current_file->id).'">'.$current_file->name.'</a></div>';
+			$this->CI->type->add_js('file', 'filefield.js');
+			$this->CI->type->add_css('file', 'filefield.css');
 		}
 
 		// Output the actual used value
@@ -70,8 +72,7 @@ class Field_file
 		$options['name'] 	= $params['form_slug'];
 		$options['name'] 	= $params['form_slug'].'_file';
 
-		$this->CI->type->add_js('file', 'filefield.js');
-		$this->CI->type->add_css('file', 'filefield.css');
+		// moved into if($current_file) conditional - line 58,59 was here
 
 		return $out .= form_upload($options);
 	}

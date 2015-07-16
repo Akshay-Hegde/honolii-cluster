@@ -1,0 +1,200 @@
+{{ streams:form
+		stream="capture_general_inquiry"
+		mode="new"
+
+		notify_a=settings:contact_email
+    notify_template_a="online-contact-notice"
+
+    notify_b=email
+    notify_template_b="outbound-contact-general"
+    
+    return="/contact/thank-you/hello"
+}}{{ /streams:form }}
+
+{{ streams:form
+		stream="capture_job_inquiry"
+		mode="new"
+		
+		notify_a=settings:contact_email
+    notify_template_a="online_contact_notice"
+
+    notify_b=email
+    notify_template_b="outbound_contact_job"
+    
+    return="/contact/thank-you/job"
+}}{{ /streams:form }}
+{{ streams:form
+		stream="capture_rfp"
+		mode="new"
+
+		notify_a=settings:contact_email
+    notify_template_a="online_contact_notice"
+
+    notify_b=email
+    notify_template_b="outbound_contact_rfp"
+    
+    return="/contact/thank-you/rfp"
+}}{{ /streams:form }}
+
+
+
+<form enctype="multipart/form-data" method="post" enctype="multipart/form-data" class="capture-form contact-form" id="contact_form">
+	<fieldset class="event-show-fieldset event-show-fieldset-active" id="contact_start">
+	  <div class="mod-form">
+	    <label for="input_fullname">Full name</label>
+	    <div class="mod-form-input">
+	      <input name="full_name" type="text" id="input_fullname" placeholder="..." title="eg. John Smith" required>
+	    </div>
+	  </div>
+	  <div class="mod-form">
+	    <label for="input_email">Email</label>
+	    <div class="mod-form-input">
+	      <input name="email" type="email" id="input_email" title="eg. john@example.com" placeholder="eg. john@website.com" required>
+	      <span class="mod-form-help">We won't sell your email, check out our <a href="">privacy policy</a>.</span>
+	    </div>
+	  </div>
+	  <div class="mod-form">
+	  	<label for="input_subject">Subject</label>
+	  	<div class="mod-form-input">
+	  		<select name="stream_id" id="input_subject" required>
+	  			<option value="" disabled selected>Please select an option</option>
+				  <option value="12">General enquiry</option>
+				  <option value="13">Job application</option>
+				  <option value="14">Request for proposal</option>
+				</select>
+			</div>
+	  </div>
+	  <div class="mod-form">
+	    <div class="mod-form-btn">
+	      <button id="button_next" type="submit" class="btn btn-default">Continue</button>
+	    </div>
+	  </div>
+	</fieldset>
+	<fieldset disabled class="event-show-fieldset" id="contact_general">
+		<div class="mod-form">
+			<label for="input_message">Message</label>
+			<div class="mod-form-textarea"><textarea placeholder="..." name="comment" id="input_message" required></textarea></div>
+		</div>
+	</fieldset>
+	<fieldset disabled class="event-show-fieldset" id="contact_job">
+		<div class="mod-form">
+	    <label for="input_title">Job title</label>
+	    <div class="mod-form-input">
+	      <input name="job_title" type="text" id="input_title" title="eg. Front-end developer" placeholder="..." required>
+	    </div>
+	  </div>
+		<div class="mod-form">
+			<label for="input_story">Tell us an interesting story about you</label>
+			<div class="mod-form-textarea"><textarea placeholder="Once upon a time..." name="interesting_story" id="input_story"></textarea></div>
+		</div>
+		<div class="mod-form">
+			<label for="input_leasure">What are your leasure activities?</label>
+			<div class="mod-form-textarea"><textarea placeholder="..." name="offtime_leasure" id="input_leasure"></textarea></div>
+		</div>
+		<div class="mod-form">
+			<label for="input_work">Why do you want to work with us?</label>
+			<div class="mod-form-textarea"><textarea placeholder="..." name="why_work" id="input_work"></textarea></div>
+		</div>
+		<div class="mod-form">
+			<label for="input_resume">Upload your resume</label>
+			<div class="mod-form-file">
+				<input type="hidden" name="resume_upload" value="dummy" />
+				<input name="resume_upload_file" type="file" id="input_resume" title="PDF only" required accept="application/pdf">
+				<span class="mod-form-help">PDF only, 2.5MB or less.
+			</div>
+		</div>
+	</fieldset>
+	<fieldset disabled class="event-show-fieldset" id="contact_rfp">
+		<div class="mod-form">
+	    <label for="input_date">Project start date?</label>
+	    <div class="mod-form-input">
+	      <input name="start_date" type="date" id="input_date" title="eg. {{ helper:date format="m/d/Y" }}" placeholder="mm/dd/yyyy" required>
+	    </div>
+	  </div>
+		<div class="mod-form">
+			<label for="input_duration">Project duration?</label>
+			<div class="mod-form-input">
+	  		<select name="duration" id="input_duration" required>
+	  			<option value="" disabled selected>Please select an option</option>
+				  <option value="short">1-4 weeks</option>
+				  <option value="medium">1-3 months</option>
+				  <option value="long">3-6 months</option>
+				  <option value="x-long">6-12 months</option>
+				  <option value="longterm">Longterm commitment</option>
+				</select>
+			</div>
+		</div>
+		<div class="mod-form">
+			<label for="input_budget">Project budget?</label>
+			<div class="mod-form-input">
+	  		<select name="budget" id="input_budget" required>
+	  			<option value="" disabled selected>Please select an option</option>
+				  <option value="small">$1,000 - $10,000</option>
+				  <option value="medium">$10,000 - $30,000</option>
+				  <option value="large">+$30,000</option>
+				</select>
+			</div>
+		</div>
+		<div class="mod-form">
+			<label for="input_project">What are the project details?</label>
+			<div class="mod-form-textarea"><textarea name="project_specifics" id="input_project" placeholder="..." required></textarea></div>
+		</div>
+		<div class="mod-form">
+			<label for="input_company">Tell us about your company</label>
+			<div class="mod-form-textarea"><textarea name="company_info" id="input_company" placeholder="..." required></textarea></div>
+		</div>
+		<div class="mod-form">
+			<label>What is most importance?</label>
+	    <div class="mod-form-checkbox">
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="budget" type="checkbox"> Budget
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="team" type="checkbox"> Team fit
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="com" type="checkbox"> Communication
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="flex" type="checkbox"> Flexibility
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="stealth" type="checkbox"> Stealth (NDA)
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="skill" type="checkbox"> Skill set
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="exp" type="checkbox"> Experience
+	        </label>
+	      </div>
+	      <div class="checkbox-stacked">
+	        <label>
+	          <input name="company_values[]" value="time" type="checkbox"> Timeline
+	        </label>
+	      </div>
+	    </div>
+	  </div>
+	</fieldset>
+	<fieldset disabled class="event-show-fieldset" id="contact_submit">
+		<div class="mod-form">
+	    <div class="mod-form-btn">
+	      <button id="button_back" type="button" class="btn btn-default">Back</button>
+	      <button id="button_submit" type="submit" class="btn btn-primary">Submit</button>
+	    </div>
+	  </div>
+	</fieldset>
+</form>

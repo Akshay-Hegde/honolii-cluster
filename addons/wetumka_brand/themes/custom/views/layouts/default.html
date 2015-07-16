@@ -1,42 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
 <head>
-  <title></title>
-  <link rel="stylesheet" href="/{{theme:path}}/css/story.css" />
-  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+{{ if global:environment == 'development' }}
+  <!-- DEVELOPMENT FILES -->        
+  {{theme:partial name="metadata"}}
+{{ else }}
+  {{theme:partial name="publish/metadata"}}
+{{ endif }}
 </head>
-<body>
-  <section class="scene splash active">
-    <svg class="scene_svg" id="splash"></svg>
-  </section>
-  <section class="scene scene_1">
-    <svg id="scene_1"></svg>
-  </section>
-  <section class="scene scene_2">
-    <svg id="scene_2"></svg>
-  </section>
-  <section class="scene scene_3">
-    <svg id="scene_3"></svg>
-  </section>
-  <section class="scene scene_4">
-    <svg id="scene_4"></svg>
-  </section>
-  <section class="scene scene_5">
-    <svg id="scene_5"></svg>
-  </section>
-
-  <script  type="text/javascript">
-    var themePath = "/{{theme:path}}";
-    requirejs.config({
-      "baseUrl": "/{{theme:path}}/js/",
-      "paths": {
-        "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
-        "snapsvg": "//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min",
-        "routie": "lib/routie/routie"
-      }
-    });
-    // load story script to get started
-    requirejs(["story"]);
-  </script>
+<body class="{{page.slug}}-page">
+  <div id="wrapper" class="site-wrapper">     
+    {{ theme:partial name="header" }}
+    <div id="content" class="site-content">
+      {{ template:body }}
+    </div>
+    {{ theme:partial name="footer" }}
+  </div>  
 </body>
 </html>

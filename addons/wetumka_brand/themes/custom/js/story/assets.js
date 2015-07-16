@@ -45,7 +45,7 @@ define (['jquery','snapsvg'], function ($,Snap) {
     } else { //cache files if not
       for (i = 0; i < this.downloadQueue.length; i++) {
         file = this.downloadQueue[i]; // used as key for cache object
-        path = themePath + '/img/' + file; // full file path
+        path = assetPath + '/img/' + file; // full file path
 
         if (regex.exec(path)[1] !== 'svg') {
           // load all images not SVG

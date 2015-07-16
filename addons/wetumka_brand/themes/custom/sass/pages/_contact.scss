@@ -1,0 +1,13 @@
+body.contact-page{
+	.contact-section{
+
+	}
+	.capture-form{
+		.event-show-fieldset{
+			display:none;
+			&-active{
+				display:block;
+			}
+		}
+	}
+}

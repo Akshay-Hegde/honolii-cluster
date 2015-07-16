@@ -101,11 +101,11 @@ define (['jquery', 'story/svg', 'story/assets', 'routie'], function ($, svg, Ass
 		'scene_5 scene_5/:section?': story.scenes.scene_5.route_start
 	});
 
-  // Set pixel density class
-  if (window.devicePixelRatio > 1) {
-    $('body').addClass('px_density_2x');
-  } else {
-    $('body').addClass('px_density_1x');
-  }
+  // // Set pixel density class
+  // if (window.devicePixelRatio > 1) {
+  //   $('body').addClass('px_density_2x');
+  // } else {
+  //   $('body').addClass('px_density_1x');
+  // }
     
 });

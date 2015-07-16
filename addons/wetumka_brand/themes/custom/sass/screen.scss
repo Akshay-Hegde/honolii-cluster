@@ -1,0 +1,274 @@
+// Import Bootstrap Compass integration
+@import "bootstrap_custom/bootstrap";
+
+@import "compass/css3";
+
+// // extra small
+// @media (max-width: $screen-xs-max) {
+// }
+// // small
+// @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+// }
+// // medium
+// @media (min-width: $screen-md-min) and (max-width: $screen-md-max) {
+// }
+// // large
+// @media (min-width: $screen-lg-min) {
+// }
+// 
+// 
+/* -----------------------------------------
+         Site Variables
+-------------------------------------------- */
+$gutters: 60px;
+
+/* -----------------------------------------
+         Site Structure Styles
+-------------------------------------------- */
+.site-wrapper{
+	.site-content{
+		
+	}
+	.site-footer{
+		text-align:center;
+		@extend .small;
+		ul{
+			list-style:none;
+			margin:0;
+			li{
+				display:inline;
+				padding-left:10px;
+				&::first-child{
+					padding-left:0;
+				}
+			}
+		}
+	}
+}
+.block-wrapper{
+	padding-bottom:50px;
+	@media (min-width: $screen-sm-min) {
+		padding-bottom:100px;
+	}
+	> .block{
+		@extend .container;
+		background-color:#fff;
+	}
+	&.intro-section{
+		h1{
+			text-transform:uppercase;
+		}
+		.lead{
+			text-align:center;
+		}
+		> .block{
+			.block-inner{
+				padding:20px ($gutters / 2);
+				@media (min-width: $screen-sm-min) {
+					padding:45px $gutters;
+				}
+			}
+		}
+	}
+	&.two-column{
+		
+		.block-inner{
+			@extend .row;
+			padding-top:20px;
+			padding-bottom:20px;
+			@media (min-width: $screen-sm-min) {
+				padding-top:45px;
+				padding-bottom:45px;
+			}
+		}
+		.main-column{
+			@extend .col-md-8;
+
+			padding-left: ($gutters / 2);
+			@media (min-width: $screen-sm-min) {
+				padding-left:$gutters;
+			}
+		}
+		.side-column{
+			@extend .col-md-3;
+			@extend .col-md-offset-1;
+			padding-right: ($gutters / 2);
+			@media (min-width: $screen-sm-min) {
+				padding-right:$gutters;
+			}
+		}
+	}
+}
+
+/* -----------------------------------------
+         				Form Styles
+-------------------------------------------- */
+.capture-form{
+	@extend .form-horizontal;
+	.mod-form{
+		@extend .form-group;
+		> label{
+			padding-right:20px;
+			@extend .control-label;
+			@extend .col-sm-4;
+		}
+		.mod-form-input,
+		.mod-form-textarea,
+		.mod-form-file{
+			@extend .col-sm-7;
+			input,textarea,select{
+				@extend .form-control;
+			}
+		}
+		.mod-form-checkbox{
+			@extend .col-sm-7;
+			.checkbox-stacked{
+				@extend .checkbox;
+				width:50%;
+				float:left;
+				+ .checkbox-stacked{
+					margin-top:0;
+				}
+			}
+		}
+		.mod-form-btn{
+			@extend .col-sm-7;
+			@extend .col-sm-offset-4;
+		}
+		.mod-form-help{
+			@extend .help-block;
+			@extend .small;
+			margin-bottom:0;
+		}
+	}
+	.flag-required{
+		position: absolute;
+	  right: -30px;
+	  top: 10px;
+	  font-size: 40px;
+	  line-height: 39px;
+	  color: $brand-danger;
+	  cursor:default;
+	}
+}
+
+/* -----------------------------------------
+         				Page Styles
+-------------------------------------------- */
+h1,h2{
+	text-align:center;
+}
+img{
+	color:transparent;
+}
+.columns {
+	@media (min-width: $screen-sm-min) {
+		@include columns(auto 2);
+		@include column-gap(40px);
+  }
+}
+
+@import "pages/about";
+@import "pages/contact";
+
+/* -----------------------------------------
+         			Module Styles
+-------------------------------------------- */
+@mixin mod-stacked($zstripe:$gray-lighter){
+	$img-small: 250px;
+	$img-reg: 300px;
+
+	background-color:#fff;
+	position: relative;
+	padding: 10px ($gutters / 2);
+	@extend .clearfix;
+
+	@media (max-width: $screen-xs-max) {
+		padding-bottom:50px;
+	}
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  	min-height:$img-small;
+		padding:30px ($img-small + 40px) 0 40px;
+  }
+	@media (min-width: $screen-md-min) {
+		min-height:$img-reg;
+		padding:40px ($img-reg + $gutters) 0 $gutters;
+	}
+
+	> img{
+		max-width:100%;
+		@media (max-width: $screen-xs-max) {
+			@include border-radius(100%);
+			display:block;
+			margin:-50px auto ($line-height-computed / 2);
+		}
+		@media (min-width: $screen-sm-min) {
+			width:$img-reg;
+			height:$img-reg;
+			position: absolute;
+			right:0;
+			top:0;
+		}
+		@media (max-width: $screen-sm-max) { //TODO replace with JS opperation
+    	width:$img-small;
+    	height:$img-small;
+    }
+	}
+	&-hd{
+		h4{
+			@extend .h5;
+			margin:0;
+			font-weight:300;
+		}
+		strong{
+			font-weight:300;
+		}
+		margin-bottom:$line-height-computed;
+		@media (max-width: $screen-sm-max) {
+    	margin-bottom:($line-height-computed / 2);
+    }
+	}
+	&-bd{
+		@media (max-width: $screen-sm-max) {
+    	font-size:$font-size-small;
+    }
+	}
+	&-ft{
+
+	}
+	&:nth-child(even){
+		background-color:$zstripe;
+
+		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+			padding-left:($img-small + 40px);
+			padding-right:40px;
+		}
+		@media (min-width: $screen-md-min) {
+			padding-left:($img-reg + $gutters);
+			padding-right:$gutters;
+		}
+
+		> img{
+			@media (min-width: $screen-sm-min) {
+				left:0;
+			}
+		}
+	}
+}
+
+.mod{
+	&-member{
+		@include mod-stacked;
+	}
+	&-partner{
+		@include mod-stacked;
+		&-ft{
+			a{
+				float:right;
+			}
+		}
+	}
+	&-form{
+		// styles are in form styles block above
+	}
+}

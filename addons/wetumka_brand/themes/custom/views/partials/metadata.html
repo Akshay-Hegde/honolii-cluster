@@ -1,0 +1,43 @@
+<!-- Meta data -->
+<meta name="author" content="WetumkaInteractive" />
+<!-- NOT VALID META
+<meta name="copyright" content="wetumka.net" />
+<meta name="distribution" content="global" />
+<meta name="resource-type" content="document" />
+<meta name="language" content="{{ lang:code }}" />
+-->
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="{{ url:base }}" />
+<title>{{ settings:site_name }} &bull; {{ template:title }}</title>
+<!-- CSS -->
+{{ if global:environment == 'development' }}
+	<link rel="stylesheet" href="/{{theme:path}}/css/screen.css" />
+{{ else }}
+	<link rel="stylesheet" href="/{{theme:path}}/css/screen.css" />
+	<!-- <link rel="stylesheet" href="/{{theme:path}}/publish/css/production.css" /> -->
+{{ endif }}
+
+{{ asset:render_css_inline }}
+<!-- JS -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
+<script type="text/javascript">
+	var assetPath = "/{{theme:path}}";
+	requirejs.config({
+	  "baseUrl": assetPath + "/js/",
+	  "paths": {
+	    "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
+	    "snapsvg": "//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min",
+	    "modernizr" : "//cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min",
+	    "routie": "lib/routie",
+	    "H5F": "lib/H5F",
+	    "aboutus": "pages/about",
+	    "contact": "pages/contact"
+	  }
+	});
+</script>
+{{ asset:render_js_inline }}
+
+<!-- page metadata -->
+{{template:metadata}}
+{{ theme:favicon }}

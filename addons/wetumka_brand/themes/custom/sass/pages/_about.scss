@@ -1,0 +1,47 @@
+body.about-page{
+	.intro-section{
+		padding-bottom:0;
+	}
+	.team-section{
+		.mod-members-hd h2{
+			text-transform:uppercase;
+		}
+		> .block{
+			background-color: transparent;
+		}
+	}
+	.partners-section{
+		background-color:$brand-red;
+		border-top:solid 140px #fff;
+		> .block{
+			background-color: transparent;
+		}
+		.mod-partners-hd{
+			position: relative;
+			h2{
+				@extend .h1;
+				text-transform:uppercase;
+				position: absolute;
+			  width: 100%;
+			  margin-top: -80px;
+			  background-color:#fff;
+			}
+			p{
+				color:#fff;
+				padding:40px ($gutters / 2) 70px;
+				text-align:center;
+
+				@media (min-width: $screen-sm-min) {
+					padding:80px $gutters;
+				}
+			}
+		}
+	}
+	// .event-visible{
+	// 	opacity:0;
+	// 	@include transition(opacity 1s .5s);
+	// 	&.event-visible-active{
+	// 		opacity:1;
+	// 	}
+	// }
+}
