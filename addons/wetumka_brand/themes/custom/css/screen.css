@@ -1826,7 +1826,8 @@ hr {
 /* line 9, ../sass/bootstrap_custom/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1,
-body.about-page .partners-section .mod-partners-hd h2, .h2, .h3, .h4, .h5, .mod-member-hd h4, .mod-partner-hd h4, .h6 {
+body.about-page .partners-section .mod-partners-hd h2,
+body.work-page .testimonial-section .mod-testimonials-hd h2, .h2, .h3, .h4, .h5, .mod-member-hd h4, .mod-partner-hd h4, .h6 {
   font-family: inherit;
   font-weight: 100;
   line-height: 1.1;
@@ -1866,16 +1867,22 @@ h6 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h6 .mod-form-help,
 .h1 small,
 body.about-page .partners-section .mod-partners-hd h2 small,
+body.work-page .testimonial-section .mod-testimonials-hd h2 small,
 .h1 .small,
 body.about-page .partners-section .mod-partners-hd h2 .small,
+body.work-page .testimonial-section .mod-testimonials-hd h2 .small,
 .h1 .site-wrapper .site-footer,
 .site-wrapper .h1 .site-footer,
 body.about-page .partners-section .mod-partners-hd h2 .site-wrapper .site-footer,
 .site-wrapper body.about-page .partners-section .mod-partners-hd h2 .site-footer,
+body.work-page .testimonial-section .mod-testimonials-hd h2 .site-wrapper .site-footer,
+.site-wrapper body.work-page .testimonial-section .mod-testimonials-hd h2 .site-footer,
 .h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h1 .mod-form-help,
 body.about-page .partners-section .mod-partners-hd h2 .capture-form .mod-form .mod-form-help,
-.capture-form .mod-form body.about-page .partners-section .mod-partners-hd h2 .mod-form-help, .h2 small,
+.capture-form .mod-form body.about-page .partners-section .mod-partners-hd h2 .mod-form-help,
+body.work-page .testimonial-section .mod-testimonials-hd h2 .capture-form .mod-form .mod-form-help,
+.capture-form .mod-form body.work-page .testimonial-section .mod-testimonials-hd h2 .mod-form-help, .h2 small,
 .h2 .small,
 .h2 .site-wrapper .site-footer,
 .site-wrapper .h2 .site-footer,
@@ -1917,7 +1924,7 @@ body.about-page .partners-section .mod-partners-hd h2 .capture-form .mod-form .m
 }
 
 /* line 24, ../sass/bootstrap_custom/_type.scss */
-h1, .h1, body.about-page .partners-section .mod-partners-hd h2,
+h1, .h1, body.about-page .partners-section .mod-partners-hd h2, body.work-page .testimonial-section .mod-testimonials-hd h2,
 h2, .h2,
 h3, .h3 {
   margin-top: 78px;
@@ -1929,17 +1936,22 @@ h1 .small,
 h1 .site-wrapper .site-footer,
 .site-wrapper h1 .site-footer,
 h1 .capture-form .mod-form .mod-form-help,
-.capture-form .mod-form h1 .mod-form-help, .h1 small, body.about-page .partners-section .mod-partners-hd h2 small,
+.capture-form .mod-form h1 .mod-form-help, .h1 small, body.about-page .partners-section .mod-partners-hd h2 small, body.work-page .testimonial-section .mod-testimonials-hd h2 small,
 .h1 .small,
 body.about-page .partners-section .mod-partners-hd h2 .small,
+body.work-page .testimonial-section .mod-testimonials-hd h2 .small,
 .h1 .site-wrapper .site-footer,
 .site-wrapper .h1 .site-footer,
 body.about-page .partners-section .mod-partners-hd h2 .site-wrapper .site-footer,
 .site-wrapper body.about-page .partners-section .mod-partners-hd h2 .site-footer,
+body.work-page .testimonial-section .mod-testimonials-hd h2 .site-wrapper .site-footer,
+.site-wrapper body.work-page .testimonial-section .mod-testimonials-hd h2 .site-footer,
 .h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h1 .mod-form-help,
 body.about-page .partners-section .mod-partners-hd h2 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form body.about-page .partners-section .mod-partners-hd h2 .mod-form-help,
+body.work-page .testimonial-section .mod-testimonials-hd h2 .capture-form .mod-form .mod-form-help,
+.capture-form .mod-form body.work-page .testimonial-section .mod-testimonials-hd h2 .mod-form-help,
 h2 small,
 h2 .small,
 h2 .site-wrapper .site-footer,
@@ -2020,7 +2032,7 @@ h6 .capture-form .mod-form .mod-form-help,
 }
 
 /* line 47, ../sass/bootstrap_custom/_type.scss */
-h1, .h1, body.about-page .partners-section .mod-partners-hd h2 {
+h1, .h1, body.about-page .partners-section .mod-partners-hd h2, body.work-page .testimonial-section .mod-testimonials-hd h2 {
   font-size: 28px;
 }
 
@@ -2541,22 +2553,22 @@ pre code {
 }
 
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-.row, .block-wrapper.two-column .block-inner {
+.row, .block-wrapper.two-column .block-inner, body.work-page .client-section .mod-clients-bd {
   margin-left: 0;
   margin-right: 0;
 }
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:before, .block-wrapper.two-column .block-inner:before, .row:after, .block-wrapper.two-column .block-inner:after {
+.row:before, .block-wrapper.two-column .block-inner:before, body.work-page .client-section .mod-clients-bd:before, .row:after, .block-wrapper.two-column .block-inner:after, body.work-page .client-section .mod-clients-bd:after {
   content: " ";
   display: table;
 }
 /* line 19, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:after, .block-wrapper.two-column .block-inner:after {
+.row:after, .block-wrapper.two-column .block-inner:after, body.work-page .client-section .mod-clients-bd:after {
   clear: both;
 }
 
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .block-wrapper.two-column .side-column, .col-lg-3, .col-xs-4, .col-sm-4, .capture-form .mod-form > label, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .capture-form .mod-form .mod-form-input,
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .block-wrapper.two-column .side-column, .col-lg-3, .col-xs-4, .col-sm-4, .capture-form .mod-form > label, .col-md-4, body.work-page .client-section .mod-client, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, body.work-page .client-section .mod-client, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .capture-form .mod-form .mod-form-input,
 .capture-form .mod-form .mod-form-textarea,
 .capture-form .mod-form .mod-form-file, .capture-form .mod-form .mod-form-checkbox, .capture-form .mod-form .mod-form-btn, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .block-wrapper.two-column .main-column, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -2566,7 +2578,7 @@ pre code {
 }
 
 /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, body.work-page .client-section .mod-client, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
   float: left;
 }
 
@@ -2596,7 +2608,7 @@ pre code {
 }
 
 /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-6 {
+.col-xs-6, body.work-page .client-section .mod-client {
   width: 50%;
 }
 
@@ -3092,7 +3104,7 @@ pre code {
 }
 @media (min-width: 992px) {
   /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, .block-wrapper.two-column .side-column, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .block-wrapper.two-column .main-column, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .block-wrapper.two-column .side-column, .col-md-4, body.work-page .client-section .mod-client, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .block-wrapper.two-column .main-column, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -3112,7 +3124,7 @@ pre code {
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-4 {
+  .col-md-4, body.work-page .client-section .mod-client {
     width: 33.33333333%;
   }
 
@@ -7260,7 +7272,9 @@ a.badge:hover, a.badge:focus {
 .jumbotron h1,
 .jumbotron .h1,
 .jumbotron body.about-page .partners-section .mod-partners-hd h2,
-body.about-page .partners-section .mod-partners-hd .jumbotron h2 {
+body.about-page .partners-section .mod-partners-hd .jumbotron h2,
+.jumbotron body.work-page .testimonial-section .mod-testimonials-hd h2,
+body.work-page .testimonial-section .mod-testimonials-hd .jumbotron h2 {
   color: inherit;
 }
 /* line 18, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
@@ -7296,7 +7310,9 @@ body.about-page .partners-section .mod-partners-hd .jumbotron h2 {
   .jumbotron h1,
   .jumbotron .h1,
   .jumbotron body.about-page .partners-section .mod-partners-hd h2,
-  body.about-page .partners-section .mod-partners-hd .jumbotron h2 {
+  body.about-page .partners-section .mod-partners-hd .jumbotron h2,
+  .jumbotron body.work-page .testimonial-section .mod-testimonials-hd h2,
+  body.work-page .testimonial-section .mod-testimonials-hd .jumbotron h2 {
     font-size: 63px;
   }
 }
@@ -9480,85 +9496,85 @@ button.close {
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
-/* line 32, ../sass/screen.scss */
+/* line 33, ../sass/screen.scss */
 .site-wrapper .site-footer {
   text-align: center;
 }
-/* line 35, ../sass/screen.scss */
+/* line 36, ../sass/screen.scss */
 .site-wrapper .site-footer ul {
   list-style: none;
   margin: 0;
 }
-/* line 38, ../sass/screen.scss */
+/* line 39, ../sass/screen.scss */
 .site-wrapper .site-footer ul li {
   display: inline;
   padding-left: 10px;
 }
-/* line 41, ../sass/screen.scss */
+/* line 42, ../sass/screen.scss */
 .site-wrapper .site-footer ul li::first-child {
   padding-left: 0;
 }
 
-/* line 48, ../sass/screen.scss */
+/* line 49, ../sass/screen.scss */
 .block-wrapper {
   padding-bottom: 50px;
 }
 @media (min-width: 768px) {
-  /* line 48, ../sass/screen.scss */
+  /* line 49, ../sass/screen.scss */
   .block-wrapper {
     padding-bottom: 100px;
   }
 }
-/* line 53, ../sass/screen.scss */
+/* line 54, ../sass/screen.scss */
 .block-wrapper > .block {
   background-color: #fff;
 }
-/* line 58, ../sass/screen.scss */
+/* line 59, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
 }
-/* line 61, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 .block-wrapper.intro-section .lead {
   text-align: center;
 }
-/* line 65, ../sass/screen.scss */
+/* line 66, ../sass/screen.scss */
 .block-wrapper.intro-section > .block .block-inner {
   padding: 20px 30px;
 }
 @media (min-width: 768px) {
-  /* line 65, ../sass/screen.scss */
+  /* line 66, ../sass/screen.scss */
   .block-wrapper.intro-section > .block .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 75, ../sass/screen.scss */
+/* line 76, ../sass/screen.scss */
 .block-wrapper.two-column .block-inner {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 @media (min-width: 768px) {
-  /* line 75, ../sass/screen.scss */
+  /* line 76, ../sass/screen.scss */
   .block-wrapper.two-column .block-inner {
     padding-top: 45px;
     padding-bottom: 45px;
   }
 }
-/* line 84, ../sass/screen.scss */
+/* line 85, ../sass/screen.scss */
 .block-wrapper.two-column .main-column {
   padding-left: 30px;
 }
 @media (min-width: 768px) {
-  /* line 84, ../sass/screen.scss */
+  /* line 85, ../sass/screen.scss */
   .block-wrapper.two-column .main-column {
     padding-left: 60px;
   }
 }
-/* line 92, ../sass/screen.scss */
+/* line 93, ../sass/screen.scss */
 .block-wrapper.two-column .side-column {
   padding-right: 30px;
 }
 @media (min-width: 768px) {
-  /* line 92, ../sass/screen.scss */
+  /* line 93, ../sass/screen.scss */
   .block-wrapper.two-column .side-column {
     padding-right: 60px;
   }
@@ -9567,24 +9583,24 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 110, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
 .capture-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 125, ../sass/screen.scss */
+/* line 126, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 129, ../sass/screen.scss */
+/* line 130, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 138, ../sass/screen.scss */
+/* line 139, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
-/* line 144, ../sass/screen.scss */
+/* line 145, ../sass/screen.scss */
 .capture-form .flag-required {
   position: absolute;
   right: -30px;
@@ -9598,18 +9614,18 @@ button.close {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 158, ../sass/screen.scss */
+/* line 159, ../sass/screen.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 161, ../sass/screen.scss */
+/* line 162, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
 @media (min-width: 768px) {
-  /* line 164, ../sass/screen.scss */
+  /* line 165, ../sass/screen.scss */
   .columns {
     -moz-columns: auto 2;
     -webkit-columns: auto 2;
@@ -9675,41 +9691,184 @@ body.contact-page .capture-form .event-show-fieldset-active {
   display: block;
 }
 
+/* line 4, ../sass/pages/_work.scss */
+body.work-page .info-section > .block .block-inner {
+  padding: 20px 30px;
+}
+@media (min-width: 768px) {
+  /* line 4, ../sass/pages/_work.scss */
+  body.work-page .info-section > .block .block-inner {
+    padding: 45px 60px;
+  }
+}
+/* line 12, ../sass/pages/_work.scss */
+body.work-page .testimonial-section {
+  background-color: #DC3D25;
+  border-top: solid 140px #fff;
+}
+/* line 15, ../sass/pages/_work.scss */
+body.work-page .testimonial-section > .block {
+  background-color: transparent;
+}
+/* line 18, ../sass/pages/_work.scss */
+body.work-page .testimonial-section .mod-testimonials-hd {
+  position: relative;
+}
+/* line 20, ../sass/pages/_work.scss */
+body.work-page .testimonial-section .mod-testimonials-hd h2 {
+  text-transform: uppercase;
+  position: absolute;
+  width: 100%;
+  margin-top: -80px;
+  background-color: #fff;
+}
+/* line 28, ../sass/pages/_work.scss */
+body.work-page .testimonial-section .mod-testimonials-hd p {
+  color: #fff;
+  padding: 40px 30px 70px;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  /* line 28, ../sass/pages/_work.scss */
+  body.work-page .testimonial-section .mod-testimonials-hd p {
+    padding: 80px 60px;
+  }
+}
+/* line 39, ../sass/pages/_work.scss */
+body.work-page .client-section {
+  background-color: #DC3D25;
+}
+/* line 41, ../sass/pages/_work.scss */
+body.work-page .client-section > .block {
+  background-color: transparent;
+  padding: 0 20px;
+}
+@media (min-width: 768px) {
+  /* line 41, ../sass/pages/_work.scss */
+  body.work-page .client-section > .block {
+    padding: 0;
+  }
+}
+/* line 53, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client {
+  position: relative;
+  overflow: hidden;
+}
+/* line 58, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client img {
+  width: 100%;
+}
+/* line 61, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client-hd {
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  text-align: center;
+  padding: 20px;
+  bottom: 0;
+}
+/* line 69, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client-hd h4 {
+  color: #fff;
+  margin: 0;
+}
+/* line 73, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client-hd strong {
+  display: none;
+}
+/* line 77, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client-ft {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+/* line 82, ../sass/pages/_work.scss */
+body.work-page .client-section .mod-client-ft a {
+  display: block;
+  height: inherit;
+  color: transparent;
+}
+@media (min-width: 992px) {
+  /* line 89, ../sass/pages/_work.scss */
+  body.work-page .client-section .mod-client-hd {
+    bottom: -100px;
+    -moz-transition: bottom 0.4s;
+    -o-transition: bottom 0.4s;
+    -webkit-transition: bottom 0.4s;
+    transition: bottom 0.4s;
+  }
+  /* line 92, ../sass/pages/_work.scss */
+  body.work-page .client-section .mod-client-hd h4 {
+    position: relative;
+    left: 100%;
+    -moz-transition: left 0.5s ease-in 0.1s;
+    -o-transition: left 0.5s ease-in 0.1s;
+    -webkit-transition: left 0.5s ease-in;
+    -webkit-transition-delay: 0.1s;
+    transition: left 0.5s ease-in 0.1s;
+  }
+  /* line 97, ../sass/pages/_work.scss */
+  body.work-page .client-section .mod-client-hd strong {
+    position: relative;
+    display: block;
+    right: 100%;
+    -moz-transition: right 0.5s ease-in 0.1s;
+    -o-transition: right 0.5s ease-in 0.1s;
+    -webkit-transition: right 0.5s ease-in;
+    -webkit-transition-delay: 0.1s;
+    transition: right 0.5s ease-in 0.1s;
+  }
+  /* line 104, ../sass/pages/_work.scss */
+  body.work-page .client-section .mod-client:hover .mod-client-hd {
+    bottom: 0;
+  }
+  /* line 106, ../sass/pages/_work.scss */
+  body.work-page .client-section .mod-client:hover .mod-client-hd h4 {
+    left: 0;
+  }
+  /* line 109, ../sass/pages/_work.scss */
+  body.work-page .client-section .mod-client:hover .mod-client-hd strong {
+    right: 0;
+  }
+}
+
 /* -----------------------------------------
          			Module Styles
 -------------------------------------------- */
-/* line 260, ../sass/screen.scss */
+/* line 262, ../sass/screen.scss */
 .mod-member {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 260, ../sass/screen.scss */
+  /* line 262, ../sass/screen.scss */
   .mod-member {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 260, ../sass/screen.scss */
+  /* line 262, ../sass/screen.scss */
   .mod-member {
     min-height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 260, ../sass/screen.scss */
+  /* line 262, ../sass/screen.scss */
   .mod-member {
     min-height: 300px;
     padding: 40px 360px 0 60px;
   }
 }
-/* line 198, ../sass/screen.scss */
+/* line 200, ../sass/screen.scss */
 .mod-member > img {
   max-width: 100%;
 }
 @media (max-width: 767px) {
-  /* line 198, ../sass/screen.scss */
+  /* line 200, ../sass/screen.scss */
   .mod-member > img {
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
@@ -9719,7 +9878,7 @@ body.contact-page .capture-form .event-show-fieldset-active {
   }
 }
 @media (min-width: 768px) {
-  /* line 198, ../sass/screen.scss */
+  /* line 200, ../sass/screen.scss */
   .mod-member > img {
     width: 300px;
     height: 300px;
@@ -9729,93 +9888,93 @@ body.contact-page .capture-form .event-show-fieldset-active {
   }
 }
 @media (max-width: 991px) {
-  /* line 198, ../sass/screen.scss */
+  /* line 200, ../sass/screen.scss */
   .mod-member > img {
     width: 250px;
     height: 250px;
   }
 }
-/* line 217, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 .mod-member-hd {
   margin-bottom: 26px;
 }
-/* line 218, ../sass/screen.scss */
+/* line 220, ../sass/screen.scss */
 .mod-member-hd h4 {
   margin: 0;
   font-weight: 300;
 }
-/* line 223, ../sass/screen.scss */
+/* line 225, ../sass/screen.scss */
 .mod-member-hd strong {
   font-weight: 300;
 }
 @media (max-width: 991px) {
-  /* line 217, ../sass/screen.scss */
+  /* line 219, ../sass/screen.scss */
   .mod-member-hd {
     margin-bottom: 13px;
   }
 }
 @media (max-width: 991px) {
-  /* line 231, ../sass/screen.scss */
+  /* line 233, ../sass/screen.scss */
   .mod-member-bd {
     font-size: 11px;
   }
 }
-/* line 239, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 .mod-member:nth-child(even) {
   background-color: #eeeeee;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 239, ../sass/screen.scss */
+  /* line 241, ../sass/screen.scss */
   .mod-member:nth-child(even) {
     padding-left: 290px;
     padding-right: 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 239, ../sass/screen.scss */
+  /* line 241, ../sass/screen.scss */
   .mod-member:nth-child(even) {
     padding-left: 360px;
     padding-right: 60px;
   }
 }
 @media (min-width: 768px) {
-  /* line 251, ../sass/screen.scss */
+  /* line 253, ../sass/screen.scss */
   .mod-member:nth-child(even) > img {
     left: 0;
   }
 }
-/* line 263, ../sass/screen.scss */
+/* line 265, ../sass/screen.scss */
 .mod-partner {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 263, ../sass/screen.scss */
+  /* line 265, ../sass/screen.scss */
   .mod-partner {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 263, ../sass/screen.scss */
+  /* line 265, ../sass/screen.scss */
   .mod-partner {
     min-height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 263, ../sass/screen.scss */
+  /* line 265, ../sass/screen.scss */
   .mod-partner {
     min-height: 300px;
     padding: 40px 360px 0 60px;
   }
 }
-/* line 198, ../sass/screen.scss */
+/* line 200, ../sass/screen.scss */
 .mod-partner > img {
   max-width: 100%;
 }
 @media (max-width: 767px) {
-  /* line 198, ../sass/screen.scss */
+  /* line 200, ../sass/screen.scss */
   .mod-partner > img {
     -moz-border-radius: 100%;
     -webkit-border-radius: 100%;
@@ -9825,7 +9984,7 @@ body.contact-page .capture-form .event-show-fieldset-active {
   }
 }
 @media (min-width: 768px) {
-  /* line 198, ../sass/screen.scss */
+  /* line 200, ../sass/screen.scss */
   .mod-partner > img {
     width: 300px;
     height: 300px;
@@ -9835,62 +9994,62 @@ body.contact-page .capture-form .event-show-fieldset-active {
   }
 }
 @media (max-width: 991px) {
-  /* line 198, ../sass/screen.scss */
+  /* line 200, ../sass/screen.scss */
   .mod-partner > img {
     width: 250px;
     height: 250px;
   }
 }
-/* line 217, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 .mod-partner-hd {
   margin-bottom: 26px;
 }
-/* line 218, ../sass/screen.scss */
+/* line 220, ../sass/screen.scss */
 .mod-partner-hd h4 {
   margin: 0;
   font-weight: 300;
 }
-/* line 223, ../sass/screen.scss */
+/* line 225, ../sass/screen.scss */
 .mod-partner-hd strong {
   font-weight: 300;
 }
 @media (max-width: 991px) {
-  /* line 217, ../sass/screen.scss */
+  /* line 219, ../sass/screen.scss */
   .mod-partner-hd {
     margin-bottom: 13px;
   }
 }
 @media (max-width: 991px) {
-  /* line 231, ../sass/screen.scss */
+  /* line 233, ../sass/screen.scss */
   .mod-partner-bd {
     font-size: 11px;
   }
 }
-/* line 239, ../sass/screen.scss */
+/* line 241, ../sass/screen.scss */
 .mod-partner:nth-child(even) {
   background-color: #eeeeee;
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 239, ../sass/screen.scss */
+  /* line 241, ../sass/screen.scss */
   .mod-partner:nth-child(even) {
     padding-left: 290px;
     padding-right: 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 239, ../sass/screen.scss */
+  /* line 241, ../sass/screen.scss */
   .mod-partner:nth-child(even) {
     padding-left: 360px;
     padding-right: 60px;
   }
 }
 @media (min-width: 768px) {
-  /* line 251, ../sass/screen.scss */
+  /* line 253, ../sass/screen.scss */
   .mod-partner:nth-child(even) > img {
     left: 0;
   }
 }
-/* line 266, ../sass/screen.scss */
+/* line 268, ../sass/screen.scss */
 .mod-partner-ft a {
   float: right;
 }

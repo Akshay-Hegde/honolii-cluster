@@ -89,8 +89,6 @@ define (['H5F'], function (H5F) {
 		formFields = formFields.concat([].slice.call(this.contactForm.getElementsByTagName('textarea')));
 		formFields = formFields.concat([].slice.call(this.contactForm.getElementsByTagName('select')));
 
-		
-
 		for (var i = formFields.length - 1; i >= 0; i--) {
 			
 			if(formFields[i].hasAttribute('required') && formFields[i].getAttribute('required') !== 'false'){
@@ -106,7 +104,7 @@ define (['H5F'], function (H5F) {
 				  formFields[i].parentNode.appendChild(requireNode);
 				}
 			}
-		};
+		}
 	};
 
 	// goto step 2
