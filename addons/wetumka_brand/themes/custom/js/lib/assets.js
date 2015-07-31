@@ -1,4 +1,6 @@
-define (['jquery','snapsvg'], function ($,Snap) {
+define (['lib/ajax'], function (Ajax) {
+  "use strict";
+
   // http://www.html5rocks.com/en/tutorials/games/assetmanager/
   var AssetManager = function () {
     this.downloadQueue = [];
@@ -19,23 +21,38 @@ define (['jquery','snapsvg'], function ($,Snap) {
 
   AssetManager.prototype.downloadAll = function(downloadCallback) {
     
-    var i, that, file, path, regex, img, imgLoad, imgError;
+    var i, that, fileLoc, regex, img, imgLoad, imgError, svgAsset;
     that = this; // change scope of this
     regex = /(?:\.([^.]+))?$/;
 
-    imgLoad = function(data, status, xhr) {
-      if (status === "success"){
-        that.cache[this] = data;
-      }
+    imgLoad = function(data, status) {
+      //debugger;
+      that.cache[that.getFileNameFromPath(this.src)] = this;
       that.successCount += 1;
       if (that.isDone() || that.downloadQueue.length === 0) {
-        downloadCallback();
+        downloadCallback(that);
       }
     };
-    imgError = function(data, status, xhr) {
+    imgError = function(data, status) {
+      //debugger;
       that.errorCount += 1;
       if (that.isDone() || that.downloadQueue.length === 0) {
-        downloadCallback();
+        downloadCallback(that);
+      }
+    };
+    svgAsset = function(xhr,error) {
+      //debugger;
+      if(error){
+        that.errorCount += 1;
+        if (that.isDone() || that.downloadQueue.length === 0) {
+          downloadCallback(that);
+        }
+      }else{
+        that.cache[that.getFileNameFromPath(xhr.responseURL)] = xhr.responseXML;
+        that.successCount += 1;
+        if (that.isDone() || that.downloadQueue.length === 0) {
+          downloadCallback(that);
+        }
       }
     };
 
@@ -44,24 +61,18 @@ define (['jquery','snapsvg'], function ($,Snap) {
       return;
     } else { //cache files if not
       for (i = 0; i < this.downloadQueue.length; i++) {
-        file = this.downloadQueue[i]; // used as key for cache object
-        path = assetPath + '/img/' + file; // full file path
+        fileLoc = this.downloadQueue[i]; // full file path
 
-        if (regex.exec(path)[1] !== 'svg') {
+        if (regex.exec(fileLoc)[1] !== 'svg') {
           // load all images not SVG
           img = new Image();
           img.addEventListener("load", imgLoad, false);
           img.addEventListener("error", imgError, false);
-          img.src = path;
-          this.cache[file] = img;
+          img.src = fileLoc;
 
         } else {
           //load SVG as XML
-          $.ajax(path, {
-            dataType : 'xml',
-            success : imgLoad.bind(file),
-            error : imgError
-          });
+          Ajax.get(fileLoc, svgAsset);
         }
       }
     }
@@ -71,8 +82,18 @@ define (['jquery','snapsvg'], function ($,Snap) {
     return (this.downloadQueue.length == this.successCount + this.errorCount);
   };
 
-  AssetManager.prototype.getAsset = function(path) {
-    return this.cache[path];
+  AssetManager.prototype.getCachedAsset = function(fileName) {
+    // can be an image object or svg (xml node)
+    if(fileName.substring(fileName.lastIndexOf('.') + 1) === 'svg'){
+      return this.cache[fileName].getElementsByTagName('svg')[0];
+    }else{
+      // add code for img object later
+    }
+    //return this.cache[path];
+  };
+
+  AssetManager.prototype.getFileNameFromPath = function(pathString) {
+    return pathString.substring(pathString.lastIndexOf('/') + 1);
   };
 
   return AssetManager;

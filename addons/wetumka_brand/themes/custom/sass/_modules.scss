@@ -1,0 +1,233 @@
+/* -----------------------------------------
+*        			Module Styles
+* Module blocks are defined by the .mod prefix and have child classes for
+* the header (-hd) body (-bd) and footer (-ft).
+*
+*  - .mod-name
+*  		|- .mod-name-hd
+*  		|- .mod-name-bd
+*  		|- .mod-name-ft
+*
+* Modules can be nested, and bucause of this need to maintain the named space classes.
+* 
+-------------------------------------------- */
+@mixin mod-stacked($zstripe:$gray-lighter){
+	$img-small: 250px;
+	$img-reg: 300px;
+
+	background-color:#fff;
+	position: relative;
+	padding: 10px ($gutters / 2);
+	@extend .clearfix;
+
+	@media (max-width: $screen-xs-max) {
+		padding-bottom:50px;
+	}
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  	min-height:$img-small;
+		padding:30px ($img-small + 40px) 0 40px;
+  }
+	@media (min-width: $screen-md-min) {
+		min-height:$img-reg;
+		padding:40px ($img-reg + $gutters) 0 $gutters;
+	}
+
+	> img{
+		max-width:100%;
+		@media (max-width: $screen-xs-max) {
+			@include border-radius(100%);
+			display:block;
+			margin:-50px auto ($line-height-computed / 2);
+		}
+		@media (min-width: $screen-sm-min) {
+			width:$img-reg;
+			height:$img-reg;
+			position: absolute;
+			right:0;
+			top:0;
+		}
+		@media (max-width: $screen-sm-max) { //TODO replace with JS opperation
+    	width:$img-small;
+    	height:$img-small;
+    }
+	}
+	&-hd{
+		h4{
+			@extend .h5;
+			margin:0;
+			font-weight:300;
+		}
+		strong{
+			font-weight:300;
+		}
+		margin-bottom:$line-height-computed;
+		@media (max-width: $screen-sm-max) {
+    	margin-bottom:($line-height-computed / 2);
+    }
+	}
+	&-bd{
+		@media (max-width: $screen-sm-max) {
+    	font-size:$font-size-small;
+    }
+	}
+	&-ft{
+
+	}
+	&:nth-child(even){
+		background-color:$zstripe;
+
+		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+			padding-left:($img-small + 40px);
+			padding-right:40px;
+		}
+		@media (min-width: $screen-md-min) {
+			padding-left:($img-reg + $gutters);
+			padding-right:$gutters;
+		}
+
+		> img{
+			@media (min-width: $screen-sm-min) {
+				left:0;
+			}
+		}
+	}
+}
+
+.mod{
+	&-member{
+		@include mod-stacked;
+	}
+	&-members{
+		&-hd h2{
+			text-transform:uppercase;
+		}
+	}
+	&-partner{
+		@include mod-stacked;
+		&-ft{
+			a{
+				float:right;
+			}
+		}
+	}
+	&-partners{
+		&-hd{
+			position: relative;
+			h2{
+				@extend .h1;
+				text-transform:uppercase;
+				position: absolute;
+			  width: 100%;
+			  margin-top: -80px;
+			  background-color:#fff;
+			}
+			p{
+				color:#fff;
+				padding:40px ($gutters / 2) 70px;
+				text-align:center;
+
+				@media (min-width: $screen-sm-min) {
+					padding:80px $gutters;
+				}
+			}
+		}
+	}
+	&-form{
+		// styles are in form styles block above
+	}
+	&-testimonials{
+		&-hd{
+			position: relative;
+			h2{
+				@extend .h1;
+				text-transform:uppercase;
+				position: absolute;
+			  width: 100%;
+			  margin-top: -80px;
+			  background-color:#fff;
+			}
+			p{
+				color:#fff;
+				padding:40px ($gutters / 2) 70px;
+				text-align:center;
+
+				@media (min-width: $screen-sm-min) {
+					padding:80px $gutters;
+				}
+			}
+		}
+		&-bd{
+
+		}
+	}
+	&-testimonial{
+		
+	}
+	&-clients{
+		&-bd{
+			@extend .row;
+		}
+	}
+	&-client{
+		@extend .col-md-4;
+		@extend .col-xs-6;
+		position: relative;
+		overflow:hidden;
+		img{
+			width:100%;
+		}
+		&-hd{
+			color:#fff;
+			position: absolute;
+			width:100%;
+			background:rgba(0,0,0,.6);
+			text-align:center;
+			padding:20px;
+			bottom:0;
+			h4 {
+				color:#fff;
+				margin:0;
+			}
+			strong{
+				display:none;
+			}
+		}
+		&-ft{
+			position: absolute;
+			width:100%;
+			height:100%;
+			top:0;
+			a{
+				display:block;
+				height:inherit;
+				color:transparent;
+			}
+		}
+		@media (min-width: $screen-md-min) {
+			&-hd{
+				bottom:-100px;
+				@include transition( bottom .4s );
+				h4{
+					position: relative;
+					left:100%;
+					@include transition( left 0.5s 0.1s ease-in );
+				}
+				strong {
+					position: relative;
+					display: block;
+					right:100%;
+					@include transition( right 0.5s 0.1s ease-in );
+				}
+			}
+			&:hover .mod-client-hd{
+				bottom:0;
+				h4{
+					left:0;
+				}
+				strong{
+					right:0;
+				}
+			}
+		}
+	}
+}
