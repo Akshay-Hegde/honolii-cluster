@@ -1716,7 +1716,7 @@ body {
   font-size: 14px;
   line-height: 1.857;
   color: #333333;
-  background-color: #ccc;
+  background-color: #006798;
 }
 
 /* line 36, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
@@ -1772,7 +1772,7 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.857;
-  background-color: #ccc;
+  background-color: #006798;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
@@ -3680,7 +3680,7 @@ th {
 }
 /* line 62, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_tables.scss */
 .table .table {
-  background-color: #ccc;
+  background-color: #006798;
 }
 
 /* line 75, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_tables.scss */
@@ -5410,178 +5410,6 @@ tbody.collapse.in {
   transition-timing-function: ease;
 }
 
-/* line 7, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.caret {
-  display: inline-block;
-  width: 0;
-  height: 0;
-  margin-left: 2px;
-  vertical-align: middle;
-  border-top: 4px dashed;
-  border-top: 4px solid \9;
-  border-right: 4px solid transparent;
-  border-left: 4px solid transparent;
-}
-
-/* line 20, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropup,
-.dropdown {
-  position: relative;
-}
-
-/* line 26, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-toggle:focus {
-  outline: 0;
-}
-
-/* line 31, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  z-index: 1000;
-  display: none;
-  float: left;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  list-style: none;
-  font-size: 14px;
-  text-align: left;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 4px;
-  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  background-clip: padding-box;
-}
-/* line 54, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu.pull-right {
-  right: 0;
-  left: auto;
-}
-/* line 60, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu .divider {
-  height: 1px;
-  margin: 12px 0;
-  overflow: hidden;
-  background-color: #e5e5e5;
-}
-/* line 65, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu > li > a {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.857;
-  color: #333333;
-  white-space: nowrap;
-}
-
-/* line 78, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
-  text-decoration: none;
-  color: #262626;
-  background-color: #f5f5f5;
-}
-
-/* line 88, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
-  color: #fff;
-  text-decoration: none;
-  outline: 0;
-  background-color: #337ab7;
-}
-
-/* line 103, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
-  color: #777777;
-}
-/* line 110, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
-  text-decoration: none;
-  background-color: transparent;
-  background-image: none;
-  filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  cursor: not-allowed;
-}
-
-/* line 123, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.open > .dropdown-menu {
-  display: block;
-}
-/* line 128, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.open > a {
-  outline: 0;
-}
-
-/* line 137, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu-right {
-  left: auto;
-  right: 0;
-}
-
-/* line 147, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-menu-left {
-  left: 0;
-  right: auto;
-}
-
-/* line 153, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-header {
-  display: block;
-  padding: 3px 20px;
-  font-size: 11px;
-  line-height: 1.857;
-  color: #777777;
-  white-space: nowrap;
-}
-
-/* line 163, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropdown-backdrop {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-  z-index: 990;
-}
-
-/* line 173, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.pull-right > .dropdown-menu {
-  right: 0;
-  left: auto;
-}
-
-/* line 186, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropup .caret,
-.navbar-fixed-bottom .dropdown .caret {
-  border-top: 0;
-  border-bottom: 4px dashed;
-  border-bottom: 4px solid \9;
-  content: "";
-}
-/* line 193, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-.dropup .dropdown-menu,
-.navbar-fixed-bottom .dropdown .dropdown-menu {
-  top: auto;
-  bottom: 100%;
-  margin-bottom: 2px;
-}
-
-@media (min-width: 768px) {
-  /* line 207, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-  .navbar-right .dropdown-menu {
-    right: 0;
-    left: auto;
-  }
-  /* line 212, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_dropdowns.scss */
-  .navbar-right .dropdown-menu-left {
-    left: 0;
-    right: auto;
-  }
-}
 /* line 6, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
 .btn-group,
 .btn-group-vertical {
@@ -6133,7 +5961,7 @@ tbody.collapse.in {
 /* line 96, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navs.scss */
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   color: #555555;
-  background-color: #ccc;
+  background-color: #006798;
   border: 1px solid #ddd;
   border-bottom-color: transparent;
   cursor: default;
@@ -6226,7 +6054,7 @@ tbody.collapse.in {
   .nav-tabs.nav-justified > .active > a:hover,
   .nav-tabs-justified > .active > a:focus,
   .nav-tabs.nav-justified > .active > a:focus {
-    border-bottom-color: #ccc;
+    border-bottom-color: #006798;
   }
 }
 
@@ -7323,7 +7151,7 @@ a.badge:hover, a.badge:focus {
   padding: 4px;
   margin-bottom: 26px;
   line-height: 1.857;
-  background-color: #ccc;
+  background-color: #006798;
   border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: border 0.2s ease-in-out;
@@ -8864,270 +8692,6 @@ button.close {
   bottom: -10px;
 }
 
-/* line 7, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel {
-  position: relative;
-}
-
-/* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
-/* line 16, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .item {
-  display: none;
-  position: relative;
-  -webkit-transition: 0.6s ease-in-out left;
-  -o-transition: 0.6s ease-in-out left;
-  transition: 0.6s ease-in-out left;
-}
-/* line 22, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  line-height: 1;
-}
-@media all and (transform-3d), (-webkit-transform-3d) {
-  /* line 16, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-inner > .item {
-    -webkit-transition: -webkit-transform 0.6s ease-in-out;
-    -moz-transition: -moz-transform 0.6s ease-in-out;
-    -o-transition: -o-transform 0.6s ease-in-out;
-    transition: transform 0.6s ease-in-out;
-    -webkit-backface-visibility: hidden;
-    -moz-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-perspective: 1000px;
-    -moz-perspective: 1000px;
-    perspective: 1000px;
-  }
-  /* line 34, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-inner > .item.next, .carousel-inner > .item.active.right {
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-    left: 0;
-  }
-  /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-inner > .item.prev, .carousel-inner > .item.active.left {
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-    left: 0;
-  }
-  /* line 44, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-inner > .item.next.left, .carousel-inner > .item.prev.right, .carousel-inner > .item.active {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-    left: 0;
-  }
-}
-/* line 53, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .active,
-.carousel-inner > .next,
-.carousel-inner > .prev {
-  display: block;
-}
-/* line 59, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .active {
-  left: 0;
-}
-/* line 63, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .next,
-.carousel-inner > .prev {
-  position: absolute;
-  top: 0;
-  width: 100%;
-}
-/* line 70, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .next {
-  left: 100%;
-}
-/* line 73, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .prev {
-  left: -100%;
-}
-/* line 76, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .next.left,
-.carousel-inner > .prev.right {
-  left: 0;
-}
-/* line 81, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .active.left {
-  left: -100%;
-}
-/* line 84, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-inner > .active.right {
-  left: 100%;
-}
-
-/* line 93, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  width: 15%;
-  opacity: 0.5;
-  filter: alpha(opacity=50);
-  font-size: 20px;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-}
-/* line 108, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control.left {
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.0001) 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1);
-}
-/* line 111, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control.right {
-  left: auto;
-  right: 0;
-  background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0%, rgba(0, 0, 0, 0.5) 100%);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1);
-}
-/* line 118, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control:hover, .carousel-control:focus {
-  outline: 0;
-  color: #fff;
-  text-decoration: none;
-  opacity: 0.9;
-  filter: alpha(opacity=90);
-}
-/* line 127, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control .icon-prev,
-.carousel-control .icon-next,
-.carousel-control .glyphicon-chevron-left,
-.carousel-control .glyphicon-chevron-right {
-  position: absolute;
-  top: 50%;
-  margin-top: -10px;
-  z-index: 5;
-  display: inline-block;
-}
-/* line 137, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control .icon-prev,
-.carousel-control .glyphicon-chevron-left {
-  left: 50%;
-  margin-left: -10px;
-}
-/* line 142, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control .icon-next,
-.carousel-control .glyphicon-chevron-right {
-  right: 50%;
-  margin-right: -10px;
-}
-/* line 147, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control .icon-prev,
-.carousel-control .icon-next {
-  width: 20px;
-  height: 20px;
-  line-height: 1;
-  font-family: serif;
-}
-/* line 157, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control .icon-prev:before {
-  content: '\2039';
-}
-/* line 162, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-control .icon-next:before {
-  content: '\203a';
-}
-
-/* line 173, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-indicators {
-  position: absolute;
-  bottom: 10px;
-  left: 50%;
-  z-index: 15;
-  width: 60%;
-  margin-left: -30%;
-  padding-left: 0;
-  list-style: none;
-  text-align: center;
-}
-/* line 184, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-indicators li {
-  display: inline-block;
-  width: 10px;
-  height: 10px;
-  margin: 1px;
-  text-indent: -999px;
-  border: 1px solid #fff;
-  border-radius: 10px;
-  cursor: pointer;
-  background-color: #000 \9;
-  background-color: transparent;
-}
-/* line 206, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-indicators .active {
-  margin: 0;
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-}
-
-/* line 217, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-caption {
-  position: absolute;
-  left: 15%;
-  right: 15%;
-  bottom: 20px;
-  z-index: 10;
-  padding-top: 20px;
-  padding-bottom: 20px;
-  color: #fff;
-  text-align: center;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
-}
-/* line 228, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-.carousel-caption .btn {
-  text-shadow: none;
-}
-
-@media screen and (min-width: 768px) {
-  /* line 239, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-control .glyphicon-chevron-left,
-  .carousel-control .glyphicon-chevron-right,
-  .carousel-control .icon-prev,
-  .carousel-control .icon-next {
-    width: 30px;
-    height: 30px;
-    margin-top: -15px;
-    font-size: 30px;
-  }
-  /* line 248, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-control .glyphicon-chevron-left,
-  .carousel-control .icon-prev {
-    margin-left: -15px;
-  }
-  /* line 252, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-control .glyphicon-chevron-right,
-  .carousel-control .icon-next {
-    margin-right: -15px;
-  }
-
-  /* line 259, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-caption {
-    left: 20%;
-    right: 20%;
-    padding-bottom: 30px;
-  }
-
-  /* line 266, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_carousel.scss */
-  .carousel-indicators {
-    bottom: 20px;
-  }
-}
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
 .clearfix:before, .mod-member:before, .mod-partner:before, .clearfix:after, .mod-member:after, .mod-partner:after {
   content: " ";
@@ -9496,85 +9060,89 @@ button.close {
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
-/* line 33, ../sass/screen.scss */
+/* line 29, ../sass/screen.scss */
+.site-wrapper {
+  position: relative;
+}
+/* line 34, ../sass/screen.scss */
 .site-wrapper .site-footer {
   text-align: center;
 }
-/* line 36, ../sass/screen.scss */
+/* line 37, ../sass/screen.scss */
 .site-wrapper .site-footer ul {
   list-style: none;
   margin: 0;
 }
-/* line 39, ../sass/screen.scss */
+/* line 40, ../sass/screen.scss */
 .site-wrapper .site-footer ul li {
   display: inline;
   padding-left: 10px;
 }
-/* line 42, ../sass/screen.scss */
+/* line 43, ../sass/screen.scss */
 .site-wrapper .site-footer ul li::first-child {
   padding-left: 0;
 }
 
-/* line 49, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .block-wrapper {
   padding-bottom: 50px;
 }
 @media (min-width: 768px) {
-  /* line 49, ../sass/screen.scss */
+  /* line 50, ../sass/screen.scss */
   .block-wrapper {
     padding-bottom: 100px;
   }
 }
-/* line 54, ../sass/screen.scss */
+/* line 55, ../sass/screen.scss */
 .block-wrapper > .block {
   background-color: #fff;
 }
-/* line 59, ../sass/screen.scss */
+/* line 60, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
 }
-/* line 62, ../sass/screen.scss */
+/* line 63, ../sass/screen.scss */
 .block-wrapper.intro-section .lead {
   text-align: center;
 }
-/* line 66, ../sass/screen.scss */
+/* line 67, ../sass/screen.scss */
 .block-wrapper.intro-section > .block .block-inner {
   padding: 20px 30px;
 }
 @media (min-width: 768px) {
-  /* line 66, ../sass/screen.scss */
+  /* line 67, ../sass/screen.scss */
   .block-wrapper.intro-section > .block .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 76, ../sass/screen.scss */
+/* line 77, ../sass/screen.scss */
 .block-wrapper.two-column .block-inner {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 @media (min-width: 768px) {
-  /* line 76, ../sass/screen.scss */
+  /* line 77, ../sass/screen.scss */
   .block-wrapper.two-column .block-inner {
     padding-top: 45px;
     padding-bottom: 45px;
   }
 }
-/* line 85, ../sass/screen.scss */
+/* line 86, ../sass/screen.scss */
 .block-wrapper.two-column .main-column {
   padding-left: 30px;
 }
 @media (min-width: 768px) {
-  /* line 85, ../sass/screen.scss */
+  /* line 86, ../sass/screen.scss */
   .block-wrapper.two-column .main-column {
     padding-left: 60px;
   }
 }
-/* line 93, ../sass/screen.scss */
+/* line 94, ../sass/screen.scss */
 .block-wrapper.two-column .side-column {
   padding-right: 30px;
 }
 @media (min-width: 768px) {
-  /* line 93, ../sass/screen.scss */
+  /* line 94, ../sass/screen.scss */
   .block-wrapper.two-column .side-column {
     padding-right: 60px;
   }
@@ -9583,24 +9151,24 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 111, ../sass/screen.scss */
+/* line 112, ../sass/screen.scss */
 .capture-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 126, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 130, ../sass/screen.scss */
+/* line 131, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 139, ../sass/screen.scss */
+/* line 140, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
-/* line 145, ../sass/screen.scss */
+/* line 146, ../sass/screen.scss */
 .capture-form .flag-required {
   position: absolute;
   right: -30px;
@@ -9983,18 +9551,18 @@ button.close {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 166, ../sass/screen.scss */
+/* line 167, ../sass/screen.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 169, ../sass/screen.scss */
+/* line 170, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
 @media (min-width: 768px) {
-  /* line 172, ../sass/screen.scss */
+  /* line 173, ../sass/screen.scss */
   .columns {
     -moz-columns: auto 2;
     -webkit-columns: auto 2;
@@ -10070,24 +9638,14 @@ body.work-page .client-section > .block {
 /* -----------------------------------------
          				SVG animations
 -------------------------------------------- */
-/* line 186, ../sass/screen.scss */
-body {
-  background-color: #006798;
-}
-
-/* line 189, ../sass/screen.scss */
-.waves-svg {
-  width: 100%;
-  height: 1000px;
-  top: -345px;
+/* line 188, ../sass/screen.scss */
+#waves {
   position: absolute;
-  background-color: #fff;
-}
-
-/* line 196, ../sass/screen.scss */
-#wrapper {
-  position: relative;
-  top: 250px;
+  display: block;
+  background: url(../img/watercolorTextureFade_2x.jpg);
+  background-size: 1500px;
+  background-position: center top;
+  background-repeat: repeat-x;
 }
 
 @-moz-keyframes wave_1 {
@@ -10750,47 +10308,35 @@ body {
     transform: translate(15%, 26%);
   }
 }
-/* line 204, ../sass/screen.scss */
+/* line 202, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
-/* line 205, ../sass/screen.scss */
+/* line 203, ../sass/screen.scss */
 .wave_5 {
   -moz-animation: wave_5 14s linear infinite;
   -webkit-animation: wave_5 14s linear infinite;
   animation: wave_5 14s linear infinite;
 }
-/* line 206, ../sass/screen.scss */
-.wave_5 .stroke {
-  fill: #97E9FC;
-}
-/* line 209, ../sass/screen.scss */
+/* line 207, ../sass/screen.scss */
 .wave_4 {
   -moz-animation: wave_4 7s linear infinite;
   -webkit-animation: wave_4 7s linear infinite;
   animation: wave_4 7s linear infinite;
 }
-/* line 210, ../sass/screen.scss */
-.wave_4 .stroke {
-  fill: #55D6F9;
-}
-/* line 213, ../sass/screen.scss */
+/* line 211, ../sass/screen.scss */
 .wave_3 {
   -moz-animation: wave_3 12s linear infinite;
   -webkit-animation: wave_3 12s linear infinite;
   animation: wave_3 12s linear infinite;
 }
-/* line 214, ../sass/screen.scss */
-.wave_3 .stroke {
-  fill: #1695C1;
-}
-/* line 217, ../sass/screen.scss */
+/* line 215, ../sass/screen.scss */
 .wave_2 {
   -moz-animation: wave_2 8s linear infinite;
   -webkit-animation: wave_2 8s linear infinite;
   animation: wave_2 8s linear infinite;
 }
-/* line 221, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 .wave_1 {
   -moz-animation: wave_1 15s linear infinite;
   -webkit-animation: wave_1 15s linear infinite;

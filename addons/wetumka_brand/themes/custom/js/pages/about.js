@@ -1,4 +1,4 @@
 // about-us.js
-define (['jquery'], function ($) {
+define (['default'], function (def) {
 	
 });

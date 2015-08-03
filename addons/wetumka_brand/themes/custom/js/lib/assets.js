@@ -48,7 +48,8 @@ define (['lib/ajax'], function (Ajax) {
           downloadCallback(that);
         }
       }else{
-        that.cache[that.getFileNameFromPath(xhr.responseURL)] = xhr.responseXML;
+        //debugger;
+        that.cache[that.getFileNameFromPath(xhr.responseXML.URL)] = xhr.responseXML;
         that.successCount += 1;
         if (that.isDone() || that.downloadQueue.length === 0) {
           downloadCallback(that);
@@ -93,6 +94,7 @@ define (['lib/ajax'], function (Ajax) {
   };
 
   AssetManager.prototype.getFileNameFromPath = function(pathString) {
+    //debugger;
     return pathString.substring(pathString.lastIndexOf('/') + 1);
   };
 

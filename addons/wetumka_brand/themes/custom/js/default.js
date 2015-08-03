@@ -35,27 +35,42 @@ define (['lib/assets','snapsvg'], function (Assets) {
 	};
 
 	// Set SVG backgrounds and animations
-	_.setSceneSVG = function(assetsManager){
-		var svgObj = {};
-		var svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg"); // svg is not just a node - name space that shit yo!
-		var wrapperNode = document.getElementById('wrapper');
+	_.setSceneSVG = function(am){ // am = assetManager
+		var svgObj = {},
+			svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg"), // svg is not just a node - name space that shit yo!
+			wrapperNode = document.getElementById('wrapper');
 
 		svgNode.setAttribute('id','waves');
-		svgNode.classList.add('waves-svg');
 		wrapper.parentNode.insertBefore(svgNode,wrapper);
 
 		svgObj.canvasSVG = new Snap('#waves');
-		svgObj.waveSVG = new Snap(assetsManager.getCachedAsset('scn-1-waves.svg'));
+		svgObj.waveSVG = new Snap(am.getCachedAsset('scn-1-waves.svg'));
+
+		//SVG drawing area
+		svgObj.canvasSVG.attr({
+			viewBox:'0 0 1280 800',
+			preserveAspectRatio:'none slice'
+		});
+
+		//SVG waves
+		svgObj.waveSVG.attr({
+			viewBox:'0 50 1280 800'
+		});
 
 		svgObj.waveSVG_w1 = svgObj.waveSVG.select('.wave_1 .stroke');
 		svgObj.waveSVG_w2 = svgObj.waveSVG.select('.wave_2 .stroke');
+		svgObj.waveSVG_w3 = svgObj.waveSVG.select('.wave_3 .stroke');
+		svgObj.waveSVG_w4 = svgObj.waveSVG.select('.wave_4 .stroke');
+		svgObj.waveSVG_w5 = svgObj.waveSVG.select('.wave_5 .stroke');
 
-    svgObj.waveSVG_w2.attr({fill:"l(.5, 0, .5, 1)#0286BA:10-#006798:90"});
-    svgObj.waveSVG_w1.attr({fill:"l(.5, 0, .5, 1)#0286BA-#006798:60"});
+    svgObj.waveSVG_w1.attr({fill:"l(0, 0, 0, 1)#0177AA:0-#006798:100"});
+    svgObj.waveSVG_w2.attr({fill:"l(0, 0, 0, 1)#0177AA:10-#006798:100"});
+    svgObj.waveSVG_w3.attr({fill:"l(0, 0, 0, 1)#0286BA:20-#006798:100"});
+    svgObj.waveSVG_w4.attr({fill:"l(0, 0, 0, 1)#0286BA:25-#006798:100"});
+    svgObj.waveSVG_w5.attr({fill:"l(0, 0, 0, 1)#0286BA:30-#006798:100"});
 
 		svgObj.canvasSVG.append(svgObj.waveSVG);
 
-		//debugger;
 	};
 
 	// Set images to use alternate size based on pixel density

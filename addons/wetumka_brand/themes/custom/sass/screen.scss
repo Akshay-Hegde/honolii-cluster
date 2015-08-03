@@ -27,6 +27,7 @@ $gutters: 60px;
          Site Structure Styles
 -------------------------------------------- */
 .site-wrapper{
+	position: relative;
 	.site-content{
 		
 	}
@@ -183,42 +184,39 @@ img{
 /* -----------------------------------------
          				SVG animations
 -------------------------------------------- */
-body{
-	background-color:#006798;
-}
-.waves-svg {
-	width:100%;
-	height:1000px;
-	top: -345px;
+
+#waves {
+	//width:100%;
+	//height:800px;
 	position: absolute;
-	background-color:#fff;
-}
-#wrapper{
-	position: relative;
-	top:250px;
+	display:block;
+	background: url(../img/watercolorTextureFade_2x.jpg);
+	background-size:1500px;
+	background-position: center top;
+	background-repeat: repeat-x;
 }
 
 @import "story/animations";
 @import "story/colors";
 .wave{
-		.fill{fill:$blue-darkest}
-		&_5{
-			.stroke{fill:$blue-lightest}
-			@include animation(wave_5 14s linear infinite);
-		}
-		&_4{
-			.stroke{fill:$blue-light}
-			@include animation(wave_4 7s linear infinite);
-		}
-		&_3{
-			.stroke{fill:$blue-mid}
-			@include animation(wave_3 12s linear infinite);
-		}
-		&_2{
-			//.stroke{fill:$blue-dark}
-			@include animation(wave_2 8s linear infinite);
-		}
-		&_1{
-			@include animation(wave_1 15s linear infinite);
-		}
+	.fill{fill:#006798}
+	&_5{
+		//.stroke{fill:$blue-lightest}
+		@include animation(wave_5 14s linear infinite);
 	}
+	&_4{
+		//.stroke{fill:$blue-light}
+		@include animation(wave_4 7s linear infinite);
+	}
+	&_3{
+		//.stroke{fill:$blue-mid}
+		@include animation(wave_3 12s linear infinite);
+	}
+	&_2{
+		//.stroke{fill:$blue-dark}
+		@include animation(wave_2 8s linear infinite);
+	}
+	&_1{
+		@include animation(wave_1 15s linear infinite);
+	}
+}
