@@ -1712,9 +1712,9 @@ html {
 
 /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.857;
+  font-family: "futura-pt", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
   color: #333333;
   background-color: #006798;
 }
@@ -1771,7 +1771,7 @@ img {
 /* line 93, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
 .img-thumbnail {
   padding: 4px;
-  line-height: 1.857;
+  line-height: 1.5;
   background-color: #006798;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -1790,8 +1790,8 @@ img {
 
 /* line 113, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
 hr {
-  margin-top: 26px;
-  margin-bottom: 26px;
+  margin-top: 24px;
+  margin-bottom: 24px;
   border: 0;
   border-top: 1px solid #eeeeee;
 }
@@ -1827,7 +1827,7 @@ hr {
 h1, h2, h3, h4, h5, h6,
 .h1,
 .mod-partners-hd h2,
-.mod-testimonials-hd h2, .h2, .h3, .h4, .h5, .mod-member-hd h4, .mod-partner-hd h4, .h6 {
+.mod-testimonials-hd h2, .h2, .h3, .h4, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4, .h6 {
   font-family: inherit;
   font-weight: 100;
   line-height: 1.1;
@@ -1897,22 +1897,27 @@ h6 .capture-form .mod-form .mod-form-help,
 .h4 .site-wrapper .site-footer,
 .site-wrapper .h4 .site-footer,
 .h4 .capture-form .mod-form .mod-form-help,
-.capture-form .mod-form .h4 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small,
+.capture-form .mod-form .h4 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
 .h5 .small,
 .mod-member-hd h4 .small,
 .mod-partner-hd h4 .small,
+.mod-testimonial-hd h4 .small,
 .h5 .site-wrapper .site-footer,
 .site-wrapper .h5 .site-footer,
 .mod-member-hd h4 .site-wrapper .site-footer,
 .site-wrapper .mod-member-hd h4 .site-footer,
 .mod-partner-hd h4 .site-wrapper .site-footer,
 .site-wrapper .mod-partner-hd h4 .site-footer,
+.mod-testimonial-hd h4 .site-wrapper .site-footer,
+.site-wrapper .mod-testimonial-hd h4 .site-footer,
 .h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h5 .mod-form-help,
 .mod-member-hd h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-member-hd h4 .mod-form-help,
 .mod-partner-hd h4 .capture-form .mod-form .mod-form-help,
-.capture-form .mod-form .mod-partner-hd h4 .mod-form-help, .h6 small,
+.capture-form .mod-form .mod-partner-hd h4 .mod-form-help,
+.mod-testimonial-hd h4 .capture-form .mod-form .mod-form-help,
+.capture-form .mod-form .mod-testimonial-hd h4 .mod-form-help, .h6 small,
 .h6 .small,
 .h6 .site-wrapper .site-footer,
 .site-wrapper .h6 .site-footer,
@@ -1927,10 +1932,10 @@ h6 .capture-form .mod-form .mod-form-help,
 h1, .h1, .mod-partners-hd h2, .mod-testimonials-hd h2,
 h2, .h2,
 h3, .h3 {
-  margin-top: 78px;
-  margin-bottom: 52px;
+  margin-top: 48px;
+  margin-bottom: 48px;
 }
-/* line 30, ../sass/bootstrap_custom/_type.scss */
+/* line 29, ../sass/bootstrap_custom/_type.scss */
 h1 small,
 h1 .small,
 h1 .site-wrapper .site-footer,
@@ -1977,14 +1982,14 @@ h3 .capture-form .mod-form .mod-form-help,
   font-size: 65%;
 }
 
-/* line 35, ../sass/bootstrap_custom/_type.scss */
+/* line 34, ../sass/bootstrap_custom/_type.scss */
 h4, .h4,
-h5, .h5, .mod-member-hd h4, .mod-partner-hd h4,
+h5, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4,
 h6, .h6 {
-  margin-top: 13px;
-  margin-bottom: 13px;
+  margin-top: 12px;
+  margin-bottom: 12px;
 }
-/* line 41, ../sass/bootstrap_custom/_type.scss */
+/* line 40, ../sass/bootstrap_custom/_type.scss */
 h4 small,
 h4 .small,
 h4 .site-wrapper .site-footer,
@@ -2001,22 +2006,27 @@ h5 .small,
 h5 .site-wrapper .site-footer,
 .site-wrapper h5 .site-footer,
 h5 .capture-form .mod-form .mod-form-help,
-.capture-form .mod-form h5 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small,
+.capture-form .mod-form h5 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
 .h5 .small,
 .mod-member-hd h4 .small,
 .mod-partner-hd h4 .small,
+.mod-testimonial-hd h4 .small,
 .h5 .site-wrapper .site-footer,
 .site-wrapper .h5 .site-footer,
 .mod-member-hd h4 .site-wrapper .site-footer,
 .site-wrapper .mod-member-hd h4 .site-footer,
 .mod-partner-hd h4 .site-wrapper .site-footer,
 .site-wrapper .mod-partner-hd h4 .site-footer,
+.mod-testimonial-hd h4 .site-wrapper .site-footer,
+.site-wrapper .mod-testimonial-hd h4 .site-footer,
 .h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h5 .mod-form-help,
 .mod-member-hd h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-member-hd h4 .mod-form-help,
 .mod-partner-hd h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-partner-hd h4 .mod-form-help,
+.mod-testimonial-hd h4 .capture-form .mod-form .mod-form-help,
+.capture-form .mod-form .mod-testimonial-hd h4 .mod-form-help,
 h6 small,
 h6 .small,
 h6 .site-wrapper .site-footer,
@@ -2031,104 +2041,105 @@ h6 .capture-form .mod-form .mod-form-help,
   font-size: 75%;
 }
 
-/* line 47, ../sass/bootstrap_custom/_type.scss */
+/* line 46, ../sass/bootstrap_custom/_type.scss */
 h1, .h1, .mod-partners-hd h2, .mod-testimonials-hd h2 {
-  font-size: 28px;
+  font-size: 32px;
+  font-weight: 500;
+}
+
+/* line 47, ../sass/bootstrap_custom/_type.scss */
+h2, .h2 {
+  font-size: 30px;
 }
 
 /* line 48, ../sass/bootstrap_custom/_type.scss */
-h2, .h2 {
-  font-size: 26px;
+h3, .h3 {
+  font-size: 28px;
 }
 
 /* line 49, ../sass/bootstrap_custom/_type.scss */
-h3, .h3 {
-  font-size: 24px;
+h4, .h4 {
+  font-size: 22px;
 }
 
 /* line 50, ../sass/bootstrap_custom/_type.scss */
-h4, .h4 {
+h5, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4 {
   font-size: 20px;
 }
 
 /* line 51, ../sass/bootstrap_custom/_type.scss */
-h5, .h5, .mod-member-hd h4, .mod-partner-hd h4 {
-  font-size: 18px;
-}
-
-/* line 52, ../sass/bootstrap_custom/_type.scss */
 h6, .h6 {
-  font-size: 14px;
+  font-size: 16px;
 }
 
-/* line 58, ../sass/bootstrap_custom/_type.scss */
+/* line 57, ../sass/bootstrap_custom/_type.scss */
 p {
-  margin: 0 0 13px;
+  margin: 0 0 12px;
 }
 
-/* line 62, ../sass/bootstrap_custom/_type.scss */
-.lead {
-  font-size: 18px;
+/* line 61, ../sass/bootstrap_custom/_type.scss */
+.lead, .mod-partners-hd p, .mod-testimonials-hd p {
+  font-size: 20px;
   font-weight: 300;
   line-height: 1.4;
 }
 
-/* line 78, ../sass/bootstrap_custom/_type.scss */
+/* line 77, ../sass/bootstrap_custom/_type.scss */
 small,
 .small,
 .site-wrapper .site-footer,
 .capture-form .mod-form .mod-form-help {
-  font-size: 78%;
+  font-size: 75%;
 }
 
-/* line 83, ../sass/bootstrap_custom/_type.scss */
+/* line 82, ../sass/bootstrap_custom/_type.scss */
 mark,
 .mark {
   background-color: #fcf8e3;
   padding: .2em;
 }
 
-/* line 90, ../sass/bootstrap_custom/_type.scss */
+/* line 89, ../sass/bootstrap_custom/_type.scss */
 .text-left {
   text-align: left;
 }
 
-/* line 91, ../sass/bootstrap_custom/_type.scss */
+/* line 90, ../sass/bootstrap_custom/_type.scss */
 .text-right {
   text-align: right;
 }
 
-/* line 92, ../sass/bootstrap_custom/_type.scss */
+/* line 91, ../sass/bootstrap_custom/_type.scss */
 .text-center {
   text-align: center;
 }
 
-/* line 93, ../sass/bootstrap_custom/_type.scss */
+/* line 92, ../sass/bootstrap_custom/_type.scss */
 .text-justify {
   text-align: justify;
 }
 
-/* line 94, ../sass/bootstrap_custom/_type.scss */
+/* line 93, ../sass/bootstrap_custom/_type.scss */
 .text-nowrap {
   white-space: nowrap;
 }
 
-/* line 97, ../sass/bootstrap_custom/_type.scss */
+/* line 96, ../sass/bootstrap_custom/_type.scss */
 .text-lowercase {
   text-transform: lowercase;
 }
 
-/* line 98, ../sass/bootstrap_custom/_type.scss */
+/* line 97, ../sass/bootstrap_custom/_type.scss */
 .text-uppercase, .initialism {
   text-transform: uppercase;
 }
 
-/* line 99, ../sass/bootstrap_custom/_type.scss */
+/* line 98, ../sass/bootstrap_custom/_type.scss */
 .text-capitalize {
   text-transform: capitalize;
 }
 
-/* line 102, ../sass/bootstrap_custom/_type.scss */
+/* line 101, ../sass/bootstrap_custom/_type.scss */
 .text-muted {
   color: #777777;
 }
@@ -2188,7 +2199,7 @@ a.text-danger:focus {
   color: #843534;
 }
 
-/* line 119, ../sass/bootstrap_custom/_type.scss */
+/* line 118, ../sass/bootstrap_custom/_type.scss */
 .bg-primary {
   color: #fff;
 }
@@ -2248,20 +2259,20 @@ a.bg-danger:focus {
   background-color: #e4b9b9;
 }
 
-/* line 138, ../sass/bootstrap_custom/_type.scss */
+/* line 137, ../sass/bootstrap_custom/_type.scss */
 .page-header {
-  padding-bottom: 12px;
-  margin: 52px 0 26px;
+  padding-bottom: 11px;
+  margin: 48px 0 24px;
   border-bottom: 1px solid #eeeeee;
 }
 
-/* line 149, ../sass/bootstrap_custom/_type.scss */
+/* line 148, ../sass/bootstrap_custom/_type.scss */
 ul,
 ol {
   margin-top: 0;
-  margin-bottom: 13px;
+  margin-bottom: 12px;
 }
-/* line 153, ../sass/bootstrap_custom/_type.scss */
+/* line 152, ../sass/bootstrap_custom/_type.scss */
 ul ul,
 ul ol,
 ol ul,
@@ -2269,43 +2280,43 @@ ol ol {
   margin-bottom: 0;
 }
 
-/* line 167, ../sass/bootstrap_custom/_type.scss */
+/* line 166, ../sass/bootstrap_custom/_type.scss */
 .list-unstyled {
   padding-left: 0;
   list-style: none;
 }
 
-/* line 173, ../sass/bootstrap_custom/_type.scss */
+/* line 172, ../sass/bootstrap_custom/_type.scss */
 .list-inline {
   padding-left: 0;
   list-style: none;
   margin-left: -5px;
 }
-/* line 177, ../sass/bootstrap_custom/_type.scss */
+/* line 176, ../sass/bootstrap_custom/_type.scss */
 .list-inline > li {
   display: inline-block;
   padding-left: 5px;
   padding-right: 5px;
 }
 
-/* line 185, ../sass/bootstrap_custom/_type.scss */
+/* line 184, ../sass/bootstrap_custom/_type.scss */
 dl {
   margin-top: 0;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 }
 
-/* line 189, ../sass/bootstrap_custom/_type.scss */
+/* line 188, ../sass/bootstrap_custom/_type.scss */
 dt,
 dd {
-  line-height: 1.857;
+  line-height: 1.5;
 }
 
-/* line 193, ../sass/bootstrap_custom/_type.scss */
+/* line 192, ../sass/bootstrap_custom/_type.scss */
 dt {
   font-weight: bold;
 }
 
-/* line 196, ../sass/bootstrap_custom/_type.scss */
+/* line 195, ../sass/bootstrap_custom/_type.scss */
 dd {
   margin-left: 0;
 }
@@ -2320,7 +2331,7 @@ dd {
   clear: both;
 }
 @media (min-width: 768px) {
-  /* line 211, ../sass/bootstrap_custom/_type.scss */
+  /* line 210, ../sass/bootstrap_custom/_type.scss */
   .dl-horizontal dt {
     float: left;
     width: 160px;
@@ -2330,38 +2341,38 @@ dd {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  /* line 218, ../sass/bootstrap_custom/_type.scss */
+  /* line 217, ../sass/bootstrap_custom/_type.scss */
   .dl-horizontal dd {
     margin-left: 180px;
   }
 }
 
-/* line 229, ../sass/bootstrap_custom/_type.scss */
+/* line 228, ../sass/bootstrap_custom/_type.scss */
 abbr[title],
 abbr[data-original-title] {
   cursor: help;
   border-bottom: 1px dotted #777777;
 }
 
-/* line 235, ../sass/bootstrap_custom/_type.scss */
+/* line 234, ../sass/bootstrap_custom/_type.scss */
 .initialism {
   font-size: 90%;
 }
 
-/* line 241, ../sass/bootstrap_custom/_type.scss */
+/* line 240, ../sass/bootstrap_custom/_type.scss */
 blockquote {
-  padding: 13px 26px;
-  margin: 0 0 26px;
-  font-size: 17.5px;
+  padding: 12px 24px;
+  margin: 0 0 24px;
+  font-size: 20px;
   border-left: 5px solid #eeeeee;
 }
-/* line 250, ../sass/bootstrap_custom/_type.scss */
+/* line 249, ../sass/bootstrap_custom/_type.scss */
 blockquote p:last-child,
 blockquote ul:last-child,
 blockquote ol:last-child {
   margin-bottom: 0;
 }
-/* line 257, ../sass/bootstrap_custom/_type.scss */
+/* line 256, ../sass/bootstrap_custom/_type.scss */
 blockquote footer,
 blockquote small,
 blockquote .small,
@@ -2371,10 +2382,10 @@ blockquote .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form blockquote .mod-form-help {
   display: block;
   font-size: 80%;
-  line-height: 1.857;
+  line-height: 1.5;
   color: #777777;
 }
-/* line 265, ../sass/bootstrap_custom/_type.scss */
+/* line 264, ../sass/bootstrap_custom/_type.scss */
 blockquote footer:before,
 blockquote small:before,
 blockquote .small:before,
@@ -2385,7 +2396,7 @@ blockquote .capture-form .mod-form .mod-form-help:before,
   content: '\2014 \00A0';
 }
 
-/* line 274, ../sass/bootstrap_custom/_type.scss */
+/* line 273, ../sass/bootstrap_custom/_type.scss */
 .blockquote-reverse,
 blockquote.pull-right {
   padding-right: 15px;
@@ -2394,7 +2405,7 @@ blockquote.pull-right {
   border-left: 0;
   text-align: right;
 }
-/* line 286, ../sass/bootstrap_custom/_type.scss */
+/* line 285, ../sass/bootstrap_custom/_type.scss */
 .blockquote-reverse footer:before,
 .blockquote-reverse small:before,
 .blockquote-reverse .small:before,
@@ -2411,7 +2422,7 @@ blockquote.pull-right .capture-form .mod-form .mod-form-help:before,
 .capture-form .mod-form blockquote.pull-right .mod-form-help:before {
   content: '';
 }
-/* line 287, ../sass/bootstrap_custom/_type.scss */
+/* line 286, ../sass/bootstrap_custom/_type.scss */
 .blockquote-reverse footer:after,
 .blockquote-reverse small:after,
 .blockquote-reverse .small:after,
@@ -2429,11 +2440,11 @@ blockquote.pull-right .capture-form .mod-form .mod-form-help:after,
   content: '\00A0 \2014';
 }
 
-/* line 294, ../sass/bootstrap_custom/_type.scss */
+/* line 293, ../sass/bootstrap_custom/_type.scss */
 address {
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   font-style: normal;
-  line-height: 1.857;
+  line-height: 1.5;
 }
 
 /* line 7, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_code.scss */
@@ -2473,10 +2484,10 @@ kbd kbd {
 /* line 41, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_code.scss */
 pre {
   display: block;
-  padding: 12.5px;
-  margin: 0 0 13px;
-  font-size: 13px;
-  line-height: 1.857;
+  padding: 11.5px;
+  margin: 0 0 12px;
+  font-size: 15px;
+  line-height: 1.5;
   word-break: break-all;
   word-wrap: break-word;
   color: #333333;
@@ -3646,7 +3657,7 @@ th {
 .table {
   width: 100%;
   max-width: 100%;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 }
 /* line 31, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_tables.scss */
 .table > thead > tr > th,
@@ -3656,7 +3667,7 @@ th {
 .table > tfoot > tr > th,
 .table > tfoot > tr > td {
   padding: 8px;
-  line-height: 1.857;
+  line-height: 1.5;
   vertical-align: top;
   border-top: 1px solid #ddd;
 }
@@ -3846,7 +3857,7 @@ table th[class*="col-"] {
   /* line 171, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_tables.scss */
   .table-responsive {
     width: 100%;
-    margin-bottom: 19.5px;
+    margin-bottom: 18px;
     overflow-y: hidden;
     -ms-overflow-style: -ms-autohiding-scrollbar;
     border: 1px solid #ddd;
@@ -3908,8 +3919,8 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: 26px;
-  font-size: 21px;
+  margin-bottom: 24px;
+  font-size: 24px;
   line-height: inherit;
   color: #333333;
   border: 0;
@@ -3969,8 +3980,8 @@ input[type="checkbox"]:focus {
 output {
   display: block;
   padding-top: 7px;
-  font-size: 14px;
-  line-height: 1.857;
+  font-size: 16px;
+  line-height: 1.5;
   color: #555555;
 }
 
@@ -3984,10 +3995,10 @@ output {
 .capture-form .mod-form .mod-form-file select {
   display: block;
   width: 100%;
-  height: 40px;
+  height: 38px;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.857;
+  font-size: 16px;
+  line-height: 1.5;
   color: #555555;
   background-color: #fff;
   background-image: none;
@@ -4125,7 +4136,7 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-input input[type="month"],
   .capture-form .mod-form .mod-form-textarea input[type="month"],
   .capture-form .mod-form .mod-form-file input[type="month"] {
-    line-height: 40px;
+    line-height: 38px;
   }
   /* line 192, ../sass/bootstrap_custom/_forms.scss */
   input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control, .capture-form .mod-form .mod-form-input .input-group-sm > input[type="date"],
@@ -4157,7 +4168,7 @@ input[type="search"] {
   .input-group-sm > input[type="month"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="month"].btn, .input-group-sm
   input[type="month"] {
-    line-height: 28px;
+    line-height: 30px;
   }
   /* line 197, ../sass/bootstrap_custom/_forms.scss */
   input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control, .capture-form .mod-form .mod-form-input .input-group-lg > input[type="date"],
@@ -4189,7 +4200,7 @@ input[type="search"] {
   .input-group-lg > input[type="month"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="month"].btn, .input-group-lg
   input[type="month"] {
-    line-height: 46px;
+    line-height: 49px;
   }
 }
 /* line 210, ../sass/bootstrap_custom/_forms.scss */
@@ -4210,7 +4221,7 @@ input[type="search"] {
 .radio label,
 .checkbox label,
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked label {
-  min-height: 26px;
+  min-height: 24px;
   padding-left: 20px;
   margin-bottom: 0;
   font-weight: normal;
@@ -4318,9 +4329,9 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-sm > select,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn {
-  height: 28px;
+  height: 30px;
   padding: 5px 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -4331,8 +4342,8 @@ select.input-sm, .input-group-sm > select.form-control, .capture-form .mod-form 
 .capture-form .mod-form .mod-form-file .input-group-sm > select,
 .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-btn > select.btn {
-  height: 28px;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
 }
 
 /* line 84, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -4365,9 +4376,9 @@ select[multiple].input-sm,
 .capture-form .mod-form .mod-form-file .form-group-sm textarea,
 .form-group-sm .capture-form .mod-form .mod-form-file select,
 .capture-form .mod-form .mod-form-file .form-group-sm select {
-  height: 28px;
+  height: 30px;
   padding: 5px 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -4377,8 +4388,8 @@ select[multiple].input-sm,
 .capture-form .mod-form .mod-form-textarea .form-group-sm select,
 .form-group-sm .capture-form .mod-form .mod-form-file select,
 .capture-form .mod-form .mod-form-file .form-group-sm select {
-  height: 28px;
-  line-height: 28px;
+  height: 30px;
+  line-height: 30px;
 }
 /* line 339, ../sass/bootstrap_custom/_forms.scss */
 .form-group-sm textarea.form-control, .form-group-sm .capture-form .mod-form .mod-form-input textarea, .capture-form .mod-form .mod-form-input .form-group-sm textarea,
@@ -4397,10 +4408,10 @@ select[multiple].input-sm,
 }
 /* line 343, ../sass/bootstrap_custom/_forms.scss */
 .form-group-sm .form-control-static {
-  height: 28px;
-  min-height: 37px;
+  height: 30px;
+  min-height: 36px;
   padding: 6px 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 
@@ -4414,9 +4425,9 @@ select[multiple].input-sm,
 .capture-form .mod-form .mod-form-file .input-group-lg > select,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn {
-  height: 46px;
+  height: 49px;
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
@@ -4427,8 +4438,8 @@ select.input-lg, .input-group-lg > select.form-control, .capture-form .mod-form 
 .capture-form .mod-form .mod-form-file .input-group-lg > select,
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn {
-  height: 46px;
-  line-height: 46px;
+  height: 49px;
+  line-height: 49px;
 }
 
 /* line 84, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -4461,9 +4472,9 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .form-group-lg textarea,
 .form-group-lg .capture-form .mod-form .mod-form-file select,
 .capture-form .mod-form .mod-form-file .form-group-lg select {
-  height: 46px;
+  height: 49px;
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
@@ -4473,8 +4484,8 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-textarea .form-group-lg select,
 .form-group-lg .capture-form .mod-form .mod-form-file select,
 .capture-form .mod-form .mod-form-file .form-group-lg select {
-  height: 46px;
-  line-height: 46px;
+  height: 49px;
+  line-height: 49px;
 }
 /* line 365, ../sass/bootstrap_custom/_forms.scss */
 .form-group-lg textarea.form-control, .form-group-lg .capture-form .mod-form .mod-form-input textarea, .capture-form .mod-form .mod-form-input .form-group-lg textarea,
@@ -4493,10 +4504,10 @@ select[multiple].input-lg,
 }
 /* line 369, ../sass/bootstrap_custom/_forms.scss */
 .form-group-lg .form-control-static {
-  height: 46px;
+  height: 49px;
   min-height: 44px;
   padding: 11px 16px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.3333333;
 }
 
@@ -4518,7 +4529,7 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .has-feedback textarea,
 .has-feedback .capture-form .mod-form .mod-form-file select,
 .capture-form .mod-form .mod-form-file .has-feedback select {
-  padding-right: 50px;
+  padding-right: 47.5px;
 }
 
 /* line 393, ../sass/bootstrap_custom/_forms.scss */
@@ -4528,9 +4539,9 @@ select[multiple].input-lg,
   right: 0;
   z-index: 2;
   display: block;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
+  width: 38px;
+  height: 38px;
+  line-height: 38px;
   text-align: center;
   pointer-events: none;
 }
@@ -4565,9 +4576,9 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .form-group-lg textarea + .form-control-feedback,
 .form-group-lg .capture-form .mod-form .mod-form-file select + .form-control-feedback,
 .capture-form .mod-form .mod-form-file .form-group-lg select + .form-control-feedback {
-  width: 46px;
-  height: 46px;
-  line-height: 46px;
+  width: 49px;
+  height: 49px;
+  line-height: 49px;
 }
 
 /* line 412, ../sass/bootstrap_custom/_forms.scss */
@@ -4600,9 +4611,9 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .form-group-sm textarea + .form-control-feedback,
 .form-group-sm .capture-form .mod-form .mod-form-file select + .form-control-feedback,
 .capture-form .mod-form .mod-form-file .form-group-sm select + .form-control-feedback {
-  width: 28px;
-  height: 28px;
-  line-height: 28px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
 }
 
 /* line 8, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_forms.scss */
@@ -4787,7 +4798,7 @@ select[multiple].input-lg,
 
 /* line 434, ../sass/bootstrap_custom/_forms.scss */
 .has-feedback label ~ .form-control-feedback {
-  top: 31px;
+  top: 29px;
 }
 /* line 437, ../sass/bootstrap_custom/_forms.scss */
 .has-feedback label.sr-only ~ .form-control-feedback {
@@ -4930,7 +4941,7 @@ select[multiple].input-lg,
 .form-horizontal .checkbox,
 .capture-form .checkbox,
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
-  min-height: 33px;
+  min-height: 31px;
 }
 /* line 570, ../sass/bootstrap_custom/_forms.scss */
 .form-horizontal .form-group, .capture-form .form-group, .capture-form .mod-form {
@@ -4962,14 +4973,14 @@ select[multiple].input-lg,
   /* line 598, ../sass/bootstrap_custom/_forms.scss */
   .form-horizontal .form-group-lg .control-label, .capture-form .form-group-lg .control-label, .form-horizontal .form-group-lg .capture-form .mod-form > label, .capture-form .form-group-lg .mod-form > label {
     padding-top: 14.333333px;
-    font-size: 18px;
+    font-size: 20px;
   }
 }
 @media (min-width: 768px) {
   /* line 606, ../sass/bootstrap_custom/_forms.scss */
   .form-horizontal .form-group-sm .control-label, .capture-form .form-group-sm .control-label, .form-horizontal .form-group-sm .capture-form .mod-form > label, .capture-form .form-group-sm .mod-form > label {
     padding-top: 6px;
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 
@@ -4986,8 +4997,8 @@ select[multiple].input-lg,
   border: 1px solid transparent;
   white-space: nowrap;
   padding: 6px 12px;
-  font-size: 14px;
-  line-height: 1.857;
+  font-size: 16px;
+  line-height: 1.5;
   border-radius: 4px;
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -5327,7 +5338,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 /* line 135, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-lg, .btn-group-lg > .btn {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
@@ -5335,7 +5346,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 /* line 139, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-sm, .btn-group-sm > .btn {
   padding: 5px 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -5343,7 +5354,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 /* line 143, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-xs, .btn-group-xs > .btn {
   padding: 1px 5px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
@@ -5748,7 +5759,7 @@ tbody.collapse.in {
 /* line 73, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
 .input-group-addon {
   padding: 6px 12px;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   line-height: 1;
   color: #555555;
@@ -5768,7 +5779,7 @@ tbody.collapse.in {
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .input-group-addon.btn {
   padding: 5px 10px;
-  font-size: 11px;
+  font-size: 12px;
   border-radius: 3px;
 }
 /* line 90, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
@@ -5782,7 +5793,7 @@ tbody.collapse.in {
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .input-group-addon.btn {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
   border-radius: 6px;
 }
 /* line 97, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
@@ -5929,7 +5940,7 @@ tbody.collapse.in {
 /* line 59, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navs.scss */
 .nav .nav-divider {
   height: 1px;
-  margin: 12px 0;
+  margin: 11px 0;
   overflow: hidden;
   background-color: #e5e5e5;
 }
@@ -5950,7 +5961,7 @@ tbody.collapse.in {
 /* line 84, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navs.scss */
 .nav-tabs > li > a {
   margin-right: 2px;
-  line-height: 1.857;
+  line-height: 1.5;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
@@ -6078,7 +6089,7 @@ tbody.collapse.in {
 .navbar {
   position: relative;
   min-height: 50px;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   border: 1px solid transparent;
 }
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
@@ -6238,9 +6249,9 @@ tbody.collapse.in {
 /* line 163, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-brand {
   float: left;
-  padding: 12px 0;
-  font-size: 18px;
-  line-height: 26px;
+  padding: 13px 0;
+  font-size: 20px;
+  line-height: 24px;
   height: 50px;
 }
 /* line 170, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
@@ -6295,13 +6306,13 @@ tbody.collapse.in {
 
 /* line 232, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-nav {
-  margin: 6px 0;
+  margin: 6.5px 0;
 }
 /* line 235, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
-  line-height: 26px;
+  line-height: 24px;
 }
 @media (max-width: 767px) {
   /* line 243, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
@@ -6321,7 +6332,7 @@ tbody.collapse.in {
   }
   /* line 255, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-nav .open .dropdown-menu > li > a {
-    line-height: 26px;
+    line-height: 24px;
   }
   /* line 257, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -6340,8 +6351,8 @@ tbody.collapse.in {
   }
   /* line 272, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
   .navbar-nav > li > a {
-    padding-top: 12px;
-    padding-bottom: 12px;
+    padding-top: 13px;
+    padding-bottom: 13px;
   }
 }
 
@@ -6354,8 +6365,8 @@ tbody.collapse.in {
   border-bottom: 1px solid transparent;
   -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 1px 0 rgba(255, 255, 255, 0.1);
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 @media (min-width: 768px) {
   /* line 473, ../sass/bootstrap_custom/_forms.scss */
@@ -6508,13 +6519,13 @@ tbody.collapse.in {
 
 /* line 343, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-btn {
-  margin-top: 5px;
-  margin-bottom: 5px;
+  margin-top: 6px;
+  margin-bottom: 6px;
 }
 /* line 346, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn {
-  margin-top: 11px;
-  margin-bottom: 11px;
+  margin-top: 10px;
+  margin-bottom: 10px;
 }
 /* line 349, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn {
@@ -6524,8 +6535,8 @@ tbody.collapse.in {
 
 /* line 359, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
 .navbar-text {
-  margin-top: 12px;
-  margin-bottom: 12px;
+  margin-top: 13px;
+  margin-bottom: 13px;
 }
 @media (min-width: 768px) {
   /* line 359, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
@@ -6765,7 +6776,7 @@ tbody.collapse.in {
 /* line 6, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_breadcrumbs.scss */
 .breadcrumb {
   padding: 8px 15px;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   list-style: none;
   background-color: #f5f5f5;
   border-radius: 4px;
@@ -6789,7 +6800,7 @@ tbody.collapse.in {
 .pagination {
   display: inline-block;
   padding-left: 0;
-  margin: 26px 0;
+  margin: 24px 0;
   border-radius: 4px;
 }
 /* line 10, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_pagination.scss */
@@ -6802,7 +6813,7 @@ tbody.collapse.in {
   position: relative;
   float: left;
   padding: 6px 12px;
-  line-height: 1.857;
+  line-height: 1.5;
   text-decoration: none;
   color: #337ab7;
   background-color: #fff;
@@ -6859,7 +6870,7 @@ tbody.collapse.in {
 .pagination-lg > li > a,
 .pagination-lg > li > span {
   padding: 10px 16px;
-  font-size: 18px;
+  font-size: 20px;
   line-height: 1.3333333;
 }
 /* line 12, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_pagination.scss */
@@ -6879,7 +6890,7 @@ tbody.collapse.in {
 .pagination-sm > li > a,
 .pagination-sm > li > span {
   padding: 5px 10px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.5;
 }
 /* line 12, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_pagination.scss */
@@ -6898,7 +6909,7 @@ tbody.collapse.in {
 /* line 6, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_pager.scss */
 .pager {
   padding-left: 0;
-  margin: 26px 0;
+  margin: 24px 0;
   list-style: none;
   text-align: center;
 }
@@ -7039,7 +7050,7 @@ a.label:hover, a.label:focus {
   display: inline-block;
   min-width: 10px;
   padding: 3px 7px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: bold;
   color: #fff;
   line-height: 1;
@@ -7108,7 +7119,7 @@ a.badge:hover, a.badge:focus {
 /* line 18, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
 .jumbotron p {
   margin-bottom: 15px;
-  font-size: 21px;
+  font-size: 24px;
   font-weight: 200;
 }
 /* line 24, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
@@ -7141,7 +7152,7 @@ a.badge:hover, a.badge:focus {
   .mod-partners-hd .jumbotron h2,
   .jumbotron .mod-testimonials-hd h2,
   .mod-testimonials-hd .jumbotron h2 {
-    font-size: 63px;
+    font-size: 72px;
   }
 }
 
@@ -7149,8 +7160,8 @@ a.badge:hover, a.badge:focus {
 .thumbnail {
   display: block;
   padding: 4px;
-  margin-bottom: 26px;
-  line-height: 1.857;
+  margin-bottom: 24px;
+  line-height: 1.5;
   background-color: #006798;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -7183,7 +7194,7 @@ a.thumbnail.active {
 /* line 9, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_alerts.scss */
 .alert {
   padding: 15px;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   border: 1px solid transparent;
   border-radius: 4px;
 }
@@ -7299,8 +7310,8 @@ a.thumbnail.active {
 /* line 26, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_progress-bars.scss */
 .progress {
   overflow: hidden;
-  height: 26px;
-  margin-bottom: 26px;
+  height: 24px;
+  margin-bottom: 24px;
   background-color: #f5f5f5;
   border-radius: 4px;
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
@@ -7312,8 +7323,8 @@ a.thumbnail.active {
   float: left;
   width: 0%;
   height: 100%;
-  font-size: 11px;
-  line-height: 26px;
+  font-size: 12px;
+  line-height: 24px;
   color: #fff;
   text-align: center;
   background-color: #337ab7;
@@ -7703,7 +7714,7 @@ button.list-group-item-danger.active:focus {
 
 /* line 7, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_panels.scss */
 .panel {
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   background-color: #fff;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -7741,7 +7752,7 @@ button.list-group-item-danger.active:focus {
 .panel-title {
   margin-top: 0;
   margin-bottom: 0;
-  font-size: 16px;
+  font-size: 18px;
   color: inherit;
 }
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_panels.scss */
@@ -7969,7 +7980,7 @@ button.list-group-item-danger.active:focus {
 
 /* line 222, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_panels.scss */
 .panel-group {
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 }
 /* line 226, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_panels.scss */
 .panel-group .panel {
@@ -8207,7 +8218,7 @@ button.list-group-item-danger.active:focus {
 /* line 6, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_close.scss */
 .close {
   float: right;
-  font-size: 21px;
+  font-size: 24px;
   font-weight: bold;
   line-height: 1;
   color: #000;
@@ -8321,7 +8332,7 @@ button.close {
 .modal-header {
   padding: 15px;
   border-bottom: 1px solid #e5e5e5;
-  min-height: 16.857px;
+  min-height: 16.5px;
 }
 
 /* line 85, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
@@ -8332,7 +8343,7 @@ button.close {
 /* line 90, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
 .modal-title {
   margin: 0;
-  line-height: 1.857;
+  line-height: 1.5;
 }
 
 /* line 97, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
@@ -8408,12 +8419,12 @@ button.close {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "futura-pt", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
   line-break: auto;
-  line-height: 1.857;
+  line-height: 1.5;
   text-align: left;
   text-align: start;
   text-decoration: none;
@@ -8423,7 +8434,7 @@ button.close {
   word-break: normal;
   word-spacing: normal;
   word-wrap: normal;
-  font-size: 11px;
+  font-size: 12px;
   opacity: 0;
   filter: alpha(opacity=0);
 }
@@ -8546,12 +8557,12 @@ button.close {
   display: none;
   max-width: 276px;
   padding: 1px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "futura-pt", sans-serif;
   font-style: normal;
   font-weight: normal;
   letter-spacing: normal;
   line-break: auto;
-  line-height: 1.857;
+  line-height: 1.5;
   text-align: left;
   text-align: start;
   text-decoration: none;
@@ -8561,7 +8572,7 @@ button.close {
   word-break: normal;
   word-spacing: normal;
   word-wrap: normal;
-  font-size: 14px;
+  font-size: 16px;
   background-color: #fff;
   background-clip: padding-box;
   border: 1px solid #ccc;
@@ -8591,7 +8602,7 @@ button.close {
 .popover-title {
   margin: 0;
   padding: 8px 14px;
-  font-size: 14px;
+  font-size: 16px;
   background-color: #f7f7f7;
   border-bottom: 1px solid #ebebeb;
   border-radius: 5px 5px 0 0;
@@ -8693,12 +8704,12 @@ button.close {
 }
 
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.clearfix:before, .mod-member:before, .mod-partner:before, .clearfix:after, .mod-member:after, .mod-partner:after {
+.clearfix:before, .clearfix:after {
   content: " ";
   display: table;
 }
 /* line 19, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.clearfix:after, .mod-member:after, .mod-partner:after {
+.clearfix:after {
   clear: both;
 }
 
@@ -9060,89 +9071,102 @@ button.close {
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
-/* line 29, ../sass/screen.scss */
+/* line 28, ../sass/screen.scss */
 .site-wrapper {
   position: relative;
+  top: 240px;
 }
 /* line 34, ../sass/screen.scss */
 .site-wrapper .site-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   text-align: center;
+  color: #fff;
+  padding: 10px 0;
 }
-/* line 37, ../sass/screen.scss */
+/* line 42, ../sass/screen.scss */
+.site-wrapper .site-footer a {
+  color: #fff;
+  border-bottom: dotted 1px rgba(255, 255, 255, 0.2);
+}
+/* line 46, ../sass/screen.scss */
 .site-wrapper .site-footer ul {
   list-style: none;
   margin: 0;
+  padding: 0;
 }
-/* line 40, ../sass/screen.scss */
+/* line 50, ../sass/screen.scss */
 .site-wrapper .site-footer ul li {
   display: inline;
   padding-left: 10px;
 }
-/* line 43, ../sass/screen.scss */
+/* line 53, ../sass/screen.scss */
 .site-wrapper .site-footer ul li::first-child {
   padding-left: 0;
 }
 
-/* line 50, ../sass/screen.scss */
+/* line 60, ../sass/screen.scss */
 .block-wrapper {
-  padding-bottom: 50px;
+  padding-bottom: 100px;
 }
-@media (min-width: 768px) {
-  /* line 50, ../sass/screen.scss */
-  .block-wrapper {
-    padding-bottom: 100px;
-  }
-}
-/* line 55, ../sass/screen.scss */
+/* line 62, ../sass/screen.scss */
 .block-wrapper > .block {
   background-color: #fff;
 }
-/* line 60, ../sass/screen.scss */
+@media (max-width: 767px) {
+  /* line 62, ../sass/screen.scss */
+  .block-wrapper > .block {
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+}
+/* line 71, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
 }
-/* line 63, ../sass/screen.scss */
-.block-wrapper.intro-section .lead {
+/* line 74, ../sass/screen.scss */
+.block-wrapper.intro-section .lead, .block-wrapper.intro-section .mod-partners-hd p, .mod-partners-hd .block-wrapper.intro-section p, .block-wrapper.intro-section .mod-testimonials-hd p, .mod-testimonials-hd .block-wrapper.intro-section p {
   text-align: center;
 }
-/* line 67, ../sass/screen.scss */
+/* line 78, ../sass/screen.scss */
 .block-wrapper.intro-section > .block .block-inner {
   padding: 20px 30px;
 }
 @media (min-width: 768px) {
-  /* line 67, ../sass/screen.scss */
+  /* line 78, ../sass/screen.scss */
   .block-wrapper.intro-section > .block .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 77, ../sass/screen.scss */
+/* line 88, ../sass/screen.scss */
 .block-wrapper.two-column .block-inner {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 @media (min-width: 768px) {
-  /* line 77, ../sass/screen.scss */
+  /* line 88, ../sass/screen.scss */
   .block-wrapper.two-column .block-inner {
     padding-top: 45px;
     padding-bottom: 45px;
   }
 }
-/* line 86, ../sass/screen.scss */
+/* line 97, ../sass/screen.scss */
 .block-wrapper.two-column .main-column {
   padding-left: 30px;
 }
 @media (min-width: 768px) {
-  /* line 86, ../sass/screen.scss */
+  /* line 97, ../sass/screen.scss */
   .block-wrapper.two-column .main-column {
     padding-left: 60px;
   }
 }
-/* line 94, ../sass/screen.scss */
+/* line 105, ../sass/screen.scss */
 .block-wrapper.two-column .side-column {
   padding-right: 30px;
 }
 @media (min-width: 768px) {
-  /* line 94, ../sass/screen.scss */
+  /* line 105, ../sass/screen.scss */
   .block-wrapper.two-column .side-column {
     padding-right: 60px;
   }
@@ -9151,24 +9175,24 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 112, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 .capture-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 127, ../sass/screen.scss */
+/* line 138, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 131, ../sass/screen.scss */
+/* line 142, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 140, ../sass/screen.scss */
+/* line 151, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
-/* line 146, ../sass/screen.scss */
+/* line 157, ../sass/screen.scss */
 .capture-form .flag-required {
   position: absolute;
   right: -30px;
@@ -9195,30 +9219,30 @@ button.close {
 * Modules can be nested, and bucause of this need to maintain the named space classes.
 * 
 -------------------------------------------- */
-/* line 97, ../sass/_modules.scss */
+/* line 150, ../sass/_modules.scss */
 .mod-member {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 97, ../sass/_modules.scss */
+  /* line 150, ../sass/_modules.scss */
   .mod-member {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 97, ../sass/_modules.scss */
+  /* line 150, ../sass/_modules.scss */
   .mod-member {
-    min-height: 250px;
+    height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 97, ../sass/_modules.scss */
+  /* line 150, ../sass/_modules.scss */
   .mod-member {
-    min-height: 300px;
-    padding: 40px 360px 0 60px;
+    height: 300px;
+    padding: 50px 360px 0 60px;
   }
 }
 /* line 35, ../sass/_modules.scss */
@@ -9232,7 +9256,7 @@ button.close {
     -webkit-border-radius: 100%;
     border-radius: 100%;
     display: block;
-    margin: -50px auto 13px;
+    margin: -50px auto 12px;
   }
 }
 @media (min-width: 768px) {
@@ -9254,7 +9278,7 @@ button.close {
 }
 /* line 54, ../sass/_modules.scss */
 .mod-member-hd {
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 }
 /* line 55, ../sass/_modules.scss */
 .mod-member-hd h4 {
@@ -9268,13 +9292,13 @@ button.close {
 @media (max-width: 991px) {
   /* line 54, ../sass/_modules.scss */
   .mod-member-hd {
-    margin-bottom: 13px;
+    margin-bottom: 12px;
   }
 }
 @media (max-width: 991px) {
   /* line 68, ../sass/_modules.scss */
   .mod-member-bd {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 /* line 76, ../sass/_modules.scss */
@@ -9301,34 +9325,81 @@ button.close {
     left: 0;
   }
 }
-/* line 101, ../sass/_modules.scss */
+@media (min-width: 768px) {
+  /* line 153, ../sass/_modules.scss */
+  .mod-member::before {
+    display: block;
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    margin-top: -30px;
+    border: solid transparent 30px;
+    border-left-color: #fff;
+    z-index: 1;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 153, ../sass/_modules.scss */
+  .mod-member::before {
+    top: 125px;
+    right: 190px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 153, ../sass/_modules.scss */
+  .mod-member::before {
+    top: 150px;
+    right: 240px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 174, ../sass/_modules.scss */
+  .mod-member:nth-child(even)::before {
+    border-left-color: transparent;
+    border-right-color: #eeeeee;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 174, ../sass/_modules.scss */
+  .mod-member:nth-child(even)::before {
+    left: 190px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 174, ../sass/_modules.scss */
+  .mod-member:nth-child(even)::before {
+    left: 240px;
+  }
+}
+/* line 188, ../sass/_modules.scss */
 .mod-members-hd h2 {
   text-transform: uppercase;
 }
-/* line 105, ../sass/_modules.scss */
+/* line 192, ../sass/_modules.scss */
 .mod-partner {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 105, ../sass/_modules.scss */
+  /* line 192, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 105, ../sass/_modules.scss */
+  /* line 192, ../sass/_modules.scss */
   .mod-partner {
-    min-height: 250px;
+    height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 105, ../sass/_modules.scss */
+  /* line 192, ../sass/_modules.scss */
   .mod-partner {
-    min-height: 300px;
-    padding: 40px 360px 0 60px;
+    height: 300px;
+    padding: 50px 360px 0 60px;
   }
 }
 /* line 35, ../sass/_modules.scss */
@@ -9342,7 +9413,7 @@ button.close {
     -webkit-border-radius: 100%;
     border-radius: 100%;
     display: block;
-    margin: -50px auto 13px;
+    margin: -50px auto 12px;
   }
 }
 @media (min-width: 768px) {
@@ -9364,7 +9435,7 @@ button.close {
 }
 /* line 54, ../sass/_modules.scss */
 .mod-partner-hd {
-  margin-bottom: 26px;
+  margin-bottom: 24px;
 }
 /* line 55, ../sass/_modules.scss */
 .mod-partner-hd h4 {
@@ -9378,13 +9449,13 @@ button.close {
 @media (max-width: 991px) {
   /* line 54, ../sass/_modules.scss */
   .mod-partner-hd {
-    margin-bottom: 13px;
+    margin-bottom: 12px;
   }
 }
 @media (max-width: 991px) {
   /* line 68, ../sass/_modules.scss */
   .mod-partner-bd {
-    font-size: 11px;
+    font-size: 12px;
   }
 }
 /* line 76, ../sass/_modules.scss */
@@ -9411,39 +9482,51 @@ button.close {
     left: 0;
   }
 }
-/* line 108, ../sass/_modules.scss */
+@media (max-width: 767px) {
+  /* line 192, ../sass/_modules.scss */
+  .mod-partner {
+    padding-bottom: 80px;
+  }
+}
+/* line 198, ../sass/_modules.scss */
 .mod-partner-ft a {
   float: right;
 }
-/* line 114, ../sass/_modules.scss */
+/* line 204, ../sass/_modules.scss */
 .mod-partners-hd {
   position: relative;
 }
-/* line 116, ../sass/_modules.scss */
+/* line 206, ../sass/_modules.scss */
 .mod-partners-hd h2 {
   text-transform: uppercase;
   position: absolute;
   width: 100%;
-  margin-top: -80px;
+  top: -85px;
   background-color: #fff;
+  margin: 0;
 }
-/* line 124, ../sass/_modules.scss */
+/* line 215, ../sass/_modules.scss */
 .mod-partners-hd p {
   color: #fff;
   padding: 40px 30px 70px;
+  margin-bottom: 0;
   text-align: center;
 }
 @media (min-width: 768px) {
-  /* line 124, ../sass/_modules.scss */
+  /* line 215, ../sass/_modules.scss */
   .mod-partners-hd p {
     padding: 80px 60px;
   }
 }
-/* line 139, ../sass/_modules.scss */
+/* line 231, ../sass/_modules.scss */
+.mod-testimonials {
+  margin-bottom: 120px;
+}
+/* line 233, ../sass/_modules.scss */
 .mod-testimonials-hd {
   position: relative;
 }
-/* line 141, ../sass/_modules.scss */
+/* line 235, ../sass/_modules.scss */
 .mod-testimonials-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -9451,28 +9534,183 @@ button.close {
   margin-top: -80px;
   background-color: #fff;
 }
-/* line 149, ../sass/_modules.scss */
+/* line 243, ../sass/_modules.scss */
 .mod-testimonials-hd p {
   color: #fff;
   padding: 40px 30px 70px;
+  margin-bottom: 0;
   text-align: center;
 }
 @media (min-width: 768px) {
-  /* line 149, ../sass/_modules.scss */
+  /* line 243, ../sass/_modules.scss */
   .mod-testimonials-hd p {
     padding: 80px 60px;
   }
 }
-/* line 171, ../sass/_modules.scss */
+/* line 255, ../sass/_modules.scss */
+.mod-testimonials-bd {
+  position: relative;
+}
+@media (max-width: 767px) {
+  /* line 117, ../sass/_modules.scss */
+  .mod-testimonials-bd > div {
+    background-color: #fff !important;
+  }
+}
+@media (min-width: 768px) {
+  /* line 255, ../sass/_modules.scss */
+  .mod-testimonials-bd {
+    background-color: #fff;
+    overflow: hidden;
+  }
+  /* line 124, ../sass/_modules.scss */
+  .mod-testimonials-bd > div {
+    position: absolute;
+    -moz-transition: -moz-transform 500ms ease-in;
+    -o-transition: -o-transform 500ms ease-in;
+    -webkit-transition: -webkit-transform 500ms ease-in;
+    transition: transform 500ms ease-in;
+    -moz-transform: translate(0, -100%);
+    -ms-transform: translate(0, -100%);
+    -webkit-transform: translate(0, -100%);
+    transform: translate(0, -100%);
+  }
+  /* line 128, ../sass/_modules.scss */
+  .mod-testimonials-bd > div.active {
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 255, ../sass/_modules.scss */
+  .mod-testimonials-bd {
+    height: 250px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 255, ../sass/_modules.scss */
+  .mod-testimonials-bd {
+    height: 300px;
+  }
+}
+/* line 259, ../sass/_modules.scss */
+.mod-testimonial {
+  background-color: transparent;
+  position: relative;
+  padding: 10px 30px;
+}
+@media (max-width: 767px) {
+  /* line 259, ../sass/_modules.scss */
+  .mod-testimonial {
+    padding-bottom: 50px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 259, ../sass/_modules.scss */
+  .mod-testimonial {
+    height: 250px;
+    padding: 30px 290px 0 40px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 259, ../sass/_modules.scss */
+  .mod-testimonial {
+    height: 300px;
+    padding: 50px 360px 0 60px;
+  }
+}
+/* line 35, ../sass/_modules.scss */
+.mod-testimonial > img {
+  max-width: 100%;
+}
+@media (max-width: 767px) {
+  /* line 35, ../sass/_modules.scss */
+  .mod-testimonial > img {
+    -moz-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    border-radius: 100%;
+    display: block;
+    margin: -50px auto 12px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 35, ../sass/_modules.scss */
+  .mod-testimonial > img {
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+}
+@media (max-width: 991px) {
+  /* line 35, ../sass/_modules.scss */
+  .mod-testimonial > img {
+    width: 250px;
+    height: 250px;
+  }
+}
+/* line 54, ../sass/_modules.scss */
+.mod-testimonial-hd {
+  margin-bottom: 24px;
+}
+/* line 55, ../sass/_modules.scss */
+.mod-testimonial-hd h4 {
+  margin: 0;
+  font-weight: 300;
+}
+/* line 60, ../sass/_modules.scss */
+.mod-testimonial-hd strong {
+  font-weight: 300;
+}
+@media (max-width: 991px) {
+  /* line 54, ../sass/_modules.scss */
+  .mod-testimonial-hd {
+    margin-bottom: 12px;
+  }
+}
+@media (max-width: 991px) {
+  /* line 68, ../sass/_modules.scss */
+  .mod-testimonial-bd {
+    font-size: 12px;
+  }
+}
+/* line 76, ../sass/_modules.scss */
+.mod-testimonial:nth-child(even) {
+  background-color: transparent;
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  /* line 76, ../sass/_modules.scss */
+  .mod-testimonial:nth-child(even) {
+    padding-left: 290px;
+    padding-right: 40px;
+  }
+}
+@media (min-width: 992px) {
+  /* line 76, ../sass/_modules.scss */
+  .mod-testimonial:nth-child(even) {
+    padding-left: 360px;
+    padding-right: 60px;
+  }
+}
+@media (min-width: 768px) {
+  /* line 88, ../sass/_modules.scss */
+  .mod-testimonial:nth-child(even) > img {
+    left: 0;
+  }
+}
+/* line 267, ../sass/_modules.scss */
 .mod-client {
   position: relative;
   overflow: hidden;
 }
-/* line 176, ../sass/_modules.scss */
+/* line 272, ../sass/_modules.scss */
 .mod-client img {
   width: 100%;
 }
-/* line 179, ../sass/_modules.scss */
+/* line 275, ../sass/_modules.scss */
 .mod-client-hd {
   color: #fff;
   position: absolute;
@@ -9482,30 +9720,30 @@ button.close {
   padding: 20px;
   bottom: 0;
 }
-/* line 187, ../sass/_modules.scss */
+/* line 283, ../sass/_modules.scss */
 .mod-client-hd h4 {
   color: #fff;
   margin: 0;
 }
-/* line 191, ../sass/_modules.scss */
+/* line 287, ../sass/_modules.scss */
 .mod-client-hd strong {
   display: none;
 }
-/* line 195, ../sass/_modules.scss */
+/* line 291, ../sass/_modules.scss */
 .mod-client-ft {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
 }
-/* line 200, ../sass/_modules.scss */
+/* line 296, ../sass/_modules.scss */
 .mod-client-ft a {
   display: block;
   height: inherit;
   color: transparent;
 }
 @media (min-width: 992px) {
-  /* line 207, ../sass/_modules.scss */
+  /* line 303, ../sass/_modules.scss */
   .mod-client-hd {
     bottom: -100px;
     -moz-transition: bottom 0.4s;
@@ -9513,7 +9751,7 @@ button.close {
     -webkit-transition: bottom 0.4s;
     transition: bottom 0.4s;
   }
-  /* line 210, ../sass/_modules.scss */
+  /* line 306, ../sass/_modules.scss */
   .mod-client-hd h4 {
     position: relative;
     left: 100%;
@@ -9523,7 +9761,7 @@ button.close {
     -webkit-transition-delay: 0.1s;
     transition: left 0.5s ease-in 0.1s;
   }
-  /* line 215, ../sass/_modules.scss */
+  /* line 311, ../sass/_modules.scss */
   .mod-client-hd strong {
     position: relative;
     display: block;
@@ -9534,15 +9772,15 @@ button.close {
     -webkit-transition-delay: 0.1s;
     transition: right 0.5s ease-in 0.1s;
   }
-  /* line 222, ../sass/_modules.scss */
+  /* line 318, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd {
     bottom: 0;
   }
-  /* line 224, ../sass/_modules.scss */
+  /* line 320, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd h4 {
     left: 0;
   }
-  /* line 227, ../sass/_modules.scss */
+  /* line 323, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd strong {
     right: 0;
   }
@@ -9551,18 +9789,18 @@ button.close {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 167, ../sass/screen.scss */
+/* line 178, ../sass/screen.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 170, ../sass/screen.scss */
+/* line 181, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
 @media (min-width: 768px) {
-  /* line 173, ../sass/screen.scss */
+  /* line 184, ../sass/screen.scss */
   .columns {
     -moz-columns: auto 2;
     -webkit-columns: auto 2;
@@ -9581,71 +9819,255 @@ body.about-page .intro-section {
 body.about-page .team-section > .block {
   background-color: transparent;
 }
-/* line 10, ../sass/pages/_about.scss */
-body.about-page .partners-section {
-  background-color: #DC3D25;
-  border-top: solid 140px #fff;
+/* line 9, ../sass/pages/_about.scss */
+body.about-page .team-section .mod-members-hd h2 {
+  color: #fff;
+  text-shadow: 0 1px 1px #000;
 }
-/* line 13, ../sass/pages/_about.scss */
+@media (min-width: 768px) {
+  /* line 5, ../sass/pages/_about.scss */
+  body.about-page .team-section {
+    background-position: center top, center center;
+    background-repeat: repeat-x, repeat;
+    -moz-animation: scroll_water 15s linear infinite;
+    -webkit-animation: scroll_water 15s linear infinite;
+    animation: scroll_water 15s linear infinite;
+  }
+  /* line 14, ../sass/pages/_about.scss */
+  .px-density-2x body.about-page .team-section {
+    background-image: url(../img/flatBlueTexture_fade_2x.png), url(../img/flatBlueTexture_2x.png);
+    background-size: 200px;
+  }
+  /* line 18, ../sass/pages/_about.scss */
+  .px-density-1x body.about-page .team-section {
+    background-image: url(../img/flatBlueTexture_fade_1x.png), url(../img/flatBlueTexture_1x.png);
+  }
+}
+/* line 26, ../sass/pages/_about.scss */
+body.about-page .partners-section {
+  border-top: solid 140px #fff;
+  padding-bottom: 60px;
+  background-color: #d53b24;
+}
+/* line 29, ../sass/pages/_about.scss */
 body.about-page .partners-section > .block {
   background-color: transparent;
 }
+@media (min-width: 768px) {
+  /* line 26, ../sass/pages/_about.scss */
+  body.about-page .partners-section {
+    padding-bottom: 140px;
+    background-position: center bottom;
+    background-repeat: repeat-x;
+  }
+  /* line 100, ../sass/_modules.scss */
+  .px-density-2x body.about-page .partners-section {
+    background-image: url(../img/orange_2x.jpg);
+    background-size: 1000px;
+  }
+  /* line 104, ../sass/_modules.scss */
+  .px-density-1x body.about-page .partners-section {
+    background-image: url(../img/orange_1x.jpg);
+  }
+}
+/* line 36, ../sass/pages/_about.scss */
+body.about-page .mod-members-bd > div, body.about-page .mod-partners-bd > div {
+  opacity: 0;
+}
+/* line 40, ../sass/pages/_about.scss */
+body.about-page .mod-members-bd.event-visible-active > div:nth-child(even), body.about-page .mod-partners-bd.event-visible-active > div:nth-child(even) {
+  -moz-animation: enter_right 400ms ease-out 600ms 1;
+  -webkit-animation: enter_right 400ms ease-out 600ms 1;
+  animation: enter_right 400ms ease-out 600ms 1;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+/* line 44, ../sass/pages/_about.scss */
+body.about-page .mod-members-bd.event-visible-active > div:nth-child(odd), body.about-page .mod-partners-bd.event-visible-active > div:nth-child(odd) {
+  -moz-animation: enter_left 400ms ease-out 600ms 1;
+  -webkit-animation: enter_left 400ms ease-out 600ms 1;
+  animation: enter_left 400ms ease-out 600ms 1;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
 
-/* line 6, ../sass/pages/_contact.scss */
+@media (min-width: 768px) {
+  /* line 2, ../sass/pages/_contact.scss */
+  body.contact-page .contact-section {
+    background-position: center top, center center;
+    background-repeat: repeat-x, repeat;
+    -moz-animation: scroll_water 15s linear infinite;
+    -webkit-animation: scroll_water 15s linear infinite;
+    animation: scroll_water 15s linear infinite;
+  }
+  /* line 4, ../sass/pages/_contact.scss */
+  .px-density-2x body.contact-page .contact-section {
+    background-image: url(../img/flatBlueTexture_fade_2x.png), url(../img/flatBlueTexture_2x.png);
+    background-size: 200px;
+  }
+  /* line 8, ../sass/pages/_contact.scss */
+  .px-density-1x body.contact-page .contact-section {
+    background-image: url(../img/flatBlueTexture_fade_1x.png), url(../img/flatBlueTexture_1x.png);
+  }
+}
+/* line 17, ../sass/pages/_contact.scss */
 body.contact-page .capture-form .event-show-fieldset {
   display: none;
 }
-/* line 8, ../sass/pages/_contact.scss */
+/* line 19, ../sass/pages/_contact.scss */
 body.contact-page .capture-form .event-show-fieldset-active {
   display: block;
 }
 
-/* line 4, ../sass/pages/_work.scss */
+/* line 2, ../sass/pages/_work.scss */
+body.work-page .site-footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+/* line 9, ../sass/pages/_work.scss */
 body.work-page .info-section > .block .block-inner {
   padding: 20px 30px;
 }
 @media (min-width: 768px) {
-  /* line 4, ../sass/pages/_work.scss */
+  /* line 9, ../sass/pages/_work.scss */
   body.work-page .info-section > .block .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 12, ../sass/pages/_work.scss */
-body.work-page .testimonial-section {
-  background-color: #DC3D25;
-  border-top: solid 140px #fff;
+@media (min-width: 768px) {
+  /* line 7, ../sass/pages/_work.scss */
+  body.work-page .info-section {
+    background-position: center top, center center;
+    background-repeat: repeat-x, repeat;
+    -moz-animation: scroll_water 15s linear infinite;
+    -webkit-animation: scroll_water 15s linear infinite;
+    animation: scroll_water 15s linear infinite;
+  }
+  /* line 17, ../sass/pages/_work.scss */
+  .px-density-2x body.work-page .info-section {
+    background-image: url(../img/flatBlueTexture_fade_2x.png), url(../img/flatBlueTexture_2x.png);
+    background-size: 200px;
+  }
+  /* line 21, ../sass/pages/_work.scss */
+  .px-density-1x body.work-page .info-section {
+    background-image: url(../img/flatBlueTexture_fade_1x.png), url(../img/flatBlueTexture_1x.png);
+  }
 }
-/* line 15, ../sass/pages/_work.scss */
+/* line 29, ../sass/pages/_work.scss */
+body.work-page .testimonial-section {
+  border-top: solid 140px #fff;
+  background-color: #d53b24;
+}
+/* line 31, ../sass/pages/_work.scss */
 body.work-page .testimonial-section > .block {
   background-color: transparent;
 }
-/* line 19, ../sass/pages/_work.scss */
-body.work-page .client-section {
-  background-color: #DC3D25;
+@media (min-width: 768px) {
+  /* line 29, ../sass/pages/_work.scss */
+  body.work-page .testimonial-section {
+    padding-bottom: 140px;
+    background-position: center bottom;
+    background-repeat: repeat-x;
+  }
+  /* line 100, ../sass/_modules.scss */
+  .px-density-2x body.work-page .testimonial-section {
+    background-image: url(../img/orange_2x.jpg);
+    background-size: 1000px;
+  }
+  /* line 104, ../sass/_modules.scss */
+  .px-density-1x body.work-page .testimonial-section {
+    background-image: url(../img/orange_1x.jpg);
+  }
 }
-/* line 21, ../sass/pages/_work.scss */
+/* line 36, ../sass/pages/_work.scss */
+body.work-page .client-section {
+  background-color: #d53b24;
+}
+/* line 37, ../sass/pages/_work.scss */
 body.work-page .client-section > .block {
   background-color: transparent;
   padding: 0 20px;
 }
 @media (min-width: 768px) {
-  /* line 21, ../sass/pages/_work.scss */
+  /* line 37, ../sass/pages/_work.scss */
   body.work-page .client-section > .block {
     padding: 0;
   }
 }
+@media (min-width: 768px) {
+  /* line 36, ../sass/pages/_work.scss */
+  body.work-page .client-section {
+    padding-bottom: 140px;
+    background-position: center bottom;
+    background-repeat: repeat-x;
+  }
+  /* line 100, ../sass/_modules.scss */
+  .px-density-2x body.work-page .client-section {
+    background-image: url(../img/orange_2x.jpg);
+    background-size: 1000px;
+  }
+  /* line 104, ../sass/_modules.scss */
+  .px-density-1x body.work-page .client-section {
+    background-image: url(../img/orange_1x.jpg);
+  }
+}
 
 /* -----------------------------------------
-         				SVG animations
+         				SVG & animations
 -------------------------------------------- */
-/* line 188, ../sass/screen.scss */
+/* line 199, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
-  background: url(../img/watercolorTextureFade_2x.jpg);
-  background-size: 1500px;
   background-position: center top;
   background-repeat: repeat-x;
+  opacity: 0;
+  -moz-animation: scroll_sky 45s linear infinite;
+  -webkit-animation: scroll_sky 45s linear infinite;
+  animation: scroll_sky 45s linear infinite;
+  -moz-transition: opacity 1.5s ease-in;
+  -o-transition: opacity 1.5s ease-in;
+  -webkit-transition: opacity 1.5s ease-in;
+  transition: opacity 1.5s ease-in;
+}
+/* line 207, ../sass/screen.scss */
+.px-density-2x #waves {
+  background: url(../img/watercolorTextureFade_2x.jpg);
+  background-size: 1500px;
+}
+/* line 211, ../sass/screen.scss */
+.px-density-1x #waves {
+  background: url(../img/watercolorTextureFade_1x.jpg);
+}
+/* line 214, ../sass/screen.scss */
+#waves.active {
+  opacity: 1;
+}
+
+/* line 219, ../sass/screen.scss */
+.wetumka_logo_wrapper {
+  height: 0;
+  opacity: 0;
+  overflow: hidden;
+  -moz-transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
+  -o-transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
+  -webkit-transition: height 500ms ease-in, opacity 500ms ease-in;
+  -webkit-transition-delay: 0s, 500ms;
+  transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
+}
+/* line 224, ../sass/screen.scss */
+.wetumka_logo_wrapper #wetumka_logo {
+  display: block;
+  width: 100%;
+  min-height: 200px;
+}
+/* line 229, ../sass/screen.scss */
+.wetumka_logo_wrapper.active {
+  height: 250px;
+  opacity: 1;
 }
 
 @-moz-keyframes wave_1 {
@@ -10308,35 +10730,221 @@ body.work-page .client-section > .block {
     transform: translate(15%, 26%);
   }
 }
-/* line 202, ../sass/screen.scss */
+@-moz-keyframes scroll_sky {
+  from {
+    background-position: 1500px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-webkit-keyframes scroll_sky {
+  from {
+    background-position: 1500px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes scroll_sky {
+  from {
+    background-position: 1500px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-moz-keyframes scroll_water {
+  from {
+    background-position: -200px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-webkit-keyframes scroll_water {
+  from {
+    background-position: -200px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes scroll_water {
+  from {
+    background-position: -200px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-moz-keyframes scroll_red {
+  from {
+    background-position: -1000px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-webkit-keyframes scroll_red {
+  from {
+    background-position: -1000px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@keyframes scroll_red {
+  from {
+    background-position: -1000px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@-moz-keyframes enter_right {
+  from {
+    opacity: 0;
+    -moz-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+  }
+  to {
+    opacity: 1;
+    -moz-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@-webkit-keyframes enter_right {
+  from {
+    opacity: 0;
+    -webkit-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@keyframes enter_right {
+  from {
+    opacity: 0;
+    -moz-transform: translate(-100%, 0);
+    -ms-transform: translate(-100%, 0);
+    -webkit-transform: translate(-100%, 0);
+    transform: translate(-100%, 0);
+  }
+  to {
+    opacity: 1;
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@-moz-keyframes enter_left {
+  from {
+    opacity: 0;
+    -moz-transform: translate(100%, 0);
+    transform: translate(100%, 0);
+  }
+  to {
+    opacity: 1;
+    -moz-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@-webkit-keyframes enter_left {
+  from {
+    opacity: 0;
+    -webkit-transform: translate(100%, 0);
+    transform: translate(100%, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@keyframes enter_left {
+  from {
+    opacity: 0;
+    -moz-transform: translate(100%, 0);
+    -ms-transform: translate(100%, 0);
+    -webkit-transform: translate(100%, 0);
+    transform: translate(100%, 0);
+  }
+  to {
+    opacity: 1;
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@-moz-keyframes slide_up {
+  from {
+    -moz-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+  }
+  to {
+    -moz-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@-webkit-keyframes slide_up {
+  from {
+    -webkit-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+  }
+  to {
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+@keyframes slide_up {
+  from {
+    -moz-transform: translate(0, 100%);
+    -ms-transform: translate(0, 100%);
+    -webkit-transform: translate(0, 100%);
+    transform: translate(0, 100%);
+  }
+  to {
+    -moz-transform: translate(0, 0);
+    -ms-transform: translate(0, 0);
+    -webkit-transform: translate(0, 0);
+    transform: translate(0, 0);
+  }
+}
+/* line 239, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
-/* line 203, ../sass/screen.scss */
+/* line 240, ../sass/screen.scss */
 .wave_5 {
   -moz-animation: wave_5 14s linear infinite;
   -webkit-animation: wave_5 14s linear infinite;
   animation: wave_5 14s linear infinite;
 }
-/* line 207, ../sass/screen.scss */
+/* line 243, ../sass/screen.scss */
 .wave_4 {
   -moz-animation: wave_4 7s linear infinite;
   -webkit-animation: wave_4 7s linear infinite;
   animation: wave_4 7s linear infinite;
 }
-/* line 211, ../sass/screen.scss */
+/* line 246, ../sass/screen.scss */
 .wave_3 {
   -moz-animation: wave_3 12s linear infinite;
   -webkit-animation: wave_3 12s linear infinite;
   animation: wave_3 12s linear infinite;
 }
-/* line 215, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 .wave_2 {
   -moz-animation: wave_2 8s linear infinite;
   -webkit-animation: wave_2 8s linear infinite;
   animation: wave_2 8s linear infinite;
 }
-/* line 219, ../sass/screen.scss */
+/* line 252, ../sass/screen.scss */
 .wave_1 {
   -moz-animation: wave_1 15s linear infinite;
   -webkit-animation: wave_1 15s linear infinite;

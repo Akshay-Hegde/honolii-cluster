@@ -1,5 +1,5 @@
 // contact.js
-define (['H5F'], function (H5F) {
+define (['default','lib/H5F'], function (def,H5F) {
 	"use strict";
 
 	var _ = {};

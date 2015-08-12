@@ -6,19 +6,25 @@ define (['lib/assets','snapsvg'], function (Assets) {
 
 	// init function
 	_.init = function(){
-
-		var that = this;
+		var timeout,scrollInt,that = this;
 		
 		// set scrollEventVisible elements
-		this.scrollToggle = document.getElementsByClassName('event-visible');
+		this.scrollToggle = document.getElementsByClassName('scroll-visible');
 		
 		// scrolling delay event
-		this.didScroll = false;
-		setInterval(function(){
-			that.windowScroll();
-		}, 300);
+		this.didScroll = true; //fires off one time to start
+		scrollInt = setInterval(function(){
+			var scrolled = that.windowScroll();
+			if(scrolled){
+				clearInterval(scrollInt);
+			}
+		}, 200);
+		// scrolling event
 		window.onscroll = function(){
-			_.didScroll = true;
+	    clearTimeout(timeout);  
+	    timeout = setTimeout(function() {
+	    	_.didScroll = true;
+	    }, 50);
 		};
 		
 		// set images on document ready
@@ -36,41 +42,92 @@ define (['lib/assets','snapsvg'], function (Assets) {
 
 	// Set SVG backgrounds and animations
 	_.setSceneSVG = function(am){ // am = assetManager
-		var svgObj = {},
-			svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg"), // svg is not just a node - name space that shit yo!
-			wrapperNode = document.getElementById('wrapper');
+		var wave = {}, logo = {};
+			
+		// ------------ WAVES -----------------
+		
+		wave.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		wave.wrapperNode = document.getElementById('wrapper');
 
-		svgNode.setAttribute('id','waves');
-		wrapper.parentNode.insertBefore(svgNode,wrapper);
+		wave.svgNode.setAttribute('id','waves');
+		wave.wrapperNode.parentNode.insertBefore(wave.svgNode,wave.wrapperNode);
 
-		svgObj.canvasSVG = new Snap('#waves');
-		svgObj.waveSVG = new Snap(am.getCachedAsset('scn-1-waves.svg'));
+		wave.canvasSVG = new Snap('#waves');
+		wave.waveSVG = new Snap(am.getCachedAsset('scn-1-waves.svg'));
 
 		//SVG drawing area
-		svgObj.canvasSVG.attr({
+		wave.canvasSVG.attr({
 			viewBox:'0 0 1280 800',
 			preserveAspectRatio:'none slice'
 		});
 
 		//SVG waves
-		svgObj.waveSVG.attr({
-			viewBox:'0 50 1280 800'
+		wave.waveSVG.attr({
+			viewBox:'0 150 1280 800'
 		});
 
-		svgObj.waveSVG_w1 = svgObj.waveSVG.select('.wave_1 .stroke');
-		svgObj.waveSVG_w2 = svgObj.waveSVG.select('.wave_2 .stroke');
-		svgObj.waveSVG_w3 = svgObj.waveSVG.select('.wave_3 .stroke');
-		svgObj.waveSVG_w4 = svgObj.waveSVG.select('.wave_4 .stroke');
-		svgObj.waveSVG_w5 = svgObj.waveSVG.select('.wave_5 .stroke');
+		wave.waveSVG_w1 = wave.waveSVG.select('.wave_1 .stroke');
+		wave.waveSVG_w2 = wave.waveSVG.select('.wave_2 .stroke');
+		wave.waveSVG_w3 = wave.waveSVG.select('.wave_3 .stroke');
+		wave.waveSVG_w4 = wave.waveSVG.select('.wave_4 .stroke');
+		wave.waveSVG_w5 = wave.waveSVG.select('.wave_5 .stroke');
 
-    svgObj.waveSVG_w1.attr({fill:"l(0, 0, 0, 1)#0177AA:0-#006798:100"});
-    svgObj.waveSVG_w2.attr({fill:"l(0, 0, 0, 1)#0177AA:10-#006798:100"});
-    svgObj.waveSVG_w3.attr({fill:"l(0, 0, 0, 1)#0286BA:20-#006798:100"});
-    svgObj.waveSVG_w4.attr({fill:"l(0, 0, 0, 1)#0286BA:25-#006798:100"});
-    svgObj.waveSVG_w5.attr({fill:"l(0, 0, 0, 1)#0286BA:30-#006798:100"});
+    wave.waveSVG_w1.attr({fill:"l(0, 0, 0, 1)#0177AA:0-#006798:100"});
+    wave.waveSVG_w2.attr({fill:"l(0, 0, 0, 1)#0177AA:10-#006798:100"});
+    wave.waveSVG_w3.attr({fill:"l(0, 0, 0, 1)#0286BA:20-#006798:100"});
+    wave.waveSVG_w4.attr({fill:"l(0, 0, 0, 1)#0286BA:25-#006798:100"});
+    wave.waveSVG_w5.attr({fill:"l(0, 0, 0, 1)#0286BA:30-#006798:100"});
 
-		svgObj.canvasSVG.append(svgObj.waveSVG);
+		wave.canvasSVG.append(wave.waveSVG);
+		setTimeout(function(){
+			document.getElementById('waves').classList.add('active');
+		},10);
+		
 
+		// ------------ LOGO -----------------
+		
+		logo.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		logo.wrapperNode = document.getElementById('section_main');
+		logo.wrapperNode = logo.wrapperNode.querySelector('h1')
+
+		logo.svgNode.setAttribute('id','wetumka_logo');
+
+		logo.svgWrapperNode = document.createElement('div');
+		logo.svgWrapperNode.classList.add('wetumka_logo_wrapper');
+		logo.svgWrapperNode.setAttribute('id','wetumka_logo_wrapper');
+
+		logo.svgWrapperNode.appendChild(logo.svgNode);
+
+		logo.wrapperNode.parentNode.insertBefore(logo.svgWrapperNode,logo.wrapperNode);
+
+		logo.canvasSVG = new Snap('#wetumka_logo');
+		logo.logoSVG = new Snap(am.getCachedAsset('wetumka-logo.svg'));
+
+		//SVG drawing area
+		logo.canvasSVG.attr({
+			//viewBox:'0 0 300 300',
+			preserveAspectRatio:'xMidYMid meet'
+			//preserveAspectRatio:'none'
+		});
+
+		//SVG logos
+		logo.logoSVG.attr({
+			//viewBox:'480 245 320 200'
+			viewBox:'240 800 245 195'
+		});
+
+		logo.logoSVG_1 = logo.logoSVG.select('.logo_group');
+
+		// logo.pattern = logo.logoSVG.image(assetPath + '/img/watercolorTextureFade_1x.jpg',240,800,1500,570);
+		// logo.logoSVG_1.attr({fill:"#fff"});
+		// logo.pattern.attr({ mask: logo.logoSVG_1});
+		
+		logo.logoSVG_1.attr({fill:"L(0, 800, 0, 995)#1b7eaf:0-#67cedc:100"});
+		logo.canvasSVG.append(logo.logoSVG);
+
+		setTimeout(function(){
+			document.getElementById('wetumka_logo_wrapper').classList.add('active');
+		},10);
 	};
 
 	// Set images to use alternate size based on pixel density
@@ -85,30 +142,33 @@ define (['lib/assets','snapsvg'], function (Assets) {
 				images[i].setAttribute('src',images[i].getAttribute('data-src') + '/' + pxRatioSize);
 			}
 		}
+
+		// set pixel density class for background-images - 1x & 2x only for now
+		if(window.devicePixelRatio > 1){
+			document.querySelector('html').classList.add('px-density-2x');
+		}else{
+			document.querySelector('html').classList.add('px-density-1x');
+		}
 	};
 
 	// Toggle element .event-active class when visible on window, hook class = .event-visible
 	_.scrollEventVisible = function(elementObj){
-
 		var winTop = window.pageYOffset,
 			winBot = winTop + window.innerHeight,
+			inView = Math.floor(window.innerHeight / 2),
 			eleTop,eleBot,active;
 
 		for (var i = 0; i < elementObj.length; i++) {
-			eleTop = elementObj[i].offsetTop;
-			eleBot = eleTop + elementObj[i].offsetHeight;
-			active = elementObj[i].classList.contains('event-visible-active');
+			eleTop = elementObj[i].offsetTop + inView;
+			eleBot = (eleTop + elementObj[i].offsetHeight) - inView;
 
 			if (winBot > eleTop && winTop < eleBot) {
-				if (!active){
-					elementObj[i].classList.add('event-visible-active');
-				}
-			}else{
-				if (active){
-					elementObj[i].classList.remove('event-visible-active');
-				}
+				elementObj[i].classList.add('event-visible-active');
+				elementObj[i].classList.remove('scroll-visible');
 			}
 		}
+
+		this.scrollToggle = document.getElementsByClassName('scroll-visible');
 
 	};
 
@@ -116,8 +176,13 @@ define (['lib/assets','snapsvg'], function (Assets) {
 	_.windowScroll = function(){
 		if(this.didScroll){
 			this.didScroll = false;
-			// list of functions to call on scroll delayed scroll event
-			this.scrollEventVisible(this.scrollToggle);
+			
+			if(this.scrollToggle.length > 0){ // if length is zero, kill setInterval
+				this.scrollEventVisible(this.scrollToggle);
+				return false;
+			}else{
+				return true;
+			}
 		}
 	};
 

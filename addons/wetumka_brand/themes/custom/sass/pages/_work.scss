@@ -1,4 +1,9 @@
 body.work-page{
+	.site-footer{
+		position: absolute;
+		bottom:0;
+		width:100%;
+	}
 	.info-section{
 		> .block{
 			.block-inner{
@@ -8,16 +13,27 @@ body.work-page{
 				}
 			}
 		}
+		@media (min-width: $screen-sm-min) {
+			.px-density-2x &{
+				background-image: url(../img/flatBlueTexture_fade_2x.png),url(../img/flatBlueTexture_2x.png);
+				background-size: 200px;
+			}
+			.px-density-1x &{
+				background-image: url(../img/flatBlueTexture_fade_1x.png),url(../img/flatBlueTexture_1x.png);
+			}
+			background-position:center top, center center;
+			background-repeat: repeat-x, repeat;
+			@include animation(scroll_water 15s linear infinite);
+		}
 	}
 	.testimonial-section{
-		background-color:$brand-red;
 		border-top:solid 140px #fff;
 		> .block{
 			background-color: transparent;
 		}
+		@include mod-style-red;
 	}
 	.client-section{
-		background-color:$brand-red;
 		> .block{
 			background-color: transparent;
 			padding:0 20px;
@@ -25,5 +41,7 @@ body.work-page{
 				padding:0;
 			}
 		}
+		@include mod-style-red;
+
 	}
 }

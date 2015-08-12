@@ -1,0 +1,76 @@
+// Animation Mixins
+@mixin waves-keyframes($keyframes, $Xstart, $Xend, $Ytop, $Ybottom, $name) {
+	// keyframes
+	$keysteps: percentage(1 / $keyframes);
+	// X axis
+	$diffX: (($Xstart - $Xend) * -1) / $keyframes;
+	// add keyframe for 100%
+	$keyframes: $keyframes + 1;
+	
+	@at-root {
+		@include keyframes($name) {
+			@for $i from 0 to $keyframes {
+				$keyframe: ($i * $keysteps);
+				$Xvalue: ($Xstart + ($i * $diffX));
+				$Yvalue: if($i % 2 == 0,$Ytop,$Ybottom);
+				#{$keyframe} {
+					@include transform(translate($Xvalue,$Yvalue))
+				}
+			}
+		}
+	}
+}
+
+@mixin bkgscroll-keyframes($name, $Xstart, $Xend:0, $Y:0) {
+	@include keyframes($name){
+		from {
+      background-position: $Xstart $Y;
+    }
+    to {
+      background-position: $Xend $Y;
+    }
+	}
+}
+
+@mixin enter-keyframes($name, $Xstart, $Xend:0, $Y:0) {
+	@include keyframes($name){
+		from {
+			opacity:0;
+			@include transform(translate($Xstart,$Y))
+    }
+    to {
+    	opacity:1;
+    	@include transform(translate($Xend,$Y))
+    }
+	}
+}
+
+@mixin carousel-keyframes($name, $Ystart, $Yend:0, $X:0){
+	@include keyframes($name){
+		from {
+			@include transform(translate($X,$Ystart))
+    }
+    to {
+    	@include transform(translate($X,$Yend))
+    }
+	}
+}
+
+// waves animations
+@include waves-keyframes(6, -20%, 13.2%, 0, 5%, 'wave_1');
+@include waves-keyframes(6, -11.5%, 22%, 8%, 5%, 'wave_2');
+@include waves-keyframes(8, -14.4%, 19%, 8%, 9%, 'wave_3');
+@include waves-keyframes(8, -18.5%, 15%, 18%, 15%, 'wave_4');
+@include waves-keyframes(12, -18.5%, 15%, 26%, 22%, 'wave_5');
+
+// simple background image
+@include bkgscroll-keyframes('scroll_sky',1500px);
+@include bkgscroll-keyframes('scroll_water',-200px);
+@include bkgscroll-keyframes('scroll_red',-1000px);
+
+// scroll-visible animations
+@include enter-keyframes('enter_right',-100%);
+@include enter-keyframes('enter_left',100%);
+
+// coursel animations
+@include carousel-keyframes('slide_up',100%);

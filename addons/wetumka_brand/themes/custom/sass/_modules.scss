@@ -11,25 +11,25 @@
 * Modules can be nested, and bucause of this need to maintain the named space classes.
 * 
 -------------------------------------------- */
-@mixin mod-stacked($zstripe:$gray-lighter){
-	$img-small: 250px;
-	$img-reg: 300px;
+$img-small: 250px;
+$img-reg: 300px;
 
-	background-color:#fff;
+@mixin mod-stacked($color1:#fff,$color2:$gray-lighter){
+	
+	background-color:$color1;
 	position: relative;
 	padding: 10px ($gutters / 2);
-	@extend .clearfix;
 
 	@media (max-width: $screen-xs-max) {
 		padding-bottom:50px;
 	}
 	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-  	min-height:$img-small;
+  	height:$img-small;
 		padding:30px ($img-small + 40px) 0 40px;
   }
 	@media (min-width: $screen-md-min) {
-		min-height:$img-reg;
-		padding:40px ($img-reg + $gutters) 0 $gutters;
+		height:$img-reg;
+		padding:50px ($img-reg + $gutters) 0 $gutters;
 	}
 
 	> img{
@@ -74,7 +74,7 @@
 
 	}
 	&:nth-child(even){
-		background-color:$zstripe;
+		background-color:$color2;
 
 		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
 			padding-left:($img-small + 40px);
@@ -93,9 +93,96 @@
 	}
 }
 
+@mixin mod-style-red(){
+	//background-color:$brand-red;
+	background-color:#d53b24;
+	@media (min-width: $screen-sm-min) {
+		.px-density-2x &{
+			background-image: url(../img/orange_2x.jpg);
+			background-size: 1000px;
+		}
+		.px-density-1x &{
+			background-image: url(../img/orange_1x.jpg);
+		}
+		padding-bottom:140px;
+		background-position:center bottom;
+		background-repeat: repeat-x;
+	}
+}
+
+@mixin mod-carousel($color1:#fff){
+	position: relative;
+	
+	@media (max-width: $screen-xs-max) {
+		> div{
+			background-color:$color1!important;
+		}
+	}
+	@media (min-width: $screen-sm-min) {
+		background-color:$color1;
+		overflow:hidden;
+		> div{
+			position: absolute;
+			@include transition(transform 500ms ease-in);
+			@include transform(translate(0,-100%));
+			&.active{
+				@include transform(translate(0,0));
+			}
+		}
+		// &.event-visible-active{
+		// 	> div{
+		// 		@include animation(slide_up 400ms ease-out 0s infinite alternate paused);
+		// 		&.play {
+		// 			@include animation-play-state(running);
+		// 		}
+		// 	}
+		// }
+	}
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  	height: $img-small;
+  }
+	@media (min-width: $screen-md-min) {
+		height: $img-reg;
+	}
+}
+
 .mod{
 	&-member{
+		$arrow-size: 30px;
 		@include mod-stacked;
+		&::before{
+			@media (min-width: $screen-sm-min){
+				display:block;
+				position: absolute;
+				content:'';
+				width:0;
+				height:0;
+				margin-top:-$arrow-size;
+				border:solid transparent $arrow-size;
+				border-left-color:#fff;
+				z-index:1;
+			}
+			@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+		  	top: $img-small / 2;
+		  	right: $img-small - ($arrow-size * 2);
+		  }
+			@media (min-width: $screen-md-min) {
+				top: $img-reg / 2;
+		  	right: $img-reg - ($arrow-size * 2);
+			}
+		}
+		&:nth-child(even)::before{
+			@media (min-width: $screen-sm-min){
+				border-left-color:transparent;
+				border-right-color:$gray-lighter;
+			}
+			@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+	  		left: $img-small - ($arrow-size * 2);
+		  }
+			@media (min-width: $screen-md-min) {
+		  	left: $img-reg - ($arrow-size * 2);
+			}
+		}
 	}
 	&-members{
 		&-hd h2{
@@ -104,6 +191,9 @@
 	}
 	&-partner{
 		@include mod-stacked;
+		@media (max-width: $screen-xs-max) {
+			padding-bottom:80px;
+		}
 		&-ft{
 			a{
 				float:right;
@@ -118,13 +208,16 @@
 				text-transform:uppercase;
 				position: absolute;
 			  width: 100%;
-			  margin-top: -80px;
+			  top: -85px;
 			  background-color:#fff;
+			  margin:0;
 			}
 			p{
 				color:#fff;
 				padding:40px ($gutters / 2) 70px;
+				margin-bottom:0;
 				text-align:center;
+				@extend .lead;
 
 				@media (min-width: $screen-sm-min) {
 					padding:80px $gutters;
@@ -133,9 +226,10 @@
 		}
 	}
 	&-form{
-		// styles are in form styles block above
+		// styles are in screen.scss
 	}
 	&-testimonials{
+		margin-bottom:120px;
 		&-hd{
 			position: relative;
 			h2{
@@ -149,7 +243,9 @@
 			p{
 				color:#fff;
 				padding:40px ($gutters / 2) 70px;
+				margin-bottom:0;
 				text-align:center;
+				@extend .lead;
 
 				@media (min-width: $screen-sm-min) {
 					padding:80px $gutters;
@@ -157,11 +253,11 @@
 			}
 		}
 		&-bd{
-
+			@include mod-carousel;
 		}
 	}
 	&-testimonial{
-		
+		@include mod-stacked(transparent,transparent);
 	}
 	&-clients{
 		&-bd{
