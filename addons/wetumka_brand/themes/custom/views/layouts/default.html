@@ -11,8 +11,8 @@
 {{ endif }}
 </head>
 <body class="{{page.slug}}-page">
+  {{ theme:partial name="header" }}
   <div id="wrapper" class="site-wrapper">
-    {{ theme:partial name="header" }}
     <div id="content" class="site-content">
       {{ template:body }}
     </div>

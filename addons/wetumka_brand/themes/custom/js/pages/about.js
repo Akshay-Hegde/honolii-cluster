@@ -1,6 +1,5 @@
 // about-us.js
-define (['default'], function (def) {
+define (['default','lib/sections-nav'], function (def,sections) {
 	"use strict";
 
-	
 });

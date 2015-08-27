@@ -1,0 +1,11 @@
+<header id="header" class="site-header">
+	<nav id="main-nav" class="mod-main-nav">
+		{{ if {url:segments segment="1"} == 'blog' }}
+    	{{ widgets:area slug="header-content-blog" }}
+		{{ elseif {url:segments segment="1"} == 'contact' }}
+    	{{ widgets:area slug="header-content-contact" }}
+		{{ else }}
+			{{ widgets:area slug="header-content" }}
+		{{ endif }}
+	</nav>
+</header>

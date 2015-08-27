@@ -6,19 +6,21 @@ define (['lib/assets','snapsvg'], function (Assets) {
 
 	// init function
 	_.init = function(){
-		var timeout,scrollInt,that = this;
-		
+		var timeout,body,scrollEvent,that = this;
+		scrollEvent = new Event('scrolled'); // custom scrolled event
+		body = document.querySelector('body');
+
 		// set scrollEventVisible elements
 		this.scrollToggle = document.getElementsByClassName('scroll-visible');
 		
 		// scrolling delay event
 		this.didScroll = true; //fires off one time to start
-		scrollInt = setInterval(function(){
-			var scrolled = that.windowScroll();
-			if(scrolled){
-				clearInterval(scrollInt);
+		setInterval(function(){
+			if(that.didScroll){
+				that.didScroll = false;
+				body.dispatchEvent(scrollEvent);
 			}
-		}, 200);
+		}, 100);
 		// scrolling event
 		window.onscroll = function(){
 	    clearTimeout(timeout);  
@@ -26,6 +28,8 @@ define (['lib/assets','snapsvg'], function (Assets) {
 	    	_.didScroll = true;
 	    }, 50);
 		};
+		// scrolled event function
+		body.addEventListener('scrolled', function(e){_.windowScroll(e);}, false);
 		
 		// set images on document ready
 		this.setImgSrc();
@@ -34,10 +38,11 @@ define (['lib/assets','snapsvg'], function (Assets) {
 		var assetsManager = new Assets();
 		assetsManager.queueDownload([
 	  	assetPath + '/img/svg/scn-1-waves.svg',
-	  	assetPath + '/img/svg/wetumka-logo.svg'
+	  	assetPath + '/img/svg/wetumka-logo.svg',
+	  	assetPath + '/img/svg/wetumka-logo-stroke.svg',
+	  	assetPath + '/img/svg/hamburger-x-path.svg'
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);
-
 	};
 
 	// Set SVG backgrounds and animations
@@ -47,13 +52,13 @@ define (['lib/assets','snapsvg'], function (Assets) {
 		// ------------ WAVES -----------------
 		
 		wave.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		wave.wrapperNode = document.getElementById('wrapper');
+		wave.wrapperNode = document.getElementById('content');
 
 		wave.svgNode.setAttribute('id','waves');
 		wave.wrapperNode.parentNode.insertBefore(wave.svgNode,wave.wrapperNode);
 
 		wave.canvasSVG = new Snap('#waves');
-		wave.waveSVG = new Snap(am.getCachedAsset('scn-1-waves.svg'));
+		wave.waveSVG = new Snap(am.getCachedAsset('scn-1-waves.svg').cloneNode(true));
 
 		//SVG drawing area
 		wave.canvasSVG.attr({
@@ -83,51 +88,111 @@ define (['lib/assets','snapsvg'], function (Assets) {
 			document.getElementById('waves').classList.add('active');
 		},10);
 		
+		// ------------ BIG LOGO -----------------
+	
+		// logo.big = {};
+		// logo.big.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		// logo.big.wrapperNode = document.getElementById('section_main');
+		// logo.big.wrapperNode = logo.big.wrapperNode.querySelector('h1');
 
-		// ------------ LOGO -----------------
+		// logo.big.svgNode.setAttribute('id','wetumka_logo');
+
+		// logo.big.svgWrapperNode = document.createElement('div');
+		// logo.big.svgWrapperNode.classList.add('wetumka_logo_wrapper');
+		// logo.big.svgWrapperNode.setAttribute('id','wetumka_logo_wrapper');
+
+		// logo.big.svgWrapperNode.appendChild(logo.big.svgNode);
+
+		// logo.big.wrapperNode.parentNode.insertBefore(logo.big.svgWrapperNode,logo.big.wrapperNode);
+
+		// logo.big.canvasSVG = new Snap('#wetumka_logo');
+		// logo.big.logoSVG = new Snap(am.getCachedAsset('wetumka-logo.svg').cloneNode(true));
+
+		// //SVG drawing area
+		// logo.big.canvasSVG.attr({
+		// 	preserveAspectRatio:'xMidYMid meet'
+		// });
+
+		// //SVG logos
+		// logo.big.logoSVG.attr({
+		// 	viewBox:'240 800 245 195'
+		// });
+
+		// logo.big.logoSVG_1 = logo.big.logoSVG.select('.logo_group');
+
+		// // logo.big.pattern = logo.big.logoSVG.image(assetPath + '/img/watercolorTextureFade_1x.jpg',240,800,1500,570);
+		// // logo.big.logoSVG_1.attr({fill:"#fff"});
+		// // logo.big.pattern.attr({ mask: logo.big.logoSVG_1});
 		
-		logo.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		logo.wrapperNode = document.getElementById('section_main');
-		logo.wrapperNode = logo.wrapperNode.querySelector('h1')
+		// logo.big.logoSVG_1.attr({fill:"L(0, 800, 0, 995)#1b7eaf:0-#67cedc:100"});
+		// logo.big.canvasSVG.append(logo.big.logoSVG);
 
-		logo.svgNode.setAttribute('id','wetumka_logo');
+		// setTimeout(function(){
+		// 	document.getElementById('wetumka_logo_wrapper').classList.add('active');
+		// },10);
 
-		logo.svgWrapperNode = document.createElement('div');
-		logo.svgWrapperNode.classList.add('wetumka_logo_wrapper');
-		logo.svgWrapperNode.setAttribute('id','wetumka_logo_wrapper');
+		// ------------ SMALL HEADER LOGO -----------------
+		
+		logo.small = {};
 
-		logo.svgWrapperNode.appendChild(logo.svgNode);
+		logo.small.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		logo.small.wrapperNode = document.getElementById('header');
+		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.mod-main-nav');
 
-		logo.wrapperNode.parentNode.insertBefore(logo.svgWrapperNode,logo.wrapperNode);
+		logo.small.svgNode.setAttribute('id','header-logo');
+		logo.small.svgNode.classList.add('site-header-logo');
 
-		logo.canvasSVG = new Snap('#wetumka_logo');
-		logo.logoSVG = new Snap(am.getCachedAsset('wetumka-logo.svg'));
+		logo.small.wrapperNode.parentNode.insertBefore(logo.small.svgNode,logo.small.wrapperNode);
+
+		logo.small.canvasSVG = new Snap('#header-logo');
+		logo.small.logoSVG = new Snap(am.getCachedAsset('wetumka-logo-stroke.svg').cloneNode(true));
+		logo.small.menuSVG = new Snap(am.getCachedAsset('hamburger-x-path.svg').cloneNode(true));
 
 		//SVG drawing area
-		logo.canvasSVG.attr({
-			//viewBox:'0 0 300 300',
+		logo.small.canvasSVG.attr({
 			preserveAspectRatio:'xMidYMid meet'
-			//preserveAspectRatio:'none'
+		});
+		logo.small.menuSVG.attr({
+			viewBox:'-100 -100 400 400'
 		});
 
-		//SVG logos
-		logo.logoSVG.attr({
-			//viewBox:'480 245 320 200'
-			viewBox:'240 800 245 195'
-		});
+		logo.small.showCircle = logo.small.canvasSVG.circle(50, 50, 45).addClass('aniCircle');
 
-		logo.logoSVG_1 = logo.logoSVG.select('.logo_group');
+		logo.small.canvasSVG.append(logo.small.logoSVG);
+		logo.small.canvasSVG.append(logo.small.menuSVG);
 
-		// logo.pattern = logo.logoSVG.image(assetPath + '/img/watercolorTextureFade_1x.jpg',240,800,1500,570);
-		// logo.logoSVG_1.attr({fill:"#fff"});
-		// logo.pattern.attr({ mask: logo.logoSVG_1});
-		
-		logo.logoSVG_1.attr({fill:"L(0, 800, 0, 995)#1b7eaf:0-#67cedc:100"});
-		logo.canvasSVG.append(logo.logoSVG);
+		logo.small.hitCircle = logo.small.canvasSVG.circle(50, 50, 50).attr('fill','transparent');
+		logo.small.hitCircle.hover(function(e){logo.small.hoverOver(e);},function(e){logo.small.hoverOut(e);});
+		logo.small.hitCircle.click(function(e){logo.small.click(e);});
 
 		setTimeout(function(){
-			document.getElementById('wetumka_logo_wrapper').classList.add('active');
+			logo.small.svgNode.classList.add('active');
 		},10);
+
+		// ------------ FUNCTIONS -----------------
+		
+		logo.small.hoverOver = function(event){
+			this.svgNode.classList.add('hover');
+			this.svgNode.classList.remove('active');
+		};
+
+		logo.small.hoverOut = function(event){
+			this.svgNode.classList.remove('hover');
+			this.svgNode.classList.add('active');
+		};
+
+		logo.small.click = function(event){
+			var clicked = this.svgNode.classList.contains('selected');
+			var body = document.querySelector('body');
+
+			if(clicked){
+				this.svgNode.classList.remove('selected');
+				body.classList.remove('active-main-nav');
+			}else{
+				this.svgNode.classList.add('selected');
+				body.classList.add('active-main-nav');
+			}
+		};
 	};
 
 	// Set images to use alternate size based on pixel density
@@ -155,7 +220,7 @@ define (['lib/assets','snapsvg'], function (Assets) {
 	_.scrollEventVisible = function(elementObj){
 		var winTop = window.pageYOffset,
 			winBot = winTop + window.innerHeight,
-			inView = Math.floor(window.innerHeight / 2),
+			inView = Math.floor(window.innerHeight / 4),
 			eleTop,eleBot,active;
 
 		for (var i = 0; i < elementObj.length; i++) {
@@ -169,20 +234,12 @@ define (['lib/assets','snapsvg'], function (Assets) {
 		}
 
 		this.scrollToggle = document.getElementsByClassName('scroll-visible');
-
 	};
 
 	// Window scroll function
-	_.windowScroll = function(){
-		if(this.didScroll){
-			this.didScroll = false;
-			
-			if(this.scrollToggle.length > 0){ // if length is zero, kill setInterval
-				this.scrollEventVisible(this.scrollToggle);
-				return false;
-			}else{
-				return true;
-			}
+	_.windowScroll = function(event){
+		if(this.scrollToggle.length > 0){ // if length is zero, kill scrollEventVisible call
+			this.scrollEventVisible(this.scrollToggle);
 		}
 	};
 

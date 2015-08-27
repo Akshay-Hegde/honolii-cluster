@@ -1836,33 +1836,27 @@ h1, h2, h3, h4, h5, h6,
 /* line 16, ../sass/bootstrap_custom/_type.scss */
 h1 small,
 h1 .small,
-h1 .site-wrapper .site-footer,
-.site-wrapper h1 .site-footer,
+h1 .site-footer,
 h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h1 .mod-form-help, h2 small,
 h2 .small,
-h2 .site-wrapper .site-footer,
-.site-wrapper h2 .site-footer,
+h2 .site-footer,
 h2 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h2 .mod-form-help, h3 small,
 h3 .small,
-h3 .site-wrapper .site-footer,
-.site-wrapper h3 .site-footer,
+h3 .site-footer,
 h3 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h3 .mod-form-help, h4 small,
 h4 .small,
-h4 .site-wrapper .site-footer,
-.site-wrapper h4 .site-footer,
+h4 .site-footer,
 h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h4 .mod-form-help, h5 small,
 h5 .small,
-h5 .site-wrapper .site-footer,
-.site-wrapper h5 .site-footer,
+h5 .site-footer,
 h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h5 .mod-form-help, h6 small,
 h6 .small,
-h6 .site-wrapper .site-footer,
-.site-wrapper h6 .site-footer,
+h6 .site-footer,
 h6 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h6 .mod-form-help,
 .h1 small,
@@ -1871,12 +1865,9 @@ h6 .capture-form .mod-form .mod-form-help,
 .h1 .small,
 .mod-partners-hd h2 .small,
 .mod-testimonials-hd h2 .small,
-.h1 .site-wrapper .site-footer,
-.site-wrapper .h1 .site-footer,
-.mod-partners-hd h2 .site-wrapper .site-footer,
-.site-wrapper .mod-partners-hd h2 .site-footer,
-.mod-testimonials-hd h2 .site-wrapper .site-footer,
-.site-wrapper .mod-testimonials-hd h2 .site-footer,
+.h1 .site-footer,
+.mod-partners-hd h2 .site-footer,
+.mod-testimonials-hd h2 .site-footer,
 .h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h1 .mod-form-help,
 .mod-partners-hd h2 .capture-form .mod-form .mod-form-help,
@@ -1884,32 +1875,25 @@ h6 .capture-form .mod-form .mod-form-help,
 .mod-testimonials-hd h2 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-testimonials-hd h2 .mod-form-help, .h2 small,
 .h2 .small,
-.h2 .site-wrapper .site-footer,
-.site-wrapper .h2 .site-footer,
+.h2 .site-footer,
 .h2 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h2 .mod-form-help, .h3 small,
 .h3 .small,
-.h3 .site-wrapper .site-footer,
-.site-wrapper .h3 .site-footer,
+.h3 .site-footer,
 .h3 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h3 .mod-form-help, .h4 small,
 .h4 .small,
-.h4 .site-wrapper .site-footer,
-.site-wrapper .h4 .site-footer,
+.h4 .site-footer,
 .h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h4 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
 .h5 .small,
 .mod-member-hd h4 .small,
 .mod-partner-hd h4 .small,
 .mod-testimonial-hd h4 .small,
-.h5 .site-wrapper .site-footer,
-.site-wrapper .h5 .site-footer,
-.mod-member-hd h4 .site-wrapper .site-footer,
-.site-wrapper .mod-member-hd h4 .site-footer,
-.mod-partner-hd h4 .site-wrapper .site-footer,
-.site-wrapper .mod-partner-hd h4 .site-footer,
-.mod-testimonial-hd h4 .site-wrapper .site-footer,
-.site-wrapper .mod-testimonial-hd h4 .site-footer,
+.h5 .site-footer,
+.mod-member-hd h4 .site-footer,
+.mod-partner-hd h4 .site-footer,
+.mod-testimonial-hd h4 .site-footer,
 .h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h5 .mod-form-help,
 .mod-member-hd h4 .capture-form .mod-form .mod-form-help,
@@ -1919,8 +1903,7 @@ h6 .capture-form .mod-form .mod-form-help,
 .mod-testimonial-hd h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-testimonial-hd h4 .mod-form-help, .h6 small,
 .h6 .small,
-.h6 .site-wrapper .site-footer,
-.site-wrapper .h6 .site-footer,
+.h6 .site-footer,
 .h6 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h6 .mod-form-help {
   font-weight: normal;
@@ -1938,19 +1921,15 @@ h3, .h3 {
 /* line 29, ../sass/bootstrap_custom/_type.scss */
 h1 small,
 h1 .small,
-h1 .site-wrapper .site-footer,
-.site-wrapper h1 .site-footer,
+h1 .site-footer,
 h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h1 .mod-form-help, .h1 small, .mod-partners-hd h2 small, .mod-testimonials-hd h2 small,
 .h1 .small,
 .mod-partners-hd h2 .small,
 .mod-testimonials-hd h2 .small,
-.h1 .site-wrapper .site-footer,
-.site-wrapper .h1 .site-footer,
-.mod-partners-hd h2 .site-wrapper .site-footer,
-.site-wrapper .mod-partners-hd h2 .site-footer,
-.mod-testimonials-hd h2 .site-wrapper .site-footer,
-.site-wrapper .mod-testimonials-hd h2 .site-footer,
+.h1 .site-footer,
+.mod-partners-hd h2 .site-footer,
+.mod-testimonials-hd h2 .site-footer,
 .h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h1 .mod-form-help,
 .mod-partners-hd h2 .capture-form .mod-form .mod-form-help,
@@ -1959,24 +1938,20 @@ h1 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-testimonials-hd h2 .mod-form-help,
 h2 small,
 h2 .small,
-h2 .site-wrapper .site-footer,
-.site-wrapper h2 .site-footer,
+h2 .site-footer,
 h2 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h2 .mod-form-help, .h2 small,
 .h2 .small,
-.h2 .site-wrapper .site-footer,
-.site-wrapper .h2 .site-footer,
+.h2 .site-footer,
 .h2 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h2 .mod-form-help,
 h3 small,
 h3 .small,
-h3 .site-wrapper .site-footer,
-.site-wrapper h3 .site-footer,
+h3 .site-footer,
 h3 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h3 .mod-form-help, .h3 small,
 .h3 .small,
-.h3 .site-wrapper .site-footer,
-.site-wrapper .h3 .site-footer,
+.h3 .site-footer,
 .h3 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h3 .mod-form-help {
   font-size: 65%;
@@ -1992,33 +1967,26 @@ h6, .h6 {
 /* line 40, ../sass/bootstrap_custom/_type.scss */
 h4 small,
 h4 .small,
-h4 .site-wrapper .site-footer,
-.site-wrapper h4 .site-footer,
+h4 .site-footer,
 h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h4 .mod-form-help, .h4 small,
 .h4 .small,
-.h4 .site-wrapper .site-footer,
-.site-wrapper .h4 .site-footer,
+.h4 .site-footer,
 .h4 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h4 .mod-form-help,
 h5 small,
 h5 .small,
-h5 .site-wrapper .site-footer,
-.site-wrapper h5 .site-footer,
+h5 .site-footer,
 h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h5 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
 .h5 .small,
 .mod-member-hd h4 .small,
 .mod-partner-hd h4 .small,
 .mod-testimonial-hd h4 .small,
-.h5 .site-wrapper .site-footer,
-.site-wrapper .h5 .site-footer,
-.mod-member-hd h4 .site-wrapper .site-footer,
-.site-wrapper .mod-member-hd h4 .site-footer,
-.mod-partner-hd h4 .site-wrapper .site-footer,
-.site-wrapper .mod-partner-hd h4 .site-footer,
-.mod-testimonial-hd h4 .site-wrapper .site-footer,
-.site-wrapper .mod-testimonial-hd h4 .site-footer,
+.h5 .site-footer,
+.mod-member-hd h4 .site-footer,
+.mod-partner-hd h4 .site-footer,
+.mod-testimonial-hd h4 .site-footer,
 .h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h5 .mod-form-help,
 .mod-member-hd h4 .capture-form .mod-form .mod-form-help,
@@ -2029,13 +1997,11 @@ h5 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .mod-testimonial-hd h4 .mod-form-help,
 h6 small,
 h6 .small,
-h6 .site-wrapper .site-footer,
-.site-wrapper h6 .site-footer,
+h6 .site-footer,
 h6 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form h6 .mod-form-help, .h6 small,
 .h6 .small,
-.h6 .site-wrapper .site-footer,
-.site-wrapper .h6 .site-footer,
+.h6 .site-footer,
 .h6 .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form .h6 .mod-form-help {
   font-size: 75%;
@@ -2087,7 +2053,7 @@ p {
 /* line 77, ../sass/bootstrap_custom/_type.scss */
 small,
 .small,
-.site-wrapper .site-footer,
+.site-footer,
 .capture-form .mod-form .mod-form-help {
   font-size: 75%;
 }
@@ -2376,8 +2342,7 @@ blockquote ol:last-child {
 blockquote footer,
 blockquote small,
 blockquote .small,
-blockquote .site-wrapper .site-footer,
-.site-wrapper blockquote .site-footer,
+blockquote .site-footer,
 blockquote .capture-form .mod-form .mod-form-help,
 .capture-form .mod-form blockquote .mod-form-help {
   display: block;
@@ -2389,8 +2354,7 @@ blockquote .capture-form .mod-form .mod-form-help,
 blockquote footer:before,
 blockquote small:before,
 blockquote .small:before,
-blockquote .site-wrapper .site-footer:before,
-.site-wrapper blockquote .site-footer:before,
+blockquote .site-footer:before,
 blockquote .capture-form .mod-form .mod-form-help:before,
 .capture-form .mod-form blockquote .mod-form-help:before {
   content: '\2014 \00A0';
@@ -2409,15 +2373,13 @@ blockquote.pull-right {
 .blockquote-reverse footer:before,
 .blockquote-reverse small:before,
 .blockquote-reverse .small:before,
-.blockquote-reverse .site-wrapper .site-footer:before,
-.site-wrapper .blockquote-reverse .site-footer:before,
+.blockquote-reverse .site-footer:before,
 .blockquote-reverse .capture-form .mod-form .mod-form-help:before,
 .capture-form .mod-form .blockquote-reverse .mod-form-help:before,
 blockquote.pull-right footer:before,
 blockquote.pull-right small:before,
 blockquote.pull-right .small:before,
-blockquote.pull-right .site-wrapper .site-footer:before,
-.site-wrapper blockquote.pull-right .site-footer:before,
+blockquote.pull-right .site-footer:before,
 blockquote.pull-right .capture-form .mod-form .mod-form-help:before,
 .capture-form .mod-form blockquote.pull-right .mod-form-help:before {
   content: '';
@@ -2426,15 +2388,13 @@ blockquote.pull-right .capture-form .mod-form .mod-form-help:before,
 .blockquote-reverse footer:after,
 .blockquote-reverse small:after,
 .blockquote-reverse .small:after,
-.blockquote-reverse .site-wrapper .site-footer:after,
-.site-wrapper .blockquote-reverse .site-footer:after,
+.blockquote-reverse .site-footer:after,
 .blockquote-reverse .capture-form .mod-form .mod-form-help:after,
 .capture-form .mod-form .blockquote-reverse .mod-form-help:after,
 blockquote.pull-right footer:after,
 blockquote.pull-right small:after,
 blockquote.pull-right .small:after,
-blockquote.pull-right .site-wrapper .site-footer:after,
-.site-wrapper blockquote.pull-right .site-footer:after,
+blockquote.pull-right .site-footer:after,
 blockquote.pull-right .capture-form .mod-form .mod-form-help:after,
 .capture-form .mod-form blockquote.pull-right .mod-form-help:after {
   content: '\00A0 \2014';
@@ -7545,20 +7505,17 @@ button.list-group-item {
 .list-group-item.active .list-group-item-heading,
 .list-group-item.active .list-group-item-heading > small,
 .list-group-item.active .list-group-item-heading > .small,
-.list-group-item.active .site-wrapper .list-group-item-heading > .site-footer,
-.site-wrapper .list-group-item.active .list-group-item-heading > .site-footer,
+.list-group-item.active .list-group-item-heading > .site-footer,
 .list-group-item.active .capture-form .mod-form .list-group-item-heading > .mod-form-help,
 .capture-form .mod-form .list-group-item.active .list-group-item-heading > .mod-form-help, .list-group-item.active:hover .list-group-item-heading,
 .list-group-item.active:hover .list-group-item-heading > small,
 .list-group-item.active:hover .list-group-item-heading > .small,
-.list-group-item.active:hover .site-wrapper .list-group-item-heading > .site-footer,
-.site-wrapper .list-group-item.active:hover .list-group-item-heading > .site-footer,
+.list-group-item.active:hover .list-group-item-heading > .site-footer,
 .list-group-item.active:hover .capture-form .mod-form .list-group-item-heading > .mod-form-help,
 .capture-form .mod-form .list-group-item.active:hover .list-group-item-heading > .mod-form-help, .list-group-item.active:focus .list-group-item-heading,
 .list-group-item.active:focus .list-group-item-heading > small,
 .list-group-item.active:focus .list-group-item-heading > .small,
-.list-group-item.active:focus .site-wrapper .list-group-item-heading > .site-footer,
-.site-wrapper .list-group-item.active:focus .list-group-item-heading > .site-footer,
+.list-group-item.active:focus .list-group-item-heading > .site-footer,
 .list-group-item.active:focus .capture-form .mod-form .list-group-item-heading > .mod-form-help,
 .capture-form .mod-form .list-group-item.active:focus .list-group-item-heading > .mod-form-help {
   color: inherit;
@@ -7759,11 +7716,11 @@ button.list-group-item-danger.active:focus {
 .panel-title > a,
 .panel-title > small,
 .panel-title > .small,
-.site-wrapper .panel-title > .site-footer,
+.panel-title > .site-footer,
 .capture-form .mod-form .panel-title > .mod-form-help,
 .panel-title > small > a,
 .panel-title > .small > a,
-.site-wrapper .panel-title > .site-footer > a,
+.panel-title > .site-footer > a,
 .capture-form .mod-form .panel-title > .mod-form-help > a {
   color: inherit;
 }
@@ -9066,18 +9023,100 @@ button.close {
   }
 }
 /* -----------------------------------------
+         Web Fonts
+-------------------------------------------- */
+@font-face {
+  font-family: "Mono Social Icons Font";
+  src: url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot?1369131776');
+  src: url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot?&1369131776#iefix') format('embedded-opentype'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.woff?1369131776') format('woff'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.ttf?1369131776') format('truetype'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.svg?1369133749#MonoSocialIconsFont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+/* -----------------------------------------
          Site Variables
 -------------------------------------------- */
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
-/* line 28, ../sass/screen.scss */
+/* line 34, ../sass/screen.scss */
 .site-wrapper {
   position: relative;
-  top: 240px;
+  -moz-transition: -moz-transform 800ms;
+  -o-transition: -o-transform 800ms;
+  -webkit-transition: -webkit-transform 800ms;
+  transition: transform 800ms;
 }
-/* line 34, ../sass/screen.scss */
-.site-wrapper .site-footer {
+/* line 37, ../sass/screen.scss */
+.active-main-nav .site-wrapper {
+  -moz-transform: translateX(80%);
+  -ms-transform: translateX(80%);
+  -webkit-transform: translateX(80%);
+  transform: translateX(80%);
+}
+@media (min-width: 768px) {
+  /* line 41, ../sass/screen.scss */
+  .active-main-nav .site-wrapper {
+    -moz-transform: translateX(30%);
+    -ms-transform: translateX(30%);
+    -webkit-transform: translateX(30%);
+    transform: translateX(30%);
+  }
+}
+
+/* line 46, ../sass/screen.scss */
+.site-header {
+  position: relative;
+}
+/* line 49, ../sass/screen.scss */
+.site-header > svg {
+  display: block;
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  left: 50%;
+  top: 10px;
+  margin-left: -50px;
+  z-index: 1000;
+}
+/* line 59, ../sass/screen.scss */
+.site-header > nav {
+  position: fixed;
+  z-index: 999;
+  height: 100%;
+  background-color: #55D6F9;
+  box-shadow: inset -18px 0 18px -18px rgba(0, 0, 0, 0.7);
+  width: 80%;
+  -moz-transform: translateX(-100%);
+  -ms-transform: translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+  -moz-transition: -moz-transform 800ms;
+  -o-transition: -o-transform 800ms;
+  -webkit-transition: -webkit-transform 800ms;
+  transition: transform 800ms;
+}
+@media (min-width: 768px) {
+  /* line 59, ../sass/screen.scss */
+  .site-header > nav {
+    width: 30%;
+  }
+}
+/* line 72, ../sass/screen.scss */
+.active-main-nav .site-header > nav {
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  transform: translateX(0%);
+}
+
+/* line 77, ../sass/screen.scss */
+.site-content {
+  position: relative;
+  padding-top: 240px;
+}
+
+/* line 81, ../sass/screen.scss */
+.site-footer {
   position: absolute;
   bottom: 0;
   width: 100%;
@@ -9085,88 +9124,91 @@ button.close {
   color: #fff;
   padding: 10px 0;
 }
-/* line 42, ../sass/screen.scss */
-.site-wrapper .site-footer a {
+/* line 89, ../sass/screen.scss */
+.site-footer a {
   color: #fff;
   border-bottom: dotted 1px rgba(255, 255, 255, 0.2);
 }
-/* line 46, ../sass/screen.scss */
-.site-wrapper .site-footer ul {
+/* line 93, ../sass/screen.scss */
+.site-footer ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 50, ../sass/screen.scss */
-.site-wrapper .site-footer ul li {
+/* line 97, ../sass/screen.scss */
+.site-footer ul li {
   display: inline;
   padding-left: 10px;
 }
-/* line 53, ../sass/screen.scss */
-.site-wrapper .site-footer ul li::first-child {
+/* line 100, ../sass/screen.scss */
+.site-footer ul li::first-child {
   padding-left: 0;
 }
 
-/* line 60, ../sass/screen.scss */
+/* -----------------------------------------
+         Site Layout Styles
+-------------------------------------------- */
+/* line 109, ../sass/screen.scss */
 .block-wrapper {
   padding-bottom: 100px;
 }
-/* line 62, ../sass/screen.scss */
+/* line 111, ../sass/screen.scss */
 .block-wrapper > .block {
   background-color: #fff;
 }
 @media (max-width: 767px) {
-  /* line 62, ../sass/screen.scss */
+  /* line 111, ../sass/screen.scss */
   .block-wrapper > .block {
     margin-left: 8px;
     margin-right: 8px;
   }
 }
-/* line 71, ../sass/screen.scss */
+/* line 120, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
 }
-/* line 74, ../sass/screen.scss */
+/* line 123, ../sass/screen.scss */
 .block-wrapper.intro-section .lead, .block-wrapper.intro-section .mod-partners-hd p, .mod-partners-hd .block-wrapper.intro-section p, .block-wrapper.intro-section .mod-testimonials-hd p, .mod-testimonials-hd .block-wrapper.intro-section p {
   text-align: center;
 }
-/* line 78, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 .block-wrapper.intro-section > .block .block-inner {
   padding: 20px 30px;
 }
 @media (min-width: 768px) {
-  /* line 78, ../sass/screen.scss */
+  /* line 127, ../sass/screen.scss */
   .block-wrapper.intro-section > .block .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 88, ../sass/screen.scss */
+/* line 137, ../sass/screen.scss */
 .block-wrapper.two-column .block-inner {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 @media (min-width: 768px) {
-  /* line 88, ../sass/screen.scss */
+  /* line 137, ../sass/screen.scss */
   .block-wrapper.two-column .block-inner {
     padding-top: 45px;
     padding-bottom: 45px;
   }
 }
-/* line 97, ../sass/screen.scss */
+/* line 146, ../sass/screen.scss */
 .block-wrapper.two-column .main-column {
   padding-left: 30px;
 }
 @media (min-width: 768px) {
-  /* line 97, ../sass/screen.scss */
+  /* line 146, ../sass/screen.scss */
   .block-wrapper.two-column .main-column {
     padding-left: 60px;
   }
 }
-/* line 105, ../sass/screen.scss */
+/* line 154, ../sass/screen.scss */
 .block-wrapper.two-column .side-column {
   padding-right: 30px;
 }
 @media (min-width: 768px) {
-  /* line 105, ../sass/screen.scss */
+  /* line 154, ../sass/screen.scss */
   .block-wrapper.two-column .side-column {
     padding-right: 60px;
   }
@@ -9175,24 +9217,24 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 123, ../sass/screen.scss */
+/* line 172, ../sass/screen.scss */
 .capture-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 138, ../sass/screen.scss */
+/* line 187, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 142, ../sass/screen.scss */
+/* line 191, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 151, ../sass/screen.scss */
+/* line 200, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
-/* line 157, ../sass/screen.scss */
+/* line 206, ../sass/screen.scss */
 .capture-form .flag-required {
   position: absolute;
   right: -30px;
@@ -9219,27 +9261,114 @@ button.close {
 * Modules can be nested, and bucause of this need to maintain the named space classes.
 * 
 -------------------------------------------- */
+@media (max-width: 767px) {
+  /* line 186, ../sass/_modules.scss */
+  .mod-main-nav {
+    padding-top: 120px;
+  }
+}
+/* line 190, ../sass/_modules.scss */
+.mod-main-nav .widget {
+  border-bottom: solid 1px #1695C1;
+  text-align: center;
+}
+/* line 193, ../sass/_modules.scss */
+.mod-main-nav .widget-hd {
+  border-bottom: solid 1px #1695C1;
+  margin: 0;
+  padding: 16px 0;
+}
 /* line 150, ../sass/_modules.scss */
+.mod-main-nav .widget .navigation {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 155, ../sass/_modules.scss */
+.mod-main-nav .widget li {
+  background-color: transparent;
+  -moz-transition: background-color 600ms;
+  -o-transition: background-color 600ms;
+  -webkit-transition: background-color 600ms;
+  transition: background-color 600ms;
+}
+/* line 158, ../sass/_modules.scss */
+.mod-main-nav .widget li:hover {
+  background-color: rgba(0, 103, 152, 0.2);
+}
+/* line 162, ../sass/_modules.scss */
+.mod-main-nav .widget a {
+  display: block;
+  padding: 6px 10px;
+  text-decoration: none;
+}
+/* line 173, ../sass/_modules.scss */
+.mod-main-nav .widget .current, .mod-main-nav .widget .current:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* line 175, ../sass/_modules.scss */
+.mod-main-nav .widget .current a, .mod-main-nav .widget .current:hover a {
+  cursor: default;
+  color: #fff;
+}
+/* line 201, ../sass/_modules.scss */
+.mod-main-nav .navigation li {
+  font-size: 20px;
+}
+/* line 150, ../sass/_modules.scss */
+.mod-navigation .navigation {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* line 155, ../sass/_modules.scss */
+.mod-navigation li {
+  background-color: transparent;
+  -moz-transition: background-color 600ms;
+  -o-transition: background-color 600ms;
+  -webkit-transition: background-color 600ms;
+  transition: background-color 600ms;
+}
+/* line 158, ../sass/_modules.scss */
+.mod-navigation li:hover {
+  background-color: rgba(0, 103, 152, 0.2);
+}
+/* line 162, ../sass/_modules.scss */
+.mod-navigation a {
+  display: block;
+  padding: 6px 10px;
+  text-decoration: none;
+}
+/* line 173, ../sass/_modules.scss */
+.mod-navigation .current, .mod-navigation .current:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+/* line 175, ../sass/_modules.scss */
+.mod-navigation .current a, .mod-navigation .current:hover a {
+  cursor: default;
+  color: #fff;
+}
+/* line 214, ../sass/_modules.scss */
 .mod-member {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 150, ../sass/_modules.scss */
+  /* line 214, ../sass/_modules.scss */
   .mod-member {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 150, ../sass/_modules.scss */
+  /* line 214, ../sass/_modules.scss */
   .mod-member {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 150, ../sass/_modules.scss */
+  /* line 214, ../sass/_modules.scss */
   .mod-member {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -9325,8 +9454,18 @@ button.close {
     left: 0;
   }
 }
+/* line 218, ../sass/_modules.scss */
+.mod-member-ft ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/* line 223, ../sass/_modules.scss */
+.mod-member-ft li {
+  display: inline-block;
+}
 @media (min-width: 768px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 227, ../sass/_modules.scss */
   .mod-member::before {
     display: block;
     position: absolute;
@@ -9340,63 +9479,63 @@ button.close {
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 227, ../sass/_modules.scss */
   .mod-member::before {
     top: 125px;
     right: 190px;
   }
 }
 @media (min-width: 992px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 227, ../sass/_modules.scss */
   .mod-member::before {
     top: 150px;
     right: 240px;
   }
 }
 @media (min-width: 768px) {
-  /* line 174, ../sass/_modules.scss */
+  /* line 248, ../sass/_modules.scss */
   .mod-member:nth-child(even)::before {
     border-left-color: transparent;
     border-right-color: #eeeeee;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 174, ../sass/_modules.scss */
+  /* line 248, ../sass/_modules.scss */
   .mod-member:nth-child(even)::before {
     left: 190px;
   }
 }
 @media (min-width: 992px) {
-  /* line 174, ../sass/_modules.scss */
+  /* line 248, ../sass/_modules.scss */
   .mod-member:nth-child(even)::before {
     left: 240px;
   }
 }
-/* line 188, ../sass/_modules.scss */
+/* line 262, ../sass/_modules.scss */
 .mod-members-hd h2 {
   text-transform: uppercase;
 }
-/* line 192, ../sass/_modules.scss */
+/* line 266, ../sass/_modules.scss */
 .mod-partner {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 192, ../sass/_modules.scss */
+  /* line 266, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 192, ../sass/_modules.scss */
+  /* line 266, ../sass/_modules.scss */
   .mod-partner {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 192, ../sass/_modules.scss */
+  /* line 266, ../sass/_modules.scss */
   .mod-partner {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -9483,20 +9622,20 @@ button.close {
   }
 }
 @media (max-width: 767px) {
-  /* line 192, ../sass/_modules.scss */
+  /* line 266, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 80px;
   }
 }
-/* line 198, ../sass/_modules.scss */
+/* line 272, ../sass/_modules.scss */
 .mod-partner-ft a {
   float: right;
 }
-/* line 204, ../sass/_modules.scss */
+/* line 278, ../sass/_modules.scss */
 .mod-partners-hd {
   position: relative;
 }
-/* line 206, ../sass/_modules.scss */
+/* line 280, ../sass/_modules.scss */
 .mod-partners-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -9505,28 +9644,32 @@ button.close {
   background-color: #fff;
   margin: 0;
 }
-/* line 215, ../sass/_modules.scss */
+/* line 289, ../sass/_modules.scss */
 .mod-partners-hd p {
   color: #fff;
   padding: 40px 30px 70px;
   margin-bottom: 0;
   text-align: center;
 }
+/* line 295, ../sass/_modules.scss */
+.mod-partners-hd p a {
+  color: inherit;
+}
 @media (min-width: 768px) {
-  /* line 215, ../sass/_modules.scss */
+  /* line 289, ../sass/_modules.scss */
   .mod-partners-hd p {
     padding: 80px 60px;
   }
 }
-/* line 231, ../sass/_modules.scss */
+/* line 306, ../sass/_modules.scss */
 .mod-testimonials {
   margin-bottom: 120px;
 }
-/* line 233, ../sass/_modules.scss */
+/* line 308, ../sass/_modules.scss */
 .mod-testimonials-hd {
   position: relative;
 }
-/* line 235, ../sass/_modules.scss */
+/* line 310, ../sass/_modules.scss */
 .mod-testimonials-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -9534,7 +9677,7 @@ button.close {
   margin-top: -80px;
   background-color: #fff;
 }
-/* line 243, ../sass/_modules.scss */
+/* line 318, ../sass/_modules.scss */
 .mod-testimonials-hd p {
   color: #fff;
   padding: 40px 30px 70px;
@@ -9542,12 +9685,12 @@ button.close {
   text-align: center;
 }
 @media (min-width: 768px) {
-  /* line 243, ../sass/_modules.scss */
+  /* line 318, ../sass/_modules.scss */
   .mod-testimonials-hd p {
     padding: 80px 60px;
   }
 }
-/* line 255, ../sass/_modules.scss */
+/* line 330, ../sass/_modules.scss */
 .mod-testimonials-bd {
   position: relative;
 }
@@ -9558,7 +9701,7 @@ button.close {
   }
 }
 @media (min-width: 768px) {
-  /* line 255, ../sass/_modules.scss */
+  /* line 330, ../sass/_modules.scss */
   .mod-testimonials-bd {
     background-color: #fff;
     overflow: hidden;
@@ -9584,38 +9727,38 @@ button.close {
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 255, ../sass/_modules.scss */
+  /* line 330, ../sass/_modules.scss */
   .mod-testimonials-bd {
     height: 250px;
   }
 }
 @media (min-width: 992px) {
-  /* line 255, ../sass/_modules.scss */
+  /* line 330, ../sass/_modules.scss */
   .mod-testimonials-bd {
     height: 300px;
   }
 }
-/* line 259, ../sass/_modules.scss */
+/* line 334, ../sass/_modules.scss */
 .mod-testimonial {
   background-color: transparent;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 259, ../sass/_modules.scss */
+  /* line 334, ../sass/_modules.scss */
   .mod-testimonial {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 259, ../sass/_modules.scss */
+  /* line 334, ../sass/_modules.scss */
   .mod-testimonial {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 259, ../sass/_modules.scss */
+  /* line 334, ../sass/_modules.scss */
   .mod-testimonial {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -9701,16 +9844,16 @@ button.close {
     left: 0;
   }
 }
-/* line 267, ../sass/_modules.scss */
+/* line 342, ../sass/_modules.scss */
 .mod-client {
   position: relative;
   overflow: hidden;
 }
-/* line 272, ../sass/_modules.scss */
+/* line 347, ../sass/_modules.scss */
 .mod-client img {
   width: 100%;
 }
-/* line 275, ../sass/_modules.scss */
+/* line 350, ../sass/_modules.scss */
 .mod-client-hd {
   color: #fff;
   position: absolute;
@@ -9720,30 +9863,30 @@ button.close {
   padding: 20px;
   bottom: 0;
 }
-/* line 283, ../sass/_modules.scss */
+/* line 358, ../sass/_modules.scss */
 .mod-client-hd h4 {
   color: #fff;
   margin: 0;
 }
-/* line 287, ../sass/_modules.scss */
+/* line 362, ../sass/_modules.scss */
 .mod-client-hd strong {
   display: none;
 }
-/* line 291, ../sass/_modules.scss */
+/* line 366, ../sass/_modules.scss */
 .mod-client-ft {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
 }
-/* line 296, ../sass/_modules.scss */
+/* line 371, ../sass/_modules.scss */
 .mod-client-ft a {
   display: block;
   height: inherit;
   color: transparent;
 }
 @media (min-width: 992px) {
-  /* line 303, ../sass/_modules.scss */
+  /* line 378, ../sass/_modules.scss */
   .mod-client-hd {
     bottom: -100px;
     -moz-transition: bottom 0.4s;
@@ -9751,7 +9894,7 @@ button.close {
     -webkit-transition: bottom 0.4s;
     transition: bottom 0.4s;
   }
-  /* line 306, ../sass/_modules.scss */
+  /* line 381, ../sass/_modules.scss */
   .mod-client-hd h4 {
     position: relative;
     left: 100%;
@@ -9761,7 +9904,7 @@ button.close {
     -webkit-transition-delay: 0.1s;
     transition: left 0.5s ease-in 0.1s;
   }
-  /* line 311, ../sass/_modules.scss */
+  /* line 386, ../sass/_modules.scss */
   .mod-client-hd strong {
     position: relative;
     display: block;
@@ -9772,15 +9915,15 @@ button.close {
     -webkit-transition-delay: 0.1s;
     transition: right 0.5s ease-in 0.1s;
   }
-  /* line 318, ../sass/_modules.scss */
+  /* line 393, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd {
     bottom: 0;
   }
-  /* line 320, ../sass/_modules.scss */
+  /* line 395, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd h4 {
     left: 0;
   }
-  /* line 323, ../sass/_modules.scss */
+  /* line 398, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd strong {
     right: 0;
   }
@@ -9789,18 +9932,18 @@ button.close {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 178, ../sass/screen.scss */
+/* line 227, ../sass/screen.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 181, ../sass/screen.scss */
+/* line 230, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
 @media (min-width: 768px) {
-  /* line 184, ../sass/screen.scss */
+  /* line 233, ../sass/screen.scss */
   .columns {
     -moz-columns: auto 2;
     -webkit-columns: auto 2;
@@ -9811,21 +9954,54 @@ img {
   }
 }
 
+/* line 239, ../sass/screen.scss */
+a {
+  border-bottom-style: dotted;
+  border-bottom-width: 1px;
+}
+/* line 242, ../sass/screen.scss */
+a:hover {
+  text-decoration: none;
+}
+
+/* line 246, ../sass/screen.scss */
+a.social-icon {
+  -webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-family: 'Mono Social Icons Font';
+  font-size: 2em;
+  line-height: 1em;
+  border-bottom: none;
+}
+/* line 261, ../sass/screen.scss */
+a.social-icon:hover {
+  text-decoration: none;
+}
+
 /* line 2, ../sass/pages/_about.scss */
 body.about-page .intro-section {
   padding-bottom: 0;
+  text-align: center;
 }
-/* line 6, ../sass/pages/_about.scss */
+/* line 7, ../sass/pages/_about.scss */
 body.about-page .team-section > .block {
   background-color: transparent;
 }
-/* line 9, ../sass/pages/_about.scss */
+/* line 10, ../sass/pages/_about.scss */
 body.about-page .team-section .mod-members-hd h2 {
   color: #fff;
   text-shadow: 0 1px 1px #000;
 }
 @media (min-width: 768px) {
-  /* line 5, ../sass/pages/_about.scss */
+  /* line 6, ../sass/pages/_about.scss */
   body.about-page .team-section {
     background-position: center top, center center;
     background-repeat: repeat-x, repeat;
@@ -9833,28 +10009,28 @@ body.about-page .team-section .mod-members-hd h2 {
     -webkit-animation: scroll_water 15s linear infinite;
     animation: scroll_water 15s linear infinite;
   }
-  /* line 14, ../sass/pages/_about.scss */
+  /* line 15, ../sass/pages/_about.scss */
   .px-density-2x body.about-page .team-section {
     background-image: url(../img/flatBlueTexture_fade_2x.png), url(../img/flatBlueTexture_2x.png);
     background-size: 200px;
   }
-  /* line 18, ../sass/pages/_about.scss */
+  /* line 19, ../sass/pages/_about.scss */
   .px-density-1x body.about-page .team-section {
     background-image: url(../img/flatBlueTexture_fade_1x.png), url(../img/flatBlueTexture_1x.png);
   }
 }
-/* line 26, ../sass/pages/_about.scss */
+/* line 27, ../sass/pages/_about.scss */
 body.about-page .partners-section {
   border-top: solid 140px #fff;
   padding-bottom: 60px;
   background-color: #d53b24;
 }
-/* line 29, ../sass/pages/_about.scss */
+/* line 30, ../sass/pages/_about.scss */
 body.about-page .partners-section > .block {
   background-color: transparent;
 }
 @media (min-width: 768px) {
-  /* line 26, ../sass/pages/_about.scss */
+  /* line 27, ../sass/pages/_about.scss */
   body.about-page .partners-section {
     padding-bottom: 140px;
     background-position: center bottom;
@@ -9870,11 +10046,11 @@ body.about-page .partners-section > .block {
     background-image: url(../img/orange_1x.jpg);
   }
 }
-/* line 36, ../sass/pages/_about.scss */
+/* line 37, ../sass/pages/_about.scss */
 body.about-page .mod-members-bd > div, body.about-page .mod-partners-bd > div {
   opacity: 0;
 }
-/* line 40, ../sass/pages/_about.scss */
+/* line 41, ../sass/pages/_about.scss */
 body.about-page .mod-members-bd.event-visible-active > div:nth-child(even), body.about-page .mod-partners-bd.event-visible-active > div:nth-child(even) {
   -moz-animation: enter_right 400ms ease-out 600ms 1;
   -webkit-animation: enter_right 400ms ease-out 600ms 1;
@@ -9883,7 +10059,7 @@ body.about-page .mod-members-bd.event-visible-active > div:nth-child(even), body
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 44, ../sass/pages/_about.scss */
+/* line 45, ../sass/pages/_about.scss */
 body.about-page .mod-members-bd.event-visible-active > div:nth-child(odd), body.about-page .mod-partners-bd.event-visible-active > div:nth-child(odd) {
   -moz-animation: enter_left 400ms ease-out 600ms 1;
   -webkit-animation: enter_left 400ms ease-out 600ms 1;
@@ -10018,7 +10194,7 @@ body.work-page .client-section > .block {
 /* -----------------------------------------
          				SVG & animations
 -------------------------------------------- */
-/* line 199, ../sass/screen.scss */
+/* line 275, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
@@ -10033,21 +10209,150 @@ body.work-page .client-section > .block {
   -webkit-transition: opacity 1.5s ease-in;
   transition: opacity 1.5s ease-in;
 }
-/* line 207, ../sass/screen.scss */
+/* line 283, ../sass/screen.scss */
 .px-density-2x #waves {
   background: url(../img/watercolorTextureFade_2x.jpg);
   background-size: 1500px;
 }
-/* line 211, ../sass/screen.scss */
+/* line 287, ../sass/screen.scss */
 .px-density-1x #waves {
   background: url(../img/watercolorTextureFade_1x.jpg);
 }
-/* line 214, ../sass/screen.scss */
+/* line 290, ../sass/screen.scss */
 #waves.active {
   opacity: 1;
 }
 
-/* line 219, ../sass/screen.scss */
+/* line 296, ../sass/screen.scss */
+.site-header-logo .aniCircle {
+  fill: rgba(0, 103, 152, 0.2);
+  stroke: #97E9FC;
+  stroke-width: 5px;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  -moz-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -o-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -webkit-transition: stroke-dashoffset 800ms ease-out;
+  -webkit-transition-delay: 100ms;
+  transition: stroke-dashoffset 800ms ease-out 100ms;
+}
+/* line 304, ../sass/screen.scss */
+.site-header-logo .logo-path-group {
+  stroke: #fff;
+  stroke-width: 1px;
+  fill: transparent;
+  stroke-dasharray: 150;
+  stroke-dashoffset: 150;
+}
+/* line 311, ../sass/screen.scss */
+.site-header-logo .hamburger-x {
+  stroke: #fff;
+  stroke-width: 20px;
+  fill: transparent;
+}
+/* line 315, ../sass/screen.scss */
+.site-header-logo .hamburger-x .path-x {
+  stroke-dasharray: 380;
+  stroke-dashoffset: 380;
+  -moz-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -o-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -webkit-transition: stroke-dashoffset 800ms ease-out;
+  -webkit-transition-delay: 100ms;
+  transition: stroke-dashoffset 800ms ease-out 100ms;
+}
+/* line 320, ../sass/screen.scss */
+.site-header-logo .hamburger-x .path-2 {
+  stroke-dasharray: 135;
+  stroke-dashoffset: 135;
+  -moz-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -o-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -webkit-transition: stroke-dashoffset 800ms ease-out;
+  -webkit-transition-delay: 100ms;
+  transition: stroke-dashoffset 800ms ease-out 100ms;
+}
+/* line 326, ../sass/screen.scss */
+.site-header-logo .logo-path-1 {
+  -moz-transition: all 400ms ease-out 800ms;
+  -o-transition: all 400ms ease-out 800ms;
+  -webkit-transition: all 400ms ease-out;
+  -webkit-transition-delay: 800ms;
+  transition: all 400ms ease-out 800ms;
+}
+/* line 329, ../sass/screen.scss */
+.site-header-logo .logo-path-2 {
+  -moz-transition: all 800ms ease-out 400ms;
+  -o-transition: all 800ms ease-out 400ms;
+  -webkit-transition: all 800ms ease-out;
+  -webkit-transition-delay: 400ms;
+  transition: all 800ms ease-out 400ms;
+}
+/* line 332, ../sass/screen.scss */
+.site-header-logo .logo-path-3 {
+  -moz-transition: all 1200ms ease-out 0ms;
+  -o-transition: all 1200ms ease-out 0ms;
+  -webkit-transition: all 1200ms ease-out;
+  -webkit-transition-delay: 0ms;
+  transition: all 1200ms ease-out 0ms;
+}
+/* line 336, ../sass/screen.scss */
+.site-header-logo.active .logo-path-group {
+  stroke-dashoffset: 0;
+  stroke-width: 7px;
+}
+/* line 341, ../sass/screen.scss */
+.site-header-logo.hover {
+  cursor: pointer;
+}
+/* line 343, ../sass/screen.scss */
+.site-header-logo.hover .logo-path-1 {
+  -moz-transition: all 400ms ease-out 0ms;
+  -o-transition: all 400ms ease-out 0ms;
+  -webkit-transition: all 400ms ease-out;
+  -webkit-transition-delay: 0ms;
+  transition: all 400ms ease-out 0ms;
+}
+/* line 346, ../sass/screen.scss */
+.site-header-logo.hover .logo-path-2 {
+  -moz-transition: all 400ms ease-out 0ms;
+  -o-transition: all 400ms ease-out 0ms;
+  -webkit-transition: all 400ms ease-out;
+  -webkit-transition-delay: 0ms;
+  transition: all 400ms ease-out 0ms;
+}
+/* line 349, ../sass/screen.scss */
+.site-header-logo.hover .logo-path-3 {
+  -moz-transition: all 400ms ease-out 0ms;
+  -o-transition: all 400ms ease-out 0ms;
+  -webkit-transition: all 400ms ease-out;
+  -webkit-transition-delay: 0ms;
+  transition: all 400ms ease-out 0ms;
+}
+/* line 352, ../sass/screen.scss */
+.site-header-logo.hover .aniCircle {
+  stroke-dashoffset: 0;
+}
+/* line 355, ../sass/screen.scss */
+.site-header-logo.hover .hamburger-x .path-x {
+  stroke-dashoffset: 245;
+}
+/* line 358, ../sass/screen.scss */
+.site-header-logo.hover .hamburger-x .path-2 {
+  stroke-dashoffset: 0;
+}
+/* line 363, ../sass/screen.scss */
+.site-header-logo.selected .hamburger-x .path-x {
+  stroke-dashoffset: -245;
+}
+/* line 366, ../sass/screen.scss */
+.site-header-logo.selected .hamburger-x .path-2 {
+  stroke-dashoffset: -135;
+}
+/* line 369, ../sass/screen.scss */
+.site-header-logo.selected .logo-path-group {
+  stroke-dashoffset: 150;
+}
+
+/* line 375, ../sass/screen.scss */
 .wetumka_logo_wrapper {
   height: 0;
   opacity: 0;
@@ -10058,13 +10363,13 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 0s, 500ms;
   transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
 }
-/* line 224, ../sass/screen.scss */
+/* line 380, ../sass/screen.scss */
 .wetumka_logo_wrapper #wetumka_logo {
   display: block;
   width: 100%;
   min-height: 200px;
 }
-/* line 229, ../sass/screen.scss */
+/* line 385, ../sass/screen.scss */
 .wetumka_logo_wrapper.active {
   height: 250px;
   opacity: 1;
@@ -10916,35 +11221,35 @@ body.work-page .client-section > .block {
     transform: translate(0, 0);
   }
 }
-/* line 239, ../sass/screen.scss */
+/* line 395, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
-/* line 240, ../sass/screen.scss */
+/* line 396, ../sass/screen.scss */
 .wave_5 {
   -moz-animation: wave_5 14s linear infinite;
   -webkit-animation: wave_5 14s linear infinite;
   animation: wave_5 14s linear infinite;
 }
-/* line 243, ../sass/screen.scss */
+/* line 399, ../sass/screen.scss */
 .wave_4 {
   -moz-animation: wave_4 7s linear infinite;
   -webkit-animation: wave_4 7s linear infinite;
   animation: wave_4 7s linear infinite;
 }
-/* line 246, ../sass/screen.scss */
+/* line 402, ../sass/screen.scss */
 .wave_3 {
   -moz-animation: wave_3 12s linear infinite;
   -webkit-animation: wave_3 12s linear infinite;
   animation: wave_3 12s linear infinite;
 }
-/* line 249, ../sass/screen.scss */
+/* line 405, ../sass/screen.scss */
 .wave_2 {
   -moz-animation: wave_2 8s linear infinite;
   -webkit-animation: wave_2 8s linear infinite;
   animation: wave_2 8s linear infinite;
 }
-/* line 252, ../sass/screen.scss */
+/* line 408, ../sass/screen.scss */
 .wave_1 {
   -moz-animation: wave_1 15s linear infinite;
   -webkit-animation: wave_1 15s linear infinite;

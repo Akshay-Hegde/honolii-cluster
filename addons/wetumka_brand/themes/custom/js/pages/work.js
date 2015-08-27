@@ -1,5 +1,5 @@
 // work.js
-define (['default'], function (def) {
+define (['default','lib/sections-nav'], function (def,sections) {
 	"use strict";
 
 	var _ = {};
@@ -20,7 +20,7 @@ define (['default'], function (def) {
 		init : function(){
 			var pfx = ["webkit", "moz", "MS", "o", ""];
 
-			function PrefixedEvent(element, type, callback) {
+			function prefixedEvent(element, type, callback) {
 				for (var p = 0; p < pfx.length; p++) {
 					if (!pfx[p]) type = type.toLowerCase();
 					element.addEventListener(pfx[p]+type, callback, false);
@@ -28,10 +28,10 @@ define (['default'], function (def) {
 			}
 
 			for (var i = this.items.length - 1; i >= 0; i--) {
-				// PrefixedEvent(this.items[i], "AnimationStart", this.animationEvent);
-				// PrefixedEvent(this.items[i], "AnimationIteration", this.animationEvent);
-				// PrefixedEvent(this.items[i], "AnimationEnd", this.animationEvent);
-				PrefixedEvent(this.items[i], 'TransitionEnd', function(e){_.carousel.transitionEvent(e)});
+				// prefixedEvent(this.items[i], "AnimationStart", this.animationEvent);
+				// prefixedEvent(this.items[i], "AnimationIteration", this.animationEvent);
+				// prefixedEvent(this.items[i], "AnimationEnd", this.animationEvent);
+				prefixedEvent(this.items[i], 'TransitionEnd', function(e){_.carousel.transitionEvent(e);});
 			}
 		},
 		animationEvent : function(e){

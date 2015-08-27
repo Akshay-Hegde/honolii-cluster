@@ -1,7 +1,12 @@
 // Import Bootstrap Compass integration
 @import "bootstrap_custom/bootstrap";
-
 @import "compass/css3";
+@import "colors";
+
+/* -----------------------------------------
+         Web Fonts
+-------------------------------------------- */
+@include font-face("Mono Social Icons Font",font-files("MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.woff", "MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.ttf", "MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.svg#MonoSocialIconsFont"), "MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot", normal, normal);
 
 // // extra small
 // @media (max-width: $screen-xs-max) {
@@ -15,48 +20,92 @@
 // // large
 // @media (min-width: $screen-lg-min) {
 // }
-// 
-// 
+
+
 /* -----------------------------------------
          Site Variables
 -------------------------------------------- */
 $gutters: 60px;
+$topSpace: 240px;
 
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
 .site-wrapper{
 	position: relative;
-	top:240px;
-	.site-content{
-		
+	@include transition(transform 800ms);
+	.active-main-nav &{
+		@include transform(translateX(80%));
 	}
-	.site-footer{
-		position: absolute;
-		bottom:0;
-		width:100%;
-		text-align:center;
-		@extend .small;
-		color:#fff;
-		padding:10px 0;
-		a{
-			color:#fff;
-			border-bottom: dotted 1px rgba(255,255,255,.2);
+	@media (min-width: $screen-sm-min){
+		.active-main-nav &{
+			@include transform(translateX(30%));
 		}
-		ul{
-			list-style:none;
-			margin:0;
-			padding:0;
-			li{
-				display:inline;
-				padding-left:10px;
-				&::first-child{
-					padding-left:0;
-				}
+	}
+}
+.site-header{
+	position: relative;
+	
+	> svg{
+		display:block;
+		width:100px;
+		height:100px;
+		position: fixed;
+		left:50%;
+		top:10px;
+		margin-left:-50px;
+		z-index:$zindex-navbar;
+	}
+	> nav{
+		position:fixed;
+		z-index:$zindex-navbar - 1;
+		height:100%;
+		background-color:$blue-light;
+		box-shadow:inset -18px 0 18px -18px rgba(0,0,0,.7);
+		width:80%;
+		@include transform(translateX(-100%));
+		@include transition(transform 800ms);
+
+		@media (min-width: $screen-sm-min){
+			width:30%;
+		}
+		.active-main-nav &{
+			@include transform(translateX(0%));
+		}
+	}
+}
+.site-content{
+	position: relative;
+	padding-top:$topSpace;
+}
+.site-footer{
+	position: absolute;
+	bottom:0;
+	width:100%;
+	text-align:center;
+	@extend .small;
+	color:#fff;
+	padding:10px 0;
+	a{
+		color:#fff;
+		border-bottom: dotted 1px rgba(255,255,255,.2);
+	}
+	ul{
+		list-style:none;
+		margin:0;
+		padding:0;
+		li{
+			display:inline;
+			padding-left:10px;
+			&::first-child{
+				padding-left:0;
 			}
 		}
 	}
 }
+/* -----------------------------------------
+         Site Layout Styles
+-------------------------------------------- */
 .block-wrapper{
 	padding-bottom:100px;
 	> .block{
@@ -187,6 +236,33 @@ img{
 		@include column-gap(40px);
   }
 }
+a{
+	border-bottom-style:dotted;
+	border-bottom-width:1px;
+	&:hover{
+		text-decoration:none;
+	}
+}
+a.social-icon {
+	-webkit-text-rendering: optimizeLegibility;
+  -moz-text-rendering: optimizeLegibility;
+  -ms-text-rendering: optimizeLegibility;
+  -o-text-rendering: optimizeLegibility;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+	font-family: 'Mono Social Icons Font';
+  font-size: 2em;
+  line-height:1em;
+  border-bottom:none;
+  &:hover{
+  	text-decoration:none;
+  }
+}
+
 
 @import "pages/about";
 @import "pages/contact";
@@ -216,6 +292,86 @@ img{
 	}
 }
 
+.site-header-logo{
+	.aniCircle{
+		fill:rgba($blue-darkest,.2);
+		stroke: $blue-lightest;
+		stroke-width:5px;
+		stroke-dasharray: 300;
+		stroke-dashoffset: 300;
+		@include transition(stroke-dashoffset 800ms ease-out 100ms);
+	}
+	.logo-path-group{
+		stroke:#fff;
+		stroke-width:1px;
+		fill:transparent;
+		stroke-dasharray: 150;
+		stroke-dashoffset: 150;
+	}
+	.hamburger-x{
+		stroke:#fff;
+		stroke-width:20px;
+		fill:transparent;
+		.path-x{
+			stroke-dasharray: 380;//250
+    	stroke-dashoffset: 380;
+    	@include transition(stroke-dashoffset 800ms ease-out 100ms);
+		}
+		.path-2{
+			stroke-dasharray: 135; //good
+			stroke-dashoffset: 135;
+			@include transition(stroke-dashoffset 800ms ease-out 100ms);
+		}
+	}
+	.logo-path-1{
+		@include transition(all 400ms ease-out 800ms);
+	}
+	.logo-path-2{
+		@include transition(all 800ms ease-out 400ms);
+	}
+	.logo-path-3{
+		@include transition(all 1200ms ease-out 0ms);
+	}
+	&.active{
+		.logo-path-group{
+			stroke-dashoffset: 0;
+			stroke-width:7px;
+		}
+	}
+	&.hover{
+		cursor:pointer;
+		.logo-path-1{
+			@include transition(all 400ms ease-out 0ms);
+		}
+		.logo-path-2{
+			@include transition(all 400ms ease-out 0ms);
+		}
+		.logo-path-3{
+			@include transition(all 400ms ease-out 0ms);
+		}
+		.aniCircle{
+			stroke-dashoffset: 0;
+		}
+		.hamburger-x .path-x{
+			stroke-dashoffset: 245;
+		}
+		.hamburger-x .path-2{
+			stroke-dashoffset: 0;
+		}
+	}
+	&.selected{
+		.hamburger-x .path-x{
+			stroke-dashoffset: -245;
+		}
+		.hamburger-x .path-2{
+			stroke-dashoffset: -135;
+		}
+		.logo-path-group{
+			stroke-dashoffset: 150;
+		}
+	}
+}
+
 .wetumka_logo_wrapper{
 	height:0;
 	opacity:0;
@@ -234,7 +390,7 @@ img{
 
 
 @import "animations";
-@import "colors";
+
 .wave{
 	.fill{fill:#006798};
 	&_5{ //TODO: enable in future
