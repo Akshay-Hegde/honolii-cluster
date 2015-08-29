@@ -11,18 +11,7 @@ body.about-page{
 			color:#fff;
 			text-shadow: 0 1px 1px #000;
 		}
-		@media (min-width: $screen-sm-min) {
-			.px-density-2x &{
-				background-image: url(../img/flatBlueTexture_fade_2x.png),url(../img/flatBlueTexture_2x.png);
-				background-size: 200px;
-			}
-			.px-density-1x &{
-				background-image: url(../img/flatBlueTexture_fade_1x.png),url(../img/flatBlueTexture_1x.png);
-			}
-			background-position:center top, center center;
-			background-repeat: repeat-x, repeat;
-			@include animation(scroll_water 15s linear infinite);
-		}
+		@include section-blue;
 	}
 	.partners-section{
 		border-top:solid 140px #fff;
@@ -30,7 +19,7 @@ body.about-page{
 		> .block{
 			background-color: transparent;
 		}
-		@include mod-style-red;
+		@include section-red;
 	}
 	// scroll in animation
 	.mod-members-bd,.mod-partners-bd{

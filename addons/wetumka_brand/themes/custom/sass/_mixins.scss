@@ -1,0 +1,252 @@
+/* -----------------------------------------
+*        			Section Styles
+* Sections are document containers, they house modules and are not
+* nested with other section. Sections break up the primary sections of a document.
+* 
+-------------------------------------------- */
+@mixin section-red(){ // red background with texture
+	//background-color:$brand-red;
+	background-color:#d53b24;
+	@media (min-width: $screen-sm-min) {
+		.px-density-2x &{
+			background-image: url(../img/orange_2x.jpg);
+			background-size: 1000px;
+		}
+		.px-density-1x &{
+			background-image: url(../img/orange_1x.jpg);
+		}
+		padding-bottom:140px;
+		background-position:center bottom;
+		background-repeat: repeat-x;
+	}
+}
+@mixin section-blue(){ // blue background with texture and animation
+	@media (min-width: $screen-sm-min) {
+		.px-density-2x &{
+			background-image: url(../img/flatBlueTexture_fade_2x.png),url(../img/flatBlueTexture_2x.png);
+			background-size: 200px;
+		}
+		.px-density-1x &{
+			background-image: url(../img/flatBlueTexture_fade_1x.png),url(../img/flatBlueTexture_1x.png);
+		}
+		background-position:center top, center center;
+		background-repeat: repeat-x, repeat;
+		@include animation(scroll_water 15s linear infinite);
+	}
+}
+/* -----------------------------------------
+*        			Module Styles
+* Module blocks are defined by the .mod prefix and have child classes for
+* the header (-hd) body (-bd) and footer (-ft).
+*
+*  - .mod-name
+*  		|- .mod-name-hd
+*  		|- .mod-name-bd
+*  		|- .mod-name-ft
+*
+* Modules can be nested, and bucause of this need to maintain the named space classes.
+* 
+-------------------------------------------- */
+
+@mixin mod-stacked($color1:#fff,$color2:$gray-lighter){ //alternating images on left and right
+	
+	background-color:$color1;
+	position: relative;
+	padding: 10px ($gutters / 2);
+
+	@media (max-width: $screen-xs-max) {
+		padding-bottom:50px;
+	}
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  	height:$img-small;
+		padding:30px ($img-small + 40px) 0 40px;
+  }
+	@media (min-width: $screen-md-min) {
+		height:$img-reg;
+		padding:50px ($img-reg + $gutters) 0 $gutters;
+	}
+
+	> img{
+		max-width:100%;
+		@media (max-width: $screen-xs-max) {
+			@include border-radius(100%);
+			display:block;
+			margin:-50px auto ($line-height-computed / 2);
+		}
+		@media (min-width: $screen-sm-min) {
+			width:$img-reg;
+			height:$img-reg;
+			position: absolute;
+			right:0;
+			top:0;
+		}
+		@media (max-width: $screen-sm-max) { //TODO replace with JS opperation
+    	width:$img-small;
+    	height:$img-small;
+    }
+	}
+	&-hd{
+		h4{
+			@extend .h5;
+			margin:0;
+			font-weight:300;
+		}
+		strong{
+			font-weight:300;
+		}
+		margin-bottom:$line-height-computed;
+		@media (max-width: $screen-sm-max) {
+    	margin-bottom:($line-height-computed / 2);
+    }
+	}
+	&-bd{
+		@media (max-width: $screen-sm-max) {
+    	font-size:$font-size-small;
+    }
+	}
+	&-ft{
+
+	}
+	&:nth-child(even){
+		background-color:$color2;
+
+		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+			padding-left:($img-small + 40px);
+			padding-right:40px;
+		}
+		@media (min-width: $screen-md-min) {
+			padding-left:($img-reg + $gutters);
+			padding-right:$gutters;
+		}
+
+		> img{
+			@media (min-width: $screen-sm-min) {
+				left:0;
+			}
+		}
+	}
+}
+
+@mixin mod-stacked-arrow($arrow:30px,$color1:#fff,$color2:$gray-lighter){ //add arrow to image
+	&::before{
+		@media (min-width: $screen-sm-min){
+			display:block;
+			position: absolute;
+			content:'';
+			width:0;
+			height:0;
+			margin-top:-$arrow;
+			border:solid transparent $arrow;
+			border-left-color:#fff;
+			z-index:1;
+		}
+		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+	  	top: $img-small / 2;
+	  	right: $img-small - ($arrow * 2);
+	  }
+		@media (min-width: $screen-md-min) {
+			top: $img-reg / 2;
+	  	right: $img-reg - ($arrow * 2);
+		}
+	}
+	&:nth-child(even)::before{
+		@media (min-width: $screen-sm-min){
+			border-left-color:transparent;
+			border-right-color:$gray-lighter;
+		}
+		@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  		left: $img-small - ($arrow * 2);
+	  }
+		@media (min-width: $screen-md-min) {
+	  	left: $img-reg - ($arrow * 2);
+		}
+	}
+}
+
+@mixin mod-columns($col, $color:#fff){
+	@extend #{$col};
+	
+	> img{
+		width:100%;
+	}
+	&-hd{
+		padding:20px 40px;
+		background-color:$color;
+	}
+	&-bd{
+		padding:0 40px 40px;
+		background-color:$color;
+	}
+}
+
+@mixin mod-carousel($color1:#fff){
+	position: relative;
+	
+	@media (max-width: $screen-xs-max) {
+		> div{
+			background-color:$color1!important;
+		}
+	}
+	@media (min-width: $screen-sm-min) {
+		background-color:$color1;
+		overflow:hidden;
+		> div{
+			position: absolute;
+			@include transition(transform 500ms ease-in);
+			@include transform(translate(0,-100%));
+			&.active{
+				@include transform(translate(0,0));
+			}
+		}
+		// &.event-visible-active{
+		// 	> div{
+		// 		@include animation(slide_up 400ms ease-out 0s infinite alternate paused);
+		// 		&.play {
+		// 			@include animation-play-state(running);
+		// 		}
+		// 	}
+		// }
+	}
+	@media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+  	height: $img-small;
+  }
+	@media (min-width: $screen-md-min) {
+		height: $img-reg;
+	}
+}
+
+@mixin mod-navigation-list(){
+	.navigation{
+		margin:0;
+		padding:0;
+		list-style:none;
+	}
+	li{
+		background-color:transparent;
+		@include transition(background-color 600ms);
+		&:hover{
+			background-color:rgba($blue-darkest,.2);
+		}
+	}
+	a{
+		display:block;
+		padding:6px 10px;
+		text-decoration:none;
+	}
+	.first{
+
+	}
+	.last{
+
+	}
+	.current,.current:hover{
+		background-color:rgba(#fff,.2);
+		a{
+			cursor:default;
+			color:#fff;
+		}
+	}
+	.parent{
+
+	}
+}

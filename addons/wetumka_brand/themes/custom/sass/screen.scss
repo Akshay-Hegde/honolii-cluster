@@ -1,7 +1,8 @@
 // Import Bootstrap Compass integration
 @import "bootstrap_custom/bootstrap";
 @import "compass/css3";
-@import "colors";
+@import "variables";
+@import "mixins";
 
 /* -----------------------------------------
          Web Fonts
@@ -20,13 +21,6 @@
 // // large
 // @media (min-width: $screen-lg-min) {
 // }
-
-
-/* -----------------------------------------
-         Site Variables
--------------------------------------------- */
-$gutters: 60px;
-$topSpace: 240px;
 
 /* -----------------------------------------
          Site Structure Styles
@@ -110,21 +104,25 @@ $topSpace: 240px;
 	padding-bottom:100px;
 	> .block{
 		@extend .container;
-		background-color:#fff;
-		@media (max-width: $screen-xs-max)  {
-			margin-left:8px;
-			margin-right:8px;
-		}
+		// background-color:#fff;
+		// @media (max-width: $screen-xs-max)  {
+		// 	margin-left:8px;
+		// 	margin-right:8px;
+		// }
+		// .block-inner{
+		// 	background-color:#fff;
+		// }
 	}
 	&.intro-section{
 		h1{
 			text-transform:uppercase;
 		}
-		.lead{
-			text-align:center;
+		p{
+			@extend .lead;
 		}
 		> .block{
-			.block-inner{
+			> .block-inner{
+				background-color:#fff;
 				padding:20px ($gutters / 2);
 				@media (min-width: $screen-sm-min) {
 					padding:45px $gutters;
@@ -133,7 +131,6 @@ $topSpace: 240px;
 		}
 	}
 	&.two-column{
-		
 		.block-inner{
 			@extend .row;
 			padding-top:20px;
@@ -220,7 +217,6 @@ $topSpace: 240px;
 
 @import "modules";
 
-
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
@@ -258,11 +254,8 @@ a.social-icon {
   font-size: 2em;
   line-height:1em;
   border-bottom:none;
-  &:hover{
-  	text-decoration:none;
-  }
+	text-decoration:none;
 }
-
 
 @import "pages/about";
 @import "pages/contact";
