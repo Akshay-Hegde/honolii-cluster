@@ -137,7 +137,7 @@ define (['lib/assets','snapsvg'], function (Assets) {
 
 		logo.small.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 		logo.small.wrapperNode = document.getElementById('header');
-		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.mod-main-nav');
+		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.site-header-wrapper');
 
 		logo.small.svgNode.setAttribute('id','header-logo');
 		logo.small.svgNode.classList.add('site-header-logo');

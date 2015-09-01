@@ -25,47 +25,82 @@
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
-.site-wrapper{
-	position: relative;
-	@include transition(transform 800ms);
-	.active-main-nav &{
-		@include transform(translateX(80%));
-	}
-	@media (min-width: $screen-sm-min){
-		.active-main-nav &{
-			@include transform(translateX(30%));
-		}
+.active-main-nav{
+	@media (max-width: $screen-sm-min) {
+		overflow:hidden;
 	}
 }
-.site-header{
+.site-wrapper{
 	position: relative;
-	
-	> svg{
+}
+.site-header{
+	$nav-height: 300px;
+	$nav-mobile-height: 100%;
+
+	position: fixed;
+	z-index:$zindex-navbar;
+	width:100%;
+
+	@include background-image(linear-gradient(to top, $blue-darkest, $blue-dark));
+	@include transition(transform 800ms);
+
+	.site-header-logo{
 		display:block;
 		width:100px;
 		height:100px;
-		position: fixed;
+		position: absolute;
 		left:50%;
-		top:10px;
+		bottom:-120px;
 		margin-left:-50px;
-		z-index:$zindex-navbar;
 	}
-	> nav{
-		position:fixed;
-		z-index:$zindex-navbar - 1;
-		height:100%;
-		background-color:$blue-light;
-		box-shadow:inset -18px 0 18px -18px rgba(0,0,0,.7);
-		width:80%;
-		@include transform(translateX(-100%));
-		@include transition(transform 800ms);
-
-		@media (min-width: $screen-sm-min){
-			width:30%;
+	.mod-main-nav{
+		overflow:hidden;
+		@extend .row;
+	}
+	.widget{
+		@extend .col-sm-4;
+	}
+	&-wrapper{
+		@extend .container; 
+	}
+	@media (max-width: $screen-sm-min) {
+		height:$nav-mobile-height;
+		top:-$nav-mobile-height;
+		&-wrapper{
+			height:inherit;
+			padding-bottom:125px;
 		}
-		.active-main-nav &{
-			@include transform(translateX(0%));
+		.mod-main-nav{
+			height:$nav-mobile-height;
+			overflow:scroll;
+			border-bottom:solid 2px $blue-light;
+			box-shadow:inset 0 -18px 18px -18px rgba(0,0,0,.7);
 		}
+		.site-header-logo{
+			@include transition(transform 800ms);
+		}
+		.active-main-nav & .site-header-logo{
+			@include transform(translateY(-130px));
+		}
+	}
+	@media (min-width: $screen-sm-min) {
+		height:$nav-height;
+		top:-$nav-height;
+		&::after{
+			display:block;
+			content:'';
+			width:100%;
+			height:20px;
+			background-position: 0 -10px;
+			background-repeat: no-repeat;
+			@include background-image(radial-gradient(50% 10px, rgba(black,.6) 0, rgba(black,0) 90%));
+		}
+		.mod-main-nav{
+			height:$nav-height;
+		}
+	}
+	.active-main-nav &{
+		@include transform(translateY(100%));
 	}
 }
 .site-content{
@@ -88,11 +123,16 @@
 		list-style:none;
 		margin:0;
 		padding:0;
-		li{
-			display:inline;
-			padding-left:10px;
-			&::first-child{
-				padding-left:0;
+	}
+	li{
+		display:inline;
+		padding-left:10px;
+		&::first-child{
+			padding-left:0;
+		}
+		&.copy{
+			@media (max-width: $screen-sm-min){
+				display:block;
 			}
 		}
 	}
@@ -226,6 +266,10 @@ h1,h2{
 img{
 	color:transparent;
 }
+.cta{
+	@extend .btn;
+	@extend .btn-primary;
+}
 .columns {
 	@media (min-width: $screen-sm-min) {
 		@include columns(auto 2);
@@ -271,7 +315,7 @@ a.social-icon {
 	background-position: center top;
 	background-repeat: repeat-x;
 	opacity:0;
-	@include animation(scroll_sky 45s linear infinite);
+	//@include animation(scroll_sky 45s linear infinite);
 	@include transition(opacity 1.5s ease-in);
 	.px-density-2x &{
 		background: url(../img/watercolorTextureFade_2x.jpg);
@@ -387,18 +431,18 @@ a.social-icon {
 .wave{
 	.fill{fill:#006798};
 	&_5{ //TODO: enable in future
-		@include animation(wave_5 14s linear infinite);
+		//@include animation(wave_5 14s linear infinite);
 	}
 	&_4{
-		@include animation(wave_4 7s linear infinite);
+		//@include animation(wave_4 7s linear infinite);
 	}
 	&_3{
-		@include animation(wave_3 12s linear infinite);
+		//@include animation(wave_3 12s linear infinite);
 	}
 	&_2{
-		@include animation(wave_2 8s linear infinite);
+		//@include animation(wave_2 8s linear infinite);
 	}
 	&_1{
-		@include animation(wave_1 15s linear infinite);
+		//@include animation(wave_1 15s linear infinite);
 	}
 }

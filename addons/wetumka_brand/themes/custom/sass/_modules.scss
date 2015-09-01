@@ -13,13 +13,13 @@
 -------------------------------------------- */
 .mod{
 	&-main-nav{
-		@media (max-width: $screen-xs-max) {
-			padding-top:120px;
-		}
+		// @media (max-width: $screen-xs-max) {
+		// 	padding-top:120px;
+		// }
 		.widget{
-			border-bottom:solid 1px $blue-mid;
 			text-align:center;
 			&-hd{
+				color:$blue-light;
 				border-bottom:solid 1px $blue-mid;
 				margin:0;
 				padding:$font-size-base 0;
@@ -73,7 +73,6 @@
 		&-hd{
 			text-align:center;
 		}
-
 	}
 	&-services{
 		&-hd h2{
@@ -116,6 +115,15 @@
 				@media (min-width: $screen-sm-min) {
 					padding:80px $gutters;
 				}
+			}
+		}
+		&-ft{
+			text-align:center;
+			color:#fff;
+			margin:40px 0 0;
+			@extend .lead;
+			@media (max-width: $screen-sm-min){
+				margin-bottom:40px;
 			}
 		}
 	}

@@ -334,8 +334,9 @@ th {
   }
 
   /* line 77, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_print.scss */
-  .btn > .caret,
-  .dropup > .btn > .caret {
+  .btn > .caret, .cta > .caret,
+  .dropup > .btn > .caret,
+  .dropup > .cta > .caret {
     border-top-color: #000 !important;
   }
 
@@ -2044,7 +2045,7 @@ p {
 }
 
 /* line 61, ../sass/bootstrap_custom/_type.scss */
-.lead, .block-wrapper.intro-section p, .mod-members-ft, .mod-partners-hd p, .mod-testimonials-hd p {
+.lead, .block-wrapper.intro-section p, .mod-members-ft, .mod-partners-hd p, .mod-partners-ft, .mod-testimonials-hd p {
   font-size: 20px;
   font-weight: 300;
   line-height: 1.4;
@@ -2472,36 +2473,36 @@ pre code {
 }
 
 /* line 10, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-.container, .block-wrapper > .block {
+.container, .site-header-wrapper, .block-wrapper > .block {
   margin-right: auto;
   margin-left: auto;
   padding-left: 10px;
   padding-right: 10px;
 }
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.container:before, .block-wrapper > .block:before, .container:after, .block-wrapper > .block:after {
+.container:before, .site-header-wrapper:before, .block-wrapper > .block:before, .container:after, .site-header-wrapper:after, .block-wrapper > .block:after {
   content: " ";
   display: table;
 }
 /* line 19, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.container:after, .block-wrapper > .block:after {
+.container:after, .site-header-wrapper:after, .block-wrapper > .block:after {
   clear: both;
 }
 @media (min-width: 768px) {
   /* line 10, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-  .container, .block-wrapper > .block {
+  .container, .site-header-wrapper, .block-wrapper > .block {
     width: 740px;
   }
 }
 @media (min-width: 992px) {
   /* line 10, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-  .container, .block-wrapper > .block {
+  .container, .site-header-wrapper, .block-wrapper > .block {
     width: 960px;
   }
 }
 @media (min-width: 1200px) {
   /* line 10, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-  .container, .block-wrapper > .block {
+  .container, .site-header-wrapper, .block-wrapper > .block {
     width: 1160px;
   }
 }
@@ -2524,22 +2525,22 @@ pre code {
 }
 
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-.row, .block-wrapper.two-column .block-inner, .mod-services-bd, .mod-clients-bd {
+.row, .site-header .mod-main-nav, .block-wrapper.two-column .block-inner, .mod-services-bd, .mod-clients-bd {
   margin-left: -10px;
   margin-right: -10px;
 }
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:before, .block-wrapper.two-column .block-inner:before, .mod-services-bd:before, .mod-clients-bd:before, .row:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after {
+.row:before, .site-header .mod-main-nav:before, .block-wrapper.two-column .block-inner:before, .mod-services-bd:before, .mod-clients-bd:before, .row:after, .site-header .mod-main-nav:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after {
   content: " ";
   display: table;
 }
 /* line 19, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after {
+.row:after, .site-header .mod-main-nav:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after {
   clear: both;
 }
 
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .block-wrapper.two-column .side-column, .col-lg-3, .col-xs-4, .col-sm-4, .capture-form .mod-form > label, .col-md-4, .mod-service, .mod-client, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .mod-client, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .capture-form .mod-form .mod-form-input,
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .block-wrapper.two-column .side-column, .col-lg-3, .col-xs-4, .col-sm-4, .site-header .widget, .capture-form .mod-form > label, .col-md-4, .mod-service, .mod-client, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .mod-client, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .capture-form .mod-form .mod-form-input,
 .capture-form .mod-form .mod-form-textarea,
 .capture-form .mod-form .mod-form-file, .capture-form .mod-form .mod-form-checkbox, .capture-form .mod-form .mod-form-btn, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .block-wrapper.two-column .main-column, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
   position: relative;
@@ -2810,7 +2811,7 @@ pre code {
 
 @media (min-width: 768px) {
   /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .capture-form .mod-form > label, .col-sm-5, .col-sm-6, .col-sm-7, .capture-form .mod-form .mod-form-input,
+  .col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .site-header .widget, .capture-form .mod-form > label, .col-sm-5, .col-sm-6, .col-sm-7, .capture-form .mod-form .mod-form-input,
   .capture-form .mod-form .mod-form-textarea,
   .capture-form .mod-form .mod-form-file, .capture-form .mod-form .mod-form-checkbox, .capture-form .mod-form .mod-form-btn, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
     float: left;
@@ -2832,7 +2833,7 @@ pre code {
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-4, .capture-form .mod-form > label {
+  .col-sm-4, .site-header .widget, .capture-form .mod-form > label {
     width: 33.33333333%;
   }
 
@@ -4103,14 +4104,16 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-textarea .input-group-sm > input[type="date"],
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="date"],
   .input-group-sm > input[type="date"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="date"].btn, .input-group-sm input[type="date"],
+  .input-group-sm > .input-group-btn > input[type="date"].btn,
+  .input-group-sm > .input-group-btn > input[type="date"].cta, .input-group-sm input[type="date"],
   input[type="time"].input-sm,
   .input-group-sm > input[type="time"].form-control,
   .capture-form .mod-form .mod-form-input .input-group-sm > input[type="time"],
   .capture-form .mod-form .mod-form-textarea .input-group-sm > input[type="time"],
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="time"],
   .input-group-sm > input[type="time"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="time"].btn, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="time"].btn,
+  .input-group-sm > .input-group-btn > input[type="time"].cta, .input-group-sm
   input[type="time"],
   input[type="datetime-local"].input-sm,
   .input-group-sm > input[type="datetime-local"].form-control,
@@ -4118,7 +4121,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-textarea .input-group-sm > input[type="datetime-local"],
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="datetime-local"],
   .input-group-sm > input[type="datetime-local"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].cta, .input-group-sm
   input[type="datetime-local"],
   input[type="month"].input-sm,
   .input-group-sm > input[type="month"].form-control,
@@ -4126,7 +4130,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-textarea .input-group-sm > input[type="month"],
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="month"],
   .input-group-sm > input[type="month"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="month"].btn, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="month"].btn,
+  .input-group-sm > .input-group-btn > input[type="month"].cta, .input-group-sm
   input[type="month"] {
     line-height: 30px;
   }
@@ -4135,14 +4140,16 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-textarea .input-group-lg > input[type="date"],
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="date"],
   .input-group-lg > input[type="date"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="date"].btn, .input-group-lg input[type="date"],
+  .input-group-lg > .input-group-btn > input[type="date"].btn,
+  .input-group-lg > .input-group-btn > input[type="date"].cta, .input-group-lg input[type="date"],
   input[type="time"].input-lg,
   .input-group-lg > input[type="time"].form-control,
   .capture-form .mod-form .mod-form-input .input-group-lg > input[type="time"],
   .capture-form .mod-form .mod-form-textarea .input-group-lg > input[type="time"],
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="time"],
   .input-group-lg > input[type="time"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="time"].btn, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="time"].btn,
+  .input-group-lg > .input-group-btn > input[type="time"].cta, .input-group-lg
   input[type="time"],
   input[type="datetime-local"].input-lg,
   .input-group-lg > input[type="datetime-local"].form-control,
@@ -4150,7 +4157,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-textarea .input-group-lg > input[type="datetime-local"],
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="datetime-local"],
   .input-group-lg > input[type="datetime-local"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].cta, .input-group-lg
   input[type="datetime-local"],
   input[type="month"].input-lg,
   .input-group-lg > input[type="month"].form-control,
@@ -4158,7 +4166,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-textarea .input-group-lg > input[type="month"],
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="month"],
   .input-group-lg > input[type="month"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="month"].btn, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="month"].btn,
+  .input-group-lg > .input-group-btn > input[type="month"].cta, .input-group-lg
   input[type="month"] {
     line-height: 49px;
   }
@@ -4266,7 +4275,8 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-lg > textarea.form-control-static,
 .capture-form .mod-form .mod-form-file .input-group-lg > select.form-control-static,
 .input-group-lg > .form-control-static.input-group-addon,
-.input-group-lg > .input-group-btn > .form-control-static.btn, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .capture-form .mod-form .mod-form-input .input-group-sm > input.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > textarea.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > select.form-control-static,
+.input-group-lg > .input-group-btn > .form-control-static.btn,
+.input-group-lg > .input-group-btn > .form-control-static.cta, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .capture-form .mod-form .mod-form-input .input-group-sm > input.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > textarea.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > select.form-control-static,
 .capture-form .mod-form .mod-form-textarea .input-group-sm > input.form-control-static,
 .capture-form .mod-form .mod-form-textarea .input-group-sm > textarea.form-control-static,
 .capture-form .mod-form .mod-form-textarea .input-group-sm > select.form-control-static,
@@ -4274,7 +4284,8 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-sm > textarea.form-control-static,
 .capture-form .mod-form .mod-form-file .input-group-sm > select.form-control-static,
 .input-group-sm > .form-control-static.input-group-addon,
-.input-group-sm > .input-group-btn > .form-control-static.btn {
+.input-group-sm > .input-group-btn > .form-control-static.btn,
+.input-group-sm > .input-group-btn > .form-control-static.cta {
   padding-left: 0;
   padding-right: 0;
 }
@@ -4288,7 +4299,8 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-sm > textarea,
 .capture-form .mod-form .mod-form-file .input-group-sm > select,
 .input-group-sm > .input-group-addon,
-.input-group-sm > .input-group-btn > .btn {
+.input-group-sm > .input-group-btn > .btn,
+.input-group-sm > .input-group-btn > .cta {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -4301,7 +4313,8 @@ select.input-sm, .input-group-sm > select.form-control, .capture-form .mod-form 
 .capture-form .mod-form .mod-form-textarea .input-group-sm > select,
 .capture-form .mod-form .mod-form-file .input-group-sm > select,
 .input-group-sm > select.input-group-addon,
-.input-group-sm > .input-group-btn > select.btn {
+.input-group-sm > .input-group-btn > select.btn,
+.input-group-sm > .input-group-btn > select.cta {
   height: 30px;
   line-height: 30px;
 }
@@ -4312,13 +4325,15 @@ textarea.input-sm, .input-group-sm > textarea.form-control, .capture-form .mod-f
 .capture-form .mod-form .mod-form-file .input-group-sm > textarea,
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
+.input-group-sm > .input-group-btn > textarea.cta,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
 .capture-form .mod-form .mod-form-input .input-group-sm > select[multiple],
 .capture-form .mod-form .mod-form-textarea .input-group-sm > select[multiple],
 .capture-form .mod-form .mod-form-file .input-group-sm > select[multiple],
 .input-group-sm > select[multiple].input-group-addon,
-.input-group-sm > .input-group-btn > select[multiple].btn {
+.input-group-sm > .input-group-btn > select[multiple].btn,
+.input-group-sm > .input-group-btn > select[multiple].cta {
   height: auto;
 }
 
@@ -4384,7 +4399,8 @@ select[multiple].input-sm,
 .capture-form .mod-form .mod-form-file .input-group-lg > textarea,
 .capture-form .mod-form .mod-form-file .input-group-lg > select,
 .input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .btn {
+.input-group-lg > .input-group-btn > .btn,
+.input-group-lg > .input-group-btn > .cta {
   height: 49px;
   padding: 10px 16px;
   font-size: 20px;
@@ -4397,7 +4413,8 @@ select.input-lg, .input-group-lg > select.form-control, .capture-form .mod-form 
 .capture-form .mod-form .mod-form-textarea .input-group-lg > select,
 .capture-form .mod-form .mod-form-file .input-group-lg > select,
 .input-group-lg > select.input-group-addon,
-.input-group-lg > .input-group-btn > select.btn {
+.input-group-lg > .input-group-btn > select.btn,
+.input-group-lg > .input-group-btn > select.cta {
   height: 49px;
   line-height: 49px;
 }
@@ -4408,13 +4425,15 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .capture-form .mod-f
 .capture-form .mod-form .mod-form-file .input-group-lg > textarea,
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
+.input-group-lg > .input-group-btn > textarea.cta,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
 .capture-form .mod-form .mod-form-input .input-group-lg > select[multiple],
 .capture-form .mod-form .mod-form-textarea .input-group-lg > select[multiple],
 .capture-form .mod-form .mod-form-file .input-group-lg > select[multiple],
 .input-group-lg > select[multiple].input-group-addon,
-.input-group-lg > .input-group-btn > select[multiple].btn {
+.input-group-lg > .input-group-btn > select[multiple].btn,
+.input-group-lg > .input-group-btn > select[multiple].cta {
   height: auto;
 }
 
@@ -4516,6 +4535,7 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .input-group-lg > select + .form-control-feedback,
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
+.input-group-lg > .input-group-btn > .cta + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
 .form-group-lg .form-control + .form-control-feedback,
 .form-group-lg .capture-form .mod-form .mod-form-input input + .form-control-feedback,
@@ -4551,6 +4571,7 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .input-group-sm > select + .form-control-feedback,
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
+.input-group-sm > .input-group-btn > .cta + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
 .form-group-sm .form-control + .form-control-feedback,
 .form-group-sm .capture-form .mod-form .mod-form-input input + .form-control-feedback,
@@ -4945,7 +4966,7 @@ select[multiple].input-lg,
 }
 
 /* line 9, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn {
+.btn, .cta {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -4966,25 +4987,25 @@ select[multiple].input-lg,
   user-select: none;
 }
 /* line 26, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
+.btn:focus, .cta:focus, .btn.focus, .focus.cta, .btn:active:focus, .cta:active:focus, .btn:active.focus, .cta:active.focus, .btn.active:focus, .active.cta:focus, .btn.active.focus, .active.focus.cta {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 32, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .btn:focus, .btn.focus {
+.btn:hover, .cta:hover, .btn:focus, .cta:focus, .btn.focus, .focus.cta {
   color: #333;
   text-decoration: none;
 }
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:active, .btn.active {
+.btn:active, .cta:active, .btn.active, .active.cta {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 46, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+.btn.disabled, .disabled.cta, .btn[disabled], [disabled].cta, fieldset[disabled] .btn, fieldset[disabled] .cta {
   cursor: not-allowed;
   opacity: 0.65;
   filter: alpha(opacity=65);
@@ -4993,7 +5014,7 @@ select[multiple].input-lg,
 }
 
 /* line 58, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-a.btn.disabled, fieldset[disabled] a.btn {
+a.btn.disabled, a.disabled.cta, fieldset[disabled] a.btn, fieldset[disabled] a.cta {
   pointer-events: none;
 }
 
@@ -5043,46 +5064,46 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 /* line 71, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-primary {
+.btn-primary, .cta {
   color: #fff;
   background-color: #337ab7;
   border-color: #2e6da4;
 }
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:focus, .btn-primary.focus {
+.btn-primary:focus, .cta:focus, .btn-primary.focus, .focus.cta {
   color: #fff;
   background-color: #286090;
   border-color: #122b40;
 }
 /* line 17, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:hover {
+.btn-primary:hover, .cta:hover {
   color: #fff;
   background-color: #286090;
   border-color: #204d74;
 }
 /* line 22, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+.btn-primary:active, .cta:active, .btn-primary.active, .active.cta, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta {
   color: #fff;
   background-color: #286090;
   border-color: #204d74;
 }
 /* line 29, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active:hover, .btn-primary:active:focus, .btn-primary:active.focus, .btn-primary.active:hover, .btn-primary.active:focus, .btn-primary.active.focus, .open > .btn-primary.dropdown-toggle:hover, .open > .btn-primary.dropdown-toggle:focus, .open > .btn-primary.dropdown-toggle.focus {
+.btn-primary:active:hover, .cta:active:hover, .btn-primary:active:focus, .cta:active:focus, .btn-primary:active.focus, .cta:active.focus, .btn-primary.active:hover, .active.cta:hover, .btn-primary.active:focus, .active.cta:focus, .btn-primary.active.focus, .active.focus.cta, .open > .btn-primary.dropdown-toggle:hover, .open > .dropdown-toggle.cta:hover, .open > .btn-primary.dropdown-toggle:focus, .open > .dropdown-toggle.cta:focus, .open > .btn-primary.dropdown-toggle.focus, .open > .dropdown-toggle.focus.cta {
   color: #fff;
   background-color: #204d74;
   border-color: #122b40;
 }
 /* line 37, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active, .btn-primary.active, .open > .btn-primary.dropdown-toggle {
+.btn-primary:active, .cta:active, .btn-primary.active, .active.cta, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta {
   background-image: none;
 }
 /* line 45, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary.disabled, .btn-primary.disabled:hover, .btn-primary.disabled:focus, .btn-primary.disabled.focus, .btn-primary.disabled:active, .btn-primary.disabled.active, .btn-primary[disabled], .btn-primary[disabled]:hover, .btn-primary[disabled]:focus, .btn-primary[disabled].focus, .btn-primary[disabled]:active, .btn-primary[disabled].active, fieldset[disabled] .btn-primary, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .btn-primary:active, fieldset[disabled] .btn-primary.active {
+.btn-primary.disabled, .disabled.cta, .btn-primary.disabled:hover, .disabled.cta:hover, .btn-primary.disabled:focus, .disabled.cta:focus, .btn-primary.disabled.focus, .disabled.focus.cta, .btn-primary.disabled:active, .disabled.cta:active, .btn-primary.disabled.active, .disabled.active.cta, .btn-primary[disabled], [disabled].cta, .btn-primary[disabled]:hover, [disabled].cta:hover, .btn-primary[disabled]:focus, [disabled].cta:focus, .btn-primary[disabled].focus, [disabled].focus.cta, .btn-primary[disabled]:active, [disabled].cta:active, .btn-primary[disabled].active, [disabled].active.cta, fieldset[disabled] .btn-primary, fieldset[disabled] .cta, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .cta:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .cta:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .focus.cta, fieldset[disabled] .btn-primary:active, fieldset[disabled] .cta:active, fieldset[disabled] .btn-primary.active, fieldset[disabled] .active.cta {
   background-color: #337ab7;
   border-color: #2e6da4;
 }
 /* line 56, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary .badge {
+.btn-primary .badge, .cta .badge {
   color: #337ab7;
   background-color: #fff;
 }
@@ -5296,7 +5317,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 /* line 135, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-lg, .btn-group-lg > .btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .cta {
   padding: 10px 16px;
   font-size: 20px;
   line-height: 1.3333333;
@@ -5304,7 +5325,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 /* line 139, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .cta {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -5312,7 +5333,7 @@ a.btn.disabled, fieldset[disabled] a.btn {
 }
 
 /* line 143, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-xs, .btn-group-xs > .btn {
+.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .cta {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -5389,24 +5410,31 @@ tbody.collapse.in {
   vertical-align: middle;
 }
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn,
-.btn-group-vertical > .btn {
+.btn-group > .btn, .btn-group > .cta,
+.btn-group-vertical > .btn,
+.btn-group-vertical > .cta {
   position: relative;
   float: left;
 }
 /* line 15, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active,
+.btn-group > .btn:hover, .btn-group > .cta:hover, .btn-group > .btn:focus, .btn-group > .cta:focus, .btn-group > .btn:active, .btn-group > .cta:active, .btn-group > .btn.active, .btn-group > .active.cta,
 .btn-group-vertical > .btn:hover,
+.btn-group-vertical > .cta:hover,
 .btn-group-vertical > .btn:focus,
+.btn-group-vertical > .cta:focus,
 .btn-group-vertical > .btn:active,
-.btn-group-vertical > .btn.active {
+.btn-group-vertical > .cta:active,
+.btn-group-vertical > .btn.active,
+.btn-group-vertical > .active.cta {
   z-index: 2;
 }
 
 /* line 26, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group .btn + .btn,
+.btn-group .btn + .btn, .btn-group .cta + .btn, .btn-group .btn + .cta, .btn-group .cta + .cta,
 .btn-group .btn + .btn-group,
+.btn-group .cta + .btn-group,
 .btn-group .btn-group + .btn,
+.btn-group .btn-group + .cta,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -5425,35 +5453,35 @@ tbody.collapse.in {
   clear: both;
 }
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar .btn,
+.btn-toolbar .btn, .btn-toolbar .cta,
 .btn-toolbar .btn-group,
 .btn-toolbar .input-group {
   float: left;
 }
 /* line 44, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar > .btn,
+.btn-toolbar > .btn, .btn-toolbar > .cta,
 .btn-toolbar > .btn-group,
 .btn-toolbar > .input-group {
   margin-left: 5px;
 }
 
 /* line 51, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .cta:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 
 /* line 56, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child {
+.btn-group > .btn:first-child, .btn-group > .cta:first-child {
   margin-left: 0;
 }
 /* line 58, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .cta:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 63, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .cta:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -5465,19 +5493,19 @@ tbody.collapse.in {
 }
 
 /* line 72, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .cta {
   border-radius: 0;
 }
 
 /* line 76, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .cta:last-child,
 .btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 81, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .cta:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5489,13 +5517,13 @@ tbody.collapse.in {
 }
 
 /* line 105, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .btn-group > .cta + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
 
 /* line 109, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .cta + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -5512,25 +5540,26 @@ tbody.collapse.in {
 }
 
 /* line 127, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn .caret {
+.btn .caret, .cta .caret {
   margin-left: 0;
 }
 
 /* line 131, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-lg .caret, .btn-group-lg > .btn .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .cta .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 
 /* line 136, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .cta .caret {
   border-width: 0 5px 5px;
 }
 
 /* line 145, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn,
+.btn-group-vertical > .btn, .btn-group-vertical > .cta,
 .btn-group-vertical > .btn-group,
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .btn,
+.btn-group-vertical > .btn-group > .cta {
   display: block;
   float: none;
   width: 100%;
@@ -5546,49 +5575,51 @@ tbody.collapse.in {
   clear: both;
 }
 /* line 157, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .cta {
   float: none;
 }
 /* line 162, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn + .btn,
+.btn-group-vertical > .btn + .btn, .btn-group-vertical > .cta + .btn, .btn-group-vertical > .btn + .cta, .btn-group-vertical > .cta + .cta,
 .btn-group-vertical > .btn + .btn-group,
+.btn-group-vertical > .cta + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
+.btn-group-vertical > .btn-group + .cta,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 /* line 172, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .cta:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 /* line 175, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .cta:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 /* line 179, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .cta:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
 /* line 184, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cta {
   border-radius: 0;
 }
 
 /* line 188, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .cta:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 /* line 193, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .cta:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5601,14 +5632,14 @@ tbody.collapse.in {
   border-collapse: separate;
 }
 /* line 206, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn,
+.btn-group-justified > .btn, .btn-group-justified > .cta,
 .btn-group-justified > .btn-group {
   float: none;
   display: table-cell;
   width: 1%;
 }
 /* line 212, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn-group .btn {
+.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .cta {
   width: 100%;
 }
 /* line 216, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
@@ -5617,10 +5648,13 @@ tbody.collapse.in {
 }
 
 /* line 237, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-[data-toggle="buttons"] > .btn input[type="radio"],
+[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .cta input[type="radio"],
 [data-toggle="buttons"] > .btn input[type="checkbox"],
+[data-toggle="buttons"] > .cta input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
-[data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"] {
+[data-toggle="buttons"] > .btn-group > .cta input[type="radio"],
+[data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"],
+[data-toggle="buttons"] > .btn-group > .cta input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -5737,7 +5771,8 @@ tbody.collapse.in {
 .capture-form .mod-form .mod-form-file .input-group-sm > textarea.input-group-addon,
 .capture-form .mod-form .mod-form-file .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-addon,
-.input-group-sm > .input-group-btn > .input-group-addon.btn {
+.input-group-sm > .input-group-btn > .input-group-addon.btn,
+.input-group-sm > .input-group-btn > .input-group-addon.cta {
   padding: 5px 10px;
   font-size: 12px;
   border-radius: 3px;
@@ -5751,7 +5786,8 @@ tbody.collapse.in {
 .capture-form .mod-form .mod-form-file .input-group-lg > textarea.input-group-addon,
 .capture-form .mod-form .mod-form-file .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .input-group-addon.btn {
+.input-group-lg > .input-group-btn > .input-group-addon.btn,
+.input-group-lg > .input-group-btn > .input-group-addon.cta {
   padding: 10px 16px;
   font-size: 20px;
   border-radius: 6px;
@@ -5778,10 +5814,14 @@ tbody.collapse.in {
 .capture-form .mod-form .mod-form-file .input-group select:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .cta,
 .input-group-btn:first-child > .btn-group > .btn,
+.input-group-btn:first-child > .btn-group > .cta,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+.input-group-btn:last-child > .cta:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
+.input-group-btn:last-child > .btn-group:not(:last-child) > .cta {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -5807,10 +5847,14 @@ tbody.collapse.in {
 .capture-form .mod-form .mod-form-file .input-group select:last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .cta,
 .input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .btn-group > .cta,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+.input-group-btn:first-child > .cta:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
+.input-group-btn:first-child > .btn-group:not(:first-child) > .cta {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5827,24 +5871,24 @@ tbody.collapse.in {
   white-space: nowrap;
 }
 /* line 140, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn {
+.input-group-btn > .btn, .input-group-btn > .cta {
   position: relative;
 }
 /* line 142, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn + .btn {
+.input-group-btn > .btn + .btn, .input-group-btn > .cta + .btn, .input-group-btn > .btn + .cta, .input-group-btn > .cta + .cta {
   margin-left: -1px;
 }
 /* line 146, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn:hover, .input-group-btn > .btn:focus, .input-group-btn > .btn:active {
+.input-group-btn > .btn:hover, .input-group-btn > .cta:hover, .input-group-btn > .btn:focus, .input-group-btn > .cta:focus, .input-group-btn > .btn:active, .input-group-btn > .cta:active {
   z-index: 2;
 }
 /* line 155, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn, .input-group-btn:first-child > .cta,
 .input-group-btn:first-child > .btn-group {
   margin-right: -1px;
 }
 /* line 161, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .cta,
 .input-group-btn:last-child > .btn-group {
   z-index: 2;
   margin-left: -1px;
@@ -6145,8 +6189,9 @@ tbody.collapse.in {
 }
 
 /* line 108, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-.container > .navbar-header, .block-wrapper > .block > .navbar-header,
+.container > .navbar-header, .site-header-wrapper > .navbar-header, .block-wrapper > .block > .navbar-header,
 .container > .navbar-collapse,
+.site-header-wrapper > .navbar-collapse,
 .block-wrapper > .block > .navbar-collapse,
 .container-fluid > .navbar-header,
 .container-fluid > .navbar-collapse {
@@ -6155,8 +6200,9 @@ tbody.collapse.in {
 }
 @media (min-width: 768px) {
   /* line 108, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-  .container > .navbar-header, .block-wrapper > .block > .navbar-header,
+  .container > .navbar-header, .site-header-wrapper > .navbar-header, .block-wrapper > .block > .navbar-header,
   .container > .navbar-collapse,
+  .site-header-wrapper > .navbar-collapse,
   .block-wrapper > .block > .navbar-collapse,
   .container-fluid > .navbar-header,
   .container-fluid > .navbar-collapse {
@@ -6224,7 +6270,7 @@ tbody.collapse.in {
 }
 @media (min-width: 768px) {
   /* line 180, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-  .navbar > .container .navbar-brand, .block-wrapper.navbar > .block .navbar-brand, .navbar > .container-fluid .navbar-brand {
+  .navbar > .container .navbar-brand, .navbar > .site-header-wrapper .navbar-brand, .block-wrapper.navbar > .block .navbar-brand, .navbar > .container-fluid .navbar-brand {
     margin-left: -10px;
   }
 }
@@ -6483,12 +6529,12 @@ tbody.collapse.in {
   margin-bottom: 6px;
 }
 /* line 346, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn {
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.cta {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 /* line 349, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn {
+.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.cta {
   margin-top: 14px;
   margin-bottom: 14px;
 }
@@ -6939,7 +6985,7 @@ tbody.collapse.in {
   display: none;
 }
 /* line 25, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_labels.scss */
-.btn .label {
+.btn .label, .cta .label {
   position: relative;
   top: -1px;
 }
@@ -7025,12 +7071,12 @@ a.label:hover, a.label:focus {
   display: none;
 }
 /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_badges.scss */
-.btn .badge {
+.btn .badge, .cta .badge {
   position: relative;
   top: -1px;
 }
 /* line 32, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_badges.scss */
-.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .btn .badge {
+.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .cta .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .cta .badge {
   top: 0;
   padding: 1px 5px;
 }
@@ -7087,11 +7133,11 @@ a.badge:hover, a.badge:focus {
   border-top-color: #d5d5d5;
 }
 /* line 28, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
-.container .jumbotron, .block-wrapper > .block .jumbotron, .container-fluid .jumbotron {
+.container .jumbotron, .site-header-wrapper .jumbotron, .block-wrapper > .block .jumbotron, .container-fluid .jumbotron {
   border-radius: 6px;
 }
 /* line 33, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
-.jumbotron .container, .jumbotron .block-wrapper > .block {
+.jumbotron .container, .jumbotron .site-header-wrapper, .jumbotron .block-wrapper > .block {
   max-width: 100%;
 }
 @media screen and (min-width: 768px) {
@@ -7101,7 +7147,7 @@ a.badge:hover, a.badge:focus {
     padding-bottom: 48px;
   }
   /* line 41, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
-  .container .jumbotron, .block-wrapper > .block .jumbotron, .container-fluid .jumbotron {
+  .container .jumbotron, .site-header-wrapper .jumbotron, .block-wrapper > .block .jumbotron, .container-fluid .jumbotron {
     padding-left: 60px;
     padding-right: 60px;
   }
@@ -8325,12 +8371,12 @@ button.close {
   clear: both;
 }
 /* line 110, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn + .btn {
+.modal-footer .btn + .btn, .modal-footer .cta + .btn, .modal-footer .btn + .cta, .modal-footer .cta + .cta {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 115, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn {
+.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .cta + .btn, .modal-footer .btn-group .btn + .cta, .modal-footer .btn-group .cta + .cta {
   margin-left: -1px;
 }
 /* line 119, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
@@ -9057,84 +9103,121 @@ button.close {
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
-/* line 28, ../sass/screen.scss */
+@media (max-width: 768px) {
+  /* line 28, ../sass/screen.scss */
+  .active-main-nav {
+    overflow: hidden;
+  }
+}
+
+/* line 33, ../sass/screen.scss */
 .site-wrapper {
   position: relative;
+}
+
+/* line 36, ../sass/screen.scss */
+.site-header {
+  position: fixed;
+  z-index: 1000;
+  width: 100%;
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwNjc5OCIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAyODZiYSIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #006798), color-stop(100%, #0286ba));
+  background-image: -moz-linear-gradient(bottom, #006798, #0286ba);
+  background-image: -webkit-linear-gradient(bottom, #006798, #0286ba);
+  background-image: linear-gradient(to top, #006798, #0286ba);
   -moz-transition: -moz-transform 800ms;
   -o-transition: -o-transform 800ms;
   -webkit-transition: -webkit-transform 800ms;
   transition: transform 800ms;
 }
-/* line 31, ../sass/screen.scss */
-.active-main-nav .site-wrapper {
-  -moz-transform: translateX(80%);
-  -ms-transform: translateX(80%);
-  -webkit-transform: translateX(80%);
-  transform: translateX(80%);
-}
-@media (min-width: 768px) {
-  /* line 35, ../sass/screen.scss */
-  .active-main-nav .site-wrapper {
-    -moz-transform: translateX(30%);
-    -ms-transform: translateX(30%);
-    -webkit-transform: translateX(30%);
-    transform: translateX(30%);
-  }
-}
-
-/* line 40, ../sass/screen.scss */
-.site-header {
-  position: relative;
-}
-/* line 43, ../sass/screen.scss */
-.site-header > svg {
+/* line 47, ../sass/screen.scss */
+.site-header .site-header-logo {
   display: block;
   width: 100px;
   height: 100px;
-  position: fixed;
+  position: absolute;
   left: 50%;
-  top: 10px;
+  bottom: -120px;
   margin-left: -50px;
-  z-index: 1000;
 }
-/* line 53, ../sass/screen.scss */
-.site-header > nav {
-  position: fixed;
-  z-index: 999;
-  height: 100%;
-  background-color: #55D6F9;
-  box-shadow: inset -18px 0 18px -18px rgba(0, 0, 0, 0.7);
-  width: 80%;
-  -moz-transform: translateX(-100%);
-  -ms-transform: translateX(-100%);
-  -webkit-transform: translateX(-100%);
-  transform: translateX(-100%);
-  -moz-transition: -moz-transform 800ms;
-  -o-transition: -o-transform 800ms;
-  -webkit-transition: -webkit-transform 800ms;
-  transition: transform 800ms;
+/* line 56, ../sass/screen.scss */
+.site-header .mod-main-nav {
+  overflow: hidden;
 }
-@media (min-width: 768px) {
-  /* line 53, ../sass/screen.scss */
-  .site-header > nav {
-    width: 30%;
+@media (max-width: 768px) {
+  /* line 36, ../sass/screen.scss */
+  .site-header {
+    height: 100%;
+    top: -100%;
+  }
+  /* line 69, ../sass/screen.scss */
+  .site-header-wrapper {
+    height: inherit;
+    padding-bottom: 125px;
+  }
+  /* line 73, ../sass/screen.scss */
+  .site-header .mod-main-nav {
+    height: 100%;
+    overflow: scroll;
+    border-bottom: solid 2px #55D6F9;
+    box-shadow: inset 0 -18px 18px -18px rgba(0, 0, 0, 0.7);
+  }
+  /* line 79, ../sass/screen.scss */
+  .site-header .site-header-logo {
+    -moz-transition: -moz-transform 800ms;
+    -o-transition: -o-transform 800ms;
+    -webkit-transition: -webkit-transform 800ms;
+    transition: transform 800ms;
+  }
+  /* line 82, ../sass/screen.scss */
+  .active-main-nav .site-header .site-header-logo {
+    -moz-transform: translateY(-130px);
+    -ms-transform: translateY(-130px);
+    -webkit-transform: translateY(-130px);
+    transform: translateY(-130px);
   }
 }
-/* line 66, ../sass/screen.scss */
-.active-main-nav .site-header > nav {
-  -moz-transform: translateX(0%);
-  -ms-transform: translateX(0%);
-  -webkit-transform: translateX(0%);
-  transform: translateX(0%);
+@media (min-width: 768px) {
+  /* line 36, ../sass/screen.scss */
+  .site-header {
+    height: 300px;
+    top: -300px;
+  }
+  /* line 89, ../sass/screen.scss */
+  .site-header::after {
+    display: block;
+    content: '';
+    width: 100%;
+    height: 20px;
+    background-position: 0 -10px;
+    background-repeat: no-repeat;
+    background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PHJhZGlhbEdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgY3g9IjUwJSIgY3k9IjEwcHgiIHI9IjkwJSI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjYiLz48c3RvcCBvZmZzZXQ9IjkwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjAiLz48L3JhZGlhbEdyYWRpZW50PjwvZGVmcz48cmVjdCB4PSIwIiB5PSIwIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSJ1cmwoI2dyYWQpIiAvPjwvc3ZnPiA=');
+    background-size: 100%;
+    background-image: -moz-radial-gradient(50% 10px, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
+    background-image: -webkit-radial-gradient(50% 10px, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
+    background-image: radial-gradient(50% 10px, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
+  }
+  /* line 98, ../sass/screen.scss */
+  .site-header .mod-main-nav {
+    height: 300px;
+  }
+}
+/* line 102, ../sass/screen.scss */
+.active-main-nav .site-header {
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
 }
 
-/* line 71, ../sass/screen.scss */
+/* line 106, ../sass/screen.scss */
 .site-content {
   position: relative;
   padding-top: 240px;
 }
 
-/* line 75, ../sass/screen.scss */
+/* line 110, ../sass/screen.scss */
 .site-footer {
   position: absolute;
   bottom: 0;
@@ -9143,77 +9226,83 @@ button.close {
   color: #fff;
   padding: 10px 0;
 }
-/* line 83, ../sass/screen.scss */
+/* line 118, ../sass/screen.scss */
 .site-footer a {
   color: #fff;
   border-bottom: dotted 1px rgba(255, 255, 255, 0.2);
 }
-/* line 87, ../sass/screen.scss */
+/* line 122, ../sass/screen.scss */
 .site-footer ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 91, ../sass/screen.scss */
-.site-footer ul li {
+/* line 127, ../sass/screen.scss */
+.site-footer li {
   display: inline;
   padding-left: 10px;
 }
-/* line 94, ../sass/screen.scss */
-.site-footer ul li::first-child {
+/* line 130, ../sass/screen.scss */
+.site-footer li::first-child {
   padding-left: 0;
+}
+@media (max-width: 768px) {
+  /* line 133, ../sass/screen.scss */
+  .site-footer li.copy {
+    display: block;
+  }
 }
 
 /* -----------------------------------------
          Site Layout Styles
 -------------------------------------------- */
-/* line 103, ../sass/screen.scss */
+/* line 143, ../sass/screen.scss */
 .block-wrapper {
   padding-bottom: 100px;
 }
-/* line 117, ../sass/screen.scss */
+/* line 157, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
 }
-/* line 124, ../sass/screen.scss */
+/* line 164, ../sass/screen.scss */
 .block-wrapper.intro-section > .block > .block-inner {
   background-color: #fff;
   padding: 20px 30px;
 }
 @media (min-width: 768px) {
-  /* line 124, ../sass/screen.scss */
+  /* line 164, ../sass/screen.scss */
   .block-wrapper.intro-section > .block > .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 134, ../sass/screen.scss */
+/* line 174, ../sass/screen.scss */
 .block-wrapper.two-column .block-inner {
   padding-top: 20px;
   padding-bottom: 20px;
 }
 @media (min-width: 768px) {
-  /* line 134, ../sass/screen.scss */
+  /* line 174, ../sass/screen.scss */
   .block-wrapper.two-column .block-inner {
     padding-top: 45px;
     padding-bottom: 45px;
   }
 }
-/* line 143, ../sass/screen.scss */
+/* line 183, ../sass/screen.scss */
 .block-wrapper.two-column .main-column {
   padding-left: 30px;
 }
 @media (min-width: 768px) {
-  /* line 143, ../sass/screen.scss */
+  /* line 183, ../sass/screen.scss */
   .block-wrapper.two-column .main-column {
     padding-left: 60px;
   }
 }
-/* line 151, ../sass/screen.scss */
+/* line 191, ../sass/screen.scss */
 .block-wrapper.two-column .side-column {
   padding-right: 30px;
 }
 @media (min-width: 768px) {
-  /* line 151, ../sass/screen.scss */
+  /* line 191, ../sass/screen.scss */
   .block-wrapper.two-column .side-column {
     padding-right: 60px;
   }
@@ -9222,24 +9311,24 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 169, ../sass/screen.scss */
+/* line 209, ../sass/screen.scss */
 .capture-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 184, ../sass/screen.scss */
+/* line 224, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 188, ../sass/screen.scss */
+/* line 228, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 197, ../sass/screen.scss */
+/* line 237, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
-/* line 203, ../sass/screen.scss */
+/* line 243, ../sass/screen.scss */
 .capture-form .flag-required {
   position: absolute;
   right: -30px;
@@ -9266,19 +9355,13 @@ button.close {
 * Modules can be nested, and bucause of this need to maintain the named space classes.
 * 
 -------------------------------------------- */
-@media (max-width: 767px) {
-  /* line 15, ../sass/_modules.scss */
-  .mod-main-nav {
-    padding-top: 120px;
-  }
-}
 /* line 19, ../sass/_modules.scss */
 .mod-main-nav .widget {
-  border-bottom: solid 1px #1695C1;
   text-align: center;
 }
-/* line 22, ../sass/_modules.scss */
+/* line 21, ../sass/_modules.scss */
 .mod-main-nav .widget-hd {
+  color: #55D6F9;
   border-bottom: solid 1px #1695C1;
   margin: 0;
   padding: 16px 0;
@@ -9299,19 +9382,21 @@ button.close {
 }
 /* line 227, ../sass/_mixins.scss */
 .mod-main-nav .widget li:hover {
-  background-color: rgba(0, 103, 152, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 /* line 231, ../sass/_mixins.scss */
 .mod-main-nav .widget a {
   display: block;
   padding: 6px 10px;
   text-decoration: none;
-}
-/* line 242, ../sass/_mixins.scss */
-.mod-main-nav .widget .current, .mod-main-nav .widget .current:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
 }
 /* line 244, ../sass/_mixins.scss */
+.mod-main-nav .widget .current, .mod-main-nav .widget .current:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+/* line 246, ../sass/_mixins.scss */
 .mod-main-nav .widget .current a, .mod-main-nav .widget .current:hover a {
   cursor: default;
   color: #fff;
@@ -9336,19 +9421,21 @@ button.close {
 }
 /* line 227, ../sass/_mixins.scss */
 .mod-navigation li:hover {
-  background-color: rgba(0, 103, 152, 0.2);
+  background-color: rgba(255, 255, 255, 0.2);
 }
 /* line 231, ../sass/_mixins.scss */
 .mod-navigation a {
   display: block;
   padding: 6px 10px;
   text-decoration: none;
-}
-/* line 242, ../sass/_mixins.scss */
-.mod-navigation .current, .mod-navigation .current:hover {
-  background-color: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #fff;
 }
 /* line 244, ../sass/_mixins.scss */
+.mod-navigation .current, .mod-navigation .current:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+/* line 246, ../sass/_mixins.scss */
 .mod-navigation .current a, .mod-navigation .current:hover a {
   cursor: default;
   color: #fff;
@@ -9549,31 +9636,31 @@ button.close {
 .mod-service-hd {
   text-align: center;
 }
-/* line 79, ../sass/_modules.scss */
+/* line 78, ../sass/_modules.scss */
 .mod-services-hd h2 {
   text-transform: uppercase;
 }
-/* line 86, ../sass/_modules.scss */
+/* line 85, ../sass/_modules.scss */
 .mod-partner {
   background-color: #fff;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 86, ../sass/_modules.scss */
+  /* line 85, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 86, ../sass/_modules.scss */
+  /* line 85, ../sass/_modules.scss */
   .mod-partner {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 86, ../sass/_modules.scss */
+  /* line 85, ../sass/_modules.scss */
   .mod-partner {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -9660,20 +9747,20 @@ button.close {
   }
 }
 @media (max-width: 767px) {
-  /* line 86, ../sass/_modules.scss */
+  /* line 85, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 80px;
   }
 }
-/* line 92, ../sass/_modules.scss */
+/* line 91, ../sass/_modules.scss */
 .mod-partner-ft a {
   float: right;
 }
-/* line 98, ../sass/_modules.scss */
+/* line 97, ../sass/_modules.scss */
 .mod-partners-hd {
   position: relative;
 }
-/* line 100, ../sass/_modules.scss */
+/* line 99, ../sass/_modules.scss */
 .mod-partners-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -9682,32 +9769,44 @@ button.close {
   background-color: #fff;
   margin: 0;
 }
-/* line 109, ../sass/_modules.scss */
+/* line 108, ../sass/_modules.scss */
 .mod-partners-hd p {
   color: #fff;
   padding: 40px 30px 70px;
   margin-bottom: 0;
   text-align: center;
 }
-/* line 115, ../sass/_modules.scss */
+/* line 114, ../sass/_modules.scss */
 .mod-partners-hd p a {
   color: inherit;
 }
 @media (min-width: 768px) {
-  /* line 109, ../sass/_modules.scss */
+  /* line 108, ../sass/_modules.scss */
   .mod-partners-hd p {
     padding: 80px 60px;
   }
 }
-/* line 125, ../sass/_modules.scss */
+/* line 120, ../sass/_modules.scss */
+.mod-partners-ft {
+  text-align: center;
+  color: #fff;
+  margin: 40px 0 0;
+}
+@media (max-width: 768px) {
+  /* line 120, ../sass/_modules.scss */
+  .mod-partners-ft {
+    margin-bottom: 40px;
+  }
+}
+/* line 133, ../sass/_modules.scss */
 .mod-testimonials {
   margin-bottom: 120px;
 }
-/* line 127, ../sass/_modules.scss */
+/* line 135, ../sass/_modules.scss */
 .mod-testimonials-hd {
   position: relative;
 }
-/* line 129, ../sass/_modules.scss */
+/* line 137, ../sass/_modules.scss */
 .mod-testimonials-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -9715,7 +9814,7 @@ button.close {
   margin-top: -80px;
   background-color: #fff;
 }
-/* line 137, ../sass/_modules.scss */
+/* line 145, ../sass/_modules.scss */
 .mod-testimonials-hd p {
   color: #fff;
   padding: 40px 30px 70px;
@@ -9723,12 +9822,12 @@ button.close {
   text-align: center;
 }
 @media (min-width: 768px) {
-  /* line 137, ../sass/_modules.scss */
+  /* line 145, ../sass/_modules.scss */
   .mod-testimonials-hd p {
     padding: 80px 60px;
   }
 }
-/* line 149, ../sass/_modules.scss */
+/* line 157, ../sass/_modules.scss */
 .mod-testimonials-bd {
   position: relative;
 }
@@ -9739,7 +9838,7 @@ button.close {
   }
 }
 @media (min-width: 768px) {
-  /* line 149, ../sass/_modules.scss */
+  /* line 157, ../sass/_modules.scss */
   .mod-testimonials-bd {
     background-color: #fff;
     overflow: hidden;
@@ -9765,38 +9864,38 @@ button.close {
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 149, ../sass/_modules.scss */
+  /* line 157, ../sass/_modules.scss */
   .mod-testimonials-bd {
     height: 250px;
   }
 }
 @media (min-width: 992px) {
-  /* line 149, ../sass/_modules.scss */
+  /* line 157, ../sass/_modules.scss */
   .mod-testimonials-bd {
     height: 300px;
   }
 }
-/* line 153, ../sass/_modules.scss */
+/* line 161, ../sass/_modules.scss */
 .mod-testimonial {
   background-color: transparent;
   position: relative;
   padding: 10px 30px;
 }
 @media (max-width: 767px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 161, ../sass/_modules.scss */
   .mod-testimonial {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 161, ../sass/_modules.scss */
   .mod-testimonial {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 161, ../sass/_modules.scss */
   .mod-testimonial {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -9882,16 +9981,16 @@ button.close {
     left: 0;
   }
 }
-/* line 161, ../sass/_modules.scss */
+/* line 169, ../sass/_modules.scss */
 .mod-client {
   position: relative;
   overflow: hidden;
 }
-/* line 166, ../sass/_modules.scss */
+/* line 174, ../sass/_modules.scss */
 .mod-client img {
   width: 100%;
 }
-/* line 169, ../sass/_modules.scss */
+/* line 177, ../sass/_modules.scss */
 .mod-client-hd {
   color: #fff;
   position: absolute;
@@ -9901,30 +10000,30 @@ button.close {
   padding: 20px;
   bottom: 0;
 }
-/* line 177, ../sass/_modules.scss */
+/* line 185, ../sass/_modules.scss */
 .mod-client-hd h4 {
   color: #fff;
   margin: 0;
 }
-/* line 181, ../sass/_modules.scss */
+/* line 189, ../sass/_modules.scss */
 .mod-client-hd strong {
   display: none;
 }
-/* line 185, ../sass/_modules.scss */
+/* line 193, ../sass/_modules.scss */
 .mod-client-ft {
   position: absolute;
   width: 100%;
   height: 100%;
   top: 0;
 }
-/* line 190, ../sass/_modules.scss */
+/* line 198, ../sass/_modules.scss */
 .mod-client-ft a {
   display: block;
   height: inherit;
   color: transparent;
 }
 @media (min-width: 992px) {
-  /* line 197, ../sass/_modules.scss */
+  /* line 205, ../sass/_modules.scss */
   .mod-client-hd {
     bottom: -100px;
     -moz-transition: bottom 0.4s;
@@ -9932,7 +10031,7 @@ button.close {
     -webkit-transition: bottom 0.4s;
     transition: bottom 0.4s;
   }
-  /* line 200, ../sass/_modules.scss */
+  /* line 208, ../sass/_modules.scss */
   .mod-client-hd h4 {
     position: relative;
     left: 100%;
@@ -9942,7 +10041,7 @@ button.close {
     -webkit-transition-delay: 0.1s;
     transition: left 0.5s ease-in 0.1s;
   }
-  /* line 205, ../sass/_modules.scss */
+  /* line 213, ../sass/_modules.scss */
   .mod-client-hd strong {
     position: relative;
     display: block;
@@ -9953,15 +10052,15 @@ button.close {
     -webkit-transition-delay: 0.1s;
     transition: right 0.5s ease-in 0.1s;
   }
-  /* line 212, ../sass/_modules.scss */
+  /* line 220, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd {
     bottom: 0;
   }
-  /* line 214, ../sass/_modules.scss */
+  /* line 222, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd h4 {
     left: 0;
   }
-  /* line 217, ../sass/_modules.scss */
+  /* line 225, ../sass/_modules.scss */
   .mod-client:hover .mod-client-hd strong {
     right: 0;
   }
@@ -9970,18 +10069,18 @@ button.close {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 223, ../sass/screen.scss */
+/* line 263, ../sass/screen.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 226, ../sass/screen.scss */
+/* line 266, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
 @media (min-width: 768px) {
-  /* line 229, ../sass/screen.scss */
+  /* line 273, ../sass/screen.scss */
   .columns {
     -moz-columns: auto 2;
     -webkit-columns: auto 2;
@@ -9992,17 +10091,17 @@ img {
   }
 }
 
-/* line 235, ../sass/screen.scss */
+/* line 279, ../sass/screen.scss */
 a {
   border-bottom-style: dotted;
   border-bottom-width: 1px;
 }
-/* line 238, ../sass/screen.scss */
+/* line 282, ../sass/screen.scss */
 a:hover {
   text-decoration: none;
 }
 
-/* line 242, ../sass/screen.scss */
+/* line 286, ../sass/screen.scss */
 a.social-icon {
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
@@ -10040,9 +10139,6 @@ body.about-page .team-section .mod-members-hd h2 {
   body.about-page .team-section {
     background-position: center top, center center;
     background-repeat: repeat-x, repeat;
-    -moz-animation: scroll_water 15s linear infinite;
-    -webkit-animation: scroll_water 15s linear infinite;
-    animation: scroll_water 15s linear infinite;
   }
   /* line 25, ../sass/_mixins.scss */
   .px-density-2x body.about-page .team-section {
@@ -10109,9 +10205,6 @@ body.about-page .mod-members-bd.event-visible-active > div:nth-child(odd), body.
   body.contact-page .contact-section {
     background-position: center top, center center;
     background-repeat: repeat-x, repeat;
-    -moz-animation: scroll_water 15s linear infinite;
-    -webkit-animation: scroll_water 15s linear infinite;
-    animation: scroll_water 15s linear infinite;
   }
   /* line 25, ../sass/_mixins.scss */
   .px-density-2x body.contact-page .contact-section {
@@ -10151,9 +10244,6 @@ body.work-page .info-section .mod-services-hd h2 {
   body.work-page .info-section {
     background-position: center top, center center;
     background-repeat: repeat-x, repeat;
-    -moz-animation: scroll_water 15s linear infinite;
-    -webkit-animation: scroll_water 15s linear infinite;
-    animation: scroll_water 15s linear infinite;
   }
   /* line 25, ../sass/_mixins.scss */
   .px-density-2x body.work-page .info-section {
@@ -10195,36 +10285,33 @@ body.work-page .client-section > .block {
 /* -----------------------------------------
          				SVG & animations
 -------------------------------------------- */
-/* line 268, ../sass/screen.scss */
+/* line 312, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
   background-position: center top;
   background-repeat: repeat-x;
   opacity: 0;
-  -moz-animation: scroll_sky 45s linear infinite;
-  -webkit-animation: scroll_sky 45s linear infinite;
-  animation: scroll_sky 45s linear infinite;
   -moz-transition: opacity 1.5s ease-in;
   -o-transition: opacity 1.5s ease-in;
   -webkit-transition: opacity 1.5s ease-in;
   transition: opacity 1.5s ease-in;
 }
-/* line 276, ../sass/screen.scss */
+/* line 320, ../sass/screen.scss */
 .px-density-2x #waves {
   background: url(../img/watercolorTextureFade_2x.jpg);
   background-size: 1500px;
 }
-/* line 280, ../sass/screen.scss */
+/* line 324, ../sass/screen.scss */
 .px-density-1x #waves {
   background: url(../img/watercolorTextureFade_1x.jpg);
 }
-/* line 283, ../sass/screen.scss */
+/* line 327, ../sass/screen.scss */
 #waves.active {
   opacity: 1;
 }
 
-/* line 289, ../sass/screen.scss */
+/* line 333, ../sass/screen.scss */
 .site-header-logo .aniCircle {
   fill: rgba(0, 103, 152, 0.2);
   stroke: #97E9FC;
@@ -10237,7 +10324,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 297, ../sass/screen.scss */
+/* line 341, ../sass/screen.scss */
 .site-header-logo .logo-path-group {
   stroke: #fff;
   stroke-width: 1px;
@@ -10245,13 +10332,13 @@ body.work-page .client-section > .block {
   stroke-dasharray: 150;
   stroke-dashoffset: 150;
 }
-/* line 304, ../sass/screen.scss */
+/* line 348, ../sass/screen.scss */
 .site-header-logo .hamburger-x {
   stroke: #fff;
   stroke-width: 20px;
   fill: transparent;
 }
-/* line 308, ../sass/screen.scss */
+/* line 352, ../sass/screen.scss */
 .site-header-logo .hamburger-x .path-x {
   stroke-dasharray: 380;
   stroke-dashoffset: 380;
@@ -10261,7 +10348,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 313, ../sass/screen.scss */
+/* line 357, ../sass/screen.scss */
 .site-header-logo .hamburger-x .path-2 {
   stroke-dasharray: 135;
   stroke-dashoffset: 135;
@@ -10271,7 +10358,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 319, ../sass/screen.scss */
+/* line 363, ../sass/screen.scss */
 .site-header-logo .logo-path-1 {
   -moz-transition: all 400ms ease-out 800ms;
   -o-transition: all 400ms ease-out 800ms;
@@ -10279,7 +10366,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 800ms;
   transition: all 400ms ease-out 800ms;
 }
-/* line 322, ../sass/screen.scss */
+/* line 366, ../sass/screen.scss */
 .site-header-logo .logo-path-2 {
   -moz-transition: all 800ms ease-out 400ms;
   -o-transition: all 800ms ease-out 400ms;
@@ -10287,7 +10374,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 400ms;
   transition: all 800ms ease-out 400ms;
 }
-/* line 325, ../sass/screen.scss */
+/* line 369, ../sass/screen.scss */
 .site-header-logo .logo-path-3 {
   -moz-transition: all 1200ms ease-out 0ms;
   -o-transition: all 1200ms ease-out 0ms;
@@ -10295,16 +10382,16 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 0ms;
   transition: all 1200ms ease-out 0ms;
 }
-/* line 329, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .site-header-logo.active .logo-path-group {
   stroke-dashoffset: 0;
   stroke-width: 7px;
 }
-/* line 334, ../sass/screen.scss */
+/* line 378, ../sass/screen.scss */
 .site-header-logo.hover {
   cursor: pointer;
 }
-/* line 336, ../sass/screen.scss */
+/* line 380, ../sass/screen.scss */
 .site-header-logo.hover .logo-path-1 {
   -moz-transition: all 400ms ease-out 0ms;
   -o-transition: all 400ms ease-out 0ms;
@@ -10312,7 +10399,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 0ms;
   transition: all 400ms ease-out 0ms;
 }
-/* line 339, ../sass/screen.scss */
+/* line 383, ../sass/screen.scss */
 .site-header-logo.hover .logo-path-2 {
   -moz-transition: all 400ms ease-out 0ms;
   -o-transition: all 400ms ease-out 0ms;
@@ -10320,7 +10407,7 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 0ms;
   transition: all 400ms ease-out 0ms;
 }
-/* line 342, ../sass/screen.scss */
+/* line 386, ../sass/screen.scss */
 .site-header-logo.hover .logo-path-3 {
   -moz-transition: all 400ms ease-out 0ms;
   -o-transition: all 400ms ease-out 0ms;
@@ -10328,32 +10415,32 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 0ms;
   transition: all 400ms ease-out 0ms;
 }
-/* line 345, ../sass/screen.scss */
+/* line 389, ../sass/screen.scss */
 .site-header-logo.hover .aniCircle {
   stroke-dashoffset: 0;
 }
-/* line 348, ../sass/screen.scss */
+/* line 392, ../sass/screen.scss */
 .site-header-logo.hover .hamburger-x .path-x {
   stroke-dashoffset: 245;
 }
-/* line 351, ../sass/screen.scss */
+/* line 395, ../sass/screen.scss */
 .site-header-logo.hover .hamburger-x .path-2 {
   stroke-dashoffset: 0;
 }
-/* line 356, ../sass/screen.scss */
+/* line 400, ../sass/screen.scss */
 .site-header-logo.selected .hamburger-x .path-x {
   stroke-dashoffset: -245;
 }
-/* line 359, ../sass/screen.scss */
+/* line 403, ../sass/screen.scss */
 .site-header-logo.selected .hamburger-x .path-2 {
   stroke-dashoffset: -135;
 }
-/* line 362, ../sass/screen.scss */
+/* line 406, ../sass/screen.scss */
 .site-header-logo.selected .logo-path-group {
   stroke-dashoffset: 150;
 }
 
-/* line 368, ../sass/screen.scss */
+/* line 412, ../sass/screen.scss */
 .wetumka_logo_wrapper {
   height: 0;
   opacity: 0;
@@ -10364,13 +10451,13 @@ body.work-page .client-section > .block {
   -webkit-transition-delay: 0s, 500ms;
   transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
 }
-/* line 373, ../sass/screen.scss */
+/* line 417, ../sass/screen.scss */
 .wetumka_logo_wrapper #wetumka_logo {
   display: block;
   width: 100%;
   min-height: 200px;
 }
-/* line 378, ../sass/screen.scss */
+/* line 422, ../sass/screen.scss */
 .wetumka_logo_wrapper.active {
   height: 250px;
   opacity: 1;
@@ -11222,37 +11309,7 @@ body.work-page .client-section > .block {
     transform: translate(0, 0);
   }
 }
-/* line 388, ../sass/screen.scss */
+/* line 432, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
-}
-/* line 389, ../sass/screen.scss */
-.wave_5 {
-  -moz-animation: wave_5 14s linear infinite;
-  -webkit-animation: wave_5 14s linear infinite;
-  animation: wave_5 14s linear infinite;
-}
-/* line 392, ../sass/screen.scss */
-.wave_4 {
-  -moz-animation: wave_4 7s linear infinite;
-  -webkit-animation: wave_4 7s linear infinite;
-  animation: wave_4 7s linear infinite;
-}
-/* line 395, ../sass/screen.scss */
-.wave_3 {
-  -moz-animation: wave_3 12s linear infinite;
-  -webkit-animation: wave_3 12s linear infinite;
-  animation: wave_3 12s linear infinite;
-}
-/* line 398, ../sass/screen.scss */
-.wave_2 {
-  -moz-animation: wave_2 8s linear infinite;
-  -webkit-animation: wave_2 8s linear infinite;
-  animation: wave_2 8s linear infinite;
-}
-/* line 401, ../sass/screen.scss */
-.wave_1 {
-  -moz-animation: wave_1 15s linear infinite;
-  -webkit-animation: wave_1 15s linear infinite;
-  animation: wave_1 15s linear infinite;
 }

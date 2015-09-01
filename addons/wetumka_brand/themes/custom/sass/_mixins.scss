@@ -31,7 +31,7 @@
 		}
 		background-position:center top, center center;
 		background-repeat: repeat-x, repeat;
-		@include animation(scroll_water 15s linear infinite);
+		//@include animation(scroll_water 15s linear infinite);
 	}
 }
 /* -----------------------------------------
@@ -225,13 +225,15 @@
 		background-color:transparent;
 		@include transition(background-color 600ms);
 		&:hover{
-			background-color:rgba($blue-darkest,.2);
+			background-color:rgba(#fff,.2);
 		}
 	}
 	a{
 		display:block;
 		padding:6px 10px;
 		text-decoration:none;
+		border:none;
+		color:#fff;
 	}
 	.first{
 
@@ -240,7 +242,7 @@
 
 	}
 	.current,.current:hover{
-		background-color:rgba(#fff,.2);
+		background-color:rgba(#fff,.4);
 		a{
 			cursor:default;
 			color:#fff;
