@@ -8,9 +8,9 @@ define (['default','lib/sections-nav'], function (def,sections) {
 		this.carousel.items = document.getElementById('section_2');
 		this.carousel.items = this.carousel.items.getElementsByClassName('mod-testimonial');
 
-		this.carousel.init();
+		//this.carousel.init();
 
-		this.carousel.items[0].classList.add('active');
+		//this.carousel.items[0].classList.add('active');
 
 	};
 

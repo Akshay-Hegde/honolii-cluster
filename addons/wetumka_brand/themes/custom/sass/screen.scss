@@ -267,11 +267,14 @@ img{
 	color:transparent;
 }
 .cta{
+	font-size:inherit;
+	vertical-align:baseline;
 	@extend .btn;
 	@extend .btn-primary;
 }
 .columns {
 	@media (min-width: $screen-sm-min) {
+		text-align:left;
 		@include columns(auto 2);
 		@include column-gap(40px);
   }

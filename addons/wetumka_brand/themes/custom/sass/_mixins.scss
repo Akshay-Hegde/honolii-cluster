@@ -252,3 +252,10 @@
 
 	}
 }
+
+@mixin mod-ft-text($color:#fff, $margin:40px 0 0){
+	text-align:center;
+	color:$color;
+	margin:$margin;
+	@extend .lead;
+}
