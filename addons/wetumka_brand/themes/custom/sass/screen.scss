@@ -3,6 +3,7 @@
 @import "compass/css3";
 @import "variables";
 @import "mixins";
+@import "animations";
 
 /* -----------------------------------------
          Web Fonts
@@ -144,28 +145,26 @@
 	padding-bottom:100px;
 	> .block{
 		@extend .container;
-		// background-color:#fff;
-		// @media (max-width: $screen-xs-max)  {
-		// 	margin-left:8px;
-		// 	margin-right:8px;
-		// }
-		// .block-inner{
-		// 	background-color:#fff;
-		// }
 	}
 	&.intro-section{
 		h1{
 			text-transform:uppercase;
+			font-size:80px;
+			font-weight:900;
 		}
 		p{
 			@extend .lead;
 		}
 		> .block{
+			border-bottom: solid 4px rgba(white,.2);
 			> .block-inner{
-				background-color:#fff;
+				color:#fff;
 				padding:20px ($gutters / 2);
 				@media (min-width: $screen-sm-min) {
 					padding:45px $gutters;
+				}
+				a,h1,h2,h3{
+					color:inherit;
 				}
 			}
 		}
@@ -312,34 +311,14 @@ a.social-icon {
          				SVG & animations
 -------------------------------------------- */
 
-#waves {
-	position: absolute;
-	display:block;
-	background-position: center top;
-	background-repeat: repeat-x;
-	opacity:0;
-	//@include animation(scroll_sky 45s linear infinite);
-	@include transition(opacity 1.5s ease-in);
-	.px-density-2x &{
-		background: url(../img/watercolorTextureFade_2x.jpg);
-		background-size: 1500px;
-	}
-	.px-density-1x &{
-		background: url(../img/watercolorTextureFade_1x.jpg);
-	}
-	&.active{
-		opacity:1;
-	}
-}
-
 .site-header-logo{
 	.aniCircle{
 		fill:rgba($blue-darkest,.2);
-		stroke: $blue-lightest;
-		stroke-width:5px;
-		stroke-dasharray: 300;
-		stroke-dashoffset: 300;
-		@include transition(stroke-dashoffset 800ms ease-out 100ms);
+		// stroke: $blue-lightest;
+		// stroke-width:5px;
+		// stroke-dasharray: 300;
+		// stroke-dashoffset: 300;
+		// @include transition(stroke-dashoffset 800ms ease-out 100ms);
 	}
 	.logo-path-group{
 		stroke:#fff;
@@ -351,15 +330,16 @@ a.social-icon {
 	.hamburger-x{
 		stroke:#fff;
 		stroke-width:20px;
+		stroke-linecap:square;
 		fill:transparent;
 		.path-x{
-			stroke-dasharray: 380;//250
-    	stroke-dashoffset: 380;
+			stroke-dasharray: 135 400;
+    	stroke-dashoffset: 135;
     	@include transition(stroke-dashoffset 800ms ease-out 100ms);
 		}
 		.path-2{
-			stroke-dasharray: 135; //good
-			stroke-dashoffset: 135;
+			stroke-dasharray: 135;
+			stroke-dashoffset: 405;
 			@include transition(stroke-dashoffset 800ms ease-out 100ms);
 		}
 	}
@@ -389,14 +369,14 @@ a.social-icon {
 		.logo-path-3{
 			@include transition(all 400ms ease-out 0ms);
 		}
-		.aniCircle{
-			stroke-dashoffset: 0;
-		}
+		// .aniCircle{
+		// 	stroke-dashoffset: 0;
+		// }
 		.hamburger-x .path-x{
-			stroke-dashoffset: 245;
+			stroke-dashoffset: 0;
 		}
 		.hamburger-x .path-2{
-			stroke-dashoffset: 0;
+			stroke-dashoffset: 270;
 		}
 	}
 	&.selected{
@@ -404,7 +384,7 @@ a.social-icon {
 			stroke-dashoffset: -245;
 		}
 		.hamburger-x .path-2{
-			stroke-dashoffset: -135;
+			stroke-dashoffset: 135;
 		}
 		.logo-path-group{
 			stroke-dashoffset: 150;
@@ -428,24 +408,65 @@ a.social-icon {
 	}
 }
 
-
-@import "animations";
+#waves {
+	position: absolute;
+	display:block;
+	background-position: center top;
+	background-repeat: repeat-x;
+	opacity:0;
+	@include transition(opacity 1.5s ease-in);
+	.px-density-2x &{
+		background-image: url(../img/watercolorTextureFade_2x.jpg);
+		background-size: 1500px;
+	}
+	.px-density-1x &{
+		background-image: url(../img/watercolorTextureFade_1x.jpg);
+	}
+	&.active{
+		opacity:1;
+	}
+	@media (min-width: $screen-sm-min) {
+		@include animation(scroll_sky 60s linear infinite);
+	}
+}
 
 .wave{
 	.fill{fill:#006798};
-	&_5{ //TODO: enable in future
-		//@include animation(wave_5 14s linear infinite);
+	@media (max-width: $screen-xs-max) {
+
 	}
-	&_4{
-		//@include animation(wave_4 7s linear infinite);
+	@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+		&_5{
+			@include animation(wave_md_5 14s ease-in-out infinite alternate);
+		}
+		&_4{
+			@include animation(wave_md_4 12s ease-in-out infinite alternate);
+		}
+		&_3{
+			@include animation(wave_md_3 12s ease-in-out infinite alternate);
+		}
+		&_2{
+			@include animation(wave_md_2 10s ease-in-out infinite alternate);
+		}
+		&_1{
+			@include animation(wave_md_1 15s ease-in-out infinite alternate);
+		}
 	}
-	&_3{
-		//@include animation(wave_3 12s linear infinite);
-	}
-	&_2{
-		//@include animation(wave_2 8s linear infinite);
-	}
-	&_1{
-		//@include animation(wave_1 15s linear infinite);
+	@media (min-width: $screen-lg-min) {
+		&_5{
+			@include animation(wave_lg_5 14s ease-in-out infinite alternate);
+		}
+		&_4{
+			@include animation(wave_lg_4 12s ease-in-out infinite alternate);
+		}
+		&_3{
+			@include animation(wave_lg_3 12s ease-in-out infinite alternate);
+		}
+		&_2{
+			@include animation(wave_lg_2 10s ease-in-out infinite alternate);
+		}
+		&_1{
+			@include animation(wave_lg_1 15s ease-in-out infinite alternate);
+		}
 	}
 }

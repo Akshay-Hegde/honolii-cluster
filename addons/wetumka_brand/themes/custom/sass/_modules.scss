@@ -158,6 +158,25 @@
 	&-testimonial{
 		@include mod-stacked;
 		@include mod-stacked-arrow;
+		&-bd{
+			position: relative;
+			q{
+				display:block;
+				p{
+					text-indent:50px;
+				}
+				&::before,&::after{
+					font-size:80px;
+					font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+					line-height:40px;
+					position:absolute;
+					opacity:.2;
+				}
+				&::after{
+					right:0px;
+				}
+			}
+		}
 	}
 	&-clients{
 		&-bd{

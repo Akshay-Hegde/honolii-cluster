@@ -1,5 +1,5 @@
 // Animation Mixins
-@mixin waves-keyframes($keyframes, $Xstart, $Xend, $Ytop, $Ybottom, $name) {
+@mixin waves-keyframes($keyframes, $Xstart, $Xend, $Ytop, $Ybottom, $name, $scaleX:0, $scaleY:0) {
 	// keyframes
 	$keysteps: percentage(1 / $keyframes);
 	// X axis
@@ -14,7 +14,7 @@
 				$Xvalue: ($Xstart + ($i * $diffX));
 				$Yvalue: if($i % 2 == 0,$Ytop,$Ybottom);
 				#{$keyframe} {
-					@include transform(translate($Xvalue,$Yvalue))
+					@include transform(translate($Xvalue,$Yvalue) scale($scaleX,$scaleY))
 				}
 			}
 		}
@@ -57,11 +57,17 @@
 }
 
 // waves animations
-@include waves-keyframes(6, -20%, 13.2%, 0, 5%, 'wave_1');
-@include waves-keyframes(6, -11.5%, 22%, 8%, 5%, 'wave_2');
-@include waves-keyframes(8, -14.4%, 19%, 8%, 9%, 'wave_3');
-@include waves-keyframes(8, -18.5%, 15%, 18%, 15%, 'wave_4');
-@include waves-keyframes(12, -18.5%, 15%, 26%, 22%, 'wave_5');
+@include waves-keyframes(12, -20%, 13.2%, -7%, -8.8%, 'wave_md_1');
+@include waves-keyframes(10, 22%, -22%, 0%, 1.4%, 'wave_md_2');
+@include waves-keyframes(8, -17%, 19%, 15%, 9%, 'wave_md_3');
+@include waves-keyframes(6, 18%, -17%, 24%, 17%, 'wave_md_4');
+@include waves-keyframes(6, -16%, 16%, 24%, 36%, 'wave_md_5');
+
+@include waves-keyframes(6, -11%, 19%, -15%, -16.5%, 'wave_lg_1', .85, .85);
+@include waves-keyframes(10, 17%, -7%, 0%, 2%, 'wave_lg_2', .8, .8);
+@include waves-keyframes(8, -2%, 15%, 14%, 10%, 'wave_lg_3',.75,.75);
+@include waves-keyframes(6, 14.5%, .5%, 21%, 17%, 'wave_lg_4',.75,.75);
+@include waves-keyframes(6, 6.5%, 12.5%, 26%, 29%, 'wave_lg_5',.7,.7);
 
 // simple background image
 @include bkgscroll-keyframes('scroll_sky',1500px);
