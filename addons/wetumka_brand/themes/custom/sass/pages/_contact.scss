@@ -10,4 +10,14 @@ body.contact-page{
 			}
 		}
 	}
+	.side-column{
+		.widget{
+			@extend .col-xs-6;
+			@extend .col-sm-12;
+		}
+		@media (min-width: $screen-sm-min){
+			padding-left:0;
+			padding-right:0;
+		}
+	}
 }

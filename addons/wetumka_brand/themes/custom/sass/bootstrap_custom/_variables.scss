@@ -3,6 +3,15 @@ $bootstrap-sass-asset-helper: false !default;
 // Variables
 // --------------------------------------------------
 
+// site top margin
+$topSpace: 240px !default;
+
+// site gutter size
+$gutters: 60px !default;
+
+// mod-stacked mixin image sizes
+$img-small: 250px !default;
+$img-reg: 300px !default;
 
 //== Colors
 //
@@ -23,6 +32,12 @@ $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
 $brand-danger:          #d9534f !default;
 
+// site colors
+$blue-darkest: 					#006798 !default;
+$blue-dark: 						#0286BA !default;
+$blue-mid:							#1695C1 !default;
+$blue-light: 						#55D6F9 !default;
+$blue-lightest: 				#97E9FC !default;
 
 //== Scaffolding
 //
@@ -31,14 +46,14 @@ $brand-danger:          #d9534f !default;
 //** Background color for `<body>`.
 $body-bg:               #006798 !default;
 //** Global text color on `<body>`.
-$text-color:            $gray-dark !default;
+$text-color:            #fff !default;
 
 //** Global textual link color.
-$link-color:            $brand-primary !default;
+$link-color:            inherit !default;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      darken($link-color, 15%) !default;
+$link-hover-color:      inherit !default;
 //** Link hover decoration.
-$link-hover-decoration: underline !default;
+$link-hover-decoration: none !default;
 
 
 //== Typography
@@ -71,7 +86,7 @@ $line-height-computed:    ceil(($font-size-base * $line-height-base)) !default; 
 $headings-font-family:    inherit !default;
 $headings-font-weight:    100 !default;
 $headings-line-height:    1.1 !default;
-$headings-color:          $brand-red !default;
+$headings-color:          $text-color !default;
 
 
 //== Iconography

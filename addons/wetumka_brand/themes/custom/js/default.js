@@ -1,5 +1,5 @@
 // default.js
-define (['lib/assets','snapsvg'], function (Assets) {
+define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 	"use strict";
 
 	var _ = {};
@@ -43,6 +43,8 @@ define (['lib/assets','snapsvg'], function (Assets) {
 	  	assetPath + '/img/svg/hamburger-x-path.svg'
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);
+	  // monitor FPS to limit animations - keep it smoothe or not at all
+	  this.checkAnimations(body);
 	};
 
 	// Set SVG backgrounds and animations
@@ -191,6 +193,57 @@ define (['lib/assets','snapsvg'], function (Assets) {
 			}else{
 				this.svgNode.classList.add('selected');
 				body.classList.add('active-main-nav');
+			}
+		};
+	};
+
+	// Animation FPS conditionals
+	_.checkAnimations = function(bodyElement){
+		var fpsEvent, aniPhase = 0, framesLow = 15, framesHigh = 40, minWidth = 768;
+		
+		if(window.innerWidth >= minWidth){
+			// Register a progress call-back
+			document.addEventListener('fps', function(e){fpsEvent(e);}, false);
+
+			// Start FPS analysis, optionnally specifying the rate at which FPS 
+			// are evaluated (in seconds, defaults to 1).
+			FPSMeter.run(1.5);
+		}
+
+		//FPSMeter.stop();
+		fpsEvent = function(e){
+			switch(aniPhase){
+				case 0:
+					if(e.fps < framesLow){
+						aniPhase = 1;
+						bodyElement.classList.add('animation-speed-okay');
+						bodyElement.classList.remove('animation-speed-slowest');
+						bodyElement.classList.remove('animation-speed-slow');
+					} else if(e.fps > framesHigh){
+						bodyElement.classList.remove('animation-speed-slowest');
+						bodyElement.classList.remove('animation-speed-slow');
+						bodyElement.classList.remove('animation-speed-okay');
+					}
+					break;
+				case 1:
+					if(e.fps < framesLow){
+						aniPhase = 2;
+						bodyElement.classList.add('animation-speed-slow');
+						bodyElement.classList.remove('animation-speed-slowest');
+						bodyElement.classList.remove('animation-speed-okay');
+					} else if(e.fps > framesHigh){
+						aniPhase = 0;
+					}
+					break;
+				case 2:
+					if(e.fps < framesLow){
+						bodyElement.classList.add('animation-speed-slowest');
+						bodyElement.classList.remove('animation-speed-slow');
+						bodyElement.classList.remove('animation-speed-okay');
+					} else if(e.fps > framesHigh){
+						aniPhase = 1;
+					}
+					break;
 			}
 		};
 	};

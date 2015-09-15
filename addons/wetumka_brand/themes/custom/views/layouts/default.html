@@ -10,7 +10,7 @@
   {{theme:partial name="metadata"}}
 {{ endif }}
 </head>
-<body class="{{page.slug}}-page">
+<body class="{{ url:segments segment="1" default="home" }}-page">
   {{ theme:partial name="header" }}
   <div id="wrapper" class="site-wrapper">
     <div id="content" class="site-content">

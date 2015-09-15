@@ -1,7 +1,6 @@
 // Import Bootstrap Compass integration
 @import "bootstrap_custom/bootstrap";
 @import "compass/css3";
-@import "variables";
 @import "mixins";
 @import "animations";
 
@@ -106,7 +105,10 @@
 }
 .site-content{
 	position: relative;
-	padding-top:$topSpace;
+	padding-top:$topSpace - 100;
+	@media (min-width: $screen-sm-min) {
+		padding-top:$topSpace;
+	}
 }
 .site-footer{
 	position: absolute;
@@ -149,14 +151,13 @@
 	&.intro-section{
 		h1{
 			text-transform:uppercase;
-			font-size:80px;
+			font-size:50px;
 			font-weight:900;
 		}
 		p{
 			@extend .lead;
 		}
 		> .block{
-			border-bottom: solid 4px rgba(white,.2);
 			> .block-inner{
 				color:#fff;
 				padding:20px ($gutters / 2);
@@ -168,32 +169,25 @@
 				}
 			}
 		}
+		@media (min-width: $screen-sm-min) {
+			h1{
+				font-size:80px;
+			}
+			> .block{
+				border-bottom: solid 4px rgba(white,.2);
+			}
+		}
 	}
 	&.two-column{
 		.block-inner{
 			@extend .row;
-			padding-top:20px;
-			padding-bottom:20px;
-			@media (min-width: $screen-sm-min) {
-				padding-top:45px;
-				padding-bottom:45px;
-			}
 		}
 		.main-column{
-			@extend .col-md-8;
-
-			padding-left: ($gutters / 2);
-			@media (min-width: $screen-sm-min) {
-				padding-left:$gutters;
-			}
+			@extend .col-sm-8;
 		}
 		.side-column{
-			@extend .col-md-3;
-			@extend .col-md-offset-1;
-			padding-right: ($gutters / 2);
-			@media (min-width: $screen-sm-min) {
-				padding-right:$gutters;
-			}
+			@extend .col-sm-3;
+			@extend .col-sm-offset-1;
 		}
 	}
 }
@@ -306,6 +300,7 @@ a.social-icon {
 @import "pages/about";
 @import "pages/contact";
 @import "pages/work";
+@import "pages/blog";
 
 /* -----------------------------------------
          				SVG & animations
@@ -415,25 +410,72 @@ a.social-icon {
 	background-repeat: repeat-x;
 	opacity:0;
 	@include transition(opacity 1.5s ease-in);
-	.px-density-2x &{
-		background-image: url(../img/watercolorTextureFade_2x.jpg);
-		background-size: 1500px;
-	}
-	.px-density-1x &{
-		background-image: url(../img/watercolorTextureFade_1x.jpg);
-	}
+	
 	&.active{
 		opacity:1;
 	}
+	@media (max-width: $screen-xs-max) {
+		background-color:$blue-mid;
+	}
 	@media (min-width: $screen-sm-min) {
+		.px-density-2x &{
+			background-image: url(../img/watercolorTextureFade_2x.jpg);
+			background-size: 1500px;
+		}
+		.px-density-1x &{
+			background-image: url(../img/watercolorTextureFade_1x.jpg);
+		}
+
 		@include animation(scroll_sky 60s linear infinite);
+		.animation-speed-slowest &,.animation-speed-slow &,.animation-speed-okay &{
+			@include animation-play-state(paused);
+		}
 	}
 }
 
 .wave{
 	.fill{fill:#006798};
+	&_5{
+		.animation-speed-slowest &{
+			@include animation-play-state(paused);
+		}
+	}
+	&_4{
+		.animation-speed-slowest &,.animation-speed-slow &{
+			@include animation-play-state(paused);
+		}
+	}
+	&_3{
+		.animation-speed-slowest &{
+			@include animation-play-state(paused);
+		}
+	}
+	&_2{
+		.animation-speed-slowest &,.animation-speed-slow &{
+			@include animation-play-state(paused);
+		}
+	}
+	&_1{
+		.animation-speed-slowest &{
+			@include animation-play-state(paused);
+		}
+	}
 	@media (max-width: $screen-xs-max) {
-
+		&_5{
+			@include animation(wave_xs_5 900ms ease-in-out infinite alternate);
+		}
+		&_4{
+			@include animation(wave_xs_4 600ms ease-in-out infinite alternate);
+		}
+		&_3{
+			@include animation(wave_xs_3 500ms ease-in-out infinite alternate);
+		}
+		&_2{
+			@include animation(wave_xs_2 600ms ease-in-out infinite alternate);
+		}
+		&_1{
+			@include animation(wave_xs_1 400ms ease-in-out infinite alternate);
+		}
 	}
 	@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
 		&_5{

@@ -1,5 +1,5 @@
 // Animation Mixins
-@mixin waves-keyframes($keyframes, $Xstart, $Xend, $Ytop, $Ybottom, $name, $scaleX:0, $scaleY:0) {
+@mixin waves-keyframes($keyframes, $Xstart, $Xend, $Ytop, $Ybottom, $name, $scaleX:1, $scaleY:1) {
 	// keyframes
 	$keysteps: percentage(1 / $keyframes);
 	// X axis
@@ -57,11 +57,17 @@
 }
 
 // waves animations
+@include waves-keyframes(2, -4%, -4%, -21%, -20%, 'wave_xs_1', 1.5, 1.5);
+@include waves-keyframes(2, 6%, 6%, -9%, -10%, 'wave_xs_2', 1.5, 1.5);
+@include waves-keyframes(2, 15%, 15%, 13%, 14%, 'wave_xs_3', 1.3, 1.3);
+@include waves-keyframes(2, -17%, -17%, 23%, 22%, 'wave_xs_4', 1.3, 1.3);
+@include waves-keyframes(2, 2%, 2%, 35%, 34%, 'wave_xs_5', 1.2, 1.2);
+
 @include waves-keyframes(12, -20%, 13.2%, -7%, -8.8%, 'wave_md_1');
 @include waves-keyframes(10, 22%, -22%, 0%, 1.4%, 'wave_md_2');
 @include waves-keyframes(8, -17%, 19%, 15%, 9%, 'wave_md_3');
 @include waves-keyframes(6, 18%, -17%, 24%, 17%, 'wave_md_4');
-@include waves-keyframes(6, -16%, 16%, 24%, 36%, 'wave_md_5');
+@include waves-keyframes(6, -16%, 16%, 24%, 30%, 'wave_md_5');
 
 @include waves-keyframes(6, -11%, 19%, -15%, -16.5%, 'wave_lg_1', .85, .85);
 @include waves-keyframes(10, 17%, -7%, 0%, 2%, 'wave_lg_2', .8, .8);

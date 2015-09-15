@@ -32,11 +32,10 @@
 			}
 		}
 	}
+	&-blog_categories{
+		@include mod-navigation-list;
+	}
 	&-navigation{
-		&-hd{
-		}
-		&-bd{
-		}
 		@include mod-navigation-list;
 	}
 	&-member{
@@ -69,6 +68,9 @@
 		}
 		&-hd{
 			text-align:center;
+			h4{
+				color:$brand-red;
+			}
 		}
 	}
 	&-services{
@@ -101,6 +103,7 @@
 			  top: -85px;
 			  background-color:#fff;
 			  margin:0;
+			  color:$brand-red;
 			}
 			p{
 				color:#fff;
@@ -135,6 +138,7 @@
 			  width: 100%;
 			  margin-top: -80px;
 			  background-color:#fff;
+			  color:$brand-red;
 			}
 			p{
 				color:#fff;
@@ -252,5 +256,62 @@
 		// 		}
 		// 	}
 		// }
+	}
+	&-posts{
+		.mod-post{
+			border-bottom: solid 2px rgba(white,.5);
+			margin-bottom: 120px;
+			padding-bottom: 120px;
+
+			&::last-child{
+				margin-bottom:50px;
+			}
+			.mod-post-bd{
+				@extend .lead;
+			}
+		}
+	}
+	&-post{
+		&-hd{
+			border-bottom: solid 1px rgba(white,.2);
+			margin-bottom: 2em;
+			.post-headline{
+				color:#fff;
+				font-size:64px;
+				font-weight:600;
+			}
+			.post-meta{
+				text-align:center;
+				margin:1em 0;
+				.author,.date{
+					font-style:italic;
+				}
+			}
+			.post-image{
+				img{
+					max-width:100%;
+				}
+				margin-bottom:1.2em;
+			}
+		}
+		&-bd{
+			
+		}
+		&-ft{
+			
+		}
+	}
+	&-author{
+		@extend .row;
+		&-hd{
+			@extend .col-sm-2;
+			img{
+				width:100%;
+				@extend .img-circle;
+			}
+		}
+		&-bd{
+			@extend .col-sm-10;
+		}
 	}
 }
