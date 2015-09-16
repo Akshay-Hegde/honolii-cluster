@@ -1,18 +1,27 @@
 // sections-nav.js
-define (['default'], function (def) {
+define (['default','lib/pubsub'], function (def, PubSub) {
 	"use strict";
 
+	// -------- PubSub Publish Events ---------------
+	// 
+	
 	var _ = {};
 
 	// init function
 	_.init = function(){
-		var body = document.querySelector('body');
+		var sectionNav;
+
+		// ---------- PubSub Subscribers --------------
+		PubSub.subscribe('event.window.scrollDelay', function(){_.setSectionNavActive();});
 
 		this.getSections = this.getSections('content','section.block-wrapper');
 		this.buildSectionNav('jump-section-nav');
 		
-		// scrolled event function
-		body.addEventListener('scrolled', function(e){_.windowScroll(e);}, false);
+		// close nav on click
+		sectionNav = this.getSectionNav();
+		for (var i = sectionNav.length - 1; i >= 0; i--) {
+			sectionNav[i].addEventListener('click', function(e){PubSub.publish('event.click.topLogo', e );}, false);
+		}
 	};
 
 	_.buildSectionNav = function(nodeID){
@@ -94,10 +103,6 @@ define (['default'], function (def) {
 				elementNavObj[i].classList.remove('current');
 			}
 		}
-	};
-
-	_.windowScroll = function(event){
-		this.setSectionNavActive();
 	};
 
 	_.init();

@@ -53,7 +53,14 @@
 	background-color:$color1;
 	position: relative;
 	padding: 10px ($gutters / 2);
-	color:$gray-dark;
+	color:$gray;
+
+	a{
+		color:$blue-dark;
+		&:hover{
+			color:$blue-darkest;
+		}
+	}
 
 	@media (max-width: $screen-xs-max) {
 		padding-bottom:50px;
@@ -168,16 +175,10 @@
 
 @mixin mod-columns($col, $color:#fff){
 	@extend #{$col};
-	color:$gray-dark;
-	> img{
-		width:100%;
-	}
 	&-hd{
-		padding:20px 40px;
 		background-color:$color;
 	}
 	&-bd{
-		padding:0 40px 40px;
 		background-color:$color;
 	}
 }

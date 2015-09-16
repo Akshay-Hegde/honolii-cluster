@@ -56,6 +56,19 @@
 	}
 }
 
+@mixin scale-keyframes($name, $XscaleStart:1, $XscaleEnd:1, $YscaleStart:1, $YscaleEnd:1) {
+	@include keyframes($name){
+		from {
+			opacity:0;
+			@include transform(scale($XscaleStart,$YscaleStart))
+    }
+    to {
+    	opacity:1;
+    	@include transform(scale($XscaleEnd,$YscaleEnd))
+    }
+	}
+}
+
 // waves animations
 @include waves-keyframes(2, -4%, -4%, -21%, -20%, 'wave_xs_1', 1.5, 1.5);
 @include waves-keyframes(2, 6%, 6%, -9%, -10%, 'wave_xs_2', 1.5, 1.5);
@@ -85,4 +98,7 @@
 @include enter-keyframes('enter_left',100%);
 
 // coursel animations
-@include carousel-keyframes('slide_up',100%);
+//@include carousel-keyframes('slide_up',100%);
+
+// scale animations
+@include scale-keyframes('scale_in', 1.2, 1, 2, 1);

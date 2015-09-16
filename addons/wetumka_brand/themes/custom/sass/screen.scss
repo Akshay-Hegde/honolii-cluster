@@ -63,12 +63,12 @@
 	&-wrapper{
 		@extend .container; 
 	}
-	@media (max-width: $screen-sm-min) {
+	@media (max-width: $screen-xs-max) {
 		height:$nav-mobile-height;
 		top:-$nav-mobile-height;
 		&-wrapper{
 			height:inherit;
-			padding-bottom:125px;
+			padding-bottom:80px;
 		}
 		.mod-main-nav{
 			height:$nav-mobile-height;
@@ -80,7 +80,7 @@
 			@include transition(transform 800ms);
 		}
 		.active-main-nav & .site-header-logo{
-			@include transform(translateY(-130px));
+			@include transform(translateY(-110px) scale(.7,.7));
 		}
 	}
 	@media (min-width: $screen-sm-min) {
@@ -160,7 +160,7 @@
 		> .block{
 			> .block-inner{
 				color:#fff;
-				padding:20px ($gutters / 2);
+				//padding:20px ($gutters / 2);
 				@media (min-width: $screen-sm-min) {
 					padding:45px $gutters;
 				}
@@ -203,11 +203,13 @@
 			padding-right:20px;
 			@extend .control-label;
 			@extend .col-sm-4;
+			@extend .col-xs-12;
 		}
 		.mod-form-input,
 		.mod-form-textarea,
 		.mod-form-file{
 			@extend .col-sm-7;
+			@extend .col-xs-11;
 			input,textarea,select{
 				@extend .form-control;
 			}
@@ -233,14 +235,21 @@
 			margin-bottom:0;
 		}
 	}
+	select{
+		-webkit-appearance: none;
+	}
 	.flag-required{
 		position: absolute;
-	  right: -30px;
+	  right:-15px;
 	  top: 10px;
 	  font-size: 40px;
 	  line-height: 39px;
 	  color: $brand-danger;
 	  cursor:default;
+	  text-shadow:0 2px 3px rgba(0,0,0,.5);
+	  @media (min-width: $screen-sm-min){
+	  	right: -30px;
+	  }
 	}
 }
 
@@ -364,9 +373,6 @@ a.social-icon {
 		.logo-path-3{
 			@include transition(all 400ms ease-out 0ms);
 		}
-		// .aniCircle{
-		// 	stroke-dashoffset: 0;
-		// }
 		.hamburger-x .path-x{
 			stroke-dashoffset: 0;
 		}
@@ -384,6 +390,9 @@ a.social-icon {
 		.logo-path-group{
 			stroke-dashoffset: 150;
 		}
+	}
+	@media (max-width: $screen-xs-max) {
+		@include transform(scale(.7,.7));
 	}
 }
 

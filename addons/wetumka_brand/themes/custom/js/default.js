@@ -1,14 +1,23 @@
 // default.js
-define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
+define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, PubSub) {
 	"use strict";
+
+	// -------- PubSub Publish Events ---------------
+	// event.window.scrollDelay - (multi) a delayed scroll event that fires when scrolling stops
+	// event.click.topLogo - (multi) user triggered (click,touch) event, toggles the main top nav
+	// event.hover.topLogo - (multi) user triggered (mouse in/out) event, sets hover animation of top logo
+	// end.scrollEventVisible - (single) event fires when all scroll-visible elements have been triggered
 
 	var _ = {};
 
 	// init function
 	_.init = function(){
-		var timeout,body,scrollEvent,that = this;
-		scrollEvent = new Event('scrolled'); // custom scrolled event
-		body = document.querySelector('body');
+		var timeout,bodyElement,scrollEvent,that = this;
+		// ---------- PubSub Subscribers --------------
+	  PubSub.subscribe('event.window.scrollDelay', function(){_.windowScroll();});
+
+		//scrollEvent = new Event('scrolled'); // custom scrolled event
+		bodyElement = document.querySelector('body');
 
 		// set scrollEventVisible elements
 		this.scrollToggle = document.getElementsByClassName('scroll-visible');
@@ -18,7 +27,7 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 		setInterval(function(){
 			if(that.didScroll){
 				that.didScroll = false;
-				body.dispatchEvent(scrollEvent);
+				PubSub.publish('event.window.scrollDelay');
 			}
 		}, 100);
 		// scrolling event
@@ -28,8 +37,6 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 	    	_.didScroll = true;
 	    }, 50);
 		};
-		// scrolled event function
-		body.addEventListener('scrolled', function(e){_.windowScroll(e);}, false);
 		
 		// set images on document ready
 		this.setImgSrc();
@@ -44,12 +51,12 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);
 	  // monitor FPS to limit animations - keep it smoothe or not at all
-	  this.checkAnimations(body);
+	  this.checkAnimations(bodyElement);
 	};
 
 	// Set SVG backgrounds and animations
 	_.setSceneSVG = function(am){ // am = assetManager
-		var wave = {}, logo = {};
+		var wave = {}, logo = {}, bodyElement = document.querySelector('body');
 			
 		// ------------ WAVES -----------------
 		
@@ -90,49 +97,6 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 			document.getElementById('waves').classList.add('active');
 		},10);
 		
-		// ------------ BIG LOGO -----------------
-	
-		// logo.big = {};
-		// logo.big.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		// logo.big.wrapperNode = document.getElementById('section_main');
-		// logo.big.wrapperNode = logo.big.wrapperNode.querySelector('h1');
-
-		// logo.big.svgNode.setAttribute('id','wetumka_logo');
-
-		// logo.big.svgWrapperNode = document.createElement('div');
-		// logo.big.svgWrapperNode.classList.add('wetumka_logo_wrapper');
-		// logo.big.svgWrapperNode.setAttribute('id','wetumka_logo_wrapper');
-
-		// logo.big.svgWrapperNode.appendChild(logo.big.svgNode);
-
-		// logo.big.wrapperNode.parentNode.insertBefore(logo.big.svgWrapperNode,logo.big.wrapperNode);
-
-		// logo.big.canvasSVG = new Snap('#wetumka_logo');
-		// logo.big.logoSVG = new Snap(am.getCachedAsset('wetumka-logo.svg').cloneNode(true));
-
-		// //SVG drawing area
-		// logo.big.canvasSVG.attr({
-		// 	preserveAspectRatio:'xMidYMid meet'
-		// });
-
-		// //SVG logos
-		// logo.big.logoSVG.attr({
-		// 	viewBox:'240 800 245 195'
-		// });
-
-		// logo.big.logoSVG_1 = logo.big.logoSVG.select('.logo_group');
-
-		// // logo.big.pattern = logo.big.logoSVG.image(assetPath + '/img/watercolorTextureFade_1x.jpg',240,800,1500,570);
-		// // logo.big.logoSVG_1.attr({fill:"#fff"});
-		// // logo.big.pattern.attr({ mask: logo.big.logoSVG_1});
-		
-		// logo.big.logoSVG_1.attr({fill:"L(0, 800, 0, 995)#1b7eaf:0-#67cedc:100"});
-		// logo.big.canvasSVG.append(logo.big.logoSVG);
-
-		// setTimeout(function(){
-		// 	document.getElementById('wetumka_logo_wrapper').classList.add('active');
-		// },10);
-
 		// ------------ SMALL HEADER LOGO -----------------
 		
 		logo.small = {};
@@ -164,8 +128,11 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 		logo.small.canvasSVG.append(logo.small.menuSVG);
 
 		logo.small.hitCircle = logo.small.canvasSVG.circle(50, 50, 50).attr('fill','transparent');
-		logo.small.hitCircle.hover(function(e){logo.small.hoverOver(e);},function(e){logo.small.hoverOut(e);});
-		logo.small.hitCircle.click(function(e){logo.small.click(e);});
+		logo.small.hitCircle.hover(
+			function(e){PubSub.publish('event.hover.topLogo', e );},
+			function(e){PubSub.publish('event.hover.topLogo', e );}
+		);
+		logo.small.hitCircle.click(function(e){PubSub.publish('event.click.topLogo', e );});
 
 		setTimeout(function(){
 			logo.small.svgNode.classList.add('active');
@@ -173,28 +140,30 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 
 		// ------------ FUNCTIONS -----------------
 		
-		logo.small.hoverOver = function(event){
-			this.svgNode.classList.add('hover');
-			this.svgNode.classList.remove('active');
-		};
-
-		logo.small.hoverOut = function(event){
-			this.svgNode.classList.remove('hover');
-			this.svgNode.classList.add('active');
+		logo.small.hover = function(event){
+			if(event.type === 'mouseover'){
+				this.svgNode.classList.add('hover');
+				this.svgNode.classList.remove('active');
+			}else if(event.type === 'mouseout'){
+				this.svgNode.classList.remove('hover');
+				this.svgNode.classList.add('active');
+			}
 		};
 
 		logo.small.click = function(event){
 			var clicked = this.svgNode.classList.contains('selected');
-			var body = document.querySelector('body');
-
 			if(clicked){
 				this.svgNode.classList.remove('selected');
-				body.classList.remove('active-main-nav');
+				bodyElement.classList.remove('active-main-nav');
 			}else{
 				this.svgNode.classList.add('selected');
-				body.classList.add('active-main-nav');
+				bodyElement.classList.add('active-main-nav');
 			}
 		};
+
+		// ------------- PubSub ------------------
+		PubSub.subscribe( 'event.click.topLogo', function(msg,event){logo.small.click(event);});
+		PubSub.subscribe( 'event.hover.topLogo', function(msg,event){logo.small.hover(event);});
 	};
 
 	// Animation FPS conditionals
@@ -287,12 +256,18 @@ define (['lib/assets','snapsvg','lib/fpsmeter'], function (Assets) {
 		}
 
 		this.scrollToggle = document.getElementsByClassName('scroll-visible');
+
+		if(this.scrollToggle.length === 0){
+			PubSub.publish('end.scrollEventVisible');
+		}
 	};
 
 	// Window scroll function
-	_.windowScroll = function(event){
+	_.windowScroll = function(){
 		if(this.scrollToggle.length > 0){ // if length is zero, kill scrollEventVisible call
 			this.scrollEventVisible(this.scrollToggle);
+		}else{
+			PubSub.unsubscribe('end.scrollEventVisible');
 		}
 	};
 

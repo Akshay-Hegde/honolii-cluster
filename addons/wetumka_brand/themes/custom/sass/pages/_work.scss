@@ -13,22 +13,71 @@ body.work-page{
 		}
 		@include section-blue;
 	}
-	// .info-section{
-	// 	> .block{
-	// 		.block-inner{
-	// 			padding:20px ($gutters / 2);
-	// 			@media (min-width: $screen-sm-min) {
-	// 				padding:45px $gutters;
-	// 			}
-	// 		}
-	// 	}
-	// 	@include section-blue;
-	// }
 	.client-section{
 		border-top:solid 140px #fff;
 		> .block{
 			background-color: transparent;
 		}
 		@include section-red;
+	}
+	// scroll in animation
+	.mod-services-bd{
+		.mod-service > img{
+			opacity:0;
+			@include transform-origin(center bottom);
+		}
+		&.event-visible-active .mod-service{
+			&:nth-child(1) > img{
+				@include animation(scale_in 400ms ease-out 600ms 1);
+				@include animation-fill-mode(forwards);
+			}
+			&:nth-child(2) > img{
+				@include animation(scale_in 400ms ease-out 200ms 1);
+				@include animation-fill-mode(forwards);
+			}
+			&:nth-child(3) > img{
+				@include animation(scale_in 400ms ease-out 1000ms 1);
+				@include animation-fill-mode(forwards);
+			}
+		}
+	}
+	.mod-testimonials-bd{
+		& > div{
+			opacity:0;
+		}
+		&.event-visible-active > div{
+			&:nth-child(even){
+				@include animation(enter_right 400ms ease-out 600ms 1);
+				@include animation-fill-mode(forwards);
+			}
+			&:nth-child(odd){
+				@include animation(enter_left 400ms ease-out 600ms 1);
+				@include animation-fill-mode(forwards);
+			}
+		}
+	}
+	.mod-clients-bd{
+		.mod-client > img{
+			opacity:0;
+			@include transform-origin(center bottom);
+		}
+		&.event-visible-active .mod-client{
+			&:nth-child(1) > img{
+				@include animation(scale_in 400ms ease-out 200ms 1);
+				@include animation-fill-mode(forwards);
+			}
+			&:nth-child(2) > img{
+				@include animation(scale_in 400ms ease-out 400ms 1);
+				@include animation-fill-mode(forwards);
+			}
+			&:nth-child(3) > img{
+				@include animation(scale_in 400ms ease-out 600ms 1);
+				@include animation-fill-mode(forwards);
+			}
+			&:nth-child(4) > img{
+				@include animation(scale_in 400ms ease-out 800ms 1);
+				@include animation-fill-mode(forwards);
+			}
+		}
 	}
 }
