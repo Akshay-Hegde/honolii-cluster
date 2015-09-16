@@ -287,8 +287,14 @@
 			margin-bottom: 2em;
 			.post-headline{
 				color:#fff;
-				font-size:64px;
+				font-size:32px;
 				font-weight:600;
+				@media (min-width: $screen-sm-min){
+					font-size:64px;
+				}
+				a{
+					border:none;
+				}
 			}
 			.post-meta{
 				text-align:center;
@@ -312,8 +318,16 @@
 		}
 	}
 	&-author{
+		margin-top:20px;
+		padding-top:20px;
+		border-top: solid 4px rgba(white,.2);
+		@media (min-width: $screen-sm-min){
+			margin-top:48px;
+			padding-top:48px;
+		}
 		@extend .row;
 		&-hd{
+			@extend .col-xs-4;
 			@extend .col-sm-2;
 			img{
 				width:100%;
@@ -321,6 +335,7 @@
 			}
 		}
 		&-bd{
+			@extend .col-xs-8;
 			@extend .col-sm-10;
 		}
 	}

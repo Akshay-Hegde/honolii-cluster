@@ -7,6 +7,13 @@
 		<div class="block-inner">
 			<!-- edit in admin/widgets/site-snippets/blog-header-block -->
 			{{ widgets:instance id="18"}}
+
+			{{ if category }}
+		    <h3>{{ category:title }}</h3>
+		  {{ endif }}
+		  {{ if tag }}
+		    <h3><span>Tag:</span> {{ tag }}</h3>
+		  {{ endif }}
 		</div>
 	</div>
 </section>
@@ -23,7 +30,8 @@
 									<h2 class="post-headline"><a href="{{ url }}">{{ title }}</a></h2>
 									<div class="post-meta">
 										by <span class="author">{{ created_by:display_name }}</span> and published on <span class="date">{{ helper:date timestamp=created_on }}</span>
-										<div class="category-keyword">
+										<div class="comments-category-keyword">
+											<a href="{{ url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ id }}"></a>
 											{{ if category }}
 												<strong>Category:</strong>
 												<span class="category"><a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>

@@ -1,4 +1,24 @@
 body.blog-page{
+	.intro-section{
+		> .block{
+			> .block-inner{
+
+			}
+		}
+		h3{
+			text-align:center;
+			margin:0;
+		}
+		@media (max-width: $screen-xs-max) {
+			padding-bottom:30px;
+			> .block{
+				border-bottom: solid 4px rgba(white,.2);
+			}
+			h3{
+				margin-bottom:1em;
+			}
+		}
+	}
 	.blog-list-section{
 		color:#fff;
 		//@include section-blue;

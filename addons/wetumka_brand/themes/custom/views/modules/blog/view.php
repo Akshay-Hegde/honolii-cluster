@@ -1,30 +1,18 @@
 {{ asset:js_inline }}
 	requirejs(["pages/blog"]);
-	//var script   = document.createElement("script");
-	//script.type  = "text/javascript";
-	//script.src   = "//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c49f8c1ac46186";    // use this for linked script
-	//document.body.appendChild(script);
-
-	/* * * CONFIGURATION VARIABLES * * */
-	var disqus_shortname = 'wetumka';
-	/* * * DON'T EDIT BELOW THIS LINE * * */
-	(function() {
-			var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-			dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-			(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-	})();
 {{ /asset:js_inline }}
 
+{{ post }}
 <section id="section_main" class="block-wrapper blog-post-section">
 	<div class="block">
 		<div class="block-inner">
-		{{ post }}
 			<article class="mod-post">
 				<header class="mod-post-hd">
 					<h1 class="post-headline">{{ title }}</h1>
 					<div class="post-meta">
 						by <span class="author">{{ created_by:display_name }}</span>, published <span class="date">{{ helper:date timestamp=created_on }}</span>
 						<div class="category-keyword">
+							<a href="#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ id }}"></a>
 							{{ if category }}
 								<span class="category">Category: <a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>
 							{{ endif }}
@@ -57,7 +45,6 @@
 					</div>
 				</footer>
 			</article>
-		{{ /post }}
 		</div>
 	</div>
 </section>
@@ -71,3 +58,18 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+		/* * * CONFIGURATION VARIABLES * * */
+	  var disqus_shortname = "wetumka";
+	  var disqus_identifier = "{{ id }}";
+		var disqus_title = "{{ title }}";
+		var disqus_url = "{{ url }}";
+	  
+	  /* * * DON'T EDIT BELOW THIS LINE * * */
+	  (function() {
+	      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+	      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+	      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	  })();
+</script>
+{{ /post }}
