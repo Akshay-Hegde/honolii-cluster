@@ -155,7 +155,7 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.site-header-wrapper');
 
 		logo.small.svgNode.setAttribute('id','main-nav-button');
-		logo.small.svgNode.classList.add('site-header-toggle');
+		logo.small.svgNode.setAttribute('class','site-header-toggle');
 
 		logo.small.wrapperNode.parentNode.insertBefore(logo.small.svgNode,logo.small.wrapperNode);
 
@@ -184,7 +184,7 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		logo.small.hitCircle.click(function(e){PubSub.publish('event.click.navToggle', e );});
 
 		setTimeout(function(){
-			logo.small.svgNode.classList.add('active');
+			document.getElementById('main-nav-button').classList.add('active');
 		},10);
 
 		// ------------ FUNCTIONS -----------------
