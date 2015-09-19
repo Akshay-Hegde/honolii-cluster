@@ -58,7 +58,7 @@
 		@extend .row;
 	}
 	.widget{
-		&.sectionNavList{
+		&.hideNavList{
 			display:none;
 		}
 		&.showNavList{

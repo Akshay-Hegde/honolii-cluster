@@ -40,16 +40,15 @@ define (['lib/ajax'], function (Ajax) {
         downloadCallback(that);
       }
     };
-    svgAsset = function(xhr,error) {
-      //debugger;
-      if(error){
+    svgAsset = function(xhr,str) {
+      if(str === 'error'){
         that.errorCount += 1;
         if (that.isDone() || that.downloadQueue.length === 0) {
           downloadCallback(that);
         }
       }else{
         //debugger;
-        that.cache[that.getFileNameFromPath(xhr.responseXML.URL)] = xhr.responseXML;
+        that.cache[that.getFileNameFromPath(str)] = xhr.responseXML;
         that.successCount += 1;
         if (that.isDone() || that.downloadQueue.length === 0) {
           downloadCallback(that);

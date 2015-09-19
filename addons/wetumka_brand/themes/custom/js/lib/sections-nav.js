@@ -61,6 +61,7 @@ define (['default','lib/pubsub'], function (def, PubSub) {
 
 	_.getSectionNav = function(parentID,nodeSelector){ //returns a closure
 		var content = document.getElementById(parentID);
+		content.parentNode.parentNode.classList.add('showNavList');
 		content = content.querySelectorAll(nodeSelector);
 		return function(){ return content;};
 	};

@@ -5,7 +5,7 @@ define ([], function () {
 	var _ = {};
 
 	_.get = function(url,callback){
-		this.xhr = this.init(callback);
+		this.xhr = this.init(url,callback);
 		this.xhr.open('GET', encodeURI(url), true);
 		this.xhr.send();
 	};
@@ -16,7 +16,7 @@ define ([], function () {
 		this.xhr.send();
 	};
 
-	_.init = function(callback){
+	_.init = function(url,callback){
 		var xhr = new XMLHttpRequest();
 
 		if(typeof callback === 'function'){
@@ -32,7 +32,7 @@ define ([], function () {
 
 	      // all is well  
 	      if(xhr.readyState === 4) {
-	        callback(xhr);
+	        callback(xhr,url);
 	      }         
 			};
 			xhr.onerror = function(){

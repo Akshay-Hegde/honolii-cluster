@@ -62,7 +62,7 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		var navMenu = document.getElementById('jump-section-nav');
 
 		if(navMenu !== null){
-			navMenu.parentNode.parentNode.classList.add('sectionNavList');
+			navMenu.parentNode.parentNode.classList.add('hideNavList');
 		}
 	};
 
@@ -225,7 +225,7 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 
 			// Start FPS analysis, optionnally specifying the rate at which FPS 
 			// are evaluated (in seconds, defaults to 1).
-			//FPSMeter.run(1.5);
+			FPSMeter.run(1.5);
 		}
 
 		//FPSMeter.stop();
