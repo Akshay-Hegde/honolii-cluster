@@ -1,0 +1,41 @@
+body.home-page{
+
+	.intro-section {
+		padding-bottom:0;
+		h3{
+		  font-weight: 500;
+		}
+	}
+	.sub-section {
+		@include background-image(linear-gradient(to top, darken($blue-darkest, 12%), $blue-darkest));
+	}
+
+	.mod-services{
+		&-ft{
+			padding-top:50px;
+			// .cta{
+			// 	@extend .btn-lg;
+			// }
+		}
+		&-bd{
+			.mod-service > img{
+				opacity:0;
+				@include transform-origin(center bottom);
+			}
+			&.event-visible-active .mod-service{
+				&:nth-child(1) > img{
+					@include animation(scale_in 400ms ease-out 300ms 1);
+					@include animation-fill-mode(forwards);
+				}
+				&:nth-child(2) > img{
+					@include animation(scale_in 400ms ease-out 100ms 1);
+					@include animation-fill-mode(forwards);
+				}
+				&:nth-child(3) > img{
+					@include animation(scale_in 400ms ease-out 500ms 1);
+					@include animation-fill-mode(forwards);
+				}
+			}
+		}
+	}
+}

@@ -20,7 +20,7 @@ define (['default','lib/pubsub'], function (def, PubSub) {
 		// close nav on click
 		sectionNav = this.getSectionNav();
 		for (var i = sectionNav.length - 1; i >= 0; i--) {
-			sectionNav[i].addEventListener('click', function(e){PubSub.publish('event.click.topLogo', e );}, false);
+			sectionNav[i].addEventListener('click', function(e){PubSub.publish('event.click.navToggle', e );}, false);
 		}
 	};
 

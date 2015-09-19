@@ -1,5 +1,5 @@
 // work.js
-define (['default','lib/pubsub','lib/sections-nav'], function (def,PubSub,sections) {
+define (['default','lib/pubsub'], function (def,PubSub) {
 	"use strict";
 
 	// -------- PubSub Publish Events ---------------

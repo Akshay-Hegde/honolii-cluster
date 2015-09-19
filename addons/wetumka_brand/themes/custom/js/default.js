@@ -4,8 +4,8 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 
 	// -------- PubSub Publish Events ---------------
 	// event.window.scrollDelay - (multi) a delayed scroll event that fires when scrolling stops
-	// event.click.topLogo - (multi) user triggered (click,touch) event, toggles the main top nav
-	// event.hover.topLogo - (multi) user triggered (mouse in/out) event, sets hover animation of top logo
+	// event.click.navToggle - (multi) user triggered (click,touch) event, toggles the main top nav
+	// event.hover.navToggle - (multi) user triggered (mouse in/out) event, sets hover animation of top logo
 	// end.scrollEventVisible - (single) event fires when all scroll-visible elements have been triggered
 
 	var _ = {};
@@ -13,6 +13,9 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 	// init function
 	_.init = function(){
 		var timeout,bodyElement,scrollEvent,that = this;
+		// setSectionClass
+		this.setSectionClass();
+
 		// ---------- PubSub Subscribers --------------
 	  PubSub.subscribe('event.window.scrollDelay', function(){_.windowScroll();});
 
@@ -46,12 +49,21 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		assetsManager.queueDownload([
 	  	assetPath + '/img/svg/scn-1-waves.svg',
 	  	assetPath + '/img/svg/wetumka-logo.svg',
-	  	assetPath + '/img/svg/wetumka-logo-stroke.svg',
+	  	//assetPath + '/img/svg/wetumka-logo-stroke.svg',
 	  	assetPath + '/img/svg/hamburger-x-path.svg'
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);
 	  // monitor FPS to limit animations - keep it smoothe or not at all
 	  this.checkAnimations(bodyElement);
+	};
+
+	// Set class for section nav - so it can be hidden
+	_.setSectionClass = function(){
+		var navMenu = document.getElementById('jump-section-nav');
+
+		if(navMenu !== null){
+			navMenu.parentNode.parentNode.classList.add('sectionNavList');
+		}
 	};
 
 	// Set SVG backgrounds and animations
@@ -96,8 +108,45 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		setTimeout(function(){
 			document.getElementById('waves').classList.add('active');
 		},10);
+
+		// ------------ BIG LOGO -----------------
+	
+		logo.big = {};
+		logo.big.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+		logo.big.wrapperNode = document.getElementById('wetumka_logo_wrapper');
+		//logo.big.wrapperNode = logo.big.wrapperNode.querySelector('h1');
+
+		logo.big.svgNode.setAttribute('id','wetumka_logo');
+
+		// logo.big.svgWrapperNode = document.createElement('div');
+		// logo.big.svgWrapperNode.classList.add('wetumka_logo_wrapper');
+		// logo.big.svgWrapperNode.setAttribute('id','wetumka_logo_wrapper');
+
+		// logo.big.svgWrapperNode.appendChild(logo.big.svgNode);
+		// logo.big.wrapperNode.parentNode.insertBefore(logo.big.svgNode,logo.big.wrapperNode);
+
+		logo.big.wrapperNode.appendChild(logo.big.svgNode);
+
+		logo.big.canvasSVG = new Snap('#wetumka_logo');
+		logo.big.logoSVG = new Snap(am.getCachedAsset('wetumka-logo.svg').cloneNode(true));
+
+		//SVG drawing area
+		logo.big.canvasSVG.attr({
+			preserveAspectRatio:'xMidYMid meet'
+		});
+
+		//SVG logos
+		logo.big.logoSVG.attr({
+			viewBox:'240 800 245 195'
+		});
+
+		logo.big.canvasSVG.append(logo.big.logoSVG);
+
+		setTimeout(function(){
+			document.getElementById('wetumka_logo_wrapper').classList.add('active');
+		},10);
 		
-		// ------------ SMALL HEADER LOGO -----------------
+		// ------------ Main Nav Button -----------------
 		
 		logo.small = {};
 
@@ -105,13 +154,13 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		logo.small.wrapperNode = document.getElementById('header');
 		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.site-header-wrapper');
 
-		logo.small.svgNode.setAttribute('id','header-logo');
-		logo.small.svgNode.classList.add('site-header-logo');
+		logo.small.svgNode.setAttribute('id','main-nav-button');
+		logo.small.svgNode.classList.add('site-header-toggle');
 
 		logo.small.wrapperNode.parentNode.insertBefore(logo.small.svgNode,logo.small.wrapperNode);
 
-		logo.small.canvasSVG = new Snap('#header-logo');
-		logo.small.logoSVG = new Snap(am.getCachedAsset('wetumka-logo-stroke.svg').cloneNode(true));
+		logo.small.canvasSVG = new Snap('#main-nav-button');
+		//logo.small.logoSVG = new Snap(am.getCachedAsset('wetumka-logo-stroke.svg').cloneNode(true));
 		logo.small.menuSVG = new Snap(am.getCachedAsset('hamburger-x-path.svg').cloneNode(true));
 
 		//SVG drawing area
@@ -124,15 +173,15 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 
 		logo.small.showCircle = logo.small.canvasSVG.circle(50, 50, 45).addClass('aniCircle');
 
-		logo.small.canvasSVG.append(logo.small.logoSVG);
+		//logo.small.canvasSVG.append(logo.small.logoSVG);
 		logo.small.canvasSVG.append(logo.small.menuSVG);
 
 		logo.small.hitCircle = logo.small.canvasSVG.circle(50, 50, 50).attr('fill','transparent');
 		logo.small.hitCircle.hover(
-			function(e){PubSub.publish('event.hover.topLogo', e );},
-			function(e){PubSub.publish('event.hover.topLogo', e );}
+			function(e){PubSub.publish('event.hover.navToggle', e );},
+			function(e){PubSub.publish('event.hover.navToggle', e );}
 		);
-		logo.small.hitCircle.click(function(e){PubSub.publish('event.click.topLogo', e );});
+		logo.small.hitCircle.click(function(e){PubSub.publish('event.click.navToggle', e );});
 
 		setTimeout(function(){
 			logo.small.svgNode.classList.add('active');
@@ -162,8 +211,8 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		};
 
 		// ------------- PubSub ------------------
-		PubSub.subscribe( 'event.click.topLogo', function(msg,event){logo.small.click(event);});
-		PubSub.subscribe( 'event.hover.topLogo', function(msg,event){logo.small.hover(event);});
+		PubSub.subscribe( 'event.click.navToggle', function(msg,event){logo.small.click(event);});
+		PubSub.subscribe( 'event.hover.navToggle', function(msg,event){logo.small.hover(event);});
 	};
 
 	// Animation FPS conditionals
@@ -176,7 +225,7 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 
 			// Start FPS analysis, optionnally specifying the rate at which FPS 
 			// are evaluated (in seconds, defaults to 1).
-			FPSMeter.run(1.5);
+			//FPSMeter.run(1.5);
 		}
 
 		//FPSMeter.stop();

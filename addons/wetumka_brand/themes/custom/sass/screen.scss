@@ -42,22 +42,28 @@
 	width:100%;
 
 	@include background-image(linear-gradient(to top, $blue-darkest, $blue-dark));
-	@include transition(transform 800ms);
+	@include transition(transform 500ms);
 
-	.site-header-logo{
+	.site-header-toggle{
 		display:block;
 		width:100px;
 		height:100px;
 		position: absolute;
-		left:50%;
-		bottom:-120px;
-		margin-left:-50px;
+		// left:50%;
+		bottom:-95px;
+		// margin-left:-50px;
 	}
 	.mod-main-nav{
 		overflow:hidden;
 		@extend .row;
 	}
 	.widget{
+		&.sectionNavList{
+			display:none;
+		}
+		&.showNavList{
+			display:block;
+		}
 		@extend .col-sm-4;
 	}
 	&-wrapper{
@@ -76,10 +82,10 @@
 			border-bottom:solid 2px $blue-light;
 			box-shadow:inset 0 -18px 18px -18px rgba(0,0,0,.7);
 		}
-		.site-header-logo{
-			@include transition(transform 800ms);
+		.site-header-toggle{
+			@include transition(transform 500ms);
 		}
-		.active-main-nav & .site-header-logo{
+		.active-main-nav & .site-header-toggle{
 			@include transform(translateY(-110px) scale(.7,.7));
 		}
 	}
@@ -105,7 +111,7 @@
 }
 .site-content{
 	position: relative;
-	padding-top:$topSpace - 100;
+	padding-top:$topSpace / 2;
 	@media (min-width: $screen-sm-min) {
 		padding-top:$topSpace;
 	}
@@ -149,6 +155,7 @@
 		@extend .container;
 	}
 	&.intro-section{
+		text-align:center;
 		h1{
 			text-transform:uppercase;
 			font-size:50px;
@@ -269,10 +276,15 @@ img{
 	color:transparent;
 }
 .cta{
-	font-size:inherit;
+	//font-size:inherit;
 	vertical-align:baseline;
+	box-shadow: 0 2px 3px rgba(0,0,0,.5);
 	@extend .btn;
 	@extend .btn-primary;
+	&-lg{
+		@extend .cta;
+		@extend .btn-lg;
+	}
 }
 .columns {
 	@media (min-width: $screen-sm-min) {
@@ -306,6 +318,7 @@ a.social-icon {
 	text-decoration:none;
 }
 
+@import "pages/home";
 @import "pages/about";
 @import "pages/contact";
 @import "pages/work";
@@ -315,21 +328,15 @@ a.social-icon {
          				SVG & animations
 -------------------------------------------- */
 
-.site-header-logo{
+.site-header-toggle{
+	@include transform(scale(.6,.6));
 	.aniCircle{
 		fill:rgba($blue-darkest,.2);
-		// stroke: $blue-lightest;
-		// stroke-width:5px;
-		// stroke-dasharray: 300;
-		// stroke-dashoffset: 300;
-		// @include transition(stroke-dashoffset 800ms ease-out 100ms);
-	}
-	.logo-path-group{
-		stroke:#fff;
-		stroke-width:1px;
-		fill:transparent;
-		stroke-dasharray: 150;
-		stroke-dashoffset: 150;
+		stroke: $blue-lightest;
+		stroke-width:5px;
+		stroke-dasharray: 300;
+		stroke-dashoffset: 300;
+		@include transition(stroke-dashoffset 800ms ease-out 100ms);
 	}
 	.hamburger-x{
 		stroke:#fff;
@@ -347,37 +354,18 @@ a.social-icon {
 			@include transition(stroke-dashoffset 800ms ease-out 100ms);
 		}
 	}
-	.logo-path-1{
-		@include transition(all 400ms ease-out 800ms);
-	}
-	.logo-path-2{
-		@include transition(all 800ms ease-out 400ms);
-	}
-	.logo-path-3{
-		@include transition(all 1200ms ease-out 0ms);
-	}
-	&.active{
-		.logo-path-group{
-			stroke-dashoffset: 0;
-			stroke-width:7px;
-		}
-	}
-	&.hover{
+	&.active,&.hover{
 		cursor:pointer;
-		.logo-path-1{
-			@include transition(all 400ms ease-out 0ms);
-		}
-		.logo-path-2{
-			@include transition(all 400ms ease-out 0ms);
-		}
-		.logo-path-3{
-			@include transition(all 400ms ease-out 0ms);
-		}
 		.hamburger-x .path-x{
 			stroke-dashoffset: 0;
 		}
 		.hamburger-x .path-2{
 			stroke-dashoffset: 270;
+		}
+	}
+	&.hover{
+		.aniCircle{
+			stroke-dashoffset: 0;
 		}
 	}
 	&.selected{
@@ -391,23 +379,23 @@ a.social-icon {
 			stroke-dashoffset: 150;
 		}
 	}
-	@media (max-width: $screen-xs-max) {
-		@include transform(scale(.7,.7));
-	}
 }
 
 .wetumka_logo_wrapper{
 	height:0;
 	opacity:0;
 	overflow:hidden;
-	@include transition(height 500ms ease-in, opacity 500ms ease-in 500ms);
+	height:100px;
+	@include transition(opacity 500ms ease-in 500ms);
+	.logo_group{
+		fill: rgba(white,.4);
+	}
 	#wetumka_logo {
 		display:block;
 		width:100%;
-		min-height:200px;
+		height:100px;
 	}
 	&.active{
-		height:250px;
 		opacity:1;
 	}
 }

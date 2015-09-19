@@ -334,9 +334,10 @@ th {
   }
 
   /* line 77, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_print.scss */
-  .btn > .caret, .cta > .caret,
+  .btn > .caret, .cta > .caret, .cta-lg > .caret,
   .dropup > .btn > .caret,
-  .dropup > .cta > .caret {
+  .dropup > .cta > .caret,
+  .dropup > .cta-lg > .caret {
     border-top-color: #000 !important;
   }
 
@@ -2540,7 +2541,7 @@ pre code {
 }
 
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .mod-author-hd, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .block-wrapper.two-column .side-column, .mod-client, .col-md-3, .col-lg-3, .col-xs-4, .mod-client, .mod-author-hd, .col-sm-4, .site-header .widget, .capture-form .mod-form > label, .col-md-4, .mod-service, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, body.contact-page .side-column .widget, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .capture-form .mod-form .mod-form-input,
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .mod-author-hd, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .block-wrapper.two-column .side-column, .mod-client, .col-md-3, .col-lg-3, .col-xs-4, .mod-service, .mod-client, .mod-author-hd, .col-sm-4, .site-header .widget, .capture-form .mod-form > label, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, body.contact-page .side-column .widget, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .capture-form .mod-form .mod-form-input,
 .capture-form .mod-form .mod-form-textarea,
 .capture-form .mod-form .mod-form-file, .capture-form .mod-form .mod-form-checkbox, .capture-form .mod-form .mod-form-btn, .col-md-7, .col-lg-7, .col-xs-8, .mod-author-bd, .col-sm-8, .block-wrapper.two-column .main-column, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .mod-author-bd, .col-md-10, .col-lg-10, .col-xs-11, .capture-form .mod-form .mod-form-input,
 .capture-form .mod-form .mod-form-textarea,
@@ -2552,7 +2553,7 @@ pre code {
 }
 
 /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .mod-client, .mod-author-hd, .col-xs-5, .col-xs-6, body.contact-page .side-column .widget, .col-xs-7, .col-xs-8, .mod-author-bd, .col-xs-9, .col-xs-10, .col-xs-11, .capture-form .mod-form .mod-form-input,
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .mod-service, .mod-client, .mod-author-hd, .col-xs-5, .col-xs-6, body.contact-page .side-column .widget, .col-xs-7, .col-xs-8, .mod-author-bd, .col-xs-9, .col-xs-10, .col-xs-11, .capture-form .mod-form .mod-form-input,
 .capture-form .mod-form .mod-form-textarea,
 .capture-form .mod-form .mod-form-file, .col-xs-12, .capture-form .mod-form > label {
   float: left;
@@ -2574,7 +2575,7 @@ pre code {
 }
 
 /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-4, .mod-client, .mod-author-hd {
+.col-xs-4, .mod-service, .mod-client, .mod-author-hd {
   width: 33.33333333%;
 }
 
@@ -3082,7 +3083,7 @@ pre code {
 }
 @media (min-width: 992px) {
   /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .mod-service, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -3102,7 +3103,7 @@ pre code {
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-4, .mod-service {
+  .col-md-4 {
     width: 33.33333333%;
   }
 
@@ -4112,7 +4113,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="date"],
   .input-group-sm > input[type="date"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="date"].btn,
-  .input-group-sm > .input-group-btn > input[type="date"].cta, .input-group-sm input[type="date"],
+  .input-group-sm > .input-group-btn > input[type="date"].cta,
+  .input-group-sm > .input-group-btn > input[type="date"].cta-lg, .input-group-sm input[type="date"],
   input[type="time"].input-sm,
   .input-group-sm > input[type="time"].form-control,
   .capture-form .mod-form .mod-form-input .input-group-sm > input[type="time"],
@@ -4120,7 +4122,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="time"],
   .input-group-sm > input[type="time"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="time"].btn,
-  .input-group-sm > .input-group-btn > input[type="time"].cta, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="time"].cta,
+  .input-group-sm > .input-group-btn > input[type="time"].cta-lg, .input-group-sm
   input[type="time"],
   input[type="datetime-local"].input-sm,
   .input-group-sm > input[type="datetime-local"].form-control,
@@ -4129,7 +4132,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="datetime-local"],
   .input-group-sm > input[type="datetime-local"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
-  .input-group-sm > .input-group-btn > input[type="datetime-local"].cta, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].cta,
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].cta-lg, .input-group-sm
   input[type="datetime-local"],
   input[type="month"].input-sm,
   .input-group-sm > input[type="month"].form-control,
@@ -4138,7 +4142,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-sm > input[type="month"],
   .input-group-sm > input[type="month"].input-group-addon,
   .input-group-sm > .input-group-btn > input[type="month"].btn,
-  .input-group-sm > .input-group-btn > input[type="month"].cta, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="month"].cta,
+  .input-group-sm > .input-group-btn > input[type="month"].cta-lg, .input-group-sm
   input[type="month"] {
     line-height: 30px;
   }
@@ -4148,7 +4153,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="date"],
   .input-group-lg > input[type="date"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="date"].btn,
-  .input-group-lg > .input-group-btn > input[type="date"].cta, .input-group-lg input[type="date"],
+  .input-group-lg > .input-group-btn > input[type="date"].cta,
+  .input-group-lg > .input-group-btn > input[type="date"].cta-lg, .input-group-lg input[type="date"],
   input[type="time"].input-lg,
   .input-group-lg > input[type="time"].form-control,
   .capture-form .mod-form .mod-form-input .input-group-lg > input[type="time"],
@@ -4156,7 +4162,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="time"],
   .input-group-lg > input[type="time"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="time"].btn,
-  .input-group-lg > .input-group-btn > input[type="time"].cta, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="time"].cta,
+  .input-group-lg > .input-group-btn > input[type="time"].cta-lg, .input-group-lg
   input[type="time"],
   input[type="datetime-local"].input-lg,
   .input-group-lg > input[type="datetime-local"].form-control,
@@ -4165,7 +4172,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="datetime-local"],
   .input-group-lg > input[type="datetime-local"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
-  .input-group-lg > .input-group-btn > input[type="datetime-local"].cta, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].cta,
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].cta-lg, .input-group-lg
   input[type="datetime-local"],
   input[type="month"].input-lg,
   .input-group-lg > input[type="month"].form-control,
@@ -4174,7 +4182,8 @@ input[type="search"] {
   .capture-form .mod-form .mod-form-file .input-group-lg > input[type="month"],
   .input-group-lg > input[type="month"].input-group-addon,
   .input-group-lg > .input-group-btn > input[type="month"].btn,
-  .input-group-lg > .input-group-btn > input[type="month"].cta, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="month"].cta,
+  .input-group-lg > .input-group-btn > input[type="month"].cta-lg, .input-group-lg
   input[type="month"] {
     line-height: 49px;
   }
@@ -4283,7 +4292,8 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-lg > select.form-control-static,
 .input-group-lg > .form-control-static.input-group-addon,
 .input-group-lg > .input-group-btn > .form-control-static.btn,
-.input-group-lg > .input-group-btn > .form-control-static.cta, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .capture-form .mod-form .mod-form-input .input-group-sm > input.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > textarea.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > select.form-control-static,
+.input-group-lg > .input-group-btn > .form-control-static.cta,
+.input-group-lg > .input-group-btn > .form-control-static.cta-lg, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control, .capture-form .mod-form .mod-form-input .input-group-sm > input.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > textarea.form-control-static, .capture-form .mod-form .mod-form-input .input-group-sm > select.form-control-static,
 .capture-form .mod-form .mod-form-textarea .input-group-sm > input.form-control-static,
 .capture-form .mod-form .mod-form-textarea .input-group-sm > textarea.form-control-static,
 .capture-form .mod-form .mod-form-textarea .input-group-sm > select.form-control-static,
@@ -4292,7 +4302,8 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-sm > select.form-control-static,
 .input-group-sm > .form-control-static.input-group-addon,
 .input-group-sm > .input-group-btn > .form-control-static.btn,
-.input-group-sm > .input-group-btn > .form-control-static.cta {
+.input-group-sm > .input-group-btn > .form-control-static.cta,
+.input-group-sm > .input-group-btn > .form-control-static.cta-lg {
   padding-left: 0;
   padding-right: 0;
 }
@@ -4307,7 +4318,8 @@ input[type="checkbox"] {
 .capture-form .mod-form .mod-form-file .input-group-sm > select,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .btn,
-.input-group-sm > .input-group-btn > .cta {
+.input-group-sm > .input-group-btn > .cta,
+.input-group-sm > .input-group-btn > .cta-lg {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -4321,7 +4333,8 @@ select.input-sm, .input-group-sm > select.form-control, .capture-form .mod-form 
 .capture-form .mod-form .mod-form-file .input-group-sm > select,
 .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-btn > select.btn,
-.input-group-sm > .input-group-btn > select.cta {
+.input-group-sm > .input-group-btn > select.cta,
+.input-group-sm > .input-group-btn > select.cta-lg {
   height: 30px;
   line-height: 30px;
 }
@@ -4333,6 +4346,7 @@ textarea.input-sm, .input-group-sm > textarea.form-control, .capture-form .mod-f
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
 .input-group-sm > .input-group-btn > textarea.cta,
+.input-group-sm > .input-group-btn > textarea.cta-lg,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
 .capture-form .mod-form .mod-form-input .input-group-sm > select[multiple],
@@ -4340,7 +4354,8 @@ select[multiple].input-sm,
 .capture-form .mod-form .mod-form-file .input-group-sm > select[multiple],
 .input-group-sm > select[multiple].input-group-addon,
 .input-group-sm > .input-group-btn > select[multiple].btn,
-.input-group-sm > .input-group-btn > select[multiple].cta {
+.input-group-sm > .input-group-btn > select[multiple].cta,
+.input-group-sm > .input-group-btn > select[multiple].cta-lg {
   height: auto;
 }
 
@@ -4407,7 +4422,8 @@ select[multiple].input-sm,
 .capture-form .mod-form .mod-form-file .input-group-lg > select,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .btn,
-.input-group-lg > .input-group-btn > .cta {
+.input-group-lg > .input-group-btn > .cta,
+.input-group-lg > .input-group-btn > .cta-lg {
   height: 49px;
   padding: 10px 16px;
   font-size: 20px;
@@ -4421,7 +4437,8 @@ select.input-lg, .input-group-lg > select.form-control, .capture-form .mod-form 
 .capture-form .mod-form .mod-form-file .input-group-lg > select,
 .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-btn > select.btn,
-.input-group-lg > .input-group-btn > select.cta {
+.input-group-lg > .input-group-btn > select.cta,
+.input-group-lg > .input-group-btn > select.cta-lg {
   height: 49px;
   line-height: 49px;
 }
@@ -4433,6 +4450,7 @@ textarea.input-lg, .input-group-lg > textarea.form-control, .capture-form .mod-f
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
 .input-group-lg > .input-group-btn > textarea.cta,
+.input-group-lg > .input-group-btn > textarea.cta-lg,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
 .capture-form .mod-form .mod-form-input .input-group-lg > select[multiple],
@@ -4440,7 +4458,8 @@ select[multiple].input-lg,
 .capture-form .mod-form .mod-form-file .input-group-lg > select[multiple],
 .input-group-lg > select[multiple].input-group-addon,
 .input-group-lg > .input-group-btn > select[multiple].btn,
-.input-group-lg > .input-group-btn > select[multiple].cta {
+.input-group-lg > .input-group-btn > select[multiple].cta,
+.input-group-lg > .input-group-btn > select[multiple].cta-lg {
   height: auto;
 }
 
@@ -4543,6 +4562,7 @@ select[multiple].input-lg,
 .input-group-lg > .input-group-addon + .form-control-feedback,
 .input-group-lg > .input-group-btn > .btn + .form-control-feedback,
 .input-group-lg > .input-group-btn > .cta + .form-control-feedback,
+.input-group-lg > .input-group-btn > .cta-lg + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
 .form-group-lg .form-control + .form-control-feedback,
 .form-group-lg .capture-form .mod-form .mod-form-input input + .form-control-feedback,
@@ -4579,6 +4599,7 @@ select[multiple].input-lg,
 .input-group-sm > .input-group-addon + .form-control-feedback,
 .input-group-sm > .input-group-btn > .btn + .form-control-feedback,
 .input-group-sm > .input-group-btn > .cta + .form-control-feedback,
+.input-group-sm > .input-group-btn > .cta-lg + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
 .form-group-sm .form-control + .form-control-feedback,
 .form-group-sm .capture-form .mod-form .mod-form-input input + .form-control-feedback,
@@ -4973,7 +4994,7 @@ select[multiple].input-lg,
 }
 
 /* line 9, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn, .cta {
+.btn, .cta, .cta-lg {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -4987,32 +5008,32 @@ select[multiple].input-lg,
   padding: 6px 12px;
   font-size: 16px;
   line-height: 1.5;
-  border-radius: 4px;
+  border-radius: 0;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
 }
 /* line 26, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:focus, .cta:focus, .btn.focus, .focus.cta, .btn:active:focus, .cta:active:focus, .btn:active.focus, .cta:active.focus, .btn.active:focus, .active.cta:focus, .btn.active.focus, .active.focus.cta {
+.btn:focus, .cta:focus, .cta-lg:focus, .btn.focus, .focus.cta, .focus.cta-lg, .btn:active:focus, .cta:active:focus, .cta-lg:active:focus, .btn:active.focus, .cta:active.focus, .cta-lg:active.focus, .btn.active:focus, .active.cta:focus, .active.cta-lg:focus, .btn.active.focus, .active.focus.cta, .active.focus.cta-lg {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 32, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:hover, .cta:hover, .btn:focus, .cta:focus, .btn.focus, .focus.cta {
+.btn:hover, .cta:hover, .cta-lg:hover, .btn:focus, .cta:focus, .cta-lg:focus, .btn.focus, .focus.cta, .focus.cta-lg {
   color: #333;
   text-decoration: none;
 }
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn:active, .cta:active, .btn.active, .active.cta {
+.btn:active, .cta:active, .cta-lg:active, .btn.active, .active.cta, .active.cta-lg {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 46, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn.disabled, .disabled.cta, .btn[disabled], [disabled].cta, fieldset[disabled] .btn, fieldset[disabled] .cta {
+.btn.disabled, .disabled.cta, .disabled.cta-lg, .btn[disabled], [disabled].cta, [disabled].cta-lg, fieldset[disabled] .btn, fieldset[disabled] .cta, fieldset[disabled] .cta-lg {
   cursor: not-allowed;
   opacity: 0.65;
   filter: alpha(opacity=65);
@@ -5021,7 +5042,7 @@ select[multiple].input-lg,
 }
 
 /* line 58, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-a.btn.disabled, a.disabled.cta, fieldset[disabled] a.btn, fieldset[disabled] a.cta {
+a.btn.disabled, a.disabled.cta, a.disabled.cta-lg, fieldset[disabled] a.btn, fieldset[disabled] a.cta, fieldset[disabled] a.cta-lg {
   pointer-events: none;
 }
 
@@ -5071,46 +5092,46 @@ a.btn.disabled, a.disabled.cta, fieldset[disabled] a.btn, fieldset[disabled] a.c
 }
 
 /* line 71, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-primary, .cta {
+.btn-primary, .cta, .cta-lg {
   color: #fff;
   background-color: #0286BA;
   border-color: #0274a1;
 }
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:focus, .cta:focus, .btn-primary.focus, .focus.cta {
+.btn-primary:focus, .cta:focus, .cta-lg:focus, .btn-primary.focus, .focus.cta, .focus.cta-lg {
   color: #fff;
   background-color: #016288;
   border-color: #001923;
 }
 /* line 17, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:hover, .cta:hover {
+.btn-primary:hover, .cta:hover, .cta-lg:hover {
   color: #fff;
   background-color: #016288;
   border-color: #014864;
 }
 /* line 22, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active, .cta:active, .btn-primary.active, .active.cta, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta {
+.btn-primary:active, .cta:active, .cta-lg:active, .btn-primary.active, .active.cta, .active.cta-lg, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta, .open > .dropdown-toggle.cta-lg {
   color: #fff;
   background-color: #016288;
   border-color: #014864;
 }
 /* line 29, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active:hover, .cta:active:hover, .btn-primary:active:focus, .cta:active:focus, .btn-primary:active.focus, .cta:active.focus, .btn-primary.active:hover, .active.cta:hover, .btn-primary.active:focus, .active.cta:focus, .btn-primary.active.focus, .active.focus.cta, .open > .btn-primary.dropdown-toggle:hover, .open > .dropdown-toggle.cta:hover, .open > .btn-primary.dropdown-toggle:focus, .open > .dropdown-toggle.cta:focus, .open > .btn-primary.dropdown-toggle.focus, .open > .dropdown-toggle.focus.cta {
+.btn-primary:active:hover, .cta:active:hover, .cta-lg:active:hover, .btn-primary:active:focus, .cta:active:focus, .cta-lg:active:focus, .btn-primary:active.focus, .cta:active.focus, .cta-lg:active.focus, .btn-primary.active:hover, .active.cta:hover, .active.cta-lg:hover, .btn-primary.active:focus, .active.cta:focus, .active.cta-lg:focus, .btn-primary.active.focus, .active.focus.cta, .active.focus.cta-lg, .open > .btn-primary.dropdown-toggle:hover, .open > .dropdown-toggle.cta:hover, .open > .dropdown-toggle.cta-lg:hover, .open > .btn-primary.dropdown-toggle:focus, .open > .dropdown-toggle.cta:focus, .open > .dropdown-toggle.cta-lg:focus, .open > .btn-primary.dropdown-toggle.focus, .open > .dropdown-toggle.focus.cta, .open > .dropdown-toggle.focus.cta-lg {
   color: #fff;
   background-color: #014864;
   border-color: #001923;
 }
 /* line 37, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary:active, .cta:active, .btn-primary.active, .active.cta, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta {
+.btn-primary:active, .cta:active, .cta-lg:active, .btn-primary.active, .active.cta, .active.cta-lg, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta, .open > .dropdown-toggle.cta-lg {
   background-image: none;
 }
 /* line 45, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary.disabled, .disabled.cta, .btn-primary.disabled:hover, .disabled.cta:hover, .btn-primary.disabled:focus, .disabled.cta:focus, .btn-primary.disabled.focus, .disabled.focus.cta, .btn-primary.disabled:active, .disabled.cta:active, .btn-primary.disabled.active, .disabled.active.cta, .btn-primary[disabled], [disabled].cta, .btn-primary[disabled]:hover, [disabled].cta:hover, .btn-primary[disabled]:focus, [disabled].cta:focus, .btn-primary[disabled].focus, [disabled].focus.cta, .btn-primary[disabled]:active, [disabled].cta:active, .btn-primary[disabled].active, [disabled].active.cta, fieldset[disabled] .btn-primary, fieldset[disabled] .cta, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .cta:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .cta:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .focus.cta, fieldset[disabled] .btn-primary:active, fieldset[disabled] .cta:active, fieldset[disabled] .btn-primary.active, fieldset[disabled] .active.cta {
+.btn-primary.disabled, .disabled.cta, .disabled.cta-lg, .btn-primary.disabled:hover, .disabled.cta:hover, .disabled.cta-lg:hover, .btn-primary.disabled:focus, .disabled.cta:focus, .disabled.cta-lg:focus, .btn-primary.disabled.focus, .disabled.focus.cta, .disabled.focus.cta-lg, .btn-primary.disabled:active, .disabled.cta:active, .disabled.cta-lg:active, .btn-primary.disabled.active, .disabled.active.cta, .disabled.active.cta-lg, .btn-primary[disabled], [disabled].cta, [disabled].cta-lg, .btn-primary[disabled]:hover, [disabled].cta:hover, [disabled].cta-lg:hover, .btn-primary[disabled]:focus, [disabled].cta:focus, [disabled].cta-lg:focus, .btn-primary[disabled].focus, [disabled].focus.cta, [disabled].focus.cta-lg, .btn-primary[disabled]:active, [disabled].cta:active, [disabled].cta-lg:active, .btn-primary[disabled].active, [disabled].active.cta, [disabled].active.cta-lg, fieldset[disabled] .btn-primary, fieldset[disabled] .cta, fieldset[disabled] .cta-lg, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .cta:hover, fieldset[disabled] .cta-lg:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .cta:focus, fieldset[disabled] .cta-lg:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .focus.cta, fieldset[disabled] .focus.cta-lg, fieldset[disabled] .btn-primary:active, fieldset[disabled] .cta:active, fieldset[disabled] .cta-lg:active, fieldset[disabled] .btn-primary.active, fieldset[disabled] .active.cta, fieldset[disabled] .active.cta-lg {
   background-color: #0286BA;
   border-color: #0274a1;
 }
 /* line 56, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
-.btn-primary .badge, .cta .badge {
+.btn-primary .badge, .cta .badge, .cta-lg .badge {
   color: #0286BA;
   background-color: #fff;
 }
@@ -5324,27 +5345,27 @@ a.btn.disabled, a.disabled.cta, fieldset[disabled] a.btn, fieldset[disabled] a.c
 }
 
 /* line 135, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .cta {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .cta, .btn-group-lg > .cta-lg, .cta-lg {
   padding: 10px 16px;
   font-size: 20px;
   line-height: 1.3333333;
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 /* line 139, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .cta {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .cta, .btn-group-sm > .cta-lg {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 /* line 143, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
-.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .cta {
+.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .cta, .btn-group-xs > .cta-lg {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 /* line 151, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
@@ -5417,31 +5438,38 @@ tbody.collapse.in {
   vertical-align: middle;
 }
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn, .btn-group > .cta,
+.btn-group > .btn, .btn-group > .cta, .btn-group > .cta-lg,
 .btn-group-vertical > .btn,
-.btn-group-vertical > .cta {
+.btn-group-vertical > .cta,
+.btn-group-vertical > .cta-lg {
   position: relative;
   float: left;
 }
 /* line 15, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, .btn-group > .cta:hover, .btn-group > .btn:focus, .btn-group > .cta:focus, .btn-group > .btn:active, .btn-group > .cta:active, .btn-group > .btn.active, .btn-group > .active.cta,
+.btn-group > .btn:hover, .btn-group > .cta:hover, .btn-group > .cta-lg:hover, .btn-group > .btn:focus, .btn-group > .cta:focus, .btn-group > .cta-lg:focus, .btn-group > .btn:active, .btn-group > .cta:active, .btn-group > .cta-lg:active, .btn-group > .btn.active, .btn-group > .active.cta, .btn-group > .active.cta-lg,
 .btn-group-vertical > .btn:hover,
 .btn-group-vertical > .cta:hover,
+.btn-group-vertical > .cta-lg:hover,
 .btn-group-vertical > .btn:focus,
 .btn-group-vertical > .cta:focus,
+.btn-group-vertical > .cta-lg:focus,
 .btn-group-vertical > .btn:active,
 .btn-group-vertical > .cta:active,
+.btn-group-vertical > .cta-lg:active,
 .btn-group-vertical > .btn.active,
-.btn-group-vertical > .active.cta {
+.btn-group-vertical > .active.cta,
+.btn-group-vertical > .active.cta-lg {
   z-index: 2;
 }
 
 /* line 26, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group .btn + .btn, .btn-group .cta + .btn, .btn-group .btn + .cta, .btn-group .cta + .cta,
+.btn-group .btn + .btn, .btn-group .cta + .btn, .btn-group .cta-lg + .btn, .btn-group .btn + .cta, .btn-group .cta + .cta, .btn-group .cta-lg + .cta, .btn-group .btn + .cta-lg, .btn-group .cta + .cta-lg, .btn-group .cta-lg + .cta-lg,
 .btn-group .btn + .btn-group,
 .btn-group .cta + .btn-group,
+.btn-group .cta-lg + .btn-group,
 .btn-group .btn-group + .btn,
 .btn-group .btn-group + .cta,
+.btn-group .btn-group + .cta-lg,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -5460,35 +5488,35 @@ tbody.collapse.in {
   clear: both;
 }
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar .btn, .btn-toolbar .cta,
+.btn-toolbar .btn, .btn-toolbar .cta, .btn-toolbar .cta-lg,
 .btn-toolbar .btn-group,
 .btn-toolbar .input-group {
   float: left;
 }
 /* line 44, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-toolbar > .btn, .btn-toolbar > .cta,
+.btn-toolbar > .btn, .btn-toolbar > .cta, .btn-toolbar > .cta-lg,
 .btn-toolbar > .btn-group,
 .btn-toolbar > .input-group {
   margin-left: 5px;
 }
 
 /* line 51, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .cta:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .cta:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .cta-lg:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 
 /* line 56, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child, .btn-group > .cta:first-child {
+.btn-group > .btn:first-child, .btn-group > .cta:first-child, .btn-group > .cta-lg:first-child {
   margin-left: 0;
 }
 /* line 58, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .cta:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .cta:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .cta-lg:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 63, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child:not(:first-child), .btn-group > .cta:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .cta:last-child:not(:first-child), .btn-group > .cta-lg:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -5500,19 +5528,19 @@ tbody.collapse.in {
 }
 
 /* line 72, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .cta {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .cta, .btn-group > .btn-group:not(:first-child):not(:last-child) > .cta-lg {
   border-radius: 0;
 }
 
 /* line 76, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .cta:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .cta:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .cta-lg:last-child,
 .btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 81, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .cta:first-child {
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .cta:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .cta-lg:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5524,13 +5552,13 @@ tbody.collapse.in {
 }
 
 /* line 105, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle, .btn-group > .cta + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .btn-group > .cta + .dropdown-toggle, .btn-group > .cta-lg + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
 
 /* line 109, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .cta + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .cta + .dropdown-toggle, .btn-group > .cta-lg + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -5547,26 +5575,27 @@ tbody.collapse.in {
 }
 
 /* line 127, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn .caret, .cta .caret {
+.btn .caret, .cta .caret, .cta-lg .caret {
   margin-left: 0;
 }
 
 /* line 131, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .cta .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .cta .caret, .cta-lg .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 
 /* line 136, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .cta .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .cta .caret, .dropup .cta-lg .caret {
   border-width: 0 5px 5px;
 }
 
 /* line 145, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn, .btn-group-vertical > .cta,
+.btn-group-vertical > .btn, .btn-group-vertical > .cta, .btn-group-vertical > .cta-lg,
 .btn-group-vertical > .btn-group,
 .btn-group-vertical > .btn-group > .btn,
-.btn-group-vertical > .btn-group > .cta {
+.btn-group-vertical > .btn-group > .cta,
+.btn-group-vertical > .btn-group > .cta-lg {
   display: block;
   float: none;
   width: 100%;
@@ -5582,51 +5611,53 @@ tbody.collapse.in {
   clear: both;
 }
 /* line 157, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .cta {
+.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .cta, .btn-group-vertical > .btn-group > .cta-lg {
   float: none;
 }
 /* line 162, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn + .btn, .btn-group-vertical > .cta + .btn, .btn-group-vertical > .btn + .cta, .btn-group-vertical > .cta + .cta,
+.btn-group-vertical > .btn + .btn, .btn-group-vertical > .cta + .btn, .btn-group-vertical > .cta-lg + .btn, .btn-group-vertical > .btn + .cta, .btn-group-vertical > .cta + .cta, .btn-group-vertical > .cta-lg + .cta, .btn-group-vertical > .btn + .cta-lg, .btn-group-vertical > .cta + .cta-lg, .btn-group-vertical > .cta-lg + .cta-lg,
 .btn-group-vertical > .btn + .btn-group,
 .btn-group-vertical > .cta + .btn-group,
+.btn-group-vertical > .cta-lg + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
 .btn-group-vertical > .btn-group + .cta,
+.btn-group-vertical > .btn-group + .cta-lg,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 /* line 172, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .cta:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .cta:not(:first-child):not(:last-child), .btn-group-vertical > .cta-lg:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 /* line 175, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .cta:first-child:not(:last-child) {
-  border-top-right-radius: 4px;
+.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .cta:first-child:not(:last-child), .btn-group-vertical > .cta-lg:first-child:not(:last-child) {
+  border-top-right-radius: 0;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 /* line 179, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .cta:last-child:not(:first-child) {
-  border-bottom-left-radius: 4px;
+.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .cta:last-child:not(:first-child), .btn-group-vertical > .cta-lg:last-child:not(:first-child) {
+  border-bottom-left-radius: 0;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
 /* line 184, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cta {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cta, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .cta-lg {
   border-radius: 0;
 }
 
 /* line 188, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .cta:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .cta:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .cta-lg:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 /* line 193, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .cta:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .cta:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .cta-lg:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5639,14 +5670,14 @@ tbody.collapse.in {
   border-collapse: separate;
 }
 /* line 206, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn, .btn-group-justified > .cta,
+.btn-group-justified > .btn, .btn-group-justified > .cta, .btn-group-justified > .cta-lg,
 .btn-group-justified > .btn-group {
   float: none;
   display: table-cell;
   width: 1%;
 }
 /* line 212, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .cta {
+.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .cta, .btn-group-justified > .btn-group .cta-lg {
   width: 100%;
 }
 /* line 216, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
@@ -5655,13 +5686,16 @@ tbody.collapse.in {
 }
 
 /* line 237, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_button-groups.scss */
-[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .cta input[type="radio"],
+[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .cta input[type="radio"], [data-toggle="buttons"] > .cta-lg input[type="radio"],
 [data-toggle="buttons"] > .btn input[type="checkbox"],
 [data-toggle="buttons"] > .cta input[type="checkbox"],
+[data-toggle="buttons"] > .cta-lg input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .cta input[type="radio"],
+[data-toggle="buttons"] > .btn-group > .cta-lg input[type="radio"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"],
-[data-toggle="buttons"] > .btn-group > .cta input[type="checkbox"] {
+[data-toggle="buttons"] > .btn-group > .cta input[type="checkbox"],
+[data-toggle="buttons"] > .btn-group > .cta-lg input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -5779,7 +5813,8 @@ tbody.collapse.in {
 .capture-form .mod-form .mod-form-file .input-group-sm > select.input-group-addon,
 .input-group-sm > .input-group-addon,
 .input-group-sm > .input-group-btn > .input-group-addon.btn,
-.input-group-sm > .input-group-btn > .input-group-addon.cta {
+.input-group-sm > .input-group-btn > .input-group-addon.cta,
+.input-group-sm > .input-group-btn > .input-group-addon.cta-lg {
   padding: 5px 10px;
   font-size: 12px;
   border-radius: 3px;
@@ -5794,7 +5829,8 @@ tbody.collapse.in {
 .capture-form .mod-form .mod-form-file .input-group-lg > select.input-group-addon,
 .input-group-lg > .input-group-addon,
 .input-group-lg > .input-group-btn > .input-group-addon.btn,
-.input-group-lg > .input-group-btn > .input-group-addon.cta {
+.input-group-lg > .input-group-btn > .input-group-addon.cta,
+.input-group-lg > .input-group-btn > .input-group-addon.cta-lg {
   padding: 10px 16px;
   font-size: 20px;
   border-radius: 6px;
@@ -5822,13 +5858,17 @@ tbody.collapse.in {
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
 .input-group-btn:first-child > .cta,
+.input-group-btn:first-child > .cta-lg,
 .input-group-btn:first-child > .btn-group > .btn,
 .input-group-btn:first-child > .btn-group > .cta,
+.input-group-btn:first-child > .btn-group > .cta-lg,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .cta:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .cta-lg:not(:last-child):not(.dropdown-toggle),
 .input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
-.input-group-btn:last-child > .btn-group:not(:last-child) > .cta {
+.input-group-btn:last-child > .btn-group:not(:last-child) > .cta,
+.input-group-btn:last-child > .btn-group:not(:last-child) > .cta-lg {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -5855,13 +5895,17 @@ tbody.collapse.in {
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
 .input-group-btn:last-child > .cta,
+.input-group-btn:last-child > .cta-lg,
 .input-group-btn:last-child > .btn-group > .btn,
 .input-group-btn:last-child > .btn-group > .cta,
+.input-group-btn:last-child > .btn-group > .cta-lg,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
 .input-group-btn:first-child > .cta:not(:first-child),
+.input-group-btn:first-child > .cta-lg:not(:first-child),
 .input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
-.input-group-btn:first-child > .btn-group:not(:first-child) > .cta {
+.input-group-btn:first-child > .btn-group:not(:first-child) > .cta,
+.input-group-btn:first-child > .btn-group:not(:first-child) > .cta-lg {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5878,24 +5922,24 @@ tbody.collapse.in {
   white-space: nowrap;
 }
 /* line 140, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn, .input-group-btn > .cta {
+.input-group-btn > .btn, .input-group-btn > .cta, .input-group-btn > .cta-lg {
   position: relative;
 }
 /* line 142, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn + .btn, .input-group-btn > .cta + .btn, .input-group-btn > .btn + .cta, .input-group-btn > .cta + .cta {
+.input-group-btn > .btn + .btn, .input-group-btn > .cta + .btn, .input-group-btn > .cta-lg + .btn, .input-group-btn > .btn + .cta, .input-group-btn > .cta + .cta, .input-group-btn > .cta-lg + .cta, .input-group-btn > .btn + .cta-lg, .input-group-btn > .cta + .cta-lg, .input-group-btn > .cta-lg + .cta-lg {
   margin-left: -1px;
 }
 /* line 146, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn > .btn:hover, .input-group-btn > .cta:hover, .input-group-btn > .btn:focus, .input-group-btn > .cta:focus, .input-group-btn > .btn:active, .input-group-btn > .cta:active {
+.input-group-btn > .btn:hover, .input-group-btn > .cta:hover, .input-group-btn > .cta-lg:hover, .input-group-btn > .btn:focus, .input-group-btn > .cta:focus, .input-group-btn > .cta-lg:focus, .input-group-btn > .btn:active, .input-group-btn > .cta:active, .input-group-btn > .cta-lg:active {
   z-index: 2;
 }
 /* line 155, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:first-child > .btn, .input-group-btn:first-child > .cta,
+.input-group-btn:first-child > .btn, .input-group-btn:first-child > .cta, .input-group-btn:first-child > .cta-lg,
 .input-group-btn:first-child > .btn-group {
   margin-right: -1px;
 }
 /* line 161, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_input-groups.scss */
-.input-group-btn:last-child > .btn, .input-group-btn:last-child > .cta,
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .cta, .input-group-btn:last-child > .cta-lg,
 .input-group-btn:last-child > .btn-group {
   z-index: 2;
   margin-left: -1px;
@@ -6536,12 +6580,12 @@ tbody.collapse.in {
   margin-bottom: 6px;
 }
 /* line 346, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.cta {
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.cta, .btn-group-sm > .navbar-btn.cta-lg {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 /* line 349, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navbar.scss */
-.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.cta {
+.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.cta, .btn-group-xs > .navbar-btn.cta-lg {
   margin-top: 14px;
   margin-bottom: 14px;
 }
@@ -6992,7 +7036,7 @@ tbody.collapse.in {
   display: none;
 }
 /* line 25, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_labels.scss */
-.btn .label, .cta .label {
+.btn .label, .cta .label, .cta-lg .label {
   position: relative;
   top: -1px;
 }
@@ -7078,12 +7122,12 @@ a.label:hover, a.label:focus {
   display: none;
 }
 /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_badges.scss */
-.btn .badge, .cta .badge {
+.btn .badge, .cta .badge, .cta-lg .badge {
   position: relative;
   top: -1px;
 }
 /* line 32, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_badges.scss */
-.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .cta .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .cta .badge {
+.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .cta .badge, .btn-group-xs > .cta-lg .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .cta .badge, .btn-group-xs > .cta-lg .badge {
   top: 0;
   padding: 1px 5px;
 }
@@ -8378,12 +8422,12 @@ button.close {
   clear: both;
 }
 /* line 110, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn + .btn, .modal-footer .cta + .btn, .modal-footer .btn + .cta, .modal-footer .cta + .cta {
+.modal-footer .btn + .btn, .modal-footer .cta + .btn, .modal-footer .cta-lg + .btn, .modal-footer .btn + .cta, .modal-footer .cta + .cta, .modal-footer .cta-lg + .cta, .modal-footer .btn + .cta-lg, .modal-footer .cta + .cta-lg, .modal-footer .cta-lg + .cta-lg {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 115, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .cta + .btn, .modal-footer .btn-group .btn + .cta, .modal-footer .btn-group .cta + .cta {
+.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .cta + .btn, .modal-footer .btn-group .cta-lg + .btn, .modal-footer .btn-group .btn + .cta, .modal-footer .btn-group .cta + .cta, .modal-footer .btn-group .cta-lg + .cta, .modal-footer .btn-group .btn + .cta-lg, .modal-footer .btn-group .cta + .cta-lg, .modal-footer .btn-group .cta-lg + .cta-lg {
   margin-left: -1px;
 }
 /* line 119, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_modals.scss */
@@ -10823,8 +10867,8 @@ button.close {
 -------------------------------------------- */
 @font-face {
   font-family: "Mono Social Icons Font";
-  src: url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot?1369131776');
-  src: url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot?&1369131776#iefix') format('embedded-opentype'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.woff?1369131776') format('woff'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.ttf?1369131776') format('truetype'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.svg?1369133749#MonoSocialIconsFont') format('svg');
+  src: url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot?1442606430');
+  src: url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.eot?&1442606430#iefix') format('embedded-opentype'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.woff?1442606430') format('woff'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.ttf?1442606430') format('truetype'), url('/addons/wetumka_brand/themes/custom/fonts/MonoSocialIconsFont-1.10/MonoSocialIconsFont-1.10.svg?1442606430#MonoSocialIconsFont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -10854,24 +10898,30 @@ button.close {
   background-image: -moz-linear-gradient(bottom, #006798, #0286ba);
   background-image: -webkit-linear-gradient(bottom, #006798, #0286ba);
   background-image: linear-gradient(to top, #006798, #0286ba);
-  -moz-transition: -moz-transform 800ms;
-  -o-transition: -o-transform 800ms;
-  -webkit-transition: -webkit-transform 800ms;
-  transition: transform 800ms;
+  -moz-transition: -moz-transform 500ms;
+  -o-transition: -o-transform 500ms;
+  -webkit-transition: -webkit-transform 500ms;
+  transition: transform 500ms;
 }
 /* line 47, ../sass/screen.scss */
-.site-header .site-header-logo {
+.site-header .site-header-toggle {
   display: block;
   width: 100px;
   height: 100px;
   position: absolute;
-  left: 50%;
-  bottom: -120px;
-  margin-left: -50px;
+  bottom: -95px;
 }
 /* line 56, ../sass/screen.scss */
 .site-header .mod-main-nav {
   overflow: hidden;
+}
+/* line 61, ../sass/screen.scss */
+.site-header .widget.sectionNavList {
+  display: none;
+}
+/* line 64, ../sass/screen.scss */
+.site-header .widget.showNavList {
+  display: block;
 }
 @media (max-width: 767px) {
   /* line 36, ../sass/screen.scss */
@@ -10879,27 +10929,27 @@ button.close {
     height: 100%;
     top: -100%;
   }
-  /* line 69, ../sass/screen.scss */
+  /* line 75, ../sass/screen.scss */
   .site-header-wrapper {
     height: inherit;
     padding-bottom: 80px;
   }
-  /* line 73, ../sass/screen.scss */
+  /* line 79, ../sass/screen.scss */
   .site-header .mod-main-nav {
     height: 100%;
     overflow: scroll;
     border-bottom: solid 2px #55D6F9;
     box-shadow: inset 0 -18px 18px -18px rgba(0, 0, 0, 0.7);
   }
-  /* line 79, ../sass/screen.scss */
-  .site-header .site-header-logo {
-    -moz-transition: -moz-transform 800ms;
-    -o-transition: -o-transform 800ms;
-    -webkit-transition: -webkit-transform 800ms;
-    transition: transform 800ms;
+  /* line 85, ../sass/screen.scss */
+  .site-header .site-header-toggle {
+    -moz-transition: -moz-transform 500ms;
+    -o-transition: -o-transform 500ms;
+    -webkit-transition: -webkit-transform 500ms;
+    transition: transform 500ms;
   }
-  /* line 82, ../sass/screen.scss */
-  .active-main-nav .site-header .site-header-logo {
+  /* line 88, ../sass/screen.scss */
+  .active-main-nav .site-header .site-header-toggle {
     -moz-transform: translateY(-110px) scale(0.7, 0.7);
     -ms-transform: translateY(-110px) scale(0.7, 0.7);
     -webkit-transform: translateY(-110px) scale(0.7, 0.7);
@@ -10912,7 +10962,7 @@ button.close {
     height: 300px;
     top: -300px;
   }
-  /* line 89, ../sass/screen.scss */
+  /* line 95, ../sass/screen.scss */
   .site-header::after {
     display: block;
     content: '';
@@ -10926,12 +10976,12 @@ button.close {
     background-image: -webkit-radial-gradient(50% 10px, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
     background-image: radial-gradient(50% 10px, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 90%);
   }
-  /* line 98, ../sass/screen.scss */
+  /* line 104, ../sass/screen.scss */
   .site-header .mod-main-nav {
     height: 300px;
   }
 }
-/* line 102, ../sass/screen.scss */
+/* line 108, ../sass/screen.scss */
 .active-main-nav .site-header {
   -moz-transform: translateY(100%);
   -ms-transform: translateY(100%);
@@ -10939,19 +10989,19 @@ button.close {
   transform: translateY(100%);
 }
 
-/* line 106, ../sass/screen.scss */
+/* line 112, ../sass/screen.scss */
 .site-content {
   position: relative;
-  padding-top: 140px;
+  padding-top: 25px;
 }
 @media (min-width: 768px) {
-  /* line 106, ../sass/screen.scss */
+  /* line 112, ../sass/screen.scss */
   .site-content {
-    padding-top: 240px;
+    padding-top: 50px;
   }
 }
 
-/* line 113, ../sass/screen.scss */
+/* line 119, ../sass/screen.scss */
 .site-footer {
   position: absolute;
   bottom: 0;
@@ -10960,28 +11010,28 @@ button.close {
   color: #fff;
   padding: 10px 0;
 }
-/* line 121, ../sass/screen.scss */
+/* line 127, ../sass/screen.scss */
 .site-footer a {
   color: #fff;
   border-bottom: dotted 1px rgba(255, 255, 255, 0.2);
 }
-/* line 125, ../sass/screen.scss */
+/* line 131, ../sass/screen.scss */
 .site-footer ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 130, ../sass/screen.scss */
+/* line 136, ../sass/screen.scss */
 .site-footer li {
   display: inline;
   padding-left: 10px;
 }
-/* line 133, ../sass/screen.scss */
+/* line 139, ../sass/screen.scss */
 .site-footer li::first-child {
   padding-left: 0;
 }
 @media (max-width: 768px) {
-  /* line 136, ../sass/screen.scss */
+  /* line 142, ../sass/screen.scss */
   .site-footer li.copy {
     display: block;
   }
@@ -10990,36 +11040,40 @@ button.close {
 /* -----------------------------------------
          Site Layout Styles
 -------------------------------------------- */
-/* line 146, ../sass/screen.scss */
+/* line 152, ../sass/screen.scss */
 .block-wrapper {
   padding-bottom: 100px;
 }
-/* line 152, ../sass/screen.scss */
+/* line 157, ../sass/screen.scss */
+.block-wrapper.intro-section {
+  text-align: center;
+}
+/* line 159, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
   font-size: 50px;
   font-weight: 900;
 }
-/* line 161, ../sass/screen.scss */
+/* line 168, ../sass/screen.scss */
 .block-wrapper.intro-section > .block > .block-inner {
   color: #fff;
 }
 @media (min-width: 768px) {
-  /* line 161, ../sass/screen.scss */
+  /* line 168, ../sass/screen.scss */
   .block-wrapper.intro-section > .block > .block-inner {
     padding: 45px 60px;
   }
 }
-/* line 167, ../sass/screen.scss */
+/* line 174, ../sass/screen.scss */
 .block-wrapper.intro-section > .block > .block-inner a, .block-wrapper.intro-section > .block > .block-inner h1, .block-wrapper.intro-section > .block > .block-inner h2, .block-wrapper.intro-section > .block > .block-inner h3 {
   color: inherit;
 }
 @media (min-width: 768px) {
-  /* line 173, ../sass/screen.scss */
+  /* line 180, ../sass/screen.scss */
   .block-wrapper.intro-section h1 {
     font-size: 80px;
   }
-  /* line 176, ../sass/screen.scss */
+  /* line 183, ../sass/screen.scss */
   .block-wrapper.intro-section > .block {
     border-bottom: solid 4px rgba(255, 255, 255, 0.2);
   }
@@ -11028,28 +11082,28 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 202, ../sass/screen.scss */
+/* line 209, ../sass/screen.scss */
 .capture-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 219, ../sass/screen.scss */
+/* line 226, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 223, ../sass/screen.scss */
+/* line 230, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 232, ../sass/screen.scss */
+/* line 239, ../sass/screen.scss */
 .capture-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
-/* line 238, ../sass/screen.scss */
+/* line 245, ../sass/screen.scss */
 .capture-form select {
   -webkit-appearance: none;
 }
-/* line 241, ../sass/screen.scss */
+/* line 248, ../sass/screen.scss */
 .capture-form .flag-required {
   position: absolute;
   right: -15px;
@@ -11061,7 +11115,7 @@ button.close {
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 @media (min-width: 768px) {
-  /* line 241, ../sass/screen.scss */
+  /* line 248, ../sass/screen.scss */
   .capture-form .flag-required {
     right: -30px;
   }
@@ -11130,7 +11184,7 @@ button.close {
   color: #fff;
 }
 /* line 30, ../sass/_modules.scss */
-.mod-main-nav .navigation li {
+.mod-main-nav .navigation li, .mod-main-nav .mod-blog_categories li {
   font-size: 20px;
 }
 /* line 223, ../sass/_mixins.scss */
@@ -11424,7 +11478,11 @@ button.close {
 .mod-services-hd h2 {
   text-transform: uppercase;
 }
-/* line 94, ../sass/_modules.scss */
+/* line 93, ../sass/_modules.scss */
+.mod-services-ft {
+  text-align: center;
+}
+/* line 97, ../sass/_modules.scss */
 .mod-partner {
   background-color: #fff;
   position: relative;
@@ -11440,20 +11498,20 @@ button.close {
   color: #006798;
 }
 @media (max-width: 767px) {
-  /* line 94, ../sass/_modules.scss */
+  /* line 97, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 94, ../sass/_modules.scss */
+  /* line 97, ../sass/_modules.scss */
   .mod-partner {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 94, ../sass/_modules.scss */
+  /* line 97, ../sass/_modules.scss */
   .mod-partner {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -11542,20 +11600,20 @@ button.close {
   }
 }
 @media (max-width: 767px) {
-  /* line 94, ../sass/_modules.scss */
+  /* line 97, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 80px;
   }
 }
-/* line 100, ../sass/_modules.scss */
+/* line 103, ../sass/_modules.scss */
 .mod-partner-ft a {
   float: right;
 }
-/* line 106, ../sass/_modules.scss */
+/* line 109, ../sass/_modules.scss */
 .mod-partners-hd {
   position: relative;
 }
-/* line 108, ../sass/_modules.scss */
+/* line 111, ../sass/_modules.scss */
 .mod-partners-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -11565,44 +11623,44 @@ button.close {
   margin: 0;
   color: #DC3D25;
 }
-/* line 118, ../sass/_modules.scss */
+/* line 121, ../sass/_modules.scss */
 .mod-partners-hd p {
   color: #fff;
   padding: 40px 30px 70px;
   margin-bottom: 0;
   text-align: center;
 }
-/* line 124, ../sass/_modules.scss */
+/* line 127, ../sass/_modules.scss */
 .mod-partners-hd p a {
   color: inherit;
 }
 @media (min-width: 768px) {
-  /* line 118, ../sass/_modules.scss */
+  /* line 121, ../sass/_modules.scss */
   .mod-partners-hd p {
     padding: 80px 60px;
   }
 }
-/* line 130, ../sass/_modules.scss */
+/* line 133, ../sass/_modules.scss */
 .mod-partners-ft {
   text-align: center;
   color: #fff;
   margin: 40px 0 0;
 }
 @media (max-width: 768px) {
-  /* line 130, ../sass/_modules.scss */
+  /* line 133, ../sass/_modules.scss */
   .mod-partners-ft {
     margin-bottom: 40px;
   }
 }
-/* line 140, ../sass/_modules.scss */
+/* line 143, ../sass/_modules.scss */
 .mod-testimonials {
   margin-bottom: 20px;
 }
-/* line 142, ../sass/_modules.scss */
+/* line 145, ../sass/_modules.scss */
 .mod-testimonials-hd {
   position: relative;
 }
-/* line 144, ../sass/_modules.scss */
+/* line 147, ../sass/_modules.scss */
 .mod-testimonials-hd h2 {
   text-transform: uppercase;
   position: absolute;
@@ -11611,7 +11669,7 @@ button.close {
   background-color: #fff;
   color: #DC3D25;
 }
-/* line 153, ../sass/_modules.scss */
+/* line 156, ../sass/_modules.scss */
 .mod-testimonials-hd p {
   color: #fff;
   padding: 40px 30px 70px;
@@ -11619,12 +11677,12 @@ button.close {
   text-align: center;
 }
 @media (min-width: 768px) {
-  /* line 153, ../sass/_modules.scss */
+  /* line 156, ../sass/_modules.scss */
   .mod-testimonials-hd p {
     padding: 80px 60px;
   }
 }
-/* line 172, ../sass/_modules.scss */
+/* line 175, ../sass/_modules.scss */
 .mod-testimonial {
   background-color: #fff;
   position: relative;
@@ -11640,20 +11698,20 @@ button.close {
   color: #006798;
 }
 @media (max-width: 767px) {
-  /* line 172, ../sass/_modules.scss */
+  /* line 175, ../sass/_modules.scss */
   .mod-testimonial {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 172, ../sass/_modules.scss */
+  /* line 175, ../sass/_modules.scss */
   .mod-testimonial {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 172, ../sass/_modules.scss */
+  /* line 175, ../sass/_modules.scss */
   .mod-testimonial {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -11788,19 +11846,19 @@ button.close {
     left: 240px;
   }
 }
-/* line 175, ../sass/_modules.scss */
+/* line 178, ../sass/_modules.scss */
 .mod-testimonial-bd {
   position: relative;
 }
-/* line 177, ../sass/_modules.scss */
+/* line 180, ../sass/_modules.scss */
 .mod-testimonial-bd q {
   display: block;
 }
-/* line 179, ../sass/_modules.scss */
+/* line 182, ../sass/_modules.scss */
 .mod-testimonial-bd q p {
   text-indent: 50px;
 }
-/* line 182, ../sass/_modules.scss */
+/* line 185, ../sass/_modules.scss */
 .mod-testimonial-bd q::before, .mod-testimonial-bd q::after {
   font-size: 80px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -11808,88 +11866,88 @@ button.close {
   position: absolute;
   opacity: .2;
 }
-/* line 189, ../sass/_modules.scss */
+/* line 192, ../sass/_modules.scss */
 .mod-testimonial-bd q::after {
   right: 0px;
 }
-/* line 199, ../sass/_modules.scss */
+/* line 202, ../sass/_modules.scss */
 .mod-clients-ft {
   text-align: center;
   color: #fff;
   margin: 40px 0 0;
 }
-/* line 203, ../sass/_modules.scss */
+/* line 206, ../sass/_modules.scss */
 .mod-client {
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
 }
-/* line 209, ../sass/_modules.scss */
+/* line 212, ../sass/_modules.scss */
 .mod-client img {
   width: 100%;
 }
-/* line 271, ../sass/_modules.scss */
+/* line 274, ../sass/_modules.scss */
 .mod-posts .mod-post {
   border-bottom: solid 2px rgba(255, 255, 255, 0.5);
   margin-bottom: 120px;
   padding-bottom: 120px;
 }
-/* line 276, ../sass/_modules.scss */
+/* line 279, ../sass/_modules.scss */
 .mod-posts .mod-post::last-child {
   margin-bottom: 50px;
 }
-/* line 285, ../sass/_modules.scss */
+/* line 288, ../sass/_modules.scss */
 .mod-post-hd {
   border-bottom: solid 1px rgba(255, 255, 255, 0.2);
   margin-bottom: 2em;
 }
-/* line 288, ../sass/_modules.scss */
+/* line 291, ../sass/_modules.scss */
 .mod-post-hd .post-headline {
   color: #fff;
   font-size: 32px;
   font-weight: 600;
 }
 @media (min-width: 768px) {
-  /* line 288, ../sass/_modules.scss */
+  /* line 291, ../sass/_modules.scss */
   .mod-post-hd .post-headline {
     font-size: 64px;
   }
 }
-/* line 295, ../sass/_modules.scss */
+/* line 298, ../sass/_modules.scss */
 .mod-post-hd .post-headline a {
   border: none;
 }
-/* line 299, ../sass/_modules.scss */
+/* line 302, ../sass/_modules.scss */
 .mod-post-hd .post-meta {
   text-align: center;
   margin: 1em 0;
 }
-/* line 302, ../sass/_modules.scss */
+/* line 305, ../sass/_modules.scss */
 .mod-post-hd .post-meta .author, .mod-post-hd .post-meta .date {
   font-style: italic;
 }
-/* line 306, ../sass/_modules.scss */
+/* line 309, ../sass/_modules.scss */
 .mod-post-hd .post-image {
   margin-bottom: 1.2em;
 }
-/* line 307, ../sass/_modules.scss */
+/* line 310, ../sass/_modules.scss */
 .mod-post-hd .post-image img {
   max-width: 100%;
 }
-/* line 320, ../sass/_modules.scss */
+/* line 323, ../sass/_modules.scss */
 .mod-author {
   margin-top: 20px;
   padding-top: 20px;
   border-top: solid 4px rgba(255, 255, 255, 0.2);
 }
 @media (min-width: 768px) {
-  /* line 320, ../sass/_modules.scss */
+  /* line 323, ../sass/_modules.scss */
   .mod-author {
     margin-top: 48px;
     padding-top: 48px;
   }
 }
-/* line 332, ../sass/_modules.scss */
+/* line 335, ../sass/_modules.scss */
 .mod-author-hd img {
   width: 100%;
 }
@@ -11897,24 +11955,24 @@ button.close {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 265, ../sass/screen.scss */
+/* line 272, ../sass/screen.scss */
 h1, h2 {
   text-align: center;
 }
 
-/* line 268, ../sass/screen.scss */
+/* line 275, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
-/* line 271, ../sass/screen.scss */
-.cta {
-  font-size: inherit;
+/* line 278, ../sass/screen.scss */
+.cta, .cta-lg {
   vertical-align: baseline;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 768px) {
-  /* line 277, ../sass/screen.scss */
+  /* line 289, ../sass/screen.scss */
   .columns {
     text-align: left;
     -moz-columns: auto 2;
@@ -11926,17 +11984,17 @@ img {
   }
 }
 
-/* line 284, ../sass/screen.scss */
+/* line 296, ../sass/screen.scss */
 a {
   border-bottom-style: dotted;
   border-bottom-width: 1px;
 }
-/* line 287, ../sass/screen.scss */
+/* line 299, ../sass/screen.scss */
 a:hover {
   text-decoration: none;
 }
 
-/* line 291, ../sass/screen.scss */
+/* line 303, ../sass/screen.scss */
 a.social-icon {
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
@@ -11953,6 +12011,63 @@ a.social-icon {
   line-height: 1em;
   border-bottom: none;
   text-decoration: none;
+}
+
+/* line 3, ../sass/pages/_home.scss */
+body.home-page .intro-section {
+  padding-bottom: 0;
+}
+/* line 5, ../sass/pages/_home.scss */
+body.home-page .intro-section h3 {
+  font-weight: 500;
+}
+/* line 9, ../sass/pages/_home.scss */
+body.home-page .sub-section {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4gPHN2ZyB2ZXJzaW9uPSIxLjEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJncmFkIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjAuNSIgeTE9IjEuMCIgeDI9IjAuNSIgeTI9IjAuMCI+PHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwM2U1YiIvPjxzdG9wIG9mZnNldD0iMTAwJSIgc3RvcC1jb2xvcj0iIzAwNjc5OCIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JhZCkiIC8+PC9zdmc+IA==');
+  background-size: 100%;
+  background-image: -webkit-gradient(linear, 50% 100%, 50% 0%, color-stop(0%, #003e5b), color-stop(100%, #006798));
+  background-image: -moz-linear-gradient(bottom, #003e5b, #006798);
+  background-image: -webkit-linear-gradient(bottom, #003e5b, #006798);
+  background-image: linear-gradient(to top, #003e5b, #006798);
+}
+/* line 14, ../sass/pages/_home.scss */
+body.home-page .mod-services-ft {
+  padding-top: 50px;
+}
+/* line 21, ../sass/pages/_home.scss */
+body.home-page .mod-services-bd .mod-service > img {
+  opacity: 0;
+  -moz-transform-origin: center bottom 50%;
+  -ms-transform-origin: center bottom 50%;
+  -webkit-transform-origin: center bottom 50%;
+  transform-origin: center bottom 50%;
+}
+/* line 26, ../sass/pages/_home.scss */
+body.home-page .mod-services-bd.event-visible-active .mod-service:nth-child(1) > img {
+  -moz-animation: scale_in 400ms ease-out 300ms 1;
+  -webkit-animation: scale_in 400ms ease-out 300ms 1;
+  animation: scale_in 400ms ease-out 300ms 1;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+/* line 30, ../sass/pages/_home.scss */
+body.home-page .mod-services-bd.event-visible-active .mod-service:nth-child(2) > img {
+  -moz-animation: scale_in 400ms ease-out 100ms 1;
+  -webkit-animation: scale_in 400ms ease-out 100ms 1;
+  animation: scale_in 400ms ease-out 100ms 1;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
+}
+/* line 34, ../sass/pages/_home.scss */
+body.home-page .mod-services-bd.event-visible-active .mod-service:nth-child(3) > img {
+  -moz-animation: scale_in 400ms ease-out 500ms 1;
+  -webkit-animation: scale_in 400ms ease-out 500ms 1;
+  animation: scale_in 400ms ease-out 500ms 1;
+  -moz-animation-fill-mode: forwards;
+  -webkit-animation-fill-mode: forwards;
+  animation-fill-mode: forwards;
 }
 
 /* line 2, ../sass/pages/_about.scss */
@@ -12072,17 +12187,21 @@ body.work-page .intro-section {
   padding-bottom: 0;
   text-align: center;
 }
-/* line 7, ../sass/pages/_work.scss */
+/* line 5, ../sass/pages/_work.scss */
+body.work-page .intro-section h2 {
+  font-weight: 500;
+}
+/* line 11, ../sass/pages/_work.scss */
 body.work-page .info-section > .block {
   background-color: transparent;
 }
-/* line 10, ../sass/pages/_work.scss */
+/* line 14, ../sass/pages/_work.scss */
 body.work-page .info-section .mod-services-hd h2 {
   color: #fff;
   text-shadow: 0 1px 1px #000;
 }
 @media (min-width: 768px) {
-  /* line 6, ../sass/pages/_work.scss */
+  /* line 10, ../sass/pages/_work.scss */
   body.work-page .info-section {
     background-position: center top, center center;
     background-repeat: repeat-x, repeat;
@@ -12097,17 +12216,17 @@ body.work-page .info-section .mod-services-hd h2 {
     background-image: url(../img/flatBlueTexture_fade_1x.png), url(../img/flatBlueTexture_1x.png);
   }
 }
-/* line 16, ../sass/pages/_work.scss */
+/* line 20, ../sass/pages/_work.scss */
 body.work-page .client-section {
   border-top: solid 140px #fff;
   background-color: #d53b24;
 }
-/* line 18, ../sass/pages/_work.scss */
+/* line 22, ../sass/pages/_work.scss */
 body.work-page .client-section > .block {
   background-color: transparent;
 }
 @media (min-width: 768px) {
-  /* line 16, ../sass/pages/_work.scss */
+  /* line 20, ../sass/pages/_work.scss */
   body.work-page .client-section {
     padding-bottom: 140px;
     background-position: center bottom;
@@ -12123,7 +12242,7 @@ body.work-page .client-section > .block {
     background-image: url(../img/orange_1x.jpg);
   }
 }
-/* line 25, ../sass/pages/_work.scss */
+/* line 29, ../sass/pages/_work.scss */
 body.work-page .mod-services-bd .mod-service > img {
   opacity: 0;
   -moz-transform-origin: center bottom 50%;
@@ -12131,7 +12250,7 @@ body.work-page .mod-services-bd .mod-service > img {
   -webkit-transform-origin: center bottom 50%;
   transform-origin: center bottom 50%;
 }
-/* line 30, ../sass/pages/_work.scss */
+/* line 34, ../sass/pages/_work.scss */
 body.work-page .mod-services-bd.event-visible-active .mod-service:nth-child(1) > img {
   -moz-animation: scale_in 400ms ease-out 600ms 1;
   -webkit-animation: scale_in 400ms ease-out 600ms 1;
@@ -12140,7 +12259,7 @@ body.work-page .mod-services-bd.event-visible-active .mod-service:nth-child(1) >
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 34, ../sass/pages/_work.scss */
+/* line 38, ../sass/pages/_work.scss */
 body.work-page .mod-services-bd.event-visible-active .mod-service:nth-child(2) > img {
   -moz-animation: scale_in 400ms ease-out 200ms 1;
   -webkit-animation: scale_in 400ms ease-out 200ms 1;
@@ -12149,7 +12268,7 @@ body.work-page .mod-services-bd.event-visible-active .mod-service:nth-child(2) >
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 38, ../sass/pages/_work.scss */
+/* line 42, ../sass/pages/_work.scss */
 body.work-page .mod-services-bd.event-visible-active .mod-service:nth-child(3) > img {
   -moz-animation: scale_in 400ms ease-out 1000ms 1;
   -webkit-animation: scale_in 400ms ease-out 1000ms 1;
@@ -12158,11 +12277,11 @@ body.work-page .mod-services-bd.event-visible-active .mod-service:nth-child(3) >
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 45, ../sass/pages/_work.scss */
+/* line 49, ../sass/pages/_work.scss */
 body.work-page .mod-testimonials-bd > div {
   opacity: 0;
 }
-/* line 49, ../sass/pages/_work.scss */
+/* line 53, ../sass/pages/_work.scss */
 body.work-page .mod-testimonials-bd.event-visible-active > div:nth-child(even) {
   -moz-animation: enter_right 400ms ease-out 600ms 1;
   -webkit-animation: enter_right 400ms ease-out 600ms 1;
@@ -12171,7 +12290,7 @@ body.work-page .mod-testimonials-bd.event-visible-active > div:nth-child(even) {
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 53, ../sass/pages/_work.scss */
+/* line 57, ../sass/pages/_work.scss */
 body.work-page .mod-testimonials-bd.event-visible-active > div:nth-child(odd) {
   -moz-animation: enter_left 400ms ease-out 600ms 1;
   -webkit-animation: enter_left 400ms ease-out 600ms 1;
@@ -12180,7 +12299,7 @@ body.work-page .mod-testimonials-bd.event-visible-active > div:nth-child(odd) {
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 60, ../sass/pages/_work.scss */
+/* line 64, ../sass/pages/_work.scss */
 body.work-page .mod-clients-bd .mod-client > img {
   opacity: 0;
   -moz-transform-origin: center bottom 50%;
@@ -12188,7 +12307,7 @@ body.work-page .mod-clients-bd .mod-client > img {
   -webkit-transform-origin: center bottom 50%;
   transform-origin: center bottom 50%;
 }
-/* line 65, ../sass/pages/_work.scss */
+/* line 69, ../sass/pages/_work.scss */
 body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(1) > img {
   -moz-animation: scale_in 400ms ease-out 200ms 1;
   -webkit-animation: scale_in 400ms ease-out 200ms 1;
@@ -12197,7 +12316,7 @@ body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(1) > i
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 69, ../sass/pages/_work.scss */
+/* line 73, ../sass/pages/_work.scss */
 body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(2) > img {
   -moz-animation: scale_in 400ms ease-out 400ms 1;
   -webkit-animation: scale_in 400ms ease-out 400ms 1;
@@ -12206,7 +12325,7 @@ body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(2) > i
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 73, ../sass/pages/_work.scss */
+/* line 77, ../sass/pages/_work.scss */
 body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(3) > img {
   -moz-animation: scale_in 400ms ease-out 600ms 1;
   -webkit-animation: scale_in 400ms ease-out 600ms 1;
@@ -12215,7 +12334,7 @@ body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(3) > i
   -webkit-animation-fill-mode: forwards;
   animation-fill-mode: forwards;
 }
-/* line 77, ../sass/pages/_work.scss */
+/* line 81, ../sass/pages/_work.scss */
 body.work-page .mod-clients-bd.event-visible-active .mod-client:nth-child(4) > img {
   -moz-animation: scale_in 400ms ease-out 800ms 1;
   -webkit-animation: scale_in 400ms ease-out 800ms 1;
@@ -12252,27 +12371,35 @@ body.blog-page .blog-list-section {
 /* -----------------------------------------
          				SVG & animations
 -------------------------------------------- */
-/* line 319, ../sass/screen.scss */
-.site-header-logo .aniCircle {
+/* line 331, ../sass/screen.scss */
+.site-header-toggle {
+  -moz-transform: scale(0.6, 0.6);
+  -ms-transform: scale(0.6, 0.6);
+  -webkit-transform: scale(0.6, 0.6);
+  transform: scale(0.6, 0.6);
+}
+/* line 333, ../sass/screen.scss */
+.site-header-toggle .aniCircle {
   fill: rgba(0, 103, 152, 0.2);
+  stroke: #97E9FC;
+  stroke-width: 5px;
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  -moz-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -o-transition: stroke-dashoffset 800ms ease-out 100ms;
+  -webkit-transition: stroke-dashoffset 800ms ease-out;
+  -webkit-transition-delay: 100ms;
+  transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 327, ../sass/screen.scss */
-.site-header-logo .logo-path-group {
-  stroke: #fff;
-  stroke-width: 1px;
-  fill: transparent;
-  stroke-dasharray: 150;
-  stroke-dashoffset: 150;
-}
-/* line 334, ../sass/screen.scss */
-.site-header-logo .hamburger-x {
+/* line 341, ../sass/screen.scss */
+.site-header-toggle .hamburger-x {
   stroke: #fff;
   stroke-width: 20px;
   stroke-linecap: square;
   fill: transparent;
 }
-/* line 339, ../sass/screen.scss */
-.site-header-logo .hamburger-x .path-x {
+/* line 346, ../sass/screen.scss */
+.site-header-toggle .hamburger-x .path-x {
   stroke-dasharray: 135 400;
   stroke-dashoffset: 135;
   -moz-transition: stroke-dashoffset 800ms ease-out 100ms;
@@ -12281,8 +12408,8 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 344, ../sass/screen.scss */
-.site-header-logo .hamburger-x .path-2 {
+/* line 351, ../sass/screen.scss */
+.site-header-toggle .hamburger-x .path-2 {
   stroke-dasharray: 135;
   stroke-dashoffset: 405;
   -moz-transition: stroke-dashoffset 800ms ease-out 100ms;
@@ -12291,117 +12418,63 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 350, ../sass/screen.scss */
-.site-header-logo .logo-path-1 {
-  -moz-transition: all 400ms ease-out 800ms;
-  -o-transition: all 400ms ease-out 800ms;
-  -webkit-transition: all 400ms ease-out;
-  -webkit-transition-delay: 800ms;
-  transition: all 400ms ease-out 800ms;
-}
-/* line 353, ../sass/screen.scss */
-.site-header-logo .logo-path-2 {
-  -moz-transition: all 800ms ease-out 400ms;
-  -o-transition: all 800ms ease-out 400ms;
-  -webkit-transition: all 800ms ease-out;
-  -webkit-transition-delay: 400ms;
-  transition: all 800ms ease-out 400ms;
-}
-/* line 356, ../sass/screen.scss */
-.site-header-logo .logo-path-3 {
-  -moz-transition: all 1200ms ease-out 0ms;
-  -o-transition: all 1200ms ease-out 0ms;
-  -webkit-transition: all 1200ms ease-out;
-  -webkit-transition-delay: 0ms;
-  transition: all 1200ms ease-out 0ms;
-}
-/* line 360, ../sass/screen.scss */
-.site-header-logo.active .logo-path-group {
-  stroke-dashoffset: 0;
-  stroke-width: 7px;
-}
-/* line 365, ../sass/screen.scss */
-.site-header-logo.hover {
+/* line 357, ../sass/screen.scss */
+.site-header-toggle.active, .site-header-toggle.hover {
   cursor: pointer;
 }
-/* line 367, ../sass/screen.scss */
-.site-header-logo.hover .logo-path-1 {
-  -moz-transition: all 400ms ease-out 0ms;
-  -o-transition: all 400ms ease-out 0ms;
-  -webkit-transition: all 400ms ease-out;
-  -webkit-transition-delay: 0ms;
-  transition: all 400ms ease-out 0ms;
-}
-/* line 370, ../sass/screen.scss */
-.site-header-logo.hover .logo-path-2 {
-  -moz-transition: all 400ms ease-out 0ms;
-  -o-transition: all 400ms ease-out 0ms;
-  -webkit-transition: all 400ms ease-out;
-  -webkit-transition-delay: 0ms;
-  transition: all 400ms ease-out 0ms;
-}
-/* line 373, ../sass/screen.scss */
-.site-header-logo.hover .logo-path-3 {
-  -moz-transition: all 400ms ease-out 0ms;
-  -o-transition: all 400ms ease-out 0ms;
-  -webkit-transition: all 400ms ease-out;
-  -webkit-transition-delay: 0ms;
-  transition: all 400ms ease-out 0ms;
-}
-/* line 376, ../sass/screen.scss */
-.site-header-logo.hover .hamburger-x .path-x {
+/* line 359, ../sass/screen.scss */
+.site-header-toggle.active .hamburger-x .path-x, .site-header-toggle.hover .hamburger-x .path-x {
   stroke-dashoffset: 0;
 }
-/* line 379, ../sass/screen.scss */
-.site-header-logo.hover .hamburger-x .path-2 {
+/* line 362, ../sass/screen.scss */
+.site-header-toggle.active .hamburger-x .path-2, .site-header-toggle.hover .hamburger-x .path-2 {
   stroke-dashoffset: 270;
 }
-/* line 384, ../sass/screen.scss */
-.site-header-logo.selected .hamburger-x .path-x {
+/* line 367, ../sass/screen.scss */
+.site-header-toggle.hover .aniCircle {
+  stroke-dashoffset: 0;
+}
+/* line 372, ../sass/screen.scss */
+.site-header-toggle.selected .hamburger-x .path-x {
   stroke-dashoffset: -245;
 }
-/* line 387, ../sass/screen.scss */
-.site-header-logo.selected .hamburger-x .path-2 {
+/* line 375, ../sass/screen.scss */
+.site-header-toggle.selected .hamburger-x .path-2 {
   stroke-dashoffset: 135;
 }
-/* line 390, ../sass/screen.scss */
-.site-header-logo.selected .logo-path-group {
+/* line 378, ../sass/screen.scss */
+.site-header-toggle.selected .logo-path-group {
   stroke-dashoffset: 150;
 }
-@media (max-width: 767px) {
-  /* line 318, ../sass/screen.scss */
-  .site-header-logo {
-    -moz-transform: scale(0.7, 0.7);
-    -ms-transform: scale(0.7, 0.7);
-    -webkit-transform: scale(0.7, 0.7);
-    transform: scale(0.7, 0.7);
-  }
-}
 
-/* line 399, ../sass/screen.scss */
+/* line 384, ../sass/screen.scss */
 .wetumka_logo_wrapper {
   height: 0;
   opacity: 0;
   overflow: hidden;
-  -moz-transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
-  -o-transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
-  -webkit-transition: height 500ms ease-in, opacity 500ms ease-in;
-  -webkit-transition-delay: 0s, 500ms;
-  transition: height 500ms ease-in, opacity 500ms ease-in 500ms;
+  height: 100px;
+  -moz-transition: opacity 500ms ease-in 500ms;
+  -o-transition: opacity 500ms ease-in 500ms;
+  -webkit-transition: opacity 500ms ease-in;
+  -webkit-transition-delay: 500ms;
+  transition: opacity 500ms ease-in 500ms;
 }
-/* line 404, ../sass/screen.scss */
+/* line 390, ../sass/screen.scss */
+.wetumka_logo_wrapper .logo_group {
+  fill: rgba(255, 255, 255, 0.4);
+}
+/* line 393, ../sass/screen.scss */
 .wetumka_logo_wrapper #wetumka_logo {
   display: block;
   width: 100%;
-  min-height: 200px;
+  height: 100px;
 }
-/* line 409, ../sass/screen.scss */
+/* line 398, ../sass/screen.scss */
 .wetumka_logo_wrapper.active {
-  height: 250px;
   opacity: 1;
 }
 
-/* line 415, ../sass/screen.scss */
+/* line 403, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
@@ -12413,33 +12486,33 @@ body.blog-page .blog-list-section {
   -webkit-transition: opacity 1.5s ease-in;
   transition: opacity 1.5s ease-in;
 }
-/* line 423, ../sass/screen.scss */
+/* line 411, ../sass/screen.scss */
 #waves.active {
   opacity: 1;
 }
 @media (max-width: 767px) {
-  /* line 415, ../sass/screen.scss */
+  /* line 403, ../sass/screen.scss */
   #waves {
     background-color: #1695C1;
   }
 }
 @media (min-width: 768px) {
-  /* line 415, ../sass/screen.scss */
+  /* line 403, ../sass/screen.scss */
   #waves {
     -moz-animation: scroll_sky 60s linear infinite;
     -webkit-animation: scroll_sky 60s linear infinite;
     animation: scroll_sky 60s linear infinite;
   }
-  /* line 430, ../sass/screen.scss */
+  /* line 418, ../sass/screen.scss */
   .px-density-2x #waves {
     background-image: url(../img/watercolorTextureFade_2x.jpg);
     background-size: 1500px;
   }
-  /* line 434, ../sass/screen.scss */
+  /* line 422, ../sass/screen.scss */
   .px-density-1x #waves {
     background-image: url(../img/watercolorTextureFade_1x.jpg);
   }
-  /* line 439, ../sass/screen.scss */
+  /* line 427, ../sass/screen.scss */
   .animation-speed-slowest #waves, .animation-speed-slow #waves, .animation-speed-okay #waves {
     -moz-animation-play-state: paused;
     -webkit-animation-play-state: paused;
@@ -12447,66 +12520,66 @@ body.blog-page .blog-list-section {
   }
 }
 
-/* line 446, ../sass/screen.scss */
+/* line 434, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
-/* line 448, ../sass/screen.scss */
+/* line 436, ../sass/screen.scss */
 .animation-speed-slowest .wave_5 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 453, ../sass/screen.scss */
+/* line 441, ../sass/screen.scss */
 .animation-speed-slowest .wave_4, .animation-speed-slow .wave_4 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 458, ../sass/screen.scss */
+/* line 446, ../sass/screen.scss */
 .animation-speed-slowest .wave_3 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 463, ../sass/screen.scss */
+/* line 451, ../sass/screen.scss */
 .animation-speed-slowest .wave_2, .animation-speed-slow .wave_2 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 468, ../sass/screen.scss */
+/* line 456, ../sass/screen.scss */
 .animation-speed-slowest .wave_1 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
 @media (max-width: 767px) {
-  /* line 473, ../sass/screen.scss */
+  /* line 461, ../sass/screen.scss */
   .wave_5 {
     -moz-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     animation: wave_xs_5 900ms ease-in-out infinite alternate;
   }
-  /* line 476, ../sass/screen.scss */
+  /* line 464, ../sass/screen.scss */
   .wave_4 {
     -moz-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     animation: wave_xs_4 600ms ease-in-out infinite alternate;
   }
-  /* line 479, ../sass/screen.scss */
+  /* line 467, ../sass/screen.scss */
   .wave_3 {
     -moz-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     animation: wave_xs_3 500ms ease-in-out infinite alternate;
   }
-  /* line 482, ../sass/screen.scss */
+  /* line 470, ../sass/screen.scss */
   .wave_2 {
     -moz-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     animation: wave_xs_2 600ms ease-in-out infinite alternate;
   }
-  /* line 485, ../sass/screen.scss */
+  /* line 473, ../sass/screen.scss */
   .wave_1 {
     -moz-animation: wave_xs_1 400ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_1 400ms ease-in-out infinite alternate;
@@ -12514,31 +12587,31 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 490, ../sass/screen.scss */
+  /* line 478, ../sass/screen.scss */
   .wave_5 {
     -moz-animation: wave_md_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_md_5 14s ease-in-out infinite alternate;
     animation: wave_md_5 14s ease-in-out infinite alternate;
   }
-  /* line 493, ../sass/screen.scss */
+  /* line 481, ../sass/screen.scss */
   .wave_4 {
     -moz-animation: wave_md_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_4 12s ease-in-out infinite alternate;
     animation: wave_md_4 12s ease-in-out infinite alternate;
   }
-  /* line 496, ../sass/screen.scss */
+  /* line 484, ../sass/screen.scss */
   .wave_3 {
     -moz-animation: wave_md_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_3 12s ease-in-out infinite alternate;
     animation: wave_md_3 12s ease-in-out infinite alternate;
   }
-  /* line 499, ../sass/screen.scss */
+  /* line 487, ../sass/screen.scss */
   .wave_2 {
     -moz-animation: wave_md_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_md_2 10s ease-in-out infinite alternate;
     animation: wave_md_2 10s ease-in-out infinite alternate;
   }
-  /* line 502, ../sass/screen.scss */
+  /* line 490, ../sass/screen.scss */
   .wave_1 {
     -moz-animation: wave_md_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_md_1 15s ease-in-out infinite alternate;
@@ -12546,31 +12619,31 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 1200px) {
-  /* line 507, ../sass/screen.scss */
+  /* line 495, ../sass/screen.scss */
   .wave_5 {
     -moz-animation: wave_lg_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_5 14s ease-in-out infinite alternate;
     animation: wave_lg_5 14s ease-in-out infinite alternate;
   }
-  /* line 510, ../sass/screen.scss */
+  /* line 498, ../sass/screen.scss */
   .wave_4 {
     -moz-animation: wave_lg_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_4 12s ease-in-out infinite alternate;
     animation: wave_lg_4 12s ease-in-out infinite alternate;
   }
-  /* line 513, ../sass/screen.scss */
+  /* line 501, ../sass/screen.scss */
   .wave_3 {
     -moz-animation: wave_lg_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_3 12s ease-in-out infinite alternate;
     animation: wave_lg_3 12s ease-in-out infinite alternate;
   }
-  /* line 516, ../sass/screen.scss */
+  /* line 504, ../sass/screen.scss */
   .wave_2 {
     -moz-animation: wave_lg_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_2 10s ease-in-out infinite alternate;
     animation: wave_lg_2 10s ease-in-out infinite alternate;
   }
-  /* line 519, ../sass/screen.scss */
+  /* line 507, ../sass/screen.scss */
   .wave_1 {
     -moz-animation: wave_lg_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_1 15s ease-in-out infinite alternate;

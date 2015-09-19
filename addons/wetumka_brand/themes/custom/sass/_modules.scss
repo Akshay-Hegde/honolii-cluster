@@ -26,7 +26,7 @@
 			}
 			@include mod-navigation-list;
 		}
-		.navigation{
+		.navigation,.mod-blog_categories{
 			li{
 				font-size:$font-size-large;
 			}
@@ -61,7 +61,7 @@
 		}
 	}
 	&-service{
-		@include mod-columns('.col-md-4',transparent);
+		@include mod-columns('.col-xs-4',transparent);
 		> img{
 			height:150px;
 			width:100%;
@@ -89,6 +89,9 @@
 		}
 		&-bd {
 			@extend .row;
+		}
+		&-ft {
+			text-align:center;
 		}
 	}
 	&-partner{
