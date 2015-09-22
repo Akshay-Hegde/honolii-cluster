@@ -1,4 +1,4 @@
-// about-us.js
+// about.js
 define (['default','lib/pubsub'], function (def,PubSub) {
 	"use strict";
 
@@ -21,12 +21,12 @@ define (['default','lib/pubsub'], function (def,PubSub) {
 			cta[i].addEventListener('click', function(e){PubSub.publish('event.click.pageCTA', e );}, false);
 		}
 
-		for (var i = social.length - 1; i >= 0; i--) {
-			social[i].addEventListener('click', function(e){PubSub.publish('event.click.memberSocial', e );}, false);
+		for (var j = social.length - 1; j >= 0; j--) {
+			social[j].addEventListener('click', function(e){PubSub.publish('event.click.memberSocial', e );}, false);
 		}
 
-		for (var i = partner.length - 1; i >= 0; i--) {
-			partner[i].addEventListener('click', function(e){PubSub.publish('event.click.partnerLink', e );}, false);
+		for (var k = partner.length - 1; k >= 0; k--) {
+			partner[k].addEventListener('click', function(e){PubSub.publish('event.click.partnerLink', e );}, false);
 		}
 
 	};

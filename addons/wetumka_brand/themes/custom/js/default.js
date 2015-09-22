@@ -1,5 +1,5 @@
 // default.js
-define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, PubSub) {
+define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsvg'], function (Assets, PubSub) {
 	"use strict";
 
 	// -------- PubSub Publish Events ---------------
@@ -49,7 +49,6 @@ define (['lib/assets','lib/pubsub','snapsvg','lib/fpsmeter'], function (Assets, 
 		assetsManager.queueDownload([
 	  	assetPath + '/img/svg/scn-1-waves.svg',
 	  	assetPath + '/img/svg/wetumka-logo.svg',
-	  	//assetPath + '/img/svg/wetumka-logo-stroke.svg',
 	  	assetPath + '/img/svg/hamburger-x-path.svg'
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);

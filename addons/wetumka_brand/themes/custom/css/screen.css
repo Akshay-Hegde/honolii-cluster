@@ -10916,7 +10916,7 @@ button.close {
   overflow: hidden;
 }
 /* line 61, ../sass/screen.scss */
-.site-header .widget.sectionNavList {
+.site-header .widget.hideNavList {
   display: none;
 }
 /* line 64, ../sass/screen.scss */
@@ -10950,10 +10950,10 @@ button.close {
   }
   /* line 88, ../sass/screen.scss */
   .active-main-nav .site-header .site-header-toggle {
-    -moz-transform: translateY(-110px) scale(0.7, 0.7);
-    -ms-transform: translateY(-110px) scale(0.7, 0.7);
-    -webkit-transform: translateY(-110px) scale(0.7, 0.7);
-    transform: translateY(-110px) scale(0.7, 0.7);
+    -moz-transform: translateY(-85px) scale(0.7, 0.7);
+    -ms-transform: translateY(-85px) scale(0.7, 0.7);
+    -webkit-transform: translateY(-85px) scale(0.7, 0.7);
+    transform: translateY(-85px) scale(0.7, 0.7);
   }
 }
 @media (min-width: 768px) {
@@ -11934,20 +11934,57 @@ button.close {
 .mod-post-hd .post-image img {
   max-width: 100%;
 }
-/* line 323, ../sass/_modules.scss */
+/* line 316, ../sass/_modules.scss */
+.mod-post-bd {
+  font-size: 20px;
+}
+/* line 320, ../sass/_modules.scss */
+.mod-post-bd p {
+  margin-bottom: 30px;
+}
+/* line 321, ../sass/_modules.scss */
+.mod-post-bd h2, .mod-post-bd h3, .mod-post-bd h4, .mod-post-bd h5, .mod-post-bd h6 {
+  margin-top: 0;
+  margin-bottom: 30px;
+  text-align: left;
+}
+/* line 326, ../sass/_modules.scss */
+.mod-post-bd h2 {
+  font-size: 40px;
+  line-heignt: 60px;
+}
+/* line 330, ../sass/_modules.scss */
+.mod-post-bd h3 {
+  font-size: 36px;
+  line-heignt: 60px;
+}
+/* line 334, ../sass/_modules.scss */
+.mod-post-bd h4 {
+  font-size: 30px;
+  line-heignt: 30px;
+}
+/* line 338, ../sass/_modules.scss */
+.mod-post-bd .addthis_sharing_toolbox a {
+  border-bottom: none;
+}
+/* line 341, ../sass/_modules.scss */
+.mod-post-bd img {
+  max-width: 100%;
+}
+/* line 349, ../sass/_modules.scss */
 .mod-author {
   margin-top: 20px;
   padding-top: 20px;
   border-top: solid 4px rgba(255, 255, 255, 0.2);
 }
 @media (min-width: 768px) {
-  /* line 323, ../sass/_modules.scss */
+  /* line 349, ../sass/_modules.scss */
   .mod-author {
     margin-top: 48px;
     padding-top: 48px;
   }
 }
-/* line 335, ../sass/_modules.scss */
+/* line 361, ../sass/_modules.scss */
 .mod-author-hd img {
   width: 100%;
 }
@@ -12380,7 +12417,7 @@ body.blog-page .blog-list-section {
 }
 /* line 333, ../sass/screen.scss */
 .site-header-toggle .aniCircle {
-  fill: rgba(0, 103, 152, 0.2);
+  fill: rgba(255, 255, 255, 0.4);
   stroke: #97E9FC;
   stroke-width: 5px;
   stroke-dasharray: 300;

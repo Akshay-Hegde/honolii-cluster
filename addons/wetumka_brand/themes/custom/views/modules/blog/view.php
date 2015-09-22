@@ -1,5 +1,11 @@
 {{ asset:js_inline }}
 	requirejs(["pages/blog"]);
+	/* Addthis Social Share */
+	(function() {
+    var addthis = document.createElement('script'); addthis.type = 'text/javascript'; addthis.async = true;
+    addthis.src = '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c49f8c1ac46186';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(addthis);
+	})();
 {{ /asset:js_inline }}
 
 {{ post }}
@@ -31,17 +37,15 @@
 					</div>
 					{{ endif }}
 				</header>
-				<div class="mod-post-bd columns">
+				<div class="mod-post-bd">
 						{{ body }}
+						<!-- Go to www.addthis.com/dashboard to customize your tools -->
+						<div class="addthis_sharing_toolbox"></div>
 				</div>
 				<footer class="mod-post-ft">
 					<div class="mod-author">
-						{{ user:profile user_id=author_id }}
-							{{ streams:team_member namespace="pages" include_by="id" include=team_member }}
-								<div class="mod-author-hd"><img src="" data-src="{{ member_avatar:thumb }}" /></div>
-								<div class="mod-author-bd">{{ member_bio_short }}</div>
-							{{ /streams:team_member }}
-						{{ /user:profile }}
+							<div class="mod-author-hd"><img src="" data-src="{{ author_profile:member_avatar:thumb }}" /></div>
+							<div class="mod-author-bd">{{ author_profile:member_bio_short }}</div>
 					</div>
 				</footer>
 			</article>

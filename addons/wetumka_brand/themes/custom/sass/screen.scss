@@ -86,7 +86,7 @@
 			@include transition(transform 500ms);
 		}
 		.active-main-nav & .site-header-toggle{
-			@include transform(translateY(-110px) scale(.7,.7));
+			@include transform(translateY(-85px) scale(.7,.7));
 		}
 	}
 	@media (min-width: $screen-sm-min) {
@@ -331,7 +331,7 @@ a.social-icon {
 .site-header-toggle{
 	@include transform(scale(.6,.6));
 	.aniCircle{
-		fill:rgba($blue-darkest,.2);
+		fill:rgba(white,.4);
 		stroke: $blue-lightest;
 		stroke-width:5px;
 		stroke-dasharray: 300;
