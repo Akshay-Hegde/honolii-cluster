@@ -12043,6 +12043,7 @@ a.social-icon {
   -ms-font-smoothing: antialiased;
   -o-font-smoothing: antialiased;
   font-smoothing: antialiased;
+  -ms-font-feature-settings: "liga" 1;
   font-family: 'Mono Social Icons Font';
   font-size: 2em;
   line-height: 1em;
@@ -12408,14 +12409,14 @@ body.blog-page .blog-list-section {
 /* -----------------------------------------
          				SVG & animations
 -------------------------------------------- */
-/* line 331, ../sass/screen.scss */
+/* line 332, ../sass/screen.scss */
 .site-header-toggle {
   -moz-transform: scale(0.6, 0.6);
   -ms-transform: scale(0.6, 0.6);
   -webkit-transform: scale(0.6, 0.6);
   transform: scale(0.6, 0.6);
 }
-/* line 333, ../sass/screen.scss */
+/* line 334, ../sass/screen.scss */
 .site-header-toggle .aniCircle {
   fill: rgba(255, 255, 255, 0.4);
   stroke: #97E9FC;
@@ -12428,14 +12429,14 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 341, ../sass/screen.scss */
+/* line 342, ../sass/screen.scss */
 .site-header-toggle .hamburger-x {
   stroke: #fff;
   stroke-width: 20px;
   stroke-linecap: square;
   fill: transparent;
 }
-/* line 346, ../sass/screen.scss */
+/* line 347, ../sass/screen.scss */
 .site-header-toggle .hamburger-x .path-x {
   stroke-dasharray: 135 400;
   stroke-dashoffset: 135;
@@ -12445,7 +12446,7 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 351, ../sass/screen.scss */
+/* line 352, ../sass/screen.scss */
 .site-header-toggle .hamburger-x .path-2 {
   stroke-dasharray: 135;
   stroke-dashoffset: 405;
@@ -12455,36 +12456,36 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 357, ../sass/screen.scss */
+/* line 358, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle, .svg-menu-active .site-header-toggle {
   cursor: pointer;
 }
-/* line 359, ../sass/screen.scss */
+/* line 360, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .hamburger-x .path-x, .svg-menu-active .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: 0;
 }
-/* line 362, ../sass/screen.scss */
+/* line 363, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .hamburger-x .path-2, .svg-menu-active .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 270;
 }
-/* line 367, ../sass/screen.scss */
+/* line 368, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .aniCircle {
   stroke-dashoffset: 0;
 }
-/* line 372, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: -245;
 }
-/* line 375, ../sass/screen.scss */
+/* line 376, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 135;
 }
-/* line 378, ../sass/screen.scss */
+/* line 379, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .logo-path-group {
   stroke-dashoffset: 150;
 }
 
-/* line 384, ../sass/screen.scss */
+/* line 385, ../sass/screen.scss */
 .wetumka_logo_wrapper {
   height: 0;
   opacity: 0;
@@ -12496,22 +12497,22 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 500ms;
   transition: opacity 500ms ease-in 500ms;
 }
-/* line 390, ../sass/screen.scss */
+/* line 391, ../sass/screen.scss */
 .wetumka_logo_wrapper .logo_group {
   fill: rgba(255, 255, 255, 0.4);
 }
-/* line 393, ../sass/screen.scss */
+/* line 394, ../sass/screen.scss */
 .wetumka_logo_wrapper #wetumka_logo {
   display: block;
   width: 100%;
   height: 100px;
 }
-/* line 398, ../sass/screen.scss */
+/* line 399, ../sass/screen.scss */
 .svg-logo-active .wetumka_logo_wrapper {
   opacity: 1;
 }
 
-/* line 403, ../sass/screen.scss */
+/* line 404, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
@@ -12523,33 +12524,33 @@ body.blog-page .blog-list-section {
   -webkit-transition: opacity 1.5s ease-in;
   transition: opacity 1.5s ease-in;
 }
-/* line 411, ../sass/screen.scss */
+/* line 412, ../sass/screen.scss */
 .svg-waves-active #waves {
   opacity: 1;
 }
 @media (max-width: 767px) {
-  /* line 403, ../sass/screen.scss */
+  /* line 404, ../sass/screen.scss */
   #waves {
     background-color: #1695C1;
   }
 }
 @media (min-width: 768px) {
-  /* line 403, ../sass/screen.scss */
+  /* line 404, ../sass/screen.scss */
   #waves {
     -moz-animation: scroll_sky 60s linear infinite;
     -webkit-animation: scroll_sky 60s linear infinite;
     animation: scroll_sky 60s linear infinite;
   }
-  /* line 418, ../sass/screen.scss */
+  /* line 419, ../sass/screen.scss */
   .px-density-2x #waves {
     background-image: url(../img/watercolorTextureFade_2x.jpg);
     background-size: 1500px;
   }
-  /* line 422, ../sass/screen.scss */
+  /* line 423, ../sass/screen.scss */
   .px-density-1x #waves {
     background-image: url(../img/watercolorTextureFade_1x.jpg);
   }
-  /* line 427, ../sass/screen.scss */
+  /* line 428, ../sass/screen.scss */
   .animation-speed-slowest #waves, .animation-speed-slow #waves, .animation-speed-okay #waves {
     -moz-animation-play-state: paused;
     -webkit-animation-play-state: paused;
@@ -12557,66 +12558,66 @@ body.blog-page .blog-list-section {
   }
 }
 
-/* line 434, ../sass/screen.scss */
+/* line 435, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
-/* line 436, ../sass/screen.scss */
+/* line 437, ../sass/screen.scss */
 .animation-speed-slowest .wave_5 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 441, ../sass/screen.scss */
+/* line 442, ../sass/screen.scss */
 .animation-speed-slowest .wave_4, .animation-speed-slow .wave_4 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 446, ../sass/screen.scss */
+/* line 447, ../sass/screen.scss */
 .animation-speed-slowest .wave_3 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 451, ../sass/screen.scss */
+/* line 452, ../sass/screen.scss */
 .animation-speed-slowest .wave_2, .animation-speed-slow .wave_2 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 456, ../sass/screen.scss */
+/* line 457, ../sass/screen.scss */
 .animation-speed-slowest .wave_1 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
 @media (max-width: 767px) {
-  /* line 461, ../sass/screen.scss */
+  /* line 462, ../sass/screen.scss */
   .wave_5 {
     -moz-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     animation: wave_xs_5 900ms ease-in-out infinite alternate;
   }
-  /* line 464, ../sass/screen.scss */
+  /* line 465, ../sass/screen.scss */
   .wave_4 {
     -moz-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     animation: wave_xs_4 600ms ease-in-out infinite alternate;
   }
-  /* line 467, ../sass/screen.scss */
+  /* line 468, ../sass/screen.scss */
   .wave_3 {
     -moz-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     animation: wave_xs_3 500ms ease-in-out infinite alternate;
   }
-  /* line 470, ../sass/screen.scss */
+  /* line 471, ../sass/screen.scss */
   .wave_2 {
     -moz-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     animation: wave_xs_2 600ms ease-in-out infinite alternate;
   }
-  /* line 473, ../sass/screen.scss */
+  /* line 474, ../sass/screen.scss */
   .wave_1 {
     -moz-animation: wave_xs_1 400ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_1 400ms ease-in-out infinite alternate;
@@ -12624,31 +12625,31 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 478, ../sass/screen.scss */
+  /* line 479, ../sass/screen.scss */
   .wave_5 {
     -moz-animation: wave_md_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_md_5 14s ease-in-out infinite alternate;
     animation: wave_md_5 14s ease-in-out infinite alternate;
   }
-  /* line 481, ../sass/screen.scss */
+  /* line 482, ../sass/screen.scss */
   .wave_4 {
     -moz-animation: wave_md_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_4 12s ease-in-out infinite alternate;
     animation: wave_md_4 12s ease-in-out infinite alternate;
   }
-  /* line 484, ../sass/screen.scss */
+  /* line 485, ../sass/screen.scss */
   .wave_3 {
     -moz-animation: wave_md_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_3 12s ease-in-out infinite alternate;
     animation: wave_md_3 12s ease-in-out infinite alternate;
   }
-  /* line 487, ../sass/screen.scss */
+  /* line 488, ../sass/screen.scss */
   .wave_2 {
     -moz-animation: wave_md_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_md_2 10s ease-in-out infinite alternate;
     animation: wave_md_2 10s ease-in-out infinite alternate;
   }
-  /* line 490, ../sass/screen.scss */
+  /* line 491, ../sass/screen.scss */
   .wave_1 {
     -moz-animation: wave_md_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_md_1 15s ease-in-out infinite alternate;
@@ -12656,31 +12657,31 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 1200px) {
-  /* line 495, ../sass/screen.scss */
+  /* line 496, ../sass/screen.scss */
   .wave_5 {
     -moz-animation: wave_lg_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_5 14s ease-in-out infinite alternate;
     animation: wave_lg_5 14s ease-in-out infinite alternate;
   }
-  /* line 498, ../sass/screen.scss */
+  /* line 499, ../sass/screen.scss */
   .wave_4 {
     -moz-animation: wave_lg_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_4 12s ease-in-out infinite alternate;
     animation: wave_lg_4 12s ease-in-out infinite alternate;
   }
-  /* line 501, ../sass/screen.scss */
+  /* line 502, ../sass/screen.scss */
   .wave_3 {
     -moz-animation: wave_lg_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_3 12s ease-in-out infinite alternate;
     animation: wave_lg_3 12s ease-in-out infinite alternate;
   }
-  /* line 504, ../sass/screen.scss */
+  /* line 505, ../sass/screen.scss */
   .wave_2 {
     -moz-animation: wave_lg_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_2 10s ease-in-out infinite alternate;
     animation: wave_lg_2 10s ease-in-out infinite alternate;
   }
-  /* line 507, ../sass/screen.scss */
+  /* line 508, ../sass/screen.scss */
   .wave_1 {
     -moz-animation: wave_lg_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_1 15s ease-in-out infinite alternate;
