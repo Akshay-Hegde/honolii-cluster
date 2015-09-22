@@ -12456,31 +12456,31 @@ body.blog-page .blog-list-section {
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
 /* line 357, ../sass/screen.scss */
-.site-header-toggle.active, .site-header-toggle.hover {
+.svg-menu-hover .site-header-toggle, .svg-menu-active .site-header-toggle {
   cursor: pointer;
 }
 /* line 359, ../sass/screen.scss */
-.site-header-toggle.active .hamburger-x .path-x, .site-header-toggle.hover .hamburger-x .path-x {
+.svg-menu-hover .site-header-toggle .hamburger-x .path-x, .svg-menu-active .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: 0;
 }
 /* line 362, ../sass/screen.scss */
-.site-header-toggle.active .hamburger-x .path-2, .site-header-toggle.hover .hamburger-x .path-2 {
+.svg-menu-hover .site-header-toggle .hamburger-x .path-2, .svg-menu-active .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 270;
 }
 /* line 367, ../sass/screen.scss */
-.site-header-toggle.hover .aniCircle {
+.svg-menu-hover .site-header-toggle .aniCircle {
   stroke-dashoffset: 0;
 }
 /* line 372, ../sass/screen.scss */
-.site-header-toggle.selected .hamburger-x .path-x {
+.svg-menu-selected .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: -245;
 }
 /* line 375, ../sass/screen.scss */
-.site-header-toggle.selected .hamburger-x .path-2 {
+.svg-menu-selected .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 135;
 }
 /* line 378, ../sass/screen.scss */
-.site-header-toggle.selected .logo-path-group {
+.svg-menu-selected .site-header-toggle .logo-path-group {
   stroke-dashoffset: 150;
 }
 
@@ -12507,7 +12507,7 @@ body.blog-page .blog-list-section {
   height: 100px;
 }
 /* line 398, ../sass/screen.scss */
-.wetumka_logo_wrapper.active {
+.svg-logo-active .wetumka_logo_wrapper {
   opacity: 1;
 }
 
@@ -12524,7 +12524,7 @@ body.blog-page .blog-list-section {
   transition: opacity 1.5s ease-in;
 }
 /* line 411, ../sass/screen.scss */
-#waves.active {
+.svg-waves-active #waves {
   opacity: 1;
 }
 @media (max-width: 767px) {

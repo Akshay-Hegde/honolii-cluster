@@ -354,7 +354,7 @@ a.social-icon {
 			@include transition(stroke-dashoffset 800ms ease-out 100ms);
 		}
 	}
-	&.active,&.hover{
+	.svg-menu-hover &,.svg-menu-active &{
 		cursor:pointer;
 		.hamburger-x .path-x{
 			stroke-dashoffset: 0;
@@ -363,12 +363,12 @@ a.social-icon {
 			stroke-dashoffset: 270;
 		}
 	}
-	&.hover{
+	.svg-menu-hover &{
 		.aniCircle{
 			stroke-dashoffset: 0;
 		}
 	}
-	&.selected{
+	.svg-menu-selected &{
 		.hamburger-x .path-x{
 			stroke-dashoffset: -245;
 		}
@@ -395,7 +395,7 @@ a.social-icon {
 		width:100%;
 		height:100px;
 	}
-	&.active{
+	.svg-logo-active &{
 		opacity:1;
 	}
 }
@@ -408,7 +408,7 @@ a.social-icon {
 	opacity:0;
 	@include transition(opacity 1.5s ease-in);
 	
-	&.active{
+	.svg-waves-active &{
 		opacity:1;
 	}
 	@media (max-width: $screen-xs-max) {

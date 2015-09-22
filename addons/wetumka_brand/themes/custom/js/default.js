@@ -105,25 +105,16 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 		wave.canvasSVG.append(wave.waveSVG);
 		setTimeout(function(){
-			document.getElementById('waves').classList.add('active');
+			bodyElement.classList.add('svg-waves-active');
+			//document.getElementById('waves').classList.add('active');
 		},10);
 
 		// ------------ BIG LOGO -----------------
 	
 		logo.big = {};
 		logo.big.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		logo.big.wrapperNode = document.getElementById('wetumka_logo_wrapper');
-		//logo.big.wrapperNode = logo.big.wrapperNode.querySelector('h1');
-
 		logo.big.svgNode.setAttribute('id','wetumka_logo');
-
-		// logo.big.svgWrapperNode = document.createElement('div');
-		// logo.big.svgWrapperNode.classList.add('wetumka_logo_wrapper');
-		// logo.big.svgWrapperNode.setAttribute('id','wetumka_logo_wrapper');
-
-		// logo.big.svgWrapperNode.appendChild(logo.big.svgNode);
-		// logo.big.wrapperNode.parentNode.insertBefore(logo.big.svgNode,logo.big.wrapperNode);
-
+		logo.big.wrapperNode = document.getElementById('wetumka_logo_wrapper');
 		logo.big.wrapperNode.appendChild(logo.big.svgNode);
 
 		logo.big.canvasSVG = new Snap('#wetumka_logo');
@@ -142,7 +133,8 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		logo.big.canvasSVG.append(logo.big.logoSVG);
 
 		setTimeout(function(){
-			document.getElementById('wetumka_logo_wrapper').classList.add('active');
+			bodyElement.classList.add('svg-logo-active');
+			//document.getElementById('wetumka_logo_wrapper').classList.add('active');
 		},10);
 		
 		// ------------ Main Nav Button -----------------
@@ -150,16 +142,15 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		logo.small = {};
 
 		logo.small.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-		logo.small.wrapperNode = document.getElementById('header');
-		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.site-header-wrapper');
-
 		logo.small.svgNode.setAttribute('id','main-nav-button');
+		//logo.small.svgNode.classList.add('site-header-toggle'); //todo: ie bug - svg classList method
 		logo.small.svgNode.setAttribute('class','site-header-toggle');
 
+		logo.small.wrapperNode = document.getElementById('header');
+		logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.site-header-wrapper');
 		logo.small.wrapperNode.parentNode.insertBefore(logo.small.svgNode,logo.small.wrapperNode);
 
 		logo.small.canvasSVG = new Snap('#main-nav-button');
-		//logo.small.logoSVG = new Snap(am.getCachedAsset('wetumka-logo-stroke.svg').cloneNode(true));
 		logo.small.menuSVG = new Snap(am.getCachedAsset('hamburger-x-path.svg').cloneNode(true));
 
 		//SVG drawing area
@@ -172,7 +163,6 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 		logo.small.showCircle = logo.small.canvasSVG.circle(50, 50, 45).addClass('aniCircle');
 
-		//logo.small.canvasSVG.append(logo.small.logoSVG);
 		logo.small.canvasSVG.append(logo.small.menuSVG);
 
 		logo.small.hitCircle = logo.small.canvasSVG.circle(50, 50, 50).attr('fill','transparent');
@@ -183,28 +173,29 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		logo.small.hitCircle.click(function(e){PubSub.publish('event.click.navToggle', e );});
 
 		setTimeout(function(){
-			document.getElementById('main-nav-button').classList.add('active');
+			//document.getElementById('main-nav-button').classList.add('active');
+			bodyElement.classList.add('svg-menu-active');
 		},10);
 
 		// ------------ FUNCTIONS -----------------
 		
 		logo.small.hover = function(event){
 			if(event.type === 'mouseover'){
-				this.svgNode.classList.add('hover');
-				this.svgNode.classList.remove('active');
+				bodyElement.classList.add('svg-menu-hover');
+				bodyElement.classList.remove('svg-menu-active');
 			}else if(event.type === 'mouseout'){
-				this.svgNode.classList.remove('hover');
-				this.svgNode.classList.add('active');
+				bodyElement.classList.remove('svg-menu-hover');
+				bodyElement.classList.add('svg-menu-active');
 			}
 		};
 
 		logo.small.click = function(event){
-			var clicked = this.svgNode.classList.contains('selected');
+			var clicked = bodyElement.classList.contains('svg-menu-selected');
 			if(clicked){
-				this.svgNode.classList.remove('selected');
+				bodyElement.classList.remove('svg-menu-selected');
 				bodyElement.classList.remove('active-main-nav');
 			}else{
-				this.svgNode.classList.add('selected');
+				bodyElement.classList.add('svg-menu-selected');
 				bodyElement.classList.add('active-main-nav');
 			}
 		};
