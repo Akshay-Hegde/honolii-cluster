@@ -264,7 +264,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		
 		for (var i = 0; i < images.length; i++) {
 			if(images[i].hasAttribute('data-src')){
-				pxRatioSize = images[i].width * window.devicePixelRatio;
+				pxRatioSize = images[i].width * window.devicePixelRatio || 1; // ie 9 bug - devicePixelRatio support
 				images[i].setAttribute('src',images[i].getAttribute('data-src') + '/' + pxRatioSize);
 			}
 		}
@@ -310,7 +310,42 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		}
 	};
 
+	// Browser Feature Roadblock - tell users their browser sucks... nicely
+	_.browserSucks = function(){
+		window.wBrowserElement = document.getElementById('section_main');
+		window.wBrowserElement = window.wBrowserElement.querySelector('.block-inner');
+		window.aBrowserElement = document.createElement('a');
+		window.dBrowserElement = document.createElement('div');
+		window.tBrowserElement = document.createTextNode("Your browser does not support some of the features we use on this site. Sorry for the inconvenience, but hope you return to see us again with a modern browser. ");
+
+		window.dBrowserElement.setAttribute('id','browser-dialog');
+		window.dBrowserElement.setAttribute('class','browser-alert-box');
+		window.dBrowserElement.setAttribute('title','click to close this dialog');
+		window.dBrowserElement.appendChild(window.tBrowserElement);
+
+		window.aBrowserElement.setAttribute('href','http://browsehappy.com/');
+		window.tBrowserElement = document.createTextNode("Check out some modern browsers that work better.");
+		window.aBrowserElement.appendChild(window.tBrowserElement);
+		window.dBrowserElement.appendChild(window.aBrowserElement);
+
+		wBrowserElement.insertBefore(window.dBrowserElement,wBrowserElement.firstChild);
+
+		setTimeout(function(){
+			document.getElementById('browser-dialog').onclick = function(){
+				this.parentElement.removeChild(this);
+				delete window.wBrowserElement;
+				delete window.dBrowserElement;
+				delete window.tBrowserElement;
+				delete window.aBrowserElement;
+			};
+		},10);
+	};
+
+	if(!Modernizr.classlist || !Modernizr.svg || !Modernizr.cookies){
+		_.browserSucks();
+	}
 	_.init();
+	
 
 	return _;
 });

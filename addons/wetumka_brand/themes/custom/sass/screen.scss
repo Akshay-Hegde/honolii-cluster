@@ -318,6 +318,12 @@ a.social-icon {
   border-bottom:none;
 	text-decoration:none;
 }
+.browser-alert-box{
+	text-align:left;
+	cursor:pointer;
+	@extend .alert;
+	@extend .alert-warning;
+}
 
 @import "pages/home";
 @import "pages/about";
