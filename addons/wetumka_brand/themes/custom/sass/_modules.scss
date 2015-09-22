@@ -61,7 +61,7 @@
 		}
 	}
 	&-service{
-		@include mod-columns('.col-xs-4',transparent);
+		@include mod-columns('.col-sm-4',transparent);
 		> img{
 			height:150px;
 			width:100%;
