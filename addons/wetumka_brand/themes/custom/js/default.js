@@ -276,11 +276,11 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 				avg = this.avg();
 				
 				if(Modernizr.cookies){
-					if(avg > 44){
+					if(avg > 34){
 						this.fpsSpeed(0);
-					}else if(avg > 24 && avg < 45){
+					}else if(avg > 20 && avg < 35){
 						this.fpsSpeed(1);
-					}else if(avg > 20 && avg < 25){
+					}else if(avg > 11 && avg < 21){
 						this.fpsSpeed(2);
 					}else{
 						bodyElement.classList.add('animation-speed-pause');

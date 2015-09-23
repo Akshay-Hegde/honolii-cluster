@@ -44,6 +44,7 @@
 	@include background-image(linear-gradient(to top, $blue-darkest, $blue-dark));
 	@include transition(transform 500ms);
 	-webkit-backface-visibility: hidden;
+	-webkit-transform: translateZ(0);
 
 	.site-header-toggle{
 		display:block;
