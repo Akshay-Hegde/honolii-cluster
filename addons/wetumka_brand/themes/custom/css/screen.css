@@ -12425,7 +12425,7 @@ body.blog-page .blog-list-section {
 }
 /* line 340, ../sass/screen.scss */
 .site-header-toggle .aniCircle {
-  fill: rgba(255, 255, 255, 0.4);
+  fill: rgba(2, 134, 186, 0.2);
   stroke: #97E9FC;
   stroke-width: 5px;
   stroke-dasharray: 300;
@@ -12531,10 +12531,6 @@ body.blog-page .blog-list-section {
   -webkit-transition: opacity 1.5s ease-in;
   transition: opacity 1.5s ease-in;
 }
-/* line 418, ../sass/screen.scss */
-.svg-waves-active #waves {
-  opacity: 1;
-}
 @media (max-width: 767px) {
   /* line 410, ../sass/screen.scss */
   #waves {
@@ -12542,156 +12538,265 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 768px) {
-  /* line 410, ../sass/screen.scss */
-  #waves {
-    -moz-animation: scroll_sky 60s linear infinite;
-    -webkit-animation: scroll_sky 60s linear infinite;
-    animation: scroll_sky 60s linear infinite;
-  }
-  /* line 425, ../sass/screen.scss */
+  /* line 422, ../sass/screen.scss */
   .px-density-2x #waves {
     background-image: url(../img/watercolorTextureFade_2x.jpg);
     background-size: 1500px;
   }
-  /* line 429, ../sass/screen.scss */
+  /* line 426, ../sass/screen.scss */
   .px-density-1x #waves {
     background-image: url(../img/watercolorTextureFade_1x.jpg);
   }
-  /* line 434, ../sass/screen.scss */
-  .animation-speed-slowest #waves, .animation-speed-slow #waves, .animation-speed-okay #waves {
-    -moz-animation-play-state: paused;
-    -webkit-animation-play-state: paused;
-    animation-play-state: paused;
+  /* line 429, ../sass/screen.scss */
+  .animation-speed-med #waves, .animation-speed-fast #waves {
+    -moz-animation: scroll_sky 60s linear infinite;
+    -webkit-animation: scroll_sky 60s linear infinite;
+    animation: scroll_sky 60s linear infinite;
   }
 }
+/* line 433, ../sass/screen.scss */
+.animation-speed-slow #waves, .animation-speed-med #waves, .animation-speed-fast #waves, .animation-speed-stopped #waves {
+  opacity: 1;
+}
 
-/* line 441, ../sass/screen.scss */
+/* line 438, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
-/* line 443, ../sass/screen.scss */
-.animation-speed-slowest .wave_5 {
-  -moz-animation-play-state: paused;
-  -webkit-animation-play-state: paused;
-  animation-play-state: paused;
-}
-/* line 448, ../sass/screen.scss */
-.animation-speed-slowest .wave_4, .animation-speed-slow .wave_4 {
-  -moz-animation-play-state: paused;
-  -webkit-animation-play-state: paused;
-  animation-play-state: paused;
-}
-/* line 453, ../sass/screen.scss */
-.animation-speed-slowest .wave_3 {
-  -moz-animation-play-state: paused;
-  -webkit-animation-play-state: paused;
-  animation-play-state: paused;
-}
-/* line 458, ../sass/screen.scss */
-.animation-speed-slowest .wave_2, .animation-speed-slow .wave_2 {
-  -moz-animation-play-state: paused;
-  -webkit-animation-play-state: paused;
-  animation-play-state: paused;
-}
-/* line 463, ../sass/screen.scss */
-.animation-speed-slowest .wave_1 {
-  -moz-animation-play-state: paused;
-  -webkit-animation-play-state: paused;
-  animation-play-state: paused;
-}
 @media (max-width: 767px) {
-  /* line 468, ../sass/screen.scss */
-  .wave_5 {
+  /* line 441, ../sass/screen.scss */
+  .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     animation: wave_xs_5 900ms ease-in-out infinite alternate;
   }
-  /* line 471, ../sass/screen.scss */
-  .wave_4 {
+  /* line 444, ../sass/screen.scss */
+  .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     animation: wave_xs_4 600ms ease-in-out infinite alternate;
   }
-  /* line 474, ../sass/screen.scss */
-  .wave_3 {
+  /* line 447, ../sass/screen.scss */
+  .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     animation: wave_xs_3 500ms ease-in-out infinite alternate;
   }
-  /* line 477, ../sass/screen.scss */
-  .wave_2 {
+  /* line 450, ../sass/screen.scss */
+  .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     animation: wave_xs_2 600ms ease-in-out infinite alternate;
   }
-  /* line 480, ../sass/screen.scss */
-  .wave_1 {
+  /* line 453, ../sass/screen.scss */
+  .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_xs_1 400ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_1 400ms ease-in-out infinite alternate;
     animation: wave_xs_1 400ms ease-in-out infinite alternate;
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 485, ../sass/screen.scss */
-  .wave_5 {
+  /* line 458, ../sass/screen.scss */
+  .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_md_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_md_5 14s ease-in-out infinite alternate;
     animation: wave_md_5 14s ease-in-out infinite alternate;
   }
-  /* line 488, ../sass/screen.scss */
-  .wave_4 {
+  /* line 461, ../sass/screen.scss */
+  .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_md_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_4 12s ease-in-out infinite alternate;
     animation: wave_md_4 12s ease-in-out infinite alternate;
   }
-  /* line 491, ../sass/screen.scss */
-  .wave_3 {
+  /* line 464, ../sass/screen.scss */
+  .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_md_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_3 12s ease-in-out infinite alternate;
     animation: wave_md_3 12s ease-in-out infinite alternate;
   }
-  /* line 494, ../sass/screen.scss */
-  .wave_2 {
+  /* line 467, ../sass/screen.scss */
+  .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_md_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_md_2 10s ease-in-out infinite alternate;
     animation: wave_md_2 10s ease-in-out infinite alternate;
   }
-  /* line 497, ../sass/screen.scss */
-  .wave_1 {
+  /* line 470, ../sass/screen.scss */
+  .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_md_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_md_1 15s ease-in-out infinite alternate;
     animation: wave_md_1 15s ease-in-out infinite alternate;
   }
 }
 @media (min-width: 1200px) {
-  /* line 502, ../sass/screen.scss */
-  .wave_5 {
+  /* line 475, ../sass/screen.scss */
+  .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_lg_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_5 14s ease-in-out infinite alternate;
     animation: wave_lg_5 14s ease-in-out infinite alternate;
   }
-  /* line 505, ../sass/screen.scss */
-  .wave_4 {
+  /* line 478, ../sass/screen.scss */
+  .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_lg_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_4 12s ease-in-out infinite alternate;
     animation: wave_lg_4 12s ease-in-out infinite alternate;
   }
-  /* line 508, ../sass/screen.scss */
-  .wave_3 {
+  /* line 481, ../sass/screen.scss */
+  .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_lg_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_3 12s ease-in-out infinite alternate;
     animation: wave_lg_3 12s ease-in-out infinite alternate;
   }
-  /* line 511, ../sass/screen.scss */
-  .wave_2 {
+  /* line 484, ../sass/screen.scss */
+  .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_lg_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_2 10s ease-in-out infinite alternate;
     animation: wave_lg_2 10s ease-in-out infinite alternate;
   }
-  /* line 514, ../sass/screen.scss */
-  .wave_1 {
+  /* line 487, ../sass/screen.scss */
+  .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_lg_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_1 15s ease-in-out infinite alternate;
     animation: wave_lg_1 15s ease-in-out infinite alternate;
   }
+}
+@media (max-width: 767px) {
+  /* line 494, ../sass/screen.scss */
+  .svg-waves-ready .wave_5 {
+    -moz-transform: translate(2%, 35%) scale(1.2);
+    -ms-transform: translate(2%, 35%) scale(1.2);
+    -webkit-transform: translate(2%, 35%) scale(1.2);
+    transform: translate(2%, 35%) scale(1.2);
+  }
+  /* line 497, ../sass/screen.scss */
+  .svg-waves-ready .wave_4 {
+    -moz-transform: translate(-17%, 23%) scale(1.3);
+    -ms-transform: translate(-17%, 23%) scale(1.3);
+    -webkit-transform: translate(-17%, 23%) scale(1.3);
+    transform: translate(-17%, 23%) scale(1.3);
+  }
+  /* line 500, ../sass/screen.scss */
+  .svg-waves-ready .wave_3 {
+    -moz-transform: translate(15%, 13%) scale(1.3);
+    -ms-transform: translate(15%, 13%) scale(1.3);
+    -webkit-transform: translate(15%, 13%) scale(1.3);
+    transform: translate(15%, 13%) scale(1.3);
+  }
+  /* line 503, ../sass/screen.scss */
+  .svg-waves-ready .wave_2 {
+    -moz-transform: translate(6%, -9%) scale(1.5);
+    -ms-transform: translate(6%, -9%) scale(1.5);
+    -webkit-transform: translate(6%, -9%) scale(1.5);
+    transform: translate(6%, -9%) scale(1.5);
+  }
+  /* line 506, ../sass/screen.scss */
+  .svg-waves-ready .wave_1 {
+    -moz-transform: translate(-4%, -21%) scale(1.5);
+    -ms-transform: translate(-4%, -21%) scale(1.5);
+    -webkit-transform: translate(-4%, -21%) scale(1.5);
+    transform: translate(-4%, -21%) scale(1.5);
+  }
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  /* line 511, ../sass/screen.scss */
+  .svg-waves-ready .wave_5 {
+    -moz-transform: translate(-16%, 24%);
+    -ms-transform: translate(-16%, 24%);
+    -webkit-transform: translate(-16%, 24%);
+    transform: translate(-16%, 24%);
+  }
+  /* line 514, ../sass/screen.scss */
+  .svg-waves-ready .wave_4 {
+    -moz-transform: translate(18%, 24%);
+    -ms-transform: translate(18%, 24%);
+    -webkit-transform: translate(18%, 24%);
+    transform: translate(18%, 24%);
+  }
+  /* line 517, ../sass/screen.scss */
+  .svg-waves-ready .wave_3 {
+    -moz-transform: translate(-17%, 15%);
+    -ms-transform: translate(-17%, 15%);
+    -webkit-transform: translate(-17%, 15%);
+    transform: translate(-17%, 15%);
+  }
+  /* line 520, ../sass/screen.scss */
+  .svg-waves-ready .wave_2 {
+    -moz-transform: translate(22%, 0%);
+    -ms-transform: translate(22%, 0%);
+    -webkit-transform: translate(22%, 0%);
+    transform: translate(22%, 0%);
+  }
+  /* line 523, ../sass/screen.scss */
+  .svg-waves-ready .wave_1 {
+    -moz-transform: translate(-20%, -7%);
+    -ms-transform: translate(-20%, -7%);
+    -webkit-transform: translate(-20%, -7%);
+    transform: translate(-20%, -7%);
+  }
+}
+@media (min-width: 1200px) {
+  /* line 528, ../sass/screen.scss */
+  .svg-waves-ready .wave_5 {
+    -moz-transform: translate(6.5%, 26%) scale(0.7);
+    -ms-transform: translate(6.5%, 26%) scale(0.7);
+    -webkit-transform: translate(6.5%, 26%) scale(0.7);
+    transform: translate(6.5%, 26%) scale(0.7);
+  }
+  /* line 531, ../sass/screen.scss */
+  .svg-waves-ready .wave_4 {
+    -moz-transform: translate(14.5%, 21%) scale(0.75);
+    -ms-transform: translate(14.5%, 21%) scale(0.75);
+    -webkit-transform: translate(14.5%, 21%) scale(0.75);
+    transform: translate(14.5%, 21%) scale(0.75);
+  }
+  /* line 534, ../sass/screen.scss */
+  .svg-waves-ready .wave_3 {
+    -moz-transform: translate(-2%, 14%) scale(0.75);
+    -ms-transform: translate(-2%, 14%) scale(0.75);
+    -webkit-transform: translate(-2%, 14%) scale(0.75);
+    transform: translate(-2%, 14%) scale(0.75);
+  }
+  /* line 537, ../sass/screen.scss */
+  .svg-waves-ready .wave_2 {
+    -moz-transform: translate(17%, 0%) scale(0.8);
+    -ms-transform: translate(17%, 0%) scale(0.8);
+    -webkit-transform: translate(17%, 0%) scale(0.8);
+    transform: translate(17%, 0%) scale(0.8);
+  }
+  /* line 540, ../sass/screen.scss */
+  .svg-waves-ready .wave_1 {
+    -moz-transform: translate(-11%, -15%) scale(0.85);
+    -ms-transform: translate(-11%, -15%) scale(0.85);
+    -webkit-transform: translate(-11%, -15%) scale(0.85);
+    transform: translate(-11%, -15%) scale(0.85);
+  }
+}
+/* line 546, ../sass/screen.scss */
+.animation-speed-slow .wave_5 {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+/* line 551, ../sass/screen.scss */
+.animation-speed-med .wave_4 {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+/* line 556, ../sass/screen.scss */
+.animation-speed-slow .wave_3 {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+/* line 561, ../sass/screen.scss */
+.animation-speed-med .wave_2 {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
+}
+/* line 566, ../sass/screen.scss */
+.animation-speed-slow .wave_1 {
+  -moz-animation-play-state: paused;
+  -webkit-animation-play-state: paused;
+  animation-play-state: paused;
 }

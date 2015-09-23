@@ -12,16 +12,14 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 	// init function
 	_.init = function(){
-		var timeout,bodyElement,scrollEvent,that = this;
+		var timeout,bodyElement = document.querySelector('body'),scrollEvent,that = this;
 		// setSectionClass
 		this.setSectionClass();
 
 		// ---------- PubSub Subscribers --------------
 	  PubSub.subscribe('event.window.scrollDelay', function(){_.windowScroll();});
-
-		//scrollEvent = new Event('scrolled'); // custom scrolled event
-		bodyElement = document.querySelector('body');
-
+	  PubSub.subscribe('asset.svgWaves.loaded', function(){_.checkAnimations(bodyElement);});
+	  
 		// set scrollEventVisible elements
 		this.scrollToggle = document.getElementsByClassName('scroll-visible');
 		
@@ -51,9 +49,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 	  	assetPath + '/img/svg/wetumka-logo.svg',
 	  	assetPath + '/img/svg/hamburger-x-path.svg'
 	  ]);
-	  assetsManager.downloadAll(this.setSceneSVG);
-	  // monitor FPS to limit animations - keep it smoothe or not at all
-	  this.checkAnimations(bodyElement);
+	  assetsManager.downloadAll(this.setSceneSVG);	  
 	};
 
 	// Set class for section nav - so it can be hidden
@@ -105,7 +101,8 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 		wave.canvasSVG.append(wave.waveSVG);
 		setTimeout(function(){
-			bodyElement.classList.add('svg-waves-active');
+			bodyElement.classList.add('svg-waves-ready');
+			PubSub.publish('asset.svgWaves.loaded');
 			//document.getElementById('waves').classList.add('active');
 		},10);
 
@@ -207,64 +204,122 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 	// Animation FPS conditionals
 	_.checkAnimations = function(bodyElement){
-		var fpsEvent, aniPhase = 0, framesLow = 15, framesHigh = 40, minWidth = 768;
-		
-		if(window.innerWidth >= minWidth){
-			// Register a progress call-back
-			document.addEventListener('fps', function(e){fpsEvent(e);}, false);
+		var fpsObj, aniCookie = 'fpsCard';
 
-			// Start FPS analysis, optionnally specifying the rate at which FPS 
-			// are evaluated (in seconds, defaults to 1).
-			FPSMeter.run(1.5);
-		}
+		fpsObj = {
+			aniPhase : 0,
+			framesLow : 15,
+			framesHigh : 40,
+			sampleCount : 0,
+			sampleSize : 10,
+			fpsSum : 0,
+		};
 
-		//FPSMeter.stop();
-		fpsEvent = function(e){
-			switch(aniPhase){
-				case 0:
-					if(e.fps < framesLow){
-						aniPhase = 1;
-						bodyElement.classList.add('animation-speed-okay');
-						bodyElement.classList.remove('animation-speed-slowest');
-						bodyElement.classList.remove('animation-speed-slow');
-					} else if(e.fps > framesHigh){
-						bodyElement.classList.remove('animation-speed-slowest');
-						bodyElement.classList.remove('animation-speed-slow');
-						bodyElement.classList.remove('animation-speed-okay');
+		fpsObj.avg = function(){ // average FPS based on current samples
+			return Math.round(this.fpsSum / this.sampleCount);
+		};
+
+		fpsObj.fpsEvent = function(e){ // function bound to fps event
+			var avg, noChange = false;
+			this.sampleCount = this.sampleCount + 1;
+			this.fpsSum = this.fpsSum + e.fps;
+			avg = this.avg();
+
+			if(this.sampleCount === 1){ // first sample
+				if(e.fps < this.framesLow){ // if fps is low before animations started, then don't start them
+					bodyElement.classList.add('animation-speed-stopped');
+					FPSMeter.stop();
+					if(Modernizr.cookies){
+						_.cookies.setItem(aniCookie,'animation-speed-stopped');
 					}
+				}else{
+					bodyElement.classList.add('animation-speed-fast');
+				}
+			}
+
+			if(this.sampleCount !== this.sampleSize){
+				switch(this.aniPhase){
+					case 0:
+						if(avg < this.framesLow){
+							this.aniPhase = 1;
+						}else{
+							noChange = true;
+						}
 					break;
-				case 1:
-					if(e.fps < framesLow){
-						aniPhase = 2;
-						bodyElement.classList.add('animation-speed-slow');
-						bodyElement.classList.remove('animation-speed-slowest');
-						bodyElement.classList.remove('animation-speed-okay');
-					} else if(e.fps > framesHigh){
-						aniPhase = 0;
+					case 1:
+						if(avg < this.framesLow){
+							this.aniPhase = 2;
+						} else if(avg > this.framesHigh){
+							this.aniPhase = 0;
+						} else {
+							noChange = true;
+						}
+					break;
+					case 2:
+						if(avg > this.framesHigh){
+							this.aniPhase = 1;
+						} else {
+							noChange = true;
+						}
+					break;
+				}
+				if(!noChange){
+					this.fpsSpeed(this.aniPhase);
+				}
+			}else{
+				FPSMeter.stop(); // stop after a few samples and set cookie;
+				if(Modernizr.cookies){
+					if(this.aniPhase === 0){
+						_.cookies.setItem(aniCookie,'animation-speed-fast');
+					}else if(this.aniPhase === 1){
+						_.cookies.setItem(aniCookie,'animation-speed-med');
+					}else if(this.aniPhase === 2){
+						_.cookies.setItem(aniCookie,'animation-speed-slow');
+					}else{
+						_.cookies.setItem(aniCookie,'animation-speed-stopped');
 					}
-					break;
-				case 2:
-					if(e.fps < framesLow){
-						bodyElement.classList.add('animation-speed-slowest');
-						bodyElement.classList.remove('animation-speed-slow');
-						bodyElement.classList.remove('animation-speed-okay');
-					} else if(e.fps > framesHigh){
-						aniPhase = 1;
-					}
-					break;
+				}
 			}
 		};
+
+		fpsObj.fpsSpeed = function(speedIndex){
+			var classArray = ['animation-speed-fast','animation-speed-med','animation-speed-slow'];
+			for (var i = classArray.length; i--;) {
+				bodyElement.classList.remove(classArray[i]);
+			}
+			bodyElement.classList.add(classArray[speedIndex]);
+		};
+
+		if(Modernizr.lowbattery){ // if low batter don't run animations
+			bodyElement.classList.add('animation-speed-stopped');
+			if(Modernizr.cookies){
+				_.cookies.setItem(aniCookie,'animation-speed-stopped');
+			}
+		}else if(Modernizr.cookies && !_.cookies.hasItem(aniCookie)){ // run fps sample for the first time
+			// Register a progress call-back
+			document.addEventListener('fps', function(e){fpsObj.fpsEvent(e);}, false);
+			FPSMeter.run(1);
+		}else if(Modernizr.cookies && _.cookies.hasItem(aniCookie)){
+			bodyElement.classList.add(_.cookies.getItem(aniCookie));
+		}
 	};
 
 	// Set images to use alternate size based on pixel density
 	_.setImgSrc = function(){
 		
 		var images = document.getElementsByTagName('img'),
-			pxRatioSize = null;
+			pxRatioSize = null,
+			parent,
+			width;
 		
 		for (var i = 0; i < images.length; i++) {
 			if(images[i].hasAttribute('data-src')){
-				pxRatioSize = images[i].width * window.devicePixelRatio || 1; // ie 9 bug - devicePixelRatio support
+
+				parent = getComputedStyle(images[i].parentElement);
+        width = images[i].parentElement.clientWidth;   // width with padding
+        width -= parseFloat(parent.paddingLeft) + parseFloat(parent.paddingRight);
+
+				pxRatioSize = width * window.devicePixelRatio || 1; // ie 9 bug - devicePixelRatio support
 				images[i].setAttribute('src',images[i].getAttribute('data-src') + '/' + pxRatioSize);
 			}
 		}
@@ -341,6 +396,69 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		},10);
 	};
 
+	// Cookie Methods
+	_.cookies = {
+		/*\
+		|*|
+		|*|  A complete cookies reader/writer framework with full unicode support.
+		|*|
+		|*|  Revision #1 - September 4, 2014
+		|*|
+		|*|  https://developer.mozilla.org/en-US/docs/Web/API/document.cookie
+		|*|  https://developer.mozilla.org/User:fusionchess
+		|*|
+		|*|  This framework is released under the GNU Public License, version 3 or later.
+		|*|  http://www.gnu.org/licenses/gpl-3.0-standalone.html
+		|*|
+		|*|  Syntaxes:
+		|*|
+		|*|  * docCookies.setItem(name, value[, end[, path[, domain[, secure]]]])
+		|*|  * docCookies.getItem(name)
+		|*|  * docCookies.removeItem(name[, path[, domain]])
+		|*|  * docCookies.hasItem(name)
+		|*|  * docCookies.keys()
+		|*|
+		\*/
+	  getItem: function (sKey) {
+	    if (!sKey) { return null; }
+	    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+	  },
+	  setItem: function (sKey, sValue, vEnd, sPath, sDomain, bSecure) {
+	    if (!sKey || /^(?:expires|max\-age|path|domain|secure)$/i.test(sKey)) { return false; }
+	    var sExpires = "";
+	    if (vEnd) {
+	      switch (vEnd.constructor) {
+	        case Number:
+	          sExpires = vEnd === Infinity ? "; expires=Fri, 31 Dec 9999 23:59:59 GMT" : "; max-age=" + vEnd;
+	          break;
+	        case String:
+	          sExpires = "; expires=" + vEnd;
+	          break;
+	        case Date:
+	          sExpires = "; expires=" + vEnd.toUTCString();
+	          break;
+	      }
+	    }
+	    document.cookie = encodeURIComponent(sKey) + "=" + encodeURIComponent(sValue) + sExpires + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "") + (bSecure ? "; secure" : "");
+	    return true;
+	  },
+	  removeItem: function (sKey, sPath, sDomain) {
+	    if (!this.hasItem(sKey)) { return false; }
+	    document.cookie = encodeURIComponent(sKey) + "=; expires=Thu, 01 Jan 1970 00:00:00 GMT" + (sDomain ? "; domain=" + sDomain : "") + (sPath ? "; path=" + sPath : "");
+	    return true;
+	  },
+	  hasItem: function (sKey) {
+	    if (!sKey) { return false; }
+	    return (new RegExp("(?:^|;\\s*)" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=")).test(document.cookie);
+	  },
+	  keys: function () {
+	    var aKeys = document.cookie.replace(/((?:^|\s*;)[^\=]+)(?=;|$)|^\s*|\s*(?:\=[^;]*)?(?:\1|$)/g, "").split(/\s*(?:\=[^;]*)?;\s*/);
+	    for (var nLen = aKeys.length, nIdx = 0; nIdx < nLen; nIdx++) { aKeys[nIdx] = decodeURIComponent(aKeys[nIdx]); }
+	    return aKeys;
+	  }
+	};
+
+	// Browser feature test
 	if(!Modernizr.classlist || !Modernizr.svg || !Modernizr.cookies){
 		_.browserSucks();
 	}

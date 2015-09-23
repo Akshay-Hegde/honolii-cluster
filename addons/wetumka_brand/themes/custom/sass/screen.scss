@@ -338,7 +338,7 @@ a.social-icon {
 .site-header-toggle{
 	@include transform(scale(.6,.6));
 	.aniCircle{
-		fill:rgba(white,.4);
+		fill:rgba($blue-dark,.2);
 		stroke: $blue-lightest;
 		stroke-width:5px;
 		stroke-dasharray: 300;
@@ -415,9 +415,6 @@ a.social-icon {
 	opacity:0;
 	@include transition(opacity 1.5s ease-in);
 	
-	.svg-waves-active &{
-		opacity:1;
-	}
 	@media (max-width: $screen-xs-max) {
 		background-color:$blue-mid;
 	}
@@ -429,90 +426,145 @@ a.social-icon {
 		.px-density-1x &{
 			background-image: url(../img/watercolorTextureFade_1x.jpg);
 		}
-
-		@include animation(scroll_sky 60s linear infinite);
-		.animation-speed-slowest &,.animation-speed-slow &,.animation-speed-okay &{
-			@include animation-play-state(paused);
+		.animation-speed-med &, .animation-speed-fast &{
+			@include animation(scroll_sky 60s linear infinite);
 		}
 	}
+	.animation-speed-slow &,.animation-speed-med &,.animation-speed-fast &, .animation-speed-stopped &{
+		opacity:1;
+	}
 }
-
-.wave{
+.wave {
 	.fill{fill:#006798};
+	.animation-speed-slow &, .animation-speed-med &, .animation-speed-fast &{
+		@media (max-width: $screen-xs-max) {
+			&_5{
+				@include animation(wave_xs_5 900ms ease-in-out infinite alternate);
+			}
+			&_4{
+				@include animation(wave_xs_4 600ms ease-in-out infinite alternate);
+			}
+			&_3{
+				@include animation(wave_xs_3 500ms ease-in-out infinite alternate);
+			}
+			&_2{
+				@include animation(wave_xs_2 600ms ease-in-out infinite alternate);
+			}
+			&_1{
+				@include animation(wave_xs_1 400ms ease-in-out infinite alternate);
+			}
+		}
+		@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+			&_5{
+				@include animation(wave_md_5 14s ease-in-out infinite alternate);
+			}
+			&_4{
+				@include animation(wave_md_4 12s ease-in-out infinite alternate);
+			}
+			&_3{
+				@include animation(wave_md_3 12s ease-in-out infinite alternate);
+			}
+			&_2{
+				@include animation(wave_md_2 10s ease-in-out infinite alternate);
+			}
+			&_1{
+				@include animation(wave_md_1 15s ease-in-out infinite alternate);
+			}
+		}
+		@media (min-width: $screen-lg-min) {
+			&_5{
+				@include animation(wave_lg_5 14s ease-in-out infinite alternate);
+			}
+			&_4{
+				@include animation(wave_lg_4 12s ease-in-out infinite alternate);
+			}
+			&_3{
+				@include animation(wave_lg_3 12s ease-in-out infinite alternate);
+			}
+			&_2{
+				@include animation(wave_lg_2 10s ease-in-out infinite alternate);
+			}
+			&_1{
+				@include animation(wave_lg_1 15s ease-in-out infinite alternate);
+			}
+		}
+	}
+	.svg-waves-ready &{
+		@media (max-width: $screen-xs-max) {
+			&_5{
+				@include transform(translate(2%,35%) scale(1.2));
+			}
+			&_4{
+				@include transform(translate(-17%,23%) scale(1.3));
+			}
+			&_3{
+				@include transform(translate(15%,13%) scale(1.3));
+			}
+			&_2{
+				@include transform(translate(6%,-9%) scale(1.5));
+			}
+			&_1{
+				@include transform(translate(-4%,-21%) scale(1.5));
+			}
+		}
+		@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
+			&_5{
+				@include transform(translate(-16%,24%));
+			}
+			&_4{
+				@include transform(translate(18%,24%));
+			}
+			&_3{
+				@include transform(translate(-17%,15%));
+			}
+			&_2{
+				@include transform(translate(22%,0%));
+			}
+			&_1{
+				@include transform(translate(-20%,-7%));
+			}
+		}
+		@media (min-width: $screen-lg-min) {
+			&_5{
+				@include transform(translate(6.5%,26%) scale(0.7));
+			}
+			&_4{
+				@include transform(translate(14.5%,21%) scale(0.75));
+			}
+			&_3{
+				@include transform(translate(-2%,14%) scale(0.75));
+			}
+			&_2{
+				@include transform(translate(17%,0%) scale(0.8));
+			}
+			&_1{
+				@include transform(translate(-11%,-15%) scale(0.85));
+			}
+		}
+	}
 	&_5{
-		.animation-speed-slowest &{
+		.animation-speed-slow &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_4{
-		.animation-speed-slowest &,.animation-speed-slow &{
+		.animation-speed-med &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_3{
-		.animation-speed-slowest &{
+		.animation-speed-slow &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_2{
-		.animation-speed-slowest &,.animation-speed-slow &{
+		.animation-speed-med &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_1{
-		.animation-speed-slowest &{
+		.animation-speed-slow &{
 			@include animation-play-state(paused);
-		}
-	}
-	@media (max-width: $screen-xs-max) {
-		&_5{
-			@include animation(wave_xs_5 900ms ease-in-out infinite alternate);
-		}
-		&_4{
-			@include animation(wave_xs_4 600ms ease-in-out infinite alternate);
-		}
-		&_3{
-			@include animation(wave_xs_3 500ms ease-in-out infinite alternate);
-		}
-		&_2{
-			@include animation(wave_xs_2 600ms ease-in-out infinite alternate);
-		}
-		&_1{
-			@include animation(wave_xs_1 400ms ease-in-out infinite alternate);
-		}
-	}
-	@media (min-width: $screen-sm-min) and (max-width: $screen-md-max) {
-		&_5{
-			@include animation(wave_md_5 14s ease-in-out infinite alternate);
-		}
-		&_4{
-			@include animation(wave_md_4 12s ease-in-out infinite alternate);
-		}
-		&_3{
-			@include animation(wave_md_3 12s ease-in-out infinite alternate);
-		}
-		&_2{
-			@include animation(wave_md_2 10s ease-in-out infinite alternate);
-		}
-		&_1{
-			@include animation(wave_md_1 15s ease-in-out infinite alternate);
-		}
-	}
-	@media (min-width: $screen-lg-min) {
-		&_5{
-			@include animation(wave_lg_5 14s ease-in-out infinite alternate);
-		}
-		&_4{
-			@include animation(wave_lg_4 12s ease-in-out infinite alternate);
-		}
-		&_3{
-			@include animation(wave_lg_3 12s ease-in-out infinite alternate);
-		}
-		&_2{
-			@include animation(wave_lg_2 10s ease-in-out infinite alternate);
-		}
-		&_1{
-			@include animation(wave_lg_1 15s ease-in-out infinite alternate);
 		}
 	}
 }
