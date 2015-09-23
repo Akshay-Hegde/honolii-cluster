@@ -204,7 +204,13 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 	// Animation FPS conditionals
 	_.checkAnimations = function(bodyElement){
-		var fpsObj, aniCookie = 'fpsCard';
+		var fpsObj, aniCookie = 'fpsCard', userAgentStrings;
+
+		/* --------- TEMP USER AGENT SNIFFER -------------- */
+
+		userAgentStrings = ['MSIE','Trident/7.0',];
+
+		/* ------------------------------------------------ */
 
 		fpsObj = {
 			aniPhase : 0,
@@ -293,7 +299,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 			_.cookies.setItem(aniCookie,classArray[speedIndex]);
 		};
 
-		if(Modernizr.lowbattery){ // if low battery don't run animations
+		if(Modernizr.lowbattery || !Modernizr.webanimations){ // if low battery don't run animations
 			bodyElement.classList.add('animation-speed-stopped');
 			if(Modernizr.cookies){
 				_.cookies.setItem(aniCookie,'animation-speed-stopped');
