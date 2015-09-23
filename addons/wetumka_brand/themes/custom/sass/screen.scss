@@ -426,8 +426,11 @@ a.social-icon {
 		.px-density-1x &{
 			background-image: url(../img/watercolorTextureFade_1x.jpg);
 		}
-		.animation-speed-med &, .animation-speed-fast &{
+		.animation-speed-med &, .animation-speed-fast &, .animation-speed-slow &{
 			@include animation(scroll_sky 60s linear infinite);
+		}
+		.animation-speed-slow &, .animation-speed-pause &{
+			@include animation-play-state(paused);
 		}
 	}
 	.animation-speed-slow &,.animation-speed-med &,.animation-speed-fast &, .animation-speed-stopped &{
@@ -543,27 +546,27 @@ a.social-icon {
 		}
 	}
 	&_5{
-		.animation-speed-slow &{
+		.animation-speed-slow &, .animation-speed-pause &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_4{
-		.animation-speed-med &{
+		.animation-speed-med &, .animation-speed-pause &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_3{
-		.animation-speed-slow &{
+		.animation-speed-slow &, .animation-speed-pause &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_2{
-		.animation-speed-med &{
+		.animation-speed-med &, .animation-speed-pause &{
 			@include animation-play-state(paused);
 		}
 	}
 	&_1{
-		.animation-speed-slow &{
+		.animation-speed-slow &, .animation-speed-pause &{
 			@include animation-play-state(paused);
 		}
 	}

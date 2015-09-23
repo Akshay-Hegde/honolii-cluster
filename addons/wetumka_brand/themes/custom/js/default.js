@@ -208,10 +208,10 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
 		fpsObj = {
 			aniPhase : 0,
-			framesLow : 15,
+			framesLow : 20,
 			framesHigh : 40,
 			sampleCount : 0,
-			sampleSize : 10,
+			sampleSize : 15,
 			fpsSum : 0,
 		};
 
@@ -223,8 +223,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 			var avg, noChange = false;
 			this.sampleCount = this.sampleCount + 1;
 			this.fpsSum = this.fpsSum + e.fps;
-			avg = this.avg();
-			console.log('FPS: ' + e.fps);
+			console.log(e.fps, this.avg());
 			if(this.sampleCount === 1){ // first sample
 				if(e.fps < this.framesLow){ // if fps is low before animations started, then don't start them
 					bodyElement.classList.add('animation-speed-stopped');
@@ -240,23 +239,23 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 			if(this.sampleCount !== this.sampleSize){
 				switch(this.aniPhase){
 					case 0:
-						if(avg < this.framesLow){
+						if(e.fps < this.framesLow){
 							this.aniPhase = 1;
 						}else{
 							noChange = true;
 						}
 					break;
 					case 1:
-						if(avg < this.framesLow){
+						if(e.fps < this.framesLow){
 							this.aniPhase = 2;
-						} else if(avg > this.framesHigh){
+						} else if(e.fps > this.framesLow + 10){
 							this.aniPhase = 0;
 						} else {
 							noChange = true;
 						}
 					break;
 					case 2:
-						if(avg > this.framesHigh){
+						if(e.fps > this.framesLow + 10){
 							this.aniPhase = 1;
 						} else {
 							noChange = true;
@@ -268,14 +267,17 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 				}
 			}else{
 				FPSMeter.stop(); // stop after a few samples and set cookie;
+				avg = this.avg();
+				
 				if(Modernizr.cookies){
-					if(this.aniPhase === 0){
-						_.cookies.setItem(aniCookie,'animation-speed-fast');
-					}else if(this.aniPhase === 1){
-						_.cookies.setItem(aniCookie,'animation-speed-med');
-					}else if(this.aniPhase === 2){
-						_.cookies.setItem(aniCookie,'animation-speed-slow');
+					if(avg > 44){
+						this.fpsSpeed(0);
+					}else if(avg > 24 && avg < 45){
+						this.fpsSpeed(1);
+					}else if(avg > 20 && avg < 25){
+						this.fpsSpeed(2);
 					}else{
+						bodyElement.classList.add('animation-speed-pause');
 						_.cookies.setItem(aniCookie,'animation-speed-stopped');
 					}
 				}
@@ -288,9 +290,10 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 				bodyElement.classList.remove(classArray[i]);
 			}
 			bodyElement.classList.add(classArray[speedIndex]);
+			_.cookies.setItem(aniCookie,classArray[speedIndex]);
 		};
 
-		if(Modernizr.lowbattery){ // if low batter don't run animations
+		if(Modernizr.lowbattery){ // if low battery don't run animations
 			bodyElement.classList.add('animation-speed-stopped');
 			if(Modernizr.cookies){
 				_.cookies.setItem(aniCookie,'animation-speed-stopped');
@@ -298,7 +301,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 		}else if(Modernizr.cookies && !_.cookies.hasItem(aniCookie)){ // run fps sample for the first time
 			// Register a progress call-back
 			document.addEventListener('fps', function(e){fpsObj.fpsEvent(e);}, false);
-			FPSMeter.run(1);
+			FPSMeter.run(2);
 		}else if(Modernizr.cookies && _.cookies.hasItem(aniCookie)){
 			bodyElement.classList.add(_.cookies.getItem(aniCookie));
 		}
