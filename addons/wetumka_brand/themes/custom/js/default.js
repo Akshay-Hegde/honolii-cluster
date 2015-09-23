@@ -224,7 +224,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 			this.sampleCount = this.sampleCount + 1;
 			this.fpsSum = this.fpsSum + e.fps;
 			avg = this.avg();
-
+			console.log('FPS: ' + e.fps);
 			if(this.sampleCount === 1){ // first sample
 				if(e.fps < this.framesLow){ // if fps is low before animations started, then don't start them
 					bodyElement.classList.add('animation-speed-stopped');
