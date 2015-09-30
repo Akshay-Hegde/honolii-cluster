@@ -24,6 +24,11 @@
 				margin:0;
 				padding:$font-size-base 0;
 			}
+			&-bd{
+				.social-icon{
+					display:inline-block;
+				}
+			}
 			@include mod-navigation-list;
 		}
 		.navigation,.mod-blog_categories{
@@ -175,6 +180,26 @@
 	&-testimonial{
 		@include mod-stacked;
 		@include mod-stacked-arrow;
+		&-hd{
+			.client-logo{
+				width:50px;
+				display:block;
+				float:right;
+				margin-left:18px;
+				margin-top:-5px;
+				img{
+					max-width:100%;
+				}
+				@media (min-width: $screen-sm-min){
+					float:left;
+					margin-right:18px;
+					margin-left:0;
+				}
+			}
+			a.client-logo{
+				border-bottom:none;
+			}
+		}
 		&-bd{
 			position: relative;
 			q{

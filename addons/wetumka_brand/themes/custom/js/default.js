@@ -13,6 +13,10 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 	// init function
 	_.init = function(){
 		var timeout,bodyElement = document.querySelector('body'),scrollEvent,that = this;
+		
+		// init socialShare
+		this.socialShare();
+
 		// setSectionClass
 		this.setSectionClass();
 
@@ -50,6 +54,30 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 	  	assetPath + '/img/svg/hamburger-x-path.svg'
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);	  
+	};
+
+	// social share links in header
+	_.socialShare = function(){
+		var link, eTitle, social, eURL = encodeURIComponent(window.location.href);
+		eTitle = encodeURIComponent(document.querySelector('title').text);
+		social = [
+			{
+				url: 'https://www.facebook.com/sharer/sharer.php?u=' + eURL,
+				lid: 'share-facebook'
+			},
+			{
+				url: 'https://twitter.com/intent/tweet?url=' + eURL + '&text=' + eTitle + '&via=edward_wetumka',
+				lid: 'share-twitter'
+			},
+			{
+				url: 'https://www.linkedin.com/shareArticle?mini=true&url=' + eURL + '&summary=' + eTitle,
+				lid: 'share-linkedin'
+			}
+		];
+		for (var i = social.length - 1; i >= 0; i--) {
+			link = document.getElementById(social[i].lid);
+			link.setAttribute('href', social[i].url);
+		}
 	};
 
 	// Set class for section nav - so it can be hidden

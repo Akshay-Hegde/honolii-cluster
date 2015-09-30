@@ -21,7 +21,6 @@
 // // large
 // @media (min-width: $screen-lg-min) {
 // }
-
 /* -----------------------------------------
          Site Structure Styles
 -------------------------------------------- */
@@ -67,7 +66,7 @@
 		&.showNavList{
 			display:block;
 		}
-		@extend .col-sm-4;
+		@extend .col-sm-3;
 	}
 	&-wrapper{
 		@extend .container; 
