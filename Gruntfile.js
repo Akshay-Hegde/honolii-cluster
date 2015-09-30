@@ -123,12 +123,7 @@ module.exports = function(grunt) {
         wetumka_brand: [
             {
                 src: [
-                    "addons/wetumka_brand/themes/custom/js/default.js"
-                ],
-                dest:'addons/wetumka_brand/themes/custom/publish/js/production.js',
-            },{
-                src: [
-                    "addons/wetumka_brand/themes/custom/css/style.css"
+                    "addons/wetumka_brand/themes/custom/css/screen.css"
                 ],
                 dest:'addons/wetumka_brand/themes/custom/publish/css/production.css',
             }

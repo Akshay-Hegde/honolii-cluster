@@ -32,6 +32,7 @@
 }
 .site-wrapper{
 	position: relative;
+	overflow: hidden;
 }
 .site-header{
 	$nav-height: 300px;
@@ -246,6 +247,12 @@
 	}
 	select{
 		-webkit-appearance: none;
+		option{
+			color:black;
+			&[disabled]{ //fix windows font color issue
+				color:$gray-light;
+			}
+		}
 	}
 	.flag-required{
 		position: absolute;
