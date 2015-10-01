@@ -1,0 +1,34 @@
+{{ streams:form
+		stream="capture_campaign"
+		mode="new"
+
+		notify_a="hello@wetumka.net"
+    notify_template_a="online_contact_notice"
+
+    notify_b="email"
+    notify_template_b="outbound_contact_campaign"
+    
+    return="/contact/thank-you/campaign"
+}}{{ /streams:form }}
+
+<div class="mod-capture">
+	<div class="mod-capture-hd">
+		<h4>Just send me your name and email to get the conversation started.</h4>
+	</div>
+	<div class="mod-capture-bd">
+		<form method="post" class="capture-form" id="capture_form">
+			<input type="hidden" name="campaign_id" id="input_campaign">
+			<fieldset>
+			  <div class="mod-form">
+			    <label class="sr-only" for="input_fullname">Full name</label>
+		      <input tabindex="1" name="full_name" type="text" id="input_fullname" placeholder="Your name" title="eg. John Smith" required>
+			  </div>
+			  <div class="mod-form">
+			    <label class="sr-only" for="input_email">Email</label>
+		      <input tabindex="2" name="email" type="email" id="input_email" title="eg. john@example.com" placeholder="Your email address" required>
+			  </div>
+			  <button type="submit" class="cta" id="button_submit">Contact Me</button>
+		  </fieldset>
+		</form>
+	</div>
+</div>

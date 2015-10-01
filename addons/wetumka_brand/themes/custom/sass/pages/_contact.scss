@@ -2,7 +2,7 @@ body.contact-page{
 	.contact-section{
 		@include section-blue;
 	}
-	.capture-form{
+	.contact-form{
 		.event-show-fieldset{
 			display:none;
 			&-active{

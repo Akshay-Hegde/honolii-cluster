@@ -205,6 +205,22 @@
          				Form Styles
 -------------------------------------------- */
 .capture-form{
+	@extend .form-inline;
+	.mod-form{
+		@extend .form-group;
+	}
+	input,textarea,select{
+		@extend .form-control;
+	}
+	.cta{
+		vertical-align:middle;
+		@media (max-width: $screen-xs-max) {
+			width:40%;
+		}
+	}
+}
+
+.contact-form{
 	@extend .form-horizontal;
 	.mod-form{
 		@extend .form-group;
@@ -244,6 +260,8 @@
 			margin-bottom:0;
 		}
 	}
+}
+form{
 	select{
 		-webkit-appearance: none;
 		option{
@@ -333,10 +351,33 @@ a.social-icon {
 	@extend .alert-warning;
 }
 
+.fancy-box{
+	$border: solid 3px rgba(white,.5);
+
+	border: $border;
+	position:relative;
+	&::before,&::after{
+		content: '';
+		display: block;
+		border: $border;
+		width: 10px;
+		height: 10px;
+		position: absolute;
+	}
+	&::before{
+		top: -10px;left: -10px;
+	}
+	&::after{
+		bottom: -10px;
+		right: -10px;
+	}
+}
+
 @import "pages/home";
 @import "pages/about";
 @import "pages/contact";
 @import "pages/work";
+@import "pages/campaign";
 @import "pages/blog";
 
 /* -----------------------------------------

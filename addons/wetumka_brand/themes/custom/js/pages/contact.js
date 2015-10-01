@@ -1,5 +1,5 @@
 // contact.js
-define (['default','lib/H5F','lib/pubsub'], function (def,H5F,PubSub) {
+define (['default','lib/pubsub'], function (def,PubSub) {
 	"use strict";
 
 	var _ = {};
@@ -19,9 +19,7 @@ define (['default','lib/H5F','lib/pubsub'], function (def,H5F,PubSub) {
 		this.setGen = document.getElementById('contact_general');
 		this.setJob = document.getElementById('contact_job');
 		this.setRFP = document.getElementById('contact_rfp');
-
-		// shim validation
-		H5F.setup(this.contactForm);
+		
 		// events
 		this.btnSubmit.addEventListener("click", function(e){
 			PubSub.publish('event.click.btnSubmit',e);

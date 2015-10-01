@@ -145,6 +145,25 @@
 	&-form{
 		// styles are in screen.scss
 	}
+	&-capture{
+		@extend .fancy-box;
+		padding-bottom:$line-height-computed;
+		input{
+			border-color:transparent;
+		}
+		@media (max-width: $screen-xs-max) {
+			padding-left:10px;
+			padding-right:10px;
+		}
+		@media (min-width: $screen-sm-min){
+			.mod-form{
+				width:35%;
+			}
+			input{
+				width:100%;
+			}
+		}
+	}
 	&-testimonials{
 		margin-bottom:20px;
 		&-hd{
