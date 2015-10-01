@@ -1,39 +1,41 @@
 {{ streams:form
+
 		stream="capture_general_inquiry"
+		return="/contact/thank-you/hello"
 		mode="new"
 
-		notify_a="hello@wetumka.net"
-    notify_template_a="online_contact_notice"
+		notify_a="edward@wetumka.io"
+    notify_template_a="online_form_notice"
 
     notify_b="email"
     notify_template_b="outbound_contact_general"
     
-    return="/contact/thank-you/hello"
 }}{{ /streams:form }}
-
 {{ streams:form
+
 		stream="capture_job_inquiry"
+		return="/contact/thank-you/job"
 		mode="new"
 		
 		notify_a="jobs@wetumka.net"
-    notify_template_a="online_contact_notice"
+    notify_template_a="online_form_notice"
 
     notify_b="email"
     notify_template_b="outbound_contact_job"
     
-    return="/contact/thank-you/job"
 }}{{ /streams:form }}
 {{ streams:form
+
 		stream="capture_rfp"
+		return="/contact/thank-you/rfp"
 		mode="new"
 
-		notify_a="hello@wetumka.net"
-    notify_template_a="online_contact_notice"
+		notify_a="edward@wetumka.io"
+    notify_template_a="online_form_notice"
 
     notify_b="email"
     notify_template_b="outbound_contact_rfp"
     
-    return="/contact/thank-you/rfp"
 }}{{ /streams:form }}
 
 <form enctype="multipart/form-data" method="post" class="contact-form" id="contact_form">
