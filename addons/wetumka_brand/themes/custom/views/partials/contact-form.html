@@ -4,11 +4,13 @@
 		return="/contact/thank-you/hello"
 		mode="new"
 
-		notify_a="edward.meehan@wetumka.net"
+		notify_a="edward@wetumka.io"
     notify_template_a="online_form_notice"
+    notify_from_a="hello@wetumka.io|General Inquiry"
 
     notify_b="email"
     notify_template_b="outbound_contact_general"
+    notify_from_b="hello@wetumka.io|Hello Wetumka Interactive"
     
 }}{{ /streams:form }}
 {{ streams:form
@@ -17,11 +19,13 @@
 		return="/contact/thank-you/job"
 		mode="new"
 		
-		notify_a="edward.meehan@wetumka.net"
+		notify_a="edward@wetumka.io"
     notify_template_a="online_form_notice"
+    notify_from_a="hello@wetumka.io|Job Inquiry"
 
     notify_b="email"
     notify_template_b="outbound_contact_job"
+    notify_from_b="hello@wetumka.io|Hello Wetumka Interactive"
     
 }}{{ /streams:form }}
 {{ streams:form
@@ -30,11 +34,13 @@
 		return="/contact/thank-you/rfp"
 		mode="new"
 
-		notify_a="edward.meehan@wetumka.net"
+		notify_a="edward@wetumka.io"
     notify_template_a="online_form_notice"
+    notify_from_a="hello@wetumka.io|Request Proposal"
 
     notify_b="email"
     notify_template_b="outbound_contact_rfp"
+    notify_from_b="edward@wetumka.io|Edward Meehan"
     
 }}{{ /streams:form }}
 
@@ -58,7 +64,7 @@
 	  	<div class="mod-form-input">
 	  		<select tabindex="3" name="stream_id" id="input_subject" required>
 	  			<option value="" disabled selected>Please select an option</option>
-				  <option value="12">General enquiry</option>
+				  <option value="12">General inquiry</option>
 				  <option value="13">Partnership | Join the team</option>
 				  <option value="14">Request for proposal | Project</option>
 				</select>
