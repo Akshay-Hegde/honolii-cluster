@@ -160,8 +160,8 @@
 		text-align:center;
 		h1{
 			text-transform:uppercase;
-			font-size:50px;
-			font-weight:900;
+			// font-size:50px;
+			// font-weight:900;
 		}
 		p{
 			@extend .lead;
@@ -180,7 +180,7 @@
 		}
 		@media (min-width: $screen-sm-min) {
 			h1{
-				font-size:80px;
+				// font-size:80px;
 			}
 			> .block{
 				border-bottom: solid 4px rgba(white,.2);
@@ -295,9 +295,6 @@ form{
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-h1,h2{
-	text-align:center;
-}
 img{
 	color:transparent;
 }
@@ -319,13 +316,13 @@ img{
 		@include column-gap(40px);
   }
 }
-a{
-	border-bottom-style:dotted;
-	border-bottom-width:1px;
-	&:hover{
-		text-decoration:none;
-	}
-}
+// a{
+// 	border-bottom-style:dotted;
+// 	border-bottom-width:1px;
+// 	&:hover{
+// 		text-decoration:none;
+// 	}
+// }
 a.social-icon {
 	-webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;

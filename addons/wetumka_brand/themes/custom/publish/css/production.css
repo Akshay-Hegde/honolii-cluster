@@ -1733,12 +1733,12 @@ textarea {
 
 /* line 48, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
 a {
-  color: inherit;
+  color: #F08100;
   text-decoration: none;
 }
 /* line 52, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
 a:hover, a:focus {
-  color: inherit;
+  color: #FF8900;
   text-decoration: none;
 }
 /* line 58, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
@@ -1786,7 +1786,7 @@ img {
 }
 
 /* line 106, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_scaffolding.scss */
-.img-circle, .mod-author-hd img {
+.img-circle, .mod-post-meta-hd img, .mod-post-meta-bd .author-img img {
   border-radius: 50%;
 }
 
@@ -1828,8 +1828,7 @@ hr {
 /* line 9, ../sass/bootstrap_custom/_type.scss */
 h1, h2, h3, h4, h5, h6,
 .h1,
-.mod-partners-hd h2,
-.mod-testimonials-hd h2, .h2, .h3, .h4, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4, .h6 {
+.mod-post-hd .post-headline, .h2, .h3, .mod-members-hd h2, .mod-services-hd h2, .mod-partners-hd h2, .mod-testimonials-hd h2, .h4, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4, .h6, .mod-post-meta-bd .share h4, .mod-post-meta-bd .keywords h4, .mod-post-meta-bd .comments h4, .mod-post-meta-bd .published h4, .mod-post-meta-bd .author h4 {
   font-family: inherit;
   font-weight: 100;
   line-height: 1.1;
@@ -1840,147 +1839,95 @@ h1 small,
 h1 .small,
 h1 .site-footer,
 h1 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h1 .mod-form-help, h2 small,
+.contact-form .mod-form h1 .mod-form-help,
+h1 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h1 .keyword, h2 small,
 h2 .small,
 h2 .site-footer,
 h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h2 .mod-form-help, h3 small,
+.contact-form .mod-form h2 .mod-form-help,
+h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h2 .keyword, h3 small,
 h3 .small,
 h3 .site-footer,
 h3 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h3 .mod-form-help, h4 small,
+.contact-form .mod-form h3 .mod-form-help,
+h3 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h3 .keyword, h4 small,
 h4 .small,
 h4 .site-footer,
 h4 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h4 .mod-form-help, h5 small,
+.contact-form .mod-form h4 .mod-form-help,
+h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h4 .keyword, h5 small,
 h5 .small,
 h5 .site-footer,
 h5 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h5 .mod-form-help, h6 small,
+.contact-form .mod-form h5 .mod-form-help,
+h5 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h5 .keyword, h6 small,
 h6 .small,
 h6 .site-footer,
 h6 .contact-form .mod-form .mod-form-help,
 .contact-form .mod-form h6 .mod-form-help,
+h6 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h6 .keyword,
 .h1 small,
-.mod-partners-hd h2 small,
-.mod-testimonials-hd h2 small,
+.mod-post-hd .post-headline small,
 .h1 .small,
-.mod-partners-hd h2 .small,
-.mod-testimonials-hd h2 .small,
+.mod-post-hd .post-headline .small,
 .h1 .site-footer,
-.mod-partners-hd h2 .site-footer,
-.mod-testimonials-hd h2 .site-footer,
+.mod-post-hd .post-headline .site-footer,
 .h1 .contact-form .mod-form .mod-form-help,
 .contact-form .mod-form .h1 .mod-form-help,
-.mod-partners-hd h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-partners-hd h2 .mod-form-help,
-.mod-testimonials-hd h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-testimonials-hd h2 .mod-form-help, .h2 small,
-.h2 .small,
-.h2 .site-footer,
-.h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h2 .mod-form-help, .h3 small,
-.h3 .small,
-.h3 .site-footer,
-.h3 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h3 .mod-form-help, .h4 small,
-.h4 .small,
-.h4 .site-footer,
-.h4 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h4 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
-.h5 .small,
-.mod-member-hd h4 .small,
-.mod-partner-hd h4 .small,
-.mod-testimonial-hd h4 .small,
-.h5 .site-footer,
-.mod-member-hd h4 .site-footer,
-.mod-partner-hd h4 .site-footer,
-.mod-testimonial-hd h4 .site-footer,
-.h5 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h5 .mod-form-help,
-.mod-member-hd h4 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-member-hd h4 .mod-form-help,
-.mod-partner-hd h4 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-partner-hd h4 .mod-form-help,
-.mod-testimonial-hd h4 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-testimonial-hd h4 .mod-form-help, .h6 small,
-.h6 .small,
-.h6 .site-footer,
-.h6 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h6 .mod-form-help {
-  font-weight: normal;
-  line-height: 1;
-  color: #777777;
-}
-
-/* line 24, ../sass/bootstrap_custom/_type.scss */
-h1, .h1, .mod-partners-hd h2, .mod-testimonials-hd h2,
-h2, .h2,
-h3, .h3 {
-  margin-top: 48px;
-  margin-bottom: 48px;
-}
-/* line 29, ../sass/bootstrap_custom/_type.scss */
-h1 small,
-h1 .small,
-h1 .site-footer,
-h1 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h1 .mod-form-help, .h1 small, .mod-partners-hd h2 small, .mod-testimonials-hd h2 small,
-.h1 .small,
-.mod-partners-hd h2 .small,
-.mod-testimonials-hd h2 .small,
-.h1 .site-footer,
-.mod-partners-hd h2 .site-footer,
-.mod-testimonials-hd h2 .site-footer,
-.h1 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h1 .mod-form-help,
-.mod-partners-hd h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-partners-hd h2 .mod-form-help,
-.mod-testimonials-hd h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .mod-testimonials-hd h2 .mod-form-help,
-h2 small,
-h2 .small,
-h2 .site-footer,
-h2 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h2 .mod-form-help, .h2 small,
+.mod-post-hd .post-headline .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-hd .post-headline .mod-form-help,
+.h1 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h1 .keyword,
+.mod-post-hd .post-headline .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-post-hd .post-headline .keyword, .h2 small,
 .h2 .small,
 .h2 .site-footer,
 .h2 .contact-form .mod-form .mod-form-help,
 .contact-form .mod-form .h2 .mod-form-help,
-h3 small,
-h3 .small,
-h3 .site-footer,
-h3 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h3 .mod-form-help, .h3 small,
+.h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h2 .keyword, .h3 small, .mod-members-hd h2 small, .mod-services-hd h2 small, .mod-partners-hd h2 small, .mod-testimonials-hd h2 small,
 .h3 .small,
+.mod-members-hd h2 .small,
+.mod-services-hd h2 .small,
+.mod-partners-hd h2 .small,
+.mod-testimonials-hd h2 .small,
 .h3 .site-footer,
+.mod-members-hd h2 .site-footer,
+.mod-services-hd h2 .site-footer,
+.mod-partners-hd h2 .site-footer,
+.mod-testimonials-hd h2 .site-footer,
 .h3 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h3 .mod-form-help {
-  font-size: 65%;
-}
-
-/* line 34, ../sass/bootstrap_custom/_type.scss */
-h4, .h4,
-h5, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4,
-h6, .h6 {
-  margin-top: 12px;
-  margin-bottom: 12px;
-}
-/* line 40, ../sass/bootstrap_custom/_type.scss */
-h4 small,
-h4 .small,
-h4 .site-footer,
-h4 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h4 .mod-form-help, .h4 small,
+.contact-form .mod-form .h3 .mod-form-help,
+.mod-members-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-members-hd h2 .mod-form-help,
+.mod-services-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-services-hd h2 .mod-form-help,
+.mod-partners-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-partners-hd h2 .mod-form-help,
+.mod-testimonials-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-testimonials-hd h2 .mod-form-help,
+.h3 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h3 .keyword,
+.mod-members-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-members-hd h2 .keyword,
+.mod-services-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-services-hd h2 .keyword,
+.mod-partners-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-partners-hd h2 .keyword,
+.mod-testimonials-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-testimonials-hd h2 .keyword, .h4 small,
 .h4 .small,
 .h4 .site-footer,
 .h4 .contact-form .mod-form .mod-form-help,
 .contact-form .mod-form .h4 .mod-form-help,
-h5 small,
-h5 .small,
-h5 .site-footer,
-h5 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h5 .mod-form-help, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
+.h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h4 .keyword, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
 .h5 .small,
 .mod-member-hd h4 .small,
 .mod-partner-hd h4 .small,
@@ -1997,46 +1944,251 @@ h5 .contact-form .mod-form .mod-form-help,
 .contact-form .mod-form .mod-partner-hd h4 .mod-form-help,
 .mod-testimonial-hd h4 .contact-form .mod-form .mod-form-help,
 .contact-form .mod-form .mod-testimonial-hd h4 .mod-form-help,
+.h5 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h5 .keyword,
+.mod-member-hd h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-member-hd h4 .keyword,
+.mod-partner-hd h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-partner-hd h4 .keyword,
+.mod-testimonial-hd h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-testimonial-hd h4 .keyword, .h6 small, .mod-post-meta-bd .share h4 small, .mod-post-meta-bd .keywords h4 small, .mod-post-meta-bd .comments h4 small, .mod-post-meta-bd .published h4 small, .mod-post-meta-bd .author h4 small,
+.h6 .small,
+.mod-post-meta-bd .share h4 .small,
+.mod-post-meta-bd .keywords h4 .small,
+.mod-post-meta-bd .comments h4 .small,
+.mod-post-meta-bd .published h4 .small,
+.mod-post-meta-bd .author h4 .small,
+.h6 .site-footer,
+.mod-post-meta-bd .share h4 .site-footer,
+.mod-post-meta-bd .keywords h4 .site-footer,
+.mod-post-meta-bd .comments h4 .site-footer,
+.mod-post-meta-bd .published h4 .site-footer,
+.mod-post-meta-bd .author h4 .site-footer,
+.h6 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .h6 .mod-form-help,
+.mod-post-meta-bd .share h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .share h4 .mod-form-help,
+.mod-post-meta-bd .keywords h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .keywords h4 .mod-form-help,
+.mod-post-meta-bd .comments h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .comments h4 .mod-form-help,
+.mod-post-meta-bd .published h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .published h4 .mod-form-help,
+.mod-post-meta-bd .author h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .author h4 .mod-form-help,
+.h6 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h6 .keyword,
+.mod-post-meta-bd .share h4 .keyword,
+.mod-post-meta-bd .keywords h4 .keyword,
+.mod-post-meta-bd .comments h4 .keyword,
+.mod-post-meta-bd .published h4 .keyword,
+.mod-post-meta-bd .author h4 .keyword {
+  font-weight: normal;
+  line-height: 1;
+  color: #777777;
+}
+
+/* line 24, ../sass/bootstrap_custom/_type.scss */
+h1, .h1, .mod-post-hd .post-headline,
+h2, .h2,
+h3, .h3, .mod-members-hd h2, .mod-services-hd h2, .mod-partners-hd h2, .mod-testimonials-hd h2 {
+  margin-top: 48px;
+  margin-bottom: 48px;
+}
+/* line 29, ../sass/bootstrap_custom/_type.scss */
+h1 small,
+h1 .small,
+h1 .site-footer,
+h1 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form h1 .mod-form-help,
+h1 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h1 .keyword, .h1 small, .mod-post-hd .post-headline small,
+.h1 .small,
+.mod-post-hd .post-headline .small,
+.h1 .site-footer,
+.mod-post-hd .post-headline .site-footer,
+.h1 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .h1 .mod-form-help,
+.mod-post-hd .post-headline .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-hd .post-headline .mod-form-help,
+.h1 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h1 .keyword,
+.mod-post-hd .post-headline .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-post-hd .post-headline .keyword,
+h2 small,
+h2 .small,
+h2 .site-footer,
+h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form h2 .mod-form-help,
+h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h2 .keyword, .h2 small,
+.h2 .small,
+.h2 .site-footer,
+.h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .h2 .mod-form-help,
+.h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h2 .keyword,
+h3 small,
+h3 .small,
+h3 .site-footer,
+h3 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form h3 .mod-form-help,
+h3 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h3 .keyword, .h3 small, .mod-members-hd h2 small, .mod-services-hd h2 small, .mod-partners-hd h2 small, .mod-testimonials-hd h2 small,
+.h3 .small,
+.mod-members-hd h2 .small,
+.mod-services-hd h2 .small,
+.mod-partners-hd h2 .small,
+.mod-testimonials-hd h2 .small,
+.h3 .site-footer,
+.mod-members-hd h2 .site-footer,
+.mod-services-hd h2 .site-footer,
+.mod-partners-hd h2 .site-footer,
+.mod-testimonials-hd h2 .site-footer,
+.h3 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .h3 .mod-form-help,
+.mod-members-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-members-hd h2 .mod-form-help,
+.mod-services-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-services-hd h2 .mod-form-help,
+.mod-partners-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-partners-hd h2 .mod-form-help,
+.mod-testimonials-hd h2 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-testimonials-hd h2 .mod-form-help,
+.h3 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h3 .keyword,
+.mod-members-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-members-hd h2 .keyword,
+.mod-services-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-services-hd h2 .keyword,
+.mod-partners-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-partners-hd h2 .keyword,
+.mod-testimonials-hd h2 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-testimonials-hd h2 .keyword {
+  font-size: 65%;
+}
+
+/* line 34, ../sass/bootstrap_custom/_type.scss */
+h4, .h4,
+h5, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4,
+h6, .h6, .mod-post-meta-bd .share h4, .mod-post-meta-bd .keywords h4, .mod-post-meta-bd .comments h4, .mod-post-meta-bd .published h4, .mod-post-meta-bd .author h4 {
+  margin-top: 24px;
+  margin-bottom: 24px;
+}
+/* line 40, ../sass/bootstrap_custom/_type.scss */
+h4 small,
+h4 .small,
+h4 .site-footer,
+h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form h4 .mod-form-help,
+h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h4 .keyword, .h4 small,
+.h4 .small,
+.h4 .site-footer,
+.h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .h4 .mod-form-help,
+.h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h4 .keyword,
+h5 small,
+h5 .small,
+h5 .site-footer,
+h5 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form h5 .mod-form-help,
+h5 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h5 .keyword, .h5 small, .mod-member-hd h4 small, .mod-partner-hd h4 small, .mod-testimonial-hd h4 small,
+.h5 .small,
+.mod-member-hd h4 .small,
+.mod-partner-hd h4 .small,
+.mod-testimonial-hd h4 .small,
+.h5 .site-footer,
+.mod-member-hd h4 .site-footer,
+.mod-partner-hd h4 .site-footer,
+.mod-testimonial-hd h4 .site-footer,
+.h5 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .h5 .mod-form-help,
+.mod-member-hd h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-member-hd h4 .mod-form-help,
+.mod-partner-hd h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-partner-hd h4 .mod-form-help,
+.mod-testimonial-hd h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-testimonial-hd h4 .mod-form-help,
+.h5 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h5 .keyword,
+.mod-member-hd h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-member-hd h4 .keyword,
+.mod-partner-hd h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-partner-hd h4 .keyword,
+.mod-testimonial-hd h4 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .mod-testimonial-hd h4 .keyword,
 h6 small,
 h6 .small,
 h6 .site-footer,
 h6 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form h6 .mod-form-help, .h6 small,
+.contact-form .mod-form h6 .mod-form-help,
+h6 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd h6 .keyword, .h6 small, .mod-post-meta-bd .share h4 small, .mod-post-meta-bd .keywords h4 small, .mod-post-meta-bd .comments h4 small, .mod-post-meta-bd .published h4 small, .mod-post-meta-bd .author h4 small,
 .h6 .small,
+.mod-post-meta-bd .share h4 .small,
+.mod-post-meta-bd .keywords h4 .small,
+.mod-post-meta-bd .comments h4 .small,
+.mod-post-meta-bd .published h4 .small,
+.mod-post-meta-bd .author h4 .small,
 .h6 .site-footer,
+.mod-post-meta-bd .share h4 .site-footer,
+.mod-post-meta-bd .keywords h4 .site-footer,
+.mod-post-meta-bd .comments h4 .site-footer,
+.mod-post-meta-bd .published h4 .site-footer,
+.mod-post-meta-bd .author h4 .site-footer,
 .h6 .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form .h6 .mod-form-help {
+.contact-form .mod-form .h6 .mod-form-help,
+.mod-post-meta-bd .share h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .share h4 .mod-form-help,
+.mod-post-meta-bd .keywords h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .keywords h4 .mod-form-help,
+.mod-post-meta-bd .comments h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .comments h4 .mod-form-help,
+.mod-post-meta-bd .published h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .published h4 .mod-form-help,
+.mod-post-meta-bd .author h4 .contact-form .mod-form .mod-form-help,
+.contact-form .mod-form .mod-post-meta-bd .author h4 .mod-form-help,
+.h6 .mod-post-meta-bd .keyword,
+.mod-post-meta-bd .h6 .keyword,
+.mod-post-meta-bd .share h4 .keyword,
+.mod-post-meta-bd .keywords h4 .keyword,
+.mod-post-meta-bd .comments h4 .keyword,
+.mod-post-meta-bd .published h4 .keyword,
+.mod-post-meta-bd .author h4 .keyword {
   font-size: 75%;
 }
 
 /* line 46, ../sass/bootstrap_custom/_type.scss */
-h1, .h1, .mod-partners-hd h2, .mod-testimonials-hd h2 {
-  font-size: 32px;
+h1, .h1, .mod-post-hd .post-headline {
+  font-size: 56px;
   font-weight: 500;
 }
 
 /* line 47, ../sass/bootstrap_custom/_type.scss */
 h2, .h2 {
-  font-size: 30px;
+  font-size: 48px;
 }
 
 /* line 48, ../sass/bootstrap_custom/_type.scss */
-h3, .h3 {
-  font-size: 28px;
+h3, .h3, .mod-members-hd h2, .mod-services-hd h2, .mod-partners-hd h2, .mod-testimonials-hd h2 {
+  font-size: 40px;
 }
 
 /* line 49, ../sass/bootstrap_custom/_type.scss */
 h4, .h4 {
-  font-size: 22px;
+  font-size: 32px;
 }
 
 /* line 50, ../sass/bootstrap_custom/_type.scss */
 h5, .h5, .mod-member-hd h4, .mod-partner-hd h4, .mod-testimonial-hd h4 {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 /* line 51, ../sass/bootstrap_custom/_type.scss */
-h6, .h6 {
+h6, .h6, .mod-post-meta-bd .share h4, .mod-post-meta-bd .keywords h4, .mod-post-meta-bd .comments h4, .mod-post-meta-bd .published h4, .mod-post-meta-bd .author h4 {
   font-size: 16px;
 }
 
@@ -2046,7 +2198,7 @@ p {
 }
 
 /* line 61, ../sass/bootstrap_custom/_type.scss */
-.lead, .block-wrapper.intro-section p, .mod-members-ft, .mod-partners-hd p, .mod-partners-ft, .mod-testimonials-hd p, .mod-clients-ft, .mod-posts .mod-post .mod-post-bd, body.hello-page .team-section .mod-members-hd p {
+.lead, .block-wrapper.intro-section p, .mod-members-ft, .mod-partners-hd p, .mod-partners-ft, .mod-testimonials-hd p, .mod-clients-ft, .mod-posts .mod-post-bd, body.hello-page .team-section .mod-members-hd p {
   font-size: 20px;
   font-weight: 300;
   line-height: 1.4;
@@ -2056,7 +2208,8 @@ p {
 small,
 .small,
 .site-footer,
-.contact-form .mod-form .mod-form-help {
+.contact-form .mod-form .mod-form-help,
+.mod-post-meta-bd .keyword {
   font-size: 75%;
 }
 
@@ -2346,7 +2499,9 @@ blockquote small,
 blockquote .small,
 blockquote .site-footer,
 blockquote .contact-form .mod-form .mod-form-help,
-.contact-form .mod-form blockquote .mod-form-help {
+.contact-form .mod-form blockquote .mod-form-help,
+blockquote .mod-post-meta-bd .keyword,
+.mod-post-meta-bd blockquote .keyword {
   display: block;
   font-size: 80%;
   line-height: 1.5;
@@ -2358,7 +2513,9 @@ blockquote small:before,
 blockquote .small:before,
 blockquote .site-footer:before,
 blockquote .contact-form .mod-form .mod-form-help:before,
-.contact-form .mod-form blockquote .mod-form-help:before {
+.contact-form .mod-form blockquote .mod-form-help:before,
+blockquote .mod-post-meta-bd .keyword:before,
+.mod-post-meta-bd blockquote .keyword:before {
   content: '\2014 \00A0';
 }
 
@@ -2378,12 +2535,16 @@ blockquote.pull-right {
 .blockquote-reverse .site-footer:before,
 .blockquote-reverse .contact-form .mod-form .mod-form-help:before,
 .contact-form .mod-form .blockquote-reverse .mod-form-help:before,
+.blockquote-reverse .mod-post-meta-bd .keyword:before,
+.mod-post-meta-bd .blockquote-reverse .keyword:before,
 blockquote.pull-right footer:before,
 blockquote.pull-right small:before,
 blockquote.pull-right .small:before,
 blockquote.pull-right .site-footer:before,
 blockquote.pull-right .contact-form .mod-form .mod-form-help:before,
-.contact-form .mod-form blockquote.pull-right .mod-form-help:before {
+.contact-form .mod-form blockquote.pull-right .mod-form-help:before,
+blockquote.pull-right .mod-post-meta-bd .keyword:before,
+.mod-post-meta-bd blockquote.pull-right .keyword:before {
   content: '';
 }
 /* line 286, ../sass/bootstrap_custom/_type.scss */
@@ -2393,12 +2554,16 @@ blockquote.pull-right .contact-form .mod-form .mod-form-help:before,
 .blockquote-reverse .site-footer:after,
 .blockquote-reverse .contact-form .mod-form .mod-form-help:after,
 .contact-form .mod-form .blockquote-reverse .mod-form-help:after,
+.blockquote-reverse .mod-post-meta-bd .keyword:after,
+.mod-post-meta-bd .blockquote-reverse .keyword:after,
 blockquote.pull-right footer:after,
 blockquote.pull-right small:after,
 blockquote.pull-right .small:after,
 blockquote.pull-right .site-footer:after,
 blockquote.pull-right .contact-form .mod-form .mod-form-help:after,
-.contact-form .mod-form blockquote.pull-right .mod-form-help:after {
+.contact-form .mod-form blockquote.pull-right .mod-form-help:after,
+blockquote.pull-right .mod-post-meta-bd .keyword:after,
+.mod-post-meta-bd blockquote.pull-right .keyword:after {
   content: '\00A0 \2014';
 }
 
@@ -2526,26 +2691,26 @@ pre code {
 }
 
 /* line 39, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_grid.scss */
-.row, .site-header .mod-main-nav, .block-wrapper.two-column .block-inner, .mod-services-bd, .mod-clients-bd, .mod-author {
+.row, .site-header .mod-main-nav, .block-wrapper.two-column .block-inner, .mod-services-bd, .mod-clients-bd, .mod-posts .mod-post-meta, .mod-post-bd {
   margin-left: -10px;
   margin-right: -10px;
 }
 /* line 14, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:before, .site-header .mod-main-nav:before, .block-wrapper.two-column .block-inner:before, .mod-services-bd:before, .mod-clients-bd:before, .mod-author:before, .row:after, .site-header .mod-main-nav:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after, .mod-author:after {
+.row:before, .site-header .mod-main-nav:before, .block-wrapper.two-column .block-inner:before, .mod-services-bd:before, .mod-clients-bd:before, .mod-posts .mod-post-meta:before, .mod-post-bd:before, .row:after, .site-header .mod-main-nav:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after, .mod-posts .mod-post-meta:after, .mod-post-bd:after {
   content: " ";
   display: table;
 }
 /* line 19, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_clearfix.scss */
-.row:after, .site-header .mod-main-nav:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after, .mod-author:after {
+.row:after, .site-header .mod-main-nav:after, .block-wrapper.two-column .block-inner:after, .mod-services-bd:after, .mod-clients-bd:after, .mod-posts .mod-post-meta:after, .mod-post-bd:after {
   clear: both;
 }
 
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .mod-author-hd, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .site-header .widget, .block-wrapper.two-column .side-column, .mod-client, .col-md-3, .col-lg-3, .col-xs-4, .mod-client, .mod-author-hd, .col-sm-4, .contact-form .mod-form > label, .mod-service, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, body.contact-page .side-column .widget, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .contact-form .mod-form .mod-form-input,
+.col-xs-1, .col-sm-1, .mod-posts .mod-post-meta-hd, .col-md-1, .col-lg-1, .col-xs-2, .mod-posts .mod-post-meta-hd, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .site-header .widget, .block-wrapper.two-column .side-column, .mod-client, .mod-post-bd .mod-post-meta, .col-md-3, .col-lg-3, .col-xs-4, .mod-client, .col-sm-4, .contact-form .mod-form > label, .mod-service, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, body.contact-page .side-column .widget, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .contact-form .mod-form .mod-form-input,
 .contact-form .mod-form .mod-form-textarea,
-.contact-form .mod-form .mod-form-file, .contact-form .mod-form .mod-form-checkbox, .contact-form .mod-form .mod-form-btn, .col-md-7, .col-lg-7, .col-xs-8, .mod-author-bd, .col-sm-8, .block-wrapper.two-column .main-column, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .mod-author-bd, .col-md-10, .col-lg-10, .col-xs-11, .contact-form .mod-form .mod-form-input,
+.contact-form .mod-form .mod-form-file, .contact-form .mod-form .mod-form-checkbox, .contact-form .mod-form .mod-form-btn, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .block-wrapper.two-column .main-column, .col-md-8, .mod-post-bd .post-body, .col-lg-8, .col-xs-9, .col-sm-9, .mod-post-bd .post-body, .col-md-9, .col-lg-9, .col-xs-10, .mod-posts .mod-post-meta-bd, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .contact-form .mod-form .mod-form-input,
 .contact-form .mod-form .mod-form-textarea,
-.contact-form .mod-form .mod-form-file, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .contact-form .mod-form > label, .col-sm-12, body.contact-page .side-column .widget, .col-md-12, .col-lg-12 {
+.contact-form .mod-form .mod-form-file, .col-sm-11, .mod-posts .mod-post-meta-bd, .col-md-11, .col-lg-11, .col-xs-12, .contact-form .mod-form > label, .col-sm-12, body.contact-page .side-column .widget, .col-md-12, .col-lg-12 {
   position: relative;
   min-height: 1px;
   padding-left: 10px;
@@ -2553,7 +2718,7 @@ pre code {
 }
 
 /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .mod-client, .mod-author-hd, .col-xs-5, .col-xs-6, body.contact-page .side-column .widget, .col-xs-7, .col-xs-8, .mod-author-bd, .col-xs-9, .col-xs-10, .col-xs-11, .contact-form .mod-form .mod-form-input,
+.col-xs-1, .col-xs-2, .mod-posts .mod-post-meta-hd, .col-xs-3, .col-xs-4, .mod-client, .col-xs-5, .col-xs-6, body.contact-page .side-column .widget, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .mod-posts .mod-post-meta-bd, .col-xs-11, .contact-form .mod-form .mod-form-input,
 .contact-form .mod-form .mod-form-textarea,
 .contact-form .mod-form .mod-form-file, .col-xs-12, .contact-form .mod-form > label {
   float: left;
@@ -2565,7 +2730,7 @@ pre code {
 }
 
 /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-2 {
+.col-xs-2, .mod-posts .mod-post-meta-hd {
   width: 16.66666667%;
 }
 
@@ -2575,7 +2740,7 @@ pre code {
 }
 
 /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-4, .mod-client, .mod-author-hd {
+.col-xs-4, .mod-client {
   width: 33.33333333%;
 }
 
@@ -2595,7 +2760,7 @@ pre code {
 }
 
 /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-8, .mod-author-bd {
+.col-xs-8 {
   width: 66.66666667%;
 }
 
@@ -2605,7 +2770,7 @@ pre code {
 }
 
 /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-.col-xs-10 {
+.col-xs-10, .mod-posts .mod-post-meta-bd {
   width: 83.33333333%;
 }
 
@@ -2818,24 +2983,24 @@ pre code {
 
 @media (min-width: 768px) {
   /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-1, .col-sm-2, .mod-author-hd, .col-sm-3, .site-header .widget, .block-wrapper.two-column .side-column, .mod-client, .col-sm-4, .contact-form .mod-form > label, .mod-service, .col-sm-5, .col-sm-6, .col-sm-7, .contact-form .mod-form .mod-form-input,
+  .col-sm-1, .mod-posts .mod-post-meta-hd, .col-sm-2, .col-sm-3, .site-header .widget, .block-wrapper.two-column .side-column, .mod-client, .mod-post-bd .mod-post-meta, .col-sm-4, .contact-form .mod-form > label, .mod-service, .col-sm-5, .col-sm-6, .col-sm-7, .contact-form .mod-form .mod-form-input,
   .contact-form .mod-form .mod-form-textarea,
-  .contact-form .mod-form .mod-form-file, .contact-form .mod-form .mod-form-checkbox, .contact-form .mod-form .mod-form-btn, .col-sm-8, .block-wrapper.two-column .main-column, .col-sm-9, .col-sm-10, .mod-author-bd, .col-sm-11, .col-sm-12, body.contact-page .side-column .widget {
+  .contact-form .mod-form .mod-form-file, .contact-form .mod-form .mod-form-checkbox, .contact-form .mod-form .mod-form-btn, .col-sm-8, .block-wrapper.two-column .main-column, .col-sm-9, .mod-post-bd .post-body, .col-sm-10, .col-sm-11, .mod-posts .mod-post-meta-bd, .col-sm-12, body.contact-page .side-column .widget {
     float: left;
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-1 {
+  .col-sm-1, .mod-posts .mod-post-meta-hd {
     width: 8.33333333%;
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-2, .mod-author-hd {
+  .col-sm-2 {
     width: 16.66666667%;
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-3, .site-header .widget, .block-wrapper.two-column .side-column, .mod-client {
+  .col-sm-3, .site-header .widget, .block-wrapper.two-column .side-column, .mod-client, .mod-post-bd .mod-post-meta {
     width: 25%;
   }
 
@@ -2867,17 +3032,17 @@ pre code {
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-9 {
+  .col-sm-9, .mod-post-bd .post-body {
     width: 75%;
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-10, .mod-author-bd {
+  .col-sm-10 {
     width: 83.33333333%;
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-11 {
+  .col-sm-11, .mod-posts .mod-post-meta-bd {
     width: 91.66666667%;
   }
 
@@ -2932,7 +3097,7 @@ pre code {
   }
 
   /* line 50, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-pull-9 {
+  .col-sm-pull-9, .mod-post-bd .mod-post-meta {
     right: 75%;
   }
 
@@ -2967,7 +3132,7 @@ pre code {
   }
 
   /* line 40, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-sm-push-3 {
+  .col-sm-push-3, .mod-post-bd .post-body {
     left: 25%;
   }
 
@@ -3083,7 +3248,7 @@ pre code {
 }
 @media (min-width: 992px) {
   /* line 27, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
+  .col-md-1, .col-md-2, .col-md-3, .col-md-4, .col-md-5, .col-md-6, .col-md-7, .col-md-8, .mod-post-bd .post-body, .col-md-9, .col-md-10, .col-md-11, .col-md-12 {
     float: left;
   }
 
@@ -3123,7 +3288,7 @@ pre code {
   }
 
   /* line 35, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-8 {
+  .col-md-8, .mod-post-bd .post-body {
     width: 66.66666667%;
   }
 
@@ -3188,7 +3353,7 @@ pre code {
   }
 
   /* line 50, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-pull-8 {
+  .col-md-pull-8, .mod-post-bd .mod-post-meta {
     right: 66.66666667%;
   }
 
@@ -3233,7 +3398,7 @@ pre code {
   }
 
   /* line 40, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_grid-framework.scss */
-  .col-md-push-4 {
+  .col-md-push-4, .mod-post-bd .post-body {
     left: 33.33333333%;
   }
 
@@ -5183,32 +5348,32 @@ a.btn.disabled, a.disabled.cta, a.disabled.cta-lg, fieldset[disabled] a.btn, fie
 /* line 71, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-primary, .cta, .cta-lg {
   color: #fff;
-  background-color: #0286BA;
-  border-color: #0274a1;
+  background-color: #F08100;
+  border-color: #C86B00;
 }
 /* line 11, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary:focus, .cta:focus, .cta-lg:focus, .btn-primary.focus, .focus.cta, .focus.cta-lg {
   color: #fff;
-  background-color: #016288;
-  border-color: #001923;
+  background-color: #bd6600;
+  border-color: #492700;
 }
 /* line 17, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary:hover, .cta:hover, .cta-lg:hover {
   color: #fff;
-  background-color: #016288;
-  border-color: #014864;
+  background-color: #bd6600;
+  border-color: #8b4a00;
 }
 /* line 22, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary:active, .cta:active, .cta-lg:active, .btn-primary.active, .active.cta, .active.cta-lg, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta, .open > .dropdown-toggle.cta-lg {
   color: #fff;
-  background-color: #016288;
-  border-color: #014864;
+  background-color: #bd6600;
+  border-color: #8b4a00;
 }
 /* line 29, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary:active:hover, .cta:active:hover, .cta-lg:active:hover, .btn-primary:active:focus, .cta:active:focus, .cta-lg:active:focus, .btn-primary:active.focus, .cta:active.focus, .cta-lg:active.focus, .btn-primary.active:hover, .active.cta:hover, .active.cta-lg:hover, .btn-primary.active:focus, .active.cta:focus, .active.cta-lg:focus, .btn-primary.active.focus, .active.focus.cta, .active.focus.cta-lg, .open > .btn-primary.dropdown-toggle:hover, .open > .dropdown-toggle.cta:hover, .open > .dropdown-toggle.cta-lg:hover, .open > .btn-primary.dropdown-toggle:focus, .open > .dropdown-toggle.cta:focus, .open > .dropdown-toggle.cta-lg:focus, .open > .btn-primary.dropdown-toggle.focus, .open > .dropdown-toggle.focus.cta, .open > .dropdown-toggle.focus.cta-lg {
   color: #fff;
-  background-color: #014864;
-  border-color: #001923;
+  background-color: #995200;
+  border-color: #492700;
 }
 /* line 37, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary:active, .cta:active, .cta-lg:active, .btn-primary.active, .active.cta, .active.cta-lg, .open > .btn-primary.dropdown-toggle, .open > .dropdown-toggle.cta, .open > .dropdown-toggle.cta-lg {
@@ -5216,12 +5381,12 @@ a.btn.disabled, a.disabled.cta, a.disabled.cta-lg, fieldset[disabled] a.btn, fie
 }
 /* line 45, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary.disabled, .disabled.cta, .disabled.cta-lg, .btn-primary.disabled:hover, .disabled.cta:hover, .disabled.cta-lg:hover, .btn-primary.disabled:focus, .disabled.cta:focus, .disabled.cta-lg:focus, .btn-primary.disabled.focus, .disabled.focus.cta, .disabled.focus.cta-lg, .btn-primary.disabled:active, .disabled.cta:active, .disabled.cta-lg:active, .btn-primary.disabled.active, .disabled.active.cta, .disabled.active.cta-lg, .btn-primary[disabled], [disabled].cta, [disabled].cta-lg, .btn-primary[disabled]:hover, [disabled].cta:hover, [disabled].cta-lg:hover, .btn-primary[disabled]:focus, [disabled].cta:focus, [disabled].cta-lg:focus, .btn-primary[disabled].focus, [disabled].focus.cta, [disabled].focus.cta-lg, .btn-primary[disabled]:active, [disabled].cta:active, [disabled].cta-lg:active, .btn-primary[disabled].active, [disabled].active.cta, [disabled].active.cta-lg, fieldset[disabled] .btn-primary, fieldset[disabled] .cta, fieldset[disabled] .cta-lg, fieldset[disabled] .btn-primary:hover, fieldset[disabled] .cta:hover, fieldset[disabled] .cta-lg:hover, fieldset[disabled] .btn-primary:focus, fieldset[disabled] .cta:focus, fieldset[disabled] .cta-lg:focus, fieldset[disabled] .btn-primary.focus, fieldset[disabled] .focus.cta, fieldset[disabled] .focus.cta-lg, fieldset[disabled] .btn-primary:active, fieldset[disabled] .cta:active, fieldset[disabled] .cta-lg:active, fieldset[disabled] .btn-primary.active, fieldset[disabled] .active.cta, fieldset[disabled] .active.cta-lg {
-  background-color: #0286BA;
-  border-color: #0274a1;
+  background-color: #F08100;
+  border-color: #C86B00;
 }
 /* line 56, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_buttons.scss */
 .btn-primary .badge, .cta .badge, .cta-lg .badge {
-  color: #0286BA;
+  color: #F08100;
   background-color: #fff;
 }
 
@@ -5407,7 +5572,7 @@ a.btn.disabled, a.disabled.cta, a.disabled.cta-lg, fieldset[disabled] a.btn, fie
 
 /* line 96, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-link {
-  color: inherit;
+  color: #F08100;
   font-weight: normal;
   border-radius: 0;
 }
@@ -5423,7 +5588,7 @@ a.btn.disabled, a.disabled.cta, a.disabled.cta-lg, fieldset[disabled] a.btn, fie
 }
 /* line 115, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_buttons.scss */
 .btn-link:hover, .btn-link:focus {
-  color: inherit;
+  color: #FF8900;
   text-decoration: none;
   background-color: transparent;
 }
@@ -6091,7 +6256,7 @@ tbody.collapse.in {
 /* line 46, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navs.scss */
 .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: inherit;
+  border-color: #F08100;
 }
 /* line 59, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_navs.scss */
 .nav .nav-divider {
@@ -6979,7 +7144,7 @@ tbody.collapse.in {
   padding: 6px 12px;
   line-height: 1.5;
   text-decoration: none;
-  color: inherit;
+  color: #F08100;
   background-color: #fff;
   border: 1px solid #ddd;
   margin-left: -1px;
@@ -7002,7 +7167,7 @@ tbody.collapse.in {
 .pagination > li > span:hover,
 .pagination > li > span:focus {
   z-index: 3;
-  color: inherit;
+  color: #FF8900;
   background-color: #eeeeee;
   border-color: #ddd;
 }
@@ -7240,7 +7405,7 @@ a.label:hover, a.label:focus {
 }
 /* line 41, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_badges.scss */
 .list-group-item.active > .badge, .nav-pills > .active > a > .badge {
-  color: inherit;
+  color: #F08100;
   background-color: #fff;
 }
 /* line 47, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_badges.scss */
@@ -7274,10 +7439,8 @@ a.badge:hover, a.badge:focus {
 /* line 13, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
 .jumbotron h1,
 .jumbotron .h1,
-.jumbotron .mod-partners-hd h2,
-.mod-partners-hd .jumbotron h2,
-.jumbotron .mod-testimonials-hd h2,
-.mod-testimonials-hd .jumbotron h2 {
+.jumbotron .mod-post-hd .post-headline,
+.mod-post-hd .jumbotron .post-headline {
   color: inherit;
 }
 /* line 18, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
@@ -7312,10 +7475,8 @@ a.badge:hover, a.badge:focus {
   /* line 47, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_jumbotron.scss */
   .jumbotron h1,
   .jumbotron .h1,
-  .jumbotron .mod-partners-hd h2,
-  .mod-partners-hd .jumbotron h2,
-  .jumbotron .mod-testimonials-hd h2,
-  .mod-testimonials-hd .jumbotron h2 {
+  .jumbotron .mod-post-hd .post-headline,
+  .mod-post-hd .jumbotron .post-headline {
     font-size: 72px;
   }
 }
@@ -7352,7 +7513,7 @@ a.badge:hover, a.badge:focus {
 a.thumbnail:hover,
 a.thumbnail:focus,
 a.thumbnail.active {
-  border-color: inherit;
+  border-color: #F08100;
 }
 
 /* line 9, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_alerts.scss */
@@ -7712,17 +7873,23 @@ button.list-group-item {
 .list-group-item.active .list-group-item-heading > .small,
 .list-group-item.active .list-group-item-heading > .site-footer,
 .list-group-item.active .contact-form .mod-form .list-group-item-heading > .mod-form-help,
-.contact-form .mod-form .list-group-item.active .list-group-item-heading > .mod-form-help, .list-group-item.active:hover .list-group-item-heading,
+.contact-form .mod-form .list-group-item.active .list-group-item-heading > .mod-form-help,
+.list-group-item.active .mod-post-meta-bd .list-group-item-heading > .keyword,
+.mod-post-meta-bd .list-group-item.active .list-group-item-heading > .keyword, .list-group-item.active:hover .list-group-item-heading,
 .list-group-item.active:hover .list-group-item-heading > small,
 .list-group-item.active:hover .list-group-item-heading > .small,
 .list-group-item.active:hover .list-group-item-heading > .site-footer,
 .list-group-item.active:hover .contact-form .mod-form .list-group-item-heading > .mod-form-help,
-.contact-form .mod-form .list-group-item.active:hover .list-group-item-heading > .mod-form-help, .list-group-item.active:focus .list-group-item-heading,
+.contact-form .mod-form .list-group-item.active:hover .list-group-item-heading > .mod-form-help,
+.list-group-item.active:hover .mod-post-meta-bd .list-group-item-heading > .keyword,
+.mod-post-meta-bd .list-group-item.active:hover .list-group-item-heading > .keyword, .list-group-item.active:focus .list-group-item-heading,
 .list-group-item.active:focus .list-group-item-heading > small,
 .list-group-item.active:focus .list-group-item-heading > .small,
 .list-group-item.active:focus .list-group-item-heading > .site-footer,
 .list-group-item.active:focus .contact-form .mod-form .list-group-item-heading > .mod-form-help,
-.contact-form .mod-form .list-group-item.active:focus .list-group-item-heading > .mod-form-help {
+.contact-form .mod-form .list-group-item.active:focus .list-group-item-heading > .mod-form-help,
+.list-group-item.active:focus .mod-post-meta-bd .list-group-item-heading > .keyword,
+.mod-post-meta-bd .list-group-item.active:focus .list-group-item-heading > .keyword {
   color: inherit;
 }
 /* line 101, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/_list-group.scss */
@@ -7923,10 +8090,12 @@ button.list-group-item-danger.active:focus {
 .panel-title > .small,
 .panel-title > .site-footer,
 .contact-form .mod-form .panel-title > .mod-form-help,
+.mod-post-meta-bd .panel-title > .keyword,
 .panel-title > small > a,
 .panel-title > .small > a,
 .panel-title > .site-footer > a,
-.contact-form .mod-form .panel-title > .mod-form-help > a {
+.contact-form .mod-form .panel-title > .mod-form-help > a,
+.mod-post-meta-bd .panel-title > .keyword > a {
   color: inherit;
 }
 
@@ -9139,7 +9308,7 @@ button.close {
 
 @media (max-width: 767px) {
   /* line 18, ../../../../../../../../home/vagrant/.rvm/gems/ruby-2.1.3/gems/bootstrap-sass-3.3.5.1/assets/stylesheets/bootstrap/mixins/_responsive-visibility.scss */
-  .hidden-xs {
+  .hidden-xs, .mod-post-meta-bd .keywords, .mod-post-meta-bd .comments, .mod-post-meta-bd .published {
     display: none !important;
   }
 }
@@ -11162,8 +11331,6 @@ button.close {
 /* line 161, ../sass/screen.scss */
 .block-wrapper.intro-section h1 {
   text-transform: uppercase;
-  font-size: 50px;
-  font-weight: 900;
 }
 /* line 170, ../sass/screen.scss */
 .block-wrapper.intro-section > .block > .block-inner {
@@ -11180,10 +11347,6 @@ button.close {
   color: inherit;
 }
 @media (min-width: 768px) {
-  /* line 182, ../sass/screen.scss */
-  .block-wrapper.intro-section h1 {
-    font-size: 80px;
-  }
   /* line 185, ../sass/screen.scss */
   .block-wrapper.intro-section > .block {
     border-bottom: solid 4px rgba(255, 255, 255, 0.2);
@@ -11568,9 +11731,10 @@ form .flag-required {
 }
 /* line 61, ../sass/_modules.scss */
 .mod-members-hd h2 {
+  text-align: center;
   text-transform: uppercase;
 }
-/* line 64, ../sass/_modules.scss */
+/* line 66, ../sass/_modules.scss */
 .mod-members-ft {
   text-align: center;
   color: #fff;
@@ -11584,40 +11748,41 @@ form .flag-required {
 .mod-service-bd {
   background-color: transparent;
 }
-/* line 70, ../sass/_modules.scss */
+/* line 72, ../sass/_modules.scss */
 .mod-service > img {
   height: 150px;
   width: 100%;
 }
-/* line 74, ../sass/_modules.scss */
+/* line 76, ../sass/_modules.scss */
 .mod-service-hd {
   text-align: center;
 }
 @media (min-width: 992px) {
-  /* line 78, ../sass/_modules.scss */
+  /* line 80, ../sass/_modules.scss */
   .mod-service > img {
     height: 250px;
   }
-  /* line 81, ../sass/_modules.scss */
+  /* line 83, ../sass/_modules.scss */
   .mod-service-hd, .mod-service-bd {
     padding: 0 20px;
   }
 }
 @media (min-width: 1200px) {
-  /* line 86, ../sass/_modules.scss */
+  /* line 88, ../sass/_modules.scss */
   .mod-service-hd, .mod-service-bd {
     padding: 0 40px;
   }
 }
-/* line 92, ../sass/_modules.scss */
+/* line 94, ../sass/_modules.scss */
 .mod-services-hd h2 {
+  text-align: center;
   text-transform: uppercase;
 }
-/* line 98, ../sass/_modules.scss */
+/* line 102, ../sass/_modules.scss */
 .mod-services-ft {
   text-align: center;
 }
-/* line 102, ../sass/_modules.scss */
+/* line 106, ../sass/_modules.scss */
 .mod-partner {
   background-color: #fff;
   position: relative;
@@ -11633,20 +11798,20 @@ form .flag-required {
   color: #006798;
 }
 @media (max-width: 767px) {
-  /* line 102, ../sass/_modules.scss */
+  /* line 106, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 102, ../sass/_modules.scss */
+  /* line 106, ../sass/_modules.scss */
   .mod-partner {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 102, ../sass/_modules.scss */
+  /* line 106, ../sass/_modules.scss */
   .mod-partner {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -11735,101 +11900,103 @@ form .flag-required {
   }
 }
 @media (max-width: 767px) {
-  /* line 102, ../sass/_modules.scss */
+  /* line 106, ../sass/_modules.scss */
   .mod-partner {
     padding-bottom: 80px;
   }
 }
-/* line 108, ../sass/_modules.scss */
+/* line 112, ../sass/_modules.scss */
 .mod-partner-ft a {
   float: right;
 }
-/* line 114, ../sass/_modules.scss */
+/* line 118, ../sass/_modules.scss */
 .mod-partners-hd {
   position: relative;
 }
-/* line 116, ../sass/_modules.scss */
+/* line 120, ../sass/_modules.scss */
 .mod-partners-hd h2 {
+  text-align: center;
   text-transform: uppercase;
   position: absolute;
   width: 100%;
-  top: -85px;
+  top: -90px;
   background-color: #fff;
   margin: 0;
   color: #DC3D25;
 }
-/* line 126, ../sass/_modules.scss */
+/* line 131, ../sass/_modules.scss */
 .mod-partners-hd p {
   color: #fff;
   padding: 40px 30px 70px;
   margin-bottom: 0;
   text-align: center;
 }
-/* line 132, ../sass/_modules.scss */
+/* line 137, ../sass/_modules.scss */
 .mod-partners-hd p a {
   color: inherit;
 }
 @media (min-width: 768px) {
-  /* line 126, ../sass/_modules.scss */
+  /* line 131, ../sass/_modules.scss */
   .mod-partners-hd p {
     padding: 80px 60px;
   }
 }
-/* line 138, ../sass/_modules.scss */
+/* line 143, ../sass/_modules.scss */
 .mod-partners-ft {
   text-align: center;
   color: #fff;
   margin: 40px 0 0;
 }
 @media (max-width: 768px) {
-  /* line 138, ../sass/_modules.scss */
+  /* line 143, ../sass/_modules.scss */
   .mod-partners-ft {
     margin-bottom: 40px;
   }
 }
-/* line 148, ../sass/_modules.scss */
+/* line 153, ../sass/_modules.scss */
 .mod-capture {
   padding-bottom: 24px;
 }
-/* line 151, ../sass/_modules.scss */
+/* line 156, ../sass/_modules.scss */
 .mod-capture input {
   border-color: transparent;
 }
 @media (max-width: 767px) {
-  /* line 148, ../sass/_modules.scss */
+  /* line 153, ../sass/_modules.scss */
   .mod-capture {
     padding-left: 10px;
     padding-right: 10px;
   }
 }
 @media (min-width: 768px) {
-  /* line 159, ../sass/_modules.scss */
+  /* line 164, ../sass/_modules.scss */
   .mod-capture .mod-form {
     width: 35%;
   }
-  /* line 162, ../sass/_modules.scss */
+  /* line 167, ../sass/_modules.scss */
   .mod-capture input {
     width: 100%;
   }
 }
-/* line 167, ../sass/_modules.scss */
+/* line 172, ../sass/_modules.scss */
 .mod-testimonials {
   margin-bottom: 20px;
 }
-/* line 169, ../sass/_modules.scss */
+/* line 174, ../sass/_modules.scss */
 .mod-testimonials-hd {
   position: relative;
 }
-/* line 171, ../sass/_modules.scss */
+/* line 176, ../sass/_modules.scss */
 .mod-testimonials-hd h2 {
+  text-align: center;
   text-transform: uppercase;
   position: absolute;
   width: 100%;
-  margin-top: -80px;
+  margin-top: -90px;
   background-color: #fff;
   color: #DC3D25;
 }
-/* line 180, ../sass/_modules.scss */
+/* line 186, ../sass/_modules.scss */
 .mod-testimonials-hd p {
   color: #fff;
   padding: 40px 30px 70px;
@@ -11837,12 +12004,12 @@ form .flag-required {
   text-align: center;
 }
 @media (min-width: 768px) {
-  /* line 180, ../sass/_modules.scss */
+  /* line 186, ../sass/_modules.scss */
   .mod-testimonials-hd p {
     padding: 80px 60px;
   }
 }
-/* line 199, ../sass/_modules.scss */
+/* line 205, ../sass/_modules.scss */
 .mod-testimonial {
   background-color: #fff;
   position: relative;
@@ -11858,20 +12025,20 @@ form .flag-required {
   color: #006798;
 }
 @media (max-width: 767px) {
-  /* line 199, ../sass/_modules.scss */
+  /* line 205, ../sass/_modules.scss */
   .mod-testimonial {
     padding-bottom: 50px;
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 199, ../sass/_modules.scss */
+  /* line 205, ../sass/_modules.scss */
   .mod-testimonial {
     height: 250px;
     padding: 30px 290px 0 40px;
   }
 }
 @media (min-width: 992px) {
-  /* line 199, ../sass/_modules.scss */
+  /* line 205, ../sass/_modules.scss */
   .mod-testimonial {
     height: 300px;
     padding: 50px 360px 0 60px;
@@ -12006,7 +12173,7 @@ form .flag-required {
     left: 240px;
   }
 }
-/* line 203, ../sass/_modules.scss */
+/* line 209, ../sass/_modules.scss */
 .mod-testimonial-hd .client-logo {
   width: 50px;
   display: block;
@@ -12014,35 +12181,35 @@ form .flag-required {
   margin-left: 18px;
   margin-top: -5px;
 }
-/* line 209, ../sass/_modules.scss */
+/* line 215, ../sass/_modules.scss */
 .mod-testimonial-hd .client-logo img {
   max-width: 100%;
 }
 @media (min-width: 768px) {
-  /* line 203, ../sass/_modules.scss */
+  /* line 209, ../sass/_modules.scss */
   .mod-testimonial-hd .client-logo {
     float: left;
     margin-right: 18px;
     margin-left: 0;
   }
 }
-/* line 218, ../sass/_modules.scss */
+/* line 224, ../sass/_modules.scss */
 .mod-testimonial-hd a.client-logo {
   border-bottom: none;
 }
-/* line 222, ../sass/_modules.scss */
+/* line 228, ../sass/_modules.scss */
 .mod-testimonial-bd {
   position: relative;
 }
-/* line 224, ../sass/_modules.scss */
+/* line 230, ../sass/_modules.scss */
 .mod-testimonial-bd q {
   display: block;
 }
-/* line 226, ../sass/_modules.scss */
+/* line 232, ../sass/_modules.scss */
 .mod-testimonial-bd q p {
   text-indent: 50px;
 }
-/* line 229, ../sass/_modules.scss */
+/* line 235, ../sass/_modules.scss */
 .mod-testimonial-bd q::before, .mod-testimonial-bd q::after {
   font-size: 80px;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
@@ -12050,150 +12217,157 @@ form .flag-required {
   position: absolute;
   opacity: .2;
 }
-/* line 236, ../sass/_modules.scss */
+/* line 242, ../sass/_modules.scss */
 .mod-testimonial-bd q::after {
   right: 0px;
 }
-/* line 246, ../sass/_modules.scss */
+/* line 252, ../sass/_modules.scss */
 .mod-clients-ft {
   text-align: center;
   color: #fff;
   margin: 40px 0 0;
 }
-/* line 250, ../sass/_modules.scss */
+/* line 256, ../sass/_modules.scss */
 .mod-client {
   position: relative;
   overflow: hidden;
   margin-bottom: 20px;
 }
-/* line 256, ../sass/_modules.scss */
+/* line 262, ../sass/_modules.scss */
 .mod-client img {
   width: 100%;
 }
-/* line 318, ../sass/_modules.scss */
+/* line 324, ../sass/_modules.scss */
 .mod-posts .mod-post {
   border-bottom: solid 2px rgba(255, 255, 255, 0.5);
   margin-bottom: 120px;
   padding-bottom: 120px;
 }
-/* line 323, ../sass/_modules.scss */
+/* line 329, ../sass/_modules.scss */
 .mod-posts .mod-post::last-child {
   margin-bottom: 50px;
 }
 /* line 332, ../sass/_modules.scss */
+.mod-posts .mod-post-hd {
+  border-bottom: none;
+}
+/* line 334, ../sass/_modules.scss */
+.mod-posts .mod-post-hd .post-headline {
+  border-left: 4px solid #FF8900;
+  padding-left: 20px;
+}
+/* line 339, ../sass/_modules.scss */
+.mod-posts .mod-post-bd {
+  margin-left: 0;
+  margin-right: 0;
+}
+/* line 358, ../sass/_modules.scss */
 .mod-post-hd {
-  border-bottom: solid 1px rgba(255, 255, 255, 0.2);
   margin-bottom: 2em;
+  border-bottom: solid 4px rgba(255, 255, 255, 0.3);
 }
-/* line 335, ../sass/_modules.scss */
-.mod-post-hd .post-headline {
-  color: #fff;
-  font-size: 32px;
-  font-weight: 600;
-}
-@media (min-width: 768px) {
-  /* line 335, ../sass/_modules.scss */
-  .mod-post-hd .post-headline {
-    font-size: 64px;
-  }
-}
-/* line 342, ../sass/_modules.scss */
+/* line 363, ../sass/_modules.scss */
 .mod-post-hd .post-headline a {
-  border: none;
+  color: inherit;
 }
-/* line 346, ../sass/_modules.scss */
-.mod-post-hd .post-meta {
-  text-align: center;
-  margin: 1em 0;
-}
-/* line 349, ../sass/_modules.scss */
-.mod-post-hd .post-meta .author, .mod-post-hd .post-meta .date {
-  font-style: italic;
-}
-/* line 353, ../sass/_modules.scss */
+/* line 367, ../sass/_modules.scss */
 .mod-post-hd .post-image {
   margin-bottom: 1.2em;
 }
-/* line 354, ../sass/_modules.scss */
+/* line 368, ../sass/_modules.scss */
 .mod-post-hd .post-image img {
   max-width: 100%;
 }
-/* line 360, ../sass/_modules.scss */
-.mod-post-bd {
-  font-size: 20px;
+/* line 381, ../sass/_modules.scss */
+.mod-post-bd .post-body {
+  font-size: 1.2em;
+  line-height: 1.7em;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
-/* line 364, ../sass/_modules.scss */
-.mod-post-bd p {
-  margin-bottom: 30px;
-}
-/* line 365, ../sass/_modules.scss */
-.mod-post-bd h2, .mod-post-bd h3, .mod-post-bd h4, .mod-post-bd h5, .mod-post-bd h6 {
-  margin-top: 0;
-  margin-bottom: 30px;
-  text-align: left;
-}
-/* line 370, ../sass/_modules.scss */
-.mod-post-bd h2 {
-  font-size: 40px;
-  line-heignt: 60px;
-}
-/* line 374, ../sass/_modules.scss */
-.mod-post-bd h3 {
-  font-size: 36px;
-  line-heignt: 60px;
-}
-/* line 378, ../sass/_modules.scss */
-.mod-post-bd h4 {
-  font-size: 30px;
-  line-heignt: 30px;
-}
-/* line 382, ../sass/_modules.scss */
-.mod-post-bd .addthis_sharing_toolbox a {
-  border-bottom: none;
-}
-/* line 385, ../sass/_modules.scss */
-.mod-post-bd img {
+/* line 390, ../sass/_modules.scss */
+.mod-post-bd .post-body img {
   max-width: 100%;
 }
 /* line 393, ../sass/_modules.scss */
-.mod-author {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: solid 4px rgba(255, 255, 255, 0.2);
+.mod-post-bd .post-body a {
+  text-shadow: 0 1px 0px rgba(0, 0, 0, 0.6);
 }
-@media (min-width: 768px) {
-  /* line 393, ../sass/_modules.scss */
-  .mod-author {
-    margin-top: 48px;
-    padding-top: 48px;
-  }
-}
-/* line 405, ../sass/_modules.scss */
-.mod-author-hd img {
+/* line 404, ../sass/_modules.scss */
+.mod-post-meta-hd img {
   width: 100%;
+}
+/* line 413, ../sass/_modules.scss */
+.mod-post-meta-bd .share, .mod-post-meta-bd .keywords, .mod-post-meta-bd .comments, .mod-post-meta-bd .published, .mod-post-meta-bd .author {
+  color: #55D6F9;
+  border-bottom: solid 1px rgba(85, 214, 249, 0.5);
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+/* line 418, ../sass/_modules.scss */
+.mod-post-meta-bd .share h4, .mod-post-meta-bd .keywords h4, .mod-post-meta-bd .comments h4, .mod-post-meta-bd .published h4, .mod-post-meta-bd .author h4 {
+  font-weight: 800;
+  color: #55D6F9;
+}
+/* line 424, ../sass/_modules.scss */
+.mod-post-meta-bd .author-img {
+  width: 30%;
+  max-width: 110px;
+  float: left;
+  margin-right: 18px;
+}
+/* line 430, ../sass/_modules.scss */
+.mod-post-meta-bd .author-img img {
+  width: 100%;
+}
+/* line 441, ../sass/_modules.scss */
+.mod-post-meta-bd .keyword {
+  display: inline-block;
+  margin-left: 14px;
+}
+/* line 445, ../sass/_modules.scss */
+.mod-post-meta-bd .keyword a {
+  color: #fff;
+  background-color: #F08100;
+  position: relative;
+  display: inline-block;
+  padding-right: 4px;
+}
+/* line 451, ../sass/_modules.scss */
+.mod-post-meta-bd .keyword a::before {
+  content: '';
+  display: block;
+  position: absolute;
+  width: 0;
+  height: 0;
+  left: -18px;
+  border: solid transparent 9px;
+  border-right-color: #F08100;
+}
+/* line 464, ../sass/_modules.scss */
+.mod-post-meta-bd .keyword a:hover {
+  background-color: #FF8900;
+}
+/* line 466, ../sass/_modules.scss */
+.mod-post-meta-bd .keyword a:hover::before {
+  border-right-color: #FF8900;
 }
 
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
 /* line 298, ../sass/screen.scss */
-h1, h2 {
-  text-align: center;
-}
-
-/* line 301, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
-/* line 304, ../sass/screen.scss */
+/* line 301, ../sass/screen.scss */
 .cta, .cta-lg {
   vertical-align: baseline;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 
 @media (min-width: 768px) {
-  /* line 315, ../sass/screen.scss */
+  /* line 312, ../sass/screen.scss */
   .columns {
     text-align: left;
     -moz-columns: auto 2;
@@ -12205,17 +12379,7 @@ img {
   }
 }
 
-/* line 322, ../sass/screen.scss */
-a {
-  border-bottom-style: dotted;
-  border-bottom-width: 1px;
-}
-/* line 325, ../sass/screen.scss */
-a:hover {
-  text-decoration: none;
-}
-
-/* line 329, ../sass/screen.scss */
+/* line 326, ../sass/screen.scss */
 a.social-icon {
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
@@ -12235,18 +12399,18 @@ a.social-icon {
   text-decoration: none;
 }
 
-/* line 347, ../sass/screen.scss */
+/* line 344, ../sass/screen.scss */
 .browser-alert-box {
   text-align: left;
   cursor: pointer;
 }
 
-/* line 354, ../sass/screen.scss */
+/* line 351, ../sass/screen.scss */
 .fancy-box, .mod-capture {
   border: solid 3px rgba(255, 255, 255, 0.5);
   position: relative;
 }
-/* line 359, ../sass/screen.scss */
+/* line 356, ../sass/screen.scss */
 .fancy-box::before, .mod-capture::before, .fancy-box::after, .mod-capture::after {
   content: '';
   display: block;
@@ -12255,12 +12419,12 @@ a.social-icon {
   height: 10px;
   position: absolute;
 }
-/* line 367, ../sass/screen.scss */
+/* line 364, ../sass/screen.scss */
 .fancy-box::before, .mod-capture::before {
   top: -10px;
   left: -10px;
 }
-/* line 370, ../sass/screen.scss */
+/* line 367, ../sass/screen.scss */
 .fancy-box::after, .mod-capture::after {
   bottom: -10px;
   right: -10px;
@@ -12727,14 +12891,14 @@ body.blog-page .blog-list-section {
 /* -----------------------------------------
          				SVG & animations
 -------------------------------------------- */
-/* line 387, ../sass/screen.scss */
+/* line 384, ../sass/screen.scss */
 .site-header-toggle {
   -moz-transform: scale(0.6, 0.6);
   -ms-transform: scale(0.6, 0.6);
   -webkit-transform: scale(0.6, 0.6);
   transform: scale(0.6, 0.6);
 }
-/* line 389, ../sass/screen.scss */
+/* line 386, ../sass/screen.scss */
 .site-header-toggle .aniCircle {
   fill: rgba(2, 134, 186, 0.2);
   stroke: #97E9FC;
@@ -12747,14 +12911,14 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 397, ../sass/screen.scss */
+/* line 394, ../sass/screen.scss */
 .site-header-toggle .hamburger-x {
   stroke: #fff;
   stroke-width: 20px;
   stroke-linecap: square;
   fill: transparent;
 }
-/* line 402, ../sass/screen.scss */
+/* line 399, ../sass/screen.scss */
 .site-header-toggle .hamburger-x .path-x {
   stroke-dasharray: 135 400;
   stroke-dashoffset: 135;
@@ -12764,7 +12928,7 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 407, ../sass/screen.scss */
+/* line 404, ../sass/screen.scss */
 .site-header-toggle .hamburger-x .path-2 {
   stroke-dasharray: 135;
   stroke-dashoffset: 405;
@@ -12774,36 +12938,36 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 413, ../sass/screen.scss */
+/* line 410, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle, .svg-menu-active .site-header-toggle {
   cursor: pointer;
 }
-/* line 415, ../sass/screen.scss */
+/* line 412, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .hamburger-x .path-x, .svg-menu-active .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: 0;
 }
-/* line 418, ../sass/screen.scss */
+/* line 415, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .hamburger-x .path-2, .svg-menu-active .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 270;
 }
-/* line 423, ../sass/screen.scss */
+/* line 420, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .aniCircle {
   stroke-dashoffset: 0;
 }
-/* line 428, ../sass/screen.scss */
+/* line 425, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: -245;
 }
-/* line 431, ../sass/screen.scss */
+/* line 428, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 135;
 }
-/* line 434, ../sass/screen.scss */
+/* line 431, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .logo-path-group {
   stroke-dashoffset: 150;
 }
 
-/* line 440, ../sass/screen.scss */
+/* line 437, ../sass/screen.scss */
 .wetumka_logo_wrapper {
   height: 0;
   opacity: 0;
@@ -12815,22 +12979,22 @@ body.blog-page .blog-list-section {
   -webkit-transition-delay: 500ms;
   transition: opacity 500ms ease-in 500ms;
 }
-/* line 446, ../sass/screen.scss */
+/* line 443, ../sass/screen.scss */
 .wetumka_logo_wrapper .logo_group {
   fill: rgba(255, 255, 255, 0.4);
 }
-/* line 449, ../sass/screen.scss */
+/* line 446, ../sass/screen.scss */
 .wetumka_logo_wrapper #wetumka_logo {
   display: block;
   width: 100%;
   height: 100px;
 }
-/* line 454, ../sass/screen.scss */
+/* line 451, ../sass/screen.scss */
 .svg-logo-active .wetumka_logo_wrapper {
   opacity: 1;
 }
 
-/* line 459, ../sass/screen.scss */
+/* line 456, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
@@ -12843,69 +13007,69 @@ body.blog-page .blog-list-section {
   transition: opacity 1.5s ease-in;
 }
 @media (max-width: 767px) {
-  /* line 459, ../sass/screen.scss */
+  /* line 456, ../sass/screen.scss */
   #waves {
     background-color: #1695C1;
   }
 }
 @media (min-width: 768px) {
-  /* line 471, ../sass/screen.scss */
+  /* line 468, ../sass/screen.scss */
   .px-density-2x #waves {
     background-image: url(../img/watercolorTextureFade_2x.jpg);
     background-size: 1500px;
   }
-  /* line 475, ../sass/screen.scss */
+  /* line 472, ../sass/screen.scss */
   .px-density-1x #waves {
     background-image: url(../img/watercolorTextureFade_1x.jpg);
   }
-  /* line 478, ../sass/screen.scss */
+  /* line 475, ../sass/screen.scss */
   .animation-speed-med #waves, .animation-speed-fast #waves, .animation-speed-slow #waves {
     -moz-animation: scroll_sky 60s linear infinite;
     -webkit-animation: scroll_sky 60s linear infinite;
     animation: scroll_sky 60s linear infinite;
   }
-  /* line 481, ../sass/screen.scss */
+  /* line 478, ../sass/screen.scss */
   .animation-speed-slow #waves, .animation-speed-pause #waves {
     -moz-animation-play-state: paused;
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
   }
 }
-/* line 485, ../sass/screen.scss */
+/* line 482, ../sass/screen.scss */
 .animation-speed-slow #waves, .animation-speed-med #waves, .animation-speed-fast #waves, .animation-speed-stopped #waves {
   opacity: 1;
 }
 
-/* line 490, ../sass/screen.scss */
+/* line 487, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
 @media (max-width: 767px) {
-  /* line 493, ../sass/screen.scss */
+  /* line 490, ../sass/screen.scss */
   .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     animation: wave_xs_5 900ms ease-in-out infinite alternate;
   }
-  /* line 496, ../sass/screen.scss */
+  /* line 493, ../sass/screen.scss */
   .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     animation: wave_xs_4 600ms ease-in-out infinite alternate;
   }
-  /* line 499, ../sass/screen.scss */
+  /* line 496, ../sass/screen.scss */
   .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     animation: wave_xs_3 500ms ease-in-out infinite alternate;
   }
-  /* line 502, ../sass/screen.scss */
+  /* line 499, ../sass/screen.scss */
   .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     animation: wave_xs_2 600ms ease-in-out infinite alternate;
   }
-  /* line 505, ../sass/screen.scss */
+  /* line 502, ../sass/screen.scss */
   .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_xs_1 400ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_1 400ms ease-in-out infinite alternate;
@@ -12913,31 +13077,31 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 510, ../sass/screen.scss */
+  /* line 507, ../sass/screen.scss */
   .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_md_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_md_5 14s ease-in-out infinite alternate;
     animation: wave_md_5 14s ease-in-out infinite alternate;
   }
-  /* line 513, ../sass/screen.scss */
+  /* line 510, ../sass/screen.scss */
   .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_md_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_4 12s ease-in-out infinite alternate;
     animation: wave_md_4 12s ease-in-out infinite alternate;
   }
-  /* line 516, ../sass/screen.scss */
+  /* line 513, ../sass/screen.scss */
   .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_md_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_3 12s ease-in-out infinite alternate;
     animation: wave_md_3 12s ease-in-out infinite alternate;
   }
-  /* line 519, ../sass/screen.scss */
+  /* line 516, ../sass/screen.scss */
   .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_md_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_md_2 10s ease-in-out infinite alternate;
     animation: wave_md_2 10s ease-in-out infinite alternate;
   }
-  /* line 522, ../sass/screen.scss */
+  /* line 519, ../sass/screen.scss */
   .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_md_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_md_1 15s ease-in-out infinite alternate;
@@ -12945,31 +13109,31 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 1200px) {
-  /* line 527, ../sass/screen.scss */
+  /* line 524, ../sass/screen.scss */
   .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_lg_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_5 14s ease-in-out infinite alternate;
     animation: wave_lg_5 14s ease-in-out infinite alternate;
   }
-  /* line 530, ../sass/screen.scss */
+  /* line 527, ../sass/screen.scss */
   .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_lg_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_4 12s ease-in-out infinite alternate;
     animation: wave_lg_4 12s ease-in-out infinite alternate;
   }
-  /* line 533, ../sass/screen.scss */
+  /* line 530, ../sass/screen.scss */
   .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_lg_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_3 12s ease-in-out infinite alternate;
     animation: wave_lg_3 12s ease-in-out infinite alternate;
   }
-  /* line 536, ../sass/screen.scss */
+  /* line 533, ../sass/screen.scss */
   .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_lg_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_2 10s ease-in-out infinite alternate;
     animation: wave_lg_2 10s ease-in-out infinite alternate;
   }
-  /* line 539, ../sass/screen.scss */
+  /* line 536, ../sass/screen.scss */
   .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_lg_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_1 15s ease-in-out infinite alternate;
@@ -12977,35 +13141,35 @@ body.blog-page .blog-list-section {
   }
 }
 @media (max-width: 767px) {
-  /* line 546, ../sass/screen.scss */
+  /* line 543, ../sass/screen.scss */
   .svg-waves-ready .wave_5 {
     -moz-transform: translate(2%, 35%) scale(1.2);
     -ms-transform: translate(2%, 35%) scale(1.2);
     -webkit-transform: translate(2%, 35%) scale(1.2);
     transform: translate(2%, 35%) scale(1.2);
   }
-  /* line 549, ../sass/screen.scss */
+  /* line 546, ../sass/screen.scss */
   .svg-waves-ready .wave_4 {
     -moz-transform: translate(-17%, 23%) scale(1.3);
     -ms-transform: translate(-17%, 23%) scale(1.3);
     -webkit-transform: translate(-17%, 23%) scale(1.3);
     transform: translate(-17%, 23%) scale(1.3);
   }
-  /* line 552, ../sass/screen.scss */
+  /* line 549, ../sass/screen.scss */
   .svg-waves-ready .wave_3 {
     -moz-transform: translate(15%, 13%) scale(1.3);
     -ms-transform: translate(15%, 13%) scale(1.3);
     -webkit-transform: translate(15%, 13%) scale(1.3);
     transform: translate(15%, 13%) scale(1.3);
   }
-  /* line 555, ../sass/screen.scss */
+  /* line 552, ../sass/screen.scss */
   .svg-waves-ready .wave_2 {
     -moz-transform: translate(6%, -9%) scale(1.5);
     -ms-transform: translate(6%, -9%) scale(1.5);
     -webkit-transform: translate(6%, -9%) scale(1.5);
     transform: translate(6%, -9%) scale(1.5);
   }
-  /* line 558, ../sass/screen.scss */
+  /* line 555, ../sass/screen.scss */
   .svg-waves-ready .wave_1 {
     -moz-transform: translate(-4%, -21%) scale(1.5);
     -ms-transform: translate(-4%, -21%) scale(1.5);
@@ -13014,35 +13178,35 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 563, ../sass/screen.scss */
+  /* line 560, ../sass/screen.scss */
   .svg-waves-ready .wave_5 {
     -moz-transform: translate(-16%, 24%);
     -ms-transform: translate(-16%, 24%);
     -webkit-transform: translate(-16%, 24%);
     transform: translate(-16%, 24%);
   }
-  /* line 566, ../sass/screen.scss */
+  /* line 563, ../sass/screen.scss */
   .svg-waves-ready .wave_4 {
     -moz-transform: translate(18%, 24%);
     -ms-transform: translate(18%, 24%);
     -webkit-transform: translate(18%, 24%);
     transform: translate(18%, 24%);
   }
-  /* line 569, ../sass/screen.scss */
+  /* line 566, ../sass/screen.scss */
   .svg-waves-ready .wave_3 {
     -moz-transform: translate(-17%, 15%);
     -ms-transform: translate(-17%, 15%);
     -webkit-transform: translate(-17%, 15%);
     transform: translate(-17%, 15%);
   }
-  /* line 572, ../sass/screen.scss */
+  /* line 569, ../sass/screen.scss */
   .svg-waves-ready .wave_2 {
     -moz-transform: translate(22%, 0%);
     -ms-transform: translate(22%, 0%);
     -webkit-transform: translate(22%, 0%);
     transform: translate(22%, 0%);
   }
-  /* line 575, ../sass/screen.scss */
+  /* line 572, ../sass/screen.scss */
   .svg-waves-ready .wave_1 {
     -moz-transform: translate(-20%, -7%);
     -ms-transform: translate(-20%, -7%);
@@ -13051,35 +13215,35 @@ body.blog-page .blog-list-section {
   }
 }
 @media (min-width: 1200px) {
-  /* line 580, ../sass/screen.scss */
+  /* line 577, ../sass/screen.scss */
   .svg-waves-ready .wave_5 {
     -moz-transform: translate(6.5%, 26%) scale(0.7);
     -ms-transform: translate(6.5%, 26%) scale(0.7);
     -webkit-transform: translate(6.5%, 26%) scale(0.7);
     transform: translate(6.5%, 26%) scale(0.7);
   }
-  /* line 583, ../sass/screen.scss */
+  /* line 580, ../sass/screen.scss */
   .svg-waves-ready .wave_4 {
     -moz-transform: translate(14.5%, 21%) scale(0.75);
     -ms-transform: translate(14.5%, 21%) scale(0.75);
     -webkit-transform: translate(14.5%, 21%) scale(0.75);
     transform: translate(14.5%, 21%) scale(0.75);
   }
-  /* line 586, ../sass/screen.scss */
+  /* line 583, ../sass/screen.scss */
   .svg-waves-ready .wave_3 {
     -moz-transform: translate(-2%, 14%) scale(0.75);
     -ms-transform: translate(-2%, 14%) scale(0.75);
     -webkit-transform: translate(-2%, 14%) scale(0.75);
     transform: translate(-2%, 14%) scale(0.75);
   }
-  /* line 589, ../sass/screen.scss */
+  /* line 586, ../sass/screen.scss */
   .svg-waves-ready .wave_2 {
     -moz-transform: translate(17%, 0%) scale(0.8);
     -ms-transform: translate(17%, 0%) scale(0.8);
     -webkit-transform: translate(17%, 0%) scale(0.8);
     transform: translate(17%, 0%) scale(0.8);
   }
-  /* line 592, ../sass/screen.scss */
+  /* line 589, ../sass/screen.scss */
   .svg-waves-ready .wave_1 {
     -moz-transform: translate(-11%, -15%) scale(0.85);
     -ms-transform: translate(-11%, -15%) scale(0.85);
@@ -13087,31 +13251,31 @@ body.blog-page .blog-list-section {
     transform: translate(-11%, -15%) scale(0.85);
   }
 }
-/* line 598, ../sass/screen.scss */
+/* line 595, ../sass/screen.scss */
 .animation-speed-slow .wave_5, .animation-speed-pause .wave_5 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 603, ../sass/screen.scss */
+/* line 600, ../sass/screen.scss */
 .animation-speed-med .wave_4, .animation-speed-pause .wave_4 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 608, ../sass/screen.scss */
+/* line 605, ../sass/screen.scss */
 .animation-speed-slow .wave_3, .animation-speed-pause .wave_3 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 613, ../sass/screen.scss */
+/* line 610, ../sass/screen.scss */
 .animation-speed-med .wave_2, .animation-speed-pause .wave_2 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 618, ../sass/screen.scss */
+/* line 615, ../sass/screen.scss */
 .animation-speed-slow .wave_1, .animation-speed-pause .wave_1 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;

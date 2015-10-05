@@ -27,22 +27,20 @@
 					{{ posts }}
 							<article class="mod-post">
 								<header class="mod-post-hd">
+									{{ if category }}
+										<a class="category" href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a>
+									{{ endif }}
 									<h2 class="post-headline"><a href="{{ url }}">{{ title }}</a></h2>
-									<div class="post-meta">
-										by <span class="author">{{ created_by:display_name }}</span> and published on <span class="date">{{ helper:date timestamp=created_on }}</span>
-										<div class="comments-category-keyword">
-											<a href="{{ url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ id }}"></a>
-											{{ if category }}
-												<strong>Category:</strong>
-												<span class="category"><a href="{{ url:site }}blog/category/{{ category:slug }}">{{ category:title }}</a></span>
-											{{ endif }}
-											
-											{{ if keywords }}
-												<strong>Tag:</strong>
-												{{ keywords }}
-													<span class="keyword"><a href="{{ url:site }}blog/tagged/{{ keyword }}">{{ keyword }}</a></span>
-												{{ /keywords }}
-											{{ endif }}
+									<div class="mod-post-meta">
+										<div class="mod-post-meta-hd"><img src="" data-src="{{ author_profile:member_avatar:thumb }}" /></div>
+										<div class="mod-post-meta-bd">
+											<div class="author-date">{{ created_by:display_name }} | {{ helper:date timestamp=created_on }}</div>
+											<div class="comments-keyword">
+												<a href="{{ url }}#disqus_thread" class="disqus-comment-count" data-disqus-identifier="{{ id }}"></a>
+												{{ if keywords }}
+													{{ keywords }}<span class="keyword"><a href="{{ url:site }}blog/tagged/{{ keyword }}">{{ keyword }}</a></span>{{ /keywords }}
+												{{ endif }}
+											</div>
 										</div>
 									</div>
 									{{ if post_image }}
