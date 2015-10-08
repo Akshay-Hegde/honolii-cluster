@@ -1,0 +1,11 @@
+{{ streams:partners  order_by="ordering_count" sort="asc"}}
+<div class="mod-partner">
+	<img data-src="{{ image_1:thumb }}" alt="{{ display_name }} logo" />
+	<header class="mod-partner-hd">
+		<h4>{{ display_name }}</h4>
+		<strong>{{ display_title }} - {{ state:full }}</strong>
+	</header>
+	<section class="mod-partner-bd">{{ display_content }}</section>
+	<footer class="mod-partner-ft"><a class="partner-href" href="{{ link_url }}" target="_blank">Visit Website</a></footer>
+</div>
+{{ /streams:partners }}

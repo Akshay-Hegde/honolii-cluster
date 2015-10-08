@@ -5,13 +5,13 @@
 		mode="new"
 
 		notify_a="edward@wetumka.io"
-    notify_template_a="online_form_notice"
-    notify_from_a="hello@wetumka.net|Campaign Capture"
+		notify_template_a="online_form_notice"
+		notify_from_a="hello@wetumka.net|Campaign Capture"
 
-    notify_b="email"
-    notify_template_b="outbound_capture_campaign"
-    notify_from_b="edward@wetumka.net|Edward Meehan"
-    
+		notify_b="email"
+		notify_template_b="outbound_capture_campaign"
+		notify_from_b="edward@wetumka.net|Edward Meehan"
+		
 }}{{ /streams:form }}
 
 <div class="mod-capture">
@@ -22,16 +22,16 @@
 		<form method="post" class="capture-form" id="capture_form">
 			<input type="hidden" name="campaign_id" id="input_campaign">
 			<fieldset>
-			  <div class="mod-form">
-			    <label class="sr-only" for="input_fullname">Full name</label>
-		      <input tabindex="1" name="full_name" type="text" id="input_fullname" placeholder="Your name" title="eg. John Smith" required>
-			  </div>
-			  <div class="mod-form">
-			    <label class="sr-only" for="input_email">Email</label>
-		      <input tabindex="2" name="email" type="email" id="input_email" title="eg. john@example.com" placeholder="Your email address" required>
-			  </div>
-			  <button type="submit" class="cta" id="button_submit">Contact Me</button>
-		  </fieldset>
+				<div class="mod-form">
+					<label class="sr-only" for="input_fullname">Full name</label>
+					<input tabindex="1" name="full_name" type="text" id="input_fullname" placeholder="Your name" title="eg. John Smith" required>
+				</div>
+				<div class="mod-form">
+					<label class="sr-only" for="input_email">Email</label>
+					<input tabindex="2" name="email" type="email" id="input_email" title="eg. john@example.com" placeholder="Your email address" required>
+				</div>
+				<button type="submit" class="cta" id="button_submit">Contact Me</button>
+			</fieldset>
 		</form>
 	</div>
 </div>
