@@ -13,36 +13,6 @@
     notify_from_b="hello@wetumka.io|Hello Wetumka Interactive"
     
 }}{{ /streams:form }}
-{{ streams:form
-
-		stream="capture_job_inquiry"
-		return="/contact/thank-you/job"
-		mode="new"
-		
-		notify_a="edward@wetumka.io"
-    notify_template_a="online_form_notice"
-    notify_from_a="hello@wetumka.io|Job Inquiry"
-
-    notify_b="email"
-    notify_template_b="outbound_contact_job"
-    notify_from_b="hello@wetumka.io|Hello Wetumka Interactive"
-    
-}}{{ /streams:form }}
-{{ streams:form
-
-		stream="capture_rfp"
-		return="/contact/thank-you/rfp"
-		mode="new"
-
-		notify_a="edward@wetumka.io"
-    notify_template_a="online_form_notice"
-    notify_from_a="hello@wetumka.io|Request Proposal"
-
-    notify_b="email"
-    notify_template_b="outbound_contact_rfp"
-    notify_from_b="edward@wetumka.io|Edward Meehan"
-    
-}}{{ /streams:form }}
 
 <form enctype="multipart/form-data" method="post" class="contact-form" id="contact_form">
 	<fieldset class="event-show-fieldset event-show-fieldset-active" id="contact_start">
@@ -60,145 +30,11 @@
 	    </div>
 	  </div>
 	  <div class="mod-form">
-	  	<label for="input_subject">Subject</label>
-	  	<div class="mod-form-input">
-	  		<select tabindex="3" name="stream_id" id="input_subject" required>
-	  			<option value="" disabled selected>Please select an option</option>
-				  <option value="12">General inquiry</option>
-				  <option value="13">Partnership | Join the team</option>
-				  <option value="14">Request for proposal | Project</option>
-				</select>
-			</div>
-	  </div>
-	  <div class="mod-form">
-	    <div class="mod-form-btn">
-	      <button tabindex="4" id="button_next" type="submit" class="btn btn-default">Continue</button>
-	    </div>
-	  </div>
-	</fieldset>
-	<fieldset disabled class="event-show-fieldset" id="contact_general">
-		<div class="mod-form">
 			<label for="input_message">Message</label>
 			<div class="mod-form-textarea"><textarea tabindex="1" placeholder="..." name="comment" id="input_message" required></textarea></div>
 		</div>
-	</fieldset>
-	<fieldset disabled class="event-show-fieldset" id="contact_job">
-		<div class="mod-form">
-	    <label for="input_title">Job title</label>
-	    <div class="mod-form-input">
-	      <input tabindex="1" name="job_title" type="text" id="input_title" title="eg. Front-end developer" placeholder="..." required>
-	    </div>
-	  </div>
-		<div class="mod-form">
-			<label for="input_story">Tell us an interesting story about you</label>
-			<div class="mod-form-textarea"><textarea tabindex="2" placeholder="Once upon a time..." name="interesting_story" id="input_story" required></textarea></div>
-		</div>
-		<div class="mod-form">
-			<label for="input_leasure">What are your leasure activities?</label>
-			<div class="mod-form-textarea"><textarea tabindex="3" placeholder="..." name="offtime_leasure" id="input_leasure"></textarea></div>
-		</div>
-		<div class="mod-form">
-			<label for="input_work">Why do you want to work with us?</label>
-			<div class="mod-form-textarea"><textarea tabindex="4" placeholder="..." name="why_work" id="input_work"></textarea></div>
-		</div>
-		<div class="mod-form">
-			<label for="input_resume">Upload your resume</label>
-			<div class="mod-form-file">
-				<input type="hidden" name="resume_upload" value="dummy" />
-				<input tabindex="5" name="resume_upload_file" type="file" id="input_resume" title="PDF only" required accept="application/pdf">
-				<span class="mod-form-help">PDF only, 2.5MB or less.
-			</div>
-		</div>
-	</fieldset>
-	<fieldset disabled class="event-show-fieldset" id="contact_rfp">
-		<div class="mod-form">
-	    <label for="input_date">Project start date?</label>
-	    <div class="mod-form-input">
-	      <input tabindex="1" name="start_date" type="date" id="input_date" title="eg. {{ helper:date format="m/d/Y" }}" placeholder="mm/dd/yyyy" required>
-	    </div>
-	  </div>
-		<div class="mod-form">
-			<label for="input_duration">Project duration?</label>
-			<div class="mod-form-input">
-	  		<select tabindex="2" name="duration" id="input_duration" required>
-	  			<option value="" disabled selected>Please select an option</option>
-				  <option value="short">1-4 weeks</option>
-				  <option value="medium">1-3 months</option>
-				  <option value="long">3-6 months</option>
-				  <option value="x-long">6-12 months</option>
-				  <option value="longterm">Longterm commitment</option>
-				</select>
-			</div>
-		</div>
-		<div class="mod-form">
-			<label for="input_budget">Project budget?</label>
-			<div class="mod-form-input">
-	  		<select tabindex="3" name="budget" id="input_budget" required>
-	  			<option value="" disabled selected>Please select an option</option>
-				  <option value="small">$1,000 - $10,000</option>
-				  <option value="medium">$10,000 - $30,000</option>
-				  <option value="large">+$30,000</option>
-				</select>
-			</div>
-		</div>
-		<div class="mod-form">
-			<label for="input_project">What are the project details?</label>
-			<div class="mod-form-textarea"><textarea tabindex="4" name="project_specifics" id="input_project" placeholder="..." required></textarea></div>
-		</div>
-		<div class="mod-form">
-			<label for="input_company">Tell us about your company</label>
-			<div class="mod-form-textarea"><textarea tabindex="5" name="company_info" id="input_company" placeholder="..." required></textarea></div>
-		</div>
-		<div class="mod-form">
-			<label>What is most importance?</label>
-	    <div class="mod-form-checkbox">
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="6" name="company_values[]" value="budget" type="checkbox"> Budget
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="7" name="company_values[]" value="team" type="checkbox"> Team fit
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="8" name="company_values[]" value="com" type="checkbox"> Communication
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="9" name="company_values[]" value="flex" type="checkbox"> Flexibility
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="10" name="company_values[]" value="stealth" type="checkbox"> Stealth (NDA)
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="11" name="company_values[]" value="skill" type="checkbox"> Skill set
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="12" name="company_values[]" value="exp" type="checkbox"> Experience
-	        </label>
-	      </div>
-	      <div class="checkbox-stacked">
-	        <label>
-	          <input tabindex="13" name="company_values[]" value="time" type="checkbox"> Timeline
-	        </label>
-	      </div>
-	    </div>
-	  </div>
-	</fieldset>
-	<fieldset disabled class="event-show-fieldset" id="contact_submit">
 		<div class="mod-form">
 	    <div class="mod-form-btn">
-	      <button id="button_back" type="button" class="btn btn-default">Back</button>
 	      <button id="button_submit" type="submit" class="btn btn-primary">Submit</button>
 	    </div>
 	  </div>

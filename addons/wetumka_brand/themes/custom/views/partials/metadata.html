@@ -12,27 +12,29 @@
 <title>{{ template:title }}</title>
 <!-- CSS -->
 {{ if global:environment == 'development' }}
-	<link rel="stylesheet" href="/{{theme:path}}/css/screen.css" />
+<link rel="stylesheet" href="/{{theme:path}}/css/screen.css" />
+<!-- JS -->
+<script type="text/javascript" src="/{{theme:path}}/js/require.min.js"></script>
 {{ else }}
-	<link rel="stylesheet" href="/{{theme:path}}/publish/css/production.css" />
+<link rel="stylesheet" href="/{{theme:path}}/publish/css/production.css" />
+<!-- JS -->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
 {{ endif }}
 
 {{ asset:render_css_inline }}
-<!-- JS -->
-<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
 <script type="text/javascript">
-	var assetPath = "/{{theme:path}}";
+	var assetPath = '/{{theme:path}}';
 	requirejs.config({
-	  "baseUrl": assetPath + "/js/",
-	  "paths": {
+	  'baseUrl': assetPath + '/js/',
+	  'paths': {
 	  	// paths 
-	    "jquery": "//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min",
-	    "snapsvg": "//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min"
+	    'jquery': '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min',
+	    //'snapsvg': '//cdnjs.cloudflare.com/ajax/libs/snap.svg/0.3.0/snap.svg-min',
+	    'snapsvg': 'snap.svg-min',
+	    'typekit': '//use.typekit.net/iji6ukv'
 	  }
 	});
 </script>
-<script type="text/javascript" src="//use.typekit.net/iji6ukv.js"></script>
-<script type="text/javascript">try{Typekit.load({ async: true });}catch(e){}</script>
 {{ asset:render_js_inline }}
 
 <!-- page metadata -->

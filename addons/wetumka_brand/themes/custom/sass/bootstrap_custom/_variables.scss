@@ -44,11 +44,11 @@ $gray-light:            lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:          lighten($gray-base, 93.5%) !default; // #eee
 
 $brand-primary:         $blue-dark !default;
-$brand-red: 						#DC3D25 !default;
+$brand-red: 						$red-dark !default;
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
-$brand-warning:         #f0ad4e !default;
-$brand-danger:          #d9534f !default;
+$brand-warning:         $yellow-light !default;
+$brand-danger:          $red-light !default;
 
 //== Scaffolding
 //
@@ -57,14 +57,14 @@ $brand-danger:          #d9534f !default;
 //** Background color for `<body>`.
 $body-bg:               $blue-darkest !default;
 //** Global text color on `<body>`.
-$text-color:            #fff !default;
+$text-color:            #C6E7F7 !default;
 
 //** Global textual link color.
-$link-color:            $orange-mid !default;
+$link-color:            inherit !default;
 //** Link hover color set via `darken()` function.
-$link-hover-color:      $orange-light !default;
+$link-hover-color:      inherit !default;
 //** Link hover decoration.
-$link-hover-decoration: none !default;
+$link-hover-decoration: underline !default;
 
 
 //== Typography
@@ -72,14 +72,14 @@ $link-hover-decoration: none !default;
 //## Font, line-height, and color for body text, headings, and more.
 
 $font-family-sans-serif:  "futura-pt", sans-serif !default;
-$font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
+$font-family-serif:       "minion-pro",serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace !default;
-$font-family-base:        $font-family-sans-serif !default;
+$font-family-base:        $font-family-serif !default;
 
-$font-size-base:          16px !default;
-$font-size-large:         20px !default;
-$font-size-small:         12px !default;
+$font-size-base:          20px !default;
+$font-size-large:         24px !default;
+$font-size-small:         16px !default;
 
 $font-size-h1:            56px !default;
 $font-size-h2:            48px !default;
@@ -94,8 +94,8 @@ $line-height-base:        1.5  !default; // 24/16
 $line-height-computed:    ceil(($font-size-base * $line-height-base)) !default; // ~24px
 
 //** By default, this inherits from the `<body>`.
-$headings-font-family:    inherit !default;
-$headings-font-weight:    100 !default;
+$headings-font-family:    $font-family-sans-serif !default;
+$headings-font-weight:    400 !default; //Future Book
 $headings-line-height:    1.1 !default;
 $headings-color:          $text-color !default;
 
@@ -182,8 +182,8 @@ $btn-default-bg:                 #fff !default;
 $btn-default-border:             #ccc !default;
 
 $btn-primary-color:              #fff !default;
-$btn-primary-bg:                 $orange-mid !default;
-$btn-primary-border:             $orange-dark !default;
+$btn-primary-bg:                 transparent !default;
+$btn-primary-border:             #fff !default;
 
 $btn-success-color:              #fff !default;
 $btn-success-bg:                 $brand-success !default;
@@ -204,9 +204,9 @@ $btn-danger-border:              darken($btn-danger-bg, 5%) !default;
 $btn-link-disabled-color:        $gray-light !default;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius-base:         0 !default;
-$btn-border-radius-large:        0 !default;
-$btn-border-radius-small:        0 !default;
+$btn-border-radius-base:         2px !default;
+$btn-border-radius-large:        2px !default;
+$btn-border-radius-small:        2px !default;
 
 
 //== Forms

@@ -69,6 +69,43 @@
 	}
 }
 
+@mixin text-animate($name) {
+	@include keyframes($name){
+		0%{
+			opacity:1;
+			//@include transform(rotate(-15deg) translate(10px,10px));
+		}
+		20%{
+			@include transform(rotate(20deg) translate(-20px,30px));
+		}
+		50%{
+			@include transform(rotate(-10deg) translate(40px,60px));
+		}
+		70%{
+			@include transform(rotate(5deg) translate(-50px,90px));
+		}
+		90%{
+			@include transform(rotate(0deg) translate(70px,120px));
+		}
+		100%{
+			opacity:0;
+			@include transform(translate(-80px,150px));
+		}
+	}
+}
+
+@mixin letter-keyframes($name, $rotation, $fall) {
+	@include keyframes($name){
+		from {
+			opacity:1;
+    }
+    to {
+    	opacity:0;
+    	@include transform(rotate($rotation) translateY($fall))
+    }
+	}
+}
+
 // waves animations
 @include waves-keyframes(2, -4%, -4%, -21%, -20%, 'wave_xs_1', 1.5, 1.5);
 @include waves-keyframes(2, 6%, 6%, -9%, -10%, 'wave_xs_2', 1.5, 1.5);
@@ -97,8 +134,24 @@
 @include enter-keyframes('enter_right',-100%);
 @include enter-keyframes('enter_left',100%);
 
-// coursel animations
-//@include carousel-keyframes('slide_up',100%);
-
 // scale animations
 @include scale-keyframes('scale_in', 1.2, 1, 2, 1);
+
+// Animate letters
+@include letter-keyframes('letter-1', 10deg, 80px);
+@include letter-keyframes('letter-2', -10deg, 140px);
+@include letter-keyframes('letter-3', 17deg, 120px);
+@include letter-keyframes('letter-4', -20deg, 160px);
+@include letter-keyframes('letter-5', 14deg, 50px);
+
+// Fish Animations
+@include keyframes(fish){
+	from {
+		left:-100px;
+		//@include transform(translateX(0))
+  }
+  to {
+  	left:110%;
+  	//@include transform(translateX(100%))
+  }
+}

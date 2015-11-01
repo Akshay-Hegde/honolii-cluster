@@ -27,6 +27,7 @@ legend {
   color: $legend-color;
   border: 0;
   border-bottom: 1px solid $legend-border-color;
+  font-family:$font-family-sans-serif;
 }
 
 label {
@@ -34,6 +35,7 @@ label {
   max-width: 100%; // Force IE8 to wrap long content (see https://github.com/twbs/bootstrap/issues/13141)
   margin-bottom: 5px;
   font-weight: bold;
+  font-family:$font-family-sans-serif;
 }
 
 
@@ -117,6 +119,7 @@ output {
   height: $input-height-base; // Make inputs at least the height of their button counterpart (base line-height + padding + border)
   padding: $padding-base-vertical $padding-base-horizontal;
   font-size: $font-size-base;
+  font-family:$font-family-sans-serif;
   line-height: $line-height-base;
   color: $input-color;
   background-color: $input-bg;

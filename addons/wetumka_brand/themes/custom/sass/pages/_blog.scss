@@ -5,6 +5,9 @@ body.blog-page{
 
 			}
 		}
+		h1+h3{
+			margin-top:-($line-height-computed * 2);
+		}
 		h3{
 			text-align:center;
 			margin:0;
@@ -22,5 +25,8 @@ body.blog-page{
 	.blog-list-section{
 		color:#fff;
 		//@include section-blue;
+	}
+	.blog-post-section{
+		padding-top:200px;
 	}
 }

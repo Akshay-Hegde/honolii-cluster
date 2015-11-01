@@ -54,13 +54,19 @@
 	position: relative;
 	padding: 10px ($gutters / 2);
 	color:$gray;
-
-	a{
-		color:$blue-dark;
-		&:hover{
-			color:$blue-darkest;
-		}
+	font-size:16px;
+	line-height:1.5em;
+	font-family: $font-family-sans-serif;
+	
+	strong{
+		color:inherit;
 	}
+	// a{
+	// 	color:inherit;
+	// 	&:hover{
+	// 		color:lighten($btn-primary-color,10%);
+	// 	}
+	// }
 
 	@media (max-width: $screen-xs-max) {
 		padding-bottom:50px;
@@ -95,23 +101,24 @@
     }
 	}
 	&-hd{
+		margin-bottom:20px;
 		h4{
 			@extend .h5;
 			margin:0;
 			font-weight:300;
-			color:$brand-red;
+			color:$blue-darkest;
 		}
 		strong{
 			font-weight:300;
 		}
-		margin-bottom:$line-height-computed;
 		@media (max-width: $screen-sm-max) {
     	margin-bottom:($line-height-computed / 2);
     }
 	}
 	&-bd{
 		@media (max-width: $screen-sm-max) {
-    	font-size:$font-size-small;
+    	font-size:12px;
+    	line-height:1.5em;
     }
 	}
 	&-ft{
@@ -263,3 +270,54 @@
 	margin:$margin;
 	@extend .lead;
 }
+
+/* -----------------------------------------
+*        			SVG Graphics Colors
+* Mixins to create color styles for spriting graphics
+* 
+-------------------------------------------- */
+
+@mixin small-fish(
+	$bodyTop:#27AAE1,
+	$bodyBot:#7DCEF1,
+	$tail:#006FBA,
+	$stripe:#009ADA,
+	$mouth:#002C5B,
+	$eyeMark:#EC1C24,
+	$eyeCenter:#231F20,
+	$eyeOuter:#FFFFFF
+	){
+	.small-fish{
+		.tail{fill:$tail;}
+		.body{
+			&-bottom{
+				fill:$bodyBot;
+			}
+			&-top{
+				fill:$bodyTop;
+			}
+		}
+		.eye{
+			&-mark{
+				fill:$eyeMark;
+			}
+			&-center{
+				fill:$eyeCenter;
+			}
+			&-outer{
+				&-left,&-right{
+					fill:$eyeOuter;
+				}
+			}
+		}
+		.mouth{
+			fill:$mouth;
+		}
+		.stripe{
+			fill:$stripe;
+		}
+	}
+}
+
+
+

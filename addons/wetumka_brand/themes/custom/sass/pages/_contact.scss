@@ -1,4 +1,14 @@
 body.contact-page{
+	.intro-section{
+		@extend .container;
+		> .block{
+			@extend .row;
+			> .block-inner{
+				@extend .col-md-10;
+				@extend .col-md-push-1;
+			}
+		}
+	}
 	.contact-section{
 		@include section-blue;
 	}
@@ -14,6 +24,10 @@ body.contact-page{
 		.widget{
 			@extend .col-xs-6;
 			@extend .col-sm-12;
+			&-hd{
+				margin-top:0;
+				margin-bottom:8px;
+			}
 		}
 		@media (min-width: $screen-sm-min){
 			padding-left:0;

@@ -5,7 +5,14 @@ body.work-page{
 		h2{
 		  font-weight: 500;
 		}
-		
+		@extend .container;
+		> .block{
+			@extend .row;
+			> .block-inner{
+				@extend .col-md-10;
+				@extend .col-md-push-1;
+			}
+		}
 	}
 	.info-section{
 		> .block{

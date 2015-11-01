@@ -2,6 +2,14 @@ body.about-page{
 	.intro-section{
 		padding-bottom:0;
 		text-align:center;
+		@extend .container;
+		> .block{
+			@extend .row;
+			> .block-inner{
+				@extend .col-md-10;
+				@extend .col-md-push-1;
+			}
+		}
 	}
 	.team-section{
 		> .block{
@@ -15,7 +23,7 @@ body.about-page{
 	}
 	.partners-section{
 		border-top:solid 140px #fff;
-		padding-bottom:60px;
+		padding-bottom:160px;
 		> .block{
 			background-color: transparent;
 		}
