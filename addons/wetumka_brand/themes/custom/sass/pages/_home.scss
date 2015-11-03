@@ -74,6 +74,9 @@ body.home-page{
 		}
 	}
 	.fit-window{
+		@media (max-width: $screen-xs-max) {
+			padding-bottom:80px;
+		}
 		@media (min-width: $screen-sm-min){
 			display: flex;
 	    align-items: center;
@@ -164,6 +167,16 @@ body.home-page{
 	}
 	.cta-section {
 		@include background-image(linear-gradient(to top, darken($blue-darkest, 20%), darken($blue-darkest, 12%)));
+		
+		.mod-capture{
+			max-height:0;
+			overflow:hidden;
+			@include transition(all 1300ms ease-out 200ms);
+		}
+		&.active{
+			.mod-capture{max-height:1000px;}
+			.video-player{display:none;}
+		}
 	}
 	.hooks{
 		position: fixed;
@@ -246,16 +259,30 @@ body.home-page{
 		display: flex;
     align-items: center;
     justify-content: center;
-		button{
+		button.cta{
 			position: relative;
 			margin-top:50%;	
 		}
 	}
 	.tour-button{
-		position: fixed;
-		bottom:50px;
-		left: 50%;
-    width: 100px;
-    margin-left: -50px;
+		display:none;
+    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
+			position: fixed;
+			display:block;
+			top:18px;
+			right: 10px;
+	    z-index: $zindex-tooltip;
+    }
+    @media (min-width: $screen-md-min) {
+    	position: fixed;
+			display:block;
+			bottom:50px;
+			left: 50%;
+			margin-left: -50px;
+			width: 100px;
+    }
+	}
+	.mod-capture{
+		text-align:center;
 	}
 }

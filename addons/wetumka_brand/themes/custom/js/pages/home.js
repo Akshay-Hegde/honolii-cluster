@@ -1,5 +1,5 @@
 // home.js
-define (['default','lib/pubsub','lib/assets','lib/froogaloop'], function (def,PubSub,Assets) {
+define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], function (def,PubSub,Assets) {
 	"use strict";
 
 	// -------- PubSub Publish Events ---------------
@@ -12,7 +12,7 @@ define (['default','lib/pubsub','lib/assets','lib/froogaloop'], function (def,Pu
 	_.init = function(){
 		// pubsub subscriptions
 		PubSub.subscribe('event.window.scrollDelay', function(msg,data){_.fishingVisible(data);});
-		PubSub.subscribe('event.video', function(msg,data){_.videoPlayer.control(data);});
+		PubSub.subscribe('event.video.ended', function(msg,data){_.videoPlayer.videoEnded(data);});
 		// asset manager
 		var assetsManager = new Assets();
 		assetsManager.queueDownload([
@@ -54,44 +54,58 @@ define (['default','lib/pubsub','lib/assets','lib/froogaloop'], function (def,Pu
 	// vimeo video
 	_.videoPlayer = {
 		init : function(){
-			var videoFrame = document.getElementById('video-player');
-			var iframe = document.createElement('iframe');
+			var videoFrame = document.getElementById('videoPlayer');
+			var iframe = document.createElement('div');
 			var button = document.createElement('button');
-			var vimeoPlayer;
 			// iframe element
-			iframe.src = vimeoSrc; //set in script tab of page
 			iframe.classList.add('embed-responsive-item');
+			iframe.setAttribute('id','youtubeIframe');
 			iframe.setAttribute('webkitallowfullscreen','');
 			iframe.setAttribute('mozallowfullscreen','');
 			iframe.setAttribute('allowfullscreen','');
-
-			vimeoPlayer = $f(iframe); //froogaloop method
 			// button element
-			button.innerHTML = 'Watch Video Introduction';
+			button.innerHTML = 'Play Video';
 			button.classList.add('cta');
 			videoFrame.appendChild(button);
-
-			button.addEventListener('click', function(){
-				videoFrame.appendChild(iframe);
-			});
+			// video object embedded on page
+			var videoStateChange = function(event){
+				switch(event.data) {
+			    case -1:
+		        PubSub.publish('event.video.unstarted',{e:'unstarted'});
+		        break;
+			    case 0:
+		        PubSub.publish('event.video.ended',{e:'ended'});
+		        break;
+		      case 1:
+		        PubSub.publish('event.video.playing',{e:'playing'});
+		        break;
+		      case 2:
+		        PubSub.publish('event.video.paused',{e:'paused'});
+		        break;
+		      case 3:
+		        PubSub.publish('event.video.buffering',{e:'buffering'});
+		        break;
+		      case 5:
+		        PubSub.publish('event.video.cue',{e:'video cue'});
+		        break;
+				}
+			};
 			
-			// need ready event before we can bind any other events
-			vimeoPlayer.addEvent('ready', function() {
-				PubSub.publish('event.video.ready',{e:'ready'});
-
-				vimeoPlayer.addEvent('play', function() {
-					PubSub.publish('event.video.play',{e:'play'});
-		    });
-		    vimeoPlayer.addEvent('pause', function() {
-					PubSub.publish('event.video.pause',{e:'pause'});
-		    });
-		    vimeoPlayer.addEvent('finish', function() {
-					PubSub.publish('event.video.finish',{e:'finish'});
-		    });
-    	});
+			button.addEventListener('click', function(){
+				button.remove();
+				videoFrame.appendChild(iframe);
+				new YT.Player('youtubeIframe', {
+          videoId: videoSrc.videoID,
+          playerVars : videoSrc.playerVars,
+          events: {
+            'onStateChange': videoStateChange
+          }
+        });
+			});
     },
-    control : function(e){
-    	//console.log(e);
+    videoEnded : function(e){
+    	var videoWrapper = document.getElementById('section_4').classList.add('active');
+    	//var captureHeader = videoWrapper.querySelector('#modCaptureHeader');
     }
 	};
 
@@ -203,9 +217,10 @@ define (['default','lib/pubsub','lib/assets','lib/froogaloop'], function (def,Pu
 	_.fillWindow = function(){
 		var sections = document.querySelectorAll('.fit-window');
 		var winHeight = window.innerHeight;
-
-		for (var i = sections.length - 1; i >= 0; i--) {
-			sections[i].style.height = winHeight + 'px';
+		if(winHeight > 700){
+			for (var i = sections.length - 1; i >= 0; i--) {
+				sections[i].style.height = winHeight + 'px';
+			}
 		}
 	};
 

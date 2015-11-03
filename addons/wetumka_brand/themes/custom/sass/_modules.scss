@@ -171,7 +171,16 @@
 		// styles are in screen.scss
 	}
 	&-capture{
-		@extend .fancy-box;
+		//@extend .fancy-box;
+		&-hd{
+			h3{
+				margin-top:$line-height-computed;
+				margin-bottom:$line-height-computed;
+				& + p{
+					margin-top:-$line-height-computed;
+				}
+			}
+		}
 		padding-bottom:$line-height-computed;
 		input{
 			border-color:transparent;
