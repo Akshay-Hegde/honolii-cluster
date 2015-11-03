@@ -113,6 +113,11 @@
 }
 .site-content{
 	position: relative;
+	opacity:0;
+	@include transition(opacity 500ms);
+	.tkFontsReady &{
+		opacity:1;
+	}
 	// padding-top:$topSpace / 2;
 	// @media (min-width: $screen-sm-min) {
 	// 	padding-top:$topSpace;

@@ -11477,9 +11477,18 @@ button.close {
 /* line 114, ../sass/screen.scss */
 .site-content {
   position: relative;
+  opacity: 0;
+  -moz-transition: opacity 500ms;
+  -o-transition: opacity 500ms;
+  -webkit-transition: opacity 500ms;
+  transition: opacity 500ms;
+}
+/* line 118, ../sass/screen.scss */
+.tkFontsReady .site-content {
+  opacity: 1;
 }
 
-/* line 121, ../sass/screen.scss */
+/* line 126, ../sass/screen.scss */
 .site-footer {
   font-family: "futura-pt", sans-serif;
   position: absolute;
@@ -11489,33 +11498,33 @@ button.close {
   color: rgba(255, 255, 255, 0.5);
   padding: 10px 0;
 }
-/* line 130, ../sass/screen.scss */
+/* line 135, ../sass/screen.scss */
 .site-footer a {
   color: inherit;
 }
-/* line 134, ../sass/screen.scss */
+/* line 139, ../sass/screen.scss */
 .site-footer ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
-/* line 139, ../sass/screen.scss */
+/* line 144, ../sass/screen.scss */
 .site-footer li {
   display: inline;
   padding-left: 10px;
 }
-/* line 142, ../sass/screen.scss */
+/* line 147, ../sass/screen.scss */
 .site-footer li::first-child {
   padding-left: 0;
 }
 @media (max-width: 768px) {
-  /* line 145, ../sass/screen.scss */
+  /* line 150, ../sass/screen.scss */
   .site-footer li.copy {
     display: block;
   }
 }
 @media (max-width: 767px) {
-  /* line 121, ../sass/screen.scss */
+  /* line 126, ../sass/screen.scss */
   .site-footer {
     font-size: 12px;
   }
@@ -11524,22 +11533,22 @@ button.close {
 /* -----------------------------------------
          Site Layout Styles
 -------------------------------------------- */
-/* line 158, ../sass/screen.scss */
+/* line 163, ../sass/screen.scss */
 .block-wrapper {
   padding-bottom: 100px;
 }
-/* line 160, ../sass/screen.scss */
+/* line 165, ../sass/screen.scss */
 .block-wrapper.fit-window {
   padding: 0;
   margin: 0;
 }
-/* line 167, ../sass/screen.scss */
+/* line 172, ../sass/screen.scss */
 .block-wrapper.intro-section {
   padding-top: 75px;
   text-align: center;
 }
 @media (min-width: 992px) {
-  /* line 167, ../sass/screen.scss */
+  /* line 172, ../sass/screen.scss */
   .block-wrapper.intro-section {
     padding-top: 200px;
   }
@@ -11548,48 +11557,48 @@ button.close {
 /* -----------------------------------------
          				Form Styles
 -------------------------------------------- */
-/* line 202, ../sass/screen.scss */
+/* line 207, ../sass/screen.scss */
 .capture-form .cta, .capture-form .cta-lg {
   vertical-align: middle;
 }
 @media (max-width: 767px) {
-  /* line 202, ../sass/screen.scss */
+  /* line 207, ../sass/screen.scss */
   .capture-form .cta, .capture-form .cta-lg {
     width: 40%;
   }
 }
 
-/* line 214, ../sass/screen.scss */
+/* line 219, ../sass/screen.scss */
 .contact-form .mod-form > label {
   padding-right: 20px;
 }
-/* line 231, ../sass/screen.scss */
+/* line 236, ../sass/screen.scss */
 .contact-form .mod-form .mod-form-checkbox .checkbox-stacked {
   width: 50%;
   float: left;
 }
-/* line 235, ../sass/screen.scss */
+/* line 240, ../sass/screen.scss */
 .contact-form .mod-form .mod-form-checkbox .checkbox-stacked + .checkbox-stacked {
   margin-top: 0;
 }
-/* line 244, ../sass/screen.scss */
+/* line 249, ../sass/screen.scss */
 .contact-form .mod-form .mod-form-help {
   margin-bottom: 0;
 }
 
-/* line 252, ../sass/screen.scss */
+/* line 257, ../sass/screen.scss */
 form select {
   -webkit-appearance: none;
 }
-/* line 254, ../sass/screen.scss */
+/* line 259, ../sass/screen.scss */
 form select option {
   color: black;
 }
-/* line 256, ../sass/screen.scss */
+/* line 261, ../sass/screen.scss */
 form select option[disabled] {
   color: #777777;
 }
-/* line 261, ../sass/screen.scss */
+/* line 266, ../sass/screen.scss */
 form .flag-required {
   position: absolute;
   right: -15px;
@@ -11601,7 +11610,7 @@ form .flag-required {
   text-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
 }
 @media (min-width: 768px) {
-  /* line 261, ../sass/screen.scss */
+  /* line 266, ../sass/screen.scss */
   form .flag-required {
     right: -30px;
   }
@@ -12592,17 +12601,17 @@ form .flag-required {
 /* -----------------------------------------
          				Page Styles
 -------------------------------------------- */
-/* line 285, ../sass/screen.scss */
+/* line 290, ../sass/screen.scss */
 img {
   color: transparent;
 }
 
-/* line 288, ../sass/screen.scss */
+/* line 293, ../sass/screen.scss */
 strong {
   color: #fff;
 }
 
-/* line 291, ../sass/screen.scss */
+/* line 296, ../sass/screen.scss */
 .cta, .cta-lg {
   vertical-align: baseline;
   border-radius: 30px;
@@ -12610,7 +12619,7 @@ strong {
 }
 
 @media (min-width: 768px) {
-  /* line 303, ../sass/screen.scss */
+  /* line 308, ../sass/screen.scss */
   .columns {
     text-align: left;
     -moz-columns: auto 2;
@@ -12622,12 +12631,12 @@ strong {
   }
 }
 
-/* line 310, ../sass/screen.scss */
+/* line 315, ../sass/screen.scss */
 a {
   text-decoration: underline;
 }
 
-/* line 313, ../sass/screen.scss */
+/* line 318, ../sass/screen.scss */
 a.social-icon {
   -webkit-text-rendering: optimizeLegibility;
   -moz-text-rendering: optimizeLegibility;
@@ -12647,7 +12656,7 @@ a.social-icon {
   text-decoration: none;
 }
 
-/* line 331, ../sass/screen.scss */
+/* line 336, ../sass/screen.scss */
 .browser-alert-box {
   text-align: left;
   cursor: pointer;
@@ -13526,14 +13535,14 @@ body.blog-page .blog-post-section {
 /* -----------------------------------------
          				SVG & animations
 -------------------------------------------- */
-/* line 348, ../sass/screen.scss */
+/* line 353, ../sass/screen.scss */
 .site-header-toggle {
   -moz-transform: scale(0.6, 0.6);
   -ms-transform: scale(0.6, 0.6);
   -webkit-transform: scale(0.6, 0.6);
   transform: scale(0.6, 0.6);
 }
-/* line 350, ../sass/screen.scss */
+/* line 355, ../sass/screen.scss */
 .site-header-toggle .aniCircle {
   fill: rgba(2, 134, 186, 0.2);
   stroke: #97E9FC;
@@ -13546,14 +13555,14 @@ body.blog-page .blog-post-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 358, ../sass/screen.scss */
+/* line 363, ../sass/screen.scss */
 .site-header-toggle .hamburger-x {
   stroke: #fff;
   stroke-width: 20px;
   stroke-linecap: square;
   fill: transparent;
 }
-/* line 363, ../sass/screen.scss */
+/* line 368, ../sass/screen.scss */
 .site-header-toggle .hamburger-x .path-x {
   stroke-dasharray: 135 400;
   stroke-dashoffset: 135;
@@ -13563,7 +13572,7 @@ body.blog-page .blog-post-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 368, ../sass/screen.scss */
+/* line 373, ../sass/screen.scss */
 .site-header-toggle .hamburger-x .path-2 {
   stroke-dasharray: 135;
   stroke-dashoffset: 405;
@@ -13573,36 +13582,36 @@ body.blog-page .blog-post-section {
   -webkit-transition-delay: 100ms;
   transition: stroke-dashoffset 800ms ease-out 100ms;
 }
-/* line 374, ../sass/screen.scss */
+/* line 379, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle, .svg-menu-active .site-header-toggle {
   cursor: pointer;
 }
-/* line 376, ../sass/screen.scss */
+/* line 381, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .hamburger-x .path-x, .svg-menu-active .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: 0;
 }
-/* line 379, ../sass/screen.scss */
+/* line 384, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .hamburger-x .path-2, .svg-menu-active .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 270;
 }
-/* line 384, ../sass/screen.scss */
+/* line 389, ../sass/screen.scss */
 .svg-menu-hover .site-header-toggle .aniCircle {
   stroke-dashoffset: 0;
 }
-/* line 389, ../sass/screen.scss */
+/* line 394, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .hamburger-x .path-x {
   stroke-dashoffset: -245;
 }
-/* line 392, ../sass/screen.scss */
+/* line 397, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .hamburger-x .path-2 {
   stroke-dashoffset: 135;
 }
-/* line 395, ../sass/screen.scss */
+/* line 400, ../sass/screen.scss */
 .svg-menu-selected .site-header-toggle .logo-path-group {
   stroke-dashoffset: 150;
 }
 
-/* line 401, ../sass/screen.scss */
+/* line 406, ../sass/screen.scss */
 .wetumka_logo_wrapper {
   opacity: 0;
   overflow: hidden;
@@ -13616,44 +13625,44 @@ body.blog-page .blog-post-section {
   -webkit-transition-delay: 500ms;
   transition: opacity 500ms ease-in 500ms;
 }
-/* line 410, ../sass/screen.scss */
+/* line 415, ../sass/screen.scss */
 .wetumka_logo_wrapper .logo_group {
   fill: rgba(255, 255, 255, 0.4);
 }
-/* line 413, ../sass/screen.scss */
+/* line 418, ../sass/screen.scss */
 .wetumka_logo_wrapper #wetumka_logo {
   display: block;
   width: 100%;
   height: 70px;
 }
-/* line 418, ../sass/screen.scss */
+/* line 423, ../sass/screen.scss */
 .svg-logo-active .wetumka_logo_wrapper {
   opacity: 1;
 }
 @media (min-width: 480px) and (max-width: 767px) {
-  /* line 401, ../sass/screen.scss */
+  /* line 406, ../sass/screen.scss */
   .wetumka_logo_wrapper {
     top: 30px;
     height: 90px;
   }
-  /* line 424, ../sass/screen.scss */
+  /* line 429, ../sass/screen.scss */
   .wetumka_logo_wrapper #wetumka_logo {
     height: 90px;
   }
 }
 @media (min-width: 992px) {
-  /* line 401, ../sass/screen.scss */
+  /* line 406, ../sass/screen.scss */
   .wetumka_logo_wrapper {
     top: 60px;
     height: 100px;
   }
-  /* line 431, ../sass/screen.scss */
+  /* line 436, ../sass/screen.scss */
   .wetumka_logo_wrapper #wetumka_logo {
     height: 100px;
   }
 }
 
-/* line 437, ../sass/screen.scss */
+/* line 442, ../sass/screen.scss */
 #waves {
   position: absolute;
   display: block;
@@ -13666,69 +13675,69 @@ body.blog-page .blog-post-section {
   transition: opacity 1.5s ease-in;
 }
 @media (max-width: 767px) {
-  /* line 437, ../sass/screen.scss */
+  /* line 442, ../sass/screen.scss */
   #waves {
     background-color: #1695C1;
   }
 }
 @media (min-width: 768px) {
-  /* line 449, ../sass/screen.scss */
+  /* line 454, ../sass/screen.scss */
   .px-density-2x #waves {
     background-image: url(../img/watercolorTextureFade_2x.jpg);
     background-size: 1500px;
   }
-  /* line 453, ../sass/screen.scss */
+  /* line 458, ../sass/screen.scss */
   .px-density-1x #waves {
     background-image: url(../img/watercolorTextureFade_1x.jpg);
   }
-  /* line 456, ../sass/screen.scss */
+  /* line 461, ../sass/screen.scss */
   .animation-speed-med #waves, .animation-speed-fast #waves, .animation-speed-slow #waves {
     -moz-animation: scroll_sky 60s linear infinite;
     -webkit-animation: scroll_sky 60s linear infinite;
     animation: scroll_sky 60s linear infinite;
   }
-  /* line 459, ../sass/screen.scss */
+  /* line 464, ../sass/screen.scss */
   .animation-speed-slow #waves, .animation-speed-pause #waves {
     -moz-animation-play-state: paused;
     -webkit-animation-play-state: paused;
     animation-play-state: paused;
   }
 }
-/* line 463, ../sass/screen.scss */
+/* line 468, ../sass/screen.scss */
 .animation-speed-slow #waves, .animation-speed-med #waves, .animation-speed-fast #waves, .animation-speed-stopped #waves {
   opacity: 1;
 }
 
-/* line 468, ../sass/screen.scss */
+/* line 473, ../sass/screen.scss */
 .wave .fill {
   fill: #006798;
 }
 @media (max-width: 767px) {
-  /* line 471, ../sass/screen.scss */
+  /* line 476, ../sass/screen.scss */
   .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_5 900ms ease-in-out infinite alternate;
     animation: wave_xs_5 900ms ease-in-out infinite alternate;
   }
-  /* line 474, ../sass/screen.scss */
+  /* line 479, ../sass/screen.scss */
   .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_4 600ms ease-in-out infinite alternate;
     animation: wave_xs_4 600ms ease-in-out infinite alternate;
   }
-  /* line 477, ../sass/screen.scss */
+  /* line 482, ../sass/screen.scss */
   .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_3 500ms ease-in-out infinite alternate;
     animation: wave_xs_3 500ms ease-in-out infinite alternate;
   }
-  /* line 480, ../sass/screen.scss */
+  /* line 485, ../sass/screen.scss */
   .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_2 600ms ease-in-out infinite alternate;
     animation: wave_xs_2 600ms ease-in-out infinite alternate;
   }
-  /* line 483, ../sass/screen.scss */
+  /* line 488, ../sass/screen.scss */
   .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_xs_1 400ms ease-in-out infinite alternate;
     -webkit-animation: wave_xs_1 400ms ease-in-out infinite alternate;
@@ -13736,31 +13745,31 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 488, ../sass/screen.scss */
+  /* line 493, ../sass/screen.scss */
   .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_md_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_md_5 14s ease-in-out infinite alternate;
     animation: wave_md_5 14s ease-in-out infinite alternate;
   }
-  /* line 491, ../sass/screen.scss */
+  /* line 496, ../sass/screen.scss */
   .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_md_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_4 12s ease-in-out infinite alternate;
     animation: wave_md_4 12s ease-in-out infinite alternate;
   }
-  /* line 494, ../sass/screen.scss */
+  /* line 499, ../sass/screen.scss */
   .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_md_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_md_3 12s ease-in-out infinite alternate;
     animation: wave_md_3 12s ease-in-out infinite alternate;
   }
-  /* line 497, ../sass/screen.scss */
+  /* line 502, ../sass/screen.scss */
   .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_md_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_md_2 10s ease-in-out infinite alternate;
     animation: wave_md_2 10s ease-in-out infinite alternate;
   }
-  /* line 500, ../sass/screen.scss */
+  /* line 505, ../sass/screen.scss */
   .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_md_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_md_1 15s ease-in-out infinite alternate;
@@ -13768,31 +13777,31 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 1200px) {
-  /* line 505, ../sass/screen.scss */
+  /* line 510, ../sass/screen.scss */
   .animation-speed-slow .wave_5, .animation-speed-med .wave_5, .animation-speed-fast .wave_5 {
     -moz-animation: wave_lg_5 14s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_5 14s ease-in-out infinite alternate;
     animation: wave_lg_5 14s ease-in-out infinite alternate;
   }
-  /* line 508, ../sass/screen.scss */
+  /* line 513, ../sass/screen.scss */
   .animation-speed-slow .wave_4, .animation-speed-med .wave_4, .animation-speed-fast .wave_4 {
     -moz-animation: wave_lg_4 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_4 12s ease-in-out infinite alternate;
     animation: wave_lg_4 12s ease-in-out infinite alternate;
   }
-  /* line 511, ../sass/screen.scss */
+  /* line 516, ../sass/screen.scss */
   .animation-speed-slow .wave_3, .animation-speed-med .wave_3, .animation-speed-fast .wave_3 {
     -moz-animation: wave_lg_3 12s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_3 12s ease-in-out infinite alternate;
     animation: wave_lg_3 12s ease-in-out infinite alternate;
   }
-  /* line 514, ../sass/screen.scss */
+  /* line 519, ../sass/screen.scss */
   .animation-speed-slow .wave_2, .animation-speed-med .wave_2, .animation-speed-fast .wave_2 {
     -moz-animation: wave_lg_2 10s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_2 10s ease-in-out infinite alternate;
     animation: wave_lg_2 10s ease-in-out infinite alternate;
   }
-  /* line 517, ../sass/screen.scss */
+  /* line 522, ../sass/screen.scss */
   .animation-speed-slow .wave_1, .animation-speed-med .wave_1, .animation-speed-fast .wave_1 {
     -moz-animation: wave_lg_1 15s ease-in-out infinite alternate;
     -webkit-animation: wave_lg_1 15s ease-in-out infinite alternate;
@@ -13800,35 +13809,35 @@ body.blog-page .blog-post-section {
   }
 }
 @media (max-width: 767px) {
-  /* line 524, ../sass/screen.scss */
+  /* line 529, ../sass/screen.scss */
   .svg-waves-ready .wave_5 {
     -moz-transform: translate(2%, 35%) scale(1.2);
     -ms-transform: translate(2%, 35%) scale(1.2);
     -webkit-transform: translate(2%, 35%) scale(1.2);
     transform: translate(2%, 35%) scale(1.2);
   }
-  /* line 527, ../sass/screen.scss */
+  /* line 532, ../sass/screen.scss */
   .svg-waves-ready .wave_4 {
     -moz-transform: translate(-17%, 23%) scale(1.3);
     -ms-transform: translate(-17%, 23%) scale(1.3);
     -webkit-transform: translate(-17%, 23%) scale(1.3);
     transform: translate(-17%, 23%) scale(1.3);
   }
-  /* line 530, ../sass/screen.scss */
+  /* line 535, ../sass/screen.scss */
   .svg-waves-ready .wave_3 {
     -moz-transform: translate(15%, 13%) scale(1.3);
     -ms-transform: translate(15%, 13%) scale(1.3);
     -webkit-transform: translate(15%, 13%) scale(1.3);
     transform: translate(15%, 13%) scale(1.3);
   }
-  /* line 533, ../sass/screen.scss */
+  /* line 538, ../sass/screen.scss */
   .svg-waves-ready .wave_2 {
     -moz-transform: translate(6%, -9%) scale(1.5);
     -ms-transform: translate(6%, -9%) scale(1.5);
     -webkit-transform: translate(6%, -9%) scale(1.5);
     transform: translate(6%, -9%) scale(1.5);
   }
-  /* line 536, ../sass/screen.scss */
+  /* line 541, ../sass/screen.scss */
   .svg-waves-ready .wave_1 {
     -moz-transform: translate(-4%, -21%) scale(1.5);
     -ms-transform: translate(-4%, -21%) scale(1.5);
@@ -13837,35 +13846,35 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 768px) and (max-width: 1199px) {
-  /* line 541, ../sass/screen.scss */
+  /* line 546, ../sass/screen.scss */
   .svg-waves-ready .wave_5 {
     -moz-transform: translate(-16%, 24%);
     -ms-transform: translate(-16%, 24%);
     -webkit-transform: translate(-16%, 24%);
     transform: translate(-16%, 24%);
   }
-  /* line 544, ../sass/screen.scss */
+  /* line 549, ../sass/screen.scss */
   .svg-waves-ready .wave_4 {
     -moz-transform: translate(18%, 24%);
     -ms-transform: translate(18%, 24%);
     -webkit-transform: translate(18%, 24%);
     transform: translate(18%, 24%);
   }
-  /* line 547, ../sass/screen.scss */
+  /* line 552, ../sass/screen.scss */
   .svg-waves-ready .wave_3 {
     -moz-transform: translate(-17%, 15%);
     -ms-transform: translate(-17%, 15%);
     -webkit-transform: translate(-17%, 15%);
     transform: translate(-17%, 15%);
   }
-  /* line 550, ../sass/screen.scss */
+  /* line 555, ../sass/screen.scss */
   .svg-waves-ready .wave_2 {
     -moz-transform: translate(22%, 0%);
     -ms-transform: translate(22%, 0%);
     -webkit-transform: translate(22%, 0%);
     transform: translate(22%, 0%);
   }
-  /* line 553, ../sass/screen.scss */
+  /* line 558, ../sass/screen.scss */
   .svg-waves-ready .wave_1 {
     -moz-transform: translate(-20%, -7%);
     -ms-transform: translate(-20%, -7%);
@@ -13874,35 +13883,35 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 1200px) {
-  /* line 558, ../sass/screen.scss */
+  /* line 563, ../sass/screen.scss */
   .svg-waves-ready .wave_5 {
     -moz-transform: translate(6.5%, 26%) scale(0.7);
     -ms-transform: translate(6.5%, 26%) scale(0.7);
     -webkit-transform: translate(6.5%, 26%) scale(0.7);
     transform: translate(6.5%, 26%) scale(0.7);
   }
-  /* line 561, ../sass/screen.scss */
+  /* line 566, ../sass/screen.scss */
   .svg-waves-ready .wave_4 {
     -moz-transform: translate(14.5%, 21%) scale(0.75);
     -ms-transform: translate(14.5%, 21%) scale(0.75);
     -webkit-transform: translate(14.5%, 21%) scale(0.75);
     transform: translate(14.5%, 21%) scale(0.75);
   }
-  /* line 564, ../sass/screen.scss */
+  /* line 569, ../sass/screen.scss */
   .svg-waves-ready .wave_3 {
     -moz-transform: translate(-2%, 14%) scale(0.75);
     -ms-transform: translate(-2%, 14%) scale(0.75);
     -webkit-transform: translate(-2%, 14%) scale(0.75);
     transform: translate(-2%, 14%) scale(0.75);
   }
-  /* line 567, ../sass/screen.scss */
+  /* line 572, ../sass/screen.scss */
   .svg-waves-ready .wave_2 {
     -moz-transform: translate(17%, 0%) scale(0.8);
     -ms-transform: translate(17%, 0%) scale(0.8);
     -webkit-transform: translate(17%, 0%) scale(0.8);
     transform: translate(17%, 0%) scale(0.8);
   }
-  /* line 570, ../sass/screen.scss */
+  /* line 575, ../sass/screen.scss */
   .svg-waves-ready .wave_1 {
     -moz-transform: translate(-11%, -15%) scale(0.85);
     -ms-transform: translate(-11%, -15%) scale(0.85);
@@ -13910,31 +13919,31 @@ body.blog-page .blog-post-section {
     transform: translate(-11%, -15%) scale(0.85);
   }
 }
-/* line 576, ../sass/screen.scss */
+/* line 581, ../sass/screen.scss */
 .animation-speed-slow .wave_5, .animation-speed-pause .wave_5 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 581, ../sass/screen.scss */
+/* line 586, ../sass/screen.scss */
 .animation-speed-med .wave_4, .animation-speed-pause .wave_4 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 586, ../sass/screen.scss */
+/* line 591, ../sass/screen.scss */
 .animation-speed-slow .wave_3, .animation-speed-pause .wave_3 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 591, ../sass/screen.scss */
+/* line 596, ../sass/screen.scss */
 .animation-speed-med .wave_2, .animation-speed-pause .wave_2 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;
   animation-play-state: paused;
 }
-/* line 596, ../sass/screen.scss */
+/* line 601, ../sass/screen.scss */
 .animation-speed-slow .wave_1, .animation-speed-pause .wave_1 {
   -moz-animation-play-state: paused;
   -webkit-animation-play-state: paused;

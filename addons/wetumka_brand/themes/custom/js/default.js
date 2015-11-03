@@ -77,6 +77,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     classes: false,
     active: function(){
       PubSub.publish('asset.typeKit.loaded');
+      document.querySelector('body').classList.add('tkFontsReady');
     }
   };
 
