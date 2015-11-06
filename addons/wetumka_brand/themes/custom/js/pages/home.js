@@ -239,7 +239,8 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 		style.setAttribute('id','fillWindowHeight');
 
 		if(ele){
-			ele.remove();
+			document.head.removeChild(ele);
+			//ele.remove(); // won't work in IE
 		}
 
 		if (style.styleSheet){

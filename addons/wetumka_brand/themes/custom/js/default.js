@@ -147,7 +147,8 @@ define (['lib/assets','lib/pubsub'/*,'lib/fpsmeter'*/,'lib/modernizr-custom','sn
 
       wave.waveSVG = new Snap(wave.tempSVG);
       wave.waveSVG.attr({
-        viewBox: '490 547 1280 125' // pulled down a smidge to cover line
+        viewBox: '490 547 1280 125', // pulled down a smidge to cover line
+        preserveAspectRatio: 'xMidYMid meet'
       });
       wave.waveSVG_fill = wave.waveSVG.select('.wave-stroke');
       wave.waveSVG_fill.attr({fill:wave.fillGrad[i]});
