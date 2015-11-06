@@ -26,6 +26,7 @@ $orange-dark:						#C86B00;
 $orange-mid:						#F08100;
 $orange-light:					#FF8900;
 
+$red-section: 					#d53b24;
 $red-darkest:						#9F2100;
 $red-dark:							#C82A00;
 $red-mid:								#F03200;
@@ -177,9 +178,9 @@ $table-border-color:            #ddd !default;
 
 $btn-font-weight:                normal !default;
 
-$btn-default-color:              #333 !default;
+$btn-default-color:              #000 !default;
 $btn-default-bg:                 #fff !default;
-$btn-default-border:             #ccc !default;
+$btn-default-border:             #fff !default;
 
 $btn-primary-color:              #fff !default;
 $btn-primary-bg:                 transparent !default;
@@ -301,7 +302,7 @@ $dropdown-caret-color:           #000 !default;
 // of components dependent on the z-axis and are designed to all work together.
 //
 // Note: These variables are not generated into the Customizer.
-
+$zindex-header:						 800 !default;
 $zindex-navbar:            1000 !default;
 $zindex-dropdown:          1000 !default;
 $zindex-popover:           1060 !default;

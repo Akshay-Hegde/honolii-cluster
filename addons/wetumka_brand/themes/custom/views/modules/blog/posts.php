@@ -17,7 +17,7 @@
 		</div>
 	</div>
 </section>
-<section id="section_1" class="block-wrapper sub-section blog-list-section">
+<section id="section_2" class="block-wrapper sub-section blog-list-section">
 	<div class="block">
 		<div class="block-inner">
 			<div class="mod-posts">

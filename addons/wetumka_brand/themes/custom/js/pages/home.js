@@ -10,30 +10,45 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 	var _ = {};
 
 	_.init = function(){
+		var assetsManager,bodyEle,htmlEle,scrollMe;
 		// pubsub subscriptions
-		PubSub.subscribe('event.window.scrollDelay', function(msg,data){_.fishingVisible(data);});
 		PubSub.subscribe('event.video.ended', function(msg,data){_.videoPlayer.videoEnded(data);});
+		PubSub.subscribe('asset.ready.svg.default', function(){_.wavesLoaded();});
 		// asset manager
-		var assetsManager = new Assets();
+		assetsManager = new Assets();
 		assetsManager.queueDownload([
 	  	assetPath + '/img/svg/small-fish.svg',
 	  	assetPath + '/img/svg/fish-hook.svg'
 	  ]);
 	  assetsManager.downloadAll(this.setSceneSVG);
-	  // document height
-	  var body = document.body;
-    var html = document.documentElement;
-
-		this.docHeight = Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight );
+	  // dom elements
+	  bodyEle = document.body;
+    htmlEle = document.documentElement;
+    // document height
+		this.docHeight = Math.max( bodyEle.scrollHeight, bodyEle.offsetHeight, htmlEle.clientHeight, htmlEle.scrollHeight, htmlEle.offsetHeight );
 	  // video player init
 	  this.videoPlayer.init();
-	  // add slider button
-	  var button = document.createElement('button');
-	  button.innerHTML = 'Continue';
-	  button.classList.add('cta');
-	  button.classList.add('tour-button');
-	  document.getElementById('content').appendChild(button);
-	  button.addEventListener('click', _.tourNext);
+	  // text
+	  _.text.init('animate_text','.animate-text','span', 3000); // wrap characters for animation
+	  // -------- Add Slider Button ---------------
+	  scrollMe = document.createElement('div');
+	  scrollMe.innerHTML = 'Scroll Down';
+	  scrollMe.classList.add('scroll-teaser');
+	  scrollMe.setAttribute('id','scrollMe');
+	  document.getElementById('content').appendChild(scrollMe);
+	  scrollMe.addEventListener("animationiteration", _.jumpBack);
+		scrollMe.addEventListener("webkitAnimationIteration", _.jumpBack);
+		scrollMe.addEventListener("mozAnimationIteration", _.jumpBack);
+		scrollMe.addEventListener("MSAnimationIteration", _.jumpBack);
+	  // fill window height
+	  _.fillWindow(); // make .fit-window the min-height of window
+	  window.onresize = function(){_.fillWindow();};
+	};
+
+	// scroll me text jump out
+	_.jumpBack = function(event){
+		//debugger;
+		this.classList.remove('active');
 	};
 
 	// tour slide functions
@@ -115,7 +130,7 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 		// -------------- FISH ------------------
 		fish.wrapper = document.getElementById('section_2');
 
-		for (var i = 15 - 1; i >= 0; i--) {
+		for (var i = 3 - 1; i >= 0; i--) {
 			fish.tempElement = document.createElement('div');
 			fish.tempElement.classList.add('fish');
 			fish.tempSVG = am.getCachedAsset('small-fish.svg').cloneNode(true);
@@ -148,7 +163,7 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 			}else if(fish.top > 75){
 				fish.tempElement.classList.add('style-4');
 			}
-			
+			// animation iteration event
 			fish.tempElement.addEventListener("animationiteration", _.fishReset);
 			fish.tempElement.addEventListener("webkitAnimationIteration", _.fishReset);
 			fish.tempElement.addEventListener("mozAnimationIteration", _.fishReset);
@@ -206,22 +221,35 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 			hooks.tempElement.setAttribute('style', hooks.styleString);
 
 		}
-  
-		_.text.init('animate_text','.animate-text','span', 3000); // wrap characters for animation
-		_.fillWindow(); // make .fit-window the min-height of window
-
-		return {fish:fish,hooks:hooks};
+  	setTimeout(function(){
+  		document.body.classList.add('svg-home-active');
+      PubSub.publish('asset.ready.svg.home');
+    },10);
 	};
 
 	// make sections the height of window on load
 	_.fillWindow = function(){
-		var sections = document.querySelectorAll('.fit-window');
-		var winHeight = window.innerHeight;
-		if(winHeight > 700){
-			for (var i = sections.length - 1; i >= 0; i--) {
-				sections[i].style.height = winHeight + 'px';
-			}
+		var winHeight = window.innerHeight,
+			css = '.fit-window { min-height: ' + winHeight + 'px;}',
+			head = document.head || document.getElementsByTagName('head')[0],
+			style = document.createElement('style'),
+			ele = document.getElementById('fillWindowHeight');
+
+		style.type = 'text/css';
+		style.setAttribute('id','fillWindowHeight');
+
+		if(ele){
+			ele.remove();
 		}
+
+		if (style.styleSheet){
+		  style.styleSheet.cssText = css;
+		} else {
+		  style.appendChild(document.createTextNode(css));
+		}
+
+		head.appendChild(style);
+
 	};
 
 	// animate text helper functions
@@ -310,31 +338,6 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 		}
 	};
 
-	// window scrolling
-	_.fishingVisible = function(data){
-		var winBot = window.pageYOffset + window.innerHeight - 100;
-		var ele = document.getElementById('section_2');
-		var eleTop = ele.offsetTop;
-		var eleBot = eleTop + ele.offsetHeight;
-		var hooks = document.getElementById('hooks');
-
-		// school of fish visible?
-		if(hooks){
-			if(!hooks.classList.contains('visible') && winBot > eleTop && data.scrollDir === 'down'){
-				hooks.classList.add('visible');
-			}else if(hooks.classList.contains('visible') && winBot < eleBot && data.scrollDir === 'up'){
-				hooks.classList.remove('visible');
-			}
-			if(!hooks.classList.contains('locked') && window.pageYOffset >= eleTop){
-				hooks.classList.add('locked');
-			}
-			if(hooks.classList.contains('locked') && window.pageYOffset < eleTop + 40 && data.scrollDir === 'up'){
-				hooks.classList.remove('locked');
-				hooks.classList.remove('visible');
-			}
-		}
-	};
-
 	// fish animate end function
 	_.fishReset = function(e){
 		var string = e.target.getAttribute('style');
@@ -359,6 +362,60 @@ define (['default','lib/pubsub','lib/assets','//www.youtube.com/iframe_api'], fu
 		}else if(top > 75){
 			e.target.classList.add('style-4');
 		}
+	};
+
+	// waves loaded
+	_.wavesLoaded = function(){
+		var waves = document.getElementById('waves'),
+			fishing = document.getElementById('section_2'),
+			hooks = document.getElementById('hooks'),
+			scrollFunction, timeout;
+
+		waves.classList.add('fit-window');
+
+		// scroll window
+	  scrollFunction = function(){
+	  	var offset = window.innerHeight - window.pageYOffset,
+	  		winBot = window.pageYOffset + window.innerHeight,
+	  		fishTop = fishing.offsetTop,
+	  		fishBot = fishTop + fishing.offsetHeight;
+	  	// conditional - waves section
+	  	if(offset > 0){
+	  		waves.classList.remove('hide');
+	  		waves.setAttribute('style','height:' + offset + 'px;');
+	  	}else{
+	  		waves.classList.add('hide');
+	  	}
+      // conditonal - fishing section
+      if(winBot >= fishTop + window.innerHeight /2 ){
+      	hooks.classList.add('visible');
+      }else{
+      	hooks.classList.remove('visible');
+      }
+      if(window.pageYOffset >= fishTop){
+      	hooks.classList.add('locked');
+      }else{
+      	hooks.classList.remove('locked');
+      }
+      // disable scroll me jumpy jumpy
+      if(winBot >= fishBot + window.innerHeight){
+      	clearTimeout(timeout);
+      }else{
+	      clearTimeout(timeout);  
+	      timeout = setInterval(function() {
+	        document.getElementById('scrollMe').classList.add('active');
+	      }, 6000);
+	    }
+	    // disable animated text when off screen
+	    if(window.pageYOffset > window.innerHeight - (window.innerHeight /4)){
+	    	document.body.classList.add('disable-headline-animation');
+	    }else{
+	    	document.body.classList.remove('disable-headline-animation');
+	    }
+    };
+
+    scrollFunction();
+    window.onscroll = scrollFunction;
 	};
 
 	_.init();

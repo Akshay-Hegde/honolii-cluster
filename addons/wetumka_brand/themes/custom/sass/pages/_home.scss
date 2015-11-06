@@ -19,6 +19,9 @@ body.home-page{
 		.animate-text{
 			height:90px;
 		}
+		@media (max-width: $screen-xs-max) {
+			margin-bottom:10px;
+		}
 		// xs
 		@media (min-width: $screen-xs-min) and (max-width: $screen-xs-max) {
 			font-size:40px;
@@ -49,39 +52,43 @@ body.home-page{
 				height:200px;
 			}
 		}
-		.animate-letters{
-			position: absolute;
-			width:100%;
-			left:0;
+	}
+	.animate-letters{
+		position: absolute;
+		width:100%;
+		left:0;
+		> span{
+			@include transition-duration(400ms);
+			@include transition-timing-function(ease-in);
+			@include transition-property(transform);
+			@include transform(rotateY(90deg));
+			display:inline-block;
+			&.space{
+				display:inline;
+			}
+			&.dash{
+				font-family:$font-family-sans-serif;
+			}
+		}
+		&.active{
 			> span{
-				@include transition-duration(400ms);
-				@include transition-timing-function(ease-in);
-				@include transition-property(transform);
-				@include transform(rotateY(90deg));
-				display:inline-block;
-				&.space{
-					display:inline;
-				}
-				&.dash{
-					font-family:$font-family-sans-serif;
-				}
+				@include transform(rotateY(0deg));
 			}
-			&.active{
-				> span{
-					@include transform(rotateY(0deg));
-				}
-			}
+		}
+		@at-root body.home-page.disable-headline-animation .animate-letters.active > span{
+			@include transform(rotateY(90deg));
 		}
 	}
 	.fit-window{
+		display: flex;
+    align-items: center;
+    justify-content: center;
+    height:auto;
+		// @media (max-width: $screen-xs-max) {
+		// 	padding-bottom:80px;
+		// }
 		@media (max-width: $screen-xs-max) {
-			padding-bottom:80px;
-		}
-		@media (min-width: $screen-sm-min){
-			display: flex;
-	    align-items: center;
-	    justify-content: center;
-	    min-height:650px;
+			min-height:0;
   	}
 	}
 	.welcome-section,.fish-section,.cta-section{
@@ -97,13 +104,19 @@ body.home-page{
 			> .block-inner{
 				@extend .col-md-offset-1;
 				@extend .col-md-10;
-				@extend .col-xs-11;
 			}
 		}
+	}
+	.welcome-section{
+		position: relative;
 	}
 	.fish-section {
 		@include background-image(linear-gradient(to top, darken($blue-darkest, 12%), $blue-darkest));
 		position: relative;
+		> .block{
+			position: relative;
+			z-index: 11;
+		}
 		p{
 			margin-bottom:1.8em;
 		}
@@ -112,6 +125,11 @@ body.home-page{
 			position: absolute;
 			left:-140px;
 			@include animation(fish linear infinite);
+			@include animation-play-state(paused);
+
+			@at-root .svg-home-active .fish{
+				@include animation-play-state(running!important);
+			}
 			&.style-1{
 				@include small-fish(
 					$bodyTop:#157ead,
@@ -167,7 +185,7 @@ body.home-page{
 	}
 	.cta-section {
 		@include background-image(linear-gradient(to top, darken($blue-darkest, 20%), darken($blue-darkest, 12%)));
-		
+		text-align:center;
 		.mod-capture{
 			max-height:0;
 			overflow:hidden;
@@ -176,6 +194,9 @@ body.home-page{
 		&.active{
 			.mod-capture{max-height:1000px;}
 			.video-player{display:none;}
+		}
+		@media (max-width: $screen-sm-max) {
+			padding:100px 0;
 		}
 	}
 	.hooks{
@@ -260,29 +281,46 @@ body.home-page{
     align-items: center;
     justify-content: center;
 		button.cta{
-			position: relative;
-			margin-top:50%;	
+			position:absolute;
+			top:50%;
+			width:150px;
+			margin-left:-75px;
+			margin-top:-25px;
 		}
 	}
-	.tour-button{
+	.scroll-teaser{
 		display:none;
-    @media (min-width: $screen-sm-min) and (max-width: $screen-sm-max) {
-			position: fixed;
-			display:block;
-			top:18px;
-			right: 10px;
-	    z-index: $zindex-tooltip;
-    }
-    @media (min-width: $screen-md-min) {
+		font-family:$font-family-sans-serif;
+		text-align:center;
+    @media (min-width: $screen-sm-min) {
     	position: fixed;
 			display:block;
-			bottom:50px;
+			bottom: 30px;
 			left: 50%;
 			margin-left: -50px;
 			width: 100px;
+			opacity:0;
+
+			@include transition(opacity 300ms);
+			@include animation(tada 3s linear infinite);
+			@include animation-play-state(paused);
+			&.active{
+				@include animation-play-state(running);
+				opacity:1;
+			}
     }
 	}
 	.mod-capture{
 		text-align:center;
+	}
+	.waves-wrapper{
+		min-height:0;
+		@media (min-width: $screen-sm-min) {
+			position: fixed;
+		}
+		.wave.wave-1{
+			border-bottom-width:100px;
+			margin-bottom:0;
+		}
 	}
 }

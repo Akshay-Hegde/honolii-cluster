@@ -1,5 +1,5 @@
 // default.js
-define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsvg','typekit'], function (Assets, PubSub) {
+define (['lib/assets','lib/pubsub'/*,'lib/fpsmeter'*/,'lib/modernizr-custom','snapsvg','typekit'], function (Assets, PubSub) {
   "use strict";
 
   // -------- PubSub Publish Events ---------------
@@ -14,11 +14,11 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
   _.init = function(){
     var timeout,
       scrollEvent,
-      bodyElement = document.querySelector('body'),
+      bodyEle = document.body,
       that = this;
 
     // trigger typekit
-    try{Typekit.load(this.typeKit);}catch(e){}
+    try{Typekit.load(this.typeKit);}catch(e){alert('oops');}
 
     // init socialShare
     this.socialShare();
@@ -28,7 +28,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
     // ---------- PubSub Subscribers --------------
     PubSub.subscribe('event.window.scrollDelay', function(){_.windowScrolling();});
-    PubSub.subscribe('asset.svgWaves.loaded', function(){_.checkAnimations(bodyElement);});
+    //PubSub.subscribe('asset.svgWaves.loaded', function(){_.checkAnimations(bodyEle);});
     
     // set scrollEventVisible elements
     this.scrollToggle = document.getElementsByClassName('scroll-visible');
@@ -38,15 +38,17 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     this.windowTop = window.pageYOffset;
 
     setInterval(function(){
+      var dataObj;
       if(that.didScroll){
         that.didScroll = false;
         if(that.windowTop === window.pageYOffset){
-          PubSub.publish('event.window.scrollDelay',{scrollDir:'stop'});
+          dataObj = {scrollDir:'stop'};
         }else if(that.windowTop > window.pageYOffset){
-          PubSub.publish('event.window.scrollDelay',{scrollDir:'up'});
+          dataObj = {scrollDir:'up'};
         }else{
-          PubSub.publish('event.window.scrollDelay',{scrollDir:'down'});
+          dataObj = {scrollDir:'down'};
         }
+        PubSub.publish('event.window.scrollDelay',dataObj);
         that.windowTop = window.pageYOffset;
       }
     }, 100);
@@ -64,7 +66,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     // asset manager
     var assetsManager = new Assets();
     assetsManager.queueDownload([
-      assetPath + '/img/svg/scn-1-waves.svg',
+      assetPath + '/img/svg/wave.svg',
       assetPath + '/img/svg/wetumka-logo.svg',
       assetPath + '/img/svg/hamburger-x-path.svg'
     ]);
@@ -73,11 +75,11 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
   
   // typekit object
   _.typeKit = {
-    async: true,
+    async: false,
     classes: false,
     active: function(){
-      PubSub.publish('asset.typeKit.loaded');
-      document.querySelector('body').classList.add('tkFontsReady');
+      PubSub.publish('asset.ready.typekit');
+      document.querySelector('body').classList.add('typekit-fonts-active');
     }
   };
 
@@ -116,51 +118,50 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
 
   // Set SVG backgrounds and animations
   _.setSceneSVG = function(am){ // am = assetManager
-    var wave = {}, logo = {}, bodyElement = document.querySelector('body');
+    var wave = {},
+      logo = {},
+      bodyEle = document.querySelector('body');
       
     // ------------ WAVES -----------------
-    
-    wave.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    wave.wrapperNode = document.getElementById('content');
+    wave.wrapper = document.getElementById('content');
+    wave.insertBefore = document.getElementById('section_main');
+    wave.wrapperElement = document.createElement('div');
+    wave.wrapperElement.setAttribute('id','waves');
+    wave.wrapperElement.classList.add('waves-wrapper');
+    wave.wrapper.insertBefore(wave.wrapperElement,wave.insertBefore);
+    //wave gradient strings - array used to clone svg instances
+    wave.fillGrad = [
+      "l(0, 0, 0, 1)#0286BA:0-#006798:60",
+      "l(0, 0, 0, 1)#0286BA:0-#006798:100",
+      "l(0, 0, 0, 1)#0286BA:30-#006798:100",
+      "l(0, 0, 0, 1)#0286BA:40-#006798:100",
+      "l(0, 0, 0, 1)#20B0E8:0-#006798:100",
+      "l(0, 0, 0, 1)#20B0E8:10-#006798:100"
+    ];
+    //loop thru array above and clone waves - cowabunga
+    for (var i = wave.fillGrad.length - 1; i >= 0; i--) {
+      wave.tempElement = document.createElement('div');
+      wave.tempElement.classList.add('wave');
+      wave.tempElement.classList.add('wave-' + i);
+      wave.tempSVG = am.getCachedAsset('wave.svg').cloneNode(true);
 
-    wave.svgNode.setAttribute('id','waves');
-    wave.wrapperNode.parentNode.insertBefore(wave.svgNode,wave.wrapperNode);
+      wave.waveSVG = new Snap(wave.tempSVG);
+      wave.waveSVG.attr({
+        viewBox: '490 547 1280 125' // pulled down a smidge to cover line
+      });
+      wave.waveSVG_fill = wave.waveSVG.select('.wave-stroke');
+      wave.waveSVG_fill.attr({fill:wave.fillGrad[i]});
 
-    wave.canvasSVG = new Snap('#waves');
-    wave.waveSVG = new Snap(am.getCachedAsset('scn-1-waves.svg').cloneNode(true));
+      wave.tempElement.appendChild(wave.tempSVG);
+      wave.wrapperElement.appendChild(wave.tempElement);
+      
+    }
 
-    //SVG drawing area
-    wave.canvasSVG.attr({
-      viewBox:'0 0 1280 800',
-      preserveAspectRatio:'none slice'
-    });
-
-    //SVG waves
-    wave.waveSVG.attr({
-      viewBox:'0 150 1280 800'
-    });
-
-    wave.waveSVG_w1 = wave.waveSVG.select('.wave_1 .stroke');
-    wave.waveSVG_w2 = wave.waveSVG.select('.wave_2 .stroke');
-    wave.waveSVG_w3 = wave.waveSVG.select('.wave_3 .stroke');
-    wave.waveSVG_w4 = wave.waveSVG.select('.wave_4 .stroke');
-    wave.waveSVG_w5 = wave.waveSVG.select('.wave_5 .stroke');
-
-    wave.waveSVG_w1.attr({fill:"l(0, 0, 0, 1)#0177AA:0-#006798:100"});
-    wave.waveSVG_w2.attr({fill:"l(0, 0, 0, 1)#0177AA:10-#006798:100"});
-    wave.waveSVG_w3.attr({fill:"l(0, 0, 0, 1)#0286BA:20-#006798:100"});
-    wave.waveSVG_w4.attr({fill:"l(0, 0, 0, 1)#0286BA:25-#006798:100"});
-    wave.waveSVG_w5.attr({fill:"l(0, 0, 0, 1)#0286BA:30-#006798:100"});
-
-    wave.canvasSVG.append(wave.waveSVG);
-    setTimeout(function(){
-      bodyElement.classList.add('svg-waves-ready');
-      PubSub.publish('asset.svgWaves.loaded');
-      //document.getElementById('waves').classList.add('active');
-    },10);
+    if(window.innerHeight - window.pageYOffset < 1){
+      wave.wrapperElement.classList.add('hide');
+    }
 
     // ------------ BIG LOGO -----------------
-  
     logo.big = {};
     logo.big.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     logo.big.svgNode.setAttribute('id','wetumka_logo');
@@ -181,28 +182,18 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     });
 
     logo.big.canvasSVG.append(logo.big.logoSVG);
-
-    setTimeout(function(){
-      bodyElement.classList.add('svg-logo-active');
-      //document.getElementById('wetumka_logo_wrapper').classList.add('active');
-    },10);
     
     // ------------ Main Nav Button -----------------
-    
     logo.small = {};
-
     logo.small.svgNode = document.createElementNS("http://www.w3.org/2000/svg", "svg");
     logo.small.svgNode.setAttribute('id','main-nav-button');
     //logo.small.svgNode.classList.add('site-header-toggle'); //todo: ie bug - svg classList method
     logo.small.svgNode.setAttribute('class','site-header-toggle');
-
     logo.small.wrapperNode = document.getElementById('header');
     logo.small.wrapperNode = logo.small.wrapperNode.querySelector('.site-header-wrapper');
     logo.small.wrapperNode.parentNode.insertBefore(logo.small.svgNode,logo.small.wrapperNode);
-
     logo.small.canvasSVG = new Snap('#main-nav-button');
     logo.small.menuSVG = new Snap(am.getCachedAsset('hamburger-x-path.svg').cloneNode(true));
-
     //SVG drawing area
     logo.small.canvasSVG.attr({
       preserveAspectRatio:'xMidYMid meet'
@@ -210,43 +201,40 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     logo.small.menuSVG.attr({
       viewBox:'-100 -100 400 400'
     });
-
     logo.small.showCircle = logo.small.canvasSVG.circle(50, 50, 45).addClass('aniCircle');
-
     logo.small.canvasSVG.append(logo.small.menuSVG);
-
     logo.small.hitCircle = logo.small.canvasSVG.circle(50, 50, 50).attr('fill','transparent');
+    //PUBSUB events
     logo.small.hitCircle.hover(
       function(e){PubSub.publish('event.hover.navToggle', e );},
       function(e){PubSub.publish('event.hover.navToggle', e );}
     );
     logo.small.hitCircle.click(function(e){PubSub.publish('event.click.navToggle', e );});
 
+    // ------------ READY Events --------------
     setTimeout(function(){
-      //document.getElementById('main-nav-button').classList.add('active');
-      bodyElement.classList.add('svg-menu-active');
+      bodyEle.classList.add('svg-default-active');
+      PubSub.publish('asset.ready.svg.default');
     },10);
 
     // ------------ FUNCTIONS -----------------
     
     logo.small.hover = function(event){
       if(event.type === 'mouseover'){
-        bodyElement.classList.add('svg-menu-hover');
-        bodyElement.classList.remove('svg-menu-active');
+        bodyEle.classList.add('svg-menu-hover');
       }else if(event.type === 'mouseout'){
-        bodyElement.classList.remove('svg-menu-hover');
-        bodyElement.classList.add('svg-menu-active');
+        bodyEle.classList.remove('svg-menu-hover');
       }
     };
 
     logo.small.click = function(event){
-      var clicked = bodyElement.classList.contains('svg-menu-selected');
+      var clicked = bodyEle.classList.contains('svg-menu-selected');
       if(clicked){
-        bodyElement.classList.remove('svg-menu-selected');
-        bodyElement.classList.remove('active-main-nav');
+        bodyEle.classList.remove('svg-menu-selected');
+        bodyEle.classList.remove('active-main-nav');
       }else{
-        bodyElement.classList.add('svg-menu-selected');
-        bodyElement.classList.add('active-main-nav');
+        bodyEle.classList.add('svg-menu-selected');
+        bodyEle.classList.add('active-main-nav');
       }
     };
 
@@ -255,8 +243,8 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     PubSub.subscribe( 'event.hover.navToggle', function(msg,event){logo.small.hover(event);});
   };
 
-  // Animation FPS conditionals
-  _.checkAnimations = function(bodyElement){
+  // Animation FPS conditionals - NOT USED FOR NOW
+  _.checkAnimations = function(bodyEle){
     var fpsObj, aniCookie = 'fpsCard';
 
     /* --------- TEMP USER AGENT SNIFFER -------------- */
@@ -285,13 +273,13 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
       console.log(e.fps, this.avg());
       if(this.sampleCount === 1){ // first sample
         if(e.fps < this.framesLow){ // if fps is low before animations started, then don't start them
-          bodyElement.classList.add('animation-speed-stopped');
+          bodyEle.classList.add('animation-speed-stopped');
           FPSMeter.stop();
           if(Modernizr.cookies){
             _.cookies.setItem(aniCookie,'animation-speed-stopped');
           }
         }else{
-          bodyElement.classList.add('animation-speed-fast');
+          bodyEle.classList.add('animation-speed-fast');
         }
       }
 
@@ -336,7 +324,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
           }else if(avg > 11 && avg < 21){
             this.fpsSpeed(2);
           }else{
-            bodyElement.classList.add('animation-speed-pause');
+            bodyEle.classList.add('animation-speed-pause');
             _.cookies.setItem(aniCookie,'animation-speed-stopped');
           }
         }
@@ -346,14 +334,14 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     fpsObj.fpsSpeed = function(speedIndex){
       var classArray = ['animation-speed-fast','animation-speed-med','animation-speed-slow'];
       for (var i = classArray.length; i--;) {
-        bodyElement.classList.remove(classArray[i]);
+        bodyEle.classList.remove(classArray[i]);
       }
-      bodyElement.classList.add(classArray[speedIndex]);
+      bodyEle.classList.add(classArray[speedIndex]);
       _.cookies.setItem(aniCookie,classArray[speedIndex]);
     };
 
     if(!Modernizr.webanimations && !isWebKit){
-      bodyElement.classList.add('animation-speed-stopped');
+      bodyEle.classList.add('animation-speed-stopped');
       if(Modernizr.cookies){
         _.cookies.setItem(aniCookie,'animation-speed-stopped');
       }
@@ -362,7 +350,7 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
       document.addEventListener('fps', function(e){fpsObj.fpsEvent(e);}, false);
       FPSMeter.run(2);
     }else if(Modernizr.cookies && _.cookies.hasItem(aniCookie)){
-      bodyElement.classList.add(_.cookies.getItem(aniCookie));
+      bodyEle.classList.add(_.cookies.getItem(aniCookie));
     }
   };
 
@@ -418,9 +406,9 @@ define (['lib/assets','lib/pubsub','lib/fpsmeter','lib/modernizr-custom','snapsv
     }
   };
 
-  // Window scroll to location
+  // Window scroll to location - TODO: find better soliton or switch to linear
   _.windowScrollTo = function(yLoc,duration){
-    var scrollHeight = window.scrollY,
+    var scrollHeight = window.pageYOffset,
       scrollStep = Math.PI / ( duration / 15 ),
       cosParameter = Math.round((scrollHeight - yLoc) / 2),
       scrollCount = 0,

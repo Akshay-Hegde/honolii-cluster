@@ -5,34 +5,13 @@
 * 
 -------------------------------------------- */
 @mixin section-red(){ // red background with texture
-	//background-color:$brand-red;
-	background-color:#d53b24;
+	@include background-image(linear-gradient(to top, darken($red-section, 12%), $red-section));
 	@media (min-width: $screen-sm-min) {
-		.px-density-2x &{
-			background-image: url(../img/orange_2x.jpg);
-			background-size: 1000px;
-		}
-		.px-density-1x &{
-			background-image: url(../img/orange_1x.jpg);
-		}
 		padding-bottom:140px;
-		background-position:center bottom;
-		background-repeat: repeat-x;
 	}
 }
 @mixin section-blue(){ // blue background with texture and animation
-	@media (min-width: $screen-sm-min) {
-		.px-density-2x &{
-			background-image: url(../img/flatBlueTexture_fade_2x.png),url(../img/flatBlueTexture_2x.png);
-			background-size: 200px;
-		}
-		.px-density-1x &{
-			background-image: url(../img/flatBlueTexture_fade_1x.png),url(../img/flatBlueTexture_1x.png);
-		}
-		background-position:center top, center center;
-		background-repeat: repeat-x, repeat;
-		//@include animation(scroll_water 15s linear infinite);
-	}
+	@include background-image(linear-gradient(to top, darken($blue-darkest, 12%), $blue-darkest));
 }
 /* -----------------------------------------
 *        			Module Styles
