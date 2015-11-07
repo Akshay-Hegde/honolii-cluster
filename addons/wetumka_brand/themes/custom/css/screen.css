@@ -12328,44 +12328,44 @@ body.blog-page .blog-post-section {
   width: 210%;
   right: -105%;
   border-bottom-width: 0;
-  margin-bottom: 100px;
+  margin-bottom: 0px;
 }
-/* line 144, ../sass/_svg.scss */
+/* line 145, ../sass/_svg.scss */
 .wave.wave-2 {
   bottom: 17%;
   width: 190%;
   left: -40%;
 }
-/* line 149, ../sass/_svg.scss */
+/* line 150, ../sass/_svg.scss */
 .wave.wave-4 {
   bottom: 32%;
   width: 175%;
   right: -30%;
 }
-/* line 154, ../sass/_svg.scss */
+/* line 155, ../sass/_svg.scss */
 .wave.wave-1, .wave.wave-3, .wave.wave-5 {
   display: none;
 }
 @media (min-width: 480px) and (max-width: 767px) {
-  /* line 159, ../sass/_svg.scss */
+  /* line 160, ../sass/_svg.scss */
   .wave.wave-0 {
     bottom: 10%;
     width: 220%;
     right: -25%;
   }
-  /* line 164, ../sass/_svg.scss */
+  /* line 165, ../sass/_svg.scss */
   .wave.wave-2 {
     bottom: 30%;
     width: 175%;
     right: -30%;
   }
-  /* line 169, ../sass/_svg.scss */
+  /* line 170, ../sass/_svg.scss */
   .wave.wave-4 {
     bottom: 40%;
     width: 145%;
     right: -40%;
   }
-  /* line 174, ../sass/_svg.scss */
+  /* line 175, ../sass/_svg.scss */
   .wave.wave-5 {
     bottom: 50%;
     width: 125%;
@@ -12374,32 +12374,32 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 768px) and (max-width: 991px) {
-  /* line 183, ../sass/_svg.scss */
+  /* line 184, ../sass/_svg.scss */
   .wave.wave-0 {
     bottom: 10%;
     width: 220%;
     right: -25%;
   }
-  /* line 188, ../sass/_svg.scss */
+  /* line 189, ../sass/_svg.scss */
   .wave.wave-1 {
     bottom: 20%;
     width: 190%;
     left: -5px;
     display: block;
   }
-  /* line 194, ../sass/_svg.scss */
+  /* line 195, ../sass/_svg.scss */
   .wave.wave-2 {
     bottom: 30%;
     width: 175%;
     right: -30%;
   }
-  /* line 199, ../sass/_svg.scss */
+  /* line 200, ../sass/_svg.scss */
   .wave.wave-4 {
     bottom: 40%;
     width: 145%;
     right: -40%;
   }
-  /* line 204, ../sass/_svg.scss */
+  /* line 205, ../sass/_svg.scss */
   .wave.wave-5 {
     bottom: 50%;
     width: 125%;
@@ -12408,32 +12408,32 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 992px) and (max-width: 1199px) {
-  /* line 213, ../sass/_svg.scss */
+  /* line 214, ../sass/_svg.scss */
   .wave.wave-0 {
     bottom: 0;
     width: 220%;
     right: -25%;
   }
-  /* line 218, ../sass/_svg.scss */
+  /* line 219, ../sass/_svg.scss */
   .wave.wave-1 {
     bottom: 10%;
     width: 190%;
     left: -5px;
     display: block;
   }
-  /* line 224, ../sass/_svg.scss */
+  /* line 225, ../sass/_svg.scss */
   .wave.wave-2 {
     bottom: 22%;
     width: 175%;
     right: -30%;
   }
-  /* line 229, ../sass/_svg.scss */
+  /* line 230, ../sass/_svg.scss */
   .wave.wave-4 {
     bottom: 33%;
     width: 145%;
     right: -40%;
   }
-  /* line 234, ../sass/_svg.scss */
+  /* line 235, ../sass/_svg.scss */
   .wave.wave-5 {
     bottom: 43%;
     width: 125%;
@@ -12446,39 +12446,39 @@ body.blog-page .blog-post-section {
   .wave {
     margin-bottom: 0;
   }
-  /* line 244, ../sass/_svg.scss */
+  /* line 245, ../sass/_svg.scss */
   .wave.wave-0 {
     bottom: 0;
     width: 190%;
     right: -5%;
   }
-  /* line 249, ../sass/_svg.scss */
+  /* line 250, ../sass/_svg.scss */
   .wave.wave-1 {
     bottom: 10%;
     width: 185%;
     left: -5px;
     display: block;
   }
-  /* line 255, ../sass/_svg.scss */
+  /* line 256, ../sass/_svg.scss */
   .wave.wave-2 {
     bottom: 20%;
     width: 175%;
     right: -30%;
   }
-  /* line 260, ../sass/_svg.scss */
+  /* line 261, ../sass/_svg.scss */
   .wave.wave-3 {
     bottom: 30%;
     width: 160%;
     left: -50%;
     display: block;
   }
-  /* line 266, ../sass/_svg.scss */
+  /* line 267, ../sass/_svg.scss */
   .wave.wave-4 {
     bottom: 40%;
     width: 145%;
     right: -40%;
   }
-  /* line 271, ../sass/_svg.scss */
+  /* line 272, ../sass/_svg.scss */
   .wave.wave-5 {
     bottom: 50%;
     width: 125%;
@@ -12487,39 +12487,39 @@ body.blog-page .blog-post-section {
   }
 }
 @media (min-width: 2001px) {
-  /* line 279, ../sass/_svg.scss */
+  /* line 280, ../sass/_svg.scss */
   .wave.wave-0 {
     bottom: 0;
     width: 220%;
     right: -25%;
   }
-  /* line 284, ../sass/_svg.scss */
+  /* line 285, ../sass/_svg.scss */
   .wave.wave-1 {
     bottom: 5%;
     width: 190%;
     left: -5px;
     display: block;
   }
-  /* line 290, ../sass/_svg.scss */
+  /* line 291, ../sass/_svg.scss */
   .wave.wave-2 {
     bottom: 10%;
     width: 175%;
     right: -30%;
   }
-  /* line 295, ../sass/_svg.scss */
+  /* line 296, ../sass/_svg.scss */
   .wave.wave-3 {
     bottom: 18%;
     width: 160%;
     left: -50%;
     display: block;
   }
-  /* line 301, ../sass/_svg.scss */
+  /* line 302, ../sass/_svg.scss */
   .wave.wave-4 {
     bottom: 25%;
     width: 145%;
     right: -40%;
   }
-  /* line 306, ../sass/_svg.scss */
+  /* line 307, ../sass/_svg.scss */
   .wave.wave-5 {
     bottom: 33%;
     width: 125%;
