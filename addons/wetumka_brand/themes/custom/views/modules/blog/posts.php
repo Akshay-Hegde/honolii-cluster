@@ -1,3 +1,6 @@
+{{ asset:js_inline }}
+  requirejs(['default']);
+{{ /asset:js_inline }}
 <section id="section_main" class="block-wrapper intro-section">
   <div class="block">
     <div class="block-inner">

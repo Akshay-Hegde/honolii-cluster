@@ -1,3 +1,6 @@
+{{ asset:js_inline }}
+  requirejs(['default']);
+{{ /asset:js_inline }}
 {{ post }}
 <section id="section_main" class="block-wrapper blog-post-section">
   <div class="block">
