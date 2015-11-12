@@ -1,7 +1,3 @@
-{{ asset:js_inline }}
-  requirejs(["pages/blog"]);
-{{ /asset:js_inline }}
-
 {{ post }}
 <section id="section_main" class="block-wrapper blog-post-section">
   <div class="block">
@@ -66,28 +62,38 @@
   </div>
 </section>
 <script type="text/javascript">
-  /* * * CONFIGURATION VARIABLES * * */
-  var disqus_shortname = "wetumka";
-  var disqus_identifier = "{{ id }}";
-  var disqus_title = "{{ title }}";
-  var disqus_url = "{{ url }}";
-  
-  /* * * DON'T EDIT BELOW THIS LINE * * */
+  /* Disqus */
+  var disqus_config = function () {
+    this.page.url = '{{ url }}';
+    this.page.identifier = '{{ id }}';
+    this.page.title = '{{ title }}';
+    //this.page.category_id = "";
+  };
   (function() {
-      var dsq = document.createElement('script');
-      dsq.type = 'text/javascript';
-      dsq.async = true;
-      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    var d = document,
+      s = d.createElement('script');
+    s.type = 'text/javascript';
+    s.src = '//wetumka.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+  })();
+  (function() {
+    var d = document,
+      s = d.createElement('script');
+    s.type = 'text/javascript';
+    s.src = '//wetumka.disqus.com/count.js';
+    s.setAttribute('id','dsq-count-scr');
+    (d.head || d.body).appendChild(s);
   })();
 
   /* Addthis Social Share */
   (function() {
-    var addthis = document.createElement('script');
-    addthis.type = 'text/javascript';
-    addthis.async = true;
-    addthis.src = '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c49f8c1ac46186';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(addthis);
+    var d = document,
+      s.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c49f8c1ac46186';
+    (d.head || d.body).appendChild(s);
   })();
 </script>
 {{ /post }}

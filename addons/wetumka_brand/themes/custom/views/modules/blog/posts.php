@@ -1,7 +1,3 @@
-{{ asset:js_inline }}
-    requirejs(["pages/blog"]);
-{{ /asset:js_inline }}
-
 <section id="section_main" class="block-wrapper intro-section">
   <div class="block">
     <div class="block-inner">
@@ -67,3 +63,24 @@
     </div>
   </div>
 </section>
+<script type="text/javascript">
+  /* Disqus */
+  (function() {
+    var d = document,
+      s = d.createElement('script');
+    s.type = 'text/javascript';
+    s.src = '//wetumka.disqus.com/count.js';
+    s.setAttribute('id','dsq-count-scr');
+    (d.head || d.body).appendChild(s);
+  })();
+
+  /* Addthis Social Share */
+  (function() {
+    var d = document,
+      s.createElement('script');
+    s.type = 'text/javascript';
+    s.async = true;
+    s.src = '//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-53c49f8c1ac46186';
+    (d.head || d.body).appendChild(s);
+  })();
+</script>
