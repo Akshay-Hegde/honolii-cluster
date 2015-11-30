@@ -14,8 +14,9 @@
 {{ if global:environment == 'development' }}
 <link rel="stylesheet" href="/{{theme:path}}/css/screen.css" />
 {{ else }}
-<link rel="stylesheet" href="/{{theme:path}}/publish/css-1447319380228/production.css" />
+<link rel="stylesheet" href="/{{theme:path}}/publish/css-1448853675810/production.css" />
 {{ endif }}
+{{ asset:render_css }}
 {{ asset:render_css_inline }}
 <!-- JS -->
 <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js"></script>
