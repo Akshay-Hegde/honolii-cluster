@@ -1,7 +1,3 @@
-[submodule "addons/shared_addons/modules/galleries"]
-	path = addons/shared_addons/modules/galleries
-	url = git@github.com:edmeehan/galleries.git
-
 [submodule "addons/wetumka_brand/modules/payment"]
 	path = addons/wetumka_brand/modules/payment
 	url = git@github.com:edmeehan/pyrocms-payments.git
