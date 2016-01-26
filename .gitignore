@@ -17,6 +17,8 @@ dbv/data/meta/revision
 node_modules
 .sass-cache
 .htaccess
+Vagrantfile
+vagrant-provision
 
 database_dump/stage/*.sql
 database_dump/dev/project_db_*.sql
