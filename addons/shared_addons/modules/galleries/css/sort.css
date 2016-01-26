@@ -1,0 +1,16 @@
+.gallery-toolbar {
+	display: inline-block;
+	position: relative;
+	float: right;
+	padding-right: 16px
+}
+
+.gallery-buttons {
+	display: inline-block;
+	position: relative;
+}
+
+.gallery-buttons li {
+	display: inline-block;
+	margin-right: 4px;
+}
