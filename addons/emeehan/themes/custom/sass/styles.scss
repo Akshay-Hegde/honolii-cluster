@@ -310,6 +310,53 @@
 
 	}
 }
+// RESUME
+.mod-resume{
+	&-hd{
+		.head-shot{
+			width:90%;
+			max-width:200px;
+			display: block;
+			margin: 0 auto;
+		}
+		.intro-headline{
+			font-family:$font-family-script;
+			text-align:center;
+			color: $brand-red;
+			font-size: 60px;
+		}
+		.intro-subhead{
+			text-align: center;
+			margin-top:0;
+		}
+	}
+	&-bd{
+		.section-headline{
+			text-align:center;
+			color:$brand-gray;
+			text-transform:uppercase;
+			border-bottom:solid 1px $brand-gray;
+			margin-top:2em;
+			margin-bottom:2em;
+		}
+	}
+	&-ft{
+		margin-bottom:150px;
+	}
+}
+.mod-job{
+	@extend .row;
+	&-hd{
+		@extend .col-md-4;
+	}
+	&-bd{
+		@extend .col-md-8;
+	}
+	&-ft{
+		@extend .col-md-12;
+	}
+}
+// SEARCH RESULTS
 .mod-search-results{
 	&-hd{
 		text-align:center;
