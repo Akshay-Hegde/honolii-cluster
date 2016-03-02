@@ -22,5 +22,7 @@ Capfile
 config/*
 lib/capistrano/*
 
+addons/jasc_core/plugins/jascinstagram.php
+
 database_dump/stage/*.sql
 database_dump/dev/*.sql
