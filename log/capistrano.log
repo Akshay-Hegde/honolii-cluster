@@ -1,0 +1,554 @@
+# Logfile created on 2016-09-13 22:58:30 -0700 by logger.rb/54362
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-09-13 22:58:30 -0700 cap prod deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [f8796fb5] Running /usr/bin/env mkdir -p /home/deploy/tmp as deploy@162.243.138.114
+ DEBUG [f8796fb5] Command: /usr/bin/env mkdir -p /home/deploy/tmp
+  INFO [f8796fb5] Finished in 0.908 seconds with exit status 0 (successful).
+ DEBUG Uploading /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh 0.0%
+  INFO Uploading /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh 100.0%
+  INFO [a1c483b2] Running /usr/bin/env chmod 700 /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh as deploy@162.243.138.114
+ DEBUG [a1c483b2] Command: /usr/bin/env chmod 700 /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh
+  INFO [a1c483b2] Finished in 0.064 seconds with exit status 0 (successful).
+  INFO [519e7705] Running /usr/bin/env git ls-remote --heads git@github.com:edmeehan/honolii-cluster.git as deploy@162.243.138.114
+ DEBUG [519e7705] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git ls-remote --heads git@github.com:edmeehan/honolii-cluster.git )
+ DEBUG [519e7705] 	Warning: Permanently added the RSA host key for IP address '192.30.253.112' to the list of known hosts.
+ DEBUG [519e7705] 	db7c43c1f30224ec172542454eb78766c913e376	refs/heads/develop
+fb7819015c81847719341bbce7fcc4a9c5551408	refs/heads/master
+  INFO [519e7705] Finished in 1.263 seconds with exit status 0 (successful).
+  INFO [a9a59a67] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared /home/deploy/honolii_cluster/releases as deploy@162.243.138.114
+ DEBUG [a9a59a67] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared /home/deploy/honolii_cluster/releases
+  INFO [a9a59a67] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [83ffc9a1] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/shared/system/cms/logs as deploy@162.243.138.114
+ DEBUG [83ffc9a1] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/shared/system/cms/logs
+  INFO [83ffc9a1] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [efb667a7] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/system/cms/config /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins as deploy@162.243.138.114
+ DEBUG [efb667a7] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/system/cms/config /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins
+  INFO [efb667a7] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [bdefe6c6] Running [ -f /home/deploy/honolii_cluster/shared/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [bdefe6c6] Command: [ -f /home/deploy/honolii_cluster/shared/system/cms/config/database.php ]
+ DEBUG [bdefe6c6] Finished in 0.054 seconds with exit status 0 (successful).
+ DEBUG [db7c9856] Running [ -f /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [db7c9856] Command: [ -f /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [db7c9856] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [2d1dcfb7] Running [ -f /home/deploy/honolii_cluster/current/REVISION ] as deploy@162.243.138.114
+ DEBUG [2d1dcfb7] Command: [ -f /home/deploy/honolii_cluster/current/REVISION ]
+ DEBUG [2d1dcfb7] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [41ad6518] Running /usr/bin/env cat /home/deploy/honolii_cluster/current/REVISION 2>/dev/null as deploy@162.243.138.114
+ DEBUG [41ad6518] Command: /usr/bin/env cat /home/deploy/honolii_cluster/current/REVISION 2>/dev/null
+ DEBUG [41ad6518] 	e21dc9e
+ DEBUG [41ad6518] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [d210f269] Running [ -f /home/deploy/honolii_cluster/repo/HEAD ] as deploy@162.243.138.114
+ DEBUG [d210f269] Command: [ -f /home/deploy/honolii_cluster/repo/HEAD ]
+ DEBUG [d210f269] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/honolii_cluster/repo
+ DEBUG [cdb760a7] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [cdb760a7] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [cdb760a7] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [ede67f9a] Running /usr/bin/env git remote update --prune as deploy@162.243.138.114
+ DEBUG [ede67f9a] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [ede67f9a] 	Fetching origin
+ DEBUG [ede67f9a] 	From github.com:edmeehan/honolii-cluster
+ DEBUG [ede67f9a] 	 + 71000f6...db7c43c develop    -> develop  (forced update)
+ DEBUG [ede67f9a] 	 + e21dc9e...fb78190 master     -> master  (forced update)
+ DEBUG [ede67f9a] 	 - [tag update]      v1.2.0     -> v1.2.0
+ DEBUG [ede67f9a] 	 - [tag update]      v1.2.0-beta2 -> v1.2.0-beta2
+ DEBUG [ede67f9a] 	 - [tag update]      v1.2.1     -> v1.2.1
+ DEBUG [ede67f9a] 	 - [tag update]      v1.3.0     -> v1.3.0
+ DEBUG [ede67f9a] 	 - [tag update]      v1.3.0-beta1 -> v1.3.0-beta1
+ DEBUG [ede67f9a] 	 - [tag update]      v1.3.1     -> v1.3.1
+ DEBUG [ede67f9a] 	 - [tag update]      v1.3.2     -> v1.3.2
+ DEBUG [ede67f9a] 	 - [tag update]      v2.0.0     -> v2.0.0
+ DEBUG [ede67f9a] 	 - [tag update]      v2.0.0-RC1 -> v2.0.0-RC1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.0.0-beta1 -> v2.0.0-beta1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.0.1     -> v2.0.1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.0.2     -> v2.0.2
+ DEBUG [ede67f9a] 	 - [tag update]      v2.0.3     -> v2.0.3
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.0     -> v2.1.0
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.0-beta -> v2.1.0-beta
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.1     -> v2.1.1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.2     -> v2.1.2
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.3     -> v2.1.3
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.4     -> v2.1.4
+ DEBUG [ede67f9a] 	 - [tag update]      v2.1.5     -> v2.1.5
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.0     -> v2.2.0
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.0-beta1 -> v2.2.0-beta1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.0-beta2 -> v2.2.0-beta2
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.0-rc1 -> v2.2.0-rc1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.0-rc2 -> v2.2.0-rc2
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.1     -> v2.2.1
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.2     -> v2.2.2
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.3     -> v2.2.3
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.4     -> v2.2.4
+ DEBUG [ede67f9a] 	 - [tag update]      v2.2.5     -> v2.2.5
+ DEBUG [ede67f9a] 	 x [deleted]         (none)     -> feature/bumpobox
+ DEBUG [ede67f9a] 	 x [deleted]         (none)     -> feature/java-club
+  INFO [ede67f9a] Finished in 19.153 seconds with exit status 0 (successful).
+ DEBUG [9a188ef7] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [9a188ef7] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [9a188ef7] Finished in 0.067 seconds with exit status 0 (successful).
+  INFO [3f0a26fb] Running /usr/bin/env git clone -b master --recursive . /home/deploy/honolii_cluster/releases/20160914055834 as deploy@162.243.138.114
+ DEBUG [3f0a26fb] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git clone -b master --recursive . /home/deploy/honolii_cluster/releases/20160914055834 )
+ DEBUG [3f0a26fb] 	Cloning into '/home/deploy/honolii_cluster/releases/20160914055834'...
+ DEBUG [3f0a26fb] 	done.
+Checking connectivity... 
+ DEBUG [3f0a26fb] 	done
+  INFO [3f0a26fb] Finished in 1.890 seconds with exit status 0 (successful).
+ DEBUG [1bab32bb] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [1bab32bb] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [1bab32bb] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [3c1f3145] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055834 as deploy@162.243.138.114
+ DEBUG [3c1f3145] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055834 )
+  INFO [3c1f3145] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [3f5cc16c] Running /usr/bin/env git archive master | tar -x -f - -C /home/deploy/honolii_cluster/releases/20160914055834 as deploy@162.243.138.114
+ DEBUG [3f5cc16c] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git archive master | tar -x -f - -C /home/deploy/honolii_cluster/releases/20160914055834 )
+  INFO [3f5cc16c] Finished in 0.884 seconds with exit status 0 (successful).
+ DEBUG [11078960] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [11078960] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [11078960] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [faefcac1] Running /usr/bin/env git rev-list --max-count=1 master as deploy@162.243.138.114
+ DEBUG [faefcac1] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [faefcac1] 	fb7819015c81847719341bbce7fcc4a9c5551408
+ DEBUG [faefcac1] Finished in 0.064 seconds with exit status 0 (successful).
+ DEBUG [c078fb7d] Running if test ! -d /home/deploy/honolii_cluster/releases/20160914055834; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases/20160914055834'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [c078fb7d] Command: if test ! -d /home/deploy/honolii_cluster/releases/20160914055834; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases/20160914055834'" 1>&2; false; fi
+ DEBUG [c078fb7d] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [c7ce1950] Running /usr/bin/env echo "fb7819015c81847719341bbce7fcc4a9c5551408" >> REVISION as deploy@162.243.138.114
+ DEBUG [c7ce1950] Command: cd /home/deploy/honolii_cluster/releases/20160914055834 && /usr/bin/env echo "fb7819015c81847719341bbce7fcc4a9c5551408" >> REVISION
+  INFO [c7ce1950] Finished in 0.063 seconds with exit status 0 (successful).
+  INFO [21246590] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins as deploy@162.243.138.114
+ DEBUG [21246590] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins
+  INFO [21246590] Finished in 0.065 seconds with exit status 0 (successful).
+ DEBUG [96c3f2cc] Running [ -L /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [96c3f2cc] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config/database.php ]
+ DEBUG [96c3f2cc] Finished in 0.057 seconds with exit status 1 (failed).
+ DEBUG [2be2bb1b] Running [ -f /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [2be2bb1b] Command: [ -f /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config/database.php ]
+ DEBUG [2be2bb1b] Finished in 0.059 seconds with exit status 1 (failed).
+  INFO [6564c948] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/config/database.php /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config/database.php as deploy@162.243.138.114
+ DEBUG [6564c948] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/config/database.php /home/deploy/honolii_cluster/releases/20160914055834/system/cms/config/database.php
+  INFO [6564c948] Finished in 0.065 seconds with exit status 0 (successful).
+ DEBUG [22ddbfec] Running [ -L /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [22ddbfec] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [22ddbfec] Finished in 0.057 seconds with exit status 1 (failed).
+ DEBUG [8ab401db] Running [ -f /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [8ab401db] Command: [ -f /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [8ab401db] Finished in 0.057 seconds with exit status 1 (failed).
+  INFO [21111ed2] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins/jascinstagram.php as deploy@162.243.138.114
+ DEBUG [21111ed2] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php /home/deploy/honolii_cluster/releases/20160914055834/addons/jasc_core/plugins/jascinstagram.php
+  INFO [21111ed2] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [e72d4f80] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055834 /home/deploy/honolii_cluster/releases/20160914055834/system/cms as deploy@162.243.138.114
+ DEBUG [e72d4f80] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055834 /home/deploy/honolii_cluster/releases/20160914055834/system/cms
+  INFO [e72d4f80] Finished in 0.061 seconds with exit status 0 (successful).
+ DEBUG [938bc7e2] Running [ -L /home/deploy/honolii_cluster/releases/20160914055834/uploads ] as deploy@162.243.138.114
+ DEBUG [938bc7e2] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055834/uploads ]
+ DEBUG [938bc7e2] Finished in 0.056 seconds with exit status 1 (failed).
+ DEBUG [e25a2448] Running [ -d /home/deploy/honolii_cluster/releases/20160914055834/uploads ] as deploy@162.243.138.114
+ DEBUG [e25a2448] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055834/uploads ]
+ DEBUG [e25a2448] Finished in 0.064 seconds with exit status 1 (failed).
+  INFO [dd87a063] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/releases/20160914055834/uploads as deploy@162.243.138.114
+ DEBUG [dd87a063] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/releases/20160914055834/uploads
+  INFO [dd87a063] Finished in 0.055 seconds with exit status 0 (successful).
+ DEBUG [a2196f29] Running [ -L /home/deploy/honolii_cluster/releases/20160914055834/assets ] as deploy@162.243.138.114
+ DEBUG [a2196f29] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055834/assets ]
+ DEBUG [a2196f29] Finished in 0.058 seconds with exit status 1 (failed).
+ DEBUG [dc079409] Running [ -d /home/deploy/honolii_cluster/releases/20160914055834/assets ] as deploy@162.243.138.114
+ DEBUG [dc079409] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055834/assets ]
+ DEBUG [dc079409] Finished in 0.054 seconds with exit status 0 (successful).
+  INFO [ffd667d7] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055834/assets as deploy@162.243.138.114
+ DEBUG [ffd667d7] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055834/assets
+  INFO [ffd667d7] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [3a8e2352] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/releases/20160914055834/assets as deploy@162.243.138.114
+ DEBUG [3a8e2352] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/releases/20160914055834/assets
+  INFO [3a8e2352] Finished in 0.062 seconds with exit status 0 (successful).
+ DEBUG [635e6d31] Running [ -L /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache ] as deploy@162.243.138.114
+ DEBUG [635e6d31] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache ]
+ DEBUG [635e6d31] Finished in 0.055 seconds with exit status 1 (failed).
+ DEBUG [192a466d] Running [ -d /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache ] as deploy@162.243.138.114
+ DEBUG [192a466d] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache ]
+ DEBUG [192a466d] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [5bffb0c5] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache as deploy@162.243.138.114
+ DEBUG [5bffb0c5] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache
+  INFO [5bffb0c5] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [206bca73] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache as deploy@162.243.138.114
+ DEBUG [206bca73] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/releases/20160914055834/system/cms/cache
+  INFO [206bca73] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [2cb46f7e] Running [ -L /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs ] as deploy@162.243.138.114
+ DEBUG [2cb46f7e] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs ]
+ DEBUG [2cb46f7e] Finished in 0.057 seconds with exit status 1 (failed).
+ DEBUG [e13cc243] Running [ -d /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs ] as deploy@162.243.138.114
+ DEBUG [e13cc243] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs ]
+ DEBUG [e13cc243] Finished in 0.056 seconds with exit status 0 (successful).
+  INFO [f6b90205] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs as deploy@162.243.138.114
+ DEBUG [f6b90205] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs
+  INFO [f6b90205] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [65f144fe] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/logs /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs as deploy@162.243.138.114
+ DEBUG [65f144fe] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/logs /home/deploy/honolii_cluster/releases/20160914055834/system/cms/logs
+  INFO [65f144fe] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [443ce3ac] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055834/README.md as deploy@162.243.138.114
+ DEBUG [443ce3ac] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055834/README.md
+  INFO [443ce3ac] Finished in 0.063 seconds with exit status 0 (successful).
+  INFO [3b7b9e7b] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055834/Capfile as deploy@162.243.138.114
+ DEBUG [3b7b9e7b] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055834/Capfile
+ DEBUG [3b7b9e7b] 	rm: cannot remove ‘/home/deploy/honolii_cluster/releases/20160914055834/Capfile’: No such file or directory
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-09-13 22:59:16 -0700 cap prod deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [32cfa2bc] Running /usr/bin/env mkdir -p /home/deploy/tmp as deploy@162.243.138.114
+ DEBUG [32cfa2bc] Command: /usr/bin/env mkdir -p /home/deploy/tmp
+  INFO [32cfa2bc] Finished in 0.861 seconds with exit status 0 (successful).
+ DEBUG Uploading /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh 0.0%
+  INFO Uploading /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh 100.0%
+  INFO [e0ecbc4a] Running /usr/bin/env chmod 700 /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh as deploy@162.243.138.114
+ DEBUG [e0ecbc4a] Command: /usr/bin/env chmod 700 /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh
+  INFO [e0ecbc4a] Finished in 0.084 seconds with exit status 0 (successful).
+  INFO [65728c79] Running /usr/bin/env git ls-remote --heads git@github.com:edmeehan/honolii-cluster.git as deploy@162.243.138.114
+ DEBUG [65728c79] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git ls-remote --heads git@github.com:edmeehan/honolii-cluster.git )
+ DEBUG [65728c79] 	Warning: Permanently added the RSA host key for IP address '192.30.253.113' to the list of known hosts.
+ DEBUG [65728c79] 	db7c43c1f30224ec172542454eb78766c913e376	refs/heads/develop
+fb7819015c81847719341bbce7fcc4a9c5551408	refs/heads/master
+  INFO [65728c79] Finished in 1.267 seconds with exit status 0 (successful).
+  INFO [8ac8b928] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared /home/deploy/honolii_cluster/releases as deploy@162.243.138.114
+ DEBUG [8ac8b928] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared /home/deploy/honolii_cluster/releases
+  INFO [8ac8b928] Finished in 0.081 seconds with exit status 0 (successful).
+  INFO [c3e0d47a] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/shared/system/cms/logs as deploy@162.243.138.114
+ DEBUG [c3e0d47a] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/shared/system/cms/logs
+  INFO [c3e0d47a] Finished in 0.081 seconds with exit status 0 (successful).
+  INFO [4a6e09d4] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/system/cms/config /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins as deploy@162.243.138.114
+ DEBUG [4a6e09d4] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/system/cms/config /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins
+  INFO [4a6e09d4] Finished in 0.082 seconds with exit status 0 (successful).
+ DEBUG [869d9bbe] Running [ -f /home/deploy/honolii_cluster/shared/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [869d9bbe] Command: [ -f /home/deploy/honolii_cluster/shared/system/cms/config/database.php ]
+ DEBUG [869d9bbe] Finished in 0.079 seconds with exit status 0 (successful).
+ DEBUG [1d4ad654] Running [ -f /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [1d4ad654] Command: [ -f /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [1d4ad654] Finished in 0.076 seconds with exit status 0 (successful).
+ DEBUG [09ca1499] Running [ -f /home/deploy/honolii_cluster/current/REVISION ] as deploy@162.243.138.114
+ DEBUG [09ca1499] Command: [ -f /home/deploy/honolii_cluster/current/REVISION ]
+ DEBUG [09ca1499] Finished in 0.078 seconds with exit status 0 (successful).
+ DEBUG [fd9d58b0] Running /usr/bin/env cat /home/deploy/honolii_cluster/current/REVISION 2>/dev/null as deploy@162.243.138.114
+ DEBUG [fd9d58b0] Command: /usr/bin/env cat /home/deploy/honolii_cluster/current/REVISION 2>/dev/null
+ DEBUG [fd9d58b0] 	e21dc9e
+ DEBUG [fd9d58b0] Finished in 0.074 seconds with exit status 0 (successful).
+ DEBUG [f39346da] Running [ -f /home/deploy/honolii_cluster/repo/HEAD ] as deploy@162.243.138.114
+ DEBUG [f39346da] Command: [ -f /home/deploy/honolii_cluster/repo/HEAD ]
+ DEBUG [f39346da] Finished in 0.083 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/honolii_cluster/repo
+ DEBUG [d0f18eac] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [d0f18eac] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [d0f18eac] Finished in 0.074 seconds with exit status 0 (successful).
+  INFO [b492a9e2] Running /usr/bin/env git remote update --prune as deploy@162.243.138.114
+ DEBUG [b492a9e2] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [b492a9e2] 	Fetching origin
+  INFO [b492a9e2] Finished in 1.236 seconds with exit status 0 (successful).
+ DEBUG [47005316] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [47005316] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [47005316] Finished in 0.080 seconds with exit status 0 (successful).
+  INFO [5dcdac2a] Running /usr/bin/env git clone -b master --recursive . /home/deploy/honolii_cluster/releases/20160914055919 as deploy@162.243.138.114
+ DEBUG [5dcdac2a] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git clone -b master --recursive . /home/deploy/honolii_cluster/releases/20160914055919 )
+ DEBUG [5dcdac2a] 	Cloning into '/home/deploy/honolii_cluster/releases/20160914055919'...
+ DEBUG [5dcdac2a] 	done.
+Checking connectivity... 
+ DEBUG [5dcdac2a] 	done
+  INFO [5dcdac2a] Finished in 1.810 seconds with exit status 0 (successful).
+ DEBUG [7709c863] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [7709c863] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [7709c863] Finished in 0.083 seconds with exit status 0 (successful).
+  INFO [f4583972] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055919 as deploy@162.243.138.114
+ DEBUG [f4583972] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055919 )
+  INFO [f4583972] Finished in 0.084 seconds with exit status 0 (successful).
+  INFO [f40b0af3] Running /usr/bin/env git archive master | tar -x -f - -C /home/deploy/honolii_cluster/releases/20160914055919 as deploy@162.243.138.114
+ DEBUG [f40b0af3] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git archive master | tar -x -f - -C /home/deploy/honolii_cluster/releases/20160914055919 )
+  INFO [f40b0af3] Finished in 0.866 seconds with exit status 0 (successful).
+ DEBUG [cc1884e1] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [cc1884e1] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [cc1884e1] Finished in 0.080 seconds with exit status 0 (successful).
+ DEBUG [12f97bfe] Running /usr/bin/env git rev-list --max-count=1 master as deploy@162.243.138.114
+ DEBUG [12f97bfe] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [12f97bfe] 	fb7819015c81847719341bbce7fcc4a9c5551408
+ DEBUG [12f97bfe] Finished in 0.078 seconds with exit status 0 (successful).
+ DEBUG [df8ba01e] Running if test ! -d /home/deploy/honolii_cluster/releases/20160914055919; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases/20160914055919'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [df8ba01e] Command: if test ! -d /home/deploy/honolii_cluster/releases/20160914055919; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases/20160914055919'" 1>&2; false; fi
+ DEBUG [df8ba01e] Finished in 0.079 seconds with exit status 0 (successful).
+  INFO [a0c095e5] Running /usr/bin/env echo "fb7819015c81847719341bbce7fcc4a9c5551408" >> REVISION as deploy@162.243.138.114
+ DEBUG [a0c095e5] Command: cd /home/deploy/honolii_cluster/releases/20160914055919 && /usr/bin/env echo "fb7819015c81847719341bbce7fcc4a9c5551408" >> REVISION
+  INFO [a0c095e5] Finished in 0.081 seconds with exit status 0 (successful).
+  INFO [f0841be5] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins as deploy@162.243.138.114
+ DEBUG [f0841be5] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins
+  INFO [f0841be5] Finished in 0.080 seconds with exit status 0 (successful).
+ DEBUG [15378e0a] Running [ -L /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [15378e0a] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config/database.php ]
+ DEBUG [15378e0a] Finished in 0.080 seconds with exit status 1 (failed).
+ DEBUG [ce8f6bb9] Running [ -f /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [ce8f6bb9] Command: [ -f /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config/database.php ]
+ DEBUG [ce8f6bb9] Finished in 0.077 seconds with exit status 1 (failed).
+  INFO [1e3689da] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/config/database.php /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config/database.php as deploy@162.243.138.114
+ DEBUG [1e3689da] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/config/database.php /home/deploy/honolii_cluster/releases/20160914055919/system/cms/config/database.php
+  INFO [1e3689da] Finished in 0.082 seconds with exit status 0 (successful).
+ DEBUG [b680bc95] Running [ -L /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [b680bc95] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [b680bc95] Finished in 0.076 seconds with exit status 1 (failed).
+ DEBUG [7564ed55] Running [ -f /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [7564ed55] Command: [ -f /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [7564ed55] Finished in 0.075 seconds with exit status 1 (failed).
+  INFO [4800ef03] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins/jascinstagram.php as deploy@162.243.138.114
+ DEBUG [4800ef03] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php /home/deploy/honolii_cluster/releases/20160914055919/addons/jasc_core/plugins/jascinstagram.php
+  INFO [4800ef03] Finished in 0.081 seconds with exit status 0 (successful).
+  INFO [29be5a34] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055919 /home/deploy/honolii_cluster/releases/20160914055919/system/cms as deploy@162.243.138.114
+ DEBUG [29be5a34] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914055919 /home/deploy/honolii_cluster/releases/20160914055919/system/cms
+  INFO [29be5a34] Finished in 0.081 seconds with exit status 0 (successful).
+ DEBUG [823fa70e] Running [ -L /home/deploy/honolii_cluster/releases/20160914055919/uploads ] as deploy@162.243.138.114
+ DEBUG [823fa70e] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055919/uploads ]
+ DEBUG [823fa70e] Finished in 0.079 seconds with exit status 1 (failed).
+ DEBUG [7aa08129] Running [ -d /home/deploy/honolii_cluster/releases/20160914055919/uploads ] as deploy@162.243.138.114
+ DEBUG [7aa08129] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055919/uploads ]
+ DEBUG [7aa08129] Finished in 0.072 seconds with exit status 1 (failed).
+  INFO [ab82aee5] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/releases/20160914055919/uploads as deploy@162.243.138.114
+ DEBUG [ab82aee5] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/releases/20160914055919/uploads
+  INFO [ab82aee5] Finished in 0.081 seconds with exit status 0 (successful).
+ DEBUG [dc555005] Running [ -L /home/deploy/honolii_cluster/releases/20160914055919/assets ] as deploy@162.243.138.114
+ DEBUG [dc555005] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055919/assets ]
+ DEBUG [dc555005] Finished in 0.080 seconds with exit status 1 (failed).
+ DEBUG [6144c159] Running [ -d /home/deploy/honolii_cluster/releases/20160914055919/assets ] as deploy@162.243.138.114
+ DEBUG [6144c159] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055919/assets ]
+ DEBUG [6144c159] Finished in 0.078 seconds with exit status 0 (successful).
+  INFO [3f64cf05] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055919/assets as deploy@162.243.138.114
+ DEBUG [3f64cf05] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055919/assets
+  INFO [3f64cf05] Finished in 0.082 seconds with exit status 0 (successful).
+  INFO [79655dba] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/releases/20160914055919/assets as deploy@162.243.138.114
+ DEBUG [79655dba] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/releases/20160914055919/assets
+  INFO [79655dba] Finished in 0.085 seconds with exit status 0 (successful).
+ DEBUG [f9033ba1] Running [ -L /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache ] as deploy@162.243.138.114
+ DEBUG [f9033ba1] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache ]
+ DEBUG [f9033ba1] Finished in 0.081 seconds with exit status 1 (failed).
+ DEBUG [32aa7cf6] Running [ -d /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache ] as deploy@162.243.138.114
+ DEBUG [32aa7cf6] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache ]
+ DEBUG [32aa7cf6] Finished in 0.085 seconds with exit status 0 (successful).
+  INFO [aadb5d00] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache as deploy@162.243.138.114
+ DEBUG [aadb5d00] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache
+  INFO [aadb5d00] Finished in 0.085 seconds with exit status 0 (successful).
+  INFO [b2308217] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache as deploy@162.243.138.114
+ DEBUG [b2308217] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/releases/20160914055919/system/cms/cache
+  INFO [b2308217] Finished in 0.085 seconds with exit status 0 (successful).
+ DEBUG [6c2bc4ac] Running [ -L /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs ] as deploy@162.243.138.114
+ DEBUG [6c2bc4ac] Command: [ -L /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs ]
+ DEBUG [6c2bc4ac] Finished in 0.087 seconds with exit status 1 (failed).
+ DEBUG [c2295550] Running [ -d /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs ] as deploy@162.243.138.114
+ DEBUG [c2295550] Command: [ -d /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs ]
+ DEBUG [c2295550] Finished in 0.076 seconds with exit status 0 (successful).
+  INFO [55c735d7] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs as deploy@162.243.138.114
+ DEBUG [55c735d7] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs
+  INFO [55c735d7] Finished in 0.088 seconds with exit status 0 (successful).
+  INFO [460f4cc8] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/logs /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs as deploy@162.243.138.114
+ DEBUG [460f4cc8] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/logs /home/deploy/honolii_cluster/releases/20160914055919/system/cms/logs
+  INFO [460f4cc8] Finished in 0.086 seconds with exit status 0 (successful).
+  INFO [331861f8] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055919/README.md as deploy@162.243.138.114
+ DEBUG [331861f8] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055919/README.md
+  INFO [331861f8] Finished in 0.082 seconds with exit status 0 (successful).
+  INFO [74022c5a] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055919/Capfile as deploy@162.243.138.114
+ DEBUG [74022c5a] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914055919/Capfile
+ DEBUG [74022c5a] 	rm: cannot remove ‘/home/deploy/honolii_cluster/releases/20160914055919/Capfile’: No such file or directory
+  INFO ---------------------------------------------------------------------------
+  INFO START 2016-09-13 23:03:47 -0700 cap prod deploy
+  INFO ---------------------------------------------------------------------------
+  INFO [7a204f0e] Running /usr/bin/env mkdir -p /home/deploy/tmp as deploy@162.243.138.114
+ DEBUG [7a204f0e] Command: /usr/bin/env mkdir -p /home/deploy/tmp
+  INFO [7a204f0e] Finished in 0.771 seconds with exit status 0 (successful).
+ DEBUG Uploading /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh 0.0%
+  INFO Uploading /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh 100.0%
+  INFO [3e876767] Running /usr/bin/env chmod 700 /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh as deploy@162.243.138.114
+ DEBUG [3e876767] Command: /usr/bin/env chmod 700 /home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh
+  INFO [3e876767] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [3cfef5fe] Running /usr/bin/env git ls-remote --heads git@github.com:edmeehan/honolii-cluster.git as deploy@162.243.138.114
+ DEBUG [3cfef5fe] Command: ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git ls-remote --heads git@github.com:edmeehan/honolii-cluster.git )
+ DEBUG [3cfef5fe] 	db7c43c1f30224ec172542454eb78766c913e376	refs/heads/develop
+fb7819015c81847719341bbce7fcc4a9c5551408	refs/heads/master
+  INFO [3cfef5fe] Finished in 1.115 seconds with exit status 0 (successful).
+  INFO [9b4682a1] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared /home/deploy/honolii_cluster/releases as deploy@162.243.138.114
+ DEBUG [9b4682a1] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared /home/deploy/honolii_cluster/releases
+  INFO [9b4682a1] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [84ce6d30] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/shared/system/cms/logs as deploy@162.243.138.114
+ DEBUG [84ce6d30] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/shared/system/cms/logs
+  INFO [84ce6d30] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [94345901] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/system/cms/config /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins as deploy@162.243.138.114
+ DEBUG [94345901] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/shared/system/cms/config /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins
+  INFO [94345901] Finished in 0.065 seconds with exit status 0 (successful).
+ DEBUG [58c22282] Running [ -f /home/deploy/honolii_cluster/shared/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [58c22282] Command: [ -f /home/deploy/honolii_cluster/shared/system/cms/config/database.php ]
+ DEBUG [58c22282] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [82ec95bc] Running [ -f /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [82ec95bc] Command: [ -f /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [82ec95bc] Finished in 0.056 seconds with exit status 0 (successful).
+ DEBUG [09311828] Running [ -f /home/deploy/honolii_cluster/current/REVISION ] as deploy@162.243.138.114
+ DEBUG [09311828] Command: [ -f /home/deploy/honolii_cluster/current/REVISION ]
+ DEBUG [09311828] Finished in 0.064 seconds with exit status 0 (successful).
+ DEBUG [f33ae4cd] Running /usr/bin/env cat /home/deploy/honolii_cluster/current/REVISION 2>/dev/null as deploy@162.243.138.114
+ DEBUG [f33ae4cd] Command: /usr/bin/env cat /home/deploy/honolii_cluster/current/REVISION 2>/dev/null
+ DEBUG [f33ae4cd] 	e21dc9e
+ DEBUG [f33ae4cd] Finished in 0.072 seconds with exit status 0 (successful).
+ DEBUG [bb8eb26f] Running [ -f /home/deploy/honolii_cluster/repo/HEAD ] as deploy@162.243.138.114
+ DEBUG [bb8eb26f] Command: [ -f /home/deploy/honolii_cluster/repo/HEAD ]
+ DEBUG [bb8eb26f] Finished in 0.063 seconds with exit status 0 (successful).
+  INFO The repository mirror is at /home/deploy/honolii_cluster/repo
+ DEBUG [bc68b738] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [bc68b738] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [bc68b738] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [78b34b95] Running /usr/bin/env git remote update --prune as deploy@162.243.138.114
+ DEBUG [78b34b95] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git remote update --prune )
+ DEBUG [78b34b95] 	Fetching origin
+  INFO [78b34b95] Finished in 1.147 seconds with exit status 0 (successful).
+ DEBUG [1a802174] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [1a802174] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [1a802174] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [946dd81d] Running /usr/bin/env git clone -b master --recursive . /home/deploy/honolii_cluster/releases/20160914060351 as deploy@162.243.138.114
+ DEBUG [946dd81d] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git clone -b master --recursive . /home/deploy/honolii_cluster/releases/20160914060351 )
+ DEBUG [946dd81d] 	Cloning into '/home/deploy/honolii_cluster/releases/20160914060351'...
+ DEBUG [946dd81d] 	done.
+Checking connectivity... 
+ DEBUG [946dd81d] 	done
+  INFO [946dd81d] Finished in 1.849 seconds with exit status 0 (successful).
+ DEBUG [f03e2e95] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [f03e2e95] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [f03e2e95] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [5e09d061] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914060351 as deploy@162.243.138.114
+ DEBUG [5e09d061] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914060351 )
+  INFO [5e09d061] Finished in 0.070 seconds with exit status 0 (successful).
+  INFO [5c994e11] Running /usr/bin/env git archive master | tar -x -f - -C /home/deploy/honolii_cluster/releases/20160914060351 as deploy@162.243.138.114
+ DEBUG [5c994e11] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git archive master | tar -x -f - -C /home/deploy/honolii_cluster/releases/20160914060351 )
+  INFO [5c994e11] Finished in 0.937 seconds with exit status 0 (successful).
+ DEBUG [aa1e822b] Running if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [aa1e822b] Command: if test ! -d /home/deploy/honolii_cluster/repo; then echo "Directory does not exist '/home/deploy/honolii_cluster/repo'" 1>&2; false; fi
+ DEBUG [aa1e822b] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [220e6c90] Running /usr/bin/env git rev-list --max-count=1 master as deploy@162.243.138.114
+ DEBUG [220e6c90] Command: cd /home/deploy/honolii_cluster/repo && ( export GIT_ASKPASS="/bin/echo" GIT_SSH="/home/deploy/tmp/git-ssh-honolii_cluster-prod-emeehan.sh" ; /usr/bin/env git rev-list --max-count=1 master )
+ DEBUG [220e6c90] 	fb7819015c81847719341bbce7fcc4a9c5551408
+ DEBUG [220e6c90] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [174549b2] Running if test ! -d /home/deploy/honolii_cluster/releases/20160914060351; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases/20160914060351'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [174549b2] Command: if test ! -d /home/deploy/honolii_cluster/releases/20160914060351; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases/20160914060351'" 1>&2; false; fi
+ DEBUG [174549b2] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [db62598c] Running /usr/bin/env echo "fb7819015c81847719341bbce7fcc4a9c5551408" >> REVISION as deploy@162.243.138.114
+ DEBUG [db62598c] Command: cd /home/deploy/honolii_cluster/releases/20160914060351 && /usr/bin/env echo "fb7819015c81847719341bbce7fcc4a9c5551408" >> REVISION
+  INFO [db62598c] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [0b90f041] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins as deploy@162.243.138.114
+ DEBUG [0b90f041] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins
+  INFO [0b90f041] Finished in 0.059 seconds with exit status 0 (successful).
+ DEBUG [e4b2c66e] Running [ -L /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [e4b2c66e] Command: [ -L /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config/database.php ]
+ DEBUG [e4b2c66e] Finished in 0.065 seconds with exit status 1 (failed).
+ DEBUG [f976d337] Running [ -f /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config/database.php ] as deploy@162.243.138.114
+ DEBUG [f976d337] Command: [ -f /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config/database.php ]
+ DEBUG [f976d337] Finished in 0.055 seconds with exit status 1 (failed).
+  INFO [edc1b5ca] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/config/database.php /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config/database.php as deploy@162.243.138.114
+ DEBUG [edc1b5ca] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/config/database.php /home/deploy/honolii_cluster/releases/20160914060351/system/cms/config/database.php
+  INFO [edc1b5ca] Finished in 0.057 seconds with exit status 0 (successful).
+ DEBUG [47d9e816] Running [ -L /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [47d9e816] Command: [ -L /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [47d9e816] Finished in 0.061 seconds with exit status 1 (failed).
+ DEBUG [b791c31c] Running [ -f /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins/jascinstagram.php ] as deploy@162.243.138.114
+ DEBUG [b791c31c] Command: [ -f /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins/jascinstagram.php ]
+ DEBUG [b791c31c] Finished in 0.057 seconds with exit status 1 (failed).
+  INFO [f8874fc2] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins/jascinstagram.php as deploy@162.243.138.114
+ DEBUG [f8874fc2] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/addons/jasc_core/plugins/jascinstagram.php /home/deploy/honolii_cluster/releases/20160914060351/addons/jasc_core/plugins/jascinstagram.php
+  INFO [f8874fc2] Finished in 0.056 seconds with exit status 0 (successful).
+  INFO [574caeb6] Running /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914060351 /home/deploy/honolii_cluster/releases/20160914060351/system/cms as deploy@162.243.138.114
+ DEBUG [574caeb6] Command: /usr/bin/env mkdir -p /home/deploy/honolii_cluster/releases/20160914060351 /home/deploy/honolii_cluster/releases/20160914060351/system/cms
+  INFO [574caeb6] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [880a11d6] Running [ -L /home/deploy/honolii_cluster/releases/20160914060351/uploads ] as deploy@162.243.138.114
+ DEBUG [880a11d6] Command: [ -L /home/deploy/honolii_cluster/releases/20160914060351/uploads ]
+ DEBUG [880a11d6] Finished in 0.065 seconds with exit status 1 (failed).
+ DEBUG [6805a626] Running [ -d /home/deploy/honolii_cluster/releases/20160914060351/uploads ] as deploy@162.243.138.114
+ DEBUG [6805a626] Command: [ -d /home/deploy/honolii_cluster/releases/20160914060351/uploads ]
+ DEBUG [6805a626] Finished in 0.057 seconds with exit status 1 (failed).
+  INFO [bb9e6ea5] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/releases/20160914060351/uploads as deploy@162.243.138.114
+ DEBUG [bb9e6ea5] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/uploads /home/deploy/honolii_cluster/releases/20160914060351/uploads
+  INFO [bb9e6ea5] Finished in 0.058 seconds with exit status 0 (successful).
+ DEBUG [c2259119] Running [ -L /home/deploy/honolii_cluster/releases/20160914060351/assets ] as deploy@162.243.138.114
+ DEBUG [c2259119] Command: [ -L /home/deploy/honolii_cluster/releases/20160914060351/assets ]
+ DEBUG [c2259119] Finished in 0.063 seconds with exit status 1 (failed).
+ DEBUG [f0416b44] Running [ -d /home/deploy/honolii_cluster/releases/20160914060351/assets ] as deploy@162.243.138.114
+ DEBUG [f0416b44] Command: [ -d /home/deploy/honolii_cluster/releases/20160914060351/assets ]
+ DEBUG [f0416b44] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [3986fc68] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/assets as deploy@162.243.138.114
+ DEBUG [3986fc68] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/assets
+  INFO [3986fc68] Finished in 0.059 seconds with exit status 0 (successful).
+  INFO [96f7346b] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/releases/20160914060351/assets as deploy@162.243.138.114
+ DEBUG [96f7346b] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/assets /home/deploy/honolii_cluster/releases/20160914060351/assets
+  INFO [96f7346b] Finished in 0.069 seconds with exit status 0 (successful).
+ DEBUG [53b1f7d7] Running [ -L /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache ] as deploy@162.243.138.114
+ DEBUG [53b1f7d7] Command: [ -L /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache ]
+ DEBUG [53b1f7d7] Finished in 0.063 seconds with exit status 1 (failed).
+ DEBUG [547307cc] Running [ -d /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache ] as deploy@162.243.138.114
+ DEBUG [547307cc] Command: [ -d /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache ]
+ DEBUG [547307cc] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [4a437f0c] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache as deploy@162.243.138.114
+ DEBUG [4a437f0c] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache
+  INFO [4a437f0c] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [207fd746] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache as deploy@162.243.138.114
+ DEBUG [207fd746] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/cache /home/deploy/honolii_cluster/releases/20160914060351/system/cms/cache
+  INFO [207fd746] Finished in 0.060 seconds with exit status 0 (successful).
+ DEBUG [dac598fc] Running [ -L /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs ] as deploy@162.243.138.114
+ DEBUG [dac598fc] Command: [ -L /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs ]
+ DEBUG [dac598fc] Finished in 0.060 seconds with exit status 1 (failed).
+ DEBUG [7f03e36e] Running [ -d /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs ] as deploy@162.243.138.114
+ DEBUG [7f03e36e] Command: [ -d /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs ]
+ DEBUG [7f03e36e] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [b1392f70] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs as deploy@162.243.138.114
+ DEBUG [b1392f70] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs
+  INFO [b1392f70] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [464d9395] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/logs /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs as deploy@162.243.138.114
+ DEBUG [464d9395] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/shared/system/cms/logs /home/deploy/honolii_cluster/releases/20160914060351/system/cms/logs
+  INFO [464d9395] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO [110e7e3a] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/README.md as deploy@162.243.138.114
+ DEBUG [110e7e3a] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/README.md
+  INFO [110e7e3a] Finished in 0.066 seconds with exit status 0 (successful).
+  INFO [2c9386ae] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/.gitignore as deploy@162.243.138.114
+ DEBUG [2c9386ae] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/.gitignore
+  INFO [2c9386ae] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [028d38c8] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/.gitmodules as deploy@162.243.138.114
+ DEBUG [028d38c8] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/.gitmodules
+  INFO [028d38c8] Finished in 0.065 seconds with exit status 0 (successful).
+  INFO [ed56e768] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/Gruntfile.js as deploy@162.243.138.114
+ DEBUG [ed56e768] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/Gruntfile.js
+  INFO [ed56e768] Finished in 0.068 seconds with exit status 0 (successful).
+  INFO [1403b01f] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/LICENSE as deploy@162.243.138.114
+ DEBUG [1403b01f] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/LICENSE
+  INFO [1403b01f] Finished in 0.061 seconds with exit status 0 (successful).
+  INFO [9c535ca9] Running /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/package.json as deploy@162.243.138.114
+ DEBUG [9c535ca9] Command: /usr/bin/env rm /home/deploy/honolii_cluster/releases/20160914060351/package.json
+  INFO [9c535ca9] Finished in 0.063 seconds with exit status 0 (successful).
+  INFO [58f9ed76] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/installer as deploy@162.243.138.114
+ DEBUG [58f9ed76] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/installer
+  INFO [58f9ed76] Finished in 0.065 seconds with exit status 0 (successful).
+  INFO [a64c310a] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/database_dump as deploy@162.243.138.114
+ DEBUG [a64c310a] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/database_dump
+  INFO [a64c310a] Finished in 0.060 seconds with exit status 0 (successful).
+  INFO [136a863a] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/config as deploy@162.243.138.114
+ DEBUG [136a863a] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/config
+  INFO [136a863a] Finished in 0.067 seconds with exit status 0 (successful).
+  INFO [9bdccd27] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/lib as deploy@162.243.138.114
+ DEBUG [9bdccd27] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/lib
+  INFO [9bdccd27] Finished in 0.058 seconds with exit status 0 (successful).
+  INFO [fb77e6a6] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/.git as deploy@162.243.138.114
+ DEBUG [fb77e6a6] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20160914060351/.git
+  INFO [fb77e6a6] Finished in 0.092 seconds with exit status 0 (successful).
+  INFO [9d139d2a] Running /usr/bin/env ln -s /home/deploy/honolii_cluster/releases/20160914060351 /home/deploy/honolii_cluster/releases/current as deploy@162.243.138.114
+ DEBUG [9d139d2a] Command: /usr/bin/env ln -s /home/deploy/honolii_cluster/releases/20160914060351 /home/deploy/honolii_cluster/releases/current
+  INFO [9d139d2a] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [d0d7faab] Running /usr/bin/env mv /home/deploy/honolii_cluster/releases/current /home/deploy/honolii_cluster as deploy@162.243.138.114
+ DEBUG [d0d7faab] Command: /usr/bin/env mv /home/deploy/honolii_cluster/releases/current /home/deploy/honolii_cluster
+  INFO [d0d7faab] Finished in 0.067 seconds with exit status 0 (successful).
+ DEBUG [f3e947b0] Running /usr/bin/env ls -xtr /home/deploy/honolii_cluster/releases as deploy@162.243.138.114
+ DEBUG [f3e947b0] Command: /usr/bin/env ls -xtr /home/deploy/honolii_cluster/releases
+ DEBUG [f3e947b0] 	20151112091136	20151112091529	20151112092026	20151130020337	20151130032334
+20160202120940	20160914055834	20160914055919	20160914060351
+ DEBUG [f3e947b0] Finished in 0.062 seconds with exit status 0 (successful).
+  INFO Keeping 6 of 9 deployed releases on 162.243.138.114
+  INFO [41a5f866] Running /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20151112091136 /home/deploy/honolii_cluster/releases/20151112091529 /home/deploy/honolii_cluster/releases/20151112092026 as deploy@162.243.138.114
+ DEBUG [41a5f866] Command: /usr/bin/env rm -rf /home/deploy/honolii_cluster/releases/20151112091136 /home/deploy/honolii_cluster/releases/20151112091529 /home/deploy/honolii_cluster/releases/20151112092026
+  INFO [41a5f866] Finished in 2.096 seconds with exit status 0 (successful).
+ DEBUG [8382e7b6] Running if test ! -d /home/deploy/honolii_cluster/releases; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases'" 1>&2; false; fi as deploy@162.243.138.114
+ DEBUG [8382e7b6] Command: if test ! -d /home/deploy/honolii_cluster/releases; then echo "Directory does not exist '/home/deploy/honolii_cluster/releases'" 1>&2; false; fi
+ DEBUG [8382e7b6] Finished in 0.057 seconds with exit status 0 (successful).
+  INFO [a13d41ce] Running /usr/bin/env echo "Branch master (at fb7819015c81847719341bbce7fcc4a9c5551408) deployed as release 20160914060351 by emeehan" >> /home/deploy/honolii_cluster/revisions.log as deploy@162.243.138.114
+ DEBUG [a13d41ce] Command: cd /home/deploy/honolii_cluster/releases && /usr/bin/env echo "Branch master (at fb7819015c81847719341bbce7fcc4a9c5551408) deployed as release 20160914060351 by emeehan" >> /home/deploy/honolii_cluster/revisions.log
+  INFO [a13d41ce] Finished in 0.061 seconds with exit status 0 (successful).

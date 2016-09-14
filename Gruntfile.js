@@ -259,7 +259,7 @@ module.exports = function(grunt) {
             'concat:build',
             'uglify:build',
             'cssmin:build',
-            'imagemin:build',
+            //'imagemin:build',
             'copy:build',
             'replace:build'
         ]);
