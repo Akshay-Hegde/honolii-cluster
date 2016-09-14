@@ -5612,6 +5612,15 @@ aside > .widget:last-child {
   overflow: hidden;
   background: url(../img/social/32px/facebook.png) no-repeat top left;
 }
+.icon-instagram {
+  width: 32px;
+  height: 32px;
+  line-height: 32px;
+  display: inline-block;
+  text-indent: -9999px;
+  overflow: hidden;
+  background: url(../img/social/32px/instagram.png) no-repeat top left;
+}
 .widget {
   position: relative;
 }
